@@ -21,9 +21,9 @@ class SDKConfiguration {
     public int serverIdx = 0;
     public String language = "java";
     public String openapiDocVersion = "v1";
-    public String sdkVersion = "0.0.4";
+    public String sdkVersion = "0.0.5";
     public String genVersion = "2.342.2";
-    public String userAgent = "speakeasy-sdk/java 0.0.4 2.342.2 v1 com.clerk.backend_api";
+    public String userAgent = "speakeasy-sdk/java 0.0.5 2.342.2 v1 com.clerk.backend_api";
 
     private com.clerk.backend_api.utils.Hooks _hooks = createHooks();
 
