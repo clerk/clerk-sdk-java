@@ -127,58 +127,19 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
-        
-        @SuppressWarnings("deprecation")
         com.clerk.backend_api.models.operations.GetUserListResponse.Builder _resBuilder = 
             com.clerk.backend_api.models.operations.GetUserListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.GetUserListRequestBuilder _ret = list();
-                    _ret.request(new com.clerk.backend_api.models.operations.GetUserListRequest(
-                        request.emailAddress(),
-                        request.phoneNumber(),
-                        request.externalId(),
-                        request.username(),
-                        request.web3Wallet(),
-                        request.userId(),
-                        request.organizationId(),
-                        request.query(),
-                        request.lastActiveAtSince(),
-                        request.limit(),
-                        request.offset(),
-                        request.orderBy()
-                    ));
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         com.clerk.backend_api.models.operations.GetUserListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 java.util.List<com.clerk.backend_api.models.components.User> _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<java.util.List<com.clerk.backend_api.models.components.User>>() {});
                 _res.withUserList(java.util.Optional.ofNullable(_out));
                 return _res;
@@ -187,13 +148,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
                 throw _out;
             } else {
@@ -201,7 +162,7 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -210,13 +171,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 

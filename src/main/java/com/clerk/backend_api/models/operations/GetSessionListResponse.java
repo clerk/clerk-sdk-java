@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 public class GetSessionListResponse implements com.clerk.backend_api.utils.Response {
 
@@ -38,8 +37,6 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
      * Success
      */
     private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList;
-
-    private Callable<Optional<GetSessionListResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public GetSessionListResponse(
@@ -95,16 +92,6 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
     @JsonIgnore
     public Optional<java.util.List<com.clerk.backend_api.models.components.Session>> sessionList() {
         return (Optional<java.util.List<com.clerk.backend_api.models.components.Session>>) sessionList;
-    }
-
-    public Optional<GetSessionListResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private GetSessionListResponse withNext(Callable<Optional<GetSessionListResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -191,7 +178,6 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
     }
     
     public final static class Builder {
-        private Callable<Optional<GetSessionListResponse>> next;
  
         private String contentType;
  
@@ -249,26 +235,13 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
             this.sessionList = sessionList;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<GetSessionListResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public GetSessionListResponse build() {
             return new GetSessionListResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                sessionList)
-                .withNext(next);
+                sessionList);
         }
     }
 }

@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 public class GetUserListResponse implements com.clerk.backend_api.utils.Response {
 
@@ -38,8 +37,6 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
      * Success
      */
     private Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList;
-
-    private Callable<Optional<GetUserListResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public GetUserListResponse(
@@ -95,16 +92,6 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
     @JsonIgnore
     public Optional<java.util.List<com.clerk.backend_api.models.components.User>> userList() {
         return (Optional<java.util.List<com.clerk.backend_api.models.components.User>>) userList;
-    }
-
-    public Optional<GetUserListResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private GetUserListResponse withNext(Callable<Optional<GetUserListResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -191,7 +178,6 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
     }
     
     public final static class Builder {
-        private Callable<Optional<GetUserListResponse>> next;
  
         private String contentType;
  
@@ -249,26 +235,13 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
             this.userList = userList;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<GetUserListResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public GetUserListResponse build() {
             return new GetUserListResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                userList)
-                .withNext(next);
+                userList);
         }
     }
 }

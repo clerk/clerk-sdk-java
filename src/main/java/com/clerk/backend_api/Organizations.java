@@ -17,16 +17,12 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
-import java.lang.Long;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 import org.apache.http.NameValuePair;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -121,51 +117,19 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
-        
-        @SuppressWarnings("deprecation")
         com.clerk.backend_api.models.operations.ListOrganizationsResponse.Builder _resBuilder = 
             com.clerk.backend_api.models.operations.ListOrganizationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListOrganizationsRequestBuilder _ret = list();
-                    _ret.request(new com.clerk.backend_api.models.operations.ListOrganizationsRequest(
-                        request.limit(),
-                        request.offset(),
-                        request.includeMembersCount(),
-                        request.query(),
-                        request.orderBy()
-                    ));
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         com.clerk.backend_api.models.operations.ListOrganizationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.Organizations _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.Organizations>() {});
                 _res.withOrganizations(java.util.Optional.ofNullable(_out));
                 return _res;
@@ -174,13 +138,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
                 throw _out;
             } else {
@@ -188,7 +152,7 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -197,13 +161,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.toByteArrayAndClose(_httpRes.body()));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 

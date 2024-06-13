@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 public class ListOrganizationsResponse implements com.clerk.backend_api.utils.Response {
 
@@ -38,8 +37,6 @@ public class ListOrganizationsResponse implements com.clerk.backend_api.utils.Re
      * A list of organizations
      */
     private Optional<? extends com.clerk.backend_api.models.components.Organizations> organizations;
-
-    private Callable<Optional<ListOrganizationsResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public ListOrganizationsResponse(
@@ -95,16 +92,6 @@ public class ListOrganizationsResponse implements com.clerk.backend_api.utils.Re
     @JsonIgnore
     public Optional<com.clerk.backend_api.models.components.Organizations> organizations() {
         return (Optional<com.clerk.backend_api.models.components.Organizations>) organizations;
-    }
-
-    public Optional<ListOrganizationsResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private ListOrganizationsResponse withNext(Callable<Optional<ListOrganizationsResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -191,7 +178,6 @@ public class ListOrganizationsResponse implements com.clerk.backend_api.utils.Re
     }
     
     public final static class Builder {
-        private Callable<Optional<ListOrganizationsResponse>> next;
  
         private String contentType;
  
@@ -249,26 +235,13 @@ public class ListOrganizationsResponse implements com.clerk.backend_api.utils.Re
             this.organizations = organizations;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<ListOrganizationsResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public ListOrganizationsResponse build() {
             return new ListOrganizationsResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                organizations)
-                .withNext(next);
+                organizations);
         }
     }
 }
