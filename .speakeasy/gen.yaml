@@ -34,5 +34,5 @@ java:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  projectName: openapi
+  projectName: api
   templateVersion: v2
