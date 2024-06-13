@@ -1,0 +1,38 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: Clerk
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+java:
+  version: 0.0.1
+  additionalDependencies: []
+  additionalPlugins: []
+  artifactID: backend-api
+  clientServerStatusCodesAsErrors: true
+  companyEmail: info@mycompany.com
+  companyName: My Company
+  companyURL: www.mycompany.com
+  flattenGlobalSecurity: true
+  githubURL: github.com/owner/repo
+  groupID: com.clerk
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inputModelSuffix: input
+  maxMethodParams: 4
+  outputModelSuffix: output
+  projectName: openapi
+  templateVersion: v2

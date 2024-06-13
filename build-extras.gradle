@@ -1,0 +1,4 @@
+// This file 
+// * is referred to in an `apply from` command in `build.gradle`
+// * can be used to customise `build.gradle`
+// * is generated once and not overwritten in SDK generation updates
