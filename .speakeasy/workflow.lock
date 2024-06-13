@@ -2,7 +2,7 @@ speakeasyVersion: 1.307.2
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:f66e98409a3911164cec7ffd3e6e671f437010d92c731570689bcbc4fd5cec8c
+        sourceRevisionDigest: sha256:24bf8aa626312f65f39d7cd0a921dc6bb64bde3a54f20046f08b5d9449bd3aae
         sourceBlobDigest: sha256:be6a2adf86086a55368c73204dfb84b5ca2f9d8514f771aff33857624a212e56
         tags:
             - latest
@@ -11,7 +11,7 @@ targets:
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:f66e98409a3911164cec7ffd3e6e671f437010d92c731570689bcbc4fd5cec8c
+        sourceRevisionDigest: sha256:24bf8aa626312f65f39d7cd0a921dc6bb64bde3a54f20046f08b5d9449bd3aae
         sourceBlobDigest: sha256:be6a2adf86086a55368c73204dfb84b5ca2f9d8514f771aff33857624a212e56
         outLocation: /github/workspace/repo
 workflow:
@@ -29,7 +29,7 @@ workflow:
             source: clerk-java-sdk
             publish:
                 java:
-                    ossrhUsername: clerk
+                    ossrhUsername: $ossrh_username
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $gpg_secret_key
                     gpgPassPhrase: $gpg_pass_phrase
