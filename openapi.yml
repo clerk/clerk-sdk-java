@@ -496,17 +496,17 @@ paths:
               - "revoked"
         - { "$ref": "#/components/parameters/LimitParameter" }
         - { "$ref": "#/components/parameters/OffsetParameter" }
-      x-speakeasy-pagination:
-        type: offsetLimit
-        inputs:
-          - name: limit
-            in: parameters
-            type: limit
-          - name: offset
-            in: parameters
-            type: offset
-        outputs:
-          results: $
+      # x-speakeasy-pagination:
+      #   type: offsetLimit
+      #   inputs:
+      #     - name: limit
+      #       in: parameters
+      #       type: limit
+      #     - name: offset
+      #       in: parameters
+      #       type: offset
+      #   outputs:
+      #     results: $
       responses:
         "200": { "$ref": "#/components/responses/Session.List" }
         "400": { "$ref": "#/components/responses/ClerkErrors" }
@@ -961,17 +961,17 @@ paths:
         "400": { "$ref": "#/components/responses/ClerkErrors" }
         "401": { "$ref": "#/components/responses/AuthenticationInvalid" }
         "422": { "$ref": "#/components/responses/UnprocessableEntity" }
-      x-speakeasy-pagination:
-        type: offsetLimit
-        inputs:
-          - name: limit
-            in: parameters
-            type: limit
-          - name: offset
-            in: parameters
-            type: offset
-        outputs:
-          results: $
+      # x-speakeasy-pagination:
+      #   type: offsetLimit
+      #   inputs:
+      #     - name: limit
+      #       in: parameters
+      #       type: limit
+      #     - name: offset
+      #       in: parameters
+      #       type: offset
+      #   outputs:
+      #     results: $
     post:
       x-speakeasy-group: users
       x-speakeasy-name-override: create
@@ -2516,17 +2516,17 @@ paths:
         "400": { "$ref": "#/components/responses/ClerkErrors" }
         "403": { "$ref": "#/components/responses/AuthorizationInvalid" }
         "422": { "$ref": "#/components/responses/UnprocessableEntity" }
-      x-speakeasy-pagination:
-        type: offsetLimit
-        inputs:
-          - name: limit
-            in: parameters
-            type: limit
-          - name: offset
-            in: parameters
-            type: offset
-        outputs:
-          results: $
+      # x-speakeasy-pagination:
+      #   type: offsetLimit
+      #   inputs:
+      #     - name: limit
+      #       in: parameters
+      #       type: limit
+      #     - name: offset
+      #       in: parameters
+      #       type: offset
+      #   outputs:
+      #     results: $
     post:
       x-speakeasy-group: organizations
       x-speakeasy-name-override: create
