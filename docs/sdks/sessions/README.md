@@ -50,16 +50,8 @@ public class Application {
                 .request(req)
                 .call();
 
-            while (true) {
-                if (res.sessionList().isPresent()) {
-                    // handle response
-                    Optional<GetSessionListResponse> nextRes = res.next();
-                    if (nextRes.isPresent()) {
-                        res = nextRes.get();
-                    } else {
-                        break;
-                    }
-                }
+            if (res.sessionList().isPresent()) {
+                // handle response
             }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception

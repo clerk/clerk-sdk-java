@@ -26,15 +26,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk.backend_api:openapi:0.0.1'
+implementation 'com.clerk.backend_api:api:0.0.2'
 ```
 
 Maven:
 ```xml
 <dependency>
     <groupId>com.clerk.backend_api</groupId>
-    <artifactId>openapi</artifactId>
-    <version>0.0.1</version>
+    <artifactId>api</artifactId>
+    <version>0.0.2</version>
 </dependency>
 ```
 

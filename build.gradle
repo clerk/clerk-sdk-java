@@ -11,6 +11,9 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.0'
 }
 
 compileJava.options.encoding = "UTF-8"
@@ -21,10 +24,121 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+    withJavadocJar()
+}
+
+model {
+    tasks.generatePomFileForMavenPublication {
+        destination = file("$buildDir/pom.xml")
+    }
+}
+
+jar {
+    dependsOn(":generatePomFileForMavenPublication")
+    archiveBaseName = "backend-api"
+
+    into("META-INF/maven/com.clerk/backend-api") {
+        from("$buildDir/pom.xml")
+    }
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
 
 tasks.withType(Javadoc) {
   failOnError false
   options.addStringOption('Xdoclint:none', '-quiet')
+}
+group = "com.clerk"
+version = "0.0.2"
+
+sourcesJar {
+    archiveBaseName = "backend-api"
+}
+
+javadocJar {
+    archiveBaseName = "backend-api"
+}
+
+sonatypeCentralUpload {
+    // This is your Sonatype generated username
+    username = System.getenv("SONATYPE_USERNAME")
+    // This is your sonatype generated password
+    password = System.getenv("SONATYPE_PASSWORD")
+
+    // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
+    archives = files(
+      "$buildDir/libs/backend-api-${version}.jar",
+      "$buildDir/libs/backend-api-${version}-sources.jar",
+      "$buildDir/libs/backend-api-${version}-javadoc.jar"
+    )
+
+    // This is the pom file to upload. This is required by central
+    pom = file("$buildDir/pom.xml")
+
+    // This is your PGP private key. This is required to sign your files
+    signingKey = System.getenv("SONATYPE_SIGNING_KEY")
+    // This is your PGP private key passphrase to decrypt your private key
+    signingKeyPassphrase = System.getenv("SIGNING_KEY_PASSPHRASE")
+}
+publishing {
+
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.clerk'
+            artifactId = 'backend-api'
+            version = '0.0.2'
+
+            from components.java
+
+            pom {
+                name = 'My Company Java SDK'
+                description = 'SDK enabling Java developers to easily integrate with the My Company API.'
+                url = 'https://github.com/owner/repo'
+                scm {
+                    url = 'github.com/owner/repo'
+                    connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                }
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'My Company'
+                        organization = 'My Company'
+                        email = 'info@mycompany.com'
+                    }
+                }
+                organization {
+                    name = 'My Company'
+                    url = 'www.mycompany.com'
+                }
+            }
+        }
+    }
+}
+
+if (!project.hasProperty('skip.signing')) {
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassphrase = findProperty("signingPassphrase")
+        useInMemoryPgpKeys(signingKey, signingPassphrase)
+        sign publishing.publications.maven
+    }
 }
 
 dependencies {
