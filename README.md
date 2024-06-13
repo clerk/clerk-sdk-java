@@ -8,14 +8,7 @@
 
 The Clerk Java library provides convenient access to the Clerk REST API from any Java application running Java8 or above. The library includes type definitions for all request params and response fields, and offers universal typescript runtime support powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html)
 
-
-## 🏗 **Welcome to your new SDK!** 🏗
-
-It has been generated successfully based on your OpenAPI spec. However, it is not yet ready for production use. Here are some next steps:
-- [ ] 🛠 Make your SDK feel handcrafted by [customizing it](https://www.speakeasyapi.dev/docs/customize-sdks)
-- [ ] ♻️ Refine your SDK quickly by iterating locally with the [Speakeasy CLI](https://github.com/speakeasy-api/speakeasy)
-- [ ] 🎁 Publish your SDK to package managers by [configuring automatic publishing](https://www.speakeasyapi.dev/docs/advanced-setup/publish-sdks)
-- [ ] ✨ When ready to productionize, delete this section from the README
+> ⚠️ This SDK is not yet published to Maven Central. 
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
