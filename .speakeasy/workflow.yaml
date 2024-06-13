@@ -2,10 +2,16 @@ workflowVersion: 1.0.0
 sources:
     clerk-java-sdk:
         inputs:
-            - location: ../../../../openapi.yml
+            - location: ./openapi.yml
         registry:
             location: registry.speakeasyapi.dev/clerk/clerk/clerk-java-sdk
 targets:
     my-first-target:
         target: java
         source: clerk-java-sdk
+        publish:
+            java:
+                ossrhUsername: clerk
+                ossrhPassword: $ossrh_password
+                gpgSecretKey: $gpg_secret_key
+                gpgPassPhrase: $gpg_pass_phrase
