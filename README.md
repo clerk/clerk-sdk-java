@@ -6,7 +6,7 @@
 </div>
 <br></br>
 
-The Clerk Java library provides convenient access to the Clerk REST API from any Java application running Java8 or above. The library includes type definitions for all request params and response fields, and offers universal typescript runtime support powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html)
+The Clerk Java library provides convenient access to the Clerk REST API from any Java application running Java8 or above. The library includes type definitions for all request params and response fields, and offers is powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html)
 
 > ⚠️ This SDK is not yet published to Maven Central. 
 
