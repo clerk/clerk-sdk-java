@@ -258,7 +258,7 @@ public final class Hook {
     
         @Override
         public HttpRequest beforeRequest(BeforeRequestContext context, HttpRequest request) throws Exception {
-            HttpRequest.Builder b = Utils.copy(request);
+            HttpRequest.Builder b = Helpers.copy(request);
             b.header("Idempotency-Key", UUID.randomUUID().toString());
             return b.build();
         }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.Callable;
+import java.util.function.BiPredicate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -843,6 +844,18 @@ public final class Utils {
      * @return a builder initialized with values from {@code request}
      */
     public static HttpRequest.Builder copy(HttpRequest request) {
+        return copy(request, (k, v) -> true);
+    }
+    
+    /**
+     * Returns an {@link HttpRequest.Builder} which is initialized with the 
+     * state of the given {@link HttpRequest}.
+     * 
+     * @param request request to copy
+     * @param filter selects which header key-values to include in the copied request
+     * @return a builder initialized with values from {@code request}
+     */
+    public static HttpRequest.Builder copy(HttpRequest request, BiPredicate<String, String> filter) {
         // in JDK 16+ we can use this
         // return HttpRequest.newBuilder(request, (k, v) -> true);
         checkNotNull(request, "request");
@@ -851,8 +864,12 @@ public final class Utils {
         builder.uri(request.uri());
         builder.expectContinue(request.expectContinue());
 
-        request.headers().map().forEach((name, values) ->
-                values.forEach(value -> builder.header(name, value)));
+        request.headers() 
+            .map() 
+            .forEach((name, values) ->
+                values.stream()
+                    .filter(v -> filter.test(name, v))
+                    .forEach(value -> builder.header(name, value)));
 
         request.version().ifPresent(builder::version);
         request.timeout().ifPresent(builder::timeout);
