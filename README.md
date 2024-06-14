@@ -15,19 +15,21 @@ The Clerk Java library provides convenient access to the Clerk REST API from any
 
 ### Getting started
 
+JDK 11 or later is required.
+
 The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk.backend_api:api:0.0.6'
+implementation 'com.clerk:backend-api:0.0.7'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>com.clerk.backend_api</groupId>
-    <artifactId>api</artifactId>
-    <version>0.0.6</version>
+    <groupId>com.clerk</groupId>
+    <artifactId>backend-api</artifactId>
+    <version>0.0.7</version>
 </dependency>
 ```
 

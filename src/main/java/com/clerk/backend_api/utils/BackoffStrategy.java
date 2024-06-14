@@ -5,7 +5,6 @@
 package com.clerk.backend_api.utils;
 
 import java.util.concurrent.TimeUnit;
-import com.clerk.backend_api.utils.Utils;
 
 /**
   * Exponential Backoff Strategy with Jitter
@@ -65,7 +64,7 @@ public class BackoffStrategy {
     }
 
     /**
-    * @deprecated use baseFactor instead.
+    * @deprecated use {@link #baseFactor()} instead.
     */
     @Deprecated
     public double exponent() {
@@ -169,8 +168,8 @@ public class BackoffStrategy {
         /**
           * Sets the backoff base factor.
           *
-          * @deprecated use baseFactor instead.
-          * @param exponent The base factor to use.
+          * @deprecated use {@link #baseFactor(double)} instead.
+          * @param baseFactor The base factor to use.
           * @return The builder instance.
           */
         @Deprecated

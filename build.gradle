@@ -24,13 +24,13 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     withSourcesJar()
     withJavadocJar()
 }
-
 model {
     tasks.generatePomFileForMavenPublication {
         destination = file("$buildDir/pom.xml")
@@ -61,7 +61,7 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 group = "com.clerk"
-version = "0.0.6"
+version = "0.0.7"
 
 sourcesJar {
     archiveBaseName = "backend-api"
@@ -98,7 +98,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.clerk'
             artifactId = 'backend-api'
-            version = '0.0.6'
+            version = '0.0.7'
 
             from components.java
 
