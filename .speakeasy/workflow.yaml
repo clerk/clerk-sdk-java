@@ -7,7 +7,7 @@ sources:
         registry:
             location: registry.speakeasyapi.dev/clerk/clerk/clerk-java-sdk
 targets:
-    my-first-target:
+    clerk-java:
         target: java
         source: clerk-java-sdk
         publish:
