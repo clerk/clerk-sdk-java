@@ -1,12 +1,12 @@
 <div align="center">
-        <img src="https://github.com/speakeasy-sdks/clerk-ts/assets/68016351/62e27b17-7a99-46cf-a09e-13d2f06f733e" width="500">
+        <img src="https://github.com/speakeasy-sdks/clerk-ts/assets/68016351/62e27b17-7a99-46cf-a09e-13d2f06f733e" width="250">
    <p>The most comprehensive User Management Platform</p>
    <a href="https://clerk.com/docs/reference/backend-api"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=000000&style=for-the-badge" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" /></a>
 </div>
 <br></br>
 
-The Clerk Java library provides convenient access to the Clerk REST API from any Java application running Java8 or above. The library includes type definitions for all request params and response fields, and is powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html)
+The Clerk Java library provides convenient access to the Clerk REST API from any Java application running Java8 or above. The library includes type definitions for all request params and response fields, and is powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
@@ -657,4 +657,3 @@ While we value open-source contributions to this SDK, this library is generated 
 Feel free to open a PR or a Github issue as a proof of concept and we'll do our best to include it in a future release!
 
 ### SDK Created by [Speakeasy](https://docs.speakeasyapi.dev/docs/using-speakeasy/client-sdks)
-# clerk-sdk-java
