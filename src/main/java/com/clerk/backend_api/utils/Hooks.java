@@ -99,7 +99,7 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     }
 
     /**
-     * Registers a {@SdkInit} hook to be applied in order of registration
+     * Registers a {@link SdkInit} hook to be applied in order of registration
      * (multiple can be registered).
      * 
      * @param SdkInit hook to be registered

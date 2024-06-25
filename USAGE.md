@@ -24,32 +24,22 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            GetClientListResponse res = sdk.clients().list()
+            sdk.clients().list()
                 .limit(10L)
                 .offset(0L)
-                .call();
+                .callAsStreamUnwrapped()
+                .forEach(item -> {
+                   // handle item
+                });
 
-            while (true) {
-                if (res.clientList().isPresent()) {
-                    // handle response
-                    Optional<GetClientListResponse> nextRes = res.next();
-                    if (nextRes.isPresent()) {
-                        res = nextRes.get();
-                    } else {
-                        break;
-                    }
-                }
-            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -106,6 +96,7 @@ public class Application {
             // handle exception
             throw e;
         }
+
     }
 }
 ```

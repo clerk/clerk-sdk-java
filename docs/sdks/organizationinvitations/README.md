@@ -78,6 +78,7 @@ public class Application {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -136,34 +137,24 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
+            sdk.organizationInvitations().list()
                 .organizationId("<value>")
                 .limit(10L)
                 .offset(0L)
                 .status(ListOrganizationInvitationsQueryParamStatus.REVOKED)
-                .call();
+                .callAsStreamUnwrapped()
+                .forEach(item -> {
+                   // handle item
+                });
 
-            while (true) {
-                if (res.organizationInvitations().isPresent()) {
-                    // handle response
-                    Optional<ListOrganizationInvitationsResponse> nextRes = res.next();
-                    if (nextRes.isPresent()) {
-                        res = nextRes.get();
-                    } else {
-                        break;
-                    }
-                }
-            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -254,6 +245,7 @@ public class Application {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -314,33 +306,23 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            ListPendingOrganizationInvitationsResponse res = sdk.organizationInvitations().listPending()
+            sdk.organizationInvitations().listPending()
                 .organizationId("<value>")
                 .limit(10L)
                 .offset(0L)
-                .call();
+                .callAsStreamUnwrapped()
+                .forEach(item -> {
+                   // handle item
+                });
 
-            while (true) {
-                if (res.organizationInvitations().isPresent()) {
-                    // handle response
-                    Optional<ListPendingOrganizationInvitationsResponse> nextRes = res.next();
-                    if (nextRes.isPresent()) {
-                        res = nextRes.get();
-                    } else {
-                        break;
-                    }
-                }
-            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -413,6 +395,7 @@ public class Application {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
@@ -491,6 +474,7 @@ public class Application {
             // handle exception
             throw e;
         }
+
     }
 }
 ```
