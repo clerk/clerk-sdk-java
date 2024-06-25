@@ -12,7 +12,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
 java:
-  version: 0.0.7
+  version: 0.1.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -32,6 +32,10 @@ java:
       shared: models/components
       webhooks: models/webhooks
   inputModelSuffix: input
+  license:
+    name: The MIT License (MIT)
+    shortName: MIT
+    url: https://mit-license.org/
   maxMethodParams: 4
   outputModelSuffix: output
   projectName: api

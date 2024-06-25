@@ -3,17 +3,17 @@ id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
   docChecksum: 93fd7098475aa331fae95503f8934b72
   docVersion: v1
-  speakeasyVersion: 1.308.1
-  generationVersion: 2.342.6
-  releaseVersion: 0.0.7
-  configChecksum: 9b28dbcdf23f69543c2d231d6602b4ad
+  speakeasyVersion: 1.315.2
+  generationVersion: 2.352.0
+  releaseVersion: 0.1.0
+  configChecksum: 6e451ccabf6cefd51ca27e6cb6d7a3f0
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.23.2
+    core: 3.25.1
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1

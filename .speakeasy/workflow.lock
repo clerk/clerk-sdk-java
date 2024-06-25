@@ -1,13 +1,19 @@
-speakeasyVersion: 1.308.1
+speakeasyVersion: 1.315.2
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:5e10a06ed81708645c450c8bbac2ac9a99d115ea4929af0d91ecb2f6419d1500
+        sourceRevisionDigest: sha256:66ee544a860154e51609265d4d41c3d23487fdc849c6dc7b8b8b2d670680c37c
         sourceBlobDigest: sha256:be6a2adf86086a55368c73204dfb84b5ca2f9d8514f771aff33857624a212e56
         tags:
             - latest
             - main
 targets:
+    clerk-java:
+        source: clerk-java-sdk
+        sourceNamespace: clerk-java-sdk
+        sourceRevisionDigest: sha256:66ee544a860154e51609265d4d41c3d23487fdc849c6dc7b8b8b2d670680c37c
+        sourceBlobDigest: sha256:be6a2adf86086a55368c73204dfb84b5ca2f9d8514f771aff33857624a212e56
+        outLocation: /github/workspace/repo
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
@@ -24,7 +30,7 @@ workflow:
             registry:
                 location: registry.speakeasyapi.dev/clerk/clerk/clerk-java-sdk
     targets:
-        my-first-target:
+        clerk-java:
             target: java
             source: clerk-java-sdk
             publish:
