@@ -112,7 +112,7 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListSAMLConnections", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -120,18 +120,18 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListSAMLConnections", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListSAMLConnections", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListSAMLConnections", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -270,7 +270,7 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -278,18 +278,18 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -395,7 +395,7 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -403,18 +403,18 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -531,7 +531,7 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -539,18 +539,18 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -656,7 +656,7 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -664,18 +664,18 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteSAMLConnection", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }

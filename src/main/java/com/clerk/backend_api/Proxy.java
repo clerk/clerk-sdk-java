@@ -106,7 +106,7 @@ public class Proxy implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("VerifyDomainProxy", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("VerifyDomainProxy", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -114,18 +114,18 @@ public class Proxy implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("VerifyDomainProxy", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("VerifyDomainProxy", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("VerifyDomainProxy", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("VerifyDomainProxy", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("VerifyDomainProxy", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("VerifyDomainProxy", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }

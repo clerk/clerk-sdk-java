@@ -86,7 +86,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetTemplateList", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -94,18 +94,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetTemplateList", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetTemplateList", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetTemplateList", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -214,7 +214,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -222,18 +222,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetTemplate", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -363,7 +363,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpsertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -371,18 +371,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpsertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpsertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpsertTemplate", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -491,7 +491,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("RevertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -499,18 +499,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("RevertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("RevertTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("RevertTemplate", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -640,7 +640,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("PreviewTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -648,18 +648,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("PreviewTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("PreviewTemplate", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("PreviewTemplate", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -795,7 +795,7 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ToggleTemplateDelivery", Optional.empty(), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -803,18 +803,18 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ToggleTemplateDelivery", Optional.empty(), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.empty(), sdkConfiguration.securitySource()), 
+                    .afterError(new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
