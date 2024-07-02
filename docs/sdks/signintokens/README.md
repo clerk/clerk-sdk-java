@@ -73,13 +73,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateSignInTokenResponse>](../../models/operations/CreateSignInTokenResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateSignInTokenResponse](../../models/operations/CreateSignInTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## revoke
 
@@ -143,10 +143,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.RevokeSignInTokenResponse>](../../models/operations/RevokeSignInTokenResponse.md)**
+**[com.clerk.backend_api.models.operations.RevokeSignInTokenResponse](../../models/operations/RevokeSignInTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

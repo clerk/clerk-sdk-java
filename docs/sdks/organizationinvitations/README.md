@@ -93,13 +93,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse>](../../models/operations/CreateOrganizationInvitationResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse](../../models/operations/CreateOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## list
 
@@ -171,13 +171,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse>](../../models/operations/ListOrganizationInvitationsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse](../../models/operations/ListOrganizationInvitationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## createBulk
 
@@ -260,13 +260,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse>](../../models/operations/CreateOrganizationInvitationBulkResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse](../../models/operations/CreateOrganizationInvitationBulkResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## ~~listPending~~
 
@@ -338,13 +338,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse>](../../models/operations/ListPendingOrganizationInvitationsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse](../../models/operations/ListPendingOrganizationInvitationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -410,13 +410,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse>](../../models/operations/GetOrganizationInvitationResponse.md)**
+**[com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse](../../models/operations/GetOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## revoke
 
@@ -490,10 +490,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse>](../../models/operations/RevokeOrganizationInvitationResponse.md)**
+**[com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse](../../models/operations/RevokeOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

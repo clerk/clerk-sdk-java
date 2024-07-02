@@ -80,13 +80,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationsResponse>](../../models/operations/ListOrganizationsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListOrganizationsResponse](../../models/operations/ListOrganizationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## create
 
@@ -163,13 +163,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationResponse>](../../models/operations/CreateOrganizationResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateOrganizationResponse](../../models/operations/CreateOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -233,13 +233,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetOrganizationResponse>](../../models/operations/GetOrganizationResponse.md)**
+**[com.clerk.backend_api.models.operations.GetOrganizationResponse](../../models/operations/GetOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -306,13 +306,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateOrganizationResponse>](../../models/operations/UpdateOrganizationResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateOrganizationResponse](../../models/operations/UpdateOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -378,13 +378,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteOrganizationResponse>](../../models/operations/DeleteOrganizationResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteOrganizationResponse](../../models/operations/DeleteOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## mergeMetadata
 
@@ -454,13 +454,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse>](../../models/operations/MergeOrganizationMetadataResponse.md)**
+**[com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse](../../models/operations/MergeOrganizationMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## uploadLogo
 
@@ -535,13 +535,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse>](../../models/operations/UploadOrganizationLogoResponse.md)**
+**[com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse](../../models/operations/UploadOrganizationLogoResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,413           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## deleteLogo
 
@@ -605,10 +605,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse>](../../models/operations/DeleteOrganizationLogoResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse](../../models/operations/DeleteOrganizationLogoResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

@@ -73,13 +73,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateEmailAddressResponse>](../../models/operations/CreateEmailAddressResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateEmailAddressResponse](../../models/operations/CreateEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404,422       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -143,13 +143,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetEmailAddressResponse>](../../models/operations/GetEmailAddressResponse.md)**
+**[com.clerk.backend_api.models.operations.GetEmailAddressResponse](../../models/operations/GetEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -213,13 +213,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteEmailAddressResponse>](../../models/operations/DeleteEmailAddressResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteEmailAddressResponse](../../models/operations/DeleteEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -286,10 +286,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateEmailAddressResponse>](../../models/operations/UpdateEmailAddressResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateEmailAddressResponse](../../models/operations/UpdateEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

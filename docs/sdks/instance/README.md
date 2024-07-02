@@ -75,13 +75,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse>](../../models/operations/UpdateInstanceAuthConfigResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse](../../models/operations/UpdateInstanceAuthConfigResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## ~~updateProductionDomain~~
 
@@ -152,13 +152,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse>](../../models/operations/UpdateProductionInstanceDomainResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse](../../models/operations/UpdateProductionInstanceDomainResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -223,13 +223,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceResponse>](../../models/operations/UpdateInstanceResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateInstanceResponse](../../models/operations/UpdateInstanceResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 422                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## updateRestrictions
 
@@ -296,13 +296,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse>](../../models/operations/UpdateInstanceRestrictionsResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse](../../models/operations/UpdateInstanceRestrictionsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## changeProductionDomain
 
@@ -371,13 +371,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse>](../../models/operations/ChangeProductionInstanceDomainResponse.md)**
+**[com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse](../../models/operations/ChangeProductionInstanceDomainResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## updateOrganizationSettings
 
@@ -444,10 +444,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse>](../../models/operations/UpdateInstanceOrganizationSettingsResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse](../../models/operations/UpdateInstanceOrganizationSettingsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
