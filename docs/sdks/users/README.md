@@ -89,13 +89,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetUserListResponse>](../../models/operations/GetUserListResponse.md)**
+**[com.clerk.backend_api.models.operations.GetUserListResponse](../../models/operations/GetUserListResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## create
 
@@ -168,13 +168,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateUserResponse>](../../models/operations/CreateUserResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateUserResponse](../../models/operations/CreateUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## count
 
@@ -241,13 +241,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetUsersCountResponse>](../../models/operations/GetUsersCountResponse.md)**
+**[com.clerk.backend_api.models.operations.GetUsersCountResponse](../../models/operations/GetUsersCountResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 422                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -311,13 +311,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetUserResponse>](../../models/operations/GetUserResponse.md)**
+**[com.clerk.backend_api.models.operations.GetUserResponse](../../models/operations/GetUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -395,13 +395,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateUserResponse>](../../models/operations/UpdateUserResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateUserResponse](../../models/operations/UpdateUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -465,13 +465,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteUserResponse>](../../models/operations/DeleteUserResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteUserResponse](../../models/operations/DeleteUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## ban
 
@@ -535,13 +535,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.BanUserResponse>](../../models/operations/BanUserResponse.md)**
+**[com.clerk.backend_api.models.operations.BanUserResponse](../../models/operations/BanUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## unban
 
@@ -605,13 +605,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UnbanUserResponse>](../../models/operations/UnbanUserResponse.md)**
+**[com.clerk.backend_api.models.operations.UnbanUserResponse](../../models/operations/UnbanUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## lock
 
@@ -676,13 +676,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.LockUserResponse>](../../models/operations/LockUserResponse.md)**
+**[com.clerk.backend_api.models.operations.LockUserResponse](../../models/operations/LockUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## unlock
 
@@ -746,13 +746,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UnlockUserResponse>](../../models/operations/UnlockUserResponse.md)**
+**[com.clerk.backend_api.models.operations.UnlockUserResponse](../../models/operations/UnlockUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## setProfileImage
 
@@ -819,13 +819,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.SetUserProfileImageResponse>](../../models/operations/SetUserProfileImageResponse.md)**
+**[com.clerk.backend_api.models.operations.SetUserProfileImageResponse](../../models/operations/SetUserProfileImageResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## deleteProfileImage
 
@@ -889,13 +889,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse>](../../models/operations/DeleteUserProfileImageResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse](../../models/operations/DeleteUserProfileImageResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## updateMetadata
 
@@ -969,13 +969,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateUserMetadataResponse>](../../models/operations/UpdateUserMetadataResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateUserMetadataResponse](../../models/operations/UpdateUserMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## getOAuthAccessToken
 
@@ -1042,13 +1042,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse>](../../models/operations/GetOAuthAccessTokenResponse.md)**
+**[com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse](../../models/operations/GetOAuthAccessTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 422                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## getOrganizationMemberships
 
@@ -1113,13 +1113,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse>](../../models/operations/UsersGetOrganizationMembershipsResponse.md)**
+**[com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse](../../models/operations/UsersGetOrganizationMembershipsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## verifyPassword
 
@@ -1188,13 +1188,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.VerifyPasswordResponse>](../../models/operations/VerifyPasswordResponse.md)**
+**[com.clerk.backend_api.models.operations.VerifyPasswordResponse](../../models/operations/VerifyPasswordResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 500                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## verifyTOTP
 
@@ -1265,13 +1265,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPResponse>](../../models/operations/VerifyTOTPResponse.md)**
+**[com.clerk.backend_api.models.operations.VerifyTOTPResponse](../../models/operations/VerifyTOTPResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 500                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## disableMFA
 
@@ -1335,10 +1335,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DisableMFAResponse>](../../models/operations/DisableMFAResponse.md)**
+**[com.clerk.backend_api.models.operations.DisableMFAResponse](../../models/operations/DisableMFAResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404,500                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

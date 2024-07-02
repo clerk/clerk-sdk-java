@@ -72,13 +72,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse>](../../models/operations/ListSAMLConnectionsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse](../../models/operations/ListSAMLConnectionsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## create
 
@@ -148,13 +148,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse>](../../models/operations/CreateSAMLConnectionResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse](../../models/operations/CreateSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -218,13 +218,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetSAMLConnectionResponse>](../../models/operations/GetSAMLConnectionResponse.md)**
+**[com.clerk.backend_api.models.operations.GetSAMLConnectionResponse](../../models/operations/GetSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -291,13 +291,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse>](../../models/operations/UpdateSAMLConnectionResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse](../../models/operations/UpdateSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -361,10 +361,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse>](../../models/operations/DeleteSAMLConnectionResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse](../../models/operations/DeleteSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

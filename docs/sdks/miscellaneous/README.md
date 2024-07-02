@@ -63,9 +63,9 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetPublicInterstitialResponse>](../../models/operations/GetPublicInterstitialResponse.md)**
+**[com.clerk.backend_api.models.operations.GetPublicInterstitialResponse](../../models/operations/GetPublicInterstitialResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| models/errors/SDKError | 4xx-5xx                | \*\/*                  |

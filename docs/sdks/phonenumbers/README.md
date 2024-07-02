@@ -73,13 +73,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreatePhoneNumberResponse>](../../models/operations/CreatePhoneNumberResponse.md)**
+**[com.clerk.backend_api.models.operations.CreatePhoneNumberResponse](../../models/operations/CreatePhoneNumberResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404,422       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -143,13 +143,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetPhoneNumberResponse>](../../models/operations/GetPhoneNumberResponse.md)**
+**[com.clerk.backend_api.models.operations.GetPhoneNumberResponse](../../models/operations/GetPhoneNumberResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -213,13 +213,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeletePhoneNumberResponse>](../../models/operations/DeletePhoneNumberResponse.md)**
+**[com.clerk.backend_api.models.operations.DeletePhoneNumberResponse](../../models/operations/DeletePhoneNumberResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -286,10 +286,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse>](../../models/operations/UpdatePhoneNumberResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse](../../models/operations/UpdatePhoneNumberResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

@@ -62,13 +62,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListBlocklistIdentifiersResponse>](../../models/operations/ListBlocklistIdentifiersResponse.md)**
+**[com.clerk.backend_api.models.operations.ListBlocklistIdentifiersResponse](../../models/operations/ListBlocklistIdentifiersResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401,402                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## create
 
@@ -136,13 +136,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateBlocklistIdentifierResponse>](../../models/operations/CreateBlocklistIdentifierResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateBlocklistIdentifierResponse](../../models/operations/CreateBlocklistIdentifierResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -206,10 +206,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteBlocklistIdentifierResponse>](../../models/operations/DeleteBlocklistIdentifierResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteBlocklistIdentifierResponse](../../models/operations/DeleteBlocklistIdentifierResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

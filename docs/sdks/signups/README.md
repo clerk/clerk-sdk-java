@@ -70,10 +70,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateSignUpResponse>](../../models/operations/UpdateSignUpResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateSignUpResponse](../../models/operations/UpdateSignUpResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

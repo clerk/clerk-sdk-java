@@ -75,13 +75,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateInvitationResponse>](../../models/operations/CreateInvitationResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateInvitationResponse](../../models/operations/CreateInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## list
 
@@ -143,12 +143,12 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListInvitationsResponse>](../../models/operations/ListInvitationsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListInvitationsResponse](../../models/operations/ListInvitationsResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| models/errors/SDKError | 4xx-5xx                | \*\/*                  |
 
 ## revoke
 
@@ -215,10 +215,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.RevokeInvitationResponse>](../../models/operations/RevokeInvitationResponse.md)**
+**[com.clerk.backend_api.models.operations.RevokeInvitationResponse](../../models/operations/RevokeInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
