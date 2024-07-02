@@ -2,3 +2,29 @@
 // * is referred to in an `apply from` command in `build.gradle`
 // * can be used to customise `build.gradle`
 // * is generated once and not overwritten in SDK generation updates
+
+// additional dependencies
+dependencies {
+    api 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+//    Uncomment this next dependency if you are using:
+//     - JDK 10 or earlier, and you want to use RSASSA-PSS (PS256, PS384, PS512)
+//    signature algorithms.
+//     - JDK 10 or earlier, and you want to use EdECDH (X25519 or X448) Elliptic Curve
+//    Diffie-Hellman encryption.
+//     - JDK 14 or earlier, and you want to use EdDSA (Ed25519 or Ed448) Elliptic
+//    Curve signature algorithms.
+//     It is unnecessary for these algorithms on JDK 15 or later.
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.76'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed"
+    }
+}
