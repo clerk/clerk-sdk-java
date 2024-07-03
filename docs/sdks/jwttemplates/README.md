@@ -61,12 +61,12 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListJWTTemplatesResponse>](../../models/operations/ListJWTTemplatesResponse.md)**
+**[com.clerk.backend_api.models.operations.ListJWTTemplatesResponse](../../models/operations/ListJWTTemplatesResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| models/errors/SDKError | 4xx-5xx                | \*\/*                  |
 
 ## create
 
@@ -133,13 +133,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateJWTTemplateResponse>](../../models/operations/CreateJWTTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateJWTTemplateResponse](../../models/operations/CreateJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -203,13 +203,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetJWTTemplateResponse>](../../models/operations/GetJWTTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.GetJWTTemplateResponse](../../models/operations/GetJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -276,13 +276,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse>](../../models/operations/UpdateJWTTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse](../../models/operations/UpdateJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -346,10 +346,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse>](../../models/operations/DeleteJWTTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse](../../models/operations/DeleteJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

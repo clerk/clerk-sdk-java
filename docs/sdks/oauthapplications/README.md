@@ -74,13 +74,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse>](../../models/operations/ListOAuthApplicationsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse](../../models/operations/ListOAuthApplicationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## create
 
@@ -152,13 +152,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse>](../../models/operations/CreateOAuthApplicationResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse](../../models/operations/CreateOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -222,13 +222,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetOAuthApplicationResponse>](../../models/operations/GetOAuthApplicationResponse.md)**
+**[com.clerk.backend_api.models.operations.GetOAuthApplicationResponse](../../models/operations/GetOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## updateApplication
 
@@ -296,13 +296,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse>](../../models/operations/UpdateOAuthApplicationResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse](../../models/operations/UpdateOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -367,13 +367,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse>](../../models/operations/DeleteOAuthApplicationResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse](../../models/operations/DeleteOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## rotateSecret
 
@@ -438,10 +438,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse>](../../models/operations/RotateOAuthApplicationSecretResponse.md)**
+**[com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse](../../models/operations/RotateOAuthApplicationSecretResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

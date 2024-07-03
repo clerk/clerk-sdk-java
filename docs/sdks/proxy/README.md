@@ -77,10 +77,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.VerifyDomainProxyResponse>](../../models/operations/VerifyDomainProxyResponse.md)**
+**[com.clerk.backend_api.models.operations.VerifyDomainProxyResponse](../../models/operations/VerifyDomainProxyResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

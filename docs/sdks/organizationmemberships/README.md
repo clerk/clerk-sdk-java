@@ -77,13 +77,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse>](../../models/operations/CreateOrganizationMembershipResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse](../../models/operations/CreateOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## list
 
@@ -150,13 +150,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse>](../../models/operations/ListOrganizationMembershipsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse](../../models/operations/ListOrganizationMembershipsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## update
 
@@ -226,13 +226,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse>](../../models/operations/UpdateOrganizationMembershipResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse](../../models/operations/UpdateOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -298,13 +298,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse>](../../models/operations/DeleteOrganizationMembershipResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse](../../models/operations/DeleteOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## updateMetadata
 
@@ -375,10 +375,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse>](../../models/operations/UpdateOrganizationMembershipMetadataResponse.md)**
+**[com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse](../../models/operations/UpdateOrganizationMembershipMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

@@ -19,7 +19,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:0.2.0'
+implementation 'com.clerk:backend-api:0.2.0-beta'
 ```
 
 Maven:
@@ -27,7 +27,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.0-beta</version>
 </dependency>
 ```
 
@@ -408,7 +408,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,410,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ### Example
 
