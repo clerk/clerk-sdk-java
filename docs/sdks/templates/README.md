@@ -73,13 +73,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetTemplateListResponse>](../../models/operations/GetTemplateListResponse.md)**
+**[com.clerk.backend_api.models.operations.GetTemplateListResponse](../../models/operations/GetTemplateListResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -145,13 +145,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetTemplateResponse>](../../models/operations/GetTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.GetTemplateResponse](../../models/operations/GetTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## upsert
 
@@ -220,13 +220,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.UpsertTemplateResponse>](../../models/operations/UpsertTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.UpsertTemplateResponse](../../models/operations/UpsertTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,402,403,404,422   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## revert
 
@@ -292,13 +292,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.RevertTemplateResponse>](../../models/operations/RevertTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.RevertTemplateResponse](../../models/operations/RevertTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,402,404           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## preview
 
@@ -367,13 +367,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.PreviewTemplateResponse>](../../models/operations/PreviewTemplateResponse.md)**
+**[com.clerk.backend_api.models.operations.PreviewTemplateResponse](../../models/operations/PreviewTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## toggleDelivery
 
@@ -444,10 +444,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse>](../../models/operations/ToggleTemplateDeliveryResponse.md)**
+**[com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse](../../models/operations/ToggleTemplateDeliveryResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

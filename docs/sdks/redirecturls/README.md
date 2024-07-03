@@ -60,12 +60,12 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.ListRedirectURLsResponse>](../../models/operations/ListRedirectURLsResponse.md)**
+**[com.clerk.backend_api.models.operations.ListRedirectURLsResponse](../../models/operations/ListRedirectURLsResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| models/errors/SDKError | 4xx-5xx                | \*\/*                  |
 
 ## create
 
@@ -132,13 +132,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateRedirectURLResponse>](../../models/operations/CreateRedirectURLResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateRedirectURLResponse](../../models/operations/CreateRedirectURLResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## get
 
@@ -202,13 +202,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetRedirectURLResponse>](../../models/operations/GetRedirectURLResponse.md)**
+**[com.clerk.backend_api.models.operations.GetRedirectURLResponse](../../models/operations/GetRedirectURLResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## delete
 
@@ -272,10 +272,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteRedirectURLResponse>](../../models/operations/DeleteRedirectURLResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteRedirectURLResponse](../../models/operations/DeleteRedirectURLResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

@@ -55,9 +55,9 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GetJWKSResponse>](../../models/operations/GetJWKSResponse.md)**
+**[com.clerk.backend_api.models.operations.GetJWKSResponse](../../models/operations/GetJWKSResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| models/errors/SDKError | 4xx-5xx                | \*\/*                  |

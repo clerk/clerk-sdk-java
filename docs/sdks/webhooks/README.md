@@ -62,13 +62,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.CreateSvixAppResponse>](../../models/operations/CreateSvixAppResponse.md)**
+**[com.clerk.backend_api.models.operations.CreateSvixAppResponse](../../models/operations/CreateSvixAppResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## deleteSvixApp
 
@@ -123,13 +123,13 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.DeleteSvixAppResponse>](../../models/operations/DeleteSvixAppResponse.md)**
+**[com.clerk.backend_api.models.operations.DeleteSvixAppResponse](../../models/operations/DeleteSvixAppResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 ## generateSvixAuthURL
 
@@ -186,10 +186,10 @@ public class Application {
 
 ### Response
 
-**[Optional<? extends com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse>](../../models/operations/GenerateSvixAuthURLResponse.md)**
+**[com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse](../../models/operations/GenerateSvixAuthURLResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400                       | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | */*                       |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
