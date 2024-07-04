@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.lang.Deprecated;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Optional;
 
 public class Otp {
 
@@ -24,17 +25,17 @@ public class Otp {
     private Strategy strategy;
 
     @JsonProperty("attempts")
-    private long attempts;
+    private Optional<? extends Long> attempts;
 
     @JsonProperty("expire_at")
-    private long expireAt;
+    private Optional<? extends Long> expireAt;
 
     @JsonCreator
     public Otp(
             @JsonProperty("status") VerificationStatus status,
             @JsonProperty("strategy") Strategy strategy,
-            @JsonProperty("attempts") long attempts,
-            @JsonProperty("expire_at") long expireAt) {
+            @JsonProperty("attempts") Optional<? extends Long> attempts,
+            @JsonProperty("expire_at") Optional<? extends Long> expireAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
@@ -56,12 +57,12 @@ public class Otp {
     }
 
     @JsonIgnore
-    public long attempts() {
+    public Optional<? extends Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public long expireAt() {
+    public Optional<? extends Long> expireAt() {
         return expireAt;
     }
 
@@ -81,13 +82,13 @@ public class Otp {
         return this;
     }
 
-    public Otp withAttempts(long attempts) {
+    public Otp withAttempts(Optional<? extends Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
     }
 
-    public Otp withExpireAt(long expireAt) {
+    public Otp withExpireAt(Optional<? extends Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
         return this;
@@ -133,9 +134,9 @@ public class Otp {
  
         private Strategy strategy;
  
-        private Long attempts;
+        private Optional<? extends Long> attempts;
  
-        private Long expireAt;  
+        private Optional<? extends Long> expireAt;
         
         private Builder() {
           // force use of static builder() method
@@ -153,13 +154,13 @@ public class Otp {
             return this;
         }
 
-        public Builder attempts(long attempts) {
+        public Builder attempts(Optional<? extends Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
         }
 
-        public Builder expireAt(long expireAt) {
+        public Builder expireAt(Optional<? extends Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;
