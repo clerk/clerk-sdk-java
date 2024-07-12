@@ -1,5 +1,5 @@
 <div align="center">
-        <img src="https://github.com/speakeasy-sdks/clerk-ts/assets/68016351/62e27b17-7a99-46cf-a09e-13d2f06f733e" width="250">
+        <img src="https://github.com/user-attachments/assets/bdff80ad-42b9-4176-8b35-c05c551f57ac" width="150">
    <p>The most comprehensive User Management Platform</p>
    <a href="https://clerk.com/docs/reference/backend-api"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=000000&style=for-the-badge" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" /></a>
