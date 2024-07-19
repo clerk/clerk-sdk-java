@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 93fd7098475aa331fae95503f8934b72
+  docChecksum: 8a8b44e8346bd0bbfc9f9cf4d44c5332
   docVersion: v1
-  speakeasyVersion: 1.326.0
-  generationVersion: 2.359.0
-  releaseVersion: 0.2.0-beta
-  configChecksum: de7fbb5de3c7c17b46702003b95160f3
+  speakeasyVersion: 1.344.1
+  generationVersion: 2.376.2
+  releaseVersion: 0.2.0-beta.1
+  configChecksum: 7c3b30a29936e871c5d3a84e419796a4
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.26.1
+    core: 3.26.3
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1
@@ -1130,3 +1130,4 @@ generatedFiles:
   - docs/sdks/samlconnections/README.md
   - docs/sdks/testingtokens/README.md
   - USAGE.md
+  - CONTRIBUTING.md

@@ -18,7 +18,8 @@ import java.math.BigInteger;
 public enum Type {
     OAUTH_GOOGLE("oauth_google"),
     OAUTH_MOCK("oauth_mock"),
-    SAML("saml");
+    SAML("saml"),
+    OAUTH_APPLE("oauth_apple");
 
     @JsonValue
     private final String value;
