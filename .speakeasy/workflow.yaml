@@ -4,6 +4,8 @@ sources:
     clerk-java-sdk:
         inputs:
             - location: ./openapi.yml
+        overlays:
+            - location: fixes.yml
         registry:
             location: registry.speakeasyapi.dev/clerk/clerk/clerk-java-sdk
 targets:
