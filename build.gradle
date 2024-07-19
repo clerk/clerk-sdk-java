@@ -8,6 +8,7 @@
 // Additions to the plugins block can be made by setting the `additionalPlugins` property (an array 
 // of string where each string value is an additional line in the block) in gen.yaml.
 ////////////////////////////////////////////////////////////////////////////////////////////
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
@@ -61,7 +62,7 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 group = "com.clerk"
-version = "0.2.0-beta"
+version = "0.2.0-beta.1"
 
 sourcesJar {
     archiveBaseName = "backend-api"
@@ -98,7 +99,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.clerk'
             artifactId = 'backend-api'
-            version = '0.2.0-beta'
+            version = '0.2.0-beta.1'
 
             from components.java
 

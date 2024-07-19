@@ -17,7 +17,10 @@ import java.math.BigInteger;
 
 public enum OauthVerificationStrategy {
     OAUTH_GOOGLE("oauth_google"),
-    OAUTH_MOCK("oauth_mock");
+    OAUTH_MOCK("oauth_mock"),
+    FROM_OAUTH_GOOGLE("from_oauth_google"),
+    FROM_OAUTH_DISCORD("from_oauth_discord"),
+    OAUTH_APPLE("oauth_apple");
 
     @JsonValue
     private final String value;
