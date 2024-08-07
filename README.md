@@ -567,7 +567,7 @@ This SDK supports the following security scheme globally:
 | ------------ | ------------ | ------------ |
 | `bearerAuth` | http         | HTTP Bearer  |
 
-To authenticate with the API the `null_` parameter must be set when initializing the SDK client instance. For example:
+To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
