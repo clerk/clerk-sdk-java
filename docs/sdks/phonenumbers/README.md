@@ -19,7 +19,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -92,7 +91,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -162,7 +160,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -232,7 +229,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
