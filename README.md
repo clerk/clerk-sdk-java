@@ -19,7 +19,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:0.2.0-beta.1'
+implementation 'com.clerk:backend-api:0.2.0-beta.2'
 ```
 
 Maven:
@@ -27,7 +27,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>0.2.0-beta.1</version>
+    <version>0.2.0-beta.2</version>
 </dependency>
 ```
 
@@ -56,7 +56,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -105,7 +104,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -359,7 +357,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -417,7 +414,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.components.Security;
 import com.clerk.backend_api.models.operations.*;
 import com.clerk.backend_api.utils.EventStream;
 import java.math.BigDecimal;
@@ -571,7 +567,7 @@ This SDK supports the following security scheme globally:
 | ------------ | ------------ | ------------ |
 | `bearerAuth` | http         | HTTP Bearer  |
 
-To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
+To authenticate with the API the `null_` parameter must be set when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 

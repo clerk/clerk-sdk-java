@@ -62,7 +62,7 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 group = "com.clerk"
-version = "0.2.0-beta.1"
+version = "0.2.0-beta.2"
 
 sourcesJar {
     archiveBaseName = "backend-api"
@@ -99,7 +99,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.clerk'
             artifactId = 'backend-api'
-            version = '0.2.0-beta.1'
+            version = '0.2.0-beta.2'
 
             from components.java
 
