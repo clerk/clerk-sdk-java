@@ -6,14 +6,9 @@ package com.clerk.backend_api.models.components;
 
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 public class Otp {
 
@@ -24,17 +19,17 @@ public class Otp {
     private Strategy strategy;
 
     @JsonProperty("attempts")
-    private long attempts;
+    private JsonNullable<? extends Long> attempts;
 
     @JsonProperty("expire_at")
-    private long expireAt;
+    private JsonNullable<? extends Long> expireAt;
 
     @JsonCreator
     public Otp(
             @JsonProperty("status") VerificationStatus status,
             @JsonProperty("strategy") Strategy strategy,
-            @JsonProperty("attempts") long attempts,
-            @JsonProperty("expire_at") long expireAt) {
+            @JsonProperty("attempts") JsonNullable<? extends Long> attempts,
+            @JsonProperty("expire_at") JsonNullable<? extends Long> expireAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
@@ -56,12 +51,12 @@ public class Otp {
     }
 
     @JsonIgnore
-    public long attempts() {
+    public JsonNullable<? extends Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public long expireAt() {
+    public JsonNullable<? extends Long> expireAt() {
         return expireAt;
     }
 
@@ -82,17 +77,27 @@ public class Otp {
     }
 
     public Otp withAttempts(long attempts) {
+        this.attempts = JsonNullable.of(attempts);
+        return this;
+    }
+
+    public Otp withAttempts(JsonNullable<? extends Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
     }
 
     public Otp withExpireAt(long expireAt) {
+        this.expireAt = JsonNullable.of(expireAt);
+        return this;
+    }
+
+    public Otp withExpireAt(JsonNullable<? extends Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
         return this;
     }
-    
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -133,9 +138,9 @@ public class Otp {
  
         private Strategy strategy;
  
-        private Long attempts;
+        private JsonNullable<? extends Long> attempts = JsonNullable.undefined();
  
-        private Long expireAt;  
+        private JsonNullable<? extends Long> expireAt = JsonNullable.undefined();
         
         private Builder() {
           // force use of static builder() method
@@ -154,12 +159,22 @@ public class Otp {
         }
 
         public Builder attempts(long attempts) {
+            this.attempts = JsonNullable.of(attempts);
+            return this;
+        }
+
+        public Builder attempts(JsonNullable<? extends Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
         }
 
         public Builder expireAt(long expireAt) {
+            this.expireAt = JsonNullable.of(expireAt);
+            return this;
+        }
+
+        public Builder expireAt(JsonNullable<? extends Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;
