@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdatePhoneNumberRequestBody {
 
@@ -25,14 +25,14 @@ public class UpdatePhoneNumberRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
-    private JsonNullable<? extends Boolean> verified;
+    private JsonNullable<Boolean> verified;
 
     /**
      * Set this phone number as the primary phone number for the user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary")
-    private JsonNullable<? extends Boolean> primary;
+    private JsonNullable<Boolean> primary;
 
     /**
      * Set this phone number as reserved for multi-factor authentication.
@@ -41,13 +41,13 @@ public class UpdatePhoneNumberRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reserved_for_second_factor")
-    private JsonNullable<? extends Boolean> reservedForSecondFactor;
+    private JsonNullable<Boolean> reservedForSecondFactor;
 
     @JsonCreator
     public UpdatePhoneNumberRequestBody(
-            @JsonProperty("verified") JsonNullable<? extends Boolean> verified,
-            @JsonProperty("primary") JsonNullable<? extends Boolean> primary,
-            @JsonProperty("reserved_for_second_factor") JsonNullable<? extends Boolean> reservedForSecondFactor) {
+            @JsonProperty("verified") JsonNullable<Boolean> verified,
+            @JsonProperty("primary") JsonNullable<Boolean> primary,
+            @JsonProperty("reserved_for_second_factor") JsonNullable<Boolean> reservedForSecondFactor) {
         Utils.checkNotNull(verified, "verified");
         Utils.checkNotNull(primary, "primary");
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
@@ -63,19 +63,17 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * The phone number will be marked as verified.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> verified() {
-        return (JsonNullable<Boolean>) verified;
+        return verified;
     }
 
     /**
      * Set this phone number as the primary phone number for the user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> primary() {
-        return (JsonNullable<Boolean>) primary;
+        return primary;
     }
 
     /**
@@ -83,10 +81,9 @@ public class UpdatePhoneNumberRequestBody {
      * The phone number must also be verified.
      * If there are no other reserved second factors, the phone number will be set as the default second factor.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> reservedForSecondFactor() {
-        return (JsonNullable<Boolean>) reservedForSecondFactor;
+        return reservedForSecondFactor;
     }
 
     public final static Builder builder() {
@@ -105,7 +102,7 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * The phone number will be marked as verified.
      */
-    public UpdatePhoneNumberRequestBody withVerified(JsonNullable<? extends Boolean> verified) {
+    public UpdatePhoneNumberRequestBody withVerified(JsonNullable<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
@@ -123,7 +120,7 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * Set this phone number as the primary phone number for the user.
      */
-    public UpdatePhoneNumberRequestBody withPrimary(JsonNullable<? extends Boolean> primary) {
+    public UpdatePhoneNumberRequestBody withPrimary(JsonNullable<Boolean> primary) {
         Utils.checkNotNull(primary, "primary");
         this.primary = primary;
         return this;
@@ -145,7 +142,7 @@ public class UpdatePhoneNumberRequestBody {
      * The phone number must also be verified.
      * If there are no other reserved second factors, the phone number will be set as the default second factor.
      */
-    public UpdatePhoneNumberRequestBody withReservedForSecondFactor(JsonNullable<? extends Boolean> reservedForSecondFactor) {
+    public UpdatePhoneNumberRequestBody withReservedForSecondFactor(JsonNullable<Boolean> reservedForSecondFactor) {
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
         this.reservedForSecondFactor = reservedForSecondFactor;
         return this;
@@ -161,14 +158,14 @@ public class UpdatePhoneNumberRequestBody {
         }
         UpdatePhoneNumberRequestBody other = (UpdatePhoneNumberRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.verified, other.verified) &&
-            java.util.Objects.deepEquals(this.primary, other.primary) &&
-            java.util.Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
+            Objects.deepEquals(this.verified, other.verified) &&
+            Objects.deepEquals(this.primary, other.primary) &&
+            Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             verified,
             primary,
             reservedForSecondFactor);
@@ -184,11 +181,11 @@ public class UpdatePhoneNumberRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Boolean> verified = JsonNullable.undefined();
+        private JsonNullable<Boolean> verified = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> primary = JsonNullable.undefined();
+        private JsonNullable<Boolean> primary = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> reservedForSecondFactor = JsonNullable.undefined();  
+        private JsonNullable<Boolean> reservedForSecondFactor = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -206,7 +203,7 @@ public class UpdatePhoneNumberRequestBody {
         /**
          * The phone number will be marked as verified.
          */
-        public Builder verified(JsonNullable<? extends Boolean> verified) {
+        public Builder verified(JsonNullable<Boolean> verified) {
             Utils.checkNotNull(verified, "verified");
             this.verified = verified;
             return this;
@@ -224,7 +221,7 @@ public class UpdatePhoneNumberRequestBody {
         /**
          * Set this phone number as the primary phone number for the user.
          */
-        public Builder primary(JsonNullable<? extends Boolean> primary) {
+        public Builder primary(JsonNullable<Boolean> primary) {
             Utils.checkNotNull(primary, "primary");
             this.primary = primary;
             return this;
@@ -246,7 +243,7 @@ public class UpdatePhoneNumberRequestBody {
          * The phone number must also be verified.
          * If there are no other reserved second factors, the phone number will be set as the default second factor.
          */
-        public Builder reservedForSecondFactor(JsonNullable<? extends Boolean> reservedForSecondFactor) {
+        public Builder reservedForSecondFactor(JsonNullable<Boolean> reservedForSecondFactor) {
             Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
             this.reservedForSecondFactor = reservedForSecondFactor;
             return this;

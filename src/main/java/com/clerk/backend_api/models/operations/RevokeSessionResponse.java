@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Session;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class RevokeSessionResponse implements com.clerk.backend_api.utils.Response {
+
+public class RevokeSessionResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Session> session;
+    private Optional<? extends Session> session;
 
     @JsonCreator
     public RevokeSessionResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Session> session) {
+            Optional<? extends Session> session) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Session> session() {
-        return (Optional<com.clerk.backend_api.models.components.Session>) session;
+    public Optional<Session> session() {
+        return (Optional<Session>) session;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public RevokeSessionResponse withSession(com.clerk.backend_api.models.components.Session session) {
+    public RevokeSessionResponse withSession(Session session) {
         Utils.checkNotNull(session, "session");
         this.session = Optional.ofNullable(session);
         return this;
@@ -137,7 +141,7 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public RevokeSessionResponse withSession(Optional<? extends com.clerk.backend_api.models.components.Session> session) {
+    public RevokeSessionResponse withSession(Optional<? extends Session> session) {
         Utils.checkNotNull(session, "session");
         this.session = session;
         return this;
@@ -153,15 +157,15 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
         }
         RevokeSessionResponse other = (RevokeSessionResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.session, other.session);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.session, other.session);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Session> session = Optional.empty();  
+        private Optional<? extends Session> session = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder session(com.clerk.backend_api.models.components.Session session) {
+        public Builder session(Session session) {
             Utils.checkNotNull(session, "session");
             this.session = Optional.ofNullable(session);
             return this;
@@ -230,7 +234,7 @@ public class RevokeSessionResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder session(Optional<? extends com.clerk.backend_api.models.components.Session> session) {
+        public Builder session(Optional<? extends Session> session) {
             Utils.checkNotNull(session, "session");
             this.session = session;
             return this;

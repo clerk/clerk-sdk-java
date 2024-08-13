@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Client;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class VerifyClientResponse implements com.clerk.backend_api.utils.Response {
+
+public class VerifyClientResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Client> client;
+    private Optional<? extends Client> client;
 
     @JsonCreator
     public VerifyClientResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Client> client) {
+            Optional<? extends Client> client) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Client> client() {
-        return (Optional<com.clerk.backend_api.models.components.Client>) client;
+    public Optional<Client> client() {
+        return (Optional<Client>) client;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    public VerifyClientResponse withClient(com.clerk.backend_api.models.components.Client client) {
+    public VerifyClientResponse withClient(Client client) {
         Utils.checkNotNull(client, "client");
         this.client = Optional.ofNullable(client);
         return this;
@@ -137,7 +141,7 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    public VerifyClientResponse withClient(Optional<? extends com.clerk.backend_api.models.components.Client> client) {
+    public VerifyClientResponse withClient(Optional<? extends Client> client) {
         Utils.checkNotNull(client, "client");
         this.client = client;
         return this;
@@ -153,15 +157,15 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
         }
         VerifyClientResponse other = (VerifyClientResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.client, other.client);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.client, other.client);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Client> client = Optional.empty();  
+        private Optional<? extends Client> client = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
         /**
          * Success
          */
-        public Builder client(com.clerk.backend_api.models.components.Client client) {
+        public Builder client(Client client) {
             Utils.checkNotNull(client, "client");
             this.client = Optional.ofNullable(client);
             return this;
@@ -230,7 +234,7 @@ public class VerifyClientResponse implements com.clerk.backend_api.utils.Respons
         /**
          * Success
          */
-        public Builder client(Optional<? extends com.clerk.backend_api.models.components.Client> client) {
+        public Builder client(Optional<? extends Client> client) {
             Utils.checkNotNull(client, "client");
             this.client = client;
             return this;

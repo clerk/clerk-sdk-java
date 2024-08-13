@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Session {
 
@@ -45,7 +46,7 @@ public class Session {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_active_organization_id")
-    private JsonNullable<? extends String> lastActiveOrganizationId;
+    private JsonNullable<String> lastActiveOrganizationId;
 
     @JsonProperty("last_active_at")
     private long lastActiveAt;
@@ -78,7 +79,7 @@ public class Session {
             @JsonProperty("client_id") String clientId,
             @JsonProperty("actor") JsonNullable<? extends Actor> actor,
             @JsonProperty("status") Status status,
-            @JsonProperty("last_active_organization_id") JsonNullable<? extends String> lastActiveOrganizationId,
+            @JsonProperty("last_active_organization_id") JsonNullable<String> lastActiveOrganizationId,
             @JsonProperty("last_active_at") long lastActiveAt,
             @JsonProperty("expire_at") long expireAt,
             @JsonProperty("abandon_at") long abandonAt,
@@ -159,10 +160,9 @@ public class Session {
         return status;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastActiveOrganizationId() {
-        return (JsonNullable<String>) lastActiveOrganizationId;
+        return lastActiveOrganizationId;
     }
 
     @JsonIgnore
@@ -254,7 +254,7 @@ public class Session {
         return this;
     }
 
-    public Session withLastActiveOrganizationId(JsonNullable<? extends String> lastActiveOrganizationId) {
+    public Session withLastActiveOrganizationId(JsonNullable<String> lastActiveOrganizationId) {
         Utils.checkNotNull(lastActiveOrganizationId, "lastActiveOrganizationId");
         this.lastActiveOrganizationId = lastActiveOrganizationId;
         return this;
@@ -308,23 +308,23 @@ public class Session {
         }
         Session other = (Session) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.clientId, other.clientId) &&
-            java.util.Objects.deepEquals(this.actor, other.actor) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.lastActiveOrganizationId, other.lastActiveOrganizationId) &&
-            java.util.Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
-            java.util.Objects.deepEquals(this.expireAt, other.expireAt) &&
-            java.util.Objects.deepEquals(this.abandonAt, other.abandonAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.clientId, other.clientId) &&
+            Objects.deepEquals(this.actor, other.actor) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.lastActiveOrganizationId, other.lastActiveOrganizationId) &&
+            Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Objects.deepEquals(this.expireAt, other.expireAt) &&
+            Objects.deepEquals(this.abandonAt, other.abandonAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             userId,
@@ -370,7 +370,7 @@ public class Session {
  
         private Status status;
  
-        private JsonNullable<? extends String> lastActiveOrganizationId = JsonNullable.undefined();
+        private JsonNullable<String> lastActiveOrganizationId = JsonNullable.undefined();
  
         private Long lastActiveAt;
  
@@ -438,7 +438,7 @@ public class Session {
             return this;
         }
 
-        public Builder lastActiveOrganizationId(JsonNullable<? extends String> lastActiveOrganizationId) {
+        public Builder lastActiveOrganizationId(JsonNullable<String> lastActiveOrganizationId) {
             Utils.checkNotNull(lastActiveOrganizationId, "lastActiveOrganizationId");
             this.lastActiveOrganizationId = lastActiveOrganizationId;
             return this;

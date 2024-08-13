@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateRedirectURLRequestBody {
 
@@ -25,11 +24,11 @@ public class CreateRedirectURLRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
-    private Optional<? extends String> url;
+    private Optional<String> url;
 
     @JsonCreator
     public CreateRedirectURLRequestBody(
-            @JsonProperty("url") Optional<? extends String> url) {
+            @JsonProperty("url") Optional<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
     }
@@ -41,10 +40,9 @@ public class CreateRedirectURLRequestBody {
     /**
      * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> url() {
-        return (Optional<String>) url;
+        return url;
     }
 
     public final static Builder builder() {
@@ -63,7 +61,7 @@ public class CreateRedirectURLRequestBody {
     /**
      * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
-    public CreateRedirectURLRequestBody withUrl(Optional<? extends String> url) {
+    public CreateRedirectURLRequestBody withUrl(Optional<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
@@ -79,12 +77,12 @@ public class CreateRedirectURLRequestBody {
         }
         CreateRedirectURLRequestBody other = (CreateRedirectURLRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.url, other.url);
+            Objects.deepEquals(this.url, other.url);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             url);
     }
     
@@ -96,7 +94,7 @@ public class CreateRedirectURLRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> url = Optional.empty();  
+        private Optional<String> url = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -114,7 +112,7 @@ public class CreateRedirectURLRequestBody {
         /**
          * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
          */
-        public Builder url(Optional<? extends String> url) {
+        public Builder url(Optional<String> url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;

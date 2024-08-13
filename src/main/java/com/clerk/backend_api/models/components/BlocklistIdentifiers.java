@@ -4,21 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
+
 
 public class BlocklistIdentifiers {
 
     @JsonProperty("data")
-    private java.util.List<BlocklistIdentifier> data;
+    private List<BlocklistIdentifier> data;
 
     /**
      * Total number of blocklist identifiers
@@ -29,7 +30,7 @@ public class BlocklistIdentifiers {
 
     @JsonCreator
     public BlocklistIdentifiers(
-            @JsonProperty("data") java.util.List<BlocklistIdentifier> data,
+            @JsonProperty("data") List<BlocklistIdentifier> data,
             @JsonProperty("total_count") long totalCount) {
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(totalCount, "totalCount");
@@ -38,7 +39,7 @@ public class BlocklistIdentifiers {
     }
 
     @JsonIgnore
-    public java.util.List<BlocklistIdentifier> data() {
+    public List<BlocklistIdentifier> data() {
         return data;
     }
 
@@ -55,7 +56,7 @@ public class BlocklistIdentifiers {
         return new Builder();
     }
 
-    public BlocklistIdentifiers withData(java.util.List<BlocklistIdentifier> data) {
+    public BlocklistIdentifiers withData(List<BlocklistIdentifier> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
         return this;
@@ -81,13 +82,13 @@ public class BlocklistIdentifiers {
         }
         BlocklistIdentifiers other = (BlocklistIdentifiers) o;
         return 
-            java.util.Objects.deepEquals(this.data, other.data) &&
-            java.util.Objects.deepEquals(this.totalCount, other.totalCount);
+            Objects.deepEquals(this.data, other.data) &&
+            Objects.deepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             data,
             totalCount);
     }
@@ -101,7 +102,7 @@ public class BlocklistIdentifiers {
     
     public final static class Builder {
  
-        private java.util.List<BlocklistIdentifier> data;
+        private List<BlocklistIdentifier> data;
  
         private Long totalCount;  
         
@@ -109,7 +110,7 @@ public class BlocklistIdentifiers {
           // force use of static builder() method
         }
 
-        public Builder data(java.util.List<BlocklistIdentifier> data) {
+        public Builder data(List<BlocklistIdentifier> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;

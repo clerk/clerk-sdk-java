@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Template;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class RevertTemplateResponse implements com.clerk.backend_api.utils.Response {
+
+public class RevertTemplateResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Template> template;
+    private Optional<? extends Template> template;
 
     @JsonCreator
     public RevertTemplateResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Template> template) {
+            Optional<? extends Template> template) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Template> template() {
-        return (Optional<com.clerk.backend_api.models.components.Template>) template;
+    public Optional<Template> template() {
+        return (Optional<Template>) template;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public RevertTemplateResponse withTemplate(com.clerk.backend_api.models.components.Template template) {
+    public RevertTemplateResponse withTemplate(Template template) {
         Utils.checkNotNull(template, "template");
         this.template = Optional.ofNullable(template);
         return this;
@@ -137,7 +141,7 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public RevertTemplateResponse withTemplate(Optional<? extends com.clerk.backend_api.models.components.Template> template) {
+    public RevertTemplateResponse withTemplate(Optional<? extends Template> template) {
         Utils.checkNotNull(template, "template");
         this.template = template;
         return this;
@@ -153,15 +157,15 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
         }
         RevertTemplateResponse other = (RevertTemplateResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.template, other.template);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.template, other.template);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Template> template = Optional.empty();  
+        private Optional<? extends Template> template = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder template(com.clerk.backend_api.models.components.Template template) {
+        public Builder template(Template template) {
             Utils.checkNotNull(template, "template");
             this.template = Optional.ofNullable(template);
             return this;
@@ -230,7 +234,7 @@ public class RevertTemplateResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder template(Optional<? extends com.clerk.backend_api.models.components.Template> template) {
+        public Builder template(Optional<? extends Template> template) {
             Utils.checkNotNull(template, "template");
             this.template = template;
             return this;

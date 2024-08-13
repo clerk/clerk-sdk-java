@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.ProxyCheck;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Response {
+
+public class VerifyDomainProxyResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
     /**
      * Health check information about a domain's proxy configuration validation attempt.
      */
-    private Optional<? extends com.clerk.backend_api.models.components.ProxyCheck> proxyCheck;
+    private Optional<? extends ProxyCheck> proxyCheck;
 
     @JsonCreator
     public VerifyDomainProxyResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.ProxyCheck> proxyCheck) {
+            Optional<? extends ProxyCheck> proxyCheck) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.ProxyCheck> proxyCheck() {
-        return (Optional<com.clerk.backend_api.models.components.ProxyCheck>) proxyCheck;
+    public Optional<ProxyCheck> proxyCheck() {
+        return (Optional<ProxyCheck>) proxyCheck;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
     /**
      * Health check information about a domain's proxy configuration validation attempt.
      */
-    public VerifyDomainProxyResponse withProxyCheck(com.clerk.backend_api.models.components.ProxyCheck proxyCheck) {
+    public VerifyDomainProxyResponse withProxyCheck(ProxyCheck proxyCheck) {
         Utils.checkNotNull(proxyCheck, "proxyCheck");
         this.proxyCheck = Optional.ofNullable(proxyCheck);
         return this;
@@ -137,7 +141,7 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
     /**
      * Health check information about a domain's proxy configuration validation attempt.
      */
-    public VerifyDomainProxyResponse withProxyCheck(Optional<? extends com.clerk.backend_api.models.components.ProxyCheck> proxyCheck) {
+    public VerifyDomainProxyResponse withProxyCheck(Optional<? extends ProxyCheck> proxyCheck) {
         Utils.checkNotNull(proxyCheck, "proxyCheck");
         this.proxyCheck = proxyCheck;
         return this;
@@ -153,15 +157,15 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
         }
         VerifyDomainProxyResponse other = (VerifyDomainProxyResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.proxyCheck, other.proxyCheck);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.proxyCheck, other.proxyCheck);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.ProxyCheck> proxyCheck = Optional.empty();  
+        private Optional<? extends ProxyCheck> proxyCheck = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
         /**
          * Health check information about a domain's proxy configuration validation attempt.
          */
-        public Builder proxyCheck(com.clerk.backend_api.models.components.ProxyCheck proxyCheck) {
+        public Builder proxyCheck(ProxyCheck proxyCheck) {
             Utils.checkNotNull(proxyCheck, "proxyCheck");
             this.proxyCheck = Optional.ofNullable(proxyCheck);
             return this;
@@ -230,7 +234,7 @@ public class VerifyDomainProxyResponse implements com.clerk.backend_api.utils.Re
         /**
          * Health check information about a domain's proxy configuration validation attempt.
          */
-        public Builder proxyCheck(Optional<? extends com.clerk.backend_api.models.components.ProxyCheck> proxyCheck) {
+        public Builder proxyCheck(Optional<? extends ProxyCheck> proxyCheck) {
             Utils.checkNotNull(proxyCheck, "proxyCheck");
             this.proxyCheck = proxyCheck;
             return this;

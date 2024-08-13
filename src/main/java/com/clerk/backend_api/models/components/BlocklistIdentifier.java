@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class BlocklistIdentifier {
 
@@ -30,7 +31,7 @@ public class BlocklistIdentifier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * An email address, email domain, phone number or web3 wallet.
@@ -38,7 +39,7 @@ public class BlocklistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier")
-    private Optional<? extends String> identifier;
+    private Optional<String> identifier;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier_type")
@@ -46,7 +47,7 @@ public class BlocklistIdentifier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
-    private Optional<? extends String> instanceId;
+    private Optional<String> instanceId;
 
     /**
      * Unix timestamp of creation
@@ -54,7 +55,7 @@ public class BlocklistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends Long> createdAt;
+    private Optional<Long> createdAt;
 
     /**
      * Unix timestamp of last update.
@@ -62,17 +63,17 @@ public class BlocklistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<? extends Long> updatedAt;
+    private Optional<Long> updatedAt;
 
     @JsonCreator
     public BlocklistIdentifier(
             @JsonProperty("object") Optional<? extends BlocklistIdentifierObject> object,
-            @JsonProperty("id") Optional<? extends String> id,
-            @JsonProperty("identifier") Optional<? extends String> identifier,
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("identifier") Optional<String> identifier,
             @JsonProperty("identifier_type") Optional<? extends BlocklistIdentifierIdentifierType> identifierType,
-            @JsonProperty("instance_id") Optional<? extends String> instanceId,
-            @JsonProperty("created_at") Optional<? extends Long> createdAt,
-            @JsonProperty("updated_at") Optional<? extends Long> updatedAt) {
+            @JsonProperty("instance_id") Optional<String> instanceId,
+            @JsonProperty("created_at") Optional<Long> createdAt,
+            @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(identifier, "identifier");
@@ -103,20 +104,18 @@ public class BlocklistIdentifier {
         return (Optional<BlocklistIdentifierObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
      * An email address, email domain, phone number or web3 wallet.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> identifier() {
-        return (Optional<String>) identifier;
+        return identifier;
     }
 
     @SuppressWarnings("unchecked")
@@ -125,30 +124,27 @@ public class BlocklistIdentifier {
         return (Optional<BlocklistIdentifierIdentifierType>) identifierType;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> instanceId() {
-        return (Optional<String>) instanceId;
+        return instanceId;
     }
 
     /**
      * Unix timestamp of creation
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> createdAt() {
-        return (Optional<Long>) createdAt;
+        return createdAt;
     }
 
     /**
      * Unix timestamp of last update.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> updatedAt() {
-        return (Optional<Long>) updatedAt;
+        return updatedAt;
     }
 
     public final static Builder builder() {
@@ -181,7 +177,7 @@ public class BlocklistIdentifier {
         return this;
     }
 
-    public BlocklistIdentifier withId(Optional<? extends String> id) {
+    public BlocklistIdentifier withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -201,7 +197,7 @@ public class BlocklistIdentifier {
      * An email address, email domain, phone number or web3 wallet.
      * 
      */
-    public BlocklistIdentifier withIdentifier(Optional<? extends String> identifier) {
+    public BlocklistIdentifier withIdentifier(Optional<String> identifier) {
         Utils.checkNotNull(identifier, "identifier");
         this.identifier = identifier;
         return this;
@@ -225,7 +221,7 @@ public class BlocklistIdentifier {
         return this;
     }
 
-    public BlocklistIdentifier withInstanceId(Optional<? extends String> instanceId) {
+    public BlocklistIdentifier withInstanceId(Optional<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
         this.instanceId = instanceId;
         return this;
@@ -245,7 +241,7 @@ public class BlocklistIdentifier {
      * Unix timestamp of creation
      * 
      */
-    public BlocklistIdentifier withCreatedAt(Optional<? extends Long> createdAt) {
+    public BlocklistIdentifier withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -265,7 +261,7 @@ public class BlocklistIdentifier {
      * Unix timestamp of last update.
      * 
      */
-    public BlocklistIdentifier withUpdatedAt(Optional<? extends Long> updatedAt) {
+    public BlocklistIdentifier withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -281,18 +277,18 @@ public class BlocklistIdentifier {
         }
         BlocklistIdentifier other = (BlocklistIdentifier) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.identifier, other.identifier) &&
-            java.util.Objects.deepEquals(this.identifierType, other.identifierType) &&
-            java.util.Objects.deepEquals(this.instanceId, other.instanceId) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.identifier, other.identifier) &&
+            Objects.deepEquals(this.identifierType, other.identifierType) &&
+            Objects.deepEquals(this.instanceId, other.instanceId) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             identifier,
@@ -318,17 +314,17 @@ public class BlocklistIdentifier {
  
         private Optional<? extends BlocklistIdentifierObject> object = Optional.empty();
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
-        private Optional<? extends String> identifier = Optional.empty();
+        private Optional<String> identifier = Optional.empty();
  
         private Optional<? extends BlocklistIdentifierIdentifierType> identifierType = Optional.empty();
  
-        private Optional<? extends String> instanceId = Optional.empty();
+        private Optional<String> instanceId = Optional.empty();
  
-        private Optional<? extends Long> createdAt = Optional.empty();
+        private Optional<Long> createdAt = Optional.empty();
  
-        private Optional<? extends Long> updatedAt = Optional.empty();  
+        private Optional<Long> updatedAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -360,7 +356,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -380,7 +376,7 @@ public class BlocklistIdentifier {
          * An email address, email domain, phone number or web3 wallet.
          * 
          */
-        public Builder identifier(Optional<? extends String> identifier) {
+        public Builder identifier(Optional<String> identifier) {
             Utils.checkNotNull(identifier, "identifier");
             this.identifier = identifier;
             return this;
@@ -404,7 +400,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
-        public Builder instanceId(Optional<? extends String> instanceId) {
+        public Builder instanceId(Optional<String> instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
             this.instanceId = instanceId;
             return this;
@@ -424,7 +420,7 @@ public class BlocklistIdentifier {
          * Unix timestamp of creation
          * 
          */
-        public Builder createdAt(Optional<? extends Long> createdAt) {
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -444,7 +440,7 @@ public class BlocklistIdentifier {
          * Unix timestamp of last update.
          * 
          */
-        public Builder updatedAt(Optional<? extends Long> updatedAt) {
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;

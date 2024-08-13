@@ -4,21 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
+
 
 public class OAuthApplications {
 
     @JsonProperty("data")
-    private java.util.List<OAuthApplication> data;
+    private List<OAuthApplication> data;
 
     /**
      * Total number of OAuth applications
@@ -29,7 +30,7 @@ public class OAuthApplications {
 
     @JsonCreator
     public OAuthApplications(
-            @JsonProperty("data") java.util.List<OAuthApplication> data,
+            @JsonProperty("data") List<OAuthApplication> data,
             @JsonProperty("total_count") long totalCount) {
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(totalCount, "totalCount");
@@ -38,7 +39,7 @@ public class OAuthApplications {
     }
 
     @JsonIgnore
-    public java.util.List<OAuthApplication> data() {
+    public List<OAuthApplication> data() {
         return data;
     }
 
@@ -55,7 +56,7 @@ public class OAuthApplications {
         return new Builder();
     }
 
-    public OAuthApplications withData(java.util.List<OAuthApplication> data) {
+    public OAuthApplications withData(List<OAuthApplication> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
         return this;
@@ -81,13 +82,13 @@ public class OAuthApplications {
         }
         OAuthApplications other = (OAuthApplications) o;
         return 
-            java.util.Objects.deepEquals(this.data, other.data) &&
-            java.util.Objects.deepEquals(this.totalCount, other.totalCount);
+            Objects.deepEquals(this.data, other.data) &&
+            Objects.deepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             data,
             totalCount);
     }
@@ -101,7 +102,7 @@ public class OAuthApplications {
     
     public final static class Builder {
  
-        private java.util.List<OAuthApplication> data;
+        private List<OAuthApplication> data;
  
         private Long totalCount;  
         
@@ -109,7 +110,7 @@ public class OAuthApplications {
           // force use of static builder() method
         }
 
-        public Builder data(java.util.List<OAuthApplication> data) {
+        public Builder data(List<OAuthApplication> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;

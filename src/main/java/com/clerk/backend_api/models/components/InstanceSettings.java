@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class InstanceSettings {
 
@@ -29,32 +30,32 @@ public class InstanceSettings {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("restricted_to_allowlist")
-    private Optional<? extends Boolean> restrictedToAllowlist;
+    private Optional<Boolean> restrictedToAllowlist;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_address")
-    private Optional<? extends String> fromEmailAddress;
+    private Optional<String> fromEmailAddress;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("progressive_sign_up")
-    private Optional<? extends Boolean> progressiveSignUp;
+    private Optional<Boolean> progressiveSignUp;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enhanced_email_deliverability")
-    private Optional<? extends Boolean> enhancedEmailDeliverability;
+    private Optional<Boolean> enhancedEmailDeliverability;
 
     @JsonCreator
     public InstanceSettings(
             @JsonProperty("object") Optional<? extends InstanceSettingsObject> object,
-            @JsonProperty("id") Optional<? extends String> id,
-            @JsonProperty("restricted_to_allowlist") Optional<? extends Boolean> restrictedToAllowlist,
-            @JsonProperty("from_email_address") Optional<? extends String> fromEmailAddress,
-            @JsonProperty("progressive_sign_up") Optional<? extends Boolean> progressiveSignUp,
-            @JsonProperty("enhanced_email_deliverability") Optional<? extends Boolean> enhancedEmailDeliverability) {
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("restricted_to_allowlist") Optional<Boolean> restrictedToAllowlist,
+            @JsonProperty("from_email_address") Optional<String> fromEmailAddress,
+            @JsonProperty("progressive_sign_up") Optional<Boolean> progressiveSignUp,
+            @JsonProperty("enhanced_email_deliverability") Optional<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -82,34 +83,29 @@ public class InstanceSettings {
         return (Optional<InstanceSettingsObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> restrictedToAllowlist() {
-        return (Optional<Boolean>) restrictedToAllowlist;
+        return restrictedToAllowlist;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> fromEmailAddress() {
-        return (Optional<String>) fromEmailAddress;
+        return fromEmailAddress;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> progressiveSignUp() {
-        return (Optional<Boolean>) progressiveSignUp;
+        return progressiveSignUp;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> enhancedEmailDeliverability() {
-        return (Optional<Boolean>) enhancedEmailDeliverability;
+        return enhancedEmailDeliverability;
     }
 
     public final static Builder builder() {
@@ -140,7 +136,7 @@ public class InstanceSettings {
         return this;
     }
 
-    public InstanceSettings withId(Optional<? extends String> id) {
+    public InstanceSettings withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -152,7 +148,7 @@ public class InstanceSettings {
         return this;
     }
 
-    public InstanceSettings withRestrictedToAllowlist(Optional<? extends Boolean> restrictedToAllowlist) {
+    public InstanceSettings withRestrictedToAllowlist(Optional<Boolean> restrictedToAllowlist) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
         this.restrictedToAllowlist = restrictedToAllowlist;
         return this;
@@ -164,7 +160,7 @@ public class InstanceSettings {
         return this;
     }
 
-    public InstanceSettings withFromEmailAddress(Optional<? extends String> fromEmailAddress) {
+    public InstanceSettings withFromEmailAddress(Optional<String> fromEmailAddress) {
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
         this.fromEmailAddress = fromEmailAddress;
         return this;
@@ -176,7 +172,7 @@ public class InstanceSettings {
         return this;
     }
 
-    public InstanceSettings withProgressiveSignUp(Optional<? extends Boolean> progressiveSignUp) {
+    public InstanceSettings withProgressiveSignUp(Optional<Boolean> progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
         this.progressiveSignUp = progressiveSignUp;
         return this;
@@ -188,7 +184,7 @@ public class InstanceSettings {
         return this;
     }
 
-    public InstanceSettings withEnhancedEmailDeliverability(Optional<? extends Boolean> enhancedEmailDeliverability) {
+    public InstanceSettings withEnhancedEmailDeliverability(Optional<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         return this;
@@ -204,17 +200,17 @@ public class InstanceSettings {
         }
         InstanceSettings other = (InstanceSettings) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
-            java.util.Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
-            java.util.Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
-            java.util.Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
+            Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
+            Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
+            Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             restrictedToAllowlist,
@@ -238,15 +234,15 @@ public class InstanceSettings {
  
         private Optional<? extends InstanceSettingsObject> object = Optional.empty();
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
-        private Optional<? extends Boolean> restrictedToAllowlist = Optional.empty();
+        private Optional<Boolean> restrictedToAllowlist = Optional.empty();
  
-        private Optional<? extends String> fromEmailAddress = Optional.empty();
+        private Optional<String> fromEmailAddress = Optional.empty();
  
-        private Optional<? extends Boolean> progressiveSignUp = Optional.empty();
+        private Optional<Boolean> progressiveSignUp = Optional.empty();
  
-        private Optional<? extends Boolean> enhancedEmailDeliverability = Optional.empty();  
+        private Optional<Boolean> enhancedEmailDeliverability = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -276,7 +272,7 @@ public class InstanceSettings {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -288,7 +284,7 @@ public class InstanceSettings {
             return this;
         }
 
-        public Builder restrictedToAllowlist(Optional<? extends Boolean> restrictedToAllowlist) {
+        public Builder restrictedToAllowlist(Optional<Boolean> restrictedToAllowlist) {
             Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
             this.restrictedToAllowlist = restrictedToAllowlist;
             return this;
@@ -300,7 +296,7 @@ public class InstanceSettings {
             return this;
         }
 
-        public Builder fromEmailAddress(Optional<? extends String> fromEmailAddress) {
+        public Builder fromEmailAddress(Optional<String> fromEmailAddress) {
             Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
             this.fromEmailAddress = fromEmailAddress;
             return this;
@@ -312,7 +308,7 @@ public class InstanceSettings {
             return this;
         }
 
-        public Builder progressiveSignUp(Optional<? extends Boolean> progressiveSignUp) {
+        public Builder progressiveSignUp(Optional<Boolean> progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
             this.progressiveSignUp = progressiveSignUp;
             return this;
@@ -324,7 +320,7 @@ public class InstanceSettings {
             return this;
         }
 
-        public Builder enhancedEmailDeliverability(Optional<? extends Boolean> enhancedEmailDeliverability) {
+        public Builder enhancedEmailDeliverability(Optional<Boolean> enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = enhancedEmailDeliverability;
             return this;

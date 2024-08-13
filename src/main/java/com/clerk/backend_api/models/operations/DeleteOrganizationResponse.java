@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.Response {
+
+public class DeleteOrganizationResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
     /**
      * Deleted Object
      */
-    private Optional<? extends com.clerk.backend_api.models.components.DeletedObject> deletedObject;
+    private Optional<? extends DeletedObject> deletedObject;
 
     @JsonCreator
     public DeleteOrganizationResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.DeletedObject> deletedObject) {
+            Optional<? extends DeletedObject> deletedObject) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.DeletedObject> deletedObject() {
-        return (Optional<com.clerk.backend_api.models.components.DeletedObject>) deletedObject;
+    public Optional<DeletedObject> deletedObject() {
+        return (Optional<DeletedObject>) deletedObject;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
     /**
      * Deleted Object
      */
-    public DeleteOrganizationResponse withDeletedObject(com.clerk.backend_api.models.components.DeletedObject deletedObject) {
+    public DeleteOrganizationResponse withDeletedObject(DeletedObject deletedObject) {
         Utils.checkNotNull(deletedObject, "deletedObject");
         this.deletedObject = Optional.ofNullable(deletedObject);
         return this;
@@ -137,7 +141,7 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
     /**
      * Deleted Object
      */
-    public DeleteOrganizationResponse withDeletedObject(Optional<? extends com.clerk.backend_api.models.components.DeletedObject> deletedObject) {
+    public DeleteOrganizationResponse withDeletedObject(Optional<? extends DeletedObject> deletedObject) {
         Utils.checkNotNull(deletedObject, "deletedObject");
         this.deletedObject = deletedObject;
         return this;
@@ -153,15 +157,15 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
         }
         DeleteOrganizationResponse other = (DeleteOrganizationResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.deletedObject, other.deletedObject);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.deletedObject, other.deletedObject);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.DeletedObject> deletedObject = Optional.empty();  
+        private Optional<? extends DeletedObject> deletedObject = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
         /**
          * Deleted Object
          */
-        public Builder deletedObject(com.clerk.backend_api.models.components.DeletedObject deletedObject) {
+        public Builder deletedObject(DeletedObject deletedObject) {
             Utils.checkNotNull(deletedObject, "deletedObject");
             this.deletedObject = Optional.ofNullable(deletedObject);
             return this;
@@ -230,7 +234,7 @@ public class DeleteOrganizationResponse implements com.clerk.backend_api.utils.R
         /**
          * Deleted Object
          */
-        public Builder deletedObject(Optional<? extends com.clerk.backend_api.models.components.DeletedObject> deletedObject) {
+        public Builder deletedObject(Optional<? extends DeletedObject> deletedObject) {
             Utils.checkNotNull(deletedObject, "deletedObject");
             this.deletedObject = deletedObject;
             return this;

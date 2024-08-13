@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateDomainRequestBody {
 
@@ -27,7 +26,7 @@ public class UpdateDomainRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private JsonNullable<? extends String> name;
+    private JsonNullable<String> name;
 
     /**
      * The full URL of the proxy that will forward requests to Clerk's Frontend API.
@@ -35,12 +34,12 @@ public class UpdateDomainRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
-    private JsonNullable<? extends String> proxyUrl;
+    private JsonNullable<String> proxyUrl;
 
     @JsonCreator
     public UpdateDomainRequestBody(
-            @JsonProperty("name") JsonNullable<? extends String> name,
-            @JsonProperty("proxy_url") JsonNullable<? extends String> proxyUrl) {
+            @JsonProperty("name") JsonNullable<String> name,
+            @JsonProperty("proxy_url") JsonNullable<String> proxyUrl) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.name = name;
@@ -56,20 +55,18 @@ public class UpdateDomainRequestBody {
      * i.e `myhostname:3000`. For production instances, must be a valid FQDN,
      * i.e `mysite.com`. Cannot contain protocol scheme.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> name() {
-        return (JsonNullable<String>) name;
+        return name;
     }
 
     /**
      * The full URL of the proxy that will forward requests to Clerk's Frontend API.
      * Can only be updated for production instances.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> proxyUrl() {
-        return (JsonNullable<String>) proxyUrl;
+        return proxyUrl;
     }
 
     public final static Builder builder() {
@@ -92,7 +89,7 @@ public class UpdateDomainRequestBody {
      * i.e `myhostname:3000`. For production instances, must be a valid FQDN,
      * i.e `mysite.com`. Cannot contain protocol scheme.
      */
-    public UpdateDomainRequestBody withName(JsonNullable<? extends String> name) {
+    public UpdateDomainRequestBody withName(JsonNullable<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -112,7 +109,7 @@ public class UpdateDomainRequestBody {
      * The full URL of the proxy that will forward requests to Clerk's Frontend API.
      * Can only be updated for production instances.
      */
-    public UpdateDomainRequestBody withProxyUrl(JsonNullable<? extends String> proxyUrl) {
+    public UpdateDomainRequestBody withProxyUrl(JsonNullable<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.proxyUrl = proxyUrl;
         return this;
@@ -128,13 +125,13 @@ public class UpdateDomainRequestBody {
         }
         UpdateDomainRequestBody other = (UpdateDomainRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             proxyUrl);
     }
@@ -148,9 +145,9 @@ public class UpdateDomainRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends String> name = JsonNullable.undefined();
+        private JsonNullable<String> name = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> proxyUrl = JsonNullable.undefined();  
+        private JsonNullable<String> proxyUrl = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -172,7 +169,7 @@ public class UpdateDomainRequestBody {
          * i.e `myhostname:3000`. For production instances, must be a valid FQDN,
          * i.e `mysite.com`. Cannot contain protocol scheme.
          */
-        public Builder name(JsonNullable<? extends String> name) {
+        public Builder name(JsonNullable<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -192,7 +189,7 @@ public class UpdateDomainRequestBody {
          * The full URL of the proxy that will forward requests to Clerk's Frontend API.
          * Can only be updated for production instances.
          */
-        public Builder proxyUrl(JsonNullable<? extends String> proxyUrl) {
+        public Builder proxyUrl(JsonNullable<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = proxyUrl;
             return this;

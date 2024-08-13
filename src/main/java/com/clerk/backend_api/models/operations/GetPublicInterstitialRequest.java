@@ -4,17 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class GetPublicInterstitialRequest {
 
@@ -22,18 +21,18 @@ public class GetPublicInterstitialRequest {
      * The Frontend API key of your instance
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=frontendApi")
-    private Optional<? extends String> frontendApi;
+    private Optional<String> frontendApi;
 
     /**
      * The publishable key of your instance
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=publishable_key")
-    private Optional<? extends String> publishableKey;
+    private Optional<String> publishableKey;
 
     @JsonCreator
     public GetPublicInterstitialRequest(
-            Optional<? extends String> frontendApi,
-            Optional<? extends String> publishableKey) {
+            Optional<String> frontendApi,
+            Optional<String> publishableKey) {
         Utils.checkNotNull(frontendApi, "frontendApi");
         Utils.checkNotNull(publishableKey, "publishableKey");
         this.frontendApi = frontendApi;
@@ -47,19 +46,17 @@ public class GetPublicInterstitialRequest {
     /**
      * The Frontend API key of your instance
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> frontendApi() {
-        return (Optional<String>) frontendApi;
+        return frontendApi;
     }
 
     /**
      * The publishable key of your instance
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> publishableKey() {
-        return (Optional<String>) publishableKey;
+        return publishableKey;
     }
 
     public final static Builder builder() {
@@ -78,7 +75,7 @@ public class GetPublicInterstitialRequest {
     /**
      * The Frontend API key of your instance
      */
-    public GetPublicInterstitialRequest withFrontendApi(Optional<? extends String> frontendApi) {
+    public GetPublicInterstitialRequest withFrontendApi(Optional<String> frontendApi) {
         Utils.checkNotNull(frontendApi, "frontendApi");
         this.frontendApi = frontendApi;
         return this;
@@ -96,7 +93,7 @@ public class GetPublicInterstitialRequest {
     /**
      * The publishable key of your instance
      */
-    public GetPublicInterstitialRequest withPublishableKey(Optional<? extends String> publishableKey) {
+    public GetPublicInterstitialRequest withPublishableKey(Optional<String> publishableKey) {
         Utils.checkNotNull(publishableKey, "publishableKey");
         this.publishableKey = publishableKey;
         return this;
@@ -112,13 +109,13 @@ public class GetPublicInterstitialRequest {
         }
         GetPublicInterstitialRequest other = (GetPublicInterstitialRequest) o;
         return 
-            java.util.Objects.deepEquals(this.frontendApi, other.frontendApi) &&
-            java.util.Objects.deepEquals(this.publishableKey, other.publishableKey);
+            Objects.deepEquals(this.frontendApi, other.frontendApi) &&
+            Objects.deepEquals(this.publishableKey, other.publishableKey);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             frontendApi,
             publishableKey);
     }
@@ -132,9 +129,9 @@ public class GetPublicInterstitialRequest {
     
     public final static class Builder {
  
-        private Optional<? extends String> frontendApi = Optional.empty();
+        private Optional<String> frontendApi = Optional.empty();
  
-        private Optional<? extends String> publishableKey = Optional.empty();  
+        private Optional<String> publishableKey = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -152,7 +149,7 @@ public class GetPublicInterstitialRequest {
         /**
          * The Frontend API key of your instance
          */
-        public Builder frontendApi(Optional<? extends String> frontendApi) {
+        public Builder frontendApi(Optional<String> frontendApi) {
             Utils.checkNotNull(frontendApi, "frontendApi");
             this.frontendApi = frontendApi;
             return this;
@@ -170,7 +167,7 @@ public class GetPublicInterstitialRequest {
         /**
          * The publishable key of your instance
          */
-        public Builder publishableKey(Optional<? extends String> publishableKey) {
+        public Builder publishableKey(Optional<String> publishableKey) {
             Utils.checkNotNull(publishableKey, "publishableKey");
             this.publishableKey = publishableKey;
             return this;

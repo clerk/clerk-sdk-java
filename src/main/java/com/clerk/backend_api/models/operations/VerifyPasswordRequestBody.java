@@ -4,16 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class VerifyPasswordRequestBody {
 
@@ -61,12 +60,12 @@ public class VerifyPasswordRequestBody {
         }
         VerifyPasswordRequestBody other = (VerifyPasswordRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.password, other.password);
+            Objects.deepEquals(this.password, other.password);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             password);
     }
     

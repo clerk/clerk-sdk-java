@@ -4,16 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class CreateSessionTokenFromTemplateRequest {
 
@@ -87,13 +86,13 @@ public class CreateSessionTokenFromTemplateRequest {
         }
         CreateSessionTokenFromTemplateRequest other = (CreateSessionTokenFromTemplateRequest) o;
         return 
-            java.util.Objects.deepEquals(this.sessionId, other.sessionId) &&
-            java.util.Objects.deepEquals(this.templateName, other.templateName);
+            Objects.deepEquals(this.sessionId, other.sessionId) &&
+            Objects.deepEquals(this.templateName, other.templateName);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             sessionId,
             templateName);
     }

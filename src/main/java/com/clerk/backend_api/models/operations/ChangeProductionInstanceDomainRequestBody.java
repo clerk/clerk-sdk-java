@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class ChangeProductionInstanceDomainRequestBody {
 
@@ -25,11 +24,11 @@ public class ChangeProductionInstanceDomainRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("home_url")
-    private Optional<? extends String> homeUrl;
+    private Optional<String> homeUrl;
 
     @JsonCreator
     public ChangeProductionInstanceDomainRequestBody(
-            @JsonProperty("home_url") Optional<? extends String> homeUrl) {
+            @JsonProperty("home_url") Optional<String> homeUrl) {
         Utils.checkNotNull(homeUrl, "homeUrl");
         this.homeUrl = homeUrl;
     }
@@ -41,10 +40,9 @@ public class ChangeProductionInstanceDomainRequestBody {
     /**
      * The new home URL of the production instance e.g. https://www.example.com
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> homeUrl() {
-        return (Optional<String>) homeUrl;
+        return homeUrl;
     }
 
     public final static Builder builder() {
@@ -63,7 +61,7 @@ public class ChangeProductionInstanceDomainRequestBody {
     /**
      * The new home URL of the production instance e.g. https://www.example.com
      */
-    public ChangeProductionInstanceDomainRequestBody withHomeUrl(Optional<? extends String> homeUrl) {
+    public ChangeProductionInstanceDomainRequestBody withHomeUrl(Optional<String> homeUrl) {
         Utils.checkNotNull(homeUrl, "homeUrl");
         this.homeUrl = homeUrl;
         return this;
@@ -79,12 +77,12 @@ public class ChangeProductionInstanceDomainRequestBody {
         }
         ChangeProductionInstanceDomainRequestBody other = (ChangeProductionInstanceDomainRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.homeUrl, other.homeUrl);
+            Objects.deepEquals(this.homeUrl, other.homeUrl);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             homeUrl);
     }
     
@@ -96,7 +94,7 @@ public class ChangeProductionInstanceDomainRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> homeUrl = Optional.empty();  
+        private Optional<String> homeUrl = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -114,7 +112,7 @@ public class ChangeProductionInstanceDomainRequestBody {
         /**
          * The new home URL of the production instance e.g. https://www.example.com
          */
-        public Builder homeUrl(Optional<? extends String> homeUrl) {
+        public Builder homeUrl(Optional<String> homeUrl) {
             Utils.checkNotNull(homeUrl, "homeUrl");
             this.homeUrl = homeUrl;
             return this;

@@ -4,16 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class DeleteOAuthApplicationRequest {
 
@@ -61,12 +60,12 @@ public class DeleteOAuthApplicationRequest {
         }
         DeleteOAuthApplicationRequest other = (DeleteOAuthApplicationRequest) o;
         return 
-            java.util.Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId);
+            Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             oauthApplicationId);
     }
     

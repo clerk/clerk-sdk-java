@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.SignInToken;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Response {
+
+public class CreateSignInTokenResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.SignInToken> signInToken;
+    private Optional<? extends SignInToken> signInToken;
 
     @JsonCreator
     public CreateSignInTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.SignInToken> signInToken) {
+            Optional<? extends SignInToken> signInToken) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.SignInToken> signInToken() {
-        return (Optional<com.clerk.backend_api.models.components.SignInToken>) signInToken;
+    public Optional<SignInToken> signInToken() {
+        return (Optional<SignInToken>) signInToken;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
     /**
      * Success
      */
-    public CreateSignInTokenResponse withSignInToken(com.clerk.backend_api.models.components.SignInToken signInToken) {
+    public CreateSignInTokenResponse withSignInToken(SignInToken signInToken) {
         Utils.checkNotNull(signInToken, "signInToken");
         this.signInToken = Optional.ofNullable(signInToken);
         return this;
@@ -137,7 +141,7 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
     /**
      * Success
      */
-    public CreateSignInTokenResponse withSignInToken(Optional<? extends com.clerk.backend_api.models.components.SignInToken> signInToken) {
+    public CreateSignInTokenResponse withSignInToken(Optional<? extends SignInToken> signInToken) {
         Utils.checkNotNull(signInToken, "signInToken");
         this.signInToken = signInToken;
         return this;
@@ -153,15 +157,15 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
         }
         CreateSignInTokenResponse other = (CreateSignInTokenResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.signInToken, other.signInToken);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.signInToken, other.signInToken);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.SignInToken> signInToken = Optional.empty();  
+        private Optional<? extends SignInToken> signInToken = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
         /**
          * Success
          */
-        public Builder signInToken(com.clerk.backend_api.models.components.SignInToken signInToken) {
+        public Builder signInToken(SignInToken signInToken) {
             Utils.checkNotNull(signInToken, "signInToken");
             this.signInToken = Optional.ofNullable(signInToken);
             return this;
@@ -230,7 +234,7 @@ public class CreateSignInTokenResponse implements com.clerk.backend_api.utils.Re
         /**
          * Success
          */
-        public Builder signInToken(Optional<? extends com.clerk.backend_api.models.components.SignInToken> signInToken) {
+        public Builder signInToken(Optional<? extends SignInToken> signInToken) {
             Utils.checkNotNull(signInToken, "signInToken");
             this.signInToken = signInToken;
             return this;

@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.InvitationRevoked;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Response {
+
+public class RevokeInvitationResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked;
+    private Optional<? extends InvitationRevoked> invitationRevoked;
 
     @JsonCreator
     public RevokeInvitationResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked) {
+            Optional<? extends InvitationRevoked> invitationRevoked) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked() {
-        return (Optional<com.clerk.backend_api.models.components.InvitationRevoked>) invitationRevoked;
+    public Optional<InvitationRevoked> invitationRevoked() {
+        return (Optional<InvitationRevoked>) invitationRevoked;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public RevokeInvitationResponse withInvitationRevoked(com.clerk.backend_api.models.components.InvitationRevoked invitationRevoked) {
+    public RevokeInvitationResponse withInvitationRevoked(InvitationRevoked invitationRevoked) {
         Utils.checkNotNull(invitationRevoked, "invitationRevoked");
         this.invitationRevoked = Optional.ofNullable(invitationRevoked);
         return this;
@@ -137,7 +141,7 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public RevokeInvitationResponse withInvitationRevoked(Optional<? extends com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked) {
+    public RevokeInvitationResponse withInvitationRevoked(Optional<? extends InvitationRevoked> invitationRevoked) {
         Utils.checkNotNull(invitationRevoked, "invitationRevoked");
         this.invitationRevoked = invitationRevoked;
         return this;
@@ -153,15 +157,15 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
         }
         RevokeInvitationResponse other = (RevokeInvitationResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.invitationRevoked, other.invitationRevoked);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.invitationRevoked, other.invitationRevoked);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked = Optional.empty();  
+        private Optional<? extends InvitationRevoked> invitationRevoked = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder invitationRevoked(com.clerk.backend_api.models.components.InvitationRevoked invitationRevoked) {
+        public Builder invitationRevoked(InvitationRevoked invitationRevoked) {
             Utils.checkNotNull(invitationRevoked, "invitationRevoked");
             this.invitationRevoked = Optional.ofNullable(invitationRevoked);
             return this;
@@ -230,7 +234,7 @@ public class RevokeInvitationResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder invitationRevoked(Optional<? extends com.clerk.backend_api.models.components.InvitationRevoked> invitationRevoked) {
+        public Builder invitationRevoked(Optional<? extends InvitationRevoked> invitationRevoked) {
             Utils.checkNotNull(invitationRevoked, "invitationRevoked");
             this.invitationRevoked = invitationRevoked;
             return this;

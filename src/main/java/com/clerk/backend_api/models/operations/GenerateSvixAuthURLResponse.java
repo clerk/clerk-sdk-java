@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.SvixURL;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.Response {
+
+public class GenerateSvixAuthURLResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
     /**
      * Response that contains a temporary Svix URL to access management dashboard
      */
-    private Optional<? extends com.clerk.backend_api.models.components.SvixURL> svixURL;
+    private Optional<? extends SvixURL> svixURL;
 
     @JsonCreator
     public GenerateSvixAuthURLResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.SvixURL> svixURL) {
+            Optional<? extends SvixURL> svixURL) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.SvixURL> svixURL() {
-        return (Optional<com.clerk.backend_api.models.components.SvixURL>) svixURL;
+    public Optional<SvixURL> svixURL() {
+        return (Optional<SvixURL>) svixURL;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
     /**
      * Response that contains a temporary Svix URL to access management dashboard
      */
-    public GenerateSvixAuthURLResponse withSvixURL(com.clerk.backend_api.models.components.SvixURL svixURL) {
+    public GenerateSvixAuthURLResponse withSvixURL(SvixURL svixURL) {
         Utils.checkNotNull(svixURL, "svixURL");
         this.svixURL = Optional.ofNullable(svixURL);
         return this;
@@ -137,7 +141,7 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
     /**
      * Response that contains a temporary Svix URL to access management dashboard
      */
-    public GenerateSvixAuthURLResponse withSvixURL(Optional<? extends com.clerk.backend_api.models.components.SvixURL> svixURL) {
+    public GenerateSvixAuthURLResponse withSvixURL(Optional<? extends SvixURL> svixURL) {
         Utils.checkNotNull(svixURL, "svixURL");
         this.svixURL = svixURL;
         return this;
@@ -153,15 +157,15 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
         }
         GenerateSvixAuthURLResponse other = (GenerateSvixAuthURLResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.svixURL, other.svixURL);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.svixURL, other.svixURL);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.SvixURL> svixURL = Optional.empty();  
+        private Optional<? extends SvixURL> svixURL = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
         /**
          * Response that contains a temporary Svix URL to access management dashboard
          */
-        public Builder svixURL(com.clerk.backend_api.models.components.SvixURL svixURL) {
+        public Builder svixURL(SvixURL svixURL) {
             Utils.checkNotNull(svixURL, "svixURL");
             this.svixURL = Optional.ofNullable(svixURL);
             return this;
@@ -230,7 +234,7 @@ public class GenerateSvixAuthURLResponse implements com.clerk.backend_api.utils.
         /**
          * Response that contains a temporary Svix URL to access management dashboard
          */
-        public Builder svixURL(Optional<? extends com.clerk.backend_api.models.components.SvixURL> svixURL) {
+        public Builder svixURL(Optional<? extends SvixURL> svixURL) {
             Utils.checkNotNull(svixURL, "svixURL");
             this.svixURL = svixURL;
             return this;

@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class UpdateSignUpRequestBuilder {
 
@@ -27,19 +18,19 @@ public class UpdateSignUpRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateSignUpRequestBuilder id(String id) {
+    public UpdateSignUpRequestBuilder id(java.lang.String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
     }
                 
-    public UpdateSignUpRequestBuilder requestBody(UpdateSignUpRequestBody requestBody) {
+    public UpdateSignUpRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateSignUpRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateSignUpRequestBuilder requestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
+    public UpdateSignUpRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

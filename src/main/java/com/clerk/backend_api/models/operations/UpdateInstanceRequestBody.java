@@ -4,20 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
+import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateInstanceRequestBody {
 
@@ -27,14 +30,14 @@ public class UpdateInstanceRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("test_mode")
-    private JsonNullable<? extends Boolean> testMode;
+    private JsonNullable<Boolean> testMode;
 
     /**
      * Whether the instance should be using the HIBP service to check passwords for breaches
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("hibp")
-    private JsonNullable<? extends Boolean> hibp;
+    private JsonNullable<Boolean> hibp;
 
     /**
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
@@ -42,19 +45,19 @@ public class UpdateInstanceRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enhanced_email_deliverability")
-    private JsonNullable<? extends Boolean> enhancedEmailDeliverability;
+    private JsonNullable<Boolean> enhancedEmailDeliverability;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("support_email")
-    private JsonNullable<? extends String> supportEmail;
+    private JsonNullable<String> supportEmail;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("clerk_js_version")
-    private JsonNullable<? extends String> clerkJsVersion;
+    private JsonNullable<String> clerkJsVersion;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("development_origin")
-    private JsonNullable<? extends String> developmentOrigin;
+    private JsonNullable<String> developmentOrigin;
 
     /**
      * For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
@@ -62,7 +65,7 @@ public class UpdateInstanceRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_origins")
-    private Optional<? extends java.util.List<String>> allowedOrigins;
+    private Optional<? extends List<String>> allowedOrigins;
 
     /**
      * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
@@ -72,26 +75,26 @@ public class UpdateInstanceRequestBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("cookieless_dev")
     @Deprecated
-    private Optional<? extends Boolean> cookielessDev;
+    private Optional<Boolean> cookielessDev;
 
     /**
      * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url_based_session_syncing")
-    private Optional<? extends Boolean> urlBasedSessionSyncing;
+    private Optional<Boolean> urlBasedSessionSyncing;
 
     @JsonCreator
     public UpdateInstanceRequestBody(
-            @JsonProperty("test_mode") JsonNullable<? extends Boolean> testMode,
-            @JsonProperty("hibp") JsonNullable<? extends Boolean> hibp,
-            @JsonProperty("enhanced_email_deliverability") JsonNullable<? extends Boolean> enhancedEmailDeliverability,
-            @JsonProperty("support_email") JsonNullable<? extends String> supportEmail,
-            @JsonProperty("clerk_js_version") JsonNullable<? extends String> clerkJsVersion,
-            @JsonProperty("development_origin") JsonNullable<? extends String> developmentOrigin,
-            @JsonProperty("allowed_origins") Optional<? extends java.util.List<String>> allowedOrigins,
-            @JsonProperty("cookieless_dev") Optional<? extends Boolean> cookielessDev,
-            @JsonProperty("url_based_session_syncing") Optional<? extends Boolean> urlBasedSessionSyncing) {
+            @JsonProperty("test_mode") JsonNullable<Boolean> testMode,
+            @JsonProperty("hibp") JsonNullable<Boolean> hibp,
+            @JsonProperty("enhanced_email_deliverability") JsonNullable<Boolean> enhancedEmailDeliverability,
+            @JsonProperty("support_email") JsonNullable<String> supportEmail,
+            @JsonProperty("clerk_js_version") JsonNullable<String> clerkJsVersion,
+            @JsonProperty("development_origin") JsonNullable<String> developmentOrigin,
+            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
+            @JsonProperty("cookieless_dev") Optional<Boolean> cookielessDev,
+            @JsonProperty("url_based_session_syncing") Optional<Boolean> urlBasedSessionSyncing) {
         Utils.checkNotNull(testMode, "testMode");
         Utils.checkNotNull(hibp, "hibp");
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
@@ -120,47 +123,41 @@ public class UpdateInstanceRequestBody {
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> testMode() {
-        return (JsonNullable<Boolean>) testMode;
+        return testMode;
     }
 
     /**
      * Whether the instance should be using the HIBP service to check passwords for breaches
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> hibp() {
-        return (JsonNullable<Boolean>) hibp;
+        return hibp;
     }
 
     /**
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> enhancedEmailDeliverability() {
-        return (JsonNullable<Boolean>) enhancedEmailDeliverability;
+        return enhancedEmailDeliverability;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> supportEmail() {
-        return (JsonNullable<String>) supportEmail;
+        return supportEmail;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> clerkJsVersion() {
-        return (JsonNullable<String>) clerkJsVersion;
+        return clerkJsVersion;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> developmentOrigin() {
-        return (JsonNullable<String>) developmentOrigin;
+        return developmentOrigin;
     }
 
     /**
@@ -169,8 +166,8 @@ public class UpdateInstanceRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> allowedOrigins() {
-        return (Optional<java.util.List<String>>) allowedOrigins;
+    public Optional<List<String>> allowedOrigins() {
+        return (Optional<List<String>>) allowedOrigins;
     }
 
     /**
@@ -179,19 +176,17 @@ public class UpdateInstanceRequestBody {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> cookielessDev() {
-        return (Optional<Boolean>) cookielessDev;
+        return cookielessDev;
     }
 
     /**
      * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> urlBasedSessionSyncing() {
-        return (Optional<Boolean>) urlBasedSessionSyncing;
+        return urlBasedSessionSyncing;
     }
 
     public final static Builder builder() {
@@ -212,7 +207,7 @@ public class UpdateInstanceRequestBody {
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
-    public UpdateInstanceRequestBody withTestMode(JsonNullable<? extends Boolean> testMode) {
+    public UpdateInstanceRequestBody withTestMode(JsonNullable<Boolean> testMode) {
         Utils.checkNotNull(testMode, "testMode");
         this.testMode = testMode;
         return this;
@@ -230,7 +225,7 @@ public class UpdateInstanceRequestBody {
     /**
      * Whether the instance should be using the HIBP service to check passwords for breaches
      */
-    public UpdateInstanceRequestBody withHibp(JsonNullable<? extends Boolean> hibp) {
+    public UpdateInstanceRequestBody withHibp(JsonNullable<Boolean> hibp) {
         Utils.checkNotNull(hibp, "hibp");
         this.hibp = hibp;
         return this;
@@ -250,7 +245,7 @@ public class UpdateInstanceRequestBody {
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
-    public UpdateInstanceRequestBody withEnhancedEmailDeliverability(JsonNullable<? extends Boolean> enhancedEmailDeliverability) {
+    public UpdateInstanceRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         return this;
@@ -262,7 +257,7 @@ public class UpdateInstanceRequestBody {
         return this;
     }
 
-    public UpdateInstanceRequestBody withSupportEmail(JsonNullable<? extends String> supportEmail) {
+    public UpdateInstanceRequestBody withSupportEmail(JsonNullable<String> supportEmail) {
         Utils.checkNotNull(supportEmail, "supportEmail");
         this.supportEmail = supportEmail;
         return this;
@@ -274,7 +269,7 @@ public class UpdateInstanceRequestBody {
         return this;
     }
 
-    public UpdateInstanceRequestBody withClerkJsVersion(JsonNullable<? extends String> clerkJsVersion) {
+    public UpdateInstanceRequestBody withClerkJsVersion(JsonNullable<String> clerkJsVersion) {
         Utils.checkNotNull(clerkJsVersion, "clerkJsVersion");
         this.clerkJsVersion = clerkJsVersion;
         return this;
@@ -286,7 +281,7 @@ public class UpdateInstanceRequestBody {
         return this;
     }
 
-    public UpdateInstanceRequestBody withDevelopmentOrigin(JsonNullable<? extends String> developmentOrigin) {
+    public UpdateInstanceRequestBody withDevelopmentOrigin(JsonNullable<String> developmentOrigin) {
         Utils.checkNotNull(developmentOrigin, "developmentOrigin");
         this.developmentOrigin = developmentOrigin;
         return this;
@@ -296,7 +291,7 @@ public class UpdateInstanceRequestBody {
      * For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
      * For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
      */
-    public UpdateInstanceRequestBody withAllowedOrigins(java.util.List<String> allowedOrigins) {
+    public UpdateInstanceRequestBody withAllowedOrigins(List<String> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
         this.allowedOrigins = Optional.ofNullable(allowedOrigins);
         return this;
@@ -306,7 +301,7 @@ public class UpdateInstanceRequestBody {
      * For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
      * For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
      */
-    public UpdateInstanceRequestBody withAllowedOrigins(Optional<? extends java.util.List<String>> allowedOrigins) {
+    public UpdateInstanceRequestBody withAllowedOrigins(Optional<? extends List<String>> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
         this.allowedOrigins = allowedOrigins;
         return this;
@@ -330,7 +325,7 @@ public class UpdateInstanceRequestBody {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpdateInstanceRequestBody withCookielessDev(Optional<? extends Boolean> cookielessDev) {
+    public UpdateInstanceRequestBody withCookielessDev(Optional<Boolean> cookielessDev) {
         Utils.checkNotNull(cookielessDev, "cookielessDev");
         this.cookielessDev = cookielessDev;
         return this;
@@ -348,7 +343,7 @@ public class UpdateInstanceRequestBody {
     /**
      * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
      */
-    public UpdateInstanceRequestBody withUrlBasedSessionSyncing(Optional<? extends Boolean> urlBasedSessionSyncing) {
+    public UpdateInstanceRequestBody withUrlBasedSessionSyncing(Optional<Boolean> urlBasedSessionSyncing) {
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
         this.urlBasedSessionSyncing = urlBasedSessionSyncing;
         return this;
@@ -364,20 +359,20 @@ public class UpdateInstanceRequestBody {
         }
         UpdateInstanceRequestBody other = (UpdateInstanceRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.testMode, other.testMode) &&
-            java.util.Objects.deepEquals(this.hibp, other.hibp) &&
-            java.util.Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
-            java.util.Objects.deepEquals(this.supportEmail, other.supportEmail) &&
-            java.util.Objects.deepEquals(this.clerkJsVersion, other.clerkJsVersion) &&
-            java.util.Objects.deepEquals(this.developmentOrigin, other.developmentOrigin) &&
-            java.util.Objects.deepEquals(this.allowedOrigins, other.allowedOrigins) &&
-            java.util.Objects.deepEquals(this.cookielessDev, other.cookielessDev) &&
-            java.util.Objects.deepEquals(this.urlBasedSessionSyncing, other.urlBasedSessionSyncing);
+            Objects.deepEquals(this.testMode, other.testMode) &&
+            Objects.deepEquals(this.hibp, other.hibp) &&
+            Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
+            Objects.deepEquals(this.supportEmail, other.supportEmail) &&
+            Objects.deepEquals(this.clerkJsVersion, other.clerkJsVersion) &&
+            Objects.deepEquals(this.developmentOrigin, other.developmentOrigin) &&
+            Objects.deepEquals(this.allowedOrigins, other.allowedOrigins) &&
+            Objects.deepEquals(this.cookielessDev, other.cookielessDev) &&
+            Objects.deepEquals(this.urlBasedSessionSyncing, other.urlBasedSessionSyncing);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             testMode,
             hibp,
             enhancedEmailDeliverability,
@@ -405,24 +400,24 @@ public class UpdateInstanceRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Boolean> testMode = JsonNullable.undefined();
+        private JsonNullable<Boolean> testMode = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> hibp = JsonNullable.undefined();
+        private JsonNullable<Boolean> hibp = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
+        private JsonNullable<Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> supportEmail = JsonNullable.undefined();
+        private JsonNullable<String> supportEmail = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> clerkJsVersion = JsonNullable.undefined();
+        private JsonNullable<String> clerkJsVersion = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> developmentOrigin = JsonNullable.undefined();
+        private JsonNullable<String> developmentOrigin = JsonNullable.undefined();
  
-        private Optional<? extends java.util.List<String>> allowedOrigins = Optional.empty();
+        private Optional<? extends List<String>> allowedOrigins = Optional.empty();
  
         @Deprecated
-        private Optional<? extends Boolean> cookielessDev = Optional.empty();
+        private Optional<Boolean> cookielessDev = Optional.empty();
  
-        private Optional<? extends Boolean> urlBasedSessionSyncing = Optional.empty();  
+        private Optional<Boolean> urlBasedSessionSyncing = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -442,7 +437,7 @@ public class UpdateInstanceRequestBody {
          * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
          * Defaults to true for development instances.
          */
-        public Builder testMode(JsonNullable<? extends Boolean> testMode) {
+        public Builder testMode(JsonNullable<Boolean> testMode) {
             Utils.checkNotNull(testMode, "testMode");
             this.testMode = testMode;
             return this;
@@ -460,7 +455,7 @@ public class UpdateInstanceRequestBody {
         /**
          * Whether the instance should be using the HIBP service to check passwords for breaches
          */
-        public Builder hibp(JsonNullable<? extends Boolean> hibp) {
+        public Builder hibp(JsonNullable<Boolean> hibp) {
             Utils.checkNotNull(hibp, "hibp");
             this.hibp = hibp;
             return this;
@@ -480,7 +475,7 @@ public class UpdateInstanceRequestBody {
          * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
-        public Builder enhancedEmailDeliverability(JsonNullable<? extends Boolean> enhancedEmailDeliverability) {
+        public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = enhancedEmailDeliverability;
             return this;
@@ -492,7 +487,7 @@ public class UpdateInstanceRequestBody {
             return this;
         }
 
-        public Builder supportEmail(JsonNullable<? extends String> supportEmail) {
+        public Builder supportEmail(JsonNullable<String> supportEmail) {
             Utils.checkNotNull(supportEmail, "supportEmail");
             this.supportEmail = supportEmail;
             return this;
@@ -504,7 +499,7 @@ public class UpdateInstanceRequestBody {
             return this;
         }
 
-        public Builder clerkJsVersion(JsonNullable<? extends String> clerkJsVersion) {
+        public Builder clerkJsVersion(JsonNullable<String> clerkJsVersion) {
             Utils.checkNotNull(clerkJsVersion, "clerkJsVersion");
             this.clerkJsVersion = clerkJsVersion;
             return this;
@@ -516,7 +511,7 @@ public class UpdateInstanceRequestBody {
             return this;
         }
 
-        public Builder developmentOrigin(JsonNullable<? extends String> developmentOrigin) {
+        public Builder developmentOrigin(JsonNullable<String> developmentOrigin) {
             Utils.checkNotNull(developmentOrigin, "developmentOrigin");
             this.developmentOrigin = developmentOrigin;
             return this;
@@ -526,7 +521,7 @@ public class UpdateInstanceRequestBody {
          * For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
          * For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
          */
-        public Builder allowedOrigins(java.util.List<String> allowedOrigins) {
+        public Builder allowedOrigins(List<String> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
             this.allowedOrigins = Optional.ofNullable(allowedOrigins);
             return this;
@@ -536,7 +531,7 @@ public class UpdateInstanceRequestBody {
          * For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.
          * For Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
          */
-        public Builder allowedOrigins(Optional<? extends java.util.List<String>> allowedOrigins) {
+        public Builder allowedOrigins(Optional<? extends List<String>> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
             this.allowedOrigins = allowedOrigins;
             return this;
@@ -560,7 +555,7 @@ public class UpdateInstanceRequestBody {
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
         @Deprecated
-        public Builder cookielessDev(Optional<? extends Boolean> cookielessDev) {
+        public Builder cookielessDev(Optional<Boolean> cookielessDev) {
             Utils.checkNotNull(cookielessDev, "cookielessDev");
             this.cookielessDev = cookielessDev;
             return this;
@@ -578,7 +573,7 @@ public class UpdateInstanceRequestBody {
         /**
          * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
          */
-        public Builder urlBasedSessionSyncing(Optional<? extends Boolean> urlBasedSessionSyncing) {
+        public Builder urlBasedSessionSyncing(Optional<Boolean> urlBasedSessionSyncing) {
             Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
             this.urlBasedSessionSyncing = urlBasedSessionSyncing;
             return this;

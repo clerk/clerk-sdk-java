@@ -4,21 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 /**
  * CreateInvitationRequestBody - Required parameters
  */
@@ -46,7 +48,7 @@ public class CreateInvitationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
-    private Optional<? extends String> redirectUrl;
+    private Optional<String> redirectUrl;
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
@@ -54,22 +56,22 @@ public class CreateInvitationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("notify")
-    private JsonNullable<? extends Boolean> notify_;
+    private JsonNullable<Boolean> notify_;
 
     /**
      * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ignore_existing")
-    private JsonNullable<? extends Boolean> ignoreExisting;
+    private JsonNullable<Boolean> ignoreExisting;
 
     @JsonCreator
     public CreateInvitationRequestBody(
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("public_metadata") Optional<? extends CreateInvitationPublicMetadata> publicMetadata,
-            @JsonProperty("redirect_url") Optional<? extends String> redirectUrl,
-            @JsonProperty("notify") JsonNullable<? extends Boolean> notify_,
-            @JsonProperty("ignore_existing") JsonNullable<? extends Boolean> ignoreExisting) {
+            @JsonProperty("redirect_url") Optional<String> redirectUrl,
+            @JsonProperty("notify") JsonNullable<Boolean> notify_,
+            @JsonProperty("ignore_existing") JsonNullable<Boolean> ignoreExisting) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -110,29 +112,26 @@ public class CreateInvitationRequestBody {
      * Optional URL which specifies where to redirect the user once they click the invitation link.
      * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> redirectUrl() {
-        return (Optional<String>) redirectUrl;
+        return redirectUrl;
     }
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
      * Defaults to true.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> notify_() {
-        return (JsonNullable<Boolean>) notify_;
+        return notify_;
     }
 
     /**
      * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> ignoreExisting() {
-        return (JsonNullable<Boolean>) ignoreExisting;
+        return ignoreExisting;
     }
 
     public final static Builder builder() {
@@ -184,7 +183,7 @@ public class CreateInvitationRequestBody {
      * Optional URL which specifies where to redirect the user once they click the invitation link.
      * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
      */
-    public CreateInvitationRequestBody withRedirectUrl(Optional<? extends String> redirectUrl) {
+    public CreateInvitationRequestBody withRedirectUrl(Optional<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         this.redirectUrl = redirectUrl;
         return this;
@@ -204,7 +203,7 @@ public class CreateInvitationRequestBody {
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
      * Defaults to true.
      */
-    public CreateInvitationRequestBody withNotify(JsonNullable<? extends Boolean> notify_) {
+    public CreateInvitationRequestBody withNotify(JsonNullable<Boolean> notify_) {
         Utils.checkNotNull(notify_, "notify_");
         this.notify_ = notify_;
         return this;
@@ -222,7 +221,7 @@ public class CreateInvitationRequestBody {
     /**
      * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
      */
-    public CreateInvitationRequestBody withIgnoreExisting(JsonNullable<? extends Boolean> ignoreExisting) {
+    public CreateInvitationRequestBody withIgnoreExisting(JsonNullable<Boolean> ignoreExisting) {
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
         this.ignoreExisting = ignoreExisting;
         return this;
@@ -238,16 +237,16 @@ public class CreateInvitationRequestBody {
         }
         CreateInvitationRequestBody other = (CreateInvitationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
-            java.util.Objects.deepEquals(this.notify_, other.notify_) &&
-            java.util.Objects.deepEquals(this.ignoreExisting, other.ignoreExisting);
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
+            Objects.deepEquals(this.notify_, other.notify_) &&
+            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             emailAddress,
             publicMetadata,
             redirectUrl,
@@ -271,11 +270,11 @@ public class CreateInvitationRequestBody {
  
         private Optional<? extends CreateInvitationPublicMetadata> publicMetadata = Optional.empty();
  
-        private Optional<? extends String> redirectUrl = Optional.empty();
+        private Optional<String> redirectUrl = Optional.empty();
  
-        private JsonNullable<? extends Boolean> notify_;
+        private JsonNullable<Boolean> notify_;
  
-        private JsonNullable<? extends Boolean> ignoreExisting;  
+        private JsonNullable<Boolean> ignoreExisting;  
         
         private Builder() {
           // force use of static builder() method
@@ -326,7 +325,7 @@ public class CreateInvitationRequestBody {
          * Optional URL which specifies where to redirect the user once they click the invitation link.
          * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
          */
-        public Builder redirectUrl(Optional<? extends String> redirectUrl) {
+        public Builder redirectUrl(Optional<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
             this.redirectUrl = redirectUrl;
             return this;
@@ -346,7 +345,7 @@ public class CreateInvitationRequestBody {
          * Optional flag which denotes whether an email invitation should be sent to the given email address.
          * Defaults to true.
          */
-        public Builder notify_(JsonNullable<? extends Boolean> notify_) {
+        public Builder notify_(JsonNullable<Boolean> notify_) {
             Utils.checkNotNull(notify_, "notify_");
             this.notify_ = notify_;
             return this;
@@ -364,7 +363,7 @@ public class CreateInvitationRequestBody {
         /**
          * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
          */
-        public Builder ignoreExisting(JsonNullable<? extends Boolean> ignoreExisting) {
+        public Builder ignoreExisting(JsonNullable<Boolean> ignoreExisting) {
             Utils.checkNotNull(ignoreExisting, "ignoreExisting");
             this.ignoreExisting = ignoreExisting;
             return this;
@@ -385,17 +384,17 @@ public class CreateInvitationRequestBody {
                 ignoreExisting);
         }
 
-        private static final LazySingletonValue<JsonNullable<? extends Boolean>> _SINGLETON_VALUE_Notify =
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(
                         "notify",
                         "true",
-                        new TypeReference<JsonNullable<? extends Boolean>>() {});
+                        new TypeReference<JsonNullable<Boolean>>() {});
 
-        private static final LazySingletonValue<JsonNullable<? extends Boolean>> _SINGLETON_VALUE_IgnoreExisting =
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_IgnoreExisting =
                 new LazySingletonValue<>(
                         "ignore_existing",
                         "false",
-                        new TypeReference<JsonNullable<? extends Boolean>>() {});
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }
 

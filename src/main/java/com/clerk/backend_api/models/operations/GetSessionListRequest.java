@@ -4,18 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class GetSessionListRequest {
 
@@ -23,13 +25,13 @@ public class GetSessionListRequest {
      * List sessions for the given client
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=client_id")
-    private Optional<? extends String> clientId;
+    private Optional<String> clientId;
 
     /**
      * List sessions for the given user
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
-    private Optional<? extends String> userId;
+    private Optional<String> userId;
 
     /**
      * Filter sessions by the provided status
@@ -42,7 +44,7 @@ public class GetSessionListRequest {
      * Can be used for paginating the results together with `offset`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=limit")
-    private Optional<? extends Long> limit;
+    private Optional<Long> limit;
 
     /**
      * Skip the first `offset` results when paginating.
@@ -50,15 +52,15 @@ public class GetSessionListRequest {
      * To be used in conjunction with `limit`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=offset")
-    private Optional<? extends Long> offset;
+    private Optional<Long> offset;
 
     @JsonCreator
     public GetSessionListRequest(
-            Optional<? extends String> clientId,
-            Optional<? extends String> userId,
+            Optional<String> clientId,
+            Optional<String> userId,
             Optional<? extends Status> status,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) {
+            Optional<Long> limit,
+            Optional<Long> offset) {
         Utils.checkNotNull(clientId, "clientId");
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(status, "status");
@@ -78,19 +80,17 @@ public class GetSessionListRequest {
     /**
      * List sessions for the given client
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> clientId() {
-        return (Optional<String>) clientId;
+        return clientId;
     }
 
     /**
      * List sessions for the given user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> userId() {
-        return (Optional<String>) userId;
+        return userId;
     }
 
     /**
@@ -106,10 +106,9 @@ public class GetSessionListRequest {
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> limit() {
-        return (Optional<Long>) limit;
+        return limit;
     }
 
     /**
@@ -117,10 +116,9 @@ public class GetSessionListRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> offset() {
-        return (Optional<Long>) offset;
+        return offset;
     }
 
     public final static Builder builder() {
@@ -139,7 +137,7 @@ public class GetSessionListRequest {
     /**
      * List sessions for the given client
      */
-    public GetSessionListRequest withClientId(Optional<? extends String> clientId) {
+    public GetSessionListRequest withClientId(Optional<String> clientId) {
         Utils.checkNotNull(clientId, "clientId");
         this.clientId = clientId;
         return this;
@@ -157,7 +155,7 @@ public class GetSessionListRequest {
     /**
      * List sessions for the given user
      */
-    public GetSessionListRequest withUserId(Optional<? extends String> userId) {
+    public GetSessionListRequest withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -195,7 +193,7 @@ public class GetSessionListRequest {
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    public GetSessionListRequest withLimit(Optional<? extends Long> limit) {
+    public GetSessionListRequest withLimit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -217,7 +215,7 @@ public class GetSessionListRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    public GetSessionListRequest withOffset(Optional<? extends Long> offset) {
+    public GetSessionListRequest withOffset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
@@ -233,16 +231,16 @@ public class GetSessionListRequest {
         }
         GetSessionListRequest other = (GetSessionListRequest) o;
         return 
-            java.util.Objects.deepEquals(this.clientId, other.clientId) &&
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.limit, other.limit) &&
-            java.util.Objects.deepEquals(this.offset, other.offset);
+            Objects.deepEquals(this.clientId, other.clientId) &&
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.limit, other.limit) &&
+            Objects.deepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             clientId,
             userId,
             status,
@@ -262,15 +260,15 @@ public class GetSessionListRequest {
     
     public final static class Builder {
  
-        private Optional<? extends String> clientId = Optional.empty();
+        private Optional<String> clientId = Optional.empty();
  
-        private Optional<? extends String> userId = Optional.empty();
+        private Optional<String> userId = Optional.empty();
  
         private Optional<? extends Status> status = Optional.empty();
  
-        private Optional<? extends Long> limit;
+        private Optional<Long> limit;
  
-        private Optional<? extends Long> offset;  
+        private Optional<Long> offset;  
         
         private Builder() {
           // force use of static builder() method
@@ -288,7 +286,7 @@ public class GetSessionListRequest {
         /**
          * List sessions for the given client
          */
-        public Builder clientId(Optional<? extends String> clientId) {
+        public Builder clientId(Optional<String> clientId) {
             Utils.checkNotNull(clientId, "clientId");
             this.clientId = clientId;
             return this;
@@ -306,7 +304,7 @@ public class GetSessionListRequest {
         /**
          * List sessions for the given user
          */
-        public Builder userId(Optional<? extends String> userId) {
+        public Builder userId(Optional<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
@@ -344,7 +342,7 @@ public class GetSessionListRequest {
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
          */
-        public Builder limit(Optional<? extends Long> limit) {
+        public Builder limit(Optional<Long> limit) {
             Utils.checkNotNull(limit, "limit");
             this.limit = limit;
             return this;
@@ -366,7 +364,7 @@ public class GetSessionListRequest {
          * Needs to be an integer greater or equal to zero.
          * To be used in conjunction with `limit`.
          */
-        public Builder offset(Optional<? extends Long> offset) {
+        public Builder offset(Optional<Long> offset) {
             Utils.checkNotNull(offset, "offset");
             this.offset = offset;
             return this;
@@ -387,17 +385,17 @@ public class GetSessionListRequest {
                 offset);
         }
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Limit =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(
                         "limit",
                         "10",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Offset =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
                 new LazySingletonValue<>(
                         "offset",
                         "0",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
     }
 }
 

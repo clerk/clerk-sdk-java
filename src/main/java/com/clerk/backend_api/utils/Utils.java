@@ -551,6 +551,10 @@ public final class Utils {
         return JSON.getMapper().readValue(json, typeReference);
     }
     
+    public static byte[] extractByteArrayFromBody(HttpResponse<InputStream> response) throws IOException {
+        return toByteArrayAndClose(response.body());   
+    }
+    
     public static byte[] toByteArrayAndClose(InputStream in) throws IOException {
         try {
             return IOUtils.toByteArray(in);

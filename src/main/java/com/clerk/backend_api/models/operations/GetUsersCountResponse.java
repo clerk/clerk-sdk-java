@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.TotalCount;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetUsersCountResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetUsersCountResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.TotalCount> totalCount;
+    private Optional<? extends TotalCount> totalCount;
 
     @JsonCreator
     public GetUsersCountResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.TotalCount> totalCount) {
+            Optional<? extends TotalCount> totalCount) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.TotalCount> totalCount() {
-        return (Optional<com.clerk.backend_api.models.components.TotalCount>) totalCount;
+    public Optional<TotalCount> totalCount() {
+        return (Optional<TotalCount>) totalCount;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public GetUsersCountResponse withTotalCount(com.clerk.backend_api.models.components.TotalCount totalCount) {
+    public GetUsersCountResponse withTotalCount(TotalCount totalCount) {
         Utils.checkNotNull(totalCount, "totalCount");
         this.totalCount = Optional.ofNullable(totalCount);
         return this;
@@ -137,7 +141,7 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public GetUsersCountResponse withTotalCount(Optional<? extends com.clerk.backend_api.models.components.TotalCount> totalCount) {
+    public GetUsersCountResponse withTotalCount(Optional<? extends TotalCount> totalCount) {
         Utils.checkNotNull(totalCount, "totalCount");
         this.totalCount = totalCount;
         return this;
@@ -153,15 +157,15 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
         }
         GetUsersCountResponse other = (GetUsersCountResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.totalCount, other.totalCount);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.TotalCount> totalCount = Optional.empty();  
+        private Optional<? extends TotalCount> totalCount = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder totalCount(com.clerk.backend_api.models.components.TotalCount totalCount) {
+        public Builder totalCount(TotalCount totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");
             this.totalCount = Optional.ofNullable(totalCount);
             return this;
@@ -230,7 +234,7 @@ public class GetUsersCountResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder totalCount(Optional<? extends com.clerk.backend_api.models.components.TotalCount> totalCount) {
+        public Builder totalCount(Optional<? extends TotalCount> totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");
             this.totalCount = totalCount;
             return this;

@@ -6,8 +6,6 @@ package com.clerk.backend_api.utils;
 
 import java.util.Optional;
 import java.util.List;
-import com.clerk.backend_api.utils.Utils;
-
 
 public class Options {
 

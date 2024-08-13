@@ -4,32 +4,53 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.OAuthApplication;
+import com.clerk.backend_api.models.components.OAuthApplicationWithSecret;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse;
+import com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequest;
+import com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse;
+import com.clerk.backend_api.models.operations.GetOAuthApplicationRequest;
+import com.clerk.backend_api.models.operations.GetOAuthApplicationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetOAuthApplicationResponse;
+import com.clerk.backend_api.models.operations.ListOAuthApplicationsRequest;
+import com.clerk.backend_api.models.operations.ListOAuthApplicationsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse;
+import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequest;
+import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequestBuilder;
+import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class OAuthApplications implements
             MethodCallListOAuthApplications,
@@ -54,8 +75,8 @@ public class OAuthApplications implements
      * Most recent OAuth applications will be returned first.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListOAuthApplicationsRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListOAuthApplicationsRequestBuilder(this);
+    public ListOAuthApplicationsRequestBuilder list() {
+        return new ListOAuthApplicationsRequestBuilder(this);
     }
 
     /**
@@ -67,9 +88,10 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse listDirect() throws Exception {
+    public ListOAuthApplicationsResponse listDirect() throws Exception {
         return list(Optional.empty(), Optional.empty());
     }
+    
     /**
      * Get a list of OAuth applications for an instance
      * This request returns the list of OAuth applications for an instance.
@@ -84,11 +106,11 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception {
-        com.clerk.backend_api.models.operations.ListOAuthApplicationsRequest request =
-            com.clerk.backend_api.models.operations.ListOAuthApplicationsRequest
+    public ListOAuthApplicationsResponse list(
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception {
+        ListOAuthApplicationsRequest request =
+            ListOAuthApplicationsRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
@@ -105,7 +127,7 @@ public class OAuthApplications implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListOAuthApplicationsRequest.class,
+                ListOAuthApplicationsRequest.class,
                 request, 
                 null));
 
@@ -116,7 +138,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListOAuthApplications", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListOAuthApplications", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -124,18 +149,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListOAuthApplications", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListOAuthApplications",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListOAuthApplications", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListOAuthApplications",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListOAuthApplications", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListOAuthApplications",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -143,11 +178,11 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse
+        ListOAuthApplicationsResponse.Builder _resBuilder = 
+            ListOAuthApplicationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -170,21 +205,21 @@ public class OAuthApplications implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListOAuthApplicationsRequestBuilder _ret = list();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    ListOAuthApplicationsRequestBuilder _ret = list();
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse _res = _resBuilder.build();
+        ListOAuthApplicationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OAuthApplications _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
                     new TypeReference<com.clerk.backend_api.models.components.OAuthApplications>() {});
-                _res.withOAuthApplications(java.util.Optional.ofNullable(_out));
+                _res.withOAuthApplications(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -196,9 +231,9 @@ public class OAuthApplications implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -232,8 +267,8 @@ public class OAuthApplications implements
      * All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBuilder(this);
+    public CreateOAuthApplicationRequestBuilder create() {
+        return new CreateOAuthApplicationRequestBuilder(this);
     }
 
     /**
@@ -244,9 +279,10 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse createDirect() throws Exception {
+    public CreateOAuthApplicationResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create an OAuth application
      * Creates a new OAuth application with the given name and callback URL for an instance.
@@ -256,18 +292,23 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody> request) throws Exception {
+    public CreateOAuthApplicationResponse create(
+            Optional<? extends CreateOAuthApplicationRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/oauth_applications");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateOAuthApplicationRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -280,7 +321,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateOAuthApplication", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -288,18 +332,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateOAuthApplication",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -307,42 +361,42 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse
+        CreateOAuthApplicationResponse.Builder _resBuilder = 
+            CreateOAuthApplicationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse _res = _resBuilder.build();
+        CreateOAuthApplicationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OAuthApplicationWithSecret _out = Utils.mapper().readValue(
+                OAuthApplicationWithSecret _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OAuthApplicationWithSecret>() {});
-                _res.withOAuthApplicationWithSecret(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OAuthApplicationWithSecret>() {});
+                _res.withOAuthApplicationWithSecret(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -351,13 +405,13 @@ public class OAuthApplications implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -367,8 +421,8 @@ public class OAuthApplications implements
      * Fetches the OAuth application whose ID matches the provided `id` in the path.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetOAuthApplicationRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetOAuthApplicationRequestBuilder(this);
+    public GetOAuthApplicationRequestBuilder get() {
+        return new GetOAuthApplicationRequestBuilder(this);
     }
 
     /**
@@ -378,17 +432,17 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetOAuthApplicationResponse get(
+    public GetOAuthApplicationResponse get(
             String oauthApplicationId) throws Exception {
-        com.clerk.backend_api.models.operations.GetOAuthApplicationRequest request =
-            com.clerk.backend_api.models.operations.GetOAuthApplicationRequest
+        GetOAuthApplicationRequest request =
+            GetOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetOAuthApplicationRequest.class,
+                GetOAuthApplicationRequest.class,
                 _baseUrl,
                 "/oauth_applications/{oauth_application_id}",
                 request, null);
@@ -405,7 +459,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetOAuthApplication", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -413,18 +470,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetOAuthApplication",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -432,42 +499,42 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetOAuthApplicationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetOAuthApplicationResponse
+        GetOAuthApplicationResponse.Builder _resBuilder = 
+            GetOAuthApplicationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetOAuthApplicationResponse _res = _resBuilder.build();
+        GetOAuthApplicationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OAuthApplication _out = Utils.mapper().readValue(
+                OAuthApplication _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OAuthApplication>() {});
-                _res.withOAuthApplication(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OAuthApplication>() {});
+                _res.withOAuthApplication(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -476,13 +543,13 @@ public class OAuthApplications implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -492,8 +559,8 @@ public class OAuthApplications implements
      * Updates an existing OAuth application
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBuilder updateApplication() {
-        return new com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBuilder(this);
+    public UpdateOAuthApplicationRequestBuilder updateApplication() {
+        return new UpdateOAuthApplicationRequestBuilder(this);
     }
 
     /**
@@ -504,11 +571,11 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse updateApplication(
+    public UpdateOAuthApplicationResponse updateApplication(
             String oauthApplicationId,
-            com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest request =
-            com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest
+            UpdateOAuthApplicationRequestBody requestBody) throws Exception {
+        UpdateOAuthApplicationRequest request =
+            UpdateOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .requestBody(requestBody)
@@ -516,16 +583,21 @@ public class OAuthApplications implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest.class,
+                UpdateOAuthApplicationRequest.class,
                 _baseUrl,
                 "/oauth_applications/{oauth_application_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -541,7 +613,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateOAuthApplication", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -549,18 +624,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateOAuthApplication",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -568,42 +653,42 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse
+        UpdateOAuthApplicationResponse.Builder _resBuilder = 
+            UpdateOAuthApplicationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse _res = _resBuilder.build();
+        UpdateOAuthApplicationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OAuthApplication _out = Utils.mapper().readValue(
+                OAuthApplication _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OAuthApplication>() {});
-                _res.withOAuthApplication(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OAuthApplication>() {});
+                _res.withOAuthApplication(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -612,13 +697,13 @@ public class OAuthApplications implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -629,8 +714,8 @@ public class OAuthApplications implements
      * This is not reversible.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequestBuilder(this);
+    public DeleteOAuthApplicationRequestBuilder delete() {
+        return new DeleteOAuthApplicationRequestBuilder(this);
     }
 
     /**
@@ -641,17 +726,17 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse delete(
+    public DeleteOAuthApplicationResponse delete(
             String oauthApplicationId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequest request =
-            com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequest
+        DeleteOAuthApplicationRequest request =
+            DeleteOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteOAuthApplicationRequest.class,
+                DeleteOAuthApplicationRequest.class,
                 _baseUrl,
                 "/oauth_applications/{oauth_application_id}",
                 request, null);
@@ -668,7 +753,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteOAuthApplication", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -676,18 +764,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteOAuthApplication",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteOAuthApplication", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteOAuthApplication",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -695,42 +793,42 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse
+        DeleteOAuthApplicationResponse.Builder _resBuilder = 
+            DeleteOAuthApplicationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse _res = _resBuilder.build();
+        DeleteOAuthApplicationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -739,13 +837,13 @@ public class OAuthApplications implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -756,8 +854,8 @@ public class OAuthApplications implements
      * When the client secret is rotated, make sure to update it in authorized OAuth clients.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequestBuilder rotateSecret() {
-        return new com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequestBuilder(this);
+    public RotateOAuthApplicationSecretRequestBuilder rotateSecret() {
+        return new RotateOAuthApplicationSecretRequestBuilder(this);
     }
 
     /**
@@ -768,17 +866,17 @@ public class OAuthApplications implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse rotateSecret(
+    public RotateOAuthApplicationSecretResponse rotateSecret(
             String oauthApplicationId) throws Exception {
-        com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequest request =
-            com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequest
+        RotateOAuthApplicationSecretRequest request =
+            RotateOAuthApplicationSecretRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequest.class,
+                RotateOAuthApplicationSecretRequest.class,
                 _baseUrl,
                 "/oauth_applications/{oauth_application_id}/rotate_secret",
                 request, null);
@@ -795,7 +893,10 @@ public class OAuthApplications implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("RotateOAuthApplicationSecret", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "RotateOAuthApplicationSecret", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -803,18 +904,28 @@ public class OAuthApplications implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("RotateOAuthApplicationSecret", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "RotateOAuthApplicationSecret",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("RotateOAuthApplicationSecret", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "RotateOAuthApplicationSecret",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("RotateOAuthApplicationSecret", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RotateOAuthApplicationSecret",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -822,42 +933,42 @@ public class OAuthApplications implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse
+        RotateOAuthApplicationSecretResponse.Builder _resBuilder = 
+            RotateOAuthApplicationSecretResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse _res = _resBuilder.build();
+        RotateOAuthApplicationSecretResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OAuthApplicationWithSecret _out = Utils.mapper().readValue(
+                OAuthApplicationWithSecret _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OAuthApplicationWithSecret>() {});
-                _res.withOAuthApplicationWithSecret(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OAuthApplicationWithSecret>() {});
+                _res.withOAuthApplicationWithSecret(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -866,13 +977,13 @@ public class OAuthApplications implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

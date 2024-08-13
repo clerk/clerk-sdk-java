@@ -4,19 +4,17 @@
 
 package com.clerk.backend_api.models.errors;
 
+import com.clerk.backend_api.models.components.ClerkError;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.http.HttpResponse;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,7 +23,7 @@ import java.util.Optional;
 public class ClerkErrors extends RuntimeException {
 
     @JsonProperty("errors")
-    private java.util.List<com.clerk.backend_api.models.components.ClerkError> errors;
+    private List<ClerkError> errors;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("meta")
@@ -33,7 +31,7 @@ public class ClerkErrors extends RuntimeException {
 
     @JsonCreator
     public ClerkErrors(
-            @JsonProperty("errors") java.util.List<com.clerk.backend_api.models.components.ClerkError> errors,
+            @JsonProperty("errors") List<ClerkError> errors,
             @JsonProperty("meta") Optional<? extends Meta> meta) {
         Utils.checkNotNull(errors, "errors");
         Utils.checkNotNull(meta, "meta");
@@ -42,23 +40,24 @@ public class ClerkErrors extends RuntimeException {
     }
     
     public ClerkErrors(
-            java.util.List<com.clerk.backend_api.models.components.ClerkError> errors) {
+            List<ClerkError> errors) {
         this(errors, Optional.empty());
     }
 
-    public java.util.List<com.clerk.backend_api.models.components.ClerkError> errors(){
+    public List<ClerkError> errors(){
         return errors;
     }
 
-    public Optional<? extends Meta> meta(){
-        return meta;
+    @SuppressWarnings("unchecked")
+    public Optional<Meta> meta(){
+        return (Optional<Meta>) meta;
     }
     
     public final static Builder builder() {
         return new Builder();
     }
 
-    public ClerkErrors withErrors(java.util.List<com.clerk.backend_api.models.components.ClerkError> errors) {
+    public ClerkErrors withErrors(List<ClerkError> errors) {
         Utils.checkNotNull(errors, "errors");
         this.errors = errors;
         return this;
@@ -86,8 +85,8 @@ public class ClerkErrors extends RuntimeException {
         }
         ClerkErrors other = (ClerkErrors) o;
         return
-            java.util.Objects.deepEquals(this.errors, other.errors) &&
-            java.util.Objects.deepEquals(this.meta, other.meta);
+            Objects.deepEquals(this.errors, other.errors) &&
+            Objects.deepEquals(this.meta, other.meta);
     }
 
     @Override
@@ -106,7 +105,7 @@ public class ClerkErrors extends RuntimeException {
 
     public final static class Builder {
 
-        private java.util.List<com.clerk.backend_api.models.components.ClerkError> errors;
+        private List<ClerkError> errors;
 
         private Optional<? extends Meta> meta = Optional.empty();
 
@@ -114,7 +113,7 @@ public class ClerkErrors extends RuntimeException {
           // force use of static builder() method
         }
 
-        public Builder errors(java.util.List<com.clerk.backend_api.models.components.ClerkError> errors) {
+        public Builder errors(List<ClerkError> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;

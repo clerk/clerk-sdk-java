@@ -4,19 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * OrganizationMembership - Hello world
  */
@@ -25,7 +27,7 @@ public class OrganizationMembership {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -37,11 +39,11 @@ public class OrganizationMembership {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("role")
-    private Optional<? extends String> role;
+    private Optional<String> role;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("permissions")
-    private Optional<? extends java.util.List<String>> permissions;
+    private Optional<? extends List<String>> permissions;
 
     /**
      * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
@@ -70,27 +72,27 @@ public class OrganizationMembership {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends Long> createdAt;
+    private Optional<Long> createdAt;
 
     /**
      * Unix timestamp of last update.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<? extends Long> updatedAt;
+    private Optional<Long> updatedAt;
 
     @JsonCreator
     public OrganizationMembership(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") Optional<? extends OrganizationMembershipObject> object,
-            @JsonProperty("role") Optional<? extends String> role,
-            @JsonProperty("permissions") Optional<? extends java.util.List<String>> permissions,
+            @JsonProperty("role") Optional<String> role,
+            @JsonProperty("permissions") Optional<? extends List<String>> permissions,
             @JsonProperty("public_metadata") Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata,
             @JsonProperty("organization") Optional<? extends OrganizationMembershipOrganization> organization,
             @JsonProperty("public_user_data") Optional<? extends PublicUserData> publicUserData,
-            @JsonProperty("created_at") Optional<? extends Long> createdAt,
-            @JsonProperty("updated_at") Optional<? extends Long> updatedAt) {
+            @JsonProperty("created_at") Optional<Long> createdAt,
+            @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(role, "role");
@@ -117,10 +119,9 @@ public class OrganizationMembership {
         this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -133,16 +134,15 @@ public class OrganizationMembership {
         return (Optional<OrganizationMembershipObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> role() {
-        return (Optional<String>) role;
+        return role;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> permissions() {
-        return (Optional<java.util.List<String>>) permissions;
+    public Optional<List<String>> permissions() {
+        return (Optional<List<String>>) permissions;
     }
 
     /**
@@ -178,19 +178,17 @@ public class OrganizationMembership {
     /**
      * Unix timestamp of creation.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> createdAt() {
-        return (Optional<Long>) createdAt;
+        return createdAt;
     }
 
     /**
      * Unix timestamp of last update.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> updatedAt() {
-        return (Optional<Long>) updatedAt;
+        return updatedAt;
     }
 
     public final static Builder builder() {
@@ -203,7 +201,7 @@ public class OrganizationMembership {
         return this;
     }
 
-    public OrganizationMembership withId(Optional<? extends String> id) {
+    public OrganizationMembership withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -235,19 +233,19 @@ public class OrganizationMembership {
         return this;
     }
 
-    public OrganizationMembership withRole(Optional<? extends String> role) {
+    public OrganizationMembership withRole(Optional<String> role) {
         Utils.checkNotNull(role, "role");
         this.role = role;
         return this;
     }
 
-    public OrganizationMembership withPermissions(java.util.List<String> permissions) {
+    public OrganizationMembership withPermissions(List<String> permissions) {
         Utils.checkNotNull(permissions, "permissions");
         this.permissions = Optional.ofNullable(permissions);
         return this;
     }
 
-    public OrganizationMembership withPermissions(Optional<? extends java.util.List<String>> permissions) {
+    public OrganizationMembership withPermissions(Optional<? extends List<String>> permissions) {
         Utils.checkNotNull(permissions, "permissions");
         this.permissions = permissions;
         return this;
@@ -325,7 +323,7 @@ public class OrganizationMembership {
     /**
      * Unix timestamp of creation.
      */
-    public OrganizationMembership withCreatedAt(Optional<? extends Long> createdAt) {
+    public OrganizationMembership withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -343,7 +341,7 @@ public class OrganizationMembership {
     /**
      * Unix timestamp of last update.
      */
-    public OrganizationMembership withUpdatedAt(Optional<? extends Long> updatedAt) {
+    public OrganizationMembership withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -359,21 +357,21 @@ public class OrganizationMembership {
         }
         OrganizationMembership other = (OrganizationMembership) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.role, other.role) &&
-            java.util.Objects.deepEquals(this.permissions, other.permissions) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.organization, other.organization) &&
-            java.util.Objects.deepEquals(this.publicUserData, other.publicUserData) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.role, other.role) &&
+            Objects.deepEquals(this.permissions, other.permissions) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.organization, other.organization) &&
+            Objects.deepEquals(this.publicUserData, other.publicUserData) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             role,
@@ -403,13 +401,13 @@ public class OrganizationMembership {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private Optional<? extends OrganizationMembershipObject> object = Optional.empty();
  
-        private Optional<? extends String> role = Optional.empty();
+        private Optional<String> role = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> permissions = Optional.empty();
+        private Optional<? extends List<String>> permissions = Optional.empty();
  
         private Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata = Optional.empty();
  
@@ -419,9 +417,9 @@ public class OrganizationMembership {
  
         private Optional<? extends PublicUserData> publicUserData = Optional.empty();
  
-        private Optional<? extends Long> createdAt = Optional.empty();
+        private Optional<Long> createdAt = Optional.empty();
  
-        private Optional<? extends Long> updatedAt = Optional.empty();  
+        private Optional<Long> updatedAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -433,7 +431,7 @@ public class OrganizationMembership {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -465,19 +463,19 @@ public class OrganizationMembership {
             return this;
         }
 
-        public Builder role(Optional<? extends String> role) {
+        public Builder role(Optional<String> role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
             return this;
         }
 
-        public Builder permissions(java.util.List<String> permissions) {
+        public Builder permissions(List<String> permissions) {
             Utils.checkNotNull(permissions, "permissions");
             this.permissions = Optional.ofNullable(permissions);
             return this;
         }
 
-        public Builder permissions(Optional<? extends java.util.List<String>> permissions) {
+        public Builder permissions(Optional<? extends List<String>> permissions) {
             Utils.checkNotNull(permissions, "permissions");
             this.permissions = permissions;
             return this;
@@ -555,7 +553,7 @@ public class OrganizationMembership {
         /**
          * Unix timestamp of creation.
          */
-        public Builder createdAt(Optional<? extends Long> createdAt) {
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -573,7 +571,7 @@ public class OrganizationMembership {
         /**
          * Unix timestamp of last update.
          */
-        public Builder updatedAt(Optional<? extends Long> updatedAt) {
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;

@@ -8,26 +8,22 @@ import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.Long;
+import java.lang.String;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class ListOrganizationInvitationsRequestBuilder {
 
     private String organizationId;
-    private Optional<? extends Long> limit = Utils.readDefaultOrConstValue(
+    private Optional<Long> limit = Utils.readDefaultOrConstValue(
                             "limit",
                             "10",
-                            new TypeReference<Optional<? extends Long>>() {});
-    private Optional<? extends Long> offset = Utils.readDefaultOrConstValue(
+                            new TypeReference<Optional<Long>>() {});
+    private Optional<Long> offset = Utils.readDefaultOrConstValue(
                             "offset",
                             "0",
-                            new TypeReference<Optional<? extends Long>>() {});
+                            new TypeReference<Optional<Long>>() {});
     private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListOrganizationInvitations sdk;
 
@@ -35,7 +31,7 @@ public class ListOrganizationInvitationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListOrganizationInvitationsRequestBuilder organizationId(String organizationId) {
+    public ListOrganizationInvitationsRequestBuilder organizationId(java.lang.String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -47,7 +43,7 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder limit(Optional<? extends Long> limit) {
+    public ListOrganizationInvitationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -59,19 +55,19 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder offset(Optional<? extends Long> offset) {
+    public ListOrganizationInvitationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public ListOrganizationInvitationsRequestBuilder status(ListOrganizationInvitationsQueryParamStatus status) {
+    public ListOrganizationInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder status(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
+    public ListOrganizationInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -113,15 +109,15 @@ public class ListOrganizationInvitationsRequestBuilder {
         });
     }
 
-    private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Limit =
+    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
             new LazySingletonValue<>(
                     "limit",
                     "10",
-                    new TypeReference<Optional<? extends Long>>() {});
+                    new TypeReference<Optional<Long>>() {});
 
-    private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Offset =
+    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
             new LazySingletonValue<>(
                     "offset",
                     "0",
-                    new TypeReference<Optional<? extends Long>>() {});
+                    new TypeReference<Optional<Long>>() {});
 }

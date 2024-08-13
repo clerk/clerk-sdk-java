@@ -6,22 +6,11 @@ package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.utils.HTTPClient;
-import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
-import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
-import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.http.HttpRequest;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend
@@ -265,7 +254,7 @@ public class Clerk {
          * @param params The parameters to use when templating the URL.
          * @return The builder instance.
          */
-        public Builder serverURL(String serverUrl, java.util.Map<String, String> params) {
+        public Builder serverURL(String serverUrl, Map<String, String> params) {
             this.sdkConfiguration.serverUrl = com.clerk.backend_api.utils.Utils.templateUrl(serverUrl, params);
             return this;
         }

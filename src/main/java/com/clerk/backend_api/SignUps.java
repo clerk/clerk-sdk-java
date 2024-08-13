@@ -4,27 +4,31 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.SignUp;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateSignUpRequest;
+import com.clerk.backend_api.models.operations.UpdateSignUpRequestBody;
+import com.clerk.backend_api.models.operations.UpdateSignUpRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateSignUpResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class SignUps implements
             MethodCallUpdateSignUp {
@@ -41,8 +45,8 @@ public class SignUps implements
      * Update the sign-up with the given ID
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateSignUpRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateSignUpRequestBuilder(this);
+    public UpdateSignUpRequestBuilder update() {
+        return new UpdateSignUpRequestBuilder(this);
     }
 
     /**
@@ -52,10 +56,11 @@ public class SignUps implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateSignUpResponse update(
+    public UpdateSignUpResponse update(
             String id) throws Exception {
         return update(id, Optional.empty());
     }
+    
     /**
      * Update a sign-up
      * Update the sign-up with the given ID
@@ -64,11 +69,11 @@ public class SignUps implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateSignUpResponse update(
+    public UpdateSignUpResponse update(
             String id,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateSignUpRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateSignUpRequest request =
-            com.clerk.backend_api.models.operations.UpdateSignUpRequest
+            Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception {
+        UpdateSignUpRequest request =
+            UpdateSignUpRequest
                 .builder()
                 .id(id)
                 .requestBody(requestBody)
@@ -76,16 +81,21 @@ public class SignUps implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateSignUpRequest.class,
+                UpdateSignUpRequest.class,
                 _baseUrl,
                 "/sign_ups/{id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -98,7 +108,10 @@ public class SignUps implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateSignUp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateSignUp", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -106,18 +119,28 @@ public class SignUps implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateSignUp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateSignUp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateSignUp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateSignUp",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateSignUp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateSignUp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -125,42 +148,42 @@ public class SignUps implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateSignUpResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateSignUpResponse
+        UpdateSignUpResponse.Builder _resBuilder = 
+            UpdateSignUpResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateSignUpResponse _res = _resBuilder.build();
+        UpdateSignUpResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SignUp _out = Utils.mapper().readValue(
+                SignUp _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SignUp>() {});
-                _res.withSignUp(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SignUp>() {});
+                _res.withSignUp(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -169,13 +192,13 @@ public class SignUps implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

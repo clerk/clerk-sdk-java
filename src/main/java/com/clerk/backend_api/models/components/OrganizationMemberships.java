@@ -4,21 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
+
 
 public class OrganizationMemberships {
 
     @JsonProperty("data")
-    private java.util.List<OrganizationMembership> data;
+    private List<OrganizationMembership> data;
 
     /**
      * Total number of organization memberships
@@ -29,7 +30,7 @@ public class OrganizationMemberships {
 
     @JsonCreator
     public OrganizationMemberships(
-            @JsonProperty("data") java.util.List<OrganizationMembership> data,
+            @JsonProperty("data") List<OrganizationMembership> data,
             @JsonProperty("total_count") long totalCount) {
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(totalCount, "totalCount");
@@ -38,7 +39,7 @@ public class OrganizationMemberships {
     }
 
     @JsonIgnore
-    public java.util.List<OrganizationMembership> data() {
+    public List<OrganizationMembership> data() {
         return data;
     }
 
@@ -55,7 +56,7 @@ public class OrganizationMemberships {
         return new Builder();
     }
 
-    public OrganizationMemberships withData(java.util.List<OrganizationMembership> data) {
+    public OrganizationMemberships withData(List<OrganizationMembership> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
         return this;
@@ -81,13 +82,13 @@ public class OrganizationMemberships {
         }
         OrganizationMemberships other = (OrganizationMemberships) o;
         return 
-            java.util.Objects.deepEquals(this.data, other.data) &&
-            java.util.Objects.deepEquals(this.totalCount, other.totalCount);
+            Objects.deepEquals(this.data, other.data) &&
+            Objects.deepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             data,
             totalCount);
     }
@@ -101,7 +102,7 @@ public class OrganizationMemberships {
     
     public final static class Builder {
  
-        private java.util.List<OrganizationMembership> data;
+        private List<OrganizationMembership> data;
  
         private Long totalCount;  
         
@@ -109,7 +110,7 @@ public class OrganizationMemberships {
           // force use of static builder() method
         }
 
-        public Builder data(java.util.List<OrganizationMembership> data) {
+        public Builder data(List<OrganizationMembership> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;

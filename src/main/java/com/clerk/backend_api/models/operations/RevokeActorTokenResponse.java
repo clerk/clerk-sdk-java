@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.ActorToken;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Response {
+
+public class RevokeActorTokenResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.ActorToken> actorToken;
+    private Optional<? extends ActorToken> actorToken;
 
     @JsonCreator
     public RevokeActorTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.ActorToken> actorToken) {
+            Optional<? extends ActorToken> actorToken) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.ActorToken> actorToken() {
-        return (Optional<com.clerk.backend_api.models.components.ActorToken>) actorToken;
+    public Optional<ActorToken> actorToken() {
+        return (Optional<ActorToken>) actorToken;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public RevokeActorTokenResponse withActorToken(com.clerk.backend_api.models.components.ActorToken actorToken) {
+    public RevokeActorTokenResponse withActorToken(ActorToken actorToken) {
         Utils.checkNotNull(actorToken, "actorToken");
         this.actorToken = Optional.ofNullable(actorToken);
         return this;
@@ -137,7 +141,7 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public RevokeActorTokenResponse withActorToken(Optional<? extends com.clerk.backend_api.models.components.ActorToken> actorToken) {
+    public RevokeActorTokenResponse withActorToken(Optional<? extends ActorToken> actorToken) {
         Utils.checkNotNull(actorToken, "actorToken");
         this.actorToken = actorToken;
         return this;
@@ -153,15 +157,15 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
         }
         RevokeActorTokenResponse other = (RevokeActorTokenResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.actorToken, other.actorToken);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.actorToken, other.actorToken);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.ActorToken> actorToken = Optional.empty();  
+        private Optional<? extends ActorToken> actorToken = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder actorToken(com.clerk.backend_api.models.components.ActorToken actorToken) {
+        public Builder actorToken(ActorToken actorToken) {
             Utils.checkNotNull(actorToken, "actorToken");
             this.actorToken = Optional.ofNullable(actorToken);
             return this;
@@ -230,7 +234,7 @@ public class RevokeActorTokenResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder actorToken(Optional<? extends com.clerk.backend_api.models.components.ActorToken> actorToken) {
+        public Builder actorToken(Optional<? extends ActorToken> actorToken) {
             Utils.checkNotNull(actorToken, "actorToken");
             this.actorToken = actorToken;
             return this;

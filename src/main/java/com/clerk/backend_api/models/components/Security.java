@@ -4,26 +4,25 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class Security {
 
     @SpeakeasyMetadata("security:scheme=true,type=http,subtype=bearer,name=Authorization")
-    private Optional<? extends String> bearerAuth;
+    private Optional<String> bearerAuth;
 
     @JsonCreator
     public Security(
-            Optional<? extends String> bearerAuth) {
+            Optional<String> bearerAuth) {
         Utils.checkNotNull(bearerAuth, "bearerAuth");
         this.bearerAuth = bearerAuth;
     }
@@ -32,10 +31,9 @@ public class Security {
         this(Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> bearerAuth() {
-        return (Optional<String>) bearerAuth;
+        return bearerAuth;
     }
 
     public final static Builder builder() {
@@ -48,7 +46,7 @@ public class Security {
         return this;
     }
 
-    public Security withBearerAuth(Optional<? extends String> bearerAuth) {
+    public Security withBearerAuth(Optional<String> bearerAuth) {
         Utils.checkNotNull(bearerAuth, "bearerAuth");
         this.bearerAuth = bearerAuth;
         return this;
@@ -64,12 +62,12 @@ public class Security {
         }
         Security other = (Security) o;
         return 
-            java.util.Objects.deepEquals(this.bearerAuth, other.bearerAuth);
+            Objects.deepEquals(this.bearerAuth, other.bearerAuth);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             bearerAuth);
     }
     
@@ -81,7 +79,7 @@ public class Security {
     
     public final static class Builder {
  
-        private Optional<? extends String> bearerAuth = Optional.empty();  
+        private Optional<String> bearerAuth = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -93,7 +91,7 @@ public class Security {
             return this;
         }
 
-        public Builder bearerAuth(Optional<? extends String> bearerAuth) {
+        public Builder bearerAuth(Optional<String> bearerAuth) {
             Utils.checkNotNull(bearerAuth, "bearerAuth");
             this.bearerAuth = bearerAuth;
             return this;

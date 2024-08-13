@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.InstanceSettings;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateInstanceAuthConfigResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
     /**
      * InstanceSettings Server API
      */
-    private Optional<? extends com.clerk.backend_api.models.components.InstanceSettings> instanceSettings;
+    private Optional<? extends InstanceSettings> instanceSettings;
 
     @JsonCreator
     public UpdateInstanceAuthConfigResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.InstanceSettings> instanceSettings) {
+            Optional<? extends InstanceSettings> instanceSettings) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.InstanceSettings> instanceSettings() {
-        return (Optional<com.clerk.backend_api.models.components.InstanceSettings>) instanceSettings;
+    public Optional<InstanceSettings> instanceSettings() {
+        return (Optional<InstanceSettings>) instanceSettings;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
     /**
      * InstanceSettings Server API
      */
-    public UpdateInstanceAuthConfigResponse withInstanceSettings(com.clerk.backend_api.models.components.InstanceSettings instanceSettings) {
+    public UpdateInstanceAuthConfigResponse withInstanceSettings(InstanceSettings instanceSettings) {
         Utils.checkNotNull(instanceSettings, "instanceSettings");
         this.instanceSettings = Optional.ofNullable(instanceSettings);
         return this;
@@ -137,7 +141,7 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
     /**
      * InstanceSettings Server API
      */
-    public UpdateInstanceAuthConfigResponse withInstanceSettings(Optional<? extends com.clerk.backend_api.models.components.InstanceSettings> instanceSettings) {
+    public UpdateInstanceAuthConfigResponse withInstanceSettings(Optional<? extends InstanceSettings> instanceSettings) {
         Utils.checkNotNull(instanceSettings, "instanceSettings");
         this.instanceSettings = instanceSettings;
         return this;
@@ -153,15 +157,15 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
         }
         UpdateInstanceAuthConfigResponse other = (UpdateInstanceAuthConfigResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.instanceSettings, other.instanceSettings);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.instanceSettings, other.instanceSettings);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.InstanceSettings> instanceSettings = Optional.empty();  
+        private Optional<? extends InstanceSettings> instanceSettings = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
         /**
          * InstanceSettings Server API
          */
-        public Builder instanceSettings(com.clerk.backend_api.models.components.InstanceSettings instanceSettings) {
+        public Builder instanceSettings(InstanceSettings instanceSettings) {
             Utils.checkNotNull(instanceSettings, "instanceSettings");
             this.instanceSettings = Optional.ofNullable(instanceSettings);
             return this;
@@ -230,7 +234,7 @@ public class UpdateInstanceAuthConfigResponse implements com.clerk.backend_api.u
         /**
          * InstanceSettings Server API
          */
-        public Builder instanceSettings(Optional<? extends com.clerk.backend_api.models.components.InstanceSettings> instanceSettings) {
+        public Builder instanceSettings(Optional<? extends InstanceSettings> instanceSettings) {
             Utils.checkNotNull(instanceSettings, "instanceSettings");
             this.instanceSettings = instanceSettings;
             return this;

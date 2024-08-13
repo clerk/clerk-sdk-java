@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * VerifySessionRequestBody - Parameters.
  */
@@ -29,11 +28,11 @@ public class VerifySessionRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
-    private Optional<? extends String> token;
+    private Optional<String> token;
 
     @JsonCreator
     public VerifySessionRequestBody(
-            @JsonProperty("token") Optional<? extends String> token) {
+            @JsonProperty("token") Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
     }
@@ -46,10 +45,9 @@ public class VerifySessionRequestBody {
      * The JWT that is sent via the `__session` cookie from your frontend.
      * Note: this JWT must be associated with the supplied session ID.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> token() {
-        return (Optional<String>) token;
+        return token;
     }
 
     public final static Builder builder() {
@@ -70,7 +68,7 @@ public class VerifySessionRequestBody {
      * The JWT that is sent via the `__session` cookie from your frontend.
      * Note: this JWT must be associated with the supplied session ID.
      */
-    public VerifySessionRequestBody withToken(Optional<? extends String> token) {
+    public VerifySessionRequestBody withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
         return this;
@@ -86,12 +84,12 @@ public class VerifySessionRequestBody {
         }
         VerifySessionRequestBody other = (VerifySessionRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.token, other.token);
+            Objects.deepEquals(this.token, other.token);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             token);
     }
     
@@ -103,7 +101,7 @@ public class VerifySessionRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> token = Optional.empty();  
+        private Optional<String> token = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -123,7 +121,7 @@ public class VerifySessionRequestBody {
          * The JWT that is sent via the `__session` cookie from your frontend.
          * Note: this JWT must be associated with the supplied session ID.
          */
-        public Builder token(Optional<? extends String> token) {
+        public Builder token(Optional<String> token) {
             Utils.checkNotNull(token, "token");
             this.token = token;
             return this;

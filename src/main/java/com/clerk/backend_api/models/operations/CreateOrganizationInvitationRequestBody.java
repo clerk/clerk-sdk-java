@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateOrganizationInvitationRequestBody {
 
@@ -58,7 +58,7 @@ public class CreateOrganizationInvitationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
-    private Optional<? extends String> redirectUrl;
+    private Optional<String> redirectUrl;
 
     @JsonCreator
     public CreateOrganizationInvitationRequestBody(
@@ -67,7 +67,7 @@ public class CreateOrganizationInvitationRequestBody {
             @JsonProperty("role") String role,
             @JsonProperty("public_metadata") Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata,
-            @JsonProperty("redirect_url") Optional<? extends String> redirectUrl) {
+            @JsonProperty("redirect_url") Optional<String> redirectUrl) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(inviterUserId, "inviterUserId");
         Utils.checkNotNull(role, "role");
@@ -135,10 +135,9 @@ public class CreateOrganizationInvitationRequestBody {
     /**
      * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> redirectUrl() {
-        return (Optional<String>) redirectUrl;
+        return redirectUrl;
     }
 
     public final static Builder builder() {
@@ -221,7 +220,7 @@ public class CreateOrganizationInvitationRequestBody {
     /**
      * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
      */
-    public CreateOrganizationInvitationRequestBody withRedirectUrl(Optional<? extends String> redirectUrl) {
+    public CreateOrganizationInvitationRequestBody withRedirectUrl(Optional<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         this.redirectUrl = redirectUrl;
         return this;
@@ -237,17 +236,17 @@ public class CreateOrganizationInvitationRequestBody {
         }
         CreateOrganizationInvitationRequestBody other = (CreateOrganizationInvitationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.inviterUserId, other.inviterUserId) &&
-            java.util.Objects.deepEquals(this.role, other.role) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.redirectUrl, other.redirectUrl);
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.inviterUserId, other.inviterUserId) &&
+            Objects.deepEquals(this.role, other.role) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.redirectUrl, other.redirectUrl);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             emailAddress,
             inviterUserId,
             role,
@@ -279,7 +278,7 @@ public class CreateOrganizationInvitationRequestBody {
  
         private Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata = Optional.empty();
  
-        private Optional<? extends String> redirectUrl = Optional.empty();  
+        private Optional<String> redirectUrl = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -361,7 +360,7 @@ public class CreateOrganizationInvitationRequestBody {
         /**
          * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
          */
-        public Builder redirectUrl(Optional<? extends String> redirectUrl) {
+        public Builder redirectUrl(Optional<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
             this.redirectUrl = redirectUrl;
             return this;

@@ -4,19 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Domain {
 
@@ -41,18 +43,18 @@ public class Domain {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accounts_portal_url")
-    private JsonNullable<? extends String> accountsPortalUrl;
+    private JsonNullable<String> accountsPortalUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
-    private JsonNullable<? extends String> proxyUrl;
+    private JsonNullable<String> proxyUrl;
 
     @JsonProperty("development_origin")
     private String developmentOrigin;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("cname_targets")
-    private JsonNullable<? extends java.util.List<CNameTarget>> cnameTargets;
+    private JsonNullable<? extends List<CNameTarget>> cnameTargets;
 
     @JsonCreator
     public Domain(
@@ -61,10 +63,10 @@ public class Domain {
             @JsonProperty("name") String name,
             @JsonProperty("is_satellite") boolean isSatellite,
             @JsonProperty("frontend_api_url") String frontendApiUrl,
-            @JsonProperty("accounts_portal_url") JsonNullable<? extends String> accountsPortalUrl,
-            @JsonProperty("proxy_url") JsonNullable<? extends String> proxyUrl,
+            @JsonProperty("accounts_portal_url") JsonNullable<String> accountsPortalUrl,
+            @JsonProperty("proxy_url") JsonNullable<String> proxyUrl,
             @JsonProperty("development_origin") String developmentOrigin,
-            @JsonProperty("cname_targets") JsonNullable<? extends java.util.List<CNameTarget>> cnameTargets) {
+            @JsonProperty("cname_targets") JsonNullable<? extends List<CNameTarget>> cnameTargets) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -124,16 +126,14 @@ public class Domain {
      * Null for satellite domains.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> accountsPortalUrl() {
-        return (JsonNullable<String>) accountsPortalUrl;
+        return accountsPortalUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> proxyUrl() {
-        return (JsonNullable<String>) proxyUrl;
+        return proxyUrl;
     }
 
     @JsonIgnore
@@ -143,8 +143,8 @@ public class Domain {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<java.util.List<CNameTarget>> cnameTargets() {
-        return (JsonNullable<java.util.List<CNameTarget>>) cnameTargets;
+    public JsonNullable<List<CNameTarget>> cnameTargets() {
+        return (JsonNullable<List<CNameTarget>>) cnameTargets;
     }
 
     public final static Builder builder() {
@@ -195,7 +195,7 @@ public class Domain {
      * Null for satellite domains.
      * 
      */
-    public Domain withAccountsPortalUrl(JsonNullable<? extends String> accountsPortalUrl) {
+    public Domain withAccountsPortalUrl(JsonNullable<String> accountsPortalUrl) {
         Utils.checkNotNull(accountsPortalUrl, "accountsPortalUrl");
         this.accountsPortalUrl = accountsPortalUrl;
         return this;
@@ -207,7 +207,7 @@ public class Domain {
         return this;
     }
 
-    public Domain withProxyUrl(JsonNullable<? extends String> proxyUrl) {
+    public Domain withProxyUrl(JsonNullable<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.proxyUrl = proxyUrl;
         return this;
@@ -219,13 +219,13 @@ public class Domain {
         return this;
     }
 
-    public Domain withCnameTargets(java.util.List<CNameTarget> cnameTargets) {
+    public Domain withCnameTargets(List<CNameTarget> cnameTargets) {
         Utils.checkNotNull(cnameTargets, "cnameTargets");
         this.cnameTargets = JsonNullable.of(cnameTargets);
         return this;
     }
 
-    public Domain withCnameTargets(JsonNullable<? extends java.util.List<CNameTarget>> cnameTargets) {
+    public Domain withCnameTargets(JsonNullable<? extends List<CNameTarget>> cnameTargets) {
         Utils.checkNotNull(cnameTargets, "cnameTargets");
         this.cnameTargets = cnameTargets;
         return this;
@@ -241,20 +241,20 @@ public class Domain {
         }
         Domain other = (Domain) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.isSatellite, other.isSatellite) &&
-            java.util.Objects.deepEquals(this.frontendApiUrl, other.frontendApiUrl) &&
-            java.util.Objects.deepEquals(this.accountsPortalUrl, other.accountsPortalUrl) &&
-            java.util.Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            java.util.Objects.deepEquals(this.developmentOrigin, other.developmentOrigin) &&
-            java.util.Objects.deepEquals(this.cnameTargets, other.cnameTargets);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.isSatellite, other.isSatellite) &&
+            Objects.deepEquals(this.frontendApiUrl, other.frontendApiUrl) &&
+            Objects.deepEquals(this.accountsPortalUrl, other.accountsPortalUrl) &&
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
+            Objects.deepEquals(this.developmentOrigin, other.developmentOrigin) &&
+            Objects.deepEquals(this.cnameTargets, other.cnameTargets);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             name,
@@ -292,13 +292,13 @@ public class Domain {
  
         private String frontendApiUrl;
  
-        private JsonNullable<? extends String> accountsPortalUrl = JsonNullable.undefined();
+        private JsonNullable<String> accountsPortalUrl = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> proxyUrl = JsonNullable.undefined();
+        private JsonNullable<String> proxyUrl = JsonNullable.undefined();
  
         private String developmentOrigin;
  
-        private JsonNullable<? extends java.util.List<CNameTarget>> cnameTargets = JsonNullable.undefined();  
+        private JsonNullable<? extends List<CNameTarget>> cnameTargets = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -348,7 +348,7 @@ public class Domain {
          * Null for satellite domains.
          * 
          */
-        public Builder accountsPortalUrl(JsonNullable<? extends String> accountsPortalUrl) {
+        public Builder accountsPortalUrl(JsonNullable<String> accountsPortalUrl) {
             Utils.checkNotNull(accountsPortalUrl, "accountsPortalUrl");
             this.accountsPortalUrl = accountsPortalUrl;
             return this;
@@ -360,7 +360,7 @@ public class Domain {
             return this;
         }
 
-        public Builder proxyUrl(JsonNullable<? extends String> proxyUrl) {
+        public Builder proxyUrl(JsonNullable<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = proxyUrl;
             return this;
@@ -372,13 +372,13 @@ public class Domain {
             return this;
         }
 
-        public Builder cnameTargets(java.util.List<CNameTarget> cnameTargets) {
+        public Builder cnameTargets(List<CNameTarget> cnameTargets) {
             Utils.checkNotNull(cnameTargets, "cnameTargets");
             this.cnameTargets = JsonNullable.of(cnameTargets);
             return this;
         }
 
-        public Builder cnameTargets(JsonNullable<? extends java.util.List<CNameTarget>> cnameTargets) {
+        public Builder cnameTargets(JsonNullable<? extends List<CNameTarget>> cnameTargets) {
             Utils.checkNotNull(cnameTargets, "cnameTargets");
             this.cnameTargets = cnameTargets;
             return this;

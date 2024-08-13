@@ -4,26 +4,30 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.SvixURL;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSvixAppRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateSvixAppResponse;
+import com.clerk.backend_api.models.operations.DeleteSvixAppRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteSvixAppResponse;
+import com.clerk.backend_api.models.operations.GenerateSvixAuthURLRequestBuilder;
+import com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Webhooks implements
             MethodCallCreateSvixApp,
@@ -42,8 +46,8 @@ public class Webhooks implements
      * Create a Svix app and associate it with the current instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateSvixAppRequestBuilder createSvixApp() {
-        return new com.clerk.backend_api.models.operations.CreateSvixAppRequestBuilder(this);
+    public CreateSvixAppRequestBuilder createSvixApp() {
+        return new CreateSvixAppRequestBuilder(this);
     }
 
     /**
@@ -52,7 +56,7 @@ public class Webhooks implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateSvixAppResponse createSvixAppDirect() throws Exception {
+    public CreateSvixAppResponse createSvixAppDirect() throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -70,7 +74,10 @@ public class Webhooks implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateSvixApp", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -78,18 +85,28 @@ public class Webhooks implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateSvixApp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateSvixApp",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateSvixApp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -97,42 +114,42 @@ public class Webhooks implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateSvixAppResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateSvixAppResponse
+        CreateSvixAppResponse.Builder _resBuilder = 
+            CreateSvixAppResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateSvixAppResponse _res = _resBuilder.build();
+        CreateSvixAppResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SvixURL _out = Utils.mapper().readValue(
+                SvixURL _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SvixURL>() {});
-                _res.withSvixURL(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SvixURL>() {});
+                _res.withSvixURL(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -141,13 +158,13 @@ public class Webhooks implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -157,8 +174,8 @@ public class Webhooks implements
      * Delete a Svix app and disassociate it from the current instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteSvixAppRequestBuilder deleteSvixApp() {
-        return new com.clerk.backend_api.models.operations.DeleteSvixAppRequestBuilder(this);
+    public DeleteSvixAppRequestBuilder deleteSvixApp() {
+        return new DeleteSvixAppRequestBuilder(this);
     }
 
     /**
@@ -167,7 +184,7 @@ public class Webhooks implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteSvixAppResponse deleteSvixAppDirect() throws Exception {
+    public DeleteSvixAppResponse deleteSvixAppDirect() throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -185,7 +202,10 @@ public class Webhooks implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteSvixApp", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -193,18 +213,28 @@ public class Webhooks implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteSvixApp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteSvixApp",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteSvixApp", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteSvixApp",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -212,14 +242,14 @@ public class Webhooks implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteSvixAppResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteSvixAppResponse
+        DeleteSvixAppResponse.Builder _resBuilder = 
+            DeleteSvixAppResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteSvixAppResponse _res = _resBuilder.build();
+        DeleteSvixAppResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
             // no content 
@@ -227,16 +257,16 @@ public class Webhooks implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -245,13 +275,13 @@ public class Webhooks implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -261,8 +291,8 @@ public class Webhooks implements
      * Generate a new url for accessing the Svix's management dashboard for that particular instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GenerateSvixAuthURLRequestBuilder generateSvixAuthURL() {
-        return new com.clerk.backend_api.models.operations.GenerateSvixAuthURLRequestBuilder(this);
+    public GenerateSvixAuthURLRequestBuilder generateSvixAuthURL() {
+        return new GenerateSvixAuthURLRequestBuilder(this);
     }
 
     /**
@@ -271,7 +301,7 @@ public class Webhooks implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception {
+    public GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -289,7 +319,10 @@ public class Webhooks implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GenerateSvixAuthURL", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GenerateSvixAuthURL", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -297,18 +330,28 @@ public class Webhooks implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GenerateSvixAuthURL", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GenerateSvixAuthURL",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GenerateSvixAuthURL", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GenerateSvixAuthURL",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GenerateSvixAuthURL", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GenerateSvixAuthURL",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -316,42 +359,42 @@ public class Webhooks implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse
+        GenerateSvixAuthURLResponse.Builder _resBuilder = 
+            GenerateSvixAuthURLResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse _res = _resBuilder.build();
+        GenerateSvixAuthURLResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SvixURL _out = Utils.mapper().readValue(
+                SvixURL _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SvixURL>() {});
-                _res.withSvixURL(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SvixURL>() {});
+                _res.withSvixURL(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -360,13 +403,13 @@ public class Webhooks implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

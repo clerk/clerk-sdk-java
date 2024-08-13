@@ -4,27 +4,41 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.PhoneNumber;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody;
+import com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBuilder;
+import com.clerk.backend_api.models.operations.CreatePhoneNumberResponse;
+import com.clerk.backend_api.models.operations.DeletePhoneNumberRequest;
+import com.clerk.backend_api.models.operations.DeletePhoneNumberRequestBuilder;
+import com.clerk.backend_api.models.operations.DeletePhoneNumberResponse;
+import com.clerk.backend_api.models.operations.GetPhoneNumberRequest;
+import com.clerk.backend_api.models.operations.GetPhoneNumberRequestBuilder;
+import com.clerk.backend_api.models.operations.GetPhoneNumberResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest;
+import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody;
+import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class PhoneNumbers implements
             MethodCallCreatePhoneNumber,
@@ -44,8 +58,8 @@ public class PhoneNumbers implements
      * Create a new phone number
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBuilder(this);
+    public CreatePhoneNumberRequestBuilder create() {
+        return new CreatePhoneNumberRequestBuilder(this);
     }
 
     /**
@@ -54,9 +68,10 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreatePhoneNumberResponse createDirect() throws Exception {
+    public CreatePhoneNumberResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create a phone number
      * Create a new phone number
@@ -64,18 +79,23 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreatePhoneNumberResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody> request) throws Exception {
+    public CreatePhoneNumberResponse create(
+            Optional<? extends CreatePhoneNumberRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/phone_numbers");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreatePhoneNumberRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -88,7 +108,10 @@ public class PhoneNumbers implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreatePhoneNumber", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -96,18 +119,28 @@ public class PhoneNumbers implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreatePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreatePhoneNumber",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreatePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -115,42 +148,42 @@ public class PhoneNumbers implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreatePhoneNumberResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreatePhoneNumberResponse
+        CreatePhoneNumberResponse.Builder _resBuilder = 
+            CreatePhoneNumberResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreatePhoneNumberResponse _res = _resBuilder.build();
+        CreatePhoneNumberResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.PhoneNumber _out = Utils.mapper().readValue(
+                PhoneNumber _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.PhoneNumber>() {});
-                _res.withPhoneNumber(java.util.Optional.ofNullable(_out));
+                    new TypeReference<PhoneNumber>() {});
+                _res.withPhoneNumber(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -159,13 +192,13 @@ public class PhoneNumbers implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -175,8 +208,8 @@ public class PhoneNumbers implements
      * Returns the details of a phone number
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetPhoneNumberRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetPhoneNumberRequestBuilder(this);
+    public GetPhoneNumberRequestBuilder get() {
+        return new GetPhoneNumberRequestBuilder(this);
     }
 
     /**
@@ -186,17 +219,17 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetPhoneNumberResponse get(
+    public GetPhoneNumberResponse get(
             String phoneNumberId) throws Exception {
-        com.clerk.backend_api.models.operations.GetPhoneNumberRequest request =
-            com.clerk.backend_api.models.operations.GetPhoneNumberRequest
+        GetPhoneNumberRequest request =
+            GetPhoneNumberRequest
                 .builder()
                 .phoneNumberId(phoneNumberId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetPhoneNumberRequest.class,
+                GetPhoneNumberRequest.class,
                 _baseUrl,
                 "/phone_numbers/{phone_number_id}",
                 request, null);
@@ -213,7 +246,10 @@ public class PhoneNumbers implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetPhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetPhoneNumber", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -221,18 +257,28 @@ public class PhoneNumbers implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetPhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetPhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetPhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetPhoneNumber",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetPhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetPhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -240,42 +286,42 @@ public class PhoneNumbers implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetPhoneNumberResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetPhoneNumberResponse
+        GetPhoneNumberResponse.Builder _resBuilder = 
+            GetPhoneNumberResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetPhoneNumberResponse _res = _resBuilder.build();
+        GetPhoneNumberResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.PhoneNumber _out = Utils.mapper().readValue(
+                PhoneNumber _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.PhoneNumber>() {});
-                _res.withPhoneNumber(java.util.Optional.ofNullable(_out));
+                    new TypeReference<PhoneNumber>() {});
+                _res.withPhoneNumber(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -284,13 +330,13 @@ public class PhoneNumbers implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -300,8 +346,8 @@ public class PhoneNumbers implements
      * Delete the phone number with the given ID
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeletePhoneNumberRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeletePhoneNumberRequestBuilder(this);
+    public DeletePhoneNumberRequestBuilder delete() {
+        return new DeletePhoneNumberRequestBuilder(this);
     }
 
     /**
@@ -311,17 +357,17 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeletePhoneNumberResponse delete(
+    public DeletePhoneNumberResponse delete(
             String phoneNumberId) throws Exception {
-        com.clerk.backend_api.models.operations.DeletePhoneNumberRequest request =
-            com.clerk.backend_api.models.operations.DeletePhoneNumberRequest
+        DeletePhoneNumberRequest request =
+            DeletePhoneNumberRequest
                 .builder()
                 .phoneNumberId(phoneNumberId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeletePhoneNumberRequest.class,
+                DeletePhoneNumberRequest.class,
                 _baseUrl,
                 "/phone_numbers/{phone_number_id}",
                 request, null);
@@ -338,7 +384,10 @@ public class PhoneNumbers implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeletePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeletePhoneNumber", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -346,18 +395,28 @@ public class PhoneNumbers implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeletePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeletePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeletePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeletePhoneNumber",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeletePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeletePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -365,42 +424,42 @@ public class PhoneNumbers implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeletePhoneNumberResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeletePhoneNumberResponse
+        DeletePhoneNumberResponse.Builder _resBuilder = 
+            DeletePhoneNumberResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeletePhoneNumberResponse _res = _resBuilder.build();
+        DeletePhoneNumberResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -409,13 +468,13 @@ public class PhoneNumbers implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -425,8 +484,8 @@ public class PhoneNumbers implements
      * Updates a phone number
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBuilder(this);
+    public UpdatePhoneNumberRequestBuilder update() {
+        return new UpdatePhoneNumberRequestBuilder(this);
     }
 
     /**
@@ -436,10 +495,11 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse update(
+    public UpdatePhoneNumberResponse update(
             String phoneNumberId) throws Exception {
         return update(phoneNumberId, Optional.empty());
     }
+    
     /**
      * Update a phone number
      * Updates a phone number
@@ -448,11 +508,11 @@ public class PhoneNumbers implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse update(
+    public UpdatePhoneNumberResponse update(
             String phoneNumberId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest request =
-            com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest
+            Optional<? extends UpdatePhoneNumberRequestBody> requestBody) throws Exception {
+        UpdatePhoneNumberRequest request =
+            UpdatePhoneNumberRequest
                 .builder()
                 .phoneNumberId(phoneNumberId)
                 .requestBody(requestBody)
@@ -460,16 +520,21 @@ public class PhoneNumbers implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest.class,
+                UpdatePhoneNumberRequest.class,
                 _baseUrl,
                 "/phone_numbers/{phone_number_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -482,7 +547,10 @@ public class PhoneNumbers implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdatePhoneNumber", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -490,18 +558,28 @@ public class PhoneNumbers implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdatePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdatePhoneNumber",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdatePhoneNumber", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdatePhoneNumber",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -509,42 +587,42 @@ public class PhoneNumbers implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse
+        UpdatePhoneNumberResponse.Builder _resBuilder = 
+            UpdatePhoneNumberResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse _res = _resBuilder.build();
+        UpdatePhoneNumberResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.PhoneNumber _out = Utils.mapper().readValue(
+                PhoneNumber _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.PhoneNumber>() {});
-                _res.withPhoneNumber(java.util.Optional.ofNullable(_out));
+                    new TypeReference<PhoneNumber>() {});
+                _res.withPhoneNumber(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -553,13 +631,13 @@ public class PhoneNumbers implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

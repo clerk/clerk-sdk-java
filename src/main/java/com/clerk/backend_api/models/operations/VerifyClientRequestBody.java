@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * VerifyClientRequestBody - Parameters.
  */
@@ -28,11 +27,11 @@ public class VerifyClientRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
-    private Optional<? extends String> token;
+    private Optional<String> token;
 
     @JsonCreator
     public VerifyClientRequestBody(
-            @JsonProperty("token") Optional<? extends String> token) {
+            @JsonProperty("token") Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
     }
@@ -44,10 +43,9 @@ public class VerifyClientRequestBody {
     /**
      * A JWT Token that represents the active client.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> token() {
-        return (Optional<String>) token;
+        return token;
     }
 
     public final static Builder builder() {
@@ -66,7 +64,7 @@ public class VerifyClientRequestBody {
     /**
      * A JWT Token that represents the active client.
      */
-    public VerifyClientRequestBody withToken(Optional<? extends String> token) {
+    public VerifyClientRequestBody withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
         return this;
@@ -82,12 +80,12 @@ public class VerifyClientRequestBody {
         }
         VerifyClientRequestBody other = (VerifyClientRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.token, other.token);
+            Objects.deepEquals(this.token, other.token);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             token);
     }
     
@@ -99,7 +97,7 @@ public class VerifyClientRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> token = Optional.empty();  
+        private Optional<String> token = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -117,7 +115,7 @@ public class VerifyClientRequestBody {
         /**
          * A JWT Token that represents the active client.
          */
-        public Builder token(Optional<? extends String> token) {
+        public Builder token(Optional<String> token) {
             Utils.checkNotNull(token, "token");
             this.token = token;
             return this;

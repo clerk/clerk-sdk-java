@@ -4,25 +4,26 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class Web3Wallet {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -54,7 +55,7 @@ public class Web3Wallet {
 
     @JsonCreator
     public Web3Wallet(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") Web3WalletObject object,
             @JsonProperty("web3_wallet") String web3Wallet,
             @JsonProperty("verification") Optional<? extends Web3WalletVerification> verification,
@@ -82,10 +83,9 @@ public class Web3Wallet {
         this(Optional.empty(), object, web3Wallet, Optional.empty(), createdAt, updatedAt);
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -136,7 +136,7 @@ public class Web3Wallet {
         return this;
     }
 
-    public Web3Wallet withId(Optional<? extends String> id) {
+    public Web3Wallet withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -200,17 +200,17 @@ public class Web3Wallet {
         }
         Web3Wallet other = (Web3Wallet) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            java.util.Objects.deepEquals(this.verification, other.verification) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
+            Objects.deepEquals(this.verification, other.verification) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             web3Wallet,
@@ -232,7 +232,7 @@ public class Web3Wallet {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private Web3WalletObject object;
  
@@ -254,7 +254,7 @@ public class Web3Wallet {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;

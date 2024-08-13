@@ -4,20 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateActorTokenRequestBody {
 
@@ -32,7 +35,7 @@ public class CreateActorTokenRequestBody {
      * This whole payload will be also included in the JWT session token.
      */
     @JsonProperty("actor")
-    private java.util.Map<String, java.lang.Object> actor;
+    private Map<String, Object> actor;
 
     /**
      * Optional parameter to specify the life duration of the actor token in seconds.
@@ -40,7 +43,7 @@ public class CreateActorTokenRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_seconds")
-    private Optional<? extends Long> expiresInSeconds;
+    private Optional<Long> expiresInSeconds;
 
     /**
      * The maximum duration that the session which will be created by the generated actor token should last.
@@ -48,14 +51,14 @@ public class CreateActorTokenRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("session_max_duration_in_seconds")
-    private Optional<? extends Long> sessionMaxDurationInSeconds;
+    private Optional<Long> sessionMaxDurationInSeconds;
 
     @JsonCreator
     public CreateActorTokenRequestBody(
             @JsonProperty("user_id") String userId,
-            @JsonProperty("actor") java.util.Map<String, java.lang.Object> actor,
-            @JsonProperty("expires_in_seconds") Optional<? extends Long> expiresInSeconds,
-            @JsonProperty("session_max_duration_in_seconds") Optional<? extends Long> sessionMaxDurationInSeconds) {
+            @JsonProperty("actor") Map<String, Object> actor,
+            @JsonProperty("expires_in_seconds") Optional<Long> expiresInSeconds,
+            @JsonProperty("session_max_duration_in_seconds") Optional<Long> sessionMaxDurationInSeconds) {
         Utils.checkNotNull(userId, "userId");
         actor = Utils.emptyMapIfNull(actor);
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -68,7 +71,7 @@ public class CreateActorTokenRequestBody {
     
     public CreateActorTokenRequestBody(
             String userId,
-            java.util.Map<String, java.lang.Object> actor) {
+            Map<String, Object> actor) {
         this(userId, actor, Optional.empty(), Optional.empty());
     }
 
@@ -85,7 +88,7 @@ public class CreateActorTokenRequestBody {
      * This whole payload will be also included in the JWT session token.
      */
     @JsonIgnore
-    public java.util.Map<String, java.lang.Object> actor() {
+    public Map<String, Object> actor() {
         return actor;
     }
 
@@ -93,20 +96,18 @@ public class CreateActorTokenRequestBody {
      * Optional parameter to specify the life duration of the actor token in seconds.
      * By default, the duration is 1 hour.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> expiresInSeconds() {
-        return (Optional<Long>) expiresInSeconds;
+        return expiresInSeconds;
     }
 
     /**
      * The maximum duration that the session which will be created by the generated actor token should last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> sessionMaxDurationInSeconds() {
-        return (Optional<Long>) sessionMaxDurationInSeconds;
+        return sessionMaxDurationInSeconds;
     }
 
     public final static Builder builder() {
@@ -126,7 +127,7 @@ public class CreateActorTokenRequestBody {
      * The actor payload. It needs to include a sub property which should contain the ID of the actor.
      * This whole payload will be also included in the JWT session token.
      */
-    public CreateActorTokenRequestBody withActor(java.util.Map<String, java.lang.Object> actor) {
+    public CreateActorTokenRequestBody withActor(Map<String, Object> actor) {
         Utils.checkNotNull(actor, "actor");
         this.actor = actor;
         return this;
@@ -146,7 +147,7 @@ public class CreateActorTokenRequestBody {
      * Optional parameter to specify the life duration of the actor token in seconds.
      * By default, the duration is 1 hour.
      */
-    public CreateActorTokenRequestBody withExpiresInSeconds(Optional<? extends Long> expiresInSeconds) {
+    public CreateActorTokenRequestBody withExpiresInSeconds(Optional<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = expiresInSeconds;
         return this;
@@ -166,7 +167,7 @@ public class CreateActorTokenRequestBody {
      * The maximum duration that the session which will be created by the generated actor token should last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
-    public CreateActorTokenRequestBody withSessionMaxDurationInSeconds(Optional<? extends Long> sessionMaxDurationInSeconds) {
+    public CreateActorTokenRequestBody withSessionMaxDurationInSeconds(Optional<Long> sessionMaxDurationInSeconds) {
         Utils.checkNotNull(sessionMaxDurationInSeconds, "sessionMaxDurationInSeconds");
         this.sessionMaxDurationInSeconds = sessionMaxDurationInSeconds;
         return this;
@@ -182,15 +183,15 @@ public class CreateActorTokenRequestBody {
         }
         CreateActorTokenRequestBody other = (CreateActorTokenRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.actor, other.actor) &&
-            java.util.Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds) &&
-            java.util.Objects.deepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds);
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.actor, other.actor) &&
+            Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds) &&
+            Objects.deepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             userId,
             actor,
             expiresInSeconds,
@@ -210,11 +211,11 @@ public class CreateActorTokenRequestBody {
  
         private String userId;
  
-        private java.util.Map<String, java.lang.Object> actor;
+        private Map<String, Object> actor;
  
-        private Optional<? extends Long> expiresInSeconds;
+        private Optional<Long> expiresInSeconds;
  
-        private Optional<? extends Long> sessionMaxDurationInSeconds;  
+        private Optional<Long> sessionMaxDurationInSeconds;  
         
         private Builder() {
           // force use of static builder() method
@@ -233,7 +234,7 @@ public class CreateActorTokenRequestBody {
          * The actor payload. It needs to include a sub property which should contain the ID of the actor.
          * This whole payload will be also included in the JWT session token.
          */
-        public Builder actor(java.util.Map<String, java.lang.Object> actor) {
+        public Builder actor(Map<String, Object> actor) {
             Utils.checkNotNull(actor, "actor");
             this.actor = actor;
             return this;
@@ -253,7 +254,7 @@ public class CreateActorTokenRequestBody {
          * Optional parameter to specify the life duration of the actor token in seconds.
          * By default, the duration is 1 hour.
          */
-        public Builder expiresInSeconds(Optional<? extends Long> expiresInSeconds) {
+        public Builder expiresInSeconds(Optional<Long> expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
             this.expiresInSeconds = expiresInSeconds;
             return this;
@@ -273,7 +274,7 @@ public class CreateActorTokenRequestBody {
          * The maximum duration that the session which will be created by the generated actor token should last.
          * By default, the duration of a session created via an actor token, lasts 30 minutes.
          */
-        public Builder sessionMaxDurationInSeconds(Optional<? extends Long> sessionMaxDurationInSeconds) {
+        public Builder sessionMaxDurationInSeconds(Optional<Long> sessionMaxDurationInSeconds) {
             Utils.checkNotNull(sessionMaxDurationInSeconds, "sessionMaxDurationInSeconds");
             this.sessionMaxDurationInSeconds = sessionMaxDurationInSeconds;
             return this;
@@ -293,17 +294,17 @@ public class CreateActorTokenRequestBody {
                 sessionMaxDurationInSeconds);
         }
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_ExpiresInSeconds =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_ExpiresInSeconds =
                 new LazySingletonValue<>(
                         "expires_in_seconds",
                         "3600",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_SessionMaxDurationInSeconds =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_SessionMaxDurationInSeconds =
                 new LazySingletonValue<>(
                         "session_max_duration_in_seconds",
                         "1800",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
     }
 }
 

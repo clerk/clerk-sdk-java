@@ -4,16 +4,17 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class ProxyCheck {
 
@@ -171,19 +172,19 @@ public class ProxyCheck {
         }
         ProxyCheck other = (ProxyCheck) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.domainId, other.domainId) &&
-            java.util.Objects.deepEquals(this.lastRunAt, other.lastRunAt) &&
-            java.util.Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            java.util.Objects.deepEquals(this.successful, other.successful) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.domainId, other.domainId) &&
+            Objects.deepEquals(this.lastRunAt, other.lastRunAt) &&
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
+            Objects.deepEquals(this.successful, other.successful) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             domainId,

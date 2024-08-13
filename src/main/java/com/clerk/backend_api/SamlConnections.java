@@ -4,32 +4,50 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.SAMLConnection;
+import com.clerk.backend_api.models.components.SAMLConnections;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
+import com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequest;
+import com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse;
+import com.clerk.backend_api.models.operations.GetSAMLConnectionRequest;
+import com.clerk.backend_api.models.operations.GetSAMLConnectionRequestBuilder;
+import com.clerk.backend_api.models.operations.GetSAMLConnectionResponse;
+import com.clerk.backend_api.models.operations.ListSAMLConnectionsRequest;
+import com.clerk.backend_api.models.operations.ListSAMLConnectionsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class SamlConnections implements
             MethodCallListSAMLConnections,
@@ -52,8 +70,8 @@ public class SamlConnections implements
      * The SAML Connections are ordered by descending creation date and the most recent will be returned first.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListSAMLConnectionsRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListSAMLConnectionsRequestBuilder(this);
+    public ListSAMLConnectionsRequestBuilder list() {
+        return new ListSAMLConnectionsRequestBuilder(this);
     }
 
     /**
@@ -64,9 +82,10 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse listDirect() throws Exception {
+    public ListSAMLConnectionsResponse listDirect() throws Exception {
         return list(Optional.empty(), Optional.empty());
     }
+    
     /**
      * Get a list of SAML Connections for an instance
      * Returns the list of SAML Connections for an instance.
@@ -80,11 +99,11 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception {
-        com.clerk.backend_api.models.operations.ListSAMLConnectionsRequest request =
-            com.clerk.backend_api.models.operations.ListSAMLConnectionsRequest
+    public ListSAMLConnectionsResponse list(
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception {
+        ListSAMLConnectionsRequest request =
+            ListSAMLConnectionsRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
@@ -101,7 +120,7 @@ public class SamlConnections implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListSAMLConnectionsRequest.class,
+                ListSAMLConnectionsRequest.class,
                 request, 
                 null));
 
@@ -112,7 +131,10 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListSAMLConnections", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -120,18 +142,28 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListSAMLConnections",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListSAMLConnections",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListSAMLConnections", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListSAMLConnections",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -139,11 +171,11 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse
+        ListSAMLConnectionsResponse.Builder _resBuilder = 
+            ListSAMLConnectionsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -166,21 +198,21 @@ public class SamlConnections implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListSAMLConnectionsRequestBuilder _ret = list();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    ListSAMLConnectionsRequestBuilder _ret = list();
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse _res = _resBuilder.build();
+        ListSAMLConnectionsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SAMLConnections _out = Utils.mapper().readValue(
+                SAMLConnections _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.components.SAMLConnections>() {});
-                _res.withSAMLConnections(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SAMLConnections>() {});
+                _res.withSAMLConnections(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -192,9 +224,9 @@ public class SamlConnections implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -226,8 +258,8 @@ public class SamlConnections implements
      * Create a new SAML Connection.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBuilder(this);
+    public CreateSAMLConnectionRequestBuilder create() {
+        return new CreateSAMLConnectionRequestBuilder(this);
     }
 
     /**
@@ -236,9 +268,10 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse createDirect() throws Exception {
+    public CreateSAMLConnectionResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create a SAML Connection
      * Create a new SAML Connection.
@@ -246,18 +279,23 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody> request) throws Exception {
+    public CreateSAMLConnectionResponse create(
+            Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/saml_connections");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateSAMLConnectionRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -270,7 +308,10 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateSAMLConnection", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -278,18 +319,28 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateSAMLConnection",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -297,42 +348,42 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse
+        CreateSAMLConnectionResponse.Builder _resBuilder = 
+            CreateSAMLConnectionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse _res = _resBuilder.build();
+        CreateSAMLConnectionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SAMLConnection _out = Utils.mapper().readValue(
+                SAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SAMLConnection>() {});
-                _res.withSAMLConnection(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SAMLConnection>() {});
+                _res.withSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -341,13 +392,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -357,8 +408,8 @@ public class SamlConnections implements
      * Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetSAMLConnectionRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetSAMLConnectionRequestBuilder(this);
+    public GetSAMLConnectionRequestBuilder get() {
+        return new GetSAMLConnectionRequestBuilder(this);
     }
 
     /**
@@ -368,17 +419,17 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetSAMLConnectionResponse get(
+    public GetSAMLConnectionResponse get(
             String samlConnectionId) throws Exception {
-        com.clerk.backend_api.models.operations.GetSAMLConnectionRequest request =
-            com.clerk.backend_api.models.operations.GetSAMLConnectionRequest
+        GetSAMLConnectionRequest request =
+            GetSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetSAMLConnectionRequest.class,
+                GetSAMLConnectionRequest.class,
                 _baseUrl,
                 "/saml_connections/{saml_connection_id}",
                 request, null);
@@ -395,7 +446,10 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetSAMLConnection", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -403,18 +457,28 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetSAMLConnection",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -422,42 +486,42 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetSAMLConnectionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetSAMLConnectionResponse
+        GetSAMLConnectionResponse.Builder _resBuilder = 
+            GetSAMLConnectionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetSAMLConnectionResponse _res = _resBuilder.build();
+        GetSAMLConnectionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SAMLConnection _out = Utils.mapper().readValue(
+                SAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SAMLConnection>() {});
-                _res.withSAMLConnection(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SAMLConnection>() {});
+                _res.withSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -466,13 +530,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -482,8 +546,8 @@ public class SamlConnections implements
      * Updates the SAML Connection whose ID matches the provided `id` in the path.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBuilder(this);
+    public UpdateSAMLConnectionRequestBuilder update() {
+        return new UpdateSAMLConnectionRequestBuilder(this);
     }
 
     /**
@@ -494,11 +558,11 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse update(
+    public UpdateSAMLConnectionResponse update(
             String samlConnectionId,
-            com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest request =
-            com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest
+            UpdateSAMLConnectionRequestBody requestBody) throws Exception {
+        UpdateSAMLConnectionRequest request =
+            UpdateSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .requestBody(requestBody)
@@ -506,16 +570,21 @@ public class SamlConnections implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest.class,
+                UpdateSAMLConnectionRequest.class,
                 _baseUrl,
                 "/saml_connections/{saml_connection_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -531,7 +600,10 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateSAMLConnection", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -539,18 +611,28 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateSAMLConnection",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -558,42 +640,42 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse
+        UpdateSAMLConnectionResponse.Builder _resBuilder = 
+            UpdateSAMLConnectionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse _res = _resBuilder.build();
+        UpdateSAMLConnectionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.SAMLConnection _out = Utils.mapper().readValue(
+                SAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.SAMLConnection>() {});
-                _res.withSAMLConnection(java.util.Optional.ofNullable(_out));
+                    new TypeReference<SAMLConnection>() {});
+                _res.withSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -602,13 +684,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -618,8 +700,8 @@ public class SamlConnections implements
      * Deletes the SAML Connection whose ID matches the provided `id` in the path.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequestBuilder(this);
+    public DeleteSAMLConnectionRequestBuilder delete() {
+        return new DeleteSAMLConnectionRequestBuilder(this);
     }
 
     /**
@@ -629,17 +711,17 @@ public class SamlConnections implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse delete(
+    public DeleteSAMLConnectionResponse delete(
             String samlConnectionId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequest request =
-            com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequest
+        DeleteSAMLConnectionRequest request =
+            DeleteSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteSAMLConnectionRequest.class,
+                DeleteSAMLConnectionRequest.class,
                 _baseUrl,
                 "/saml_connections/{saml_connection_id}",
                 request, null);
@@ -656,7 +738,10 @@ public class SamlConnections implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteSAMLConnection", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -664,18 +749,28 @@ public class SamlConnections implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteSAMLConnection",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteSAMLConnection", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteSAMLConnection",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -683,42 +778,42 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse
+        DeleteSAMLConnectionResponse.Builder _resBuilder = 
+            DeleteSAMLConnectionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse _res = _resBuilder.build();
+        DeleteSAMLConnectionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -727,13 +822,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

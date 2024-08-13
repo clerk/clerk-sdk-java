@@ -4,20 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class CreateEmailAddressRequestBody {
 
@@ -26,21 +26,21 @@ public class CreateEmailAddressRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("user_id")
-    private Optional<? extends String> userId;
+    private Optional<String> userId;
 
     /**
      * The new email address. Must adhere to the RFC 5322 specification for email address format.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
-    private Optional<? extends String> emailAddress;
+    private Optional<String> emailAddress;
 
     /**
      * When created, the email address will be marked as verified.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
-    private JsonNullable<? extends Boolean> verified;
+    private JsonNullable<Boolean> verified;
 
     /**
      * Create this email address as the primary email address for the user.
@@ -48,14 +48,14 @@ public class CreateEmailAddressRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary")
-    private JsonNullable<? extends Boolean> primary;
+    private JsonNullable<Boolean> primary;
 
     @JsonCreator
     public CreateEmailAddressRequestBody(
-            @JsonProperty("user_id") Optional<? extends String> userId,
-            @JsonProperty("email_address") Optional<? extends String> emailAddress,
-            @JsonProperty("verified") JsonNullable<? extends Boolean> verified,
-            @JsonProperty("primary") JsonNullable<? extends Boolean> primary) {
+            @JsonProperty("user_id") Optional<String> userId,
+            @JsonProperty("email_address") Optional<String> emailAddress,
+            @JsonProperty("verified") JsonNullable<Boolean> verified,
+            @JsonProperty("primary") JsonNullable<Boolean> primary) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(verified, "verified");
@@ -73,38 +73,34 @@ public class CreateEmailAddressRequestBody {
     /**
      * The ID representing the user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> userId() {
-        return (Optional<String>) userId;
+        return userId;
     }
 
     /**
      * The new email address. Must adhere to the RFC 5322 specification for email address format.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> emailAddress() {
-        return (Optional<String>) emailAddress;
+        return emailAddress;
     }
 
     /**
      * When created, the email address will be marked as verified.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> verified() {
-        return (JsonNullable<Boolean>) verified;
+        return verified;
     }
 
     /**
      * Create this email address as the primary email address for the user.
      * Default: false, unless it is the first email address.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> primary() {
-        return (JsonNullable<Boolean>) primary;
+        return primary;
     }
 
     public final static Builder builder() {
@@ -123,7 +119,7 @@ public class CreateEmailAddressRequestBody {
     /**
      * The ID representing the user
      */
-    public CreateEmailAddressRequestBody withUserId(Optional<? extends String> userId) {
+    public CreateEmailAddressRequestBody withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -141,7 +137,7 @@ public class CreateEmailAddressRequestBody {
     /**
      * The new email address. Must adhere to the RFC 5322 specification for email address format.
      */
-    public CreateEmailAddressRequestBody withEmailAddress(Optional<? extends String> emailAddress) {
+    public CreateEmailAddressRequestBody withEmailAddress(Optional<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -159,7 +155,7 @@ public class CreateEmailAddressRequestBody {
     /**
      * When created, the email address will be marked as verified.
      */
-    public CreateEmailAddressRequestBody withVerified(JsonNullable<? extends Boolean> verified) {
+    public CreateEmailAddressRequestBody withVerified(JsonNullable<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
@@ -179,7 +175,7 @@ public class CreateEmailAddressRequestBody {
      * Create this email address as the primary email address for the user.
      * Default: false, unless it is the first email address.
      */
-    public CreateEmailAddressRequestBody withPrimary(JsonNullable<? extends Boolean> primary) {
+    public CreateEmailAddressRequestBody withPrimary(JsonNullable<Boolean> primary) {
         Utils.checkNotNull(primary, "primary");
         this.primary = primary;
         return this;
@@ -195,15 +191,15 @@ public class CreateEmailAddressRequestBody {
         }
         CreateEmailAddressRequestBody other = (CreateEmailAddressRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.verified, other.verified) &&
-            java.util.Objects.deepEquals(this.primary, other.primary);
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.verified, other.verified) &&
+            Objects.deepEquals(this.primary, other.primary);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             userId,
             emailAddress,
             verified,
@@ -221,13 +217,13 @@ public class CreateEmailAddressRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> userId = Optional.empty();
+        private Optional<String> userId = Optional.empty();
  
-        private Optional<? extends String> emailAddress = Optional.empty();
+        private Optional<String> emailAddress = Optional.empty();
  
-        private JsonNullable<? extends Boolean> verified = JsonNullable.undefined();
+        private JsonNullable<Boolean> verified = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> primary = JsonNullable.undefined();  
+        private JsonNullable<Boolean> primary = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -245,7 +241,7 @@ public class CreateEmailAddressRequestBody {
         /**
          * The ID representing the user
          */
-        public Builder userId(Optional<? extends String> userId) {
+        public Builder userId(Optional<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
@@ -263,7 +259,7 @@ public class CreateEmailAddressRequestBody {
         /**
          * The new email address. Must adhere to the RFC 5322 specification for email address format.
          */
-        public Builder emailAddress(Optional<? extends String> emailAddress) {
+        public Builder emailAddress(Optional<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
@@ -281,7 +277,7 @@ public class CreateEmailAddressRequestBody {
         /**
          * When created, the email address will be marked as verified.
          */
-        public Builder verified(JsonNullable<? extends Boolean> verified) {
+        public Builder verified(JsonNullable<Boolean> verified) {
             Utils.checkNotNull(verified, "verified");
             this.verified = verified;
             return this;
@@ -301,7 +297,7 @@ public class CreateEmailAddressRequestBody {
          * Create this email address as the primary email address for the user.
          * Default: false, unless it is the first email address.
          */
-        public Builder primary(JsonNullable<? extends Boolean> primary) {
+        public Builder primary(JsonNullable<Boolean> primary) {
             Utils.checkNotNull(primary, "primary");
             this.primary = primary;
             return this;

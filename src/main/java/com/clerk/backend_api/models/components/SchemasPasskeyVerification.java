@@ -4,28 +4,25 @@
 
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
-import java.time.OffsetDateTime;
-import java.time.LocalDate;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.clerk.backend_api.utils.OneOfDeserializer;
 import com.clerk.backend_api.utils.TypedObject;
 import com.clerk.backend_api.utils.Utils.JsonShape;
+import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
+import com.clerk.backend_api.utils.Utils;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 
 
 @JsonDeserialize(using = SchemasPasskeyVerification._Deserializer.class)
 public class SchemasPasskeyVerification {
 
-    @com.fasterxml.jackson.annotation.JsonValue
+    @JsonValue
     private TypedObject value;
     
     private SchemasPasskeyVerification(TypedObject value) {
@@ -40,7 +37,7 @@ public class SchemasPasskeyVerification {
     /**
      * Returns an instance of one of these types:
      * <ul>
-     * <li>{@code Passkey}</li>
+     * <li>{@code com.clerk.backend_api.models.components.Passkey}</li>
      * </ul>
      * 
      * <p>Use {@code instanceof} to determine what type is returned. For example:
@@ -67,20 +64,20 @@ public class SchemasPasskeyVerification {
             return false;
         }
         SchemasPasskeyVerification other = (SchemasPasskeyVerification) o;
-        return java.util.Objects.deepEquals(this.value.value(), other.value.value()); 
+        return Objects.deepEquals(this.value.value(), other.value.value()); 
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(value.value());
+        return Objects.hash(value.value());
     }
     
     @SuppressWarnings("serial")
-    public static final class _Deserializer extends com.clerk.backend_api.utils.OneOfDeserializer<SchemasPasskeyVerification> {
+    public static final class _Deserializer extends OneOfDeserializer<SchemasPasskeyVerification> {
 
         public _Deserializer() {
             super(SchemasPasskeyVerification.class,
-                  Utils.TypeReferenceWithShape.of(new TypeReference<Passkey>() {}, Utils.JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Passkey>() {}, JsonShape.DEFAULT));
         }
     }
     

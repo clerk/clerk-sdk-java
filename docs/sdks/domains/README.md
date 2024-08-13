@@ -19,17 +19,9 @@ The response will contain the primary domain for the instance and any satellite 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListDomainsResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -45,7 +37,7 @@ public class Application {
             if (res.domains().isPresent()) {
                 // handle response
             }
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -58,9 +50,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListDomainsResponse](../../models/operations/ListDomainsResponse.md)**
+**[ListDomainsResponse](../../models/operations/ListDomainsResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
@@ -81,17 +75,10 @@ If you're planning to configure the new satellite domain to run behind a proxy, 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.AddDomainRequestBody;
+import com.clerk.backend_api.models.operations.AddDomainResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -116,7 +103,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -128,16 +115,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                       | [com.clerk.backend_api.models.operations.AddDomainRequestBody](../../models/operations/AddDomainRequestBody.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [AddDomainRequestBody](../../models/operations/AddDomainRequestBody.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.AddDomainResponse](../../models/operations/AddDomainResponse.md)**
+**[AddDomainResponse](../../models/operations/AddDomainResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -156,17 +145,9 @@ It is currently not possible to delete the instance's primary domain.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteDomainResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -186,7 +167,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -198,6 +179,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
@@ -207,7 +190,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteDomainResponse](../../models/operations/DeleteDomainResponse.md)**
+**[DeleteDomainResponse](../../models/operations/DeleteDomainResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -232,17 +215,10 @@ update the instance's home origin, affecting the default application paths.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateDomainRequestBody;
+import com.clerk.backend_api.models.operations.UpdateDomainResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -264,7 +240,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -276,17 +252,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                             | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `domainId`                                                                                                            | *String*                                                                                                              | :heavy_check_mark:                                                                                                    | The ID of the domain that will be updated.                                                                            |
-| `requestBody`                                                                                                         | [com.clerk.backend_api.models.operations.UpdateDomainRequestBody](../../models/operations/UpdateDomainRequestBody.md) | :heavy_check_mark:                                                                                                    | N/A                                                                                                                   |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `domainId`                                                                    | *String*                                                                      | :heavy_check_mark:                                                            | The ID of the domain that will be updated.                                    |
+| `requestBody`                                                                 | [UpdateDomainRequestBody](../../models/operations/UpdateDomainRequestBody.md) | :heavy_check_mark:                                                            | N/A                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateDomainResponse](../../models/operations/UpdateDomainResponse.md)**
+**[UpdateDomainResponse](../../models/operations/UpdateDomainResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

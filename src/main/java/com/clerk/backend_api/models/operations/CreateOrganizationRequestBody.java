@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateOrganizationRequestBody {
 
@@ -53,14 +54,14 @@ public class CreateOrganizationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
-    private Optional<? extends String> slug;
+    private Optional<String> slug;
 
     /**
      * The maximum number of memberships allowed for this organization
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_memberships")
-    private Optional<? extends Long> maxAllowedMemberships;
+    private Optional<Long> maxAllowedMemberships;
 
     @JsonCreator
     public CreateOrganizationRequestBody(
@@ -68,8 +69,8 @@ public class CreateOrganizationRequestBody {
             @JsonProperty("created_by") String createdBy,
             @JsonProperty("private_metadata") Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata,
             @JsonProperty("public_metadata") Optional<? extends CreateOrganizationPublicMetadata> publicMetadata,
-            @JsonProperty("slug") Optional<? extends String> slug,
-            @JsonProperty("max_allowed_memberships") Optional<? extends Long> maxAllowedMemberships) {
+            @JsonProperty("slug") Optional<String> slug,
+            @JsonProperty("max_allowed_memberships") Optional<Long> maxAllowedMemberships) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -129,19 +130,17 @@ public class CreateOrganizationRequestBody {
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> slug() {
-        return (Optional<String>) slug;
+        return slug;
     }
 
     /**
      * The maximum number of memberships allowed for this organization
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> maxAllowedMemberships() {
-        return (Optional<Long>) maxAllowedMemberships;
+        return maxAllowedMemberships;
     }
 
     public final static Builder builder() {
@@ -218,7 +217,7 @@ public class CreateOrganizationRequestBody {
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
      */
-    public CreateOrganizationRequestBody withSlug(Optional<? extends String> slug) {
+    public CreateOrganizationRequestBody withSlug(Optional<String> slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
@@ -236,7 +235,7 @@ public class CreateOrganizationRequestBody {
     /**
      * The maximum number of memberships allowed for this organization
      */
-    public CreateOrganizationRequestBody withMaxAllowedMemberships(Optional<? extends Long> maxAllowedMemberships) {
+    public CreateOrganizationRequestBody withMaxAllowedMemberships(Optional<Long> maxAllowedMemberships) {
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         this.maxAllowedMemberships = maxAllowedMemberships;
         return this;
@@ -252,17 +251,17 @@ public class CreateOrganizationRequestBody {
         }
         CreateOrganizationRequestBody other = (CreateOrganizationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.createdBy, other.createdBy) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.createdBy, other.createdBy) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             createdBy,
             privateMetadata,
@@ -292,9 +291,9 @@ public class CreateOrganizationRequestBody {
  
         private Optional<? extends CreateOrganizationPublicMetadata> publicMetadata = Optional.empty();
  
-        private Optional<? extends String> slug = Optional.empty();
+        private Optional<String> slug = Optional.empty();
  
-        private Optional<? extends Long> maxAllowedMemberships = Optional.empty();  
+        private Optional<Long> maxAllowedMemberships = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -370,7 +369,7 @@ public class CreateOrganizationRequestBody {
          * Can contain only lowercase alphanumeric characters and the dash "-".
          * Must be unique for the instance.
          */
-        public Builder slug(Optional<? extends String> slug) {
+        public Builder slug(Optional<String> slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;
@@ -388,7 +387,7 @@ public class CreateOrganizationRequestBody {
         /**
          * The maximum number of memberships allowed for this organization
          */
-        public Builder maxAllowedMemberships(Optional<? extends Long> maxAllowedMemberships) {
+        public Builder maxAllowedMemberships(Optional<Long> maxAllowedMemberships) {
             Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
             this.maxAllowedMemberships = maxAllowedMemberships;
             return this;

@@ -4,27 +4,43 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.JWTTemplate;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateResponse;
+import com.clerk.backend_api.models.operations.DeleteJWTTemplateRequest;
+import com.clerk.backend_api.models.operations.DeleteJWTTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse;
+import com.clerk.backend_api.models.operations.GetJWTTemplateRequest;
+import com.clerk.backend_api.models.operations.GetJWTTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.GetJWTTemplateResponse;
+import com.clerk.backend_api.models.operations.ListJWTTemplatesRequestBuilder;
+import com.clerk.backend_api.models.operations.ListJWTTemplatesResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequest;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class JwtTemplates implements
             MethodCallListJWTTemplates,
@@ -44,8 +60,8 @@ public class JwtTemplates implements
      * List all templates
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListJWTTemplatesRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListJWTTemplatesRequestBuilder(this);
+    public ListJWTTemplatesRequestBuilder list() {
+        return new ListJWTTemplatesRequestBuilder(this);
     }
 
     /**
@@ -53,7 +69,7 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListJWTTemplatesResponse listDirect() throws Exception {
+    public ListJWTTemplatesResponse listDirect() throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -71,7 +87,10 @@ public class JwtTemplates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListJWTTemplates", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListJWTTemplates", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -79,18 +98,28 @@ public class JwtTemplates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListJWTTemplates", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListJWTTemplates",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListJWTTemplates", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListJWTTemplates",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListJWTTemplates", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListJWTTemplates",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -98,28 +127,28 @@ public class JwtTemplates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.ListJWTTemplatesResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListJWTTemplatesResponse
+        ListJWTTemplatesResponse.Builder _resBuilder = 
+            ListJWTTemplatesResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.ListJWTTemplatesResponse _res = _resBuilder.build();
+        ListJWTTemplatesResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.components.JWTTemplate> _out = Utils.mapper().readValue(
+                List<JWTTemplate> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.components.JWTTemplate>>() {});
-                _res.withJWTTemplateList(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<JWTTemplate>>() {});
+                _res.withJWTTemplateList(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -128,13 +157,13 @@ public class JwtTemplates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -144,8 +173,8 @@ public class JwtTemplates implements
      * Create a new JWT template
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBuilder(this);
+    public CreateJWTTemplateRequestBuilder create() {
+        return new CreateJWTTemplateRequestBuilder(this);
     }
 
     /**
@@ -154,9 +183,10 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateJWTTemplateResponse createDirect() throws Exception {
+    public CreateJWTTemplateResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create a JWT template
      * Create a new JWT template
@@ -164,18 +194,23 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateJWTTemplateResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody> request) throws Exception {
+    public CreateJWTTemplateResponse create(
+            Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/jwt_templates");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateJWTTemplateRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -188,7 +223,10 @@ public class JwtTemplates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateJWTTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -196,18 +234,28 @@ public class JwtTemplates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateJWTTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -215,42 +263,42 @@ public class JwtTemplates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateJWTTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateJWTTemplateResponse
+        CreateJWTTemplateResponse.Builder _resBuilder = 
+            CreateJWTTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateJWTTemplateResponse _res = _resBuilder.build();
+        CreateJWTTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.JWTTemplate _out = Utils.mapper().readValue(
+                JWTTemplate _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.JWTTemplate>() {});
-                _res.withJWTTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<JWTTemplate>() {});
+                _res.withJWTTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -259,13 +307,13 @@ public class JwtTemplates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -275,8 +323,8 @@ public class JwtTemplates implements
      * Retrieve the details of a given JWT template
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetJWTTemplateRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetJWTTemplateRequestBuilder(this);
+    public GetJWTTemplateRequestBuilder get() {
+        return new GetJWTTemplateRequestBuilder(this);
     }
 
     /**
@@ -286,17 +334,17 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetJWTTemplateResponse get(
+    public GetJWTTemplateResponse get(
             String templateId) throws Exception {
-        com.clerk.backend_api.models.operations.GetJWTTemplateRequest request =
-            com.clerk.backend_api.models.operations.GetJWTTemplateRequest
+        GetJWTTemplateRequest request =
+            GetJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetJWTTemplateRequest.class,
+                GetJWTTemplateRequest.class,
                 _baseUrl,
                 "/jwt_templates/{template_id}",
                 request, null);
@@ -313,7 +361,10 @@ public class JwtTemplates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetJWTTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -321,18 +372,28 @@ public class JwtTemplates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetJWTTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -340,42 +401,42 @@ public class JwtTemplates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetJWTTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetJWTTemplateResponse
+        GetJWTTemplateResponse.Builder _resBuilder = 
+            GetJWTTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetJWTTemplateResponse _res = _resBuilder.build();
+        GetJWTTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.JWTTemplate _out = Utils.mapper().readValue(
+                JWTTemplate _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.JWTTemplate>() {});
-                _res.withJWTTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<JWTTemplate>() {});
+                _res.withJWTTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -384,13 +445,13 @@ public class JwtTemplates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -400,8 +461,8 @@ public class JwtTemplates implements
      * Updates an existing JWT template
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBuilder(this);
+    public UpdateJWTTemplateRequestBuilder update() {
+        return new UpdateJWTTemplateRequestBuilder(this);
     }
 
     /**
@@ -411,10 +472,11 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse update(
+    public UpdateJWTTemplateResponse update(
             String templateId) throws Exception {
         return update(templateId, Optional.empty());
     }
+    
     /**
      * Update a JWT template
      * Updates an existing JWT template
@@ -423,11 +485,11 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse update(
+    public UpdateJWTTemplateResponse update(
             String templateId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateJWTTemplateRequest request =
-            com.clerk.backend_api.models.operations.UpdateJWTTemplateRequest
+            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception {
+        UpdateJWTTemplateRequest request =
+            UpdateJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .requestBody(requestBody)
@@ -435,16 +497,21 @@ public class JwtTemplates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateJWTTemplateRequest.class,
+                UpdateJWTTemplateRequest.class,
                 _baseUrl,
                 "/jwt_templates/{template_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -457,7 +524,10 @@ public class JwtTemplates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateJWTTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -465,18 +535,28 @@ public class JwtTemplates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateJWTTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -484,42 +564,42 @@ public class JwtTemplates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse
+        UpdateJWTTemplateResponse.Builder _resBuilder = 
+            UpdateJWTTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse _res = _resBuilder.build();
+        UpdateJWTTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.JWTTemplate _out = Utils.mapper().readValue(
+                JWTTemplate _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.JWTTemplate>() {});
-                _res.withJWTTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<JWTTemplate>() {});
+                _res.withJWTTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -528,13 +608,13 @@ public class JwtTemplates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -543,8 +623,8 @@ public class JwtTemplates implements
      * Delete a Template
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteJWTTemplateRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteJWTTemplateRequestBuilder(this);
+    public DeleteJWTTemplateRequestBuilder delete() {
+        return new DeleteJWTTemplateRequestBuilder(this);
     }
 
     /**
@@ -553,17 +633,17 @@ public class JwtTemplates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse delete(
+    public DeleteJWTTemplateResponse delete(
             String templateId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteJWTTemplateRequest request =
-            com.clerk.backend_api.models.operations.DeleteJWTTemplateRequest
+        DeleteJWTTemplateRequest request =
+            DeleteJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteJWTTemplateRequest.class,
+                DeleteJWTTemplateRequest.class,
                 _baseUrl,
                 "/jwt_templates/{template_id}",
                 request, null);
@@ -580,7 +660,10 @@ public class JwtTemplates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteJWTTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -588,18 +671,28 @@ public class JwtTemplates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteJWTTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteJWTTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteJWTTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -607,42 +700,42 @@ public class JwtTemplates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse
+        DeleteJWTTemplateResponse.Builder _resBuilder = 
+            DeleteJWTTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse _res = _resBuilder.build();
+        DeleteJWTTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -651,13 +744,13 @@ public class JwtTemplates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

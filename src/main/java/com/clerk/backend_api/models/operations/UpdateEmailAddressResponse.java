@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.EmailAddress;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateEmailAddressResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.EmailAddress> emailAddress;
+    private Optional<? extends EmailAddress> emailAddress;
 
     @JsonCreator
     public UpdateEmailAddressResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.EmailAddress> emailAddress) {
+            Optional<? extends EmailAddress> emailAddress) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.EmailAddress> emailAddress() {
-        return (Optional<com.clerk.backend_api.models.components.EmailAddress>) emailAddress;
+    public Optional<EmailAddress> emailAddress() {
+        return (Optional<EmailAddress>) emailAddress;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
     /**
      * Success
      */
-    public UpdateEmailAddressResponse withEmailAddress(com.clerk.backend_api.models.components.EmailAddress emailAddress) {
+    public UpdateEmailAddressResponse withEmailAddress(EmailAddress emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
@@ -137,7 +141,7 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
     /**
      * Success
      */
-    public UpdateEmailAddressResponse withEmailAddress(Optional<? extends com.clerk.backend_api.models.components.EmailAddress> emailAddress) {
+    public UpdateEmailAddressResponse withEmailAddress(Optional<? extends EmailAddress> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -153,15 +157,15 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
         }
         UpdateEmailAddressResponse other = (UpdateEmailAddressResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.EmailAddress> emailAddress = Optional.empty();  
+        private Optional<? extends EmailAddress> emailAddress = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
         /**
          * Success
          */
-        public Builder emailAddress(com.clerk.backend_api.models.components.EmailAddress emailAddress) {
+        public Builder emailAddress(EmailAddress emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = Optional.ofNullable(emailAddress);
             return this;
@@ -230,7 +234,7 @@ public class UpdateEmailAddressResponse implements com.clerk.backend_api.utils.R
         /**
          * Success
          */
-        public Builder emailAddress(Optional<? extends com.clerk.backend_api.models.components.EmailAddress> emailAddress) {
+        public Builder emailAddress(Optional<? extends EmailAddress> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;

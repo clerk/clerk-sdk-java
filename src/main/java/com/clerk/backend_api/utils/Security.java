@@ -4,11 +4,8 @@
 
 package com.clerk.backend_api.utils;
 
-
 import java.lang.reflect.Field;
 import java.util.Base64;
-
-import org.apache.http.message.BasicNameValuePair;
 
 public final class Security {
     

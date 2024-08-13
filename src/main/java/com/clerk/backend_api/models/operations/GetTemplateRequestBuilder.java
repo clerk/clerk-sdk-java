@@ -4,18 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
+import java.lang.String;
 
 public class GetTemplateRequestBuilder {
 
@@ -27,13 +17,13 @@ public class GetTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetTemplateRequestBuilder templateType(PathParamTemplateType templateType) {
+    public GetTemplateRequestBuilder templateType(com.clerk.backend_api.models.operations.PathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public GetTemplateRequestBuilder slug(String slug) {
+    public GetTemplateRequestBuilder slug(java.lang.String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
