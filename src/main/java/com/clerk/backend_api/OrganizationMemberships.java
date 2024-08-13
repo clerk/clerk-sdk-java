@@ -4,32 +4,50 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.OrganizationMembership;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequest;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse;
+import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest;
+import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse;
+import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest;
+import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequest;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequest;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class OrganizationMemberships implements
             MethodCallCreateOrganizationMembership,
@@ -51,8 +69,8 @@ public class OrganizationMemberships implements
      * Only users in the same instance as the organization can be added as members.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBuilder(this);
+    public CreateOrganizationMembershipRequestBuilder create() {
+        return new CreateOrganizationMembershipRequestBuilder(this);
     }
 
     /**
@@ -64,11 +82,11 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse create(
+    public CreateOrganizationMembershipResponse create(
             String organizationId,
-            com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequest request =
-            com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequest
+            CreateOrganizationMembershipRequestBody requestBody) throws Exception {
+        CreateOrganizationMembershipRequest request =
+            CreateOrganizationMembershipRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -76,16 +94,21 @@ public class OrganizationMemberships implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequest.class,
+                CreateOrganizationMembershipRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/memberships",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -101,7 +124,10 @@ public class OrganizationMemberships implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateOrganizationMembership", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -109,18 +135,28 @@ public class OrganizationMemberships implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateOrganizationMembership",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -128,42 +164,42 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse
+        CreateOrganizationMembershipResponse.Builder _resBuilder = 
+            CreateOrganizationMembershipResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse _res = _resBuilder.build();
+        CreateOrganizationMembershipResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMembership _out = Utils.mapper().readValue(
+                OrganizationMembership _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMembership>() {});
-                _res.withOrganizationMembership(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationMembership>() {});
+                _res.withOrganizationMembership(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -172,13 +208,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -188,8 +224,8 @@ public class OrganizationMemberships implements
      * Retrieves all user memberships for the given organization
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder(this);
+    public ListOrganizationMembershipsRequestBuilder list() {
+        return new ListOrganizationMembershipsRequestBuilder(this);
     }
 
     /**
@@ -199,10 +235,11 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse list(
+    public ListOrganizationMembershipsResponse list(
             String organizationId) throws Exception {
         return list(organizationId, Optional.empty(), Optional.empty(), Optional.empty());
     }
+    
     /**
      * Get a list of all members of an organization
      * Retrieves all user memberships for the given organization
@@ -218,13 +255,13 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse list(
+    public ListOrganizationMembershipsResponse list(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends String> orderBy) throws Exception {
-        com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest request =
-            com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<String> orderBy) throws Exception {
+        ListOrganizationMembershipsRequest request =
+            ListOrganizationMembershipsRequest
                 .builder()
                 .organizationId(organizationId)
                 .limit(limit)
@@ -234,7 +271,7 @@ public class OrganizationMemberships implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest.class,
+                ListOrganizationMembershipsRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/memberships",
                 request, null);
@@ -245,7 +282,7 @@ public class OrganizationMemberships implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest.class,
+                ListOrganizationMembershipsRequest.class,
                 request, 
                 null));
 
@@ -256,7 +293,10 @@ public class OrganizationMemberships implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListOrganizationMemberships", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -264,18 +304,28 @@ public class OrganizationMemberships implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListOrganizationMemberships",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -283,11 +333,11 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse
+        ListOrganizationMembershipsResponse.Builder _resBuilder = 
+            ListOrganizationMembershipsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -310,8 +360,8 @@ public class OrganizationMemberships implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder _ret = list();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    ListOrganizationMembershipsRequestBuilder _ret = list();
                     _ret.organizationId(organizationId);
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
@@ -319,14 +369,14 @@ public class OrganizationMemberships implements
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse _res = _resBuilder.build();
+        ListOrganizationMembershipsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationMemberships _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationMemberships>() {});
-                _res.withOrganizationMemberships(java.util.Optional.ofNullable(_out));
+                _res.withOrganizationMemberships(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -338,9 +388,9 @@ public class OrganizationMemberships implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -372,8 +422,8 @@ public class OrganizationMemberships implements
      * Updates the properties of an existing organization membership
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBuilder(this);
+    public UpdateOrganizationMembershipRequestBuilder update() {
+        return new UpdateOrganizationMembershipRequestBuilder(this);
     }
 
     /**
@@ -385,12 +435,12 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse update(
+    public UpdateOrganizationMembershipResponse update(
             String organizationId,
             String userId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequest request =
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequest
+            UpdateOrganizationMembershipRequestBody requestBody) throws Exception {
+        UpdateOrganizationMembershipRequest request =
+            UpdateOrganizationMembershipRequest
                 .builder()
                 .organizationId(organizationId)
                 .userId(userId)
@@ -399,16 +449,21 @@ public class OrganizationMemberships implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequest.class,
+                UpdateOrganizationMembershipRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/memberships/{user_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -424,7 +479,10 @@ public class OrganizationMemberships implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateOrganizationMembership", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -432,18 +490,28 @@ public class OrganizationMemberships implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateOrganizationMembership",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -451,42 +519,42 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse
+        UpdateOrganizationMembershipResponse.Builder _resBuilder = 
+            UpdateOrganizationMembershipResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse _res = _resBuilder.build();
+        UpdateOrganizationMembershipResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMembership _out = Utils.mapper().readValue(
+                OrganizationMembership _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMembership>() {});
-                _res.withOrganizationMembership(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationMembership>() {});
+                _res.withOrganizationMembership(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -495,13 +563,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -511,8 +579,8 @@ public class OrganizationMemberships implements
      * Removes the given membership from the organization
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequestBuilder(this);
+    public DeleteOrganizationMembershipRequestBuilder delete() {
+        return new DeleteOrganizationMembershipRequestBuilder(this);
     }
 
     /**
@@ -523,11 +591,11 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse delete(
+    public DeleteOrganizationMembershipResponse delete(
             String organizationId,
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest request =
-            com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest
+        DeleteOrganizationMembershipRequest request =
+            DeleteOrganizationMembershipRequest
                 .builder()
                 .organizationId(organizationId)
                 .userId(userId)
@@ -535,7 +603,7 @@ public class OrganizationMemberships implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest.class,
+                DeleteOrganizationMembershipRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/memberships/{user_id}",
                 request, null);
@@ -552,7 +620,10 @@ public class OrganizationMemberships implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteOrganizationMembership", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -560,18 +631,28 @@ public class OrganizationMemberships implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteOrganizationMembership",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteOrganizationMembership", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteOrganizationMembership",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -579,42 +660,42 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse
+        DeleteOrganizationMembershipResponse.Builder _resBuilder = 
+            DeleteOrganizationMembershipResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse _res = _resBuilder.build();
+        DeleteOrganizationMembershipResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMembership _out = Utils.mapper().readValue(
+                OrganizationMembership _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMembership>() {});
-                _res.withOrganizationMembership(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationMembership>() {});
+                _res.withOrganizationMembership(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -623,13 +704,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -641,8 +722,8 @@ public class OrganizationMemberships implements
      * You can remove metadata keys at any level by setting their value to `null`.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBuilder updateMetadata() {
-        return new com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBuilder(this);
+    public UpdateOrganizationMembershipMetadataRequestBuilder updateMetadata() {
+        return new UpdateOrganizationMembershipMetadataRequestBuilder(this);
     }
 
     /**
@@ -656,12 +737,12 @@ public class OrganizationMemberships implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse updateMetadata(
+    public UpdateOrganizationMembershipMetadataResponse updateMetadata(
             String organizationId,
             String userId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequest request =
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequest
+            UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception {
+        UpdateOrganizationMembershipMetadataRequest request =
+            UpdateOrganizationMembershipMetadataRequest
                 .builder()
                 .organizationId(organizationId)
                 .userId(userId)
@@ -670,16 +751,21 @@ public class OrganizationMemberships implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequest.class,
+                UpdateOrganizationMembershipMetadataRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/memberships/{user_id}/metadata",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -695,7 +781,10 @@ public class OrganizationMemberships implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateOrganizationMembershipMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateOrganizationMembershipMetadata", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -703,18 +792,28 @@ public class OrganizationMemberships implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateOrganizationMembershipMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateOrganizationMembershipMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateOrganizationMembershipMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateOrganizationMembershipMetadata",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateOrganizationMembershipMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateOrganizationMembershipMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -722,42 +821,42 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse
+        UpdateOrganizationMembershipMetadataResponse.Builder _resBuilder = 
+            UpdateOrganizationMembershipMetadataResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse _res = _resBuilder.build();
+        UpdateOrganizationMembershipMetadataResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMembership _out = Utils.mapper().readValue(
+                OrganizationMembership _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMembership>() {});
-                _res.withOrganizationMembership(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationMembership>() {});
+                _res.withOrganizationMembership(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -766,13 +865,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

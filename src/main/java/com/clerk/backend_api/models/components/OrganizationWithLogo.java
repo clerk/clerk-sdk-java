@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
+import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class OrganizationWithLogo {
 
@@ -35,14 +37,14 @@ public class OrganizationWithLogo {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("members_count")
-    private JsonNullable<? extends Long> membersCount;
+    private JsonNullable<Long> membersCount;
 
     @JsonProperty("max_allowed_memberships")
     private long maxAllowedMemberships;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("admin_delete_enabled")
-    private Optional<? extends Boolean> adminDeleteEnabled;
+    private Optional<Boolean> adminDeleteEnabled;
 
     @JsonProperty("public_metadata")
     private OrganizationWithLogoPublicMetadata publicMetadata;
@@ -52,7 +54,7 @@ public class OrganizationWithLogo {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_by")
-    private Optional<? extends String> createdBy;
+    private Optional<String> createdBy;
 
     /**
      * Unix timestamp of creation.
@@ -74,14 +76,14 @@ public class OrganizationWithLogo {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("logo_url")
     @Deprecated
-    private Optional<? extends String> logoUrl;
+    private Optional<String> logoUrl;
 
     @JsonProperty("image_url")
     private String imageUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("has_image")
-    private Optional<? extends Boolean> hasImage;
+    private Optional<Boolean> hasImage;
 
     @JsonCreator
     public OrganizationWithLogo(
@@ -89,17 +91,17 @@ public class OrganizationWithLogo {
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("slug") String slug,
-            @JsonProperty("members_count") JsonNullable<? extends Long> membersCount,
+            @JsonProperty("members_count") JsonNullable<Long> membersCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
-            @JsonProperty("admin_delete_enabled") Optional<? extends Boolean> adminDeleteEnabled,
+            @JsonProperty("admin_delete_enabled") Optional<Boolean> adminDeleteEnabled,
             @JsonProperty("public_metadata") OrganizationWithLogoPublicMetadata publicMetadata,
             @JsonProperty("private_metadata") OrganizationWithLogoPrivateMetadata privateMetadata,
-            @JsonProperty("created_by") Optional<? extends String> createdBy,
+            @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("logo_url") Optional<? extends String> logoUrl,
+            @JsonProperty("logo_url") Optional<String> logoUrl,
             @JsonProperty("image_url") String imageUrl,
-            @JsonProperty("has_image") Optional<? extends Boolean> hasImage) {
+            @JsonProperty("has_image") Optional<Boolean> hasImage) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -166,10 +168,9 @@ public class OrganizationWithLogo {
         return slug;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> membersCount() {
-        return (JsonNullable<Long>) membersCount;
+        return membersCount;
     }
 
     @JsonIgnore
@@ -177,10 +178,9 @@ public class OrganizationWithLogo {
         return maxAllowedMemberships;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> adminDeleteEnabled() {
-        return (Optional<Boolean>) adminDeleteEnabled;
+        return adminDeleteEnabled;
     }
 
     @JsonIgnore
@@ -193,10 +193,9 @@ public class OrganizationWithLogo {
         return privateMetadata;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> createdBy() {
-        return (Optional<String>) createdBy;
+        return createdBy;
     }
 
     /**
@@ -221,10 +220,9 @@ public class OrganizationWithLogo {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> logoUrl() {
-        return (Optional<String>) logoUrl;
+        return logoUrl;
     }
 
     @JsonIgnore
@@ -232,10 +230,9 @@ public class OrganizationWithLogo {
         return imageUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> hasImage() {
-        return (Optional<Boolean>) hasImage;
+        return hasImage;
     }
 
     public final static Builder builder() {
@@ -272,7 +269,7 @@ public class OrganizationWithLogo {
         return this;
     }
 
-    public OrganizationWithLogo withMembersCount(JsonNullable<? extends Long> membersCount) {
+    public OrganizationWithLogo withMembersCount(JsonNullable<Long> membersCount) {
         Utils.checkNotNull(membersCount, "membersCount");
         this.membersCount = membersCount;
         return this;
@@ -290,7 +287,7 @@ public class OrganizationWithLogo {
         return this;
     }
 
-    public OrganizationWithLogo withAdminDeleteEnabled(Optional<? extends Boolean> adminDeleteEnabled) {
+    public OrganizationWithLogo withAdminDeleteEnabled(Optional<Boolean> adminDeleteEnabled) {
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         this.adminDeleteEnabled = adminDeleteEnabled;
         return this;
@@ -314,7 +311,7 @@ public class OrganizationWithLogo {
         return this;
     }
 
-    public OrganizationWithLogo withCreatedBy(Optional<? extends String> createdBy) {
+    public OrganizationWithLogo withCreatedBy(Optional<String> createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
         this.createdBy = createdBy;
         return this;
@@ -354,7 +351,7 @@ public class OrganizationWithLogo {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public OrganizationWithLogo withLogoUrl(Optional<? extends String> logoUrl) {
+    public OrganizationWithLogo withLogoUrl(Optional<String> logoUrl) {
         Utils.checkNotNull(logoUrl, "logoUrl");
         this.logoUrl = logoUrl;
         return this;
@@ -372,7 +369,7 @@ public class OrganizationWithLogo {
         return this;
     }
 
-    public OrganizationWithLogo withHasImage(Optional<? extends Boolean> hasImage) {
+    public OrganizationWithLogo withHasImage(Optional<Boolean> hasImage) {
         Utils.checkNotNull(hasImage, "hasImage");
         this.hasImage = hasImage;
         return this;
@@ -388,26 +385,26 @@ public class OrganizationWithLogo {
         }
         OrganizationWithLogo other = (OrganizationWithLogo) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.membersCount, other.membersCount) &&
-            java.util.Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            java.util.Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.createdBy, other.createdBy) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            java.util.Objects.deepEquals(this.logoUrl, other.logoUrl) &&
-            java.util.Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            java.util.Objects.deepEquals(this.hasImage, other.hasImage);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.membersCount, other.membersCount) &&
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.createdBy, other.createdBy) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
+            Objects.deepEquals(this.logoUrl, other.logoUrl) &&
+            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
+            Objects.deepEquals(this.hasImage, other.hasImage);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             name,
@@ -455,28 +452,28 @@ public class OrganizationWithLogo {
  
         private String slug;
  
-        private JsonNullable<? extends Long> membersCount = JsonNullable.undefined();
+        private JsonNullable<Long> membersCount = JsonNullable.undefined();
  
         private Long maxAllowedMemberships;
  
-        private Optional<? extends Boolean> adminDeleteEnabled = Optional.empty();
+        private Optional<Boolean> adminDeleteEnabled = Optional.empty();
  
         private OrganizationWithLogoPublicMetadata publicMetadata;
  
         private OrganizationWithLogoPrivateMetadata privateMetadata;
  
-        private Optional<? extends String> createdBy = Optional.empty();
+        private Optional<String> createdBy = Optional.empty();
  
         private Long createdAt;
  
         private Long updatedAt;
  
         @Deprecated
-        private Optional<? extends String> logoUrl = Optional.empty();
+        private Optional<String> logoUrl = Optional.empty();
  
         private String imageUrl;
  
-        private Optional<? extends Boolean> hasImage = Optional.empty();  
+        private Optional<Boolean> hasImage = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -512,7 +509,7 @@ public class OrganizationWithLogo {
             return this;
         }
 
-        public Builder membersCount(JsonNullable<? extends Long> membersCount) {
+        public Builder membersCount(JsonNullable<Long> membersCount) {
             Utils.checkNotNull(membersCount, "membersCount");
             this.membersCount = membersCount;
             return this;
@@ -530,7 +527,7 @@ public class OrganizationWithLogo {
             return this;
         }
 
-        public Builder adminDeleteEnabled(Optional<? extends Boolean> adminDeleteEnabled) {
+        public Builder adminDeleteEnabled(Optional<Boolean> adminDeleteEnabled) {
             Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
             this.adminDeleteEnabled = adminDeleteEnabled;
             return this;
@@ -554,7 +551,7 @@ public class OrganizationWithLogo {
             return this;
         }
 
-        public Builder createdBy(Optional<? extends String> createdBy) {
+        public Builder createdBy(Optional<String> createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
             this.createdBy = createdBy;
             return this;
@@ -594,7 +591,7 @@ public class OrganizationWithLogo {
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
         @Deprecated
-        public Builder logoUrl(Optional<? extends String> logoUrl) {
+        public Builder logoUrl(Optional<String> logoUrl) {
             Utils.checkNotNull(logoUrl, "logoUrl");
             this.logoUrl = logoUrl;
             return this;
@@ -612,7 +609,7 @@ public class OrganizationWithLogo {
             return this;
         }
 
-        public Builder hasImage(Optional<? extends Boolean> hasImage) {
+        public Builder hasImage(Optional<Boolean> hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
             this.hasImage = hasImage;
             return this;

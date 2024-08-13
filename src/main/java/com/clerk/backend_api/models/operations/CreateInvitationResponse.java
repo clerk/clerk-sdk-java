@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Invitation;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class CreateInvitationResponse implements com.clerk.backend_api.utils.Response {
+
+public class CreateInvitationResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Invitation> invitation;
+    private Optional<? extends Invitation> invitation;
 
     @JsonCreator
     public CreateInvitationResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Invitation> invitation) {
+            Optional<? extends Invitation> invitation) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Invitation> invitation() {
-        return (Optional<com.clerk.backend_api.models.components.Invitation>) invitation;
+    public Optional<Invitation> invitation() {
+        return (Optional<Invitation>) invitation;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public CreateInvitationResponse withInvitation(com.clerk.backend_api.models.components.Invitation invitation) {
+    public CreateInvitationResponse withInvitation(Invitation invitation) {
         Utils.checkNotNull(invitation, "invitation");
         this.invitation = Optional.ofNullable(invitation);
         return this;
@@ -137,7 +141,7 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
     /**
      * Success
      */
-    public CreateInvitationResponse withInvitation(Optional<? extends com.clerk.backend_api.models.components.Invitation> invitation) {
+    public CreateInvitationResponse withInvitation(Optional<? extends Invitation> invitation) {
         Utils.checkNotNull(invitation, "invitation");
         this.invitation = invitation;
         return this;
@@ -153,15 +157,15 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
         }
         CreateInvitationResponse other = (CreateInvitationResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.invitation, other.invitation);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.invitation, other.invitation);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Invitation> invitation = Optional.empty();  
+        private Optional<? extends Invitation> invitation = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder invitation(com.clerk.backend_api.models.components.Invitation invitation) {
+        public Builder invitation(Invitation invitation) {
             Utils.checkNotNull(invitation, "invitation");
             this.invitation = Optional.ofNullable(invitation);
             return this;
@@ -230,7 +234,7 @@ public class CreateInvitationResponse implements com.clerk.backend_api.utils.Res
         /**
          * Success
          */
-        public Builder invitation(Optional<? extends com.clerk.backend_api.models.components.Invitation> invitation) {
+        public Builder invitation(Optional<? extends Invitation> invitation) {
             Utils.checkNotNull(invitation, "invitation");
             this.invitation = invitation;
             return this;

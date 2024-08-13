@@ -4,27 +4,41 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.EmailAddress;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody;
+import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateEmailAddressResponse;
+import com.clerk.backend_api.models.operations.DeleteEmailAddressRequest;
+import com.clerk.backend_api.models.operations.DeleteEmailAddressRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteEmailAddressResponse;
+import com.clerk.backend_api.models.operations.GetEmailAddressRequest;
+import com.clerk.backend_api.models.operations.GetEmailAddressRequestBuilder;
+import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressRequest;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class EmailAddresses implements
             MethodCallCreateEmailAddress,
@@ -44,8 +58,8 @@ public class EmailAddresses implements
      * Create a new email address
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateEmailAddressRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateEmailAddressRequestBuilder(this);
+    public CreateEmailAddressRequestBuilder create() {
+        return new CreateEmailAddressRequestBuilder(this);
     }
 
     /**
@@ -54,9 +68,10 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateEmailAddressResponse createDirect() throws Exception {
+    public CreateEmailAddressResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create an email address
      * Create a new email address
@@ -64,18 +79,23 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateEmailAddressResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody> request) throws Exception {
+    public CreateEmailAddressResponse create(
+            Optional<? extends CreateEmailAddressRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/email_addresses");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateEmailAddressRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -88,7 +108,10 @@ public class EmailAddresses implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateEmailAddress", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -96,18 +119,28 @@ public class EmailAddresses implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateEmailAddress",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -115,42 +148,42 @@ public class EmailAddresses implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateEmailAddressResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateEmailAddressResponse
+        CreateEmailAddressResponse.Builder _resBuilder = 
+            CreateEmailAddressResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateEmailAddressResponse _res = _resBuilder.build();
+        CreateEmailAddressResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.EmailAddress _out = Utils.mapper().readValue(
+                EmailAddress _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.EmailAddress>() {});
-                _res.withEmailAddress(java.util.Optional.ofNullable(_out));
+                    new TypeReference<EmailAddress>() {});
+                _res.withEmailAddress(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -159,13 +192,13 @@ public class EmailAddresses implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -175,8 +208,8 @@ public class EmailAddresses implements
      * Returns the details of an email address.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetEmailAddressRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetEmailAddressRequestBuilder(this);
+    public GetEmailAddressRequestBuilder get() {
+        return new GetEmailAddressRequestBuilder(this);
     }
 
     /**
@@ -186,17 +219,17 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetEmailAddressResponse get(
+    public GetEmailAddressResponse get(
             String emailAddressId) throws Exception {
-        com.clerk.backend_api.models.operations.GetEmailAddressRequest request =
-            com.clerk.backend_api.models.operations.GetEmailAddressRequest
+        GetEmailAddressRequest request =
+            GetEmailAddressRequest
                 .builder()
                 .emailAddressId(emailAddressId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetEmailAddressRequest.class,
+                GetEmailAddressRequest.class,
                 _baseUrl,
                 "/email_addresses/{email_address_id}",
                 request, null);
@@ -213,7 +246,10 @@ public class EmailAddresses implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetEmailAddress", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -221,18 +257,28 @@ public class EmailAddresses implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetEmailAddress",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -240,42 +286,42 @@ public class EmailAddresses implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetEmailAddressResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetEmailAddressResponse
+        GetEmailAddressResponse.Builder _resBuilder = 
+            GetEmailAddressResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetEmailAddressResponse _res = _resBuilder.build();
+        GetEmailAddressResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.EmailAddress _out = Utils.mapper().readValue(
+                EmailAddress _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.EmailAddress>() {});
-                _res.withEmailAddress(java.util.Optional.ofNullable(_out));
+                    new TypeReference<EmailAddress>() {});
+                _res.withEmailAddress(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -284,13 +330,13 @@ public class EmailAddresses implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -300,8 +346,8 @@ public class EmailAddresses implements
      * Delete the email address with the given ID
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteEmailAddressRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteEmailAddressRequestBuilder(this);
+    public DeleteEmailAddressRequestBuilder delete() {
+        return new DeleteEmailAddressRequestBuilder(this);
     }
 
     /**
@@ -311,17 +357,17 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteEmailAddressResponse delete(
+    public DeleteEmailAddressResponse delete(
             String emailAddressId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteEmailAddressRequest request =
-            com.clerk.backend_api.models.operations.DeleteEmailAddressRequest
+        DeleteEmailAddressRequest request =
+            DeleteEmailAddressRequest
                 .builder()
                 .emailAddressId(emailAddressId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteEmailAddressRequest.class,
+                DeleteEmailAddressRequest.class,
                 _baseUrl,
                 "/email_addresses/{email_address_id}",
                 request, null);
@@ -338,7 +384,10 @@ public class EmailAddresses implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteEmailAddress", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -346,18 +395,28 @@ public class EmailAddresses implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteEmailAddress",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -365,42 +424,42 @@ public class EmailAddresses implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteEmailAddressResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteEmailAddressResponse
+        DeleteEmailAddressResponse.Builder _resBuilder = 
+            DeleteEmailAddressResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteEmailAddressResponse _res = _resBuilder.build();
+        DeleteEmailAddressResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -409,13 +468,13 @@ public class EmailAddresses implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -425,8 +484,8 @@ public class EmailAddresses implements
      * Updates an email address.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBuilder(this);
+    public UpdateEmailAddressRequestBuilder update() {
+        return new UpdateEmailAddressRequestBuilder(this);
     }
 
     /**
@@ -436,10 +495,11 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateEmailAddressResponse update(
+    public UpdateEmailAddressResponse update(
             String emailAddressId) throws Exception {
         return update(emailAddressId, Optional.empty());
     }
+    
     /**
      * Update an email address
      * Updates an email address.
@@ -448,11 +508,11 @@ public class EmailAddresses implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateEmailAddressResponse update(
+    public UpdateEmailAddressResponse update(
             String emailAddressId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateEmailAddressRequest request =
-            com.clerk.backend_api.models.operations.UpdateEmailAddressRequest
+            Optional<? extends UpdateEmailAddressRequestBody> requestBody) throws Exception {
+        UpdateEmailAddressRequest request =
+            UpdateEmailAddressRequest
                 .builder()
                 .emailAddressId(emailAddressId)
                 .requestBody(requestBody)
@@ -460,16 +520,21 @@ public class EmailAddresses implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateEmailAddressRequest.class,
+                UpdateEmailAddressRequest.class,
                 _baseUrl,
                 "/email_addresses/{email_address_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -482,7 +547,10 @@ public class EmailAddresses implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateEmailAddress", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -490,18 +558,28 @@ public class EmailAddresses implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateEmailAddress",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateEmailAddress", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateEmailAddress",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -509,42 +587,42 @@ public class EmailAddresses implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateEmailAddressResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateEmailAddressResponse
+        UpdateEmailAddressResponse.Builder _resBuilder = 
+            UpdateEmailAddressResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateEmailAddressResponse _res = _resBuilder.build();
+        UpdateEmailAddressResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.EmailAddress _out = Utils.mapper().readValue(
+                EmailAddress _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.EmailAddress>() {});
-                _res.withEmailAddress(java.util.Optional.ofNullable(_out));
+                    new TypeReference<EmailAddress>() {});
+                _res.withEmailAddress(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -553,13 +631,13 @@ public class EmailAddresses implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

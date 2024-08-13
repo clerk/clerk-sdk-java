@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class DeletedObject {
 
@@ -25,11 +25,11 @@ public class DeletedObject {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
-    private Optional<? extends String> slug;
+    private Optional<String> slug;
 
     @JsonProperty("deleted")
     private boolean deleted;
@@ -37,8 +37,8 @@ public class DeletedObject {
     @JsonCreator
     public DeletedObject(
             @JsonProperty("object") String object,
-            @JsonProperty("id") Optional<? extends String> id,
-            @JsonProperty("slug") Optional<? extends String> slug,
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("slug") Optional<String> slug,
             @JsonProperty("deleted") boolean deleted) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -61,16 +61,14 @@ public class DeletedObject {
         return object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> slug() {
-        return (Optional<String>) slug;
+        return slug;
     }
 
     @JsonIgnore
@@ -94,7 +92,7 @@ public class DeletedObject {
         return this;
     }
 
-    public DeletedObject withId(Optional<? extends String> id) {
+    public DeletedObject withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -106,7 +104,7 @@ public class DeletedObject {
         return this;
     }
 
-    public DeletedObject withSlug(Optional<? extends String> slug) {
+    public DeletedObject withSlug(Optional<String> slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
@@ -128,15 +126,15 @@ public class DeletedObject {
         }
         DeletedObject other = (DeletedObject) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.deleted, other.deleted);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.deleted, other.deleted);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             slug,
@@ -156,9 +154,9 @@ public class DeletedObject {
  
         private String object;
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
-        private Optional<? extends String> slug = Optional.empty();
+        private Optional<String> slug = Optional.empty();
  
         private Boolean deleted;  
         
@@ -178,7 +176,7 @@ public class DeletedObject {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -190,7 +188,7 @@ public class DeletedObject {
             return this;
         }
 
-        public Builder slug(Optional<? extends String> slug) {
+        public Builder slug(Optional<String> slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;

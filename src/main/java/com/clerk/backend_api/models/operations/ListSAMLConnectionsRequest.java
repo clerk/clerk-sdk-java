@@ -4,18 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class ListSAMLConnectionsRequest {
 
@@ -24,7 +25,7 @@ public class ListSAMLConnectionsRequest {
      * Can be used for paginating the results together with `offset`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=limit")
-    private Optional<? extends Long> limit;
+    private Optional<Long> limit;
 
     /**
      * Skip the first `offset` results when paginating.
@@ -32,12 +33,12 @@ public class ListSAMLConnectionsRequest {
      * To be used in conjunction with `limit`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=offset")
-    private Optional<? extends Long> offset;
+    private Optional<Long> offset;
 
     @JsonCreator
     public ListSAMLConnectionsRequest(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) {
+            Optional<Long> limit,
+            Optional<Long> offset) {
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         this.limit = limit;
@@ -52,10 +53,9 @@ public class ListSAMLConnectionsRequest {
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> limit() {
-        return (Optional<Long>) limit;
+        return limit;
     }
 
     /**
@@ -63,10 +63,9 @@ public class ListSAMLConnectionsRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> offset() {
-        return (Optional<Long>) offset;
+        return offset;
     }
 
     public final static Builder builder() {
@@ -87,7 +86,7 @@ public class ListSAMLConnectionsRequest {
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    public ListSAMLConnectionsRequest withLimit(Optional<? extends Long> limit) {
+    public ListSAMLConnectionsRequest withLimit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -109,7 +108,7 @@ public class ListSAMLConnectionsRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    public ListSAMLConnectionsRequest withOffset(Optional<? extends Long> offset) {
+    public ListSAMLConnectionsRequest withOffset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
@@ -125,13 +124,13 @@ public class ListSAMLConnectionsRequest {
         }
         ListSAMLConnectionsRequest other = (ListSAMLConnectionsRequest) o;
         return 
-            java.util.Objects.deepEquals(this.limit, other.limit) &&
-            java.util.Objects.deepEquals(this.offset, other.offset);
+            Objects.deepEquals(this.limit, other.limit) &&
+            Objects.deepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             limit,
             offset);
     }
@@ -145,9 +144,9 @@ public class ListSAMLConnectionsRequest {
     
     public final static class Builder {
  
-        private Optional<? extends Long> limit;
+        private Optional<Long> limit;
  
-        private Optional<? extends Long> offset;  
+        private Optional<Long> offset;  
         
         private Builder() {
           // force use of static builder() method
@@ -167,7 +166,7 @@ public class ListSAMLConnectionsRequest {
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
          */
-        public Builder limit(Optional<? extends Long> limit) {
+        public Builder limit(Optional<Long> limit) {
             Utils.checkNotNull(limit, "limit");
             this.limit = limit;
             return this;
@@ -189,7 +188,7 @@ public class ListSAMLConnectionsRequest {
          * Needs to be an integer greater or equal to zero.
          * To be used in conjunction with `limit`.
          */
-        public Builder offset(Optional<? extends Long> offset) {
+        public Builder offset(Optional<Long> offset) {
             Utils.checkNotNull(offset, "offset");
             this.offset = offset;
             return this;
@@ -207,17 +206,17 @@ public class ListSAMLConnectionsRequest {
                 offset);
         }
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Limit =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(
                         "limit",
                         "10",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Offset =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
                 new LazySingletonValue<>(
                         "offset",
                         "0",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
     }
 }
 

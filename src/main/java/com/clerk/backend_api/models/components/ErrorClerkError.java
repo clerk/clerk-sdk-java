@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class ErrorClerkError {
 
@@ -35,7 +35,7 @@ public class ErrorClerkError {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("clerk_trace_id")
-    private Optional<? extends String> clerkTraceId;
+    private Optional<String> clerkTraceId;
 
     @JsonCreator
     public ErrorClerkError(
@@ -43,7 +43,7 @@ public class ErrorClerkError {
             @JsonProperty("long_message") String longMessage,
             @JsonProperty("code") String code,
             @JsonProperty("meta") Optional<? extends ErrorMeta> meta,
-            @JsonProperty("clerk_trace_id") Optional<? extends String> clerkTraceId) {
+            @JsonProperty("clerk_trace_id") Optional<String> clerkTraceId) {
         Utils.checkNotNull(message, "message");
         Utils.checkNotNull(longMessage, "longMessage");
         Utils.checkNotNull(code, "code");
@@ -84,10 +84,9 @@ public class ErrorClerkError {
         return (Optional<ErrorMeta>) meta;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> clerkTraceId() {
-        return (Optional<String>) clerkTraceId;
+        return clerkTraceId;
     }
 
     public final static Builder builder() {
@@ -130,7 +129,7 @@ public class ErrorClerkError {
         return this;
     }
 
-    public ErrorClerkError withClerkTraceId(Optional<? extends String> clerkTraceId) {
+    public ErrorClerkError withClerkTraceId(Optional<String> clerkTraceId) {
         Utils.checkNotNull(clerkTraceId, "clerkTraceId");
         this.clerkTraceId = clerkTraceId;
         return this;
@@ -146,16 +145,16 @@ public class ErrorClerkError {
         }
         ErrorClerkError other = (ErrorClerkError) o;
         return 
-            java.util.Objects.deepEquals(this.message, other.message) &&
-            java.util.Objects.deepEquals(this.longMessage, other.longMessage) &&
-            java.util.Objects.deepEquals(this.code, other.code) &&
-            java.util.Objects.deepEquals(this.meta, other.meta) &&
-            java.util.Objects.deepEquals(this.clerkTraceId, other.clerkTraceId);
+            Objects.deepEquals(this.message, other.message) &&
+            Objects.deepEquals(this.longMessage, other.longMessage) &&
+            Objects.deepEquals(this.code, other.code) &&
+            Objects.deepEquals(this.meta, other.meta) &&
+            Objects.deepEquals(this.clerkTraceId, other.clerkTraceId);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             message,
             longMessage,
             code,
@@ -183,7 +182,7 @@ public class ErrorClerkError {
  
         private Optional<? extends ErrorMeta> meta = Optional.empty();
  
-        private Optional<? extends String> clerkTraceId = Optional.empty();  
+        private Optional<String> clerkTraceId = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -225,7 +224,7 @@ public class ErrorClerkError {
             return this;
         }
 
-        public Builder clerkTraceId(Optional<? extends String> clerkTraceId) {
+        public Builder clerkTraceId(Optional<String> clerkTraceId) {
             Utils.checkNotNull(clerkTraceId, "clerkTraceId");
             this.clerkTraceId = clerkTraceId;
             return this;

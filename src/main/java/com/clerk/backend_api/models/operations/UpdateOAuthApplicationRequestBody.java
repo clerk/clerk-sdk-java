@@ -4,20 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class UpdateOAuthApplicationRequestBody {
 
@@ -26,27 +26,27 @@ public class UpdateOAuthApplicationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<? extends String> name;
+    private Optional<String> name;
 
     /**
      * The new callback URL of the OAuth application
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("callback_url")
-    private Optional<? extends String> callbackUrl;
+    private Optional<String> callbackUrl;
 
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
-    private Optional<? extends String> scopes;
+    private Optional<String> scopes;
 
     @JsonCreator
     public UpdateOAuthApplicationRequestBody(
-            @JsonProperty("name") Optional<? extends String> name,
-            @JsonProperty("callback_url") Optional<? extends String> callbackUrl,
-            @JsonProperty("scopes") Optional<? extends String> scopes) {
+            @JsonProperty("name") Optional<String> name,
+            @JsonProperty("callback_url") Optional<String> callbackUrl,
+            @JsonProperty("scopes") Optional<String> scopes) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         Utils.checkNotNull(scopes, "scopes");
@@ -62,28 +62,25 @@ public class UpdateOAuthApplicationRequestBody {
     /**
      * The new name of the OAuth application
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> name() {
-        return (Optional<String>) name;
+        return name;
     }
 
     /**
      * The new callback URL of the OAuth application
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> callbackUrl() {
-        return (Optional<String>) callbackUrl;
+        return callbackUrl;
     }
 
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> scopes() {
-        return (Optional<String>) scopes;
+        return scopes;
     }
 
     public final static Builder builder() {
@@ -102,7 +99,7 @@ public class UpdateOAuthApplicationRequestBody {
     /**
      * The new name of the OAuth application
      */
-    public UpdateOAuthApplicationRequestBody withName(Optional<? extends String> name) {
+    public UpdateOAuthApplicationRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -120,7 +117,7 @@ public class UpdateOAuthApplicationRequestBody {
     /**
      * The new callback URL of the OAuth application
      */
-    public UpdateOAuthApplicationRequestBody withCallbackUrl(Optional<? extends String> callbackUrl) {
+    public UpdateOAuthApplicationRequestBody withCallbackUrl(Optional<String> callbackUrl) {
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         this.callbackUrl = callbackUrl;
         return this;
@@ -138,7 +135,7 @@ public class UpdateOAuthApplicationRequestBody {
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
-    public UpdateOAuthApplicationRequestBody withScopes(Optional<? extends String> scopes) {
+    public UpdateOAuthApplicationRequestBody withScopes(Optional<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
         return this;
@@ -154,14 +151,14 @@ public class UpdateOAuthApplicationRequestBody {
         }
         UpdateOAuthApplicationRequestBody other = (UpdateOAuthApplicationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            java.util.Objects.deepEquals(this.scopes, other.scopes);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
+            Objects.deepEquals(this.scopes, other.scopes);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             callbackUrl,
             scopes);
@@ -177,11 +174,11 @@ public class UpdateOAuthApplicationRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> name = Optional.empty();
+        private Optional<String> name = Optional.empty();
  
-        private Optional<? extends String> callbackUrl = Optional.empty();
+        private Optional<String> callbackUrl = Optional.empty();
  
-        private Optional<? extends String> scopes;  
+        private Optional<String> scopes;  
         
         private Builder() {
           // force use of static builder() method
@@ -199,7 +196,7 @@ public class UpdateOAuthApplicationRequestBody {
         /**
          * The new name of the OAuth application
          */
-        public Builder name(Optional<? extends String> name) {
+        public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -217,7 +214,7 @@ public class UpdateOAuthApplicationRequestBody {
         /**
          * The new callback URL of the OAuth application
          */
-        public Builder callbackUrl(Optional<? extends String> callbackUrl) {
+        public Builder callbackUrl(Optional<String> callbackUrl) {
             Utils.checkNotNull(callbackUrl, "callbackUrl");
             this.callbackUrl = callbackUrl;
             return this;
@@ -235,7 +232,7 @@ public class UpdateOAuthApplicationRequestBody {
         /**
          * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
          */
-        public Builder scopes(Optional<? extends String> scopes) {
+        public Builder scopes(Optional<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
             return this;
@@ -251,11 +248,11 @@ public class UpdateOAuthApplicationRequestBody {
                 scopes);
         }
 
-        private static final LazySingletonValue<Optional<? extends String>> _SINGLETON_VALUE_Scopes =
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Scopes =
                 new LazySingletonValue<>(
                         "scopes",
                         "\"profile email\"",
-                        new TypeReference<Optional<? extends String>>() {});
+                        new TypeReference<Optional<String>>() {});
     }
 }
 

@@ -4,19 +4,24 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Template;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetTemplateListResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetTemplateListResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +41,14 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
     /**
      * Success
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Template>> templateList;
+    private Optional<? extends List<Template>> templateList;
 
     @JsonCreator
     public GetTemplateListResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.Template>> templateList) {
+            Optional<? extends List<Template>> templateList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +95,8 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.Template>> templateList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.Template>>) templateList;
+    public Optional<List<Template>> templateList() {
+        return (Optional<List<Template>>) templateList;
     }
 
     public final static Builder builder() {
@@ -128,7 +133,7 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
     /**
      * Success
      */
-    public GetTemplateListResponse withTemplateList(java.util.List<com.clerk.backend_api.models.components.Template> templateList) {
+    public GetTemplateListResponse withTemplateList(List<Template> templateList) {
         Utils.checkNotNull(templateList, "templateList");
         this.templateList = Optional.ofNullable(templateList);
         return this;
@@ -137,7 +142,7 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
     /**
      * Success
      */
-    public GetTemplateListResponse withTemplateList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Template>> templateList) {
+    public GetTemplateListResponse withTemplateList(Optional<? extends List<Template>> templateList) {
         Utils.checkNotNull(templateList, "templateList");
         this.templateList = templateList;
         return this;
@@ -153,15 +158,15 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
         }
         GetTemplateListResponse other = (GetTemplateListResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.templateList, other.templateList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.templateList, other.templateList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +190,7 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Template>> templateList = Optional.empty();  
+        private Optional<? extends List<Template>> templateList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +226,7 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
         /**
          * Success
          */
-        public Builder templateList(java.util.List<com.clerk.backend_api.models.components.Template> templateList) {
+        public Builder templateList(List<Template> templateList) {
             Utils.checkNotNull(templateList, "templateList");
             this.templateList = Optional.ofNullable(templateList);
             return this;
@@ -230,7 +235,7 @@ public class GetTemplateListResponse implements com.clerk.backend_api.utils.Resp
         /**
          * Success
          */
-        public Builder templateList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Template>> templateList) {
+        public Builder templateList(Optional<? extends List<Template>> templateList) {
             Utils.checkNotNull(templateList, "templateList");
             this.templateList = templateList;
             return this;

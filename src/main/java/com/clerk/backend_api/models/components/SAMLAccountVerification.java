@@ -4,28 +4,25 @@
 
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
-import java.time.OffsetDateTime;
-import java.time.LocalDate;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.clerk.backend_api.utils.OneOfDeserializer;
 import com.clerk.backend_api.utils.TypedObject;
 import com.clerk.backend_api.utils.Utils.JsonShape;
+import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
+import com.clerk.backend_api.utils.Utils;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 
 
 @JsonDeserialize(using = SAMLAccountVerification._Deserializer.class)
 public class SAMLAccountVerification {
 
-    @com.fasterxml.jackson.annotation.JsonValue
+    @JsonValue
     private TypedObject value;
     
     private SAMLAccountVerification(TypedObject value) {
@@ -45,8 +42,8 @@ public class SAMLAccountVerification {
     /**
      * Returns an instance of one of these types:
      * <ul>
-     * <li>{@code Saml}</li>
-     * <li>{@code Ticket}</li>
+     * <li>{@code com.clerk.backend_api.models.components.Saml}</li>
+     * <li>{@code com.clerk.backend_api.models.components.Ticket}</li>
      * </ul>
      * 
      * <p>Use {@code instanceof} to determine what type is returned. For example:
@@ -73,21 +70,21 @@ public class SAMLAccountVerification {
             return false;
         }
         SAMLAccountVerification other = (SAMLAccountVerification) o;
-        return java.util.Objects.deepEquals(this.value.value(), other.value.value()); 
+        return Objects.deepEquals(this.value.value(), other.value.value()); 
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(value.value());
+        return Objects.hash(value.value());
     }
     
     @SuppressWarnings("serial")
-    public static final class _Deserializer extends com.clerk.backend_api.utils.OneOfDeserializer<SAMLAccountVerification> {
+    public static final class _Deserializer extends OneOfDeserializer<SAMLAccountVerification> {
 
         public _Deserializer() {
             super(SAMLAccountVerification.class,
-                  Utils.TypeReferenceWithShape.of(new TypeReference<Saml>() {}, Utils.JsonShape.DEFAULT),
-                  Utils.TypeReferenceWithShape.of(new TypeReference<Ticket>() {}, Utils.JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Saml>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Ticket>() {}, JsonShape.DEFAULT));
         }
     }
     

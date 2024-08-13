@@ -4,20 +4,26 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.SAMLConnections;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.Response {
+
+public class ListSAMLConnectionsResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -37,7 +43,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
     /**
      * A list of SAML Connections
      */
-    private Optional<? extends com.clerk.backend_api.models.components.SAMLConnections> samlConnections;
+    private Optional<? extends SAMLConnections> samlConnections;
 
     private Callable<Optional<ListSAMLConnectionsResponse>> next = () -> Optional.empty();
 
@@ -46,7 +52,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.SAMLConnections> samlConnections) {
+            Optional<? extends SAMLConnections> samlConnections) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -93,8 +99,8 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.SAMLConnections> samlConnections() {
-        return (Optional<com.clerk.backend_api.models.components.SAMLConnections>) samlConnections;
+    public Optional<SAMLConnections> samlConnections() {
+        return (Optional<SAMLConnections>) samlConnections;
     }
 
     public Optional<ListSAMLConnectionsResponse> next() throws Exception {
@@ -141,7 +147,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
     /**
      * A list of SAML Connections
      */
-    public ListSAMLConnectionsResponse withSAMLConnections(com.clerk.backend_api.models.components.SAMLConnections samlConnections) {
+    public ListSAMLConnectionsResponse withSAMLConnections(SAMLConnections samlConnections) {
         Utils.checkNotNull(samlConnections, "samlConnections");
         this.samlConnections = Optional.ofNullable(samlConnections);
         return this;
@@ -150,7 +156,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
     /**
      * A list of SAML Connections
      */
-    public ListSAMLConnectionsResponse withSAMLConnections(Optional<? extends com.clerk.backend_api.models.components.SAMLConnections> samlConnections) {
+    public ListSAMLConnectionsResponse withSAMLConnections(Optional<? extends SAMLConnections> samlConnections) {
         Utils.checkNotNull(samlConnections, "samlConnections");
         this.samlConnections = samlConnections;
         return this;
@@ -166,15 +172,15 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
         }
         ListSAMLConnectionsResponse other = (ListSAMLConnectionsResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.samlConnections, other.samlConnections);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.samlConnections, other.samlConnections);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -199,7 +205,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.SAMLConnections> samlConnections = Optional.empty();  
+        private Optional<? extends SAMLConnections> samlConnections = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -235,7 +241,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
         /**
          * A list of SAML Connections
          */
-        public Builder samlConnections(com.clerk.backend_api.models.components.SAMLConnections samlConnections) {
+        public Builder samlConnections(SAMLConnections samlConnections) {
             Utils.checkNotNull(samlConnections, "samlConnections");
             this.samlConnections = Optional.ofNullable(samlConnections);
             return this;
@@ -244,7 +250,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
         /**
          * A list of SAML Connections
          */
-        public Builder samlConnections(Optional<? extends com.clerk.backend_api.models.components.SAMLConnections> samlConnections) {
+        public Builder samlConnections(Optional<? extends SAMLConnections> samlConnections) {
             Utils.checkNotNull(samlConnections, "samlConnections");
             this.samlConnections = samlConnections;
             return this;
@@ -253,7 +259,7 @@ public class ListSAMLConnectionsResponse implements com.clerk.backend_api.utils.
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @deprecated not part of the public API, may be removed without notice
+         * @Deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<ListSAMLConnectionsResponse>> next) {

@@ -4,16 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
+
 
 public class CreateOrganizationInvitationBulkRequest {
 
@@ -24,12 +24,12 @@ public class CreateOrganizationInvitationBulkRequest {
     private String organizationId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private java.util.List<RequestBody> requestBody;
+    private List<RequestBody> requestBody;
 
     @JsonCreator
     public CreateOrganizationInvitationBulkRequest(
             String organizationId,
-            java.util.List<RequestBody> requestBody) {
+            List<RequestBody> requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
@@ -45,7 +45,7 @@ public class CreateOrganizationInvitationBulkRequest {
     }
 
     @JsonIgnore
-    public java.util.List<RequestBody> requestBody() {
+    public List<RequestBody> requestBody() {
         return requestBody;
     }
 
@@ -62,7 +62,7 @@ public class CreateOrganizationInvitationBulkRequest {
         return this;
     }
 
-    public CreateOrganizationInvitationBulkRequest withRequestBody(java.util.List<RequestBody> requestBody) {
+    public CreateOrganizationInvitationBulkRequest withRequestBody(List<RequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -78,13 +78,13 @@ public class CreateOrganizationInvitationBulkRequest {
         }
         CreateOrganizationInvitationBulkRequest other = (CreateOrganizationInvitationBulkRequest) o;
         return 
-            java.util.Objects.deepEquals(this.organizationId, other.organizationId) &&
-            java.util.Objects.deepEquals(this.requestBody, other.requestBody);
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
+            Objects.deepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             organizationId,
             requestBody);
     }
@@ -100,7 +100,7 @@ public class CreateOrganizationInvitationBulkRequest {
  
         private String organizationId;
  
-        private java.util.List<RequestBody> requestBody;  
+        private List<RequestBody> requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -115,7 +115,7 @@ public class CreateOrganizationInvitationBulkRequest {
             return this;
         }
 
-        public Builder requestBody(java.util.List<RequestBody> requestBody) {
+        public Builder requestBody(List<RequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

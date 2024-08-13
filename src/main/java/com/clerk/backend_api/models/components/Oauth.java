@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Oauth {
 
@@ -29,7 +30,7 @@ public class Oauth {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_verification_redirect_url")
-    private Optional<? extends String> externalVerificationRedirectUrl;
+    private Optional<String> externalVerificationRedirectUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
@@ -40,16 +41,16 @@ public class Oauth {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
-    private JsonNullable<? extends Long> attempts;
+    private JsonNullable<Long> attempts;
 
     @JsonCreator
     public Oauth(
             @JsonProperty("status") OauthVerificationStatus status,
             @JsonProperty("strategy") OauthVerificationStrategy strategy,
-            @JsonProperty("external_verification_redirect_url") Optional<? extends String> externalVerificationRedirectUrl,
+            @JsonProperty("external_verification_redirect_url") Optional<String> externalVerificationRedirectUrl,
             @JsonProperty("error") JsonNullable<? extends Error> error,
             @JsonProperty("expire_at") long expireAt,
-            @JsonProperty("attempts") JsonNullable<? extends Long> attempts) {
+            @JsonProperty("attempts") JsonNullable<Long> attempts) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
@@ -81,10 +82,9 @@ public class Oauth {
         return strategy;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> externalVerificationRedirectUrl() {
-        return (Optional<String>) externalVerificationRedirectUrl;
+        return externalVerificationRedirectUrl;
     }
 
     @SuppressWarnings("unchecked")
@@ -98,10 +98,9 @@ public class Oauth {
         return expireAt;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> attempts() {
-        return (JsonNullable<Long>) attempts;
+        return attempts;
     }
 
     public final static Builder builder() {
@@ -126,7 +125,7 @@ public class Oauth {
         return this;
     }
 
-    public Oauth withExternalVerificationRedirectUrl(Optional<? extends String> externalVerificationRedirectUrl) {
+    public Oauth withExternalVerificationRedirectUrl(Optional<String> externalVerificationRedirectUrl) {
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
         this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
         return this;
@@ -156,7 +155,7 @@ public class Oauth {
         return this;
     }
 
-    public Oauth withAttempts(JsonNullable<? extends Long> attempts) {
+    public Oauth withAttempts(JsonNullable<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
@@ -172,17 +171,17 @@ public class Oauth {
         }
         Oauth other = (Oauth) o;
         return 
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.strategy, other.strategy) &&
-            java.util.Objects.deepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
-            java.util.Objects.deepEquals(this.error, other.error) &&
-            java.util.Objects.deepEquals(this.expireAt, other.expireAt) &&
-            java.util.Objects.deepEquals(this.attempts, other.attempts);
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.strategy, other.strategy) &&
+            Objects.deepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
+            Objects.deepEquals(this.error, other.error) &&
+            Objects.deepEquals(this.expireAt, other.expireAt) &&
+            Objects.deepEquals(this.attempts, other.attempts);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             status,
             strategy,
             externalVerificationRedirectUrl,
@@ -208,13 +207,13 @@ public class Oauth {
  
         private OauthVerificationStrategy strategy;
  
-        private Optional<? extends String> externalVerificationRedirectUrl = Optional.empty();
+        private Optional<String> externalVerificationRedirectUrl = Optional.empty();
  
         private JsonNullable<? extends Error> error = JsonNullable.undefined();
  
         private Long expireAt;
  
-        private JsonNullable<? extends Long> attempts = JsonNullable.undefined();  
+        private JsonNullable<Long> attempts = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -238,7 +237,7 @@ public class Oauth {
             return this;
         }
 
-        public Builder externalVerificationRedirectUrl(Optional<? extends String> externalVerificationRedirectUrl) {
+        public Builder externalVerificationRedirectUrl(Optional<String> externalVerificationRedirectUrl) {
             Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
             this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
             return this;
@@ -268,7 +267,7 @@ public class Oauth {
             return this;
         }
 
-        public Builder attempts(JsonNullable<? extends Long> attempts) {
+        public Builder attempts(JsonNullable<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;

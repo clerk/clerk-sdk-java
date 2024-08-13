@@ -4,28 +4,45 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.Session;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequest;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponseBody;
+import com.clerk.backend_api.models.operations.GetSessionListRequest;
+import com.clerk.backend_api.models.operations.GetSessionListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetSessionListResponse;
+import com.clerk.backend_api.models.operations.GetSessionRequest;
+import com.clerk.backend_api.models.operations.GetSessionRequestBuilder;
+import com.clerk.backend_api.models.operations.GetSessionResponse;
+import com.clerk.backend_api.models.operations.RevokeSessionRequest;
+import com.clerk.backend_api.models.operations.RevokeSessionRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeSessionResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.VerifySessionRequest;
+import com.clerk.backend_api.models.operations.VerifySessionRequestBody;
+import com.clerk.backend_api.models.operations.VerifySessionRequestBuilder;
+import com.clerk.backend_api.models.operations.VerifySessionResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Deprecated;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Sessions implements
             MethodCallGetSessionList,
@@ -49,8 +66,8 @@ public class Sessions implements
      * moving forward at least one of `client_id` or `user_id` parameters should be provided.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetSessionListRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.GetSessionListRequestBuilder(this);
+    public GetSessionListRequestBuilder list() {
+        return new GetSessionListRequestBuilder(this);
     }
 
     /**
@@ -63,8 +80,8 @@ public class Sessions implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetSessionListResponse list(
-            com.clerk.backend_api.models.operations.GetSessionListRequest request) throws Exception {
+    public GetSessionListResponse list(
+            GetSessionListRequest request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -76,7 +93,7 @@ public class Sessions implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.GetSessionListRequest.class,
+                GetSessionListRequest.class,
                 request, 
                 null));
 
@@ -87,7 +104,10 @@ public class Sessions implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetSessionList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetSessionList", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -95,18 +115,28 @@ public class Sessions implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetSessionList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetSessionList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetSessionList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetSessionList",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetSessionList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetSessionList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -114,42 +144,42 @@ public class Sessions implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetSessionListResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetSessionListResponse
+        GetSessionListResponse.Builder _resBuilder = 
+            GetSessionListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetSessionListResponse _res = _resBuilder.build();
+        GetSessionListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.components.Session> _out = Utils.mapper().readValue(
+                List<Session> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.components.Session>>() {});
-                _res.withSessionList(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<Session>>() {});
+                _res.withSessionList(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -158,13 +188,13 @@ public class Sessions implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -174,8 +204,8 @@ public class Sessions implements
      * Retrieve the details of a session
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetSessionRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetSessionRequestBuilder(this);
+    public GetSessionRequestBuilder get() {
+        return new GetSessionRequestBuilder(this);
     }
 
     /**
@@ -185,17 +215,17 @@ public class Sessions implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetSessionResponse get(
+    public GetSessionResponse get(
             String sessionId) throws Exception {
-        com.clerk.backend_api.models.operations.GetSessionRequest request =
-            com.clerk.backend_api.models.operations.GetSessionRequest
+        GetSessionRequest request =
+            GetSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetSessionRequest.class,
+                GetSessionRequest.class,
                 _baseUrl,
                 "/sessions/{session_id}",
                 request, null);
@@ -212,7 +242,10 @@ public class Sessions implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetSession", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -220,18 +253,28 @@ public class Sessions implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetSession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetSession",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetSession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -239,42 +282,42 @@ public class Sessions implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetSessionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetSessionResponse
+        GetSessionResponse.Builder _resBuilder = 
+            GetSessionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetSessionResponse _res = _resBuilder.build();
+        GetSessionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Session _out = Utils.mapper().readValue(
+                Session _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Session>() {});
-                _res.withSession(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Session>() {});
+                _res.withSession(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -283,13 +326,13 @@ public class Sessions implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -300,8 +343,8 @@ public class Sessions implements
      * In multi-session mode, a revoked session will still be returned along with its client object, however the user will need to sign in again.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.RevokeSessionRequestBuilder revoke() {
-        return new com.clerk.backend_api.models.operations.RevokeSessionRequestBuilder(this);
+    public RevokeSessionRequestBuilder revoke() {
+        return new RevokeSessionRequestBuilder(this);
     }
 
     /**
@@ -312,17 +355,17 @@ public class Sessions implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.RevokeSessionResponse revoke(
+    public RevokeSessionResponse revoke(
             String sessionId) throws Exception {
-        com.clerk.backend_api.models.operations.RevokeSessionRequest request =
-            com.clerk.backend_api.models.operations.RevokeSessionRequest
+        RevokeSessionRequest request =
+            RevokeSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.RevokeSessionRequest.class,
+                RevokeSessionRequest.class,
                 _baseUrl,
                 "/sessions/{session_id}/revoke",
                 request, null);
@@ -339,7 +382,10 @@ public class Sessions implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("RevokeSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "RevokeSession", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -347,18 +393,28 @@ public class Sessions implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("RevokeSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "RevokeSession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("RevokeSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "RevokeSession",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("RevokeSession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RevokeSession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -366,42 +422,42 @@ public class Sessions implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.RevokeSessionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.RevokeSessionResponse
+        RevokeSessionResponse.Builder _resBuilder = 
+            RevokeSessionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.RevokeSessionResponse _res = _resBuilder.build();
+        RevokeSessionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Session _out = Utils.mapper().readValue(
+                Session _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Session>() {});
-                _res.withSession(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Session>() {});
+                _res.withSession(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -410,13 +466,13 @@ public class Sessions implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -431,8 +487,8 @@ public class Sessions implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.VerifySessionRequestBuilder verify() {
-        return new com.clerk.backend_api.models.operations.VerifySessionRequestBuilder(this);
+    public VerifySessionRequestBuilder verify() {
+        return new VerifySessionRequestBuilder(this);
     }
 
     /**
@@ -447,10 +503,11 @@ public class Sessions implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.VerifySessionResponse verify(
+    public VerifySessionResponse verify(
             String sessionId) throws Exception {
         return verify(sessionId, Optional.empty());
     }
+    
     /**
      * Verify a session
      * Returns the session if it is authenticated, otherwise returns an error.
@@ -464,11 +521,11 @@ public class Sessions implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.VerifySessionResponse verify(
+    public VerifySessionResponse verify(
             String sessionId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifySessionRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.VerifySessionRequest request =
-            com.clerk.backend_api.models.operations.VerifySessionRequest
+            Optional<? extends VerifySessionRequestBody> requestBody) throws Exception {
+        VerifySessionRequest request =
+            VerifySessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .requestBody(requestBody)
@@ -476,16 +533,21 @@ public class Sessions implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.VerifySessionRequest.class,
+                VerifySessionRequest.class,
                 _baseUrl,
                 "/sessions/{session_id}/verify",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -498,7 +560,10 @@ public class Sessions implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("VerifySession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "VerifySession", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -506,18 +571,28 @@ public class Sessions implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "410", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("VerifySession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "VerifySession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("VerifySession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "VerifySession",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("VerifySession", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "VerifySession",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -525,42 +600,42 @@ public class Sessions implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.VerifySessionResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.VerifySessionResponse
+        VerifySessionResponse.Builder _resBuilder = 
+            VerifySessionResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.VerifySessionResponse _res = _resBuilder.build();
+        VerifySessionResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Session _out = Utils.mapper().readValue(
+                Session _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Session>() {});
-                _res.withSession(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Session>() {});
+                _res.withSession(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "410")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -569,13 +644,13 @@ public class Sessions implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -585,8 +660,8 @@ public class Sessions implements
      * Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBuilder createTokenFromTemplate() {
-        return new com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBuilder(this);
+    public CreateSessionTokenFromTemplateRequestBuilder createTokenFromTemplate() {
+        return new CreateSessionTokenFromTemplateRequestBuilder(this);
     }
 
     /**
@@ -597,11 +672,11 @@ public class Sessions implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
+    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
             String sessionId,
             String templateName) throws Exception {
-        com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequest request =
-            com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequest
+        CreateSessionTokenFromTemplateRequest request =
+            CreateSessionTokenFromTemplateRequest
                 .builder()
                 .sessionId(sessionId)
                 .templateName(templateName)
@@ -609,7 +684,7 @@ public class Sessions implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequest.class,
+                CreateSessionTokenFromTemplateRequest.class,
                 _baseUrl,
                 "/sessions/{session_id}/tokens/{template_name}",
                 request, null);
@@ -626,7 +701,10 @@ public class Sessions implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateSessionTokenFromTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateSessionTokenFromTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -634,18 +712,28 @@ public class Sessions implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateSessionTokenFromTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateSessionTokenFromTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateSessionTokenFromTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateSessionTokenFromTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateSessionTokenFromTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateSessionTokenFromTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -653,42 +741,42 @@ public class Sessions implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse
+        CreateSessionTokenFromTemplateResponse.Builder _resBuilder = 
+            CreateSessionTokenFromTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse _res = _resBuilder.build();
+        CreateSessionTokenFromTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponseBody _out = Utils.mapper().readValue(
+                CreateSessionTokenFromTemplateResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponseBody>() {});
-                _res.withObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<CreateSessionTokenFromTemplateResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -697,13 +785,13 @@ public class Sessions implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

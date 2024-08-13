@@ -4,27 +4,54 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.Template;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetTemplateListRequest;
+import com.clerk.backend_api.models.operations.GetTemplateListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetTemplateListResponse;
+import com.clerk.backend_api.models.operations.GetTemplateRequest;
+import com.clerk.backend_api.models.operations.GetTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.GetTemplateResponse;
+import com.clerk.backend_api.models.operations.PathParamTemplateType;
+import com.clerk.backend_api.models.operations.PreviewTemplateRequest;
+import com.clerk.backend_api.models.operations.PreviewTemplateRequestBody;
+import com.clerk.backend_api.models.operations.PreviewTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.PreviewTemplateResponse;
+import com.clerk.backend_api.models.operations.PreviewTemplateResponseBody;
+import com.clerk.backend_api.models.operations.RevertTemplatePathParamTemplateType;
+import com.clerk.backend_api.models.operations.RevertTemplateRequest;
+import com.clerk.backend_api.models.operations.RevertTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.RevertTemplateResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.TemplateType;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBuilder;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse;
+import com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType;
+import com.clerk.backend_api.models.operations.UpsertTemplateRequest;
+import com.clerk.backend_api.models.operations.UpsertTemplateRequestBody;
+import com.clerk.backend_api.models.operations.UpsertTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.UpsertTemplateResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Templates implements
             MethodCallGetTemplateList,
@@ -47,8 +74,8 @@ public class Templates implements
      * The templates are returned sorted by position.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetTemplateListRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.GetTemplateListRequestBuilder(this);
+    public GetTemplateListRequestBuilder list() {
+        return new GetTemplateListRequestBuilder(this);
     }
 
     /**
@@ -59,17 +86,17 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetTemplateListResponse list(
-            com.clerk.backend_api.models.operations.TemplateType templateType) throws Exception {
-        com.clerk.backend_api.models.operations.GetTemplateListRequest request =
-            com.clerk.backend_api.models.operations.GetTemplateListRequest
+    public GetTemplateListResponse list(
+            TemplateType templateType) throws Exception {
+        GetTemplateListRequest request =
+            GetTemplateListRequest
                 .builder()
                 .templateType(templateType)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetTemplateListRequest.class,
+                GetTemplateListRequest.class,
                 _baseUrl,
                 "/templates/{template_type}",
                 request, null);
@@ -86,7 +113,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetTemplateList", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -94,18 +124,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetTemplateList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -113,42 +153,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetTemplateListResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetTemplateListResponse
+        GetTemplateListResponse.Builder _resBuilder = 
+            GetTemplateListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetTemplateListResponse _res = _resBuilder.build();
+        GetTemplateListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.components.Template> _out = Utils.mapper().readValue(
+                List<Template> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.components.Template>>() {});
-                _res.withTemplateList(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<Template>>() {});
+                _res.withTemplateList(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -157,13 +197,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -173,8 +213,8 @@ public class Templates implements
      * Returns the details of a template
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetTemplateRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetTemplateRequestBuilder(this);
+    public GetTemplateRequestBuilder get() {
+        return new GetTemplateRequestBuilder(this);
     }
 
     /**
@@ -185,11 +225,11 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetTemplateResponse get(
-            com.clerk.backend_api.models.operations.PathParamTemplateType templateType,
+    public GetTemplateResponse get(
+            PathParamTemplateType templateType,
             String slug) throws Exception {
-        com.clerk.backend_api.models.operations.GetTemplateRequest request =
-            com.clerk.backend_api.models.operations.GetTemplateRequest
+        GetTemplateRequest request =
+            GetTemplateRequest
                 .builder()
                 .templateType(templateType)
                 .slug(slug)
@@ -197,7 +237,7 @@ public class Templates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetTemplateRequest.class,
+                GetTemplateRequest.class,
                 _baseUrl,
                 "/templates/{template_type}/{slug}",
                 request, null);
@@ -214,7 +254,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -222,18 +265,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -241,42 +294,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetTemplateResponse
+        GetTemplateResponse.Builder _resBuilder = 
+            GetTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetTemplateResponse _res = _resBuilder.build();
+        GetTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Template _out = Utils.mapper().readValue(
+                Template _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Template>() {});
-                _res.withTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Template>() {});
+                _res.withTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -285,13 +338,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -301,8 +354,8 @@ public class Templates implements
      * Updates the existing template of the given type and slug
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpsertTemplateRequestBuilder upsert() {
-        return new com.clerk.backend_api.models.operations.UpsertTemplateRequestBuilder(this);
+    public UpsertTemplateRequestBuilder upsert() {
+        return new UpsertTemplateRequestBuilder(this);
     }
 
     /**
@@ -313,11 +366,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpsertTemplateResponse upsert(
-            com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType templateType,
+    public UpsertTemplateResponse upsert(
+            UpsertTemplatePathParamTemplateType templateType,
             String slug) throws Exception {
         return upsert(templateType, slug, Optional.empty());
     }
+    
     /**
      * Update a template for a given type and slug
      * Updates the existing template of the given type and slug
@@ -327,12 +381,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpsertTemplateResponse upsert(
-            com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType templateType,
+    public UpsertTemplateResponse upsert(
+            UpsertTemplatePathParamTemplateType templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.UpsertTemplateRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpsertTemplateRequest request =
-            com.clerk.backend_api.models.operations.UpsertTemplateRequest
+            Optional<? extends UpsertTemplateRequestBody> requestBody) throws Exception {
+        UpsertTemplateRequest request =
+            UpsertTemplateRequest
                 .builder()
                 .templateType(templateType)
                 .slug(slug)
@@ -341,16 +395,21 @@ public class Templates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpsertTemplateRequest.class,
+                UpsertTemplateRequest.class,
                 _baseUrl,
                 "/templates/{template_type}/{slug}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PUT");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -363,7 +422,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpsertTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -371,18 +433,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpsertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpsertTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpsertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpsertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -390,42 +462,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpsertTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpsertTemplateResponse
+        UpsertTemplateResponse.Builder _resBuilder = 
+            UpsertTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpsertTemplateResponse _res = _resBuilder.build();
+        UpsertTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Template _out = Utils.mapper().readValue(
+                Template _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Template>() {});
-                _res.withTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Template>() {});
+                _res.withTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -434,13 +506,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -450,8 +522,8 @@ public class Templates implements
      * Reverts an updated template to its default state
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.RevertTemplateRequestBuilder revert() {
-        return new com.clerk.backend_api.models.operations.RevertTemplateRequestBuilder(this);
+    public RevertTemplateRequestBuilder revert() {
+        return new RevertTemplateRequestBuilder(this);
     }
 
     /**
@@ -462,11 +534,11 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.RevertTemplateResponse revert(
-            com.clerk.backend_api.models.operations.RevertTemplatePathParamTemplateType templateType,
+    public RevertTemplateResponse revert(
+            RevertTemplatePathParamTemplateType templateType,
             String slug) throws Exception {
-        com.clerk.backend_api.models.operations.RevertTemplateRequest request =
-            com.clerk.backend_api.models.operations.RevertTemplateRequest
+        RevertTemplateRequest request =
+            RevertTemplateRequest
                 .builder()
                 .templateType(templateType)
                 .slug(slug)
@@ -474,7 +546,7 @@ public class Templates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.RevertTemplateRequest.class,
+                RevertTemplateRequest.class,
                 _baseUrl,
                 "/templates/{template_type}/{slug}/revert",
                 request, null);
@@ -491,7 +563,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "RevertTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -499,18 +574,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("RevertTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -518,42 +603,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.RevertTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.RevertTemplateResponse
+        RevertTemplateResponse.Builder _resBuilder = 
+            RevertTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.RevertTemplateResponse _res = _resBuilder.build();
+        RevertTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Template _out = Utils.mapper().readValue(
+                Template _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Template>() {});
-                _res.withTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Template>() {});
+                _res.withTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -562,13 +647,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -578,8 +663,8 @@ public class Templates implements
      * Returns a preview of a template for a given template_type, slug and body
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.PreviewTemplateRequestBuilder preview() {
-        return new com.clerk.backend_api.models.operations.PreviewTemplateRequestBuilder(this);
+    public PreviewTemplateRequestBuilder preview() {
+        return new PreviewTemplateRequestBuilder(this);
     }
 
     /**
@@ -590,11 +675,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.PreviewTemplateResponse preview(
+    public PreviewTemplateResponse preview(
             String templateType,
             String slug) throws Exception {
         return preview(templateType, slug, Optional.empty());
     }
+    
     /**
      * Preview changes to a template
      * Returns a preview of a template for a given template_type, slug and body
@@ -604,12 +690,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.PreviewTemplateResponse preview(
+    public PreviewTemplateResponse preview(
             String templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.PreviewTemplateRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.PreviewTemplateRequest request =
-            com.clerk.backend_api.models.operations.PreviewTemplateRequest
+            Optional<? extends PreviewTemplateRequestBody> requestBody) throws Exception {
+        PreviewTemplateRequest request =
+            PreviewTemplateRequest
                 .builder()
                 .templateType(templateType)
                 .slug(slug)
@@ -618,16 +704,21 @@ public class Templates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.PreviewTemplateRequest.class,
+                PreviewTemplateRequest.class,
                 _baseUrl,
                 "/templates/{template_type}/{slug}/preview",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -640,7 +731,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "PreviewTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -648,18 +742,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "PreviewTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "PreviewTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("PreviewTemplate", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "PreviewTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -667,42 +771,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.PreviewTemplateResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.PreviewTemplateResponse
+        PreviewTemplateResponse.Builder _resBuilder = 
+            PreviewTemplateResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.PreviewTemplateResponse _res = _resBuilder.build();
+        PreviewTemplateResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.operations.PreviewTemplateResponseBody _out = Utils.mapper().readValue(
+                PreviewTemplateResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.operations.PreviewTemplateResponseBody>() {});
-                _res.withObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<PreviewTemplateResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -711,13 +815,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -729,8 +833,8 @@ public class Templates implements
      * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to handle delivery themselves.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBuilder toggleDelivery() {
-        return new com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBuilder(this);
+    public ToggleTemplateDeliveryRequestBuilder toggleDelivery() {
+        return new ToggleTemplateDeliveryRequestBuilder(this);
     }
 
     /**
@@ -743,11 +847,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse toggleDelivery(
-            com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType templateType,
+    public ToggleTemplateDeliveryResponse toggleDelivery(
+            ToggleTemplateDeliveryPathParamTemplateType templateType,
             String slug) throws Exception {
         return toggleDelivery(templateType, slug, Optional.empty());
     }
+    
     /**
      * Toggle the delivery by Clerk for a template of a given type and slug
      * Toggles the delivery by Clerk for a template of a given type and slug.
@@ -759,12 +864,12 @@ public class Templates implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse toggleDelivery(
-            com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType templateType,
+    public ToggleTemplateDeliveryResponse toggleDelivery(
+            ToggleTemplateDeliveryPathParamTemplateType templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest request =
-            com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) throws Exception {
+        ToggleTemplateDeliveryRequest request =
+            ToggleTemplateDeliveryRequest
                 .builder()
                 .templateType(templateType)
                 .slug(slug)
@@ -773,16 +878,21 @@ public class Templates implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest.class,
+                ToggleTemplateDeliveryRequest.class,
                 _baseUrl,
                 "/templates/{template_type}/{slug}/toggle_delivery",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -795,7 +905,10 @@ public class Templates implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ToggleTemplateDelivery", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -803,18 +916,28 @@ public class Templates implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ToggleTemplateDelivery",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ToggleTemplateDelivery",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ToggleTemplateDelivery", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ToggleTemplateDelivery",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -822,42 +945,42 @@ public class Templates implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse
+        ToggleTemplateDeliveryResponse.Builder _resBuilder = 
+            ToggleTemplateDeliveryResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse _res = _resBuilder.build();
+        ToggleTemplateDeliveryResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Template _out = Utils.mapper().readValue(
+                Template _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Template>() {});
-                _res.withTemplate(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Template>() {});
+                _res.withTemplate(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -866,13 +989,13 @@ public class Templates implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

@@ -19,17 +19,10 @@ Also, trying to create an invitation for an email address that already exists in
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
+import com.clerk.backend_api.models.operations.CreateInvitationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -53,7 +46,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -65,16 +58,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                     | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                     | [com.clerk.backend_api.models.operations.CreateInvitationRequestBody](../../models/operations/CreateInvitationRequestBody.md) | :heavy_check_mark:                                                                                                            | The request object to use for the request.                                                                                    |
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [CreateInvitationRequestBody](../../models/operations/CreateInvitationRequestBody.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateInvitationResponse](../../models/operations/CreateInvitationResponse.md)**
+**[CreateInvitationResponse](../../models/operations/CreateInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -92,17 +87,8 @@ Returns all non-revoked invitations for your application, sorted by creation dat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.operations.QueryParamStatus;
+import java.lang.Exception;
 
 public class Application {
 
@@ -130,18 +116,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
-| `status`                                                                                                                                  | [Optional<? extends com.clerk.backend_api.models.operations.QueryParamStatus>](../../models/operations/QueryParamStatus.md)               | :heavy_minus_sign:                                                                                                                        | Filter invitations based on their status                                                                                                  |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `status`                                                                                                                                  | [Optional<QueryParamStatus>](../../models/operations/QueryParamStatus.md)                                                                 | :heavy_minus_sign:                                                                                                                        | Filter invitations based on their status                                                                                                  |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListInvitationsResponse](../../models/operations/ListInvitationsResponse.md)**
+**[ListInvitationsResponse](../../models/operations/ListInvitationsResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
@@ -161,17 +149,9 @@ Only active (i.e. non-revoked) invitations can be revoked.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -191,7 +171,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -203,6 +183,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                              | Type                                   | Required                               | Description                            |
@@ -212,7 +194,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.RevokeInvitationResponse](../../models/operations/RevokeInvitationResponse.md)**
+**[RevokeInvitationResponse](../../models/operations/RevokeInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

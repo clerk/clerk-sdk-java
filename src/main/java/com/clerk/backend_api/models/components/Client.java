@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class Client {
 
@@ -35,18 +36,18 @@ public class Client {
     private String id;
 
     @JsonProperty("session_ids")
-    private java.util.List<String> sessionIds;
+    private List<String> sessionIds;
 
     @JsonProperty("sessions")
-    private java.util.List<Session> sessions;
+    private List<Session> sessions;
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("sign_in_id")
-    private Optional<? extends String> signInId;
+    private Optional<String> signInId;
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("sign_up_id")
-    private Optional<? extends String> signUpId;
+    private Optional<String> signUpId;
 
     /**
      * Last active session_id.
@@ -54,7 +55,7 @@ public class Client {
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_active_session_id")
-    private Optional<? extends String> lastActiveSessionId;
+    private Optional<String> lastActiveSessionId;
 
     /**
      * Unix timestamp of last update.
@@ -74,11 +75,11 @@ public class Client {
     public Client(
             @JsonProperty("object") Object object,
             @JsonProperty("id") String id,
-            @JsonProperty("session_ids") java.util.List<String> sessionIds,
-            @JsonProperty("sessions") java.util.List<Session> sessions,
-            @JsonProperty("sign_in_id") Optional<? extends String> signInId,
-            @JsonProperty("sign_up_id") Optional<? extends String> signUpId,
-            @JsonProperty("last_active_session_id") Optional<? extends String> lastActiveSessionId,
+            @JsonProperty("session_ids") List<String> sessionIds,
+            @JsonProperty("sessions") List<Session> sessions,
+            @JsonProperty("sign_in_id") Optional<String> signInId,
+            @JsonProperty("sign_up_id") Optional<String> signUpId,
+            @JsonProperty("last_active_session_id") Optional<String> lastActiveSessionId,
             @JsonProperty("updated_at") long updatedAt,
             @JsonProperty("created_at") long createdAt) {
         Utils.checkNotNull(object, "object");
@@ -104,8 +105,8 @@ public class Client {
     public Client(
             Object object,
             String id,
-            java.util.List<String> sessionIds,
-            java.util.List<Session> sessions,
+            List<String> sessionIds,
+            List<Session> sessions,
             long updatedAt,
             long createdAt) {
         this(object, id, sessionIds, sessions, Optional.empty(), Optional.empty(), Optional.empty(), updatedAt, createdAt);
@@ -130,35 +131,32 @@ public class Client {
     }
 
     @JsonIgnore
-    public java.util.List<String> sessionIds() {
+    public List<String> sessionIds() {
         return sessionIds;
     }
 
     @JsonIgnore
-    public java.util.List<Session> sessions() {
+    public List<Session> sessions() {
         return sessions;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> signInId() {
-        return (Optional<String>) signInId;
+        return signInId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> signUpId() {
-        return (Optional<String>) signUpId;
+        return signUpId;
     }
 
     /**
      * Last active session_id.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> lastActiveSessionId() {
-        return (Optional<String>) lastActiveSessionId;
+        return lastActiveSessionId;
     }
 
     /**
@@ -203,13 +201,13 @@ public class Client {
         return this;
     }
 
-    public Client withSessionIds(java.util.List<String> sessionIds) {
+    public Client withSessionIds(List<String> sessionIds) {
         Utils.checkNotNull(sessionIds, "sessionIds");
         this.sessionIds = sessionIds;
         return this;
     }
 
-    public Client withSessions(java.util.List<Session> sessions) {
+    public Client withSessions(List<Session> sessions) {
         Utils.checkNotNull(sessions, "sessions");
         this.sessions = sessions;
         return this;
@@ -221,7 +219,7 @@ public class Client {
         return this;
     }
 
-    public Client withSignInId(Optional<? extends String> signInId) {
+    public Client withSignInId(Optional<String> signInId) {
         Utils.checkNotNull(signInId, "signInId");
         this.signInId = signInId;
         return this;
@@ -233,7 +231,7 @@ public class Client {
         return this;
     }
 
-    public Client withSignUpId(Optional<? extends String> signUpId) {
+    public Client withSignUpId(Optional<String> signUpId) {
         Utils.checkNotNull(signUpId, "signUpId");
         this.signUpId = signUpId;
         return this;
@@ -253,7 +251,7 @@ public class Client {
      * Last active session_id.
      * 
      */
-    public Client withLastActiveSessionId(Optional<? extends String> lastActiveSessionId) {
+    public Client withLastActiveSessionId(Optional<String> lastActiveSessionId) {
         Utils.checkNotNull(lastActiveSessionId, "lastActiveSessionId");
         this.lastActiveSessionId = lastActiveSessionId;
         return this;
@@ -289,20 +287,20 @@ public class Client {
         }
         Client other = (Client) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.sessionIds, other.sessionIds) &&
-            java.util.Objects.deepEquals(this.sessions, other.sessions) &&
-            java.util.Objects.deepEquals(this.signInId, other.signInId) &&
-            java.util.Objects.deepEquals(this.signUpId, other.signUpId) &&
-            java.util.Objects.deepEquals(this.lastActiveSessionId, other.lastActiveSessionId) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.sessionIds, other.sessionIds) &&
+            Objects.deepEquals(this.sessions, other.sessions) &&
+            Objects.deepEquals(this.signInId, other.signInId) &&
+            Objects.deepEquals(this.signUpId, other.signUpId) &&
+            Objects.deepEquals(this.lastActiveSessionId, other.lastActiveSessionId) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             sessionIds,
@@ -334,15 +332,15 @@ public class Client {
  
         private String id;
  
-        private java.util.List<String> sessionIds;
+        private List<String> sessionIds;
  
-        private java.util.List<Session> sessions;
+        private List<Session> sessions;
  
-        private Optional<? extends String> signInId = Optional.empty();
+        private Optional<String> signInId = Optional.empty();
  
-        private Optional<? extends String> signUpId = Optional.empty();
+        private Optional<String> signUpId = Optional.empty();
  
-        private Optional<? extends String> lastActiveSessionId = Optional.empty();
+        private Optional<String> lastActiveSessionId = Optional.empty();
  
         private Long updatedAt;
  
@@ -372,13 +370,13 @@ public class Client {
             return this;
         }
 
-        public Builder sessionIds(java.util.List<String> sessionIds) {
+        public Builder sessionIds(List<String> sessionIds) {
             Utils.checkNotNull(sessionIds, "sessionIds");
             this.sessionIds = sessionIds;
             return this;
         }
 
-        public Builder sessions(java.util.List<Session> sessions) {
+        public Builder sessions(List<Session> sessions) {
             Utils.checkNotNull(sessions, "sessions");
             this.sessions = sessions;
             return this;
@@ -390,7 +388,7 @@ public class Client {
             return this;
         }
 
-        public Builder signInId(Optional<? extends String> signInId) {
+        public Builder signInId(Optional<String> signInId) {
             Utils.checkNotNull(signInId, "signInId");
             this.signInId = signInId;
             return this;
@@ -402,7 +400,7 @@ public class Client {
             return this;
         }
 
-        public Builder signUpId(Optional<? extends String> signUpId) {
+        public Builder signUpId(Optional<String> signUpId) {
             Utils.checkNotNull(signUpId, "signUpId");
             this.signUpId = signUpId;
             return this;
@@ -422,7 +420,7 @@ public class Client {
          * Last active session_id.
          * 
          */
-        public Builder lastActiveSessionId(Optional<? extends String> lastActiveSessionId) {
+        public Builder lastActiveSessionId(Optional<String> lastActiveSessionId) {
             Utils.checkNotNull(lastActiveSessionId, "lastActiveSessionId");
             this.lastActiveSessionId = lastActiveSessionId;
             return this;

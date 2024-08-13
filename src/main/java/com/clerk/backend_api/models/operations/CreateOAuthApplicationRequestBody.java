@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateOAuthApplicationRequestBody {
 
@@ -38,7 +39,7 @@ public class CreateOAuthApplicationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
-    private Optional<? extends String> scopes;
+    private Optional<String> scopes;
 
     /**
      * If true, this client is public and cannot securely store a client secret.
@@ -47,14 +48,14 @@ public class CreateOAuthApplicationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public")
-    private Optional<? extends Boolean> public_;
+    private Optional<Boolean> public_;
 
     @JsonCreator
     public CreateOAuthApplicationRequestBody(
             @JsonProperty("name") String name,
             @JsonProperty("callback_url") String callbackUrl,
-            @JsonProperty("scopes") Optional<? extends String> scopes,
-            @JsonProperty("public") Optional<? extends Boolean> public_) {
+            @JsonProperty("scopes") Optional<String> scopes,
+            @JsonProperty("public") Optional<Boolean> public_) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         Utils.checkNotNull(scopes, "scopes");
@@ -90,10 +91,9 @@ public class CreateOAuthApplicationRequestBody {
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> scopes() {
-        return (Optional<String>) scopes;
+        return scopes;
     }
 
     /**
@@ -101,10 +101,9 @@ public class CreateOAuthApplicationRequestBody {
      * Only the authorization code flow with proof key for code exchange (PKCE) may be used.
      * Public clients cannot be updated to be confidential clients, and vice versa.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> public_() {
-        return (Optional<Boolean>) public_;
+        return public_;
     }
 
     public final static Builder builder() {
@@ -141,7 +140,7 @@ public class CreateOAuthApplicationRequestBody {
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
-    public CreateOAuthApplicationRequestBody withScopes(Optional<? extends String> scopes) {
+    public CreateOAuthApplicationRequestBody withScopes(Optional<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
         return this;
@@ -163,7 +162,7 @@ public class CreateOAuthApplicationRequestBody {
      * Only the authorization code flow with proof key for code exchange (PKCE) may be used.
      * Public clients cannot be updated to be confidential clients, and vice versa.
      */
-    public CreateOAuthApplicationRequestBody withPublic(Optional<? extends Boolean> public_) {
+    public CreateOAuthApplicationRequestBody withPublic(Optional<Boolean> public_) {
         Utils.checkNotNull(public_, "public_");
         this.public_ = public_;
         return this;
@@ -179,15 +178,15 @@ public class CreateOAuthApplicationRequestBody {
         }
         CreateOAuthApplicationRequestBody other = (CreateOAuthApplicationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            java.util.Objects.deepEquals(this.scopes, other.scopes) &&
-            java.util.Objects.deepEquals(this.public_, other.public_);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
+            Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.public_, other.public_);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             callbackUrl,
             scopes,
@@ -209,9 +208,9 @@ public class CreateOAuthApplicationRequestBody {
  
         private String callbackUrl;
  
-        private Optional<? extends String> scopes;
+        private Optional<String> scopes;
  
-        private Optional<? extends Boolean> public_ = Optional.empty();  
+        private Optional<Boolean> public_ = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -247,7 +246,7 @@ public class CreateOAuthApplicationRequestBody {
         /**
          * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
          */
-        public Builder scopes(Optional<? extends String> scopes) {
+        public Builder scopes(Optional<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
             return this;
@@ -269,7 +268,7 @@ public class CreateOAuthApplicationRequestBody {
          * Only the authorization code flow with proof key for code exchange (PKCE) may be used.
          * Public clients cannot be updated to be confidential clients, and vice versa.
          */
-        public Builder public_(Optional<? extends Boolean> public_) {
+        public Builder public_(Optional<Boolean> public_) {
             Utils.checkNotNull(public_, "public_");
             this.public_ = public_;
             return this;
@@ -286,11 +285,11 @@ public class CreateOAuthApplicationRequestBody {
                 public_);
         }
 
-        private static final LazySingletonValue<Optional<? extends String>> _SINGLETON_VALUE_Scopes =
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Scopes =
                 new LazySingletonValue<>(
                         "scopes",
                         "\"profile email\"",
-                        new TypeReference<Optional<? extends String>>() {});
+                        new TypeReference<Optional<String>>() {});
     }
 }
 

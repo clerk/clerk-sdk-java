@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Organization {
 
@@ -35,14 +36,14 @@ public class Organization {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("members_count")
-    private JsonNullable<? extends Long> membersCount;
+    private JsonNullable<Long> membersCount;
 
     @JsonProperty("max_allowed_memberships")
     private long maxAllowedMemberships;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("admin_delete_enabled")
-    private Optional<? extends Boolean> adminDeleteEnabled;
+    private Optional<Boolean> adminDeleteEnabled;
 
     @JsonProperty("public_metadata")
     private OrganizationPublicMetadata publicMetadata;
@@ -52,7 +53,7 @@ public class Organization {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_by")
-    private Optional<? extends String> createdBy;
+    private Optional<String> createdBy;
 
     /**
      * Unix timestamp of creation.
@@ -74,12 +75,12 @@ public class Organization {
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("slug") String slug,
-            @JsonProperty("members_count") JsonNullable<? extends Long> membersCount,
+            @JsonProperty("members_count") JsonNullable<Long> membersCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
-            @JsonProperty("admin_delete_enabled") Optional<? extends Boolean> adminDeleteEnabled,
+            @JsonProperty("admin_delete_enabled") Optional<Boolean> adminDeleteEnabled,
             @JsonProperty("public_metadata") OrganizationPublicMetadata publicMetadata,
             @JsonProperty("private_metadata") OrganizationPrivateMetadata privateMetadata,
-            @JsonProperty("created_by") Optional<? extends String> createdBy,
+            @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -141,10 +142,9 @@ public class Organization {
         return slug;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> membersCount() {
-        return (JsonNullable<Long>) membersCount;
+        return membersCount;
     }
 
     @JsonIgnore
@@ -152,10 +152,9 @@ public class Organization {
         return maxAllowedMemberships;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> adminDeleteEnabled() {
-        return (Optional<Boolean>) adminDeleteEnabled;
+        return adminDeleteEnabled;
     }
 
     @JsonIgnore
@@ -168,10 +167,9 @@ public class Organization {
         return privateMetadata;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> createdBy() {
-        return (Optional<String>) createdBy;
+        return createdBy;
     }
 
     /**
@@ -226,7 +224,7 @@ public class Organization {
         return this;
     }
 
-    public Organization withMembersCount(JsonNullable<? extends Long> membersCount) {
+    public Organization withMembersCount(JsonNullable<Long> membersCount) {
         Utils.checkNotNull(membersCount, "membersCount");
         this.membersCount = membersCount;
         return this;
@@ -244,7 +242,7 @@ public class Organization {
         return this;
     }
 
-    public Organization withAdminDeleteEnabled(Optional<? extends Boolean> adminDeleteEnabled) {
+    public Organization withAdminDeleteEnabled(Optional<Boolean> adminDeleteEnabled) {
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         this.adminDeleteEnabled = adminDeleteEnabled;
         return this;
@@ -268,7 +266,7 @@ public class Organization {
         return this;
     }
 
-    public Organization withCreatedBy(Optional<? extends String> createdBy) {
+    public Organization withCreatedBy(Optional<String> createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
         this.createdBy = createdBy;
         return this;
@@ -304,23 +302,23 @@ public class Organization {
         }
         Organization other = (Organization) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.membersCount, other.membersCount) &&
-            java.util.Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            java.util.Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.createdBy, other.createdBy) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.membersCount, other.membersCount) &&
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.createdBy, other.createdBy) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             name,
@@ -362,17 +360,17 @@ public class Organization {
  
         private String slug;
  
-        private JsonNullable<? extends Long> membersCount = JsonNullable.undefined();
+        private JsonNullable<Long> membersCount = JsonNullable.undefined();
  
         private Long maxAllowedMemberships;
  
-        private Optional<? extends Boolean> adminDeleteEnabled = Optional.empty();
+        private Optional<Boolean> adminDeleteEnabled = Optional.empty();
  
         private OrganizationPublicMetadata publicMetadata;
  
         private OrganizationPrivateMetadata privateMetadata;
  
-        private Optional<? extends String> createdBy = Optional.empty();
+        private Optional<String> createdBy = Optional.empty();
  
         private Long createdAt;
  
@@ -412,7 +410,7 @@ public class Organization {
             return this;
         }
 
-        public Builder membersCount(JsonNullable<? extends Long> membersCount) {
+        public Builder membersCount(JsonNullable<Long> membersCount) {
             Utils.checkNotNull(membersCount, "membersCount");
             this.membersCount = membersCount;
             return this;
@@ -430,7 +428,7 @@ public class Organization {
             return this;
         }
 
-        public Builder adminDeleteEnabled(Optional<? extends Boolean> adminDeleteEnabled) {
+        public Builder adminDeleteEnabled(Optional<Boolean> adminDeleteEnabled) {
             Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
             this.adminDeleteEnabled = adminDeleteEnabled;
             return this;
@@ -454,7 +452,7 @@ public class Organization {
             return this;
         }
 
-        public Builder createdBy(Optional<? extends String> createdBy) {
+        public Builder createdBy(Optional<String> createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
             this.createdBy = createdBy;
             return this;

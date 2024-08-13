@@ -4,27 +4,48 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.InstanceRestrictions;
+import com.clerk.backend_api.models.components.InstanceSettings;
+import com.clerk.backend_api.models.components.OrganizationSettings;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
+import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder;
+import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
+import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody;
+import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Deprecated;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Instance implements
             MethodCallUpdateInstanceAuthConfig,
@@ -46,8 +67,8 @@ public class Instance implements
      * Updates the settings of an instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBuilder updateAuthConfig() {
-        return new com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBuilder(this);
+    public UpdateInstanceAuthConfigRequestBuilder updateAuthConfig() {
+        return new UpdateInstanceAuthConfigRequestBuilder(this);
     }
 
     /**
@@ -56,9 +77,10 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse updateAuthConfigDirect() throws Exception {
+    public UpdateInstanceAuthConfigResponse updateAuthConfigDirect() throws Exception {
         return updateAuthConfig(Optional.empty());
     }
+    
     /**
      * Update instance settings
      * Updates the settings of an instance
@@ -66,18 +88,23 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse updateAuthConfig(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody> request) throws Exception {
+    public UpdateInstanceAuthConfigResponse updateAuthConfig(
+            Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/beta_features/instance_settings");
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends UpdateInstanceAuthConfigRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -90,7 +117,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateInstanceAuthConfig", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateInstanceAuthConfig", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -98,18 +128,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateInstanceAuthConfig", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceAuthConfig",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateInstanceAuthConfig", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateInstanceAuthConfig",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateInstanceAuthConfig", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceAuthConfig",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -117,42 +157,42 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse
+        UpdateInstanceAuthConfigResponse.Builder _resBuilder = 
+            UpdateInstanceAuthConfigResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse _res = _resBuilder.build();
+        UpdateInstanceAuthConfigResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.InstanceSettings _out = Utils.mapper().readValue(
+                InstanceSettings _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.InstanceSettings>() {});
-                _res.withInstanceSettings(java.util.Optional.ofNullable(_out));
+                    new TypeReference<InstanceSettings>() {});
+                _res.withInstanceSettings(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -161,13 +201,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -183,8 +223,8 @@ public class Instance implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBuilder updateProductionDomain() {
-        return new com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBuilder(this);
+    public UpdateProductionInstanceDomainRequestBuilder updateProductionDomain() {
+        return new UpdateProductionInstanceDomainRequestBuilder(this);
     }
 
     /**
@@ -199,9 +239,10 @@ public class Instance implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse updateProductionDomainDirect() throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionDomainDirect() throws Exception {
         return updateProductionDomain(Optional.empty());
     }
+    
     /**
      * Update production instance domain
      * Change the domain of a production instance.
@@ -215,18 +256,23 @@ public class Instance implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse updateProductionDomain(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody> request) throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionDomain(
+            Optional<? extends UpdateProductionInstanceDomainRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/beta_features/domain");
         
         HTTPRequest _req = new HTTPRequest(_url, "PUT");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends UpdateProductionInstanceDomainRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -239,7 +285,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateProductionInstanceDomain", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -247,18 +296,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateProductionInstanceDomain",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateProductionInstanceDomain",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateProductionInstanceDomain",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -266,14 +325,14 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse
+        UpdateProductionInstanceDomainResponse.Builder _resBuilder = 
+            UpdateProductionInstanceDomainResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse _res = _resBuilder.build();
+        UpdateProductionInstanceDomainResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "202")) {
             // no content 
@@ -281,16 +340,16 @@ public class Instance implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -299,13 +358,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -315,8 +374,8 @@ public class Instance implements
      * Updates the settings of an instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateInstanceRequestBuilder(this);
+    public UpdateInstanceRequestBuilder update() {
+        return new UpdateInstanceRequestBuilder(this);
     }
 
     /**
@@ -325,9 +384,10 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceResponse updateDirect() throws Exception {
+    public UpdateInstanceResponse updateDirect() throws Exception {
         return update(Optional.empty());
     }
+    
     /**
      * Update instance settings
      * Updates the settings of an instance
@@ -335,18 +395,23 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceResponse update(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRequestBody> request) throws Exception {
+    public UpdateInstanceResponse update(
+            Optional<? extends UpdateInstanceRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/instance");
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends UpdateInstanceRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -359,7 +424,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateInstance", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateInstance", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -367,18 +435,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateInstance", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateInstance",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateInstance", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateInstance",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateInstance", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateInstance",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -386,14 +464,14 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateInstanceResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateInstanceResponse
+        UpdateInstanceResponse.Builder _resBuilder = 
+            UpdateInstanceResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateInstanceResponse _res = _resBuilder.build();
+        UpdateInstanceResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
             // no content 
@@ -401,16 +479,16 @@ public class Instance implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -419,13 +497,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -435,8 +513,8 @@ public class Instance implements
      * Updates the restriction settings of an instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBuilder updateRestrictions() {
-        return new com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBuilder(this);
+    public UpdateInstanceRestrictionsRequestBuilder updateRestrictions() {
+        return new UpdateInstanceRestrictionsRequestBuilder(this);
     }
 
     /**
@@ -445,9 +523,10 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse updateRestrictionsDirect() throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() throws Exception {
         return updateRestrictions(Optional.empty());
     }
+    
     /**
      * Update instance restrictions
      * Updates the restriction settings of an instance
@@ -455,18 +534,23 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody> request) throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictions(
+            Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/instance/restrictions");
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends UpdateInstanceRestrictionsRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -479,7 +563,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateInstanceRestrictions", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateInstanceRestrictions", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -487,18 +574,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateInstanceRestrictions", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceRestrictions",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateInstanceRestrictions", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateInstanceRestrictions",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateInstanceRestrictions", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceRestrictions",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -506,42 +603,42 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse
+        UpdateInstanceRestrictionsResponse.Builder _resBuilder = 
+            UpdateInstanceRestrictionsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse _res = _resBuilder.build();
+        UpdateInstanceRestrictionsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.InstanceRestrictions _out = Utils.mapper().readValue(
+                InstanceRestrictions _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.InstanceRestrictions>() {});
-                _res.withInstanceRestrictions(java.util.Optional.ofNullable(_out));
+                    new TypeReference<InstanceRestrictions>() {});
+                _res.withInstanceRestrictions(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -550,13 +647,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -570,8 +667,8 @@ public class Instance implements
      * WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder changeProductionDomain() {
-        return new com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder(this);
+    public ChangeProductionInstanceDomainRequestBuilder changeProductionDomain() {
+        return new ChangeProductionInstanceDomainRequestBuilder(this);
     }
 
     /**
@@ -584,9 +681,10 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse changeProductionDomainDirect() throws Exception {
+    public ChangeProductionInstanceDomainResponse changeProductionDomainDirect() throws Exception {
         return changeProductionDomain(Optional.empty());
     }
+    
     /**
      * Update production instance domain
      * Change the domain of a production instance.
@@ -598,18 +696,23 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse changeProductionDomain(
-            Optional<? extends com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody> request) throws Exception {
+    public ChangeProductionInstanceDomainResponse changeProductionDomain(
+            Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/instance/change_domain");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends ChangeProductionInstanceDomainRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -622,7 +725,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ChangeProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ChangeProductionInstanceDomain", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -630,18 +736,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ChangeProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ChangeProductionInstanceDomain",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ChangeProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ChangeProductionInstanceDomain",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ChangeProductionInstanceDomain", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ChangeProductionInstanceDomain",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -649,14 +765,14 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse
+        ChangeProductionInstanceDomainResponse.Builder _resBuilder = 
+            ChangeProductionInstanceDomainResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse _res = _resBuilder.build();
+        ChangeProductionInstanceDomainResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "202")) {
             // no content 
@@ -664,16 +780,16 @@ public class Instance implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -682,13 +798,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -698,8 +814,8 @@ public class Instance implements
      * Updates the organization settings of the instance
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder updateOrganizationSettings() {
-        return new com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder(this);
+    public UpdateInstanceOrganizationSettingsRequestBuilder updateOrganizationSettings() {
+        return new UpdateInstanceOrganizationSettingsRequestBuilder(this);
     }
 
     /**
@@ -708,9 +824,10 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() throws Exception {
         return updateOrganizationSettings(Optional.empty());
     }
+    
     /**
      * Update instance organization settings
      * Updates the organization settings of the instance
@@ -718,18 +835,23 @@ public class Instance implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
+            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/instance/organization_settings");
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -742,7 +864,10 @@ public class Instance implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateInstanceOrganizationSettings", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateInstanceOrganizationSettings", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -750,18 +875,28 @@ public class Instance implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateInstanceOrganizationSettings", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceOrganizationSettings",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateInstanceOrganizationSettings", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateInstanceOrganizationSettings",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateInstanceOrganizationSettings", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateInstanceOrganizationSettings",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -769,42 +904,42 @@ public class Instance implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse
+        UpdateInstanceOrganizationSettingsResponse.Builder _resBuilder = 
+            UpdateInstanceOrganizationSettingsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse _res = _resBuilder.build();
+        UpdateInstanceOrganizationSettingsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationSettings _out = Utils.mapper().readValue(
+                OrganizationSettings _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationSettings>() {});
-                _res.withOrganizationSettings(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationSettings>() {});
+                _res.withOrganizationSettings(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -813,13 +948,13 @@ public class Instance implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class VerifyTOTPRequestBuilder {
 
@@ -27,19 +18,19 @@ public class VerifyTOTPRequestBuilder {
         this.sdk = sdk;
     }
 
-    public VerifyTOTPRequestBuilder userId(String userId) {
+    public VerifyTOTPRequestBuilder userId(java.lang.String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
                 
-    public VerifyTOTPRequestBuilder requestBody(VerifyTOTPRequestBody requestBody) {
+    public VerifyTOTPRequestBuilder requestBody(com.clerk.backend_api.models.operations.VerifyTOTPRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public VerifyTOTPRequestBuilder requestBody(Optional<? extends VerifyTOTPRequestBody> requestBody) {
+    public VerifyTOTPRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

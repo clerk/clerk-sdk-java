@@ -4,16 +4,19 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
+
 
 public class VerificationOTP {
 
@@ -23,18 +26,20 @@ public class VerificationOTP {
     @JsonProperty("strategy")
     private OTPVerificationStrategy strategy;
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
-    private long attempts;
+    private Optional<Long> attempts;
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expire_at")
-    private long expireAt;
+    private Optional<Long> expireAt;
 
     @JsonCreator
     public VerificationOTP(
             @JsonProperty("status") OTPVerificationStatus status,
             @JsonProperty("strategy") OTPVerificationStrategy strategy,
-            @JsonProperty("attempts") long attempts,
-            @JsonProperty("expire_at") long expireAt) {
+            @JsonProperty("attempts") Optional<Long> attempts,
+            @JsonProperty("expire_at") Optional<Long> expireAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
@@ -43,6 +48,12 @@ public class VerificationOTP {
         this.strategy = strategy;
         this.attempts = attempts;
         this.expireAt = expireAt;
+    }
+    
+    public VerificationOTP(
+            OTPVerificationStatus status,
+            OTPVerificationStrategy strategy) {
+        this(status, strategy, Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -56,12 +67,12 @@ public class VerificationOTP {
     }
 
     @JsonIgnore
-    public long attempts() {
+    public Optional<Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public long expireAt() {
+    public Optional<Long> expireAt() {
         return expireAt;
     }
 
@@ -83,11 +94,23 @@ public class VerificationOTP {
 
     public VerificationOTP withAttempts(long attempts) {
         Utils.checkNotNull(attempts, "attempts");
+        this.attempts = Optional.ofNullable(attempts);
+        return this;
+    }
+
+    public VerificationOTP withAttempts(Optional<Long> attempts) {
+        Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
     }
 
     public VerificationOTP withExpireAt(long expireAt) {
+        Utils.checkNotNull(expireAt, "expireAt");
+        this.expireAt = Optional.ofNullable(expireAt);
+        return this;
+    }
+
+    public VerificationOTP withExpireAt(Optional<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
         return this;
@@ -103,15 +126,15 @@ public class VerificationOTP {
         }
         VerificationOTP other = (VerificationOTP) o;
         return 
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.strategy, other.strategy) &&
-            java.util.Objects.deepEquals(this.attempts, other.attempts) &&
-            java.util.Objects.deepEquals(this.expireAt, other.expireAt);
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.strategy, other.strategy) &&
+            Objects.deepEquals(this.attempts, other.attempts) &&
+            Objects.deepEquals(this.expireAt, other.expireAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             status,
             strategy,
             attempts,
@@ -133,9 +156,9 @@ public class VerificationOTP {
  
         private OTPVerificationStrategy strategy;
  
-        private Long attempts;
+        private Optional<Long> attempts = Optional.empty();
  
-        private Long expireAt;  
+        private Optional<Long> expireAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -155,11 +178,23 @@ public class VerificationOTP {
 
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
+            this.attempts = Optional.ofNullable(attempts);
+            return this;
+        }
+
+        public Builder attempts(Optional<Long> attempts) {
+            Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
         }
 
         public Builder expireAt(long expireAt) {
+            Utils.checkNotNull(expireAt, "expireAt");
+            this.expireAt = Optional.ofNullable(expireAt);
+            return this;
+        }
+
+        public Builder expireAt(Optional<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;

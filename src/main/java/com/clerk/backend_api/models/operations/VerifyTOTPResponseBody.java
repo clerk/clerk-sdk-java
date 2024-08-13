@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * VerifyTOTPResponseBody - The provided TOTP or backup code was correct.
  */
@@ -25,7 +26,7 @@ public class VerifyTOTPResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
-    private Optional<? extends Boolean> verified;
+    private Optional<Boolean> verified;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("code_type")
@@ -33,7 +34,7 @@ public class VerifyTOTPResponseBody {
 
     @JsonCreator
     public VerifyTOTPResponseBody(
-            @JsonProperty("verified") Optional<? extends Boolean> verified,
+            @JsonProperty("verified") Optional<Boolean> verified,
             @JsonProperty("code_type") Optional<? extends CodeType> codeType) {
         Utils.checkNotNull(verified, "verified");
         Utils.checkNotNull(codeType, "codeType");
@@ -45,10 +46,9 @@ public class VerifyTOTPResponseBody {
         this(Optional.empty(), Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> verified() {
-        return (Optional<Boolean>) verified;
+        return verified;
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +67,7 @@ public class VerifyTOTPResponseBody {
         return this;
     }
 
-    public VerifyTOTPResponseBody withVerified(Optional<? extends Boolean> verified) {
+    public VerifyTOTPResponseBody withVerified(Optional<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
@@ -95,13 +95,13 @@ public class VerifyTOTPResponseBody {
         }
         VerifyTOTPResponseBody other = (VerifyTOTPResponseBody) o;
         return 
-            java.util.Objects.deepEquals(this.verified, other.verified) &&
-            java.util.Objects.deepEquals(this.codeType, other.codeType);
+            Objects.deepEquals(this.verified, other.verified) &&
+            Objects.deepEquals(this.codeType, other.codeType);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             verified,
             codeType);
     }
@@ -115,7 +115,7 @@ public class VerifyTOTPResponseBody {
     
     public final static class Builder {
  
-        private Optional<? extends Boolean> verified = Optional.empty();
+        private Optional<Boolean> verified = Optional.empty();
  
         private Optional<? extends CodeType> codeType = Optional.empty();  
         
@@ -129,7 +129,7 @@ public class VerifyTOTPResponseBody {
             return this;
         }
 
-        public Builder verified(Optional<? extends Boolean> verified) {
+        public Builder verified(Optional<Boolean> verified) {
             Utils.checkNotNull(verified, "verified");
             this.verified = verified;
             return this;

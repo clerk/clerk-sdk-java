@@ -19,7 +19,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:0.2.0-beta.2'
+implementation 'com.clerk:backend-api:0.2.0-beta.3'
 ```
 
 Maven:
@@ -27,7 +27,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>0.2.0-beta.2</version>
+    <version>0.2.0-beta.3</version>
 </dependency>
 ```
 
@@ -55,17 +55,7 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -103,17 +93,11 @@ This example shows how to create an actor token that can be used to impersonate 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateActorTokenRequestBody;
+import com.clerk.backend_api.models.operations.CreateActorTokenResponse;
+import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
@@ -125,8 +109,8 @@ public class Application {
 
             CreateActorTokenRequestBody req = CreateActorTokenRequestBody.builder()
                 .userId("<value>")
-                .actor(java.util.Map.ofEntries(
-                        entry("sub", "user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb")))
+                .actor(Map.ofEntries(
+                        Map.entry("sub", "user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb")))
                 .build();
 
             CreateActorTokenResponse res = sdk.actors().createToken()
@@ -139,7 +123,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -356,17 +340,7 @@ Here's an example of one such pagination call:
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -413,17 +387,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -471,17 +435,9 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -497,7 +453,7 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -517,17 +473,9 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -543,7 +491,7 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -572,17 +520,9 @@ To authenticate with the API the `bearerAuth` parameter must be set when initial
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -598,7 +538,7 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {

@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.AllowlistIdentifier;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.utils.Response {
+
+public class CreateAllowlistIdentifierResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier;
+    private Optional<? extends AllowlistIdentifier> allowlistIdentifier;
 
     @JsonCreator
     public CreateAllowlistIdentifierResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier) {
+            Optional<? extends AllowlistIdentifier> allowlistIdentifier) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier() {
-        return (Optional<com.clerk.backend_api.models.components.AllowlistIdentifier>) allowlistIdentifier;
+    public Optional<AllowlistIdentifier> allowlistIdentifier() {
+        return (Optional<AllowlistIdentifier>) allowlistIdentifier;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    public CreateAllowlistIdentifierResponse withAllowlistIdentifier(com.clerk.backend_api.models.components.AllowlistIdentifier allowlistIdentifier) {
+    public CreateAllowlistIdentifierResponse withAllowlistIdentifier(AllowlistIdentifier allowlistIdentifier) {
         Utils.checkNotNull(allowlistIdentifier, "allowlistIdentifier");
         this.allowlistIdentifier = Optional.ofNullable(allowlistIdentifier);
         return this;
@@ -137,7 +141,7 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    public CreateAllowlistIdentifierResponse withAllowlistIdentifier(Optional<? extends com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier) {
+    public CreateAllowlistIdentifierResponse withAllowlistIdentifier(Optional<? extends AllowlistIdentifier> allowlistIdentifier) {
         Utils.checkNotNull(allowlistIdentifier, "allowlistIdentifier");
         this.allowlistIdentifier = allowlistIdentifier;
         return this;
@@ -153,15 +157,15 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
         }
         CreateAllowlistIdentifierResponse other = (CreateAllowlistIdentifierResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.allowlistIdentifier, other.allowlistIdentifier);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.allowlistIdentifier, other.allowlistIdentifier);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier = Optional.empty();  
+        private Optional<? extends AllowlistIdentifier> allowlistIdentifier = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
         /**
          * Success
          */
-        public Builder allowlistIdentifier(com.clerk.backend_api.models.components.AllowlistIdentifier allowlistIdentifier) {
+        public Builder allowlistIdentifier(AllowlistIdentifier allowlistIdentifier) {
             Utils.checkNotNull(allowlistIdentifier, "allowlistIdentifier");
             this.allowlistIdentifier = Optional.ofNullable(allowlistIdentifier);
             return this;
@@ -230,7 +234,7 @@ public class CreateAllowlistIdentifierResponse implements com.clerk.backend_api.
         /**
          * Success
          */
-        public Builder allowlistIdentifier(Optional<? extends com.clerk.backend_api.models.components.AllowlistIdentifier> allowlistIdentifier) {
+        public Builder allowlistIdentifier(Optional<? extends AllowlistIdentifier> allowlistIdentifier) {
             Utils.checkNotNull(allowlistIdentifier, "allowlistIdentifier");
             this.allowlistIdentifier = allowlistIdentifier;
             return this;

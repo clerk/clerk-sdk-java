@@ -4,54 +4,55 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class ResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("object")
-    private Optional<? extends String> object;
+    private Optional<String> object;
 
     /**
      * External account ID
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_account_id")
-    private Optional<? extends String> externalAccountId;
+    private Optional<String> externalAccountId;
 
     /**
      * The unique ID of the user in the external provider's system
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provider_user_id")
-    private Optional<? extends String> providerUserId;
+    private Optional<String> providerUserId;
 
     /**
      * The access token
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
-    private Optional<? extends String> token;
+    private Optional<String> token;
 
     /**
      * The ID of the provider
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provider")
-    private Optional<? extends String> provider;
+    private Optional<String> provider;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -59,7 +60,7 @@ public class ResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("label")
-    private JsonNullable<? extends String> label;
+    private JsonNullable<String> label;
 
     /**
      * The list of scopes that the token is valid for.
@@ -67,26 +68,26 @@ public class ResponseBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
-    private Optional<? extends java.util.List<String>> scopes;
+    private Optional<? extends List<String>> scopes;
 
     /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token_secret")
-    private Optional<? extends String> tokenSecret;
+    private Optional<String> tokenSecret;
 
     @JsonCreator
     public ResponseBody(
-            @JsonProperty("object") Optional<? extends String> object,
-            @JsonProperty("external_account_id") Optional<? extends String> externalAccountId,
-            @JsonProperty("provider_user_id") Optional<? extends String> providerUserId,
-            @JsonProperty("token") Optional<? extends String> token,
-            @JsonProperty("provider") Optional<? extends String> provider,
+            @JsonProperty("object") Optional<String> object,
+            @JsonProperty("external_account_id") Optional<String> externalAccountId,
+            @JsonProperty("provider_user_id") Optional<String> providerUserId,
+            @JsonProperty("token") Optional<String> token,
+            @JsonProperty("provider") Optional<String> provider,
             @JsonProperty("public_metadata") Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata,
-            @JsonProperty("label") JsonNullable<? extends String> label,
-            @JsonProperty("scopes") Optional<? extends java.util.List<String>> scopes,
-            @JsonProperty("token_secret") Optional<? extends String> tokenSecret) {
+            @JsonProperty("label") JsonNullable<String> label,
+            @JsonProperty("scopes") Optional<? extends List<String>> scopes,
+            @JsonProperty("token_secret") Optional<String> tokenSecret) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalAccountId, "externalAccountId");
         Utils.checkNotNull(providerUserId, "providerUserId");
@@ -111,46 +112,41 @@ public class ResponseBody {
         this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> object() {
-        return (Optional<String>) object;
+        return object;
     }
 
     /**
      * External account ID
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> externalAccountId() {
-        return (Optional<String>) externalAccountId;
+        return externalAccountId;
     }
 
     /**
      * The unique ID of the user in the external provider's system
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> providerUserId() {
-        return (Optional<String>) providerUserId;
+        return providerUserId;
     }
 
     /**
      * The access token
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> token() {
-        return (Optional<String>) token;
+        return token;
     }
 
     /**
      * The ID of the provider
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> provider() {
-        return (Optional<String>) provider;
+        return provider;
     }
 
     @SuppressWarnings("unchecked")
@@ -159,10 +155,9 @@ public class ResponseBody {
         return (Optional<GetOAuthAccessTokenPublicMetadata>) publicMetadata;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> label() {
-        return (JsonNullable<String>) label;
+        return label;
     }
 
     /**
@@ -171,17 +166,16 @@ public class ResponseBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> scopes() {
-        return (Optional<java.util.List<String>>) scopes;
+    public Optional<List<String>> scopes() {
+        return (Optional<List<String>>) scopes;
     }
 
     /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> tokenSecret() {
-        return (Optional<String>) tokenSecret;
+        return tokenSecret;
     }
 
     public final static Builder builder() {
@@ -194,7 +188,7 @@ public class ResponseBody {
         return this;
     }
 
-    public ResponseBody withObject(Optional<? extends String> object) {
+    public ResponseBody withObject(Optional<String> object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -212,7 +206,7 @@ public class ResponseBody {
     /**
      * External account ID
      */
-    public ResponseBody withExternalAccountId(Optional<? extends String> externalAccountId) {
+    public ResponseBody withExternalAccountId(Optional<String> externalAccountId) {
         Utils.checkNotNull(externalAccountId, "externalAccountId");
         this.externalAccountId = externalAccountId;
         return this;
@@ -230,7 +224,7 @@ public class ResponseBody {
     /**
      * The unique ID of the user in the external provider's system
      */
-    public ResponseBody withProviderUserId(Optional<? extends String> providerUserId) {
+    public ResponseBody withProviderUserId(Optional<String> providerUserId) {
         Utils.checkNotNull(providerUserId, "providerUserId");
         this.providerUserId = providerUserId;
         return this;
@@ -248,7 +242,7 @@ public class ResponseBody {
     /**
      * The access token
      */
-    public ResponseBody withToken(Optional<? extends String> token) {
+    public ResponseBody withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
         return this;
@@ -266,7 +260,7 @@ public class ResponseBody {
     /**
      * The ID of the provider
      */
-    public ResponseBody withProvider(Optional<? extends String> provider) {
+    public ResponseBody withProvider(Optional<String> provider) {
         Utils.checkNotNull(provider, "provider");
         this.provider = provider;
         return this;
@@ -290,7 +284,7 @@ public class ResponseBody {
         return this;
     }
 
-    public ResponseBody withLabel(JsonNullable<? extends String> label) {
+    public ResponseBody withLabel(JsonNullable<String> label) {
         Utils.checkNotNull(label, "label");
         this.label = label;
         return this;
@@ -300,7 +294,7 @@ public class ResponseBody {
      * The list of scopes that the token is valid for.
      * Only present for OAuth 2.0 tokens.
      */
-    public ResponseBody withScopes(java.util.List<String> scopes) {
+    public ResponseBody withScopes(List<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = Optional.ofNullable(scopes);
         return this;
@@ -310,7 +304,7 @@ public class ResponseBody {
      * The list of scopes that the token is valid for.
      * Only present for OAuth 2.0 tokens.
      */
-    public ResponseBody withScopes(Optional<? extends java.util.List<String>> scopes) {
+    public ResponseBody withScopes(Optional<? extends List<String>> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
         return this;
@@ -328,7 +322,7 @@ public class ResponseBody {
     /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
-    public ResponseBody withTokenSecret(Optional<? extends String> tokenSecret) {
+    public ResponseBody withTokenSecret(Optional<String> tokenSecret) {
         Utils.checkNotNull(tokenSecret, "tokenSecret");
         this.tokenSecret = tokenSecret;
         return this;
@@ -344,20 +338,20 @@ public class ResponseBody {
         }
         ResponseBody other = (ResponseBody) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.externalAccountId, other.externalAccountId) &&
-            java.util.Objects.deepEquals(this.providerUserId, other.providerUserId) &&
-            java.util.Objects.deepEquals(this.token, other.token) &&
-            java.util.Objects.deepEquals(this.provider, other.provider) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.label, other.label) &&
-            java.util.Objects.deepEquals(this.scopes, other.scopes) &&
-            java.util.Objects.deepEquals(this.tokenSecret, other.tokenSecret);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.externalAccountId, other.externalAccountId) &&
+            Objects.deepEquals(this.providerUserId, other.providerUserId) &&
+            Objects.deepEquals(this.token, other.token) &&
+            Objects.deepEquals(this.provider, other.provider) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.label, other.label) &&
+            Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.tokenSecret, other.tokenSecret);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             externalAccountId,
             providerUserId,
@@ -385,23 +379,23 @@ public class ResponseBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> object = Optional.empty();
+        private Optional<String> object = Optional.empty();
  
-        private Optional<? extends String> externalAccountId = Optional.empty();
+        private Optional<String> externalAccountId = Optional.empty();
  
-        private Optional<? extends String> providerUserId = Optional.empty();
+        private Optional<String> providerUserId = Optional.empty();
  
-        private Optional<? extends String> token = Optional.empty();
+        private Optional<String> token = Optional.empty();
  
-        private Optional<? extends String> provider = Optional.empty();
+        private Optional<String> provider = Optional.empty();
  
         private Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata = Optional.empty();
  
-        private JsonNullable<? extends String> label = JsonNullable.undefined();
+        private JsonNullable<String> label = JsonNullable.undefined();
  
-        private Optional<? extends java.util.List<String>> scopes = Optional.empty();
+        private Optional<? extends List<String>> scopes = Optional.empty();
  
-        private Optional<? extends String> tokenSecret = Optional.empty();  
+        private Optional<String> tokenSecret = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -413,7 +407,7 @@ public class ResponseBody {
             return this;
         }
 
-        public Builder object(Optional<? extends String> object) {
+        public Builder object(Optional<String> object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
@@ -431,7 +425,7 @@ public class ResponseBody {
         /**
          * External account ID
          */
-        public Builder externalAccountId(Optional<? extends String> externalAccountId) {
+        public Builder externalAccountId(Optional<String> externalAccountId) {
             Utils.checkNotNull(externalAccountId, "externalAccountId");
             this.externalAccountId = externalAccountId;
             return this;
@@ -449,7 +443,7 @@ public class ResponseBody {
         /**
          * The unique ID of the user in the external provider's system
          */
-        public Builder providerUserId(Optional<? extends String> providerUserId) {
+        public Builder providerUserId(Optional<String> providerUserId) {
             Utils.checkNotNull(providerUserId, "providerUserId");
             this.providerUserId = providerUserId;
             return this;
@@ -467,7 +461,7 @@ public class ResponseBody {
         /**
          * The access token
          */
-        public Builder token(Optional<? extends String> token) {
+        public Builder token(Optional<String> token) {
             Utils.checkNotNull(token, "token");
             this.token = token;
             return this;
@@ -485,7 +479,7 @@ public class ResponseBody {
         /**
          * The ID of the provider
          */
-        public Builder provider(Optional<? extends String> provider) {
+        public Builder provider(Optional<String> provider) {
             Utils.checkNotNull(provider, "provider");
             this.provider = provider;
             return this;
@@ -509,7 +503,7 @@ public class ResponseBody {
             return this;
         }
 
-        public Builder label(JsonNullable<? extends String> label) {
+        public Builder label(JsonNullable<String> label) {
             Utils.checkNotNull(label, "label");
             this.label = label;
             return this;
@@ -519,7 +513,7 @@ public class ResponseBody {
          * The list of scopes that the token is valid for.
          * Only present for OAuth 2.0 tokens.
          */
-        public Builder scopes(java.util.List<String> scopes) {
+        public Builder scopes(List<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = Optional.ofNullable(scopes);
             return this;
@@ -529,7 +523,7 @@ public class ResponseBody {
          * The list of scopes that the token is valid for.
          * Only present for OAuth 2.0 tokens.
          */
-        public Builder scopes(Optional<? extends java.util.List<String>> scopes) {
+        public Builder scopes(Optional<? extends List<String>> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
             return this;
@@ -547,7 +541,7 @@ public class ResponseBody {
         /**
          * The token secret. Only present for OAuth 1.0 tokens.
          */
-        public Builder tokenSecret(Optional<? extends String> tokenSecret) {
+        public Builder tokenSecret(Optional<String> tokenSecret) {
             Utils.checkNotNull(tokenSecret, "tokenSecret");
             this.tokenSecret = tokenSecret;
             return this;

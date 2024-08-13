@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.User;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class CreateUserResponse implements com.clerk.backend_api.utils.Response {
+
+public class CreateUserResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.User> user;
+    private Optional<? extends User> user;
 
     @JsonCreator
     public CreateUserResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.User> user) {
+            Optional<? extends User> user) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.User> user() {
-        return (Optional<com.clerk.backend_api.models.components.User>) user;
+    public Optional<User> user() {
+        return (Optional<User>) user;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
     /**
      * Success
      */
-    public CreateUserResponse withUser(com.clerk.backend_api.models.components.User user) {
+    public CreateUserResponse withUser(User user) {
         Utils.checkNotNull(user, "user");
         this.user = Optional.ofNullable(user);
         return this;
@@ -137,7 +141,7 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
     /**
      * Success
      */
-    public CreateUserResponse withUser(Optional<? extends com.clerk.backend_api.models.components.User> user) {
+    public CreateUserResponse withUser(Optional<? extends User> user) {
         Utils.checkNotNull(user, "user");
         this.user = user;
         return this;
@@ -153,15 +157,15 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
         }
         CreateUserResponse other = (CreateUserResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.user, other.user);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.user, other.user);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.User> user = Optional.empty();  
+        private Optional<? extends User> user = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
         /**
          * Success
          */
-        public Builder user(com.clerk.backend_api.models.components.User user) {
+        public Builder user(User user) {
             Utils.checkNotNull(user, "user");
             this.user = Optional.ofNullable(user);
             return this;
@@ -230,7 +234,7 @@ public class CreateUserResponse implements com.clerk.backend_api.utils.Response 
         /**
          * Success
          */
-        public Builder user(Optional<? extends com.clerk.backend_api.models.components.User> user) {
+        public Builder user(Optional<? extends User> user) {
             Utils.checkNotNull(user, "user");
             this.user = user;
             return this;

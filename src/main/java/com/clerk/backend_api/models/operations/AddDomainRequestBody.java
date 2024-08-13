@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class AddDomainRequestBody {
 
@@ -37,13 +37,13 @@ public class AddDomainRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
-    private Optional<? extends String> proxyUrl;
+    private Optional<String> proxyUrl;
 
     @JsonCreator
     public AddDomainRequestBody(
             @JsonProperty("name") String name,
             @JsonProperty("is_satellite") boolean isSatellite,
-            @JsonProperty("proxy_url") Optional<? extends String> proxyUrl) {
+            @JsonProperty("proxy_url") Optional<String> proxyUrl) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(isSatellite, "isSatellite");
         Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -77,10 +77,9 @@ public class AddDomainRequestBody {
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> proxyUrl() {
-        return (Optional<String>) proxyUrl;
+        return proxyUrl;
     }
 
     public final static Builder builder() {
@@ -117,7 +116,7 @@ public class AddDomainRequestBody {
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
      */
-    public AddDomainRequestBody withProxyUrl(Optional<? extends String> proxyUrl) {
+    public AddDomainRequestBody withProxyUrl(Optional<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.proxyUrl = proxyUrl;
         return this;
@@ -133,14 +132,14 @@ public class AddDomainRequestBody {
         }
         AddDomainRequestBody other = (AddDomainRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.isSatellite, other.isSatellite) &&
-            java.util.Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.isSatellite, other.isSatellite) &&
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             isSatellite,
             proxyUrl);
@@ -160,7 +159,7 @@ public class AddDomainRequestBody {
  
         private Boolean isSatellite;
  
-        private Optional<? extends String> proxyUrl = Optional.empty();  
+        private Optional<String> proxyUrl = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -196,7 +195,7 @@ public class AddDomainRequestBody {
         /**
          * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
          */
-        public Builder proxyUrl(Optional<? extends String> proxyUrl) {
+        public Builder proxyUrl(Optional<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = proxyUrl;
             return this;

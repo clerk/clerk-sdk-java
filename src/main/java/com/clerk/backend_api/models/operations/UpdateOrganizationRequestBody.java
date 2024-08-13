@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateOrganizationRequestBody {
 
@@ -40,37 +42,37 @@ public class UpdateOrganizationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private JsonNullable<? extends String> name;
+    private JsonNullable<String> name;
 
     /**
      * The new slug of the organization, which needs to be unique in the instance
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
-    private JsonNullable<? extends String> slug;
+    private JsonNullable<String> slug;
 
     /**
      * The maximum number of memberships allowed for this organization
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_memberships")
-    private JsonNullable<? extends Long> maxAllowedMemberships;
+    private JsonNullable<Long> maxAllowedMemberships;
 
     /**
      * If true, an admin can delete this organization with the Frontend API.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("admin_delete_enabled")
-    private JsonNullable<? extends Boolean> adminDeleteEnabled;
+    private JsonNullable<Boolean> adminDeleteEnabled;
 
     @JsonCreator
     public UpdateOrganizationRequestBody(
             @JsonProperty("public_metadata") Optional<? extends UpdateOrganizationPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends UpdateOrganizationPrivateMetadata> privateMetadata,
-            @JsonProperty("name") JsonNullable<? extends String> name,
-            @JsonProperty("slug") JsonNullable<? extends String> slug,
-            @JsonProperty("max_allowed_memberships") JsonNullable<? extends Long> maxAllowedMemberships,
-            @JsonProperty("admin_delete_enabled") JsonNullable<? extends Boolean> adminDeleteEnabled) {
+            @JsonProperty("name") JsonNullable<String> name,
+            @JsonProperty("slug") JsonNullable<String> slug,
+            @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
+            @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(name, "name");
@@ -110,37 +112,33 @@ public class UpdateOrganizationRequestBody {
     /**
      * The new name of the organization
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> name() {
-        return (JsonNullable<String>) name;
+        return name;
     }
 
     /**
      * The new slug of the organization, which needs to be unique in the instance
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> slug() {
-        return (JsonNullable<String>) slug;
+        return slug;
     }
 
     /**
      * The maximum number of memberships allowed for this organization
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> maxAllowedMemberships() {
-        return (JsonNullable<Long>) maxAllowedMemberships;
+        return maxAllowedMemberships;
     }
 
     /**
      * If true, an admin can delete this organization with the Frontend API.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> adminDeleteEnabled() {
-        return (JsonNullable<Boolean>) adminDeleteEnabled;
+        return adminDeleteEnabled;
     }
 
     public final static Builder builder() {
@@ -195,7 +193,7 @@ public class UpdateOrganizationRequestBody {
     /**
      * The new name of the organization
      */
-    public UpdateOrganizationRequestBody withName(JsonNullable<? extends String> name) {
+    public UpdateOrganizationRequestBody withName(JsonNullable<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -213,7 +211,7 @@ public class UpdateOrganizationRequestBody {
     /**
      * The new slug of the organization, which needs to be unique in the instance
      */
-    public UpdateOrganizationRequestBody withSlug(JsonNullable<? extends String> slug) {
+    public UpdateOrganizationRequestBody withSlug(JsonNullable<String> slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
@@ -231,7 +229,7 @@ public class UpdateOrganizationRequestBody {
     /**
      * The maximum number of memberships allowed for this organization
      */
-    public UpdateOrganizationRequestBody withMaxAllowedMemberships(JsonNullable<? extends Long> maxAllowedMemberships) {
+    public UpdateOrganizationRequestBody withMaxAllowedMemberships(JsonNullable<Long> maxAllowedMemberships) {
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         this.maxAllowedMemberships = maxAllowedMemberships;
         return this;
@@ -249,7 +247,7 @@ public class UpdateOrganizationRequestBody {
     /**
      * If true, an admin can delete this organization with the Frontend API.
      */
-    public UpdateOrganizationRequestBody withAdminDeleteEnabled(JsonNullable<? extends Boolean> adminDeleteEnabled) {
+    public UpdateOrganizationRequestBody withAdminDeleteEnabled(JsonNullable<Boolean> adminDeleteEnabled) {
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         this.adminDeleteEnabled = adminDeleteEnabled;
         return this;
@@ -265,17 +263,17 @@ public class UpdateOrganizationRequestBody {
         }
         UpdateOrganizationRequestBody other = (UpdateOrganizationRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            java.util.Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled);
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             publicMetadata,
             privateMetadata,
             name,
@@ -301,13 +299,13 @@ public class UpdateOrganizationRequestBody {
  
         private Optional<? extends UpdateOrganizationPrivateMetadata> privateMetadata = Optional.empty();
  
-        private JsonNullable<? extends String> name = JsonNullable.undefined();
+        private JsonNullable<String> name = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> slug = JsonNullable.undefined();
+        private JsonNullable<String> slug = JsonNullable.undefined();
  
-        private JsonNullable<? extends Long> maxAllowedMemberships = JsonNullable.undefined();
+        private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> adminDeleteEnabled = JsonNullable.undefined();  
+        private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -361,7 +359,7 @@ public class UpdateOrganizationRequestBody {
         /**
          * The new name of the organization
          */
-        public Builder name(JsonNullable<? extends String> name) {
+        public Builder name(JsonNullable<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -379,7 +377,7 @@ public class UpdateOrganizationRequestBody {
         /**
          * The new slug of the organization, which needs to be unique in the instance
          */
-        public Builder slug(JsonNullable<? extends String> slug) {
+        public Builder slug(JsonNullable<String> slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;
@@ -397,7 +395,7 @@ public class UpdateOrganizationRequestBody {
         /**
          * The maximum number of memberships allowed for this organization
          */
-        public Builder maxAllowedMemberships(JsonNullable<? extends Long> maxAllowedMemberships) {
+        public Builder maxAllowedMemberships(JsonNullable<Long> maxAllowedMemberships) {
             Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
             this.maxAllowedMemberships = maxAllowedMemberships;
             return this;
@@ -415,7 +413,7 @@ public class UpdateOrganizationRequestBody {
         /**
          * If true, an admin can delete this organization with the Frontend API.
          */
-        public Builder adminDeleteEnabled(JsonNullable<? extends Boolean> adminDeleteEnabled) {
+        public Builder adminDeleteEnabled(JsonNullable<Boolean> adminDeleteEnabled) {
             Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
             this.adminDeleteEnabled = adminDeleteEnabled;
             return this;

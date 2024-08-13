@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateEmailAddressRequestBody {
 
@@ -25,19 +25,19 @@ public class UpdateEmailAddressRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
-    private JsonNullable<? extends Boolean> verified;
+    private JsonNullable<Boolean> verified;
 
     /**
      * Set this email address as the primary email address for the user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary")
-    private JsonNullable<? extends Boolean> primary;
+    private JsonNullable<Boolean> primary;
 
     @JsonCreator
     public UpdateEmailAddressRequestBody(
-            @JsonProperty("verified") JsonNullable<? extends Boolean> verified,
-            @JsonProperty("primary") JsonNullable<? extends Boolean> primary) {
+            @JsonProperty("verified") JsonNullable<Boolean> verified,
+            @JsonProperty("primary") JsonNullable<Boolean> primary) {
         Utils.checkNotNull(verified, "verified");
         Utils.checkNotNull(primary, "primary");
         this.verified = verified;
@@ -51,19 +51,17 @@ public class UpdateEmailAddressRequestBody {
     /**
      * The email address will be marked as verified.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> verified() {
-        return (JsonNullable<Boolean>) verified;
+        return verified;
     }
 
     /**
      * Set this email address as the primary email address for the user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> primary() {
-        return (JsonNullable<Boolean>) primary;
+        return primary;
     }
 
     public final static Builder builder() {
@@ -82,7 +80,7 @@ public class UpdateEmailAddressRequestBody {
     /**
      * The email address will be marked as verified.
      */
-    public UpdateEmailAddressRequestBody withVerified(JsonNullable<? extends Boolean> verified) {
+    public UpdateEmailAddressRequestBody withVerified(JsonNullable<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
@@ -100,7 +98,7 @@ public class UpdateEmailAddressRequestBody {
     /**
      * Set this email address as the primary email address for the user.
      */
-    public UpdateEmailAddressRequestBody withPrimary(JsonNullable<? extends Boolean> primary) {
+    public UpdateEmailAddressRequestBody withPrimary(JsonNullable<Boolean> primary) {
         Utils.checkNotNull(primary, "primary");
         this.primary = primary;
         return this;
@@ -116,13 +114,13 @@ public class UpdateEmailAddressRequestBody {
         }
         UpdateEmailAddressRequestBody other = (UpdateEmailAddressRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.verified, other.verified) &&
-            java.util.Objects.deepEquals(this.primary, other.primary);
+            Objects.deepEquals(this.verified, other.verified) &&
+            Objects.deepEquals(this.primary, other.primary);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             verified,
             primary);
     }
@@ -136,9 +134,9 @@ public class UpdateEmailAddressRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Boolean> verified = JsonNullable.undefined();
+        private JsonNullable<Boolean> verified = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> primary = JsonNullable.undefined();  
+        private JsonNullable<Boolean> primary = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -156,7 +154,7 @@ public class UpdateEmailAddressRequestBody {
         /**
          * The email address will be marked as verified.
          */
-        public Builder verified(JsonNullable<? extends Boolean> verified) {
+        public Builder verified(JsonNullable<Boolean> verified) {
             Utils.checkNotNull(verified, "verified");
             this.verified = verified;
             return this;
@@ -174,7 +172,7 @@ public class UpdateEmailAddressRequestBody {
         /**
          * Set this email address as the primary email address for the user.
          */
-        public Builder primary(JsonNullable<? extends Boolean> primary) {
+        public Builder primary(JsonNullable<Boolean> primary) {
             Utils.checkNotNull(primary, "primary");
             this.primary = primary;
             return this;

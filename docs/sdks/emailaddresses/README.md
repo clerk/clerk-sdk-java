@@ -18,17 +18,10 @@ Create a new email address
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody;
+import com.clerk.backend_api.models.operations.CreateEmailAddressResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -51,7 +44,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -63,16 +56,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                         | [com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody](../../models/operations/CreateEmailAddressRequestBody.md) | :heavy_check_mark:                                                                                                                | The request object to use for the request.                                                                                        |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [CreateEmailAddressRequestBody](../../models/operations/CreateEmailAddressRequestBody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateEmailAddressResponse](../../models/operations/CreateEmailAddressResponse.md)**
+**[CreateEmailAddressResponse](../../models/operations/CreateEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -90,17 +85,9 @@ Returns the details of an email address.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -120,7 +107,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -132,6 +119,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                               | Type                                    | Required                                | Description                             |
@@ -141,7 +130,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetEmailAddressResponse](../../models/operations/GetEmailAddressResponse.md)**
+**[GetEmailAddressResponse](../../models/operations/GetEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -159,17 +148,9 @@ Delete the email address with the given ID
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteEmailAddressResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -189,7 +170,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -201,6 +182,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                             | Type                                  | Required                              | Description                           |
@@ -210,7 +193,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteEmailAddressResponse](../../models/operations/DeleteEmailAddressResponse.md)**
+**[DeleteEmailAddressResponse](../../models/operations/DeleteEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -228,17 +211,10 @@ Updates an email address.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody;
+import com.clerk.backend_api.models.operations.UpdateEmailAddressResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -260,7 +236,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -272,17 +248,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `emailAddressId`                                                                                                                                      | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the email address to update                                                                                                                 |
-| `requestBody`                                                                                                                                         | [Optional<? extends com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody>](../../models/operations/UpdateEmailAddressRequestBody.md) | :heavy_minus_sign:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `emailAddressId`                                                                                    | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the email address to update                                                               |
+| `requestBody`                                                                                       | [Optional<UpdateEmailAddressRequestBody>](../../models/operations/UpdateEmailAddressRequestBody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateEmailAddressResponse](../../models/operations/UpdateEmailAddressResponse.md)**
+**[UpdateEmailAddressResponse](../../models/operations/UpdateEmailAddressResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

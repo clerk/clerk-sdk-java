@@ -5,23 +5,23 @@
 package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequestBuilder;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Miscellaneous implements
             MethodCallGetPublicInterstitial {
@@ -39,8 +39,8 @@ public class Miscellaneous implements
      * It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetPublicInterstitialRequestBuilder getPublicInterstitial() {
-        return new com.clerk.backend_api.models.operations.GetPublicInterstitialRequestBuilder(this);
+    public GetPublicInterstitialRequestBuilder getPublicInterstitial() {
+        return new GetPublicInterstitialRequestBuilder(this);
     }
 
     /**
@@ -50,9 +50,10 @@ public class Miscellaneous implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetPublicInterstitialResponse getPublicInterstitialDirect() throws Exception {
+    public GetPublicInterstitialResponse getPublicInterstitialDirect() throws Exception {
         return getPublicInterstitial(Optional.empty(), Optional.empty());
     }
+    
     /**
      * Returns the markup for the interstitial page
      * The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
@@ -62,11 +63,11 @@ public class Miscellaneous implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetPublicInterstitialResponse getPublicInterstitial(
-            Optional<? extends String> frontendApi,
-            Optional<? extends String> publishableKey) throws Exception {
-        com.clerk.backend_api.models.operations.GetPublicInterstitialRequest request =
-            com.clerk.backend_api.models.operations.GetPublicInterstitialRequest
+    public GetPublicInterstitialResponse getPublicInterstitial(
+            Optional<String> frontendApi,
+            Optional<String> publishableKey) throws Exception {
+        GetPublicInterstitialRequest request =
+            GetPublicInterstitialRequest
                 .builder()
                 .frontendApi(frontendApi)
                 .publishableKey(publishableKey)
@@ -83,7 +84,7 @@ public class Miscellaneous implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.GetPublicInterstitialRequest.class,
+                GetPublicInterstitialRequest.class,
                 request, 
                 null));
 
@@ -91,7 +92,10 @@ public class Miscellaneous implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetPublicInterstitial", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetPublicInterstitial", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -99,18 +103,28 @@ public class Miscellaneous implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetPublicInterstitial", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetPublicInterstitial",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetPublicInterstitial", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetPublicInterstitial",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetPublicInterstitial", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetPublicInterstitial",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -118,14 +132,14 @@ public class Miscellaneous implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetPublicInterstitialResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetPublicInterstitialResponse
+        GetPublicInterstitialResponse.Builder _resBuilder = 
+            GetPublicInterstitialResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetPublicInterstitialResponse _res = _resBuilder.build();
+        GetPublicInterstitialResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             // no content 
@@ -137,13 +151,13 @@ public class Miscellaneous implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

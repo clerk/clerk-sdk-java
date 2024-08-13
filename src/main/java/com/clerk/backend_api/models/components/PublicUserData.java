@@ -4,34 +4,35 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
+import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class PublicUserData {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("user_id")
-    private Optional<? extends String> userId;
+    private Optional<String> userId;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
-    private JsonNullable<? extends String> firstName;
+    private JsonNullable<String> firstName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
-    private JsonNullable<? extends String> lastName;
+    private JsonNullable<String> lastName;
 
     /**
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -39,29 +40,29 @@ public class PublicUserData {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("profile_image_url")
     @Deprecated
-    private JsonNullable<? extends String> profileImageUrl;
+    private JsonNullable<String> profileImageUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("image_url")
-    private Optional<? extends String> imageUrl;
+    private Optional<String> imageUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("has_image")
-    private Optional<? extends Boolean> hasImage;
+    private Optional<Boolean> hasImage;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier")
-    private JsonNullable<? extends String> identifier;
+    private JsonNullable<String> identifier;
 
     @JsonCreator
     public PublicUserData(
-            @JsonProperty("user_id") Optional<? extends String> userId,
-            @JsonProperty("first_name") JsonNullable<? extends String> firstName,
-            @JsonProperty("last_name") JsonNullable<? extends String> lastName,
-            @JsonProperty("profile_image_url") JsonNullable<? extends String> profileImageUrl,
-            @JsonProperty("image_url") Optional<? extends String> imageUrl,
-            @JsonProperty("has_image") Optional<? extends Boolean> hasImage,
-            @JsonProperty("identifier") JsonNullable<? extends String> identifier) {
+            @JsonProperty("user_id") Optional<String> userId,
+            @JsonProperty("first_name") JsonNullable<String> firstName,
+            @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("profile_image_url") JsonNullable<String> profileImageUrl,
+            @JsonProperty("image_url") Optional<String> imageUrl,
+            @JsonProperty("has_image") Optional<Boolean> hasImage,
+            @JsonProperty("identifier") JsonNullable<String> identifier) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
@@ -82,50 +83,43 @@ public class PublicUserData {
         this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> userId() {
-        return (Optional<String>) userId;
+        return userId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> firstName() {
-        return (JsonNullable<String>) firstName;
+        return firstName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastName() {
-        return (JsonNullable<String>) lastName;
+        return lastName;
     }
 
     /**
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> profileImageUrl() {
-        return (JsonNullable<String>) profileImageUrl;
+        return profileImageUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> imageUrl() {
-        return (Optional<String>) imageUrl;
+        return imageUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> hasImage() {
-        return (Optional<Boolean>) hasImage;
+        return hasImage;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> identifier() {
-        return (JsonNullable<String>) identifier;
+        return identifier;
     }
 
     public final static Builder builder() {
@@ -138,7 +132,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withUserId(Optional<? extends String> userId) {
+    public PublicUserData withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -150,7 +144,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withFirstName(JsonNullable<? extends String> firstName) {
+    public PublicUserData withFirstName(JsonNullable<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -162,7 +156,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withLastName(JsonNullable<? extends String> lastName) {
+    public PublicUserData withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -182,7 +176,7 @@ public class PublicUserData {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public PublicUserData withProfileImageUrl(JsonNullable<? extends String> profileImageUrl) {
+    public PublicUserData withProfileImageUrl(JsonNullable<String> profileImageUrl) {
         Utils.checkNotNull(profileImageUrl, "profileImageUrl");
         this.profileImageUrl = profileImageUrl;
         return this;
@@ -194,7 +188,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withImageUrl(Optional<? extends String> imageUrl) {
+    public PublicUserData withImageUrl(Optional<String> imageUrl) {
         Utils.checkNotNull(imageUrl, "imageUrl");
         this.imageUrl = imageUrl;
         return this;
@@ -206,7 +200,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withHasImage(Optional<? extends Boolean> hasImage) {
+    public PublicUserData withHasImage(Optional<Boolean> hasImage) {
         Utils.checkNotNull(hasImage, "hasImage");
         this.hasImage = hasImage;
         return this;
@@ -218,7 +212,7 @@ public class PublicUserData {
         return this;
     }
 
-    public PublicUserData withIdentifier(JsonNullable<? extends String> identifier) {
+    public PublicUserData withIdentifier(JsonNullable<String> identifier) {
         Utils.checkNotNull(identifier, "identifier");
         this.identifier = identifier;
         return this;
@@ -234,18 +228,18 @@ public class PublicUserData {
         }
         PublicUserData other = (PublicUserData) o;
         return 
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.firstName, other.firstName) &&
-            java.util.Objects.deepEquals(this.lastName, other.lastName) &&
-            java.util.Objects.deepEquals(this.profileImageUrl, other.profileImageUrl) &&
-            java.util.Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            java.util.Objects.deepEquals(this.hasImage, other.hasImage) &&
-            java.util.Objects.deepEquals(this.identifier, other.identifier);
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.firstName, other.firstName) &&
+            Objects.deepEquals(this.lastName, other.lastName) &&
+            Objects.deepEquals(this.profileImageUrl, other.profileImageUrl) &&
+            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
+            Objects.deepEquals(this.hasImage, other.hasImage) &&
+            Objects.deepEquals(this.identifier, other.identifier);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             userId,
             firstName,
             lastName,
@@ -269,20 +263,20 @@ public class PublicUserData {
     
     public final static class Builder {
  
-        private Optional<? extends String> userId = Optional.empty();
+        private Optional<String> userId = Optional.empty();
  
-        private JsonNullable<? extends String> firstName = JsonNullable.undefined();
+        private JsonNullable<String> firstName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> lastName = JsonNullable.undefined();
+        private JsonNullable<String> lastName = JsonNullable.undefined();
  
         @Deprecated
-        private JsonNullable<? extends String> profileImageUrl = JsonNullable.undefined();
+        private JsonNullable<String> profileImageUrl = JsonNullable.undefined();
  
-        private Optional<? extends String> imageUrl = Optional.empty();
+        private Optional<String> imageUrl = Optional.empty();
  
-        private Optional<? extends Boolean> hasImage = Optional.empty();
+        private Optional<Boolean> hasImage = Optional.empty();
  
-        private JsonNullable<? extends String> identifier = JsonNullable.undefined();  
+        private JsonNullable<String> identifier = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -294,7 +288,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder userId(Optional<? extends String> userId) {
+        public Builder userId(Optional<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
@@ -306,7 +300,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder firstName(JsonNullable<? extends String> firstName) {
+        public Builder firstName(JsonNullable<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -318,7 +312,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder lastName(JsonNullable<? extends String> lastName) {
+        public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -338,7 +332,7 @@ public class PublicUserData {
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
         @Deprecated
-        public Builder profileImageUrl(JsonNullable<? extends String> profileImageUrl) {
+        public Builder profileImageUrl(JsonNullable<String> profileImageUrl) {
             Utils.checkNotNull(profileImageUrl, "profileImageUrl");
             this.profileImageUrl = profileImageUrl;
             return this;
@@ -350,7 +344,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder imageUrl(Optional<? extends String> imageUrl) {
+        public Builder imageUrl(Optional<String> imageUrl) {
             Utils.checkNotNull(imageUrl, "imageUrl");
             this.imageUrl = imageUrl;
             return this;
@@ -362,7 +356,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder hasImage(Optional<? extends Boolean> hasImage) {
+        public Builder hasImage(Optional<Boolean> hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
             this.hasImage = hasImage;
             return this;
@@ -374,7 +368,7 @@ public class PublicUserData {
             return this;
         }
 
-        public Builder identifier(JsonNullable<? extends String> identifier) {
+        public Builder identifier(JsonNullable<String> identifier) {
             Utils.checkNotNull(identifier, "identifier");
             this.identifier = identifier;
             return this;

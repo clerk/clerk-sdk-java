@@ -4,20 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpsertTemplateRequestBody {
 
@@ -26,7 +26,7 @@ public class UpsertTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<? extends String> name;
+    private Optional<String> name;
 
     /**
      * The email subject.
@@ -34,28 +34,28 @@ public class UpsertTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("subject")
-    private JsonNullable<? extends String> subject;
+    private JsonNullable<String> subject;
 
     /**
      * The editor markup used to generate the body of the template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("markup")
-    private JsonNullable<? extends String> markup;
+    private JsonNullable<String> markup;
 
     /**
      * The template body before variable interpolation
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("body")
-    private Optional<? extends String> body;
+    private Optional<String> body;
 
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delivered_by_clerk")
-    private JsonNullable<? extends Boolean> deliveredByClerk;
+    private JsonNullable<Boolean> deliveredByClerk;
 
     /**
      * The local part of the From email address that will be used for emails.
@@ -64,7 +64,7 @@ public class UpsertTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_name")
-    private Optional<? extends String> fromEmailName;
+    private Optional<String> fromEmailName;
 
     /**
      * The local part of the Reply To email address that will be used for emails.
@@ -73,17 +73,17 @@ public class UpsertTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reply_to_email_name")
-    private Optional<? extends String> replyToEmailName;
+    private Optional<String> replyToEmailName;
 
     @JsonCreator
     public UpsertTemplateRequestBody(
-            @JsonProperty("name") Optional<? extends String> name,
-            @JsonProperty("subject") JsonNullable<? extends String> subject,
-            @JsonProperty("markup") JsonNullable<? extends String> markup,
-            @JsonProperty("body") Optional<? extends String> body,
-            @JsonProperty("delivered_by_clerk") JsonNullable<? extends Boolean> deliveredByClerk,
-            @JsonProperty("from_email_name") Optional<? extends String> fromEmailName,
-            @JsonProperty("reply_to_email_name") Optional<? extends String> replyToEmailName) {
+            @JsonProperty("name") Optional<String> name,
+            @JsonProperty("subject") JsonNullable<String> subject,
+            @JsonProperty("markup") JsonNullable<String> markup,
+            @JsonProperty("body") Optional<String> body,
+            @JsonProperty("delivered_by_clerk") JsonNullable<Boolean> deliveredByClerk,
+            @JsonProperty("from_email_name") Optional<String> fromEmailName,
+            @JsonProperty("reply_to_email_name") Optional<String> replyToEmailName) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(subject, "subject");
         Utils.checkNotNull(markup, "markup");
@@ -107,47 +107,42 @@ public class UpsertTemplateRequestBody {
     /**
      * The user-friendly name of the template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> name() {
-        return (Optional<String>) name;
+        return name;
     }
 
     /**
      * The email subject.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> subject() {
-        return (JsonNullable<String>) subject;
+        return subject;
     }
 
     /**
      * The editor markup used to generate the body of the template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> markup() {
-        return (JsonNullable<String>) markup;
+        return markup;
     }
 
     /**
      * The template body before variable interpolation
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> body() {
-        return (Optional<String>) body;
+        return body;
     }
 
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> deliveredByClerk() {
-        return (JsonNullable<Boolean>) deliveredByClerk;
+        return deliveredByClerk;
     }
 
     /**
@@ -155,10 +150,9 @@ public class UpsertTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> fromEmailName() {
-        return (Optional<String>) fromEmailName;
+        return fromEmailName;
     }
 
     /**
@@ -166,10 +160,9 @@ public class UpsertTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> replyToEmailName() {
-        return (Optional<String>) replyToEmailName;
+        return replyToEmailName;
     }
 
     public final static Builder builder() {
@@ -188,7 +181,7 @@ public class UpsertTemplateRequestBody {
     /**
      * The user-friendly name of the template
      */
-    public UpsertTemplateRequestBody withName(Optional<? extends String> name) {
+    public UpsertTemplateRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -208,7 +201,7 @@ public class UpsertTemplateRequestBody {
      * The email subject.
      * Applicable only to email templates.
      */
-    public UpsertTemplateRequestBody withSubject(JsonNullable<? extends String> subject) {
+    public UpsertTemplateRequestBody withSubject(JsonNullable<String> subject) {
         Utils.checkNotNull(subject, "subject");
         this.subject = subject;
         return this;
@@ -226,7 +219,7 @@ public class UpsertTemplateRequestBody {
     /**
      * The editor markup used to generate the body of the template
      */
-    public UpsertTemplateRequestBody withMarkup(JsonNullable<? extends String> markup) {
+    public UpsertTemplateRequestBody withMarkup(JsonNullable<String> markup) {
         Utils.checkNotNull(markup, "markup");
         this.markup = markup;
         return this;
@@ -244,7 +237,7 @@ public class UpsertTemplateRequestBody {
     /**
      * The template body before variable interpolation
      */
-    public UpsertTemplateRequestBody withBody(Optional<? extends String> body) {
+    public UpsertTemplateRequestBody withBody(Optional<String> body) {
         Utils.checkNotNull(body, "body");
         this.body = body;
         return this;
@@ -262,7 +255,7 @@ public class UpsertTemplateRequestBody {
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
-    public UpsertTemplateRequestBody withDeliveredByClerk(JsonNullable<? extends Boolean> deliveredByClerk) {
+    public UpsertTemplateRequestBody withDeliveredByClerk(JsonNullable<Boolean> deliveredByClerk) {
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         this.deliveredByClerk = deliveredByClerk;
         return this;
@@ -284,7 +277,7 @@ public class UpsertTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    public UpsertTemplateRequestBody withFromEmailName(Optional<? extends String> fromEmailName) {
+    public UpsertTemplateRequestBody withFromEmailName(Optional<String> fromEmailName) {
         Utils.checkNotNull(fromEmailName, "fromEmailName");
         this.fromEmailName = fromEmailName;
         return this;
@@ -306,7 +299,7 @@ public class UpsertTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    public UpsertTemplateRequestBody withReplyToEmailName(Optional<? extends String> replyToEmailName) {
+    public UpsertTemplateRequestBody withReplyToEmailName(Optional<String> replyToEmailName) {
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
         this.replyToEmailName = replyToEmailName;
         return this;
@@ -322,18 +315,18 @@ public class UpsertTemplateRequestBody {
         }
         UpsertTemplateRequestBody other = (UpsertTemplateRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.subject, other.subject) &&
-            java.util.Objects.deepEquals(this.markup, other.markup) &&
-            java.util.Objects.deepEquals(this.body, other.body) &&
-            java.util.Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
-            java.util.Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            java.util.Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.subject, other.subject) &&
+            Objects.deepEquals(this.markup, other.markup) &&
+            Objects.deepEquals(this.body, other.body) &&
+            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
+            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
+            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             subject,
             markup,
@@ -357,19 +350,19 @@ public class UpsertTemplateRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> name = Optional.empty();
+        private Optional<String> name = Optional.empty();
  
-        private JsonNullable<? extends String> subject = JsonNullable.undefined();
+        private JsonNullable<String> subject = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> markup = JsonNullable.undefined();
+        private JsonNullable<String> markup = JsonNullable.undefined();
  
-        private Optional<? extends String> body = Optional.empty();
+        private Optional<String> body = Optional.empty();
  
-        private JsonNullable<? extends Boolean> deliveredByClerk = JsonNullable.undefined();
+        private JsonNullable<Boolean> deliveredByClerk = JsonNullable.undefined();
  
-        private Optional<? extends String> fromEmailName = Optional.empty();
+        private Optional<String> fromEmailName = Optional.empty();
  
-        private Optional<? extends String> replyToEmailName = Optional.empty();  
+        private Optional<String> replyToEmailName = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -387,7 +380,7 @@ public class UpsertTemplateRequestBody {
         /**
          * The user-friendly name of the template
          */
-        public Builder name(Optional<? extends String> name) {
+        public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -407,7 +400,7 @@ public class UpsertTemplateRequestBody {
          * The email subject.
          * Applicable only to email templates.
          */
-        public Builder subject(JsonNullable<? extends String> subject) {
+        public Builder subject(JsonNullable<String> subject) {
             Utils.checkNotNull(subject, "subject");
             this.subject = subject;
             return this;
@@ -425,7 +418,7 @@ public class UpsertTemplateRequestBody {
         /**
          * The editor markup used to generate the body of the template
          */
-        public Builder markup(JsonNullable<? extends String> markup) {
+        public Builder markup(JsonNullable<String> markup) {
             Utils.checkNotNull(markup, "markup");
             this.markup = markup;
             return this;
@@ -443,7 +436,7 @@ public class UpsertTemplateRequestBody {
         /**
          * The template body before variable interpolation
          */
-        public Builder body(Optional<? extends String> body) {
+        public Builder body(Optional<String> body) {
             Utils.checkNotNull(body, "body");
             this.body = body;
             return this;
@@ -461,7 +454,7 @@ public class UpsertTemplateRequestBody {
         /**
          * Whether Clerk should deliver emails or SMS messages based on the current template
          */
-        public Builder deliveredByClerk(JsonNullable<? extends Boolean> deliveredByClerk) {
+        public Builder deliveredByClerk(JsonNullable<Boolean> deliveredByClerk) {
             Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
             this.deliveredByClerk = deliveredByClerk;
             return this;
@@ -483,7 +476,7 @@ public class UpsertTemplateRequestBody {
          * For example, in the address 'hello@example.com', the local part is 'hello'.
          * Applicable only to email templates.
          */
-        public Builder fromEmailName(Optional<? extends String> fromEmailName) {
+        public Builder fromEmailName(Optional<String> fromEmailName) {
             Utils.checkNotNull(fromEmailName, "fromEmailName");
             this.fromEmailName = fromEmailName;
             return this;
@@ -505,7 +498,7 @@ public class UpsertTemplateRequestBody {
          * For example, in the address 'hello@example.com', the local part is 'hello'.
          * Applicable only to email templates.
          */
-        public Builder replyToEmailName(Optional<? extends String> replyToEmailName) {
+        public Builder replyToEmailName(Optional<String> replyToEmailName) {
             Utils.checkNotNull(replyToEmailName, "replyToEmailName");
             this.replyToEmailName = replyToEmailName;
             return this;

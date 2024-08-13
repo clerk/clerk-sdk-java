@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * DisableMFAResponseBody - Successful operation.
  */
@@ -25,11 +24,11 @@ public class DisableMFAResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("user_id")
-    private Optional<? extends String> userId;
+    private Optional<String> userId;
 
     @JsonCreator
     public DisableMFAResponseBody(
-            @JsonProperty("user_id") Optional<? extends String> userId) {
+            @JsonProperty("user_id") Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
     }
@@ -38,10 +37,9 @@ public class DisableMFAResponseBody {
         this(Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> userId() {
-        return (Optional<String>) userId;
+        return userId;
     }
 
     public final static Builder builder() {
@@ -54,7 +52,7 @@ public class DisableMFAResponseBody {
         return this;
     }
 
-    public DisableMFAResponseBody withUserId(Optional<? extends String> userId) {
+    public DisableMFAResponseBody withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -70,12 +68,12 @@ public class DisableMFAResponseBody {
         }
         DisableMFAResponseBody other = (DisableMFAResponseBody) o;
         return 
-            java.util.Objects.deepEquals(this.userId, other.userId);
+            Objects.deepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             userId);
     }
     
@@ -87,7 +85,7 @@ public class DisableMFAResponseBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> userId = Optional.empty();  
+        private Optional<String> userId = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -99,7 +97,7 @@ public class DisableMFAResponseBody {
             return this;
         }
 
-        public Builder userId(Optional<? extends String> userId) {
+        public Builder userId(Optional<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;

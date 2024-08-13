@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class ActorToken {
 
@@ -37,11 +37,11 @@ public class ActorToken {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
-    private JsonNullable<? extends String> token;
+    private JsonNullable<String> token;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
-    private JsonNullable<? extends String> url;
+    private JsonNullable<String> url;
 
     /**
      * Unix timestamp of creation.
@@ -64,8 +64,8 @@ public class ActorToken {
             @JsonProperty("status") ActorTokenStatus status,
             @JsonProperty("user_id") String userId,
             @JsonProperty("actor") ActorTokenActor actor,
-            @JsonProperty("token") JsonNullable<? extends String> token,
-            @JsonProperty("url") JsonNullable<? extends String> url,
+            @JsonProperty("token") JsonNullable<String> token,
+            @JsonProperty("url") JsonNullable<String> url,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -124,16 +124,14 @@ public class ActorToken {
         return actor;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> token() {
-        return (JsonNullable<String>) token;
+        return token;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> url() {
-        return (JsonNullable<String>) url;
+        return url;
     }
 
     /**
@@ -194,7 +192,7 @@ public class ActorToken {
         return this;
     }
 
-    public ActorToken withToken(JsonNullable<? extends String> token) {
+    public ActorToken withToken(JsonNullable<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
         return this;
@@ -206,7 +204,7 @@ public class ActorToken {
         return this;
     }
 
-    public ActorToken withUrl(JsonNullable<? extends String> url) {
+    public ActorToken withUrl(JsonNullable<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
@@ -242,20 +240,20 @@ public class ActorToken {
         }
         ActorToken other = (ActorToken) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.actor, other.actor) &&
-            java.util.Objects.deepEquals(this.token, other.token) &&
-            java.util.Objects.deepEquals(this.url, other.url) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.actor, other.actor) &&
+            Objects.deepEquals(this.token, other.token) &&
+            Objects.deepEquals(this.url, other.url) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             status,
@@ -293,9 +291,9 @@ public class ActorToken {
  
         private ActorTokenActor actor;
  
-        private JsonNullable<? extends String> token = JsonNullable.undefined();
+        private JsonNullable<String> token = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> url = JsonNullable.undefined();
+        private JsonNullable<String> url = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -341,7 +339,7 @@ public class ActorToken {
             return this;
         }
 
-        public Builder token(JsonNullable<? extends String> token) {
+        public Builder token(JsonNullable<String> token) {
             Utils.checkNotNull(token, "token");
             this.token = token;
             return this;
@@ -353,7 +351,7 @@ public class ActorToken {
             return this;
         }
 
-        public Builder url(JsonNullable<? extends String> url) {
+        public Builder url(JsonNullable<String> url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;

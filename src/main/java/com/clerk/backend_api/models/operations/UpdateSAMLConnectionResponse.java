@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.SAMLConnection;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateSAMLConnectionResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
     /**
      * A SAML Connection
      */
-    private Optional<? extends com.clerk.backend_api.models.components.SAMLConnection> samlConnection;
+    private Optional<? extends SAMLConnection> samlConnection;
 
     @JsonCreator
     public UpdateSAMLConnectionResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.SAMLConnection> samlConnection) {
+            Optional<? extends SAMLConnection> samlConnection) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.SAMLConnection> samlConnection() {
-        return (Optional<com.clerk.backend_api.models.components.SAMLConnection>) samlConnection;
+    public Optional<SAMLConnection> samlConnection() {
+        return (Optional<SAMLConnection>) samlConnection;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
     /**
      * A SAML Connection
      */
-    public UpdateSAMLConnectionResponse withSAMLConnection(com.clerk.backend_api.models.components.SAMLConnection samlConnection) {
+    public UpdateSAMLConnectionResponse withSAMLConnection(SAMLConnection samlConnection) {
         Utils.checkNotNull(samlConnection, "samlConnection");
         this.samlConnection = Optional.ofNullable(samlConnection);
         return this;
@@ -137,7 +141,7 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
     /**
      * A SAML Connection
      */
-    public UpdateSAMLConnectionResponse withSAMLConnection(Optional<? extends com.clerk.backend_api.models.components.SAMLConnection> samlConnection) {
+    public UpdateSAMLConnectionResponse withSAMLConnection(Optional<? extends SAMLConnection> samlConnection) {
         Utils.checkNotNull(samlConnection, "samlConnection");
         this.samlConnection = samlConnection;
         return this;
@@ -153,15 +157,15 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
         }
         UpdateSAMLConnectionResponse other = (UpdateSAMLConnectionResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.samlConnection, other.samlConnection);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.samlConnection, other.samlConnection);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.SAMLConnection> samlConnection = Optional.empty();  
+        private Optional<? extends SAMLConnection> samlConnection = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
         /**
          * A SAML Connection
          */
-        public Builder samlConnection(com.clerk.backend_api.models.components.SAMLConnection samlConnection) {
+        public Builder samlConnection(SAMLConnection samlConnection) {
             Utils.checkNotNull(samlConnection, "samlConnection");
             this.samlConnection = Optional.ofNullable(samlConnection);
             return this;
@@ -230,7 +234,7 @@ public class UpdateSAMLConnectionResponse implements com.clerk.backend_api.utils
         /**
          * A SAML Connection
          */
-        public Builder samlConnection(Optional<? extends com.clerk.backend_api.models.components.SAMLConnection> samlConnection) {
+        public Builder samlConnection(Optional<? extends SAMLConnection> samlConnection) {
             Utils.checkNotNull(samlConnection, "samlConnection");
             this.samlConnection = samlConnection;
             return this;

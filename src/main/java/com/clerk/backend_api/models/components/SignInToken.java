@@ -4,20 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SignInToken {
 
@@ -35,11 +35,11 @@ public class SignInToken {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
-    private Optional<? extends String> token;
+    private Optional<String> token;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
-    private JsonNullable<? extends String> url;
+    private JsonNullable<String> url;
 
     /**
      * Unix timestamp of creation.
@@ -61,8 +61,8 @@ public class SignInToken {
             @JsonProperty("id") String id,
             @JsonProperty("status") SignInTokenStatus status,
             @JsonProperty("user_id") String userId,
-            @JsonProperty("token") Optional<? extends String> token,
-            @JsonProperty("url") JsonNullable<? extends String> url,
+            @JsonProperty("token") Optional<String> token,
+            @JsonProperty("url") JsonNullable<String> url,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -113,16 +113,14 @@ public class SignInToken {
         return userId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> token() {
-        return (Optional<String>) token;
+        return token;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> url() {
-        return (JsonNullable<String>) url;
+        return url;
     }
 
     /**
@@ -177,7 +175,7 @@ public class SignInToken {
         return this;
     }
 
-    public SignInToken withToken(Optional<? extends String> token) {
+    public SignInToken withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
         return this;
@@ -189,7 +187,7 @@ public class SignInToken {
         return this;
     }
 
-    public SignInToken withUrl(JsonNullable<? extends String> url) {
+    public SignInToken withUrl(JsonNullable<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
@@ -225,19 +223,19 @@ public class SignInToken {
         }
         SignInToken other = (SignInToken) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.token, other.token) &&
-            java.util.Objects.deepEquals(this.url, other.url) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.token, other.token) &&
+            Objects.deepEquals(this.url, other.url) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             status,
@@ -271,9 +269,9 @@ public class SignInToken {
  
         private String userId;
  
-        private Optional<? extends String> token = Optional.empty();
+        private Optional<String> token = Optional.empty();
  
-        private JsonNullable<? extends String> url = JsonNullable.undefined();
+        private JsonNullable<String> url = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -313,7 +311,7 @@ public class SignInToken {
             return this;
         }
 
-        public Builder token(Optional<? extends String> token) {
+        public Builder token(Optional<String> token) {
             Utils.checkNotNull(token, "token");
             this.token = token;
             return this;
@@ -325,7 +323,7 @@ public class SignInToken {
             return this;
         }
 
-        public Builder url(JsonNullable<? extends String> url) {
+        public Builder url(JsonNullable<String> url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;

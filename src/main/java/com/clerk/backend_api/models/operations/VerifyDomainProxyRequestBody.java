@@ -4,19 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class VerifyDomainProxyRequestBody {
 
@@ -25,19 +24,19 @@ public class VerifyDomainProxyRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("domain_id")
-    private Optional<? extends String> domainId;
+    private Optional<String> domainId;
 
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
-    private Optional<? extends String> proxyUrl;
+    private Optional<String> proxyUrl;
 
     @JsonCreator
     public VerifyDomainProxyRequestBody(
-            @JsonProperty("domain_id") Optional<? extends String> domainId,
-            @JsonProperty("proxy_url") Optional<? extends String> proxyUrl) {
+            @JsonProperty("domain_id") Optional<String> domainId,
+            @JsonProperty("proxy_url") Optional<String> proxyUrl) {
         Utils.checkNotNull(domainId, "domainId");
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.domainId = domainId;
@@ -51,19 +50,17 @@ public class VerifyDomainProxyRequestBody {
     /**
      * The ID of the domain that will be updated.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> domainId() {
-        return (Optional<String>) domainId;
+        return domainId;
     }
 
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> proxyUrl() {
-        return (Optional<String>) proxyUrl;
+        return proxyUrl;
     }
 
     public final static Builder builder() {
@@ -82,7 +79,7 @@ public class VerifyDomainProxyRequestBody {
     /**
      * The ID of the domain that will be updated.
      */
-    public VerifyDomainProxyRequestBody withDomainId(Optional<? extends String> domainId) {
+    public VerifyDomainProxyRequestBody withDomainId(Optional<String> domainId) {
         Utils.checkNotNull(domainId, "domainId");
         this.domainId = domainId;
         return this;
@@ -100,7 +97,7 @@ public class VerifyDomainProxyRequestBody {
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
      */
-    public VerifyDomainProxyRequestBody withProxyUrl(Optional<? extends String> proxyUrl) {
+    public VerifyDomainProxyRequestBody withProxyUrl(Optional<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.proxyUrl = proxyUrl;
         return this;
@@ -116,13 +113,13 @@ public class VerifyDomainProxyRequestBody {
         }
         VerifyDomainProxyRequestBody other = (VerifyDomainProxyRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.domainId, other.domainId) &&
-            java.util.Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Objects.deepEquals(this.domainId, other.domainId) &&
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             domainId,
             proxyUrl);
     }
@@ -136,9 +133,9 @@ public class VerifyDomainProxyRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> domainId = Optional.empty();
+        private Optional<String> domainId = Optional.empty();
  
-        private Optional<? extends String> proxyUrl = Optional.empty();  
+        private Optional<String> proxyUrl = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -156,7 +153,7 @@ public class VerifyDomainProxyRequestBody {
         /**
          * The ID of the domain that will be updated.
          */
-        public Builder domainId(Optional<? extends String> domainId) {
+        public Builder domainId(Optional<String> domainId) {
             Utils.checkNotNull(domainId, "domainId");
             this.domainId = domainId;
             return this;
@@ -174,7 +171,7 @@ public class VerifyDomainProxyRequestBody {
         /**
          * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
          */
-        public Builder proxyUrl(Optional<? extends String> proxyUrl) {
+        public Builder proxyUrl(Optional<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = proxyUrl;
             return this;

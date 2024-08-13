@@ -4,32 +4,42 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.Client;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetClientListRequest;
+import com.clerk.backend_api.models.operations.GetClientListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetClientListResponse;
+import com.clerk.backend_api.models.operations.GetClientRequest;
+import com.clerk.backend_api.models.operations.GetClientRequestBuilder;
+import com.clerk.backend_api.models.operations.GetClientResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.VerifyClientRequestBody;
+import com.clerk.backend_api.models.operations.VerifyClientRequestBuilder;
+import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Deprecated;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class Clients implements
             MethodCallGetClientList,
@@ -52,8 +62,8 @@ public class Clients implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.GetClientListRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.GetClientListRequestBuilder(this);
+    public GetClientListRequestBuilder list() {
+        return new GetClientListRequestBuilder(this);
     }
 
     /**
@@ -66,9 +76,10 @@ public class Clients implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.GetClientListResponse listDirect() throws Exception {
+    public GetClientListResponse listDirect() throws Exception {
         return list(Optional.empty(), Optional.empty());
     }
+    
     /**
      * List all clients
      * Returns a list of all clients. The clients are returned sorted by creation date,
@@ -84,11 +95,11 @@ public class Clients implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.GetClientListResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception {
-        com.clerk.backend_api.models.operations.GetClientListRequest request =
-            com.clerk.backend_api.models.operations.GetClientListRequest
+    public GetClientListResponse list(
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception {
+        GetClientListRequest request =
+            GetClientListRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
@@ -105,7 +116,7 @@ public class Clients implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.GetClientListRequest.class,
+                GetClientListRequest.class,
                 request, 
                 null));
 
@@ -116,7 +127,10 @@ public class Clients implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetClientList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetClientList", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -124,18 +138,28 @@ public class Clients implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "410", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetClientList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetClientList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetClientList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetClientList",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetClientList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetClientList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -143,11 +167,11 @@ public class Clients implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.GetClientListResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetClientListResponse
+        GetClientListResponse.Builder _resBuilder = 
+            GetClientListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -170,21 +194,21 @@ public class Clients implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.GetClientListRequestBuilder _ret = list();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    GetClientListRequestBuilder _ret = list();
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.GetClientListResponse _res = _resBuilder.build();
+        GetClientListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.components.Client> _out = Utils.mapper().readValue(
+                List<Client> _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.components.Client>>() {});
-                _res.withClientList(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<Client>>() {});
+                _res.withClientList(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -196,9 +220,9 @@ public class Clients implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "410", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -230,8 +254,8 @@ public class Clients implements
      * Verifies the client in the provided token
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.VerifyClientRequestBuilder verify() {
-        return new com.clerk.backend_api.models.operations.VerifyClientRequestBuilder(this);
+    public VerifyClientRequestBuilder verify() {
+        return new VerifyClientRequestBuilder(this);
     }
 
     /**
@@ -240,9 +264,10 @@ public class Clients implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyClientResponse verifyDirect() throws Exception {
+    public VerifyClientResponse verifyDirect() throws Exception {
         return verify(Optional.empty());
     }
+    
     /**
      * Verify a client
      * Verifies the client in the provided token
@@ -250,18 +275,23 @@ public class Clients implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyClientResponse verify(
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyClientRequestBody> request) throws Exception {
+    public VerifyClientResponse verify(
+            Optional<? extends VerifyClientRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/clients/verify");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.VerifyClientRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends VerifyClientRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -274,7 +304,10 @@ public class Clients implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("VerifyClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "VerifyClient", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -282,18 +315,28 @@ public class Clients implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("VerifyClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "VerifyClient",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("VerifyClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "VerifyClient",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("VerifyClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "VerifyClient",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -301,42 +344,42 @@ public class Clients implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.VerifyClientResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.VerifyClientResponse
+        VerifyClientResponse.Builder _resBuilder = 
+            VerifyClientResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.VerifyClientResponse _res = _resBuilder.build();
+        VerifyClientResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Client _out = Utils.mapper().readValue(
+                Client _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Client>() {});
-                _res.withClient(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Client>() {});
+                _res.withClient(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -345,13 +388,13 @@ public class Clients implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -361,8 +404,8 @@ public class Clients implements
      * Returns the details of a client.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetClientRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetClientRequestBuilder(this);
+    public GetClientRequestBuilder get() {
+        return new GetClientRequestBuilder(this);
     }
 
     /**
@@ -372,17 +415,17 @@ public class Clients implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetClientResponse get(
+    public GetClientResponse get(
             String clientId) throws Exception {
-        com.clerk.backend_api.models.operations.GetClientRequest request =
-            com.clerk.backend_api.models.operations.GetClientRequest
+        GetClientRequest request =
+            GetClientRequest
                 .builder()
                 .clientId(clientId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetClientRequest.class,
+                GetClientRequest.class,
                 _baseUrl,
                 "/clients/{client_id}",
                 request, null);
@@ -399,7 +442,10 @@ public class Clients implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetClient", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -407,18 +453,28 @@ public class Clients implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetClient",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetClient",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetClient", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetClient",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -426,42 +482,42 @@ public class Clients implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetClientResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetClientResponse
+        GetClientResponse.Builder _resBuilder = 
+            GetClientResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetClientResponse _res = _resBuilder.build();
+        GetClientResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Client _out = Utils.mapper().readValue(
+                Client _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Client>() {});
-                _res.withClient(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Client>() {});
+                _res.withClient(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -470,13 +526,13 @@ public class Clients implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

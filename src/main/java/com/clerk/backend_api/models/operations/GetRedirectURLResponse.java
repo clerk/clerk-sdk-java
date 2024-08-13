@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.RedirectURL;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetRedirectURLResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.RedirectURL> redirectURL;
+    private Optional<? extends RedirectURL> redirectURL;
 
     @JsonCreator
     public GetRedirectURLResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.RedirectURL> redirectURL) {
+            Optional<? extends RedirectURL> redirectURL) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.RedirectURL> redirectURL() {
-        return (Optional<com.clerk.backend_api.models.components.RedirectURL>) redirectURL;
+    public Optional<RedirectURL> redirectURL() {
+        return (Optional<RedirectURL>) redirectURL;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetRedirectURLResponse withRedirectURL(com.clerk.backend_api.models.components.RedirectURL redirectURL) {
+    public GetRedirectURLResponse withRedirectURL(RedirectURL redirectURL) {
         Utils.checkNotNull(redirectURL, "redirectURL");
         this.redirectURL = Optional.ofNullable(redirectURL);
         return this;
@@ -137,7 +141,7 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetRedirectURLResponse withRedirectURL(Optional<? extends com.clerk.backend_api.models.components.RedirectURL> redirectURL) {
+    public GetRedirectURLResponse withRedirectURL(Optional<? extends RedirectURL> redirectURL) {
         Utils.checkNotNull(redirectURL, "redirectURL");
         this.redirectURL = redirectURL;
         return this;
@@ -153,15 +157,15 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
         }
         GetRedirectURLResponse other = (GetRedirectURLResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.redirectURL, other.redirectURL);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.redirectURL, other.redirectURL);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.RedirectURL> redirectURL = Optional.empty();  
+        private Optional<? extends RedirectURL> redirectURL = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder redirectURL(com.clerk.backend_api.models.components.RedirectURL redirectURL) {
+        public Builder redirectURL(RedirectURL redirectURL) {
             Utils.checkNotNull(redirectURL, "redirectURL");
             this.redirectURL = Optional.ofNullable(redirectURL);
             return this;
@@ -230,7 +234,7 @@ public class GetRedirectURLResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder redirectURL(Optional<? extends com.clerk.backend_api.models.components.RedirectURL> redirectURL) {
+        public Builder redirectURL(Optional<? extends RedirectURL> redirectURL) {
             Utils.checkNotNull(redirectURL, "redirectURL");
             this.redirectURL = redirectURL;
             return this;

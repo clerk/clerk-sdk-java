@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class CreateSAMLConnectionRequestBody {
 
@@ -43,35 +43,35 @@ public class CreateSAMLConnectionRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_entity_id")
-    private JsonNullable<? extends String> idpEntityId;
+    private JsonNullable<String> idpEntityId;
 
     /**
      * The Single-Sign On URL as provided by the IdP
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_sso_url")
-    private JsonNullable<? extends String> idpSsoUrl;
+    private JsonNullable<String> idpSsoUrl;
 
     /**
      * The X.509 certificate as provided by the IdP
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_certificate")
-    private JsonNullable<? extends String> idpCertificate;
+    private JsonNullable<String> idpCertificate;
 
     /**
      * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
-    private JsonNullable<? extends String> idpMetadataUrl;
+    private JsonNullable<String> idpMetadataUrl;
 
     /**
      * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata")
-    private JsonNullable<? extends String> idpMetadata;
+    private JsonNullable<String> idpMetadata;
 
     /**
      * Define the attribute name mapping between Identity Provider and Clerk's user properties
@@ -85,11 +85,11 @@ public class CreateSAMLConnectionRequestBody {
             @JsonProperty("name") String name,
             @JsonProperty("domain") String domain,
             @JsonProperty("provider") Provider provider,
-            @JsonProperty("idp_entity_id") JsonNullable<? extends String> idpEntityId,
-            @JsonProperty("idp_sso_url") JsonNullable<? extends String> idpSsoUrl,
-            @JsonProperty("idp_certificate") JsonNullable<? extends String> idpCertificate,
-            @JsonProperty("idp_metadata_url") JsonNullable<? extends String> idpMetadataUrl,
-            @JsonProperty("idp_metadata") JsonNullable<? extends String> idpMetadata,
+            @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
+            @JsonProperty("idp_sso_url") JsonNullable<String> idpSsoUrl,
+            @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
+            @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
+            @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("attribute_mapping") JsonNullable<? extends AttributeMapping> attributeMapping) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
@@ -145,46 +145,41 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The Entity ID as provided by the IdP
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpEntityId() {
-        return (JsonNullable<String>) idpEntityId;
+        return idpEntityId;
     }
 
     /**
      * The Single-Sign On URL as provided by the IdP
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpSsoUrl() {
-        return (JsonNullable<String>) idpSsoUrl;
+        return idpSsoUrl;
     }
 
     /**
      * The X.509 certificate as provided by the IdP
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpCertificate() {
-        return (JsonNullable<String>) idpCertificate;
+        return idpCertificate;
     }
 
     /**
      * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpMetadataUrl() {
-        return (JsonNullable<String>) idpMetadataUrl;
+        return idpMetadataUrl;
     }
 
     /**
      * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
-        return (JsonNullable<String>) idpMetadata;
+        return idpMetadata;
     }
 
     /**
@@ -239,7 +234,7 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The Entity ID as provided by the IdP
      */
-    public CreateSAMLConnectionRequestBody withIdpEntityId(JsonNullable<? extends String> idpEntityId) {
+    public CreateSAMLConnectionRequestBody withIdpEntityId(JsonNullable<String> idpEntityId) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         this.idpEntityId = idpEntityId;
         return this;
@@ -257,7 +252,7 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The Single-Sign On URL as provided by the IdP
      */
-    public CreateSAMLConnectionRequestBody withIdpSsoUrl(JsonNullable<? extends String> idpSsoUrl) {
+    public CreateSAMLConnectionRequestBody withIdpSsoUrl(JsonNullable<String> idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         this.idpSsoUrl = idpSsoUrl;
         return this;
@@ -275,7 +270,7 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The X.509 certificate as provided by the IdP
      */
-    public CreateSAMLConnectionRequestBody withIdpCertificate(JsonNullable<? extends String> idpCertificate) {
+    public CreateSAMLConnectionRequestBody withIdpCertificate(JsonNullable<String> idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         this.idpCertificate = idpCertificate;
         return this;
@@ -293,7 +288,7 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
      */
-    public CreateSAMLConnectionRequestBody withIdpMetadataUrl(JsonNullable<? extends String> idpMetadataUrl) {
+    public CreateSAMLConnectionRequestBody withIdpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         this.idpMetadataUrl = idpMetadataUrl;
         return this;
@@ -311,7 +306,7 @@ public class CreateSAMLConnectionRequestBody {
     /**
      * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
      */
-    public CreateSAMLConnectionRequestBody withIdpMetadata(JsonNullable<? extends String> idpMetadata) {
+    public CreateSAMLConnectionRequestBody withIdpMetadata(JsonNullable<String> idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         this.idpMetadata = idpMetadata;
         return this;
@@ -345,20 +340,20 @@ public class CreateSAMLConnectionRequestBody {
         }
         CreateSAMLConnectionRequestBody other = (CreateSAMLConnectionRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.domain, other.domain) &&
-            java.util.Objects.deepEquals(this.provider, other.provider) &&
-            java.util.Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
-            java.util.Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
-            java.util.Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
-            java.util.Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
-            java.util.Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
-            java.util.Objects.deepEquals(this.attributeMapping, other.attributeMapping);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.domain, other.domain) &&
+            Objects.deepEquals(this.provider, other.provider) &&
+            Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
+            Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
+            Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
+            Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
+            Objects.deepEquals(this.attributeMapping, other.attributeMapping);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             domain,
             provider,
@@ -392,15 +387,15 @@ public class CreateSAMLConnectionRequestBody {
  
         private Provider provider;
  
-        private JsonNullable<? extends String> idpEntityId = JsonNullable.undefined();
+        private JsonNullable<String> idpEntityId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> idpSsoUrl = JsonNullable.undefined();
+        private JsonNullable<String> idpSsoUrl = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> idpCertificate = JsonNullable.undefined();
+        private JsonNullable<String> idpCertificate = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> idpMetadataUrl = JsonNullable.undefined();
+        private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> idpMetadata = JsonNullable.undefined();
+        private JsonNullable<String> idpMetadata = JsonNullable.undefined();
  
         private JsonNullable<? extends AttributeMapping> attributeMapping = JsonNullable.undefined();  
         
@@ -447,7 +442,7 @@ public class CreateSAMLConnectionRequestBody {
         /**
          * The Entity ID as provided by the IdP
          */
-        public Builder idpEntityId(JsonNullable<? extends String> idpEntityId) {
+        public Builder idpEntityId(JsonNullable<String> idpEntityId) {
             Utils.checkNotNull(idpEntityId, "idpEntityId");
             this.idpEntityId = idpEntityId;
             return this;
@@ -465,7 +460,7 @@ public class CreateSAMLConnectionRequestBody {
         /**
          * The Single-Sign On URL as provided by the IdP
          */
-        public Builder idpSsoUrl(JsonNullable<? extends String> idpSsoUrl) {
+        public Builder idpSsoUrl(JsonNullable<String> idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
             this.idpSsoUrl = idpSsoUrl;
             return this;
@@ -483,7 +478,7 @@ public class CreateSAMLConnectionRequestBody {
         /**
          * The X.509 certificate as provided by the IdP
          */
-        public Builder idpCertificate(JsonNullable<? extends String> idpCertificate) {
+        public Builder idpCertificate(JsonNullable<String> idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
             this.idpCertificate = idpCertificate;
             return this;
@@ -501,7 +496,7 @@ public class CreateSAMLConnectionRequestBody {
         /**
          * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
          */
-        public Builder idpMetadataUrl(JsonNullable<? extends String> idpMetadataUrl) {
+        public Builder idpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
             this.idpMetadataUrl = idpMetadataUrl;
             return this;
@@ -519,7 +514,7 @@ public class CreateSAMLConnectionRequestBody {
         /**
          * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
          */
-        public Builder idpMetadata(JsonNullable<? extends String> idpMetadata) {
+        public Builder idpMetadata(JsonNullable<String> idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
             this.idpMetadata = idpMetadata;
             return this;

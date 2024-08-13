@@ -15,17 +15,9 @@ Retrieve a new testing token. Only available for development instances.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateTestingTokenResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -41,7 +33,7 @@ public class Application {
             if (res.testingToken().isPresent()) {
                 // handle response
             }
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -54,9 +46,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateTestingTokenResponse](../../models/operations/CreateTestingTokenResponse.md)**
+**[CreateTestingTokenResponse](../../models/operations/CreateTestingTokenResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |

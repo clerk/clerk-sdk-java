@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetOAuthAccessTokenResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
     /**
      * The OAuth access token of the user, if any.
      */
-    private Optional<? extends java.util.List<ResponseBody>> responseBodies;
+    private Optional<? extends List<ResponseBody>> responseBodies;
 
     @JsonCreator
     public GetOAuthAccessTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<ResponseBody>> responseBodies) {
+            Optional<? extends List<ResponseBody>> responseBodies) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<ResponseBody>> responseBodies() {
-        return (Optional<java.util.List<ResponseBody>>) responseBodies;
+    public Optional<List<ResponseBody>> responseBodies() {
+        return (Optional<List<ResponseBody>>) responseBodies;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
     /**
      * The OAuth access token of the user, if any.
      */
-    public GetOAuthAccessTokenResponse withResponseBodies(java.util.List<ResponseBody> responseBodies) {
+    public GetOAuthAccessTokenResponse withResponseBodies(List<ResponseBody> responseBodies) {
         Utils.checkNotNull(responseBodies, "responseBodies");
         this.responseBodies = Optional.ofNullable(responseBodies);
         return this;
@@ -137,7 +141,7 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
     /**
      * The OAuth access token of the user, if any.
      */
-    public GetOAuthAccessTokenResponse withResponseBodies(Optional<? extends java.util.List<ResponseBody>> responseBodies) {
+    public GetOAuthAccessTokenResponse withResponseBodies(Optional<? extends List<ResponseBody>> responseBodies) {
         Utils.checkNotNull(responseBodies, "responseBodies");
         this.responseBodies = responseBodies;
         return this;
@@ -153,15 +157,15 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
         }
         GetOAuthAccessTokenResponse other = (GetOAuthAccessTokenResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.responseBodies, other.responseBodies);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.responseBodies, other.responseBodies);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<ResponseBody>> responseBodies = Optional.empty();  
+        private Optional<? extends List<ResponseBody>> responseBodies = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
         /**
          * The OAuth access token of the user, if any.
          */
-        public Builder responseBodies(java.util.List<ResponseBody> responseBodies) {
+        public Builder responseBodies(List<ResponseBody> responseBodies) {
             Utils.checkNotNull(responseBodies, "responseBodies");
             this.responseBodies = Optional.ofNullable(responseBodies);
             return this;
@@ -230,7 +234,7 @@ public class GetOAuthAccessTokenResponse implements com.clerk.backend_api.utils.
         /**
          * The OAuth access token of the user, if any.
          */
-        public Builder responseBodies(Optional<? extends java.util.List<ResponseBody>> responseBodies) {
+        public Builder responseBodies(Optional<? extends List<ResponseBody>> responseBodies) {
             Utils.checkNotNull(responseBodies, "responseBodies");
             this.responseBodies = responseBodies;
             return this;

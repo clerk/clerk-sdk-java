@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SAMLAccount {
 
@@ -42,15 +43,15 @@ public class SAMLAccount {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
-    private JsonNullable<? extends String> firstName;
+    private JsonNullable<String> firstName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
-    private JsonNullable<? extends String> lastName;
+    private JsonNullable<String> lastName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provider_user_id")
-    private JsonNullable<? extends String> providerUserId;
+    private JsonNullable<String> providerUserId;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -67,9 +68,9 @@ public class SAMLAccount {
             @JsonProperty("provider") String provider,
             @JsonProperty("active") boolean active,
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("first_name") JsonNullable<? extends String> firstName,
-            @JsonProperty("last_name") JsonNullable<? extends String> lastName,
-            @JsonProperty("provider_user_id") JsonNullable<? extends String> providerUserId,
+            @JsonProperty("first_name") JsonNullable<String> firstName,
+            @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("provider_user_id") JsonNullable<String> providerUserId,
             @JsonProperty("public_metadata") Optional<? extends SAMLAccountPublicMetadata> publicMetadata,
             @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification) {
         Utils.checkNotNull(id, "id");
@@ -132,22 +133,19 @@ public class SAMLAccount {
         return emailAddress;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> firstName() {
-        return (JsonNullable<String>) firstName;
+        return firstName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastName() {
-        return (JsonNullable<String>) lastName;
+        return lastName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> providerUserId() {
-        return (JsonNullable<String>) providerUserId;
+        return providerUserId;
     }
 
     @SuppressWarnings("unchecked")
@@ -206,7 +204,7 @@ public class SAMLAccount {
         return this;
     }
 
-    public SAMLAccount withFirstName(JsonNullable<? extends String> firstName) {
+    public SAMLAccount withFirstName(JsonNullable<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -218,7 +216,7 @@ public class SAMLAccount {
         return this;
     }
 
-    public SAMLAccount withLastName(JsonNullable<? extends String> lastName) {
+    public SAMLAccount withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -230,7 +228,7 @@ public class SAMLAccount {
         return this;
     }
 
-    public SAMLAccount withProviderUserId(JsonNullable<? extends String> providerUserId) {
+    public SAMLAccount withProviderUserId(JsonNullable<String> providerUserId) {
         Utils.checkNotNull(providerUserId, "providerUserId");
         this.providerUserId = providerUserId;
         return this;
@@ -270,21 +268,21 @@ public class SAMLAccount {
         }
         SAMLAccount other = (SAMLAccount) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.provider, other.provider) &&
-            java.util.Objects.deepEquals(this.active, other.active) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.firstName, other.firstName) &&
-            java.util.Objects.deepEquals(this.lastName, other.lastName) &&
-            java.util.Objects.deepEquals(this.providerUserId, other.providerUserId) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.verification, other.verification);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.provider, other.provider) &&
+            Objects.deepEquals(this.active, other.active) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.firstName, other.firstName) &&
+            Objects.deepEquals(this.lastName, other.lastName) &&
+            Objects.deepEquals(this.providerUserId, other.providerUserId) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.verification, other.verification);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             provider,
@@ -324,11 +322,11 @@ public class SAMLAccount {
  
         private String emailAddress;
  
-        private JsonNullable<? extends String> firstName = JsonNullable.undefined();
+        private JsonNullable<String> firstName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> lastName = JsonNullable.undefined();
+        private JsonNullable<String> lastName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> providerUserId = JsonNullable.undefined();
+        private JsonNullable<String> providerUserId = JsonNullable.undefined();
  
         private Optional<? extends SAMLAccountPublicMetadata> publicMetadata = Optional.empty();
  
@@ -378,7 +376,7 @@ public class SAMLAccount {
             return this;
         }
 
-        public Builder firstName(JsonNullable<? extends String> firstName) {
+        public Builder firstName(JsonNullable<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -390,7 +388,7 @@ public class SAMLAccount {
             return this;
         }
 
-        public Builder lastName(JsonNullable<? extends String> lastName) {
+        public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -402,7 +400,7 @@ public class SAMLAccount {
             return this;
         }
 
-        public Builder providerUserId(JsonNullable<? extends String> providerUserId) {
+        public Builder providerUserId(JsonNullable<String> providerUserId) {
             Utils.checkNotNull(providerUserId, "providerUserId");
             this.providerUserId = providerUserId;
             return this;

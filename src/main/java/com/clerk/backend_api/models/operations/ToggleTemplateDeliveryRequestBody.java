@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class ToggleTemplateDeliveryRequestBody {
 
@@ -25,11 +25,11 @@ public class ToggleTemplateDeliveryRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delivered_by_clerk")
-    private JsonNullable<? extends Boolean> deliveredByClerk;
+    private JsonNullable<Boolean> deliveredByClerk;
 
     @JsonCreator
     public ToggleTemplateDeliveryRequestBody(
-            @JsonProperty("delivered_by_clerk") JsonNullable<? extends Boolean> deliveredByClerk) {
+            @JsonProperty("delivered_by_clerk") JsonNullable<Boolean> deliveredByClerk) {
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         this.deliveredByClerk = deliveredByClerk;
     }
@@ -41,10 +41,9 @@ public class ToggleTemplateDeliveryRequestBody {
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> deliveredByClerk() {
-        return (JsonNullable<Boolean>) deliveredByClerk;
+        return deliveredByClerk;
     }
 
     public final static Builder builder() {
@@ -63,7 +62,7 @@ public class ToggleTemplateDeliveryRequestBody {
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
-    public ToggleTemplateDeliveryRequestBody withDeliveredByClerk(JsonNullable<? extends Boolean> deliveredByClerk) {
+    public ToggleTemplateDeliveryRequestBody withDeliveredByClerk(JsonNullable<Boolean> deliveredByClerk) {
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         this.deliveredByClerk = deliveredByClerk;
         return this;
@@ -79,12 +78,12 @@ public class ToggleTemplateDeliveryRequestBody {
         }
         ToggleTemplateDeliveryRequestBody other = (ToggleTemplateDeliveryRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk);
+            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             deliveredByClerk);
     }
     
@@ -96,7 +95,7 @@ public class ToggleTemplateDeliveryRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Boolean> deliveredByClerk = JsonNullable.undefined();  
+        private JsonNullable<Boolean> deliveredByClerk = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -114,7 +113,7 @@ public class ToggleTemplateDeliveryRequestBody {
         /**
          * Whether Clerk should deliver emails or SMS messages based on the current template
          */
-        public Builder deliveredByClerk(JsonNullable<? extends Boolean> deliveredByClerk) {
+        public Builder deliveredByClerk(JsonNullable<Boolean> deliveredByClerk) {
             Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
             this.deliveredByClerk = deliveredByClerk;
             return this;

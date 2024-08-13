@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class CreateUserRequestBody {
 
@@ -27,21 +29,21 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_id")
-    private JsonNullable<? extends String> externalId;
+    private JsonNullable<String> externalId;
 
     /**
      * The first name to assign to the user
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
-    private JsonNullable<? extends String> firstName;
+    private JsonNullable<String> firstName;
 
     /**
      * The last name to assign to the user
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
-    private JsonNullable<? extends String> lastName;
+    private JsonNullable<String> lastName;
 
     /**
      * Email addresses to add to the user.
@@ -50,7 +52,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
-    private Optional<? extends java.util.List<String>> emailAddress;
+    private Optional<? extends List<String>> emailAddress;
 
     /**
      * Phone numbers to add to the user.
@@ -59,7 +61,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone_number")
-    private Optional<? extends java.util.List<String>> phoneNumber;
+    private Optional<? extends List<String>> phoneNumber;
 
     /**
      * Web3 wallets to add to the user.
@@ -68,7 +70,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("web3_wallet")
-    private Optional<? extends java.util.List<String>> web3Wallet;
+    private Optional<? extends List<String>> web3Wallet;
 
     /**
      * The username to give to the user.
@@ -76,7 +78,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("username")
-    private JsonNullable<? extends String> username;
+    private JsonNullable<String> username;
 
     /**
      * The plaintext password to give the user.
@@ -84,7 +86,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password")
-    private JsonNullable<? extends String> password;
+    private JsonNullable<String> password;
 
     /**
      * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
@@ -93,7 +95,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_digest")
-    private Optional<? extends String> passwordDigest;
+    private Optional<String> passwordDigest;
 
     /**
      * The hashing algorithm that was used to generate the password digest.
@@ -231,7 +233,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_password_checks")
-    private Optional<? extends Boolean> skipPasswordChecks;
+    private Optional<Boolean> skipPasswordChecks;
 
     /**
      * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
@@ -240,7 +242,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_password_requirement")
-    private Optional<? extends Boolean> skipPasswordRequirement;
+    private Optional<Boolean> skipPasswordRequirement;
 
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
@@ -251,7 +253,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totp_secret")
-    private Optional<? extends String> totpSecret;
+    private Optional<String> totpSecret;
 
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
@@ -259,7 +261,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_codes")
-    private Optional<? extends java.util.List<String>> backupCodes;
+    private Optional<? extends List<String>> backupCodes;
 
     /**
      * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
@@ -288,28 +290,28 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends String> createdAt;
+    private Optional<String> createdAt;
 
     @JsonCreator
     public CreateUserRequestBody(
-            @JsonProperty("external_id") JsonNullable<? extends String> externalId,
-            @JsonProperty("first_name") JsonNullable<? extends String> firstName,
-            @JsonProperty("last_name") JsonNullable<? extends String> lastName,
-            @JsonProperty("email_address") Optional<? extends java.util.List<String>> emailAddress,
-            @JsonProperty("phone_number") Optional<? extends java.util.List<String>> phoneNumber,
-            @JsonProperty("web3_wallet") Optional<? extends java.util.List<String>> web3Wallet,
-            @JsonProperty("username") JsonNullable<? extends String> username,
-            @JsonProperty("password") JsonNullable<? extends String> password,
-            @JsonProperty("password_digest") Optional<? extends String> passwordDigest,
+            @JsonProperty("external_id") JsonNullable<String> externalId,
+            @JsonProperty("first_name") JsonNullable<String> firstName,
+            @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("email_address") Optional<? extends List<String>> emailAddress,
+            @JsonProperty("phone_number") Optional<? extends List<String>> phoneNumber,
+            @JsonProperty("web3_wallet") Optional<? extends List<String>> web3Wallet,
+            @JsonProperty("username") JsonNullable<String> username,
+            @JsonProperty("password") JsonNullable<String> password,
+            @JsonProperty("password_digest") Optional<String> passwordDigest,
             @JsonProperty("password_hasher") Optional<? extends PasswordHasher> passwordHasher,
-            @JsonProperty("skip_password_checks") Optional<? extends Boolean> skipPasswordChecks,
-            @JsonProperty("skip_password_requirement") Optional<? extends Boolean> skipPasswordRequirement,
-            @JsonProperty("totp_secret") Optional<? extends String> totpSecret,
-            @JsonProperty("backup_codes") Optional<? extends java.util.List<String>> backupCodes,
+            @JsonProperty("skip_password_checks") Optional<Boolean> skipPasswordChecks,
+            @JsonProperty("skip_password_requirement") Optional<Boolean> skipPasswordRequirement,
+            @JsonProperty("totp_secret") Optional<String> totpSecret,
+            @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
             @JsonProperty("public_metadata") Optional<? extends PublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends PrivateMetadata> privateMetadata,
             @JsonProperty("unsafe_metadata") Optional<? extends UnsafeMetadata> unsafeMetadata,
-            @JsonProperty("created_at") Optional<? extends String> createdAt) {
+            @JsonProperty("created_at") Optional<String> createdAt) {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
@@ -356,28 +358,25 @@ public class CreateUserRequestBody {
      * The ID of the user as used in your external systems or your previous authentication solution.
      * Must be unique across your instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> externalId() {
-        return (JsonNullable<String>) externalId;
+        return externalId;
     }
 
     /**
      * The first name to assign to the user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> firstName() {
-        return (JsonNullable<String>) firstName;
+        return firstName;
     }
 
     /**
      * The last name to assign to the user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastName() {
-        return (JsonNullable<String>) lastName;
+        return lastName;
     }
 
     /**
@@ -387,8 +386,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> emailAddress() {
-        return (Optional<java.util.List<String>>) emailAddress;
+    public Optional<List<String>> emailAddress() {
+        return (Optional<List<String>>) emailAddress;
     }
 
     /**
@@ -398,8 +397,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> phoneNumber() {
-        return (Optional<java.util.List<String>>) phoneNumber;
+    public Optional<List<String>> phoneNumber() {
+        return (Optional<List<String>>) phoneNumber;
     }
 
     /**
@@ -409,28 +408,26 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> web3Wallet() {
-        return (Optional<java.util.List<String>>) web3Wallet;
+    public Optional<List<String>> web3Wallet() {
+        return (Optional<List<String>>) web3Wallet;
     }
 
     /**
      * The username to give to the user.
      * It must be unique across your instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> username() {
-        return (JsonNullable<String>) username;
+        return username;
     }
 
     /**
      * The plaintext password to give the user.
      * Must be at least 8 characters long, and can not be in any list of hacked passwords.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> password() {
-        return (JsonNullable<String>) password;
+        return password;
     }
 
     /**
@@ -438,10 +435,9 @@ public class CreateUserRequestBody {
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> passwordDigest() {
-        return (Optional<String>) passwordDigest;
+        return passwordDigest;
     }
 
     /**
@@ -580,10 +576,9 @@ public class CreateUserRequestBody {
      * It is recommended to use this method only when migrating plaintext passwords to Clerk.
      * Upon migration the user base should be prompted to pick stronger password.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> skipPasswordChecks() {
-        return (Optional<Boolean>) skipPasswordChecks;
+        return skipPasswordChecks;
     }
 
     /**
@@ -591,10 +586,9 @@ public class CreateUserRequestBody {
      * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
      * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> skipPasswordRequirement() {
-        return (Optional<Boolean>) skipPasswordRequirement;
+        return skipPasswordRequirement;
     }
 
     /**
@@ -604,10 +598,9 @@ public class CreateUserRequestBody {
      * * Code length: 6 digits
      * * Algorithm: SHA1
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> totpSecret() {
-        return (Optional<String>) totpSecret;
+        return totpSecret;
     }
 
     /**
@@ -616,8 +609,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> backupCodes() {
-        return (Optional<java.util.List<String>>) backupCodes;
+    public Optional<List<String>> backupCodes() {
+        return (Optional<List<String>>) backupCodes;
     }
 
     /**
@@ -651,10 +644,9 @@ public class CreateUserRequestBody {
     /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> createdAt() {
-        return (Optional<String>) createdAt;
+        return createdAt;
     }
 
     public final static Builder builder() {
@@ -675,7 +667,7 @@ public class CreateUserRequestBody {
      * The ID of the user as used in your external systems or your previous authentication solution.
      * Must be unique across your instance.
      */
-    public CreateUserRequestBody withExternalId(JsonNullable<? extends String> externalId) {
+    public CreateUserRequestBody withExternalId(JsonNullable<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -693,7 +685,7 @@ public class CreateUserRequestBody {
     /**
      * The first name to assign to the user
      */
-    public CreateUserRequestBody withFirstName(JsonNullable<? extends String> firstName) {
+    public CreateUserRequestBody withFirstName(JsonNullable<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -711,7 +703,7 @@ public class CreateUserRequestBody {
     /**
      * The last name to assign to the user
      */
-    public CreateUserRequestBody withLastName(JsonNullable<? extends String> lastName) {
+    public CreateUserRequestBody withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -722,7 +714,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
      */
-    public CreateUserRequestBody withEmailAddress(java.util.List<String> emailAddress) {
+    public CreateUserRequestBody withEmailAddress(List<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
@@ -733,7 +725,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
      */
-    public CreateUserRequestBody withEmailAddress(Optional<? extends java.util.List<String>> emailAddress) {
+    public CreateUserRequestBody withEmailAddress(Optional<? extends List<String>> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -744,7 +736,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
      */
-    public CreateUserRequestBody withPhoneNumber(java.util.List<String> phoneNumber) {
+    public CreateUserRequestBody withPhoneNumber(List<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = Optional.ofNullable(phoneNumber);
         return this;
@@ -755,7 +747,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
      */
-    public CreateUserRequestBody withPhoneNumber(Optional<? extends java.util.List<String>> phoneNumber) {
+    public CreateUserRequestBody withPhoneNumber(Optional<? extends List<String>> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
         return this;
@@ -766,7 +758,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first wallet will be set as the user's primary wallet.
      */
-    public CreateUserRequestBody withWeb3Wallet(java.util.List<String> web3Wallet) {
+    public CreateUserRequestBody withWeb3Wallet(List<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
@@ -777,7 +769,7 @@ public class CreateUserRequestBody {
      * Must be unique across your instance.
      * The first wallet will be set as the user's primary wallet.
      */
-    public CreateUserRequestBody withWeb3Wallet(Optional<? extends java.util.List<String>> web3Wallet) {
+    public CreateUserRequestBody withWeb3Wallet(Optional<? extends List<String>> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         this.web3Wallet = web3Wallet;
         return this;
@@ -797,7 +789,7 @@ public class CreateUserRequestBody {
      * The username to give to the user.
      * It must be unique across your instance.
      */
-    public CreateUserRequestBody withUsername(JsonNullable<? extends String> username) {
+    public CreateUserRequestBody withUsername(JsonNullable<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
         return this;
@@ -817,7 +809,7 @@ public class CreateUserRequestBody {
      * The plaintext password to give the user.
      * Must be at least 8 characters long, and can not be in any list of hacked passwords.
      */
-    public CreateUserRequestBody withPassword(JsonNullable<? extends String> password) {
+    public CreateUserRequestBody withPassword(JsonNullable<String> password) {
         Utils.checkNotNull(password, "password");
         this.password = password;
         return this;
@@ -839,7 +831,7 @@ public class CreateUserRequestBody {
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
-    public CreateUserRequestBody withPasswordDigest(Optional<? extends String> passwordDigest) {
+    public CreateUserRequestBody withPasswordDigest(Optional<String> passwordDigest) {
         Utils.checkNotNull(passwordDigest, "passwordDigest");
         this.passwordDigest = passwordDigest;
         return this;
@@ -1123,7 +1115,7 @@ public class CreateUserRequestBody {
      * It is recommended to use this method only when migrating plaintext passwords to Clerk.
      * Upon migration the user base should be prompted to pick stronger password.
      */
-    public CreateUserRequestBody withSkipPasswordChecks(Optional<? extends Boolean> skipPasswordChecks) {
+    public CreateUserRequestBody withSkipPasswordChecks(Optional<Boolean> skipPasswordChecks) {
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
         this.skipPasswordChecks = skipPasswordChecks;
         return this;
@@ -1145,7 +1137,7 @@ public class CreateUserRequestBody {
      * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
      * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
      */
-    public CreateUserRequestBody withSkipPasswordRequirement(Optional<? extends Boolean> skipPasswordRequirement) {
+    public CreateUserRequestBody withSkipPasswordRequirement(Optional<Boolean> skipPasswordRequirement) {
         Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
         this.skipPasswordRequirement = skipPasswordRequirement;
         return this;
@@ -1171,7 +1163,7 @@ public class CreateUserRequestBody {
      * * Code length: 6 digits
      * * Algorithm: SHA1
      */
-    public CreateUserRequestBody withTotpSecret(Optional<? extends String> totpSecret) {
+    public CreateUserRequestBody withTotpSecret(Optional<String> totpSecret) {
         Utils.checkNotNull(totpSecret, "totpSecret");
         this.totpSecret = totpSecret;
         return this;
@@ -1181,7 +1173,7 @@ public class CreateUserRequestBody {
      * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
-    public CreateUserRequestBody withBackupCodes(java.util.List<String> backupCodes) {
+    public CreateUserRequestBody withBackupCodes(List<String> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = Optional.ofNullable(backupCodes);
         return this;
@@ -1191,7 +1183,7 @@ public class CreateUserRequestBody {
      * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
-    public CreateUserRequestBody withBackupCodes(Optional<? extends java.util.List<String>> backupCodes) {
+    public CreateUserRequestBody withBackupCodes(Optional<? extends List<String>> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = backupCodes;
         return this;
@@ -1265,7 +1257,7 @@ public class CreateUserRequestBody {
     /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
-    public CreateUserRequestBody withCreatedAt(Optional<? extends String> createdAt) {
+    public CreateUserRequestBody withCreatedAt(Optional<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -1281,29 +1273,29 @@ public class CreateUserRequestBody {
         }
         CreateUserRequestBody other = (CreateUserRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.externalId, other.externalId) &&
-            java.util.Objects.deepEquals(this.firstName, other.firstName) &&
-            java.util.Objects.deepEquals(this.lastName, other.lastName) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            java.util.Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            java.util.Objects.deepEquals(this.username, other.username) &&
-            java.util.Objects.deepEquals(this.password, other.password) &&
-            java.util.Objects.deepEquals(this.passwordDigest, other.passwordDigest) &&
-            java.util.Objects.deepEquals(this.passwordHasher, other.passwordHasher) &&
-            java.util.Objects.deepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
-            java.util.Objects.deepEquals(this.skipPasswordRequirement, other.skipPasswordRequirement) &&
-            java.util.Objects.deepEquals(this.totpSecret, other.totpSecret) &&
-            java.util.Objects.deepEquals(this.backupCodes, other.backupCodes) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.externalId, other.externalId) &&
+            Objects.deepEquals(this.firstName, other.firstName) &&
+            Objects.deepEquals(this.lastName, other.lastName) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
+            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
+            Objects.deepEquals(this.username, other.username) &&
+            Objects.deepEquals(this.password, other.password) &&
+            Objects.deepEquals(this.passwordDigest, other.passwordDigest) &&
+            Objects.deepEquals(this.passwordHasher, other.passwordHasher) &&
+            Objects.deepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
+            Objects.deepEquals(this.skipPasswordRequirement, other.skipPasswordRequirement) &&
+            Objects.deepEquals(this.totpSecret, other.totpSecret) &&
+            Objects.deepEquals(this.backupCodes, other.backupCodes) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             externalId,
             firstName,
             lastName,
@@ -1349,33 +1341,33 @@ public class CreateUserRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends String> externalId = JsonNullable.undefined();
+        private JsonNullable<String> externalId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> firstName = JsonNullable.undefined();
+        private JsonNullable<String> firstName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> lastName = JsonNullable.undefined();
+        private JsonNullable<String> lastName = JsonNullable.undefined();
  
-        private Optional<? extends java.util.List<String>> emailAddress = Optional.empty();
+        private Optional<? extends List<String>> emailAddress = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> phoneNumber = Optional.empty();
+        private Optional<? extends List<String>> phoneNumber = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> web3Wallet = Optional.empty();
+        private Optional<? extends List<String>> web3Wallet = Optional.empty();
  
-        private JsonNullable<? extends String> username = JsonNullable.undefined();
+        private JsonNullable<String> username = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> password = JsonNullable.undefined();
+        private JsonNullable<String> password = JsonNullable.undefined();
  
-        private Optional<? extends String> passwordDigest = Optional.empty();
+        private Optional<String> passwordDigest = Optional.empty();
  
         private Optional<? extends PasswordHasher> passwordHasher = Optional.empty();
  
-        private Optional<? extends Boolean> skipPasswordChecks = Optional.empty();
+        private Optional<Boolean> skipPasswordChecks = Optional.empty();
  
-        private Optional<? extends Boolean> skipPasswordRequirement = Optional.empty();
+        private Optional<Boolean> skipPasswordRequirement = Optional.empty();
  
-        private Optional<? extends String> totpSecret = Optional.empty();
+        private Optional<String> totpSecret = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> backupCodes = Optional.empty();
+        private Optional<? extends List<String>> backupCodes = Optional.empty();
  
         private Optional<? extends PublicMetadata> publicMetadata = Optional.empty();
  
@@ -1383,7 +1375,7 @@ public class CreateUserRequestBody {
  
         private Optional<? extends UnsafeMetadata> unsafeMetadata = Optional.empty();
  
-        private Optional<? extends String> createdAt = Optional.empty();  
+        private Optional<String> createdAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -1403,7 +1395,7 @@ public class CreateUserRequestBody {
          * The ID of the user as used in your external systems or your previous authentication solution.
          * Must be unique across your instance.
          */
-        public Builder externalId(JsonNullable<? extends String> externalId) {
+        public Builder externalId(JsonNullable<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;
@@ -1421,7 +1413,7 @@ public class CreateUserRequestBody {
         /**
          * The first name to assign to the user
          */
-        public Builder firstName(JsonNullable<? extends String> firstName) {
+        public Builder firstName(JsonNullable<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -1439,7 +1431,7 @@ public class CreateUserRequestBody {
         /**
          * The last name to assign to the user
          */
-        public Builder lastName(JsonNullable<? extends String> lastName) {
+        public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -1450,7 +1442,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first email address will be set as the user's primary email address.
          */
-        public Builder emailAddress(java.util.List<String> emailAddress) {
+        public Builder emailAddress(List<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = Optional.ofNullable(emailAddress);
             return this;
@@ -1461,7 +1453,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first email address will be set as the user's primary email address.
          */
-        public Builder emailAddress(Optional<? extends java.util.List<String>> emailAddress) {
+        public Builder emailAddress(Optional<? extends List<String>> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
@@ -1472,7 +1464,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first phone number will be set as the user's primary phone number.
          */
-        public Builder phoneNumber(java.util.List<String> phoneNumber) {
+        public Builder phoneNumber(List<String> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -1483,7 +1475,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first phone number will be set as the user's primary phone number.
          */
-        public Builder phoneNumber(Optional<? extends java.util.List<String>> phoneNumber) {
+        public Builder phoneNumber(Optional<? extends List<String>> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = phoneNumber;
             return this;
@@ -1494,7 +1486,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first wallet will be set as the user's primary wallet.
          */
-        public Builder web3Wallet(java.util.List<String> web3Wallet) {
+        public Builder web3Wallet(List<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = Optional.ofNullable(web3Wallet);
             return this;
@@ -1505,7 +1497,7 @@ public class CreateUserRequestBody {
          * Must be unique across your instance.
          * The first wallet will be set as the user's primary wallet.
          */
-        public Builder web3Wallet(Optional<? extends java.util.List<String>> web3Wallet) {
+        public Builder web3Wallet(Optional<? extends List<String>> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = web3Wallet;
             return this;
@@ -1525,7 +1517,7 @@ public class CreateUserRequestBody {
          * The username to give to the user.
          * It must be unique across your instance.
          */
-        public Builder username(JsonNullable<? extends String> username) {
+        public Builder username(JsonNullable<String> username) {
             Utils.checkNotNull(username, "username");
             this.username = username;
             return this;
@@ -1545,7 +1537,7 @@ public class CreateUserRequestBody {
          * The plaintext password to give the user.
          * Must be at least 8 characters long, and can not be in any list of hacked passwords.
          */
-        public Builder password(JsonNullable<? extends String> password) {
+        public Builder password(JsonNullable<String> password) {
             Utils.checkNotNull(password, "password");
             this.password = password;
             return this;
@@ -1567,7 +1559,7 @@ public class CreateUserRequestBody {
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
-        public Builder passwordDigest(Optional<? extends String> passwordDigest) {
+        public Builder passwordDigest(Optional<String> passwordDigest) {
             Utils.checkNotNull(passwordDigest, "passwordDigest");
             this.passwordDigest = passwordDigest;
             return this;
@@ -1851,7 +1843,7 @@ public class CreateUserRequestBody {
          * It is recommended to use this method only when migrating plaintext passwords to Clerk.
          * Upon migration the user base should be prompted to pick stronger password.
          */
-        public Builder skipPasswordChecks(Optional<? extends Boolean> skipPasswordChecks) {
+        public Builder skipPasswordChecks(Optional<Boolean> skipPasswordChecks) {
             Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
             this.skipPasswordChecks = skipPasswordChecks;
             return this;
@@ -1873,7 +1865,7 @@ public class CreateUserRequestBody {
          * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
          * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
          */
-        public Builder skipPasswordRequirement(Optional<? extends Boolean> skipPasswordRequirement) {
+        public Builder skipPasswordRequirement(Optional<Boolean> skipPasswordRequirement) {
             Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
             this.skipPasswordRequirement = skipPasswordRequirement;
             return this;
@@ -1899,7 +1891,7 @@ public class CreateUserRequestBody {
          * * Code length: 6 digits
          * * Algorithm: SHA1
          */
-        public Builder totpSecret(Optional<? extends String> totpSecret) {
+        public Builder totpSecret(Optional<String> totpSecret) {
             Utils.checkNotNull(totpSecret, "totpSecret");
             this.totpSecret = totpSecret;
             return this;
@@ -1909,7 +1901,7 @@ public class CreateUserRequestBody {
          * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
-        public Builder backupCodes(java.util.List<String> backupCodes) {
+        public Builder backupCodes(List<String> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = Optional.ofNullable(backupCodes);
             return this;
@@ -1919,7 +1911,7 @@ public class CreateUserRequestBody {
          * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
-        public Builder backupCodes(Optional<? extends java.util.List<String>> backupCodes) {
+        public Builder backupCodes(Optional<? extends List<String>> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = backupCodes;
             return this;
@@ -1993,7 +1985,7 @@ public class CreateUserRequestBody {
         /**
          * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
-        public Builder createdAt(Optional<? extends String> createdAt) {
+        public Builder createdAt(Optional<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;

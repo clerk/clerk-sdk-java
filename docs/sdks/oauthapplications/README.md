@@ -23,17 +23,7 @@ Most recent OAuth applications will be returned first.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -63,17 +53,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse](../../models/operations/ListOAuthApplicationsResponse.md)**
+**[ListOAuthApplicationsResponse](../../models/operations/ListOAuthApplicationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -93,17 +85,10 @@ All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -129,7 +114,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -141,16 +126,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                 | [com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody](../../models/operations/CreateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                                                        | The request object to use for the request.                                                                                                |
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `request`                                                                                         | [CreateOAuthApplicationRequestBody](../../models/operations/CreateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                | The request object to use for the request.                                                        |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse](../../models/operations/CreateOAuthApplicationResponse.md)**
+**[CreateOAuthApplicationResponse](../../models/operations/CreateOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -168,17 +155,9 @@ Fetches the OAuth application whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetOAuthApplicationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -198,7 +177,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -210,6 +189,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                       | Type                            | Required                        | Description                     |
@@ -219,7 +200,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetOAuthApplicationResponse](../../models/operations/GetOAuthApplicationResponse.md)**
+**[GetOAuthApplicationResponse](../../models/operations/GetOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -237,17 +218,10 @@ Updates an existing OAuth application
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -270,7 +244,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -282,17 +256,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `oauthApplicationId`                                                                                                                      | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The ID of the OAuth application to update                                                                                                 |
-| `requestBody`                                                                                                                             | [com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody](../../models/operations/UpdateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                                                        | N/A                                                                                                                                       |
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `oauthApplicationId`                                                                              | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the OAuth application to update                                                         |
+| `requestBody`                                                                                     | [UpdateOAuthApplicationRequestBody](../../models/operations/UpdateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse](../../models/operations/UpdateOAuthApplicationResponse.md)**
+**[UpdateOAuthApplicationResponse](../../models/operations/UpdateOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -311,17 +287,9 @@ This is not reversible.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -341,7 +309,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -353,6 +321,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                 | Type                                      | Required                                  | Description                               |
@@ -362,7 +332,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse](../../models/operations/DeleteOAuthApplicationResponse.md)**
+**[DeleteOAuthApplicationResponse](../../models/operations/DeleteOAuthApplicationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -381,17 +351,9 @@ When the client secret is rotated, make sure to update it in authorized OAuth cl
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -411,7 +373,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -423,6 +385,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
@@ -432,7 +396,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse](../../models/operations/RotateOAuthApplicationSecretResponse.md)**
+**[RotateOAuthApplicationSecretResponse](../../models/operations/RotateOAuthApplicationSecretResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

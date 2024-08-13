@@ -20,17 +20,10 @@ Only users in the same instance as the organization can be added as members.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -54,7 +47,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -66,17 +59,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                      | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the organization where the new membership will be created                                                                                   |
-| `requestBody`                                                                                                                                         | [com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody](../../models/operations/CreateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization where the new membership will be created                                           |
+| `requestBody`                                                                                                 | [CreateOrganizationMembershipRequestBody](../../models/operations/CreateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse](../../models/operations/CreateOrganizationMembershipResponse.md)**
+**[CreateOrganizationMembershipResponse](../../models/operations/CreateOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -94,17 +89,7 @@ Retrieves all user memberships for the given organization
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -136,19 +121,21 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                                                                                                           | Type                                                                                                                                                                                                                                | Required                                                                                                                                                                                                                            | Description                                                                                                                                                                                                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `organizationId`                                                                                                                                                                                                                    | *String*                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                  | The organization ID.                                                                                                                                                                                                                |
-| `limit`                                                                                                                                                                                                                             | *Optional<? extends Long>*                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                  | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                               |
-| `offset`                                                                                                                                                                                                                            | *Optional<? extends Long>*                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
-| `orderBy`                                                                                                                                                                                                                           | *Optional<? extends String>*                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
+| `limit`                                                                                                                                                                                                                             | *Optional<Long>*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                  | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                               |
+| `offset`                                                                                                                                                                                                                            | *Optional<Long>*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
+| `orderBy`                                                                                                                                                                                                                           | *Optional<String>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse](../../models/operations/ListOrganizationMembershipsResponse.md)**
+**[ListOrganizationMembershipsResponse](../../models/operations/ListOrganizationMembershipsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -166,17 +153,10 @@ Updates the properties of an existing organization membership
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -200,7 +180,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -212,18 +192,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                      | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the organization the membership belongs to                                                                                                  |
-| `userId`                                                                                                                                              | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the user that this membership belongs to                                                                                                    |
-| `requestBody`                                                                                                                                         | [com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody](../../models/operations/UpdateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization the membership belongs to                                                          |
+| `userId`                                                                                                      | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the user that this membership belongs to                                                            |
+| `requestBody`                                                                                                 | [UpdateOrganizationMembershipRequestBody](../../models/operations/UpdateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse](../../models/operations/UpdateOrganizationMembershipResponse.md)**
+**[UpdateOrganizationMembershipResponse](../../models/operations/UpdateOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -241,17 +223,9 @@ Removes the given membership from the organization
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -272,7 +246,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -284,6 +258,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                            | Type                                                 | Required                                             | Description                                          |
@@ -294,7 +270,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse](../../models/operations/DeleteOrganizationMembershipResponse.md)**
+**[DeleteOrganizationMembershipResponse](../../models/operations/DeleteOrganizationMembershipResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -314,17 +290,10 @@ You can remove metadata keys at any level by setting their value to `null`.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -347,7 +316,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -359,18 +328,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                                      | *String*                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                    | The ID of the organization the membership belongs to                                                                                                                  |
-| `userId`                                                                                                                                                              | *String*                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                    | The ID of the user that this membership belongs to                                                                                                                    |
-| `requestBody`                                                                                                                                                         | [com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_check_mark:                                                                                                                                                    | N/A                                                                                                                                                                   |
+| Parameter                                                                                                                     | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                                              | *String*                                                                                                                      | :heavy_check_mark:                                                                                                            | The ID of the organization the membership belongs to                                                                          |
+| `userId`                                                                                                                      | *String*                                                                                                                      | :heavy_check_mark:                                                                                                            | The ID of the user that this membership belongs to                                                                            |
+| `requestBody`                                                                                                                 | [UpdateOrganizationMembershipMetadataRequestBody](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse](../../models/operations/UpdateOrganizationMembershipMetadataResponse.md)**
+**[UpdateOrganizationMembershipMetadataResponse](../../models/operations/UpdateOrganizationMembershipMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

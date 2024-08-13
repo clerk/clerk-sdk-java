@@ -4,20 +4,26 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.OAuthApplications;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class ListOAuthApplicationsResponse implements com.clerk.backend_api.utils.Response {
+
+public class ListOAuthApplicationsResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -37,7 +43,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
     /**
      * A list of OAuth applications
      */
-    private Optional<? extends com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications;
+    private Optional<? extends OAuthApplications> oAuthApplications;
 
     private Callable<Optional<ListOAuthApplicationsResponse>> next = () -> Optional.empty();
 
@@ -46,7 +52,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications) {
+            Optional<? extends OAuthApplications> oAuthApplications) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -93,8 +99,8 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications() {
-        return (Optional<com.clerk.backend_api.models.components.OAuthApplications>) oAuthApplications;
+    public Optional<OAuthApplications> oAuthApplications() {
+        return (Optional<OAuthApplications>) oAuthApplications;
     }
 
     public Optional<ListOAuthApplicationsResponse> next() throws Exception {
@@ -141,7 +147,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
     /**
      * A list of OAuth applications
      */
-    public ListOAuthApplicationsResponse withOAuthApplications(com.clerk.backend_api.models.components.OAuthApplications oAuthApplications) {
+    public ListOAuthApplicationsResponse withOAuthApplications(OAuthApplications oAuthApplications) {
         Utils.checkNotNull(oAuthApplications, "oAuthApplications");
         this.oAuthApplications = Optional.ofNullable(oAuthApplications);
         return this;
@@ -150,7 +156,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
     /**
      * A list of OAuth applications
      */
-    public ListOAuthApplicationsResponse withOAuthApplications(Optional<? extends com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications) {
+    public ListOAuthApplicationsResponse withOAuthApplications(Optional<? extends OAuthApplications> oAuthApplications) {
         Utils.checkNotNull(oAuthApplications, "oAuthApplications");
         this.oAuthApplications = oAuthApplications;
         return this;
@@ -166,15 +172,15 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
         }
         ListOAuthApplicationsResponse other = (ListOAuthApplicationsResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.oAuthApplications, other.oAuthApplications);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.oAuthApplications, other.oAuthApplications);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -199,7 +205,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications = Optional.empty();  
+        private Optional<? extends OAuthApplications> oAuthApplications = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -235,7 +241,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
         /**
          * A list of OAuth applications
          */
-        public Builder oAuthApplications(com.clerk.backend_api.models.components.OAuthApplications oAuthApplications) {
+        public Builder oAuthApplications(OAuthApplications oAuthApplications) {
             Utils.checkNotNull(oAuthApplications, "oAuthApplications");
             this.oAuthApplications = Optional.ofNullable(oAuthApplications);
             return this;
@@ -244,7 +250,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
         /**
          * A list of OAuth applications
          */
-        public Builder oAuthApplications(Optional<? extends com.clerk.backend_api.models.components.OAuthApplications> oAuthApplications) {
+        public Builder oAuthApplications(Optional<? extends OAuthApplications> oAuthApplications) {
             Utils.checkNotNull(oAuthApplications, "oAuthApplications");
             this.oAuthApplications = oAuthApplications;
             return this;
@@ -253,7 +259,7 @@ public class ListOAuthApplicationsResponse implements com.clerk.backend_api.util
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @deprecated not part of the public API, may be removed without notice
+         * @Deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<ListOAuthApplicationsResponse>> next) {

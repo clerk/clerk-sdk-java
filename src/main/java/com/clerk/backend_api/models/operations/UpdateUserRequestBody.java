@@ -4,21 +4,24 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateUserRequestBody {
 
@@ -28,21 +31,21 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_id")
-    private JsonNullable<? extends String> externalId;
+    private JsonNullable<String> externalId;
 
     /**
      * The first name to assign to the user
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
-    private JsonNullable<? extends String> firstName;
+    private JsonNullable<String> firstName;
 
     /**
      * The last name to assign to the user
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
-    private JsonNullable<? extends String> lastName;
+    private JsonNullable<String> lastName;
 
     /**
      * The ID of the email address to set as primary.
@@ -50,7 +53,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_email_address_id")
-    private Optional<? extends String> primaryEmailAddressId;
+    private Optional<String> primaryEmailAddressId;
 
     /**
      * If set to `true`, the user will be notified that their primary email address has changed.
@@ -58,7 +61,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("notify_primary_email_address_changed")
-    private Optional<? extends Boolean> notifyPrimaryEmailAddressChanged;
+    private Optional<Boolean> notifyPrimaryEmailAddressChanged;
 
     /**
      * The ID of the phone number to set as primary.
@@ -66,7 +69,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_phone_number_id")
-    private Optional<? extends String> primaryPhoneNumberId;
+    private Optional<String> primaryPhoneNumberId;
 
     /**
      * The ID of the web3 wallets to set as primary.
@@ -74,7 +77,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_web3_wallet_id")
-    private Optional<? extends String> primaryWeb3WalletId;
+    private Optional<String> primaryWeb3WalletId;
 
     /**
      * The username to give to the user.
@@ -82,14 +85,14 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("username")
-    private JsonNullable<? extends String> username;
+    private JsonNullable<String> username;
 
     /**
      * The ID of the image to set as the user's profile image
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("profile_image_id")
-    private JsonNullable<? extends String> profileImageId;
+    private JsonNullable<String> profileImageId;
 
     /**
      * The plaintext password to give the user.
@@ -97,7 +100,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password")
-    private JsonNullable<? extends String> password;
+    private JsonNullable<String> password;
 
     /**
      * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
@@ -106,7 +109,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_digest")
-    private Optional<? extends String> passwordDigest;
+    private Optional<String> passwordDigest;
 
     /**
      * The hashing algorithm that was used to generate the password digest.
@@ -233,14 +236,14 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_password_checks")
-    private JsonNullable<? extends Boolean> skipPasswordChecks;
+    private JsonNullable<Boolean> skipPasswordChecks;
 
     /**
      * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sign_out_of_other_sessions")
-    private JsonNullable<? extends Boolean> signOutOfOtherSessions;
+    private JsonNullable<Boolean> signOutOfOtherSessions;
 
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
@@ -251,7 +254,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totp_secret")
-    private Optional<? extends String> totpSecret;
+    private Optional<String> totpSecret;
 
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
@@ -259,7 +262,7 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_codes")
-    private Optional<? extends java.util.List<String>> backupCodes;
+    private Optional<? extends List<String>> backupCodes;
 
     /**
      * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
@@ -288,46 +291,46 @@ public class UpdateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delete_self_enabled")
-    private JsonNullable<? extends Boolean> deleteSelfEnabled;
+    private JsonNullable<Boolean> deleteSelfEnabled;
 
     /**
      * If true, the user can create organizations with the Frontend API.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("create_organization_enabled")
-    private JsonNullable<? extends Boolean> createOrganizationEnabled;
+    private JsonNullable<Boolean> createOrganizationEnabled;
 
     /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends String> createdAt;
+    private Optional<String> createdAt;
 
     @JsonCreator
     public UpdateUserRequestBody(
-            @JsonProperty("external_id") JsonNullable<? extends String> externalId,
-            @JsonProperty("first_name") JsonNullable<? extends String> firstName,
-            @JsonProperty("last_name") JsonNullable<? extends String> lastName,
-            @JsonProperty("primary_email_address_id") Optional<? extends String> primaryEmailAddressId,
-            @JsonProperty("notify_primary_email_address_changed") Optional<? extends Boolean> notifyPrimaryEmailAddressChanged,
-            @JsonProperty("primary_phone_number_id") Optional<? extends String> primaryPhoneNumberId,
-            @JsonProperty("primary_web3_wallet_id") Optional<? extends String> primaryWeb3WalletId,
-            @JsonProperty("username") JsonNullable<? extends String> username,
-            @JsonProperty("profile_image_id") JsonNullable<? extends String> profileImageId,
-            @JsonProperty("password") JsonNullable<? extends String> password,
-            @JsonProperty("password_digest") Optional<? extends String> passwordDigest,
+            @JsonProperty("external_id") JsonNullable<String> externalId,
+            @JsonProperty("first_name") JsonNullable<String> firstName,
+            @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("primary_email_address_id") Optional<String> primaryEmailAddressId,
+            @JsonProperty("notify_primary_email_address_changed") Optional<Boolean> notifyPrimaryEmailAddressChanged,
+            @JsonProperty("primary_phone_number_id") Optional<String> primaryPhoneNumberId,
+            @JsonProperty("primary_web3_wallet_id") Optional<String> primaryWeb3WalletId,
+            @JsonProperty("username") JsonNullable<String> username,
+            @JsonProperty("profile_image_id") JsonNullable<String> profileImageId,
+            @JsonProperty("password") JsonNullable<String> password,
+            @JsonProperty("password_digest") Optional<String> passwordDigest,
             @JsonProperty("password_hasher") Optional<? extends UpdateUserPasswordHasher> passwordHasher,
-            @JsonProperty("skip_password_checks") JsonNullable<? extends Boolean> skipPasswordChecks,
-            @JsonProperty("sign_out_of_other_sessions") JsonNullable<? extends Boolean> signOutOfOtherSessions,
-            @JsonProperty("totp_secret") Optional<? extends String> totpSecret,
-            @JsonProperty("backup_codes") Optional<? extends java.util.List<String>> backupCodes,
+            @JsonProperty("skip_password_checks") JsonNullable<Boolean> skipPasswordChecks,
+            @JsonProperty("sign_out_of_other_sessions") JsonNullable<Boolean> signOutOfOtherSessions,
+            @JsonProperty("totp_secret") Optional<String> totpSecret,
+            @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
             @JsonProperty("public_metadata") Optional<? extends UpdateUserPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends UpdateUserPrivateMetadata> privateMetadata,
             @JsonProperty("unsafe_metadata") Optional<? extends UpdateUserUnsafeMetadata> unsafeMetadata,
-            @JsonProperty("delete_self_enabled") JsonNullable<? extends Boolean> deleteSelfEnabled,
-            @JsonProperty("create_organization_enabled") JsonNullable<? extends Boolean> createOrganizationEnabled,
-            @JsonProperty("created_at") Optional<? extends String> createdAt) {
+            @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
+            @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
+            @JsonProperty("created_at") Optional<String> createdAt) {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
@@ -382,97 +385,87 @@ public class UpdateUserRequestBody {
      * The ID of the user as used in your external systems or your previous authentication solution.
      * Must be unique across your instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> externalId() {
-        return (JsonNullable<String>) externalId;
+        return externalId;
     }
 
     /**
      * The first name to assign to the user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> firstName() {
-        return (JsonNullable<String>) firstName;
+        return firstName;
     }
 
     /**
      * The last name to assign to the user
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastName() {
-        return (JsonNullable<String>) lastName;
+        return lastName;
     }
 
     /**
      * The ID of the email address to set as primary.
      * It must be verified, and present on the current user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> primaryEmailAddressId() {
-        return (Optional<String>) primaryEmailAddressId;
+        return primaryEmailAddressId;
     }
 
     /**
      * If set to `true`, the user will be notified that their primary email address has changed.
      * By default, no notification is sent.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> notifyPrimaryEmailAddressChanged() {
-        return (Optional<Boolean>) notifyPrimaryEmailAddressChanged;
+        return notifyPrimaryEmailAddressChanged;
     }
 
     /**
      * The ID of the phone number to set as primary.
      * It must be verified, and present on the current user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> primaryPhoneNumberId() {
-        return (Optional<String>) primaryPhoneNumberId;
+        return primaryPhoneNumberId;
     }
 
     /**
      * The ID of the web3 wallets to set as primary.
      * It must be verified, and present on the current user.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> primaryWeb3WalletId() {
-        return (Optional<String>) primaryWeb3WalletId;
+        return primaryWeb3WalletId;
     }
 
     /**
      * The username to give to the user.
      * It must be unique across your instance.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> username() {
-        return (JsonNullable<String>) username;
+        return username;
     }
 
     /**
      * The ID of the image to set as the user's profile image
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> profileImageId() {
-        return (JsonNullable<String>) profileImageId;
+        return profileImageId;
     }
 
     /**
      * The plaintext password to give the user.
      * Must be at least 8 characters long, and can not be in any list of hacked passwords.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> password() {
-        return (JsonNullable<String>) password;
+        return password;
     }
 
     /**
@@ -480,10 +473,9 @@ public class UpdateUserRequestBody {
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> passwordDigest() {
-        return (Optional<String>) passwordDigest;
+        return passwordDigest;
     }
 
     /**
@@ -611,19 +603,17 @@ public class UpdateUserRequestBody {
     /**
      * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> skipPasswordChecks() {
-        return (JsonNullable<Boolean>) skipPasswordChecks;
+        return skipPasswordChecks;
     }
 
     /**
      * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> signOutOfOtherSessions() {
-        return (JsonNullable<Boolean>) signOutOfOtherSessions;
+        return signOutOfOtherSessions;
     }
 
     /**
@@ -633,10 +623,9 @@ public class UpdateUserRequestBody {
      * * Code length: 6 digits
      * * Algorithm: SHA1
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> totpSecret() {
-        return (Optional<String>) totpSecret;
+        return totpSecret;
     }
 
     /**
@@ -645,8 +634,8 @@ public class UpdateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> backupCodes() {
-        return (Optional<java.util.List<String>>) backupCodes;
+    public Optional<List<String>> backupCodes() {
+        return (Optional<List<String>>) backupCodes;
     }
 
     /**
@@ -680,28 +669,25 @@ public class UpdateUserRequestBody {
     /**
      * If true, the user can delete themselves with the Frontend API.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> deleteSelfEnabled() {
-        return (JsonNullable<Boolean>) deleteSelfEnabled;
+        return deleteSelfEnabled;
     }
 
     /**
      * If true, the user can create organizations with the Frontend API.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> createOrganizationEnabled() {
-        return (JsonNullable<Boolean>) createOrganizationEnabled;
+        return createOrganizationEnabled;
     }
 
     /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> createdAt() {
-        return (Optional<String>) createdAt;
+        return createdAt;
     }
 
     public final static Builder builder() {
@@ -722,7 +708,7 @@ public class UpdateUserRequestBody {
      * The ID of the user as used in your external systems or your previous authentication solution.
      * Must be unique across your instance.
      */
-    public UpdateUserRequestBody withExternalId(JsonNullable<? extends String> externalId) {
+    public UpdateUserRequestBody withExternalId(JsonNullable<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -740,7 +726,7 @@ public class UpdateUserRequestBody {
     /**
      * The first name to assign to the user
      */
-    public UpdateUserRequestBody withFirstName(JsonNullable<? extends String> firstName) {
+    public UpdateUserRequestBody withFirstName(JsonNullable<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -758,7 +744,7 @@ public class UpdateUserRequestBody {
     /**
      * The last name to assign to the user
      */
-    public UpdateUserRequestBody withLastName(JsonNullable<? extends String> lastName) {
+    public UpdateUserRequestBody withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -778,7 +764,7 @@ public class UpdateUserRequestBody {
      * The ID of the email address to set as primary.
      * It must be verified, and present on the current user.
      */
-    public UpdateUserRequestBody withPrimaryEmailAddressId(Optional<? extends String> primaryEmailAddressId) {
+    public UpdateUserRequestBody withPrimaryEmailAddressId(Optional<String> primaryEmailAddressId) {
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
         this.primaryEmailAddressId = primaryEmailAddressId;
         return this;
@@ -798,7 +784,7 @@ public class UpdateUserRequestBody {
      * If set to `true`, the user will be notified that their primary email address has changed.
      * By default, no notification is sent.
      */
-    public UpdateUserRequestBody withNotifyPrimaryEmailAddressChanged(Optional<? extends Boolean> notifyPrimaryEmailAddressChanged) {
+    public UpdateUserRequestBody withNotifyPrimaryEmailAddressChanged(Optional<Boolean> notifyPrimaryEmailAddressChanged) {
         Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
         return this;
@@ -818,7 +804,7 @@ public class UpdateUserRequestBody {
      * The ID of the phone number to set as primary.
      * It must be verified, and present on the current user.
      */
-    public UpdateUserRequestBody withPrimaryPhoneNumberId(Optional<? extends String> primaryPhoneNumberId) {
+    public UpdateUserRequestBody withPrimaryPhoneNumberId(Optional<String> primaryPhoneNumberId) {
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
         this.primaryPhoneNumberId = primaryPhoneNumberId;
         return this;
@@ -838,7 +824,7 @@ public class UpdateUserRequestBody {
      * The ID of the web3 wallets to set as primary.
      * It must be verified, and present on the current user.
      */
-    public UpdateUserRequestBody withPrimaryWeb3WalletId(Optional<? extends String> primaryWeb3WalletId) {
+    public UpdateUserRequestBody withPrimaryWeb3WalletId(Optional<String> primaryWeb3WalletId) {
         Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
         this.primaryWeb3WalletId = primaryWeb3WalletId;
         return this;
@@ -858,7 +844,7 @@ public class UpdateUserRequestBody {
      * The username to give to the user.
      * It must be unique across your instance.
      */
-    public UpdateUserRequestBody withUsername(JsonNullable<? extends String> username) {
+    public UpdateUserRequestBody withUsername(JsonNullable<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
         return this;
@@ -876,7 +862,7 @@ public class UpdateUserRequestBody {
     /**
      * The ID of the image to set as the user's profile image
      */
-    public UpdateUserRequestBody withProfileImageId(JsonNullable<? extends String> profileImageId) {
+    public UpdateUserRequestBody withProfileImageId(JsonNullable<String> profileImageId) {
         Utils.checkNotNull(profileImageId, "profileImageId");
         this.profileImageId = profileImageId;
         return this;
@@ -896,7 +882,7 @@ public class UpdateUserRequestBody {
      * The plaintext password to give the user.
      * Must be at least 8 characters long, and can not be in any list of hacked passwords.
      */
-    public UpdateUserRequestBody withPassword(JsonNullable<? extends String> password) {
+    public UpdateUserRequestBody withPassword(JsonNullable<String> password) {
         Utils.checkNotNull(password, "password");
         this.password = password;
         return this;
@@ -918,7 +904,7 @@ public class UpdateUserRequestBody {
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
-    public UpdateUserRequestBody withPasswordDigest(Optional<? extends String> passwordDigest) {
+    public UpdateUserRequestBody withPasswordDigest(Optional<String> passwordDigest) {
         Utils.checkNotNull(passwordDigest, "passwordDigest");
         this.passwordDigest = passwordDigest;
         return this;
@@ -1180,7 +1166,7 @@ public class UpdateUserRequestBody {
     /**
      * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
      */
-    public UpdateUserRequestBody withSkipPasswordChecks(JsonNullable<? extends Boolean> skipPasswordChecks) {
+    public UpdateUserRequestBody withSkipPasswordChecks(JsonNullable<Boolean> skipPasswordChecks) {
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
         this.skipPasswordChecks = skipPasswordChecks;
         return this;
@@ -1198,7 +1184,7 @@ public class UpdateUserRequestBody {
     /**
      * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
      */
-    public UpdateUserRequestBody withSignOutOfOtherSessions(JsonNullable<? extends Boolean> signOutOfOtherSessions) {
+    public UpdateUserRequestBody withSignOutOfOtherSessions(JsonNullable<Boolean> signOutOfOtherSessions) {
         Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
         this.signOutOfOtherSessions = signOutOfOtherSessions;
         return this;
@@ -1224,7 +1210,7 @@ public class UpdateUserRequestBody {
      * * Code length: 6 digits
      * * Algorithm: SHA1
      */
-    public UpdateUserRequestBody withTotpSecret(Optional<? extends String> totpSecret) {
+    public UpdateUserRequestBody withTotpSecret(Optional<String> totpSecret) {
         Utils.checkNotNull(totpSecret, "totpSecret");
         this.totpSecret = totpSecret;
         return this;
@@ -1234,7 +1220,7 @@ public class UpdateUserRequestBody {
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
-    public UpdateUserRequestBody withBackupCodes(java.util.List<String> backupCodes) {
+    public UpdateUserRequestBody withBackupCodes(List<String> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = Optional.ofNullable(backupCodes);
         return this;
@@ -1244,7 +1230,7 @@ public class UpdateUserRequestBody {
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
-    public UpdateUserRequestBody withBackupCodes(Optional<? extends java.util.List<String>> backupCodes) {
+    public UpdateUserRequestBody withBackupCodes(Optional<? extends List<String>> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = backupCodes;
         return this;
@@ -1318,7 +1304,7 @@ public class UpdateUserRequestBody {
     /**
      * If true, the user can delete themselves with the Frontend API.
      */
-    public UpdateUserRequestBody withDeleteSelfEnabled(JsonNullable<? extends Boolean> deleteSelfEnabled) {
+    public UpdateUserRequestBody withDeleteSelfEnabled(JsonNullable<Boolean> deleteSelfEnabled) {
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         this.deleteSelfEnabled = deleteSelfEnabled;
         return this;
@@ -1336,7 +1322,7 @@ public class UpdateUserRequestBody {
     /**
      * If true, the user can create organizations with the Frontend API.
      */
-    public UpdateUserRequestBody withCreateOrganizationEnabled(JsonNullable<? extends Boolean> createOrganizationEnabled) {
+    public UpdateUserRequestBody withCreateOrganizationEnabled(JsonNullable<Boolean> createOrganizationEnabled) {
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
         this.createOrganizationEnabled = createOrganizationEnabled;
         return this;
@@ -1354,7 +1340,7 @@ public class UpdateUserRequestBody {
     /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
-    public UpdateUserRequestBody withCreatedAt(Optional<? extends String> createdAt) {
+    public UpdateUserRequestBody withCreatedAt(Optional<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -1370,33 +1356,33 @@ public class UpdateUserRequestBody {
         }
         UpdateUserRequestBody other = (UpdateUserRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.externalId, other.externalId) &&
-            java.util.Objects.deepEquals(this.firstName, other.firstName) &&
-            java.util.Objects.deepEquals(this.lastName, other.lastName) &&
-            java.util.Objects.deepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
-            java.util.Objects.deepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged) &&
-            java.util.Objects.deepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
-            java.util.Objects.deepEquals(this.primaryWeb3WalletId, other.primaryWeb3WalletId) &&
-            java.util.Objects.deepEquals(this.username, other.username) &&
-            java.util.Objects.deepEquals(this.profileImageId, other.profileImageId) &&
-            java.util.Objects.deepEquals(this.password, other.password) &&
-            java.util.Objects.deepEquals(this.passwordDigest, other.passwordDigest) &&
-            java.util.Objects.deepEquals(this.passwordHasher, other.passwordHasher) &&
-            java.util.Objects.deepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
-            java.util.Objects.deepEquals(this.signOutOfOtherSessions, other.signOutOfOtherSessions) &&
-            java.util.Objects.deepEquals(this.totpSecret, other.totpSecret) &&
-            java.util.Objects.deepEquals(this.backupCodes, other.backupCodes) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            java.util.Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
-            java.util.Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.externalId, other.externalId) &&
+            Objects.deepEquals(this.firstName, other.firstName) &&
+            Objects.deepEquals(this.lastName, other.lastName) &&
+            Objects.deepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
+            Objects.deepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged) &&
+            Objects.deepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
+            Objects.deepEquals(this.primaryWeb3WalletId, other.primaryWeb3WalletId) &&
+            Objects.deepEquals(this.username, other.username) &&
+            Objects.deepEquals(this.profileImageId, other.profileImageId) &&
+            Objects.deepEquals(this.password, other.password) &&
+            Objects.deepEquals(this.passwordDigest, other.passwordDigest) &&
+            Objects.deepEquals(this.passwordHasher, other.passwordHasher) &&
+            Objects.deepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
+            Objects.deepEquals(this.signOutOfOtherSessions, other.signOutOfOtherSessions) &&
+            Objects.deepEquals(this.totpSecret, other.totpSecret) &&
+            Objects.deepEquals(this.backupCodes, other.backupCodes) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
+            Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             externalId,
             firstName,
             lastName,
@@ -1450,37 +1436,37 @@ public class UpdateUserRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends String> externalId = JsonNullable.undefined();
+        private JsonNullable<String> externalId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> firstName = JsonNullable.undefined();
+        private JsonNullable<String> firstName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> lastName = JsonNullable.undefined();
+        private JsonNullable<String> lastName = JsonNullable.undefined();
  
-        private Optional<? extends String> primaryEmailAddressId = Optional.empty();
+        private Optional<String> primaryEmailAddressId = Optional.empty();
  
-        private Optional<? extends Boolean> notifyPrimaryEmailAddressChanged;
+        private Optional<Boolean> notifyPrimaryEmailAddressChanged;
  
-        private Optional<? extends String> primaryPhoneNumberId = Optional.empty();
+        private Optional<String> primaryPhoneNumberId = Optional.empty();
  
-        private Optional<? extends String> primaryWeb3WalletId = Optional.empty();
+        private Optional<String> primaryWeb3WalletId = Optional.empty();
  
-        private JsonNullable<? extends String> username = JsonNullable.undefined();
+        private JsonNullable<String> username = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> profileImageId = JsonNullable.undefined();
+        private JsonNullable<String> profileImageId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> password = JsonNullable.undefined();
+        private JsonNullable<String> password = JsonNullable.undefined();
  
-        private Optional<? extends String> passwordDigest = Optional.empty();
+        private Optional<String> passwordDigest = Optional.empty();
  
         private Optional<? extends UpdateUserPasswordHasher> passwordHasher = Optional.empty();
  
-        private JsonNullable<? extends Boolean> skipPasswordChecks = JsonNullable.undefined();
+        private JsonNullable<Boolean> skipPasswordChecks = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> signOutOfOtherSessions = JsonNullable.undefined();
+        private JsonNullable<Boolean> signOutOfOtherSessions = JsonNullable.undefined();
  
-        private Optional<? extends String> totpSecret = Optional.empty();
+        private Optional<String> totpSecret = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> backupCodes = Optional.empty();
+        private Optional<? extends List<String>> backupCodes = Optional.empty();
  
         private Optional<? extends UpdateUserPublicMetadata> publicMetadata = Optional.empty();
  
@@ -1488,11 +1474,11 @@ public class UpdateUserRequestBody {
  
         private Optional<? extends UpdateUserUnsafeMetadata> unsafeMetadata = Optional.empty();
  
-        private JsonNullable<? extends Boolean> deleteSelfEnabled = JsonNullable.undefined();
+        private JsonNullable<Boolean> deleteSelfEnabled = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> createOrganizationEnabled = JsonNullable.undefined();
+        private JsonNullable<Boolean> createOrganizationEnabled = JsonNullable.undefined();
  
-        private Optional<? extends String> createdAt = Optional.empty();  
+        private Optional<String> createdAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -1512,7 +1498,7 @@ public class UpdateUserRequestBody {
          * The ID of the user as used in your external systems or your previous authentication solution.
          * Must be unique across your instance.
          */
-        public Builder externalId(JsonNullable<? extends String> externalId) {
+        public Builder externalId(JsonNullable<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;
@@ -1530,7 +1516,7 @@ public class UpdateUserRequestBody {
         /**
          * The first name to assign to the user
          */
-        public Builder firstName(JsonNullable<? extends String> firstName) {
+        public Builder firstName(JsonNullable<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -1548,7 +1534,7 @@ public class UpdateUserRequestBody {
         /**
          * The last name to assign to the user
          */
-        public Builder lastName(JsonNullable<? extends String> lastName) {
+        public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -1568,7 +1554,7 @@ public class UpdateUserRequestBody {
          * The ID of the email address to set as primary.
          * It must be verified, and present on the current user.
          */
-        public Builder primaryEmailAddressId(Optional<? extends String> primaryEmailAddressId) {
+        public Builder primaryEmailAddressId(Optional<String> primaryEmailAddressId) {
             Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
             this.primaryEmailAddressId = primaryEmailAddressId;
             return this;
@@ -1588,7 +1574,7 @@ public class UpdateUserRequestBody {
          * If set to `true`, the user will be notified that their primary email address has changed.
          * By default, no notification is sent.
          */
-        public Builder notifyPrimaryEmailAddressChanged(Optional<? extends Boolean> notifyPrimaryEmailAddressChanged) {
+        public Builder notifyPrimaryEmailAddressChanged(Optional<Boolean> notifyPrimaryEmailAddressChanged) {
             Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
             this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
             return this;
@@ -1608,7 +1594,7 @@ public class UpdateUserRequestBody {
          * The ID of the phone number to set as primary.
          * It must be verified, and present on the current user.
          */
-        public Builder primaryPhoneNumberId(Optional<? extends String> primaryPhoneNumberId) {
+        public Builder primaryPhoneNumberId(Optional<String> primaryPhoneNumberId) {
             Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
             this.primaryPhoneNumberId = primaryPhoneNumberId;
             return this;
@@ -1628,7 +1614,7 @@ public class UpdateUserRequestBody {
          * The ID of the web3 wallets to set as primary.
          * It must be verified, and present on the current user.
          */
-        public Builder primaryWeb3WalletId(Optional<? extends String> primaryWeb3WalletId) {
+        public Builder primaryWeb3WalletId(Optional<String> primaryWeb3WalletId) {
             Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
             this.primaryWeb3WalletId = primaryWeb3WalletId;
             return this;
@@ -1648,7 +1634,7 @@ public class UpdateUserRequestBody {
          * The username to give to the user.
          * It must be unique across your instance.
          */
-        public Builder username(JsonNullable<? extends String> username) {
+        public Builder username(JsonNullable<String> username) {
             Utils.checkNotNull(username, "username");
             this.username = username;
             return this;
@@ -1666,7 +1652,7 @@ public class UpdateUserRequestBody {
         /**
          * The ID of the image to set as the user's profile image
          */
-        public Builder profileImageId(JsonNullable<? extends String> profileImageId) {
+        public Builder profileImageId(JsonNullable<String> profileImageId) {
             Utils.checkNotNull(profileImageId, "profileImageId");
             this.profileImageId = profileImageId;
             return this;
@@ -1686,7 +1672,7 @@ public class UpdateUserRequestBody {
          * The plaintext password to give the user.
          * Must be at least 8 characters long, and can not be in any list of hacked passwords.
          */
-        public Builder password(JsonNullable<? extends String> password) {
+        public Builder password(JsonNullable<String> password) {
             Utils.checkNotNull(password, "password");
             this.password = password;
             return this;
@@ -1708,7 +1694,7 @@ public class UpdateUserRequestBody {
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
-        public Builder passwordDigest(Optional<? extends String> passwordDigest) {
+        public Builder passwordDigest(Optional<String> passwordDigest) {
             Utils.checkNotNull(passwordDigest, "passwordDigest");
             this.passwordDigest = passwordDigest;
             return this;
@@ -1970,7 +1956,7 @@ public class UpdateUserRequestBody {
         /**
          * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
          */
-        public Builder skipPasswordChecks(JsonNullable<? extends Boolean> skipPasswordChecks) {
+        public Builder skipPasswordChecks(JsonNullable<Boolean> skipPasswordChecks) {
             Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
             this.skipPasswordChecks = skipPasswordChecks;
             return this;
@@ -1988,7 +1974,7 @@ public class UpdateUserRequestBody {
         /**
          * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
          */
-        public Builder signOutOfOtherSessions(JsonNullable<? extends Boolean> signOutOfOtherSessions) {
+        public Builder signOutOfOtherSessions(JsonNullable<Boolean> signOutOfOtherSessions) {
             Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
             this.signOutOfOtherSessions = signOutOfOtherSessions;
             return this;
@@ -2014,7 +2000,7 @@ public class UpdateUserRequestBody {
          * * Code length: 6 digits
          * * Algorithm: SHA1
          */
-        public Builder totpSecret(Optional<? extends String> totpSecret) {
+        public Builder totpSecret(Optional<String> totpSecret) {
             Utils.checkNotNull(totpSecret, "totpSecret");
             this.totpSecret = totpSecret;
             return this;
@@ -2024,7 +2010,7 @@ public class UpdateUserRequestBody {
          * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
-        public Builder backupCodes(java.util.List<String> backupCodes) {
+        public Builder backupCodes(List<String> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = Optional.ofNullable(backupCodes);
             return this;
@@ -2034,7 +2020,7 @@ public class UpdateUserRequestBody {
          * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
-        public Builder backupCodes(Optional<? extends java.util.List<String>> backupCodes) {
+        public Builder backupCodes(Optional<? extends List<String>> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = backupCodes;
             return this;
@@ -2108,7 +2094,7 @@ public class UpdateUserRequestBody {
         /**
          * If true, the user can delete themselves with the Frontend API.
          */
-        public Builder deleteSelfEnabled(JsonNullable<? extends Boolean> deleteSelfEnabled) {
+        public Builder deleteSelfEnabled(JsonNullable<Boolean> deleteSelfEnabled) {
             Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
             this.deleteSelfEnabled = deleteSelfEnabled;
             return this;
@@ -2126,7 +2112,7 @@ public class UpdateUserRequestBody {
         /**
          * If true, the user can create organizations with the Frontend API.
          */
-        public Builder createOrganizationEnabled(JsonNullable<? extends Boolean> createOrganizationEnabled) {
+        public Builder createOrganizationEnabled(JsonNullable<Boolean> createOrganizationEnabled) {
             Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
             this.createOrganizationEnabled = createOrganizationEnabled;
             return this;
@@ -2144,7 +2130,7 @@ public class UpdateUserRequestBody {
         /**
          * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
-        public Builder createdAt(Optional<? extends String> createdAt) {
+        public Builder createdAt(Optional<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -2179,11 +2165,11 @@ public class UpdateUserRequestBody {
                 createdAt);
         }
 
-        private static final LazySingletonValue<Optional<? extends Boolean>> _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged =
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged =
                 new LazySingletonValue<>(
                         "notify_primary_email_address_changed",
                         "false",
-                        new TypeReference<Optional<? extends Boolean>>() {});
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }
 

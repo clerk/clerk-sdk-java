@@ -4,25 +4,26 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class SchemasPasskey {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -47,7 +48,7 @@ public class SchemasPasskey {
 
     @JsonCreator
     public SchemasPasskey(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") SchemasPasskeyObject object,
             @JsonProperty("name") String name,
             @JsonProperty("last_used_at") long lastUsedAt,
@@ -71,10 +72,9 @@ public class SchemasPasskey {
         this(Optional.empty(), object, name, lastUsedAt, Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -116,7 +116,7 @@ public class SchemasPasskey {
         return this;
     }
 
-    public SchemasPasskey withId(Optional<? extends String> id) {
+    public SchemasPasskey withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -170,16 +170,16 @@ public class SchemasPasskey {
         }
         SchemasPasskey other = (SchemasPasskey) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.lastUsedAt, other.lastUsedAt) &&
-            java.util.Objects.deepEquals(this.verification, other.verification);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.lastUsedAt, other.lastUsedAt) &&
+            Objects.deepEquals(this.verification, other.verification);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             name,
@@ -199,7 +199,7 @@ public class SchemasPasskey {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private SchemasPasskeyObject object;
  
@@ -219,7 +219,7 @@ public class SchemasPasskey {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;

@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Domain;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
+
+public class AddDomainResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
     /**
      * A domain
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Domain> domain;
+    private Optional<? extends Domain> domain;
 
     @JsonCreator
     public AddDomainResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Domain> domain) {
+            Optional<? extends Domain> domain) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Domain> domain() {
-        return (Optional<com.clerk.backend_api.models.components.Domain>) domain;
+    public Optional<Domain> domain() {
+        return (Optional<Domain>) domain;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
     /**
      * A domain
      */
-    public AddDomainResponse withDomain(com.clerk.backend_api.models.components.Domain domain) {
+    public AddDomainResponse withDomain(Domain domain) {
         Utils.checkNotNull(domain, "domain");
         this.domain = Optional.ofNullable(domain);
         return this;
@@ -137,7 +141,7 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
     /**
      * A domain
      */
-    public AddDomainResponse withDomain(Optional<? extends com.clerk.backend_api.models.components.Domain> domain) {
+    public AddDomainResponse withDomain(Optional<? extends Domain> domain) {
         Utils.checkNotNull(domain, "domain");
         this.domain = domain;
         return this;
@@ -153,15 +157,15 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
         }
         AddDomainResponse other = (AddDomainResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.domain, other.domain);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.domain, other.domain);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Domain> domain = Optional.empty();  
+        private Optional<? extends Domain> domain = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
         /**
          * A domain
          */
-        public Builder domain(com.clerk.backend_api.models.components.Domain domain) {
+        public Builder domain(Domain domain) {
             Utils.checkNotNull(domain, "domain");
             this.domain = Optional.ofNullable(domain);
             return this;
@@ -230,7 +234,7 @@ public class AddDomainResponse implements com.clerk.backend_api.utils.Response {
         /**
          * A domain
          */
-        public Builder domain(Optional<? extends com.clerk.backend_api.models.components.Domain> domain) {
+        public Builder domain(Optional<? extends Domain> domain) {
             Utils.checkNotNull(domain, "domain");
             this.domain = domain;
             return this;

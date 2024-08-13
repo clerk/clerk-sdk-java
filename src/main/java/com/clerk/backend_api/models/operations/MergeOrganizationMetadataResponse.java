@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Organization;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.utils.Response {
+
+public class MergeOrganizationMetadataResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
     /**
      * An organization
      */
-    private Optional<? extends com.clerk.backend_api.models.components.Organization> organization;
+    private Optional<? extends Organization> organization;
 
     @JsonCreator
     public MergeOrganizationMetadataResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.Organization> organization) {
+            Optional<? extends Organization> organization) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.Organization> organization() {
-        return (Optional<com.clerk.backend_api.models.components.Organization>) organization;
+    public Optional<Organization> organization() {
+        return (Optional<Organization>) organization;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
     /**
      * An organization
      */
-    public MergeOrganizationMetadataResponse withOrganization(com.clerk.backend_api.models.components.Organization organization) {
+    public MergeOrganizationMetadataResponse withOrganization(Organization organization) {
         Utils.checkNotNull(organization, "organization");
         this.organization = Optional.ofNullable(organization);
         return this;
@@ -137,7 +141,7 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
     /**
      * An organization
      */
-    public MergeOrganizationMetadataResponse withOrganization(Optional<? extends com.clerk.backend_api.models.components.Organization> organization) {
+    public MergeOrganizationMetadataResponse withOrganization(Optional<? extends Organization> organization) {
         Utils.checkNotNull(organization, "organization");
         this.organization = organization;
         return this;
@@ -153,15 +157,15 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
         }
         MergeOrganizationMetadataResponse other = (MergeOrganizationMetadataResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.organization, other.organization);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.organization, other.organization);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.Organization> organization = Optional.empty();  
+        private Optional<? extends Organization> organization = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
         /**
          * An organization
          */
-        public Builder organization(com.clerk.backend_api.models.components.Organization organization) {
+        public Builder organization(Organization organization) {
             Utils.checkNotNull(organization, "organization");
             this.organization = Optional.ofNullable(organization);
             return this;
@@ -230,7 +234,7 @@ public class MergeOrganizationMetadataResponse implements com.clerk.backend_api.
         /**
          * An organization
          */
-        public Builder organization(Optional<? extends com.clerk.backend_api.models.components.Organization> organization) {
+        public Builder organization(Optional<? extends Organization> organization) {
             Utils.checkNotNull(organization, "organization");
             this.organization = organization;
             return this;

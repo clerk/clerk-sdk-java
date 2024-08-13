@@ -4,16 +4,16 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class CNameTarget {
 
@@ -98,14 +98,14 @@ public class CNameTarget {
         }
         CNameTarget other = (CNameTarget) o;
         return 
-            java.util.Objects.deepEquals(this.host, other.host) &&
-            java.util.Objects.deepEquals(this.value, other.value) &&
-            java.util.Objects.deepEquals(this.required, other.required);
+            Objects.deepEquals(this.host, other.host) &&
+            Objects.deepEquals(this.value, other.value) &&
+            Objects.deepEquals(this.required, other.required);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             host,
             value,
             required);

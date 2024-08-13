@@ -10,10 +10,7 @@ import java.net.http.HttpResponse;
 import java.net.ConnectException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 
 public class Retries {
 

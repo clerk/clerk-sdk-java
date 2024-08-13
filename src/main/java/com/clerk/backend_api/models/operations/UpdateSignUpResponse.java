@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.SignUp;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateSignUpResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.SignUp> signUp;
+    private Optional<? extends SignUp> signUp;
 
     @JsonCreator
     public UpdateSignUpResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.SignUp> signUp) {
+            Optional<? extends SignUp> signUp) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.SignUp> signUp() {
-        return (Optional<com.clerk.backend_api.models.components.SignUp>) signUp;
+    public Optional<SignUp> signUp() {
+        return (Optional<SignUp>) signUp;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    public UpdateSignUpResponse withSignUp(com.clerk.backend_api.models.components.SignUp signUp) {
+    public UpdateSignUpResponse withSignUp(SignUp signUp) {
         Utils.checkNotNull(signUp, "signUp");
         this.signUp = Optional.ofNullable(signUp);
         return this;
@@ -137,7 +141,7 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
     /**
      * Success
      */
-    public UpdateSignUpResponse withSignUp(Optional<? extends com.clerk.backend_api.models.components.SignUp> signUp) {
+    public UpdateSignUpResponse withSignUp(Optional<? extends SignUp> signUp) {
         Utils.checkNotNull(signUp, "signUp");
         this.signUp = signUp;
         return this;
@@ -153,15 +157,15 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
         }
         UpdateSignUpResponse other = (UpdateSignUpResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.signUp, other.signUp);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.signUp, other.signUp);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.SignUp> signUp = Optional.empty();  
+        private Optional<? extends SignUp> signUp = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
         /**
          * Success
          */
-        public Builder signUp(com.clerk.backend_api.models.components.SignUp signUp) {
+        public Builder signUp(SignUp signUp) {
             Utils.checkNotNull(signUp, "signUp");
             this.signUp = Optional.ofNullable(signUp);
             return this;
@@ -230,7 +234,7 @@ public class UpdateSignUpResponse implements com.clerk.backend_api.utils.Respons
         /**
          * Success
          */
-        public Builder signUp(Optional<? extends com.clerk.backend_api.models.components.SignUp> signUp) {
+        public Builder signUp(Optional<? extends SignUp> signUp) {
             Utils.checkNotNull(signUp, "signUp");
             this.signUp = signUp;
             return this;

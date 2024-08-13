@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class UpdatePhoneNumberRequestBuilder {
 
@@ -27,19 +18,19 @@ public class UpdatePhoneNumberRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdatePhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
+    public UpdatePhoneNumberRequestBuilder phoneNumberId(java.lang.String phoneNumberId) {
         Utils.checkNotNull(phoneNumberId, "phoneNumberId");
         this.phoneNumberId = phoneNumberId;
         return this;
     }
                 
-    public UpdatePhoneNumberRequestBuilder requestBody(UpdatePhoneNumberRequestBody requestBody) {
+    public UpdatePhoneNumberRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdatePhoneNumberRequestBuilder requestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
+    public UpdatePhoneNumberRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

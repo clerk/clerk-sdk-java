@@ -4,20 +4,26 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.OrganizationInvitations;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class ListPendingOrganizationInvitationsResponse implements com.clerk.backend_api.utils.Response {
+
+public class ListPendingOrganizationInvitationsResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -37,7 +43,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
     /**
      * A list of organization invitations
      */
-    private Optional<? extends com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations;
+    private Optional<? extends OrganizationInvitations> organizationInvitations;
 
     private Callable<Optional<ListPendingOrganizationInvitationsResponse>> next = () -> Optional.empty();
 
@@ -46,7 +52,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations) {
+            Optional<? extends OrganizationInvitations> organizationInvitations) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -93,8 +99,8 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations() {
-        return (Optional<com.clerk.backend_api.models.components.OrganizationInvitations>) organizationInvitations;
+    public Optional<OrganizationInvitations> organizationInvitations() {
+        return (Optional<OrganizationInvitations>) organizationInvitations;
     }
 
     public Optional<ListPendingOrganizationInvitationsResponse> next() throws Exception {
@@ -141,7 +147,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
     /**
      * A list of organization invitations
      */
-    public ListPendingOrganizationInvitationsResponse withOrganizationInvitations(com.clerk.backend_api.models.components.OrganizationInvitations organizationInvitations) {
+    public ListPendingOrganizationInvitationsResponse withOrganizationInvitations(OrganizationInvitations organizationInvitations) {
         Utils.checkNotNull(organizationInvitations, "organizationInvitations");
         this.organizationInvitations = Optional.ofNullable(organizationInvitations);
         return this;
@@ -150,7 +156,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
     /**
      * A list of organization invitations
      */
-    public ListPendingOrganizationInvitationsResponse withOrganizationInvitations(Optional<? extends com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations) {
+    public ListPendingOrganizationInvitationsResponse withOrganizationInvitations(Optional<? extends OrganizationInvitations> organizationInvitations) {
         Utils.checkNotNull(organizationInvitations, "organizationInvitations");
         this.organizationInvitations = organizationInvitations;
         return this;
@@ -166,15 +172,15 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
         }
         ListPendingOrganizationInvitationsResponse other = (ListPendingOrganizationInvitationsResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.organizationInvitations, other.organizationInvitations);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.organizationInvitations, other.organizationInvitations);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -199,7 +205,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations = Optional.empty();  
+        private Optional<? extends OrganizationInvitations> organizationInvitations = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -235,7 +241,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
         /**
          * A list of organization invitations
          */
-        public Builder organizationInvitations(com.clerk.backend_api.models.components.OrganizationInvitations organizationInvitations) {
+        public Builder organizationInvitations(OrganizationInvitations organizationInvitations) {
             Utils.checkNotNull(organizationInvitations, "organizationInvitations");
             this.organizationInvitations = Optional.ofNullable(organizationInvitations);
             return this;
@@ -244,7 +250,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
         /**
          * A list of organization invitations
          */
-        public Builder organizationInvitations(Optional<? extends com.clerk.backend_api.models.components.OrganizationInvitations> organizationInvitations) {
+        public Builder organizationInvitations(Optional<? extends OrganizationInvitations> organizationInvitations) {
             Utils.checkNotNull(organizationInvitations, "organizationInvitations");
             this.organizationInvitations = organizationInvitations;
             return this;
@@ -253,7 +259,7 @@ public class ListPendingOrganizationInvitationsResponse implements com.clerk.bac
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @deprecated not part of the public API, may be removed without notice
+         * @Deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<ListPendingOrganizationInvitationsResponse>> next) {

@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.InstanceRestrictions;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateInstanceRestrictionsResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions;
+    private Optional<? extends InstanceRestrictions> instanceRestrictions;
 
     @JsonCreator
     public UpdateInstanceRestrictionsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions) {
+            Optional<? extends InstanceRestrictions> instanceRestrictions) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions() {
-        return (Optional<com.clerk.backend_api.models.components.InstanceRestrictions>) instanceRestrictions;
+    public Optional<InstanceRestrictions> instanceRestrictions() {
+        return (Optional<InstanceRestrictions>) instanceRestrictions;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
     /**
      * Success
      */
-    public UpdateInstanceRestrictionsResponse withInstanceRestrictions(com.clerk.backend_api.models.components.InstanceRestrictions instanceRestrictions) {
+    public UpdateInstanceRestrictionsResponse withInstanceRestrictions(InstanceRestrictions instanceRestrictions) {
         Utils.checkNotNull(instanceRestrictions, "instanceRestrictions");
         this.instanceRestrictions = Optional.ofNullable(instanceRestrictions);
         return this;
@@ -137,7 +141,7 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
     /**
      * Success
      */
-    public UpdateInstanceRestrictionsResponse withInstanceRestrictions(Optional<? extends com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions) {
+    public UpdateInstanceRestrictionsResponse withInstanceRestrictions(Optional<? extends InstanceRestrictions> instanceRestrictions) {
         Utils.checkNotNull(instanceRestrictions, "instanceRestrictions");
         this.instanceRestrictions = instanceRestrictions;
         return this;
@@ -153,15 +157,15 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
         }
         UpdateInstanceRestrictionsResponse other = (UpdateInstanceRestrictionsResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.instanceRestrictions, other.instanceRestrictions);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.instanceRestrictions, other.instanceRestrictions);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions = Optional.empty();  
+        private Optional<? extends InstanceRestrictions> instanceRestrictions = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
         /**
          * Success
          */
-        public Builder instanceRestrictions(com.clerk.backend_api.models.components.InstanceRestrictions instanceRestrictions) {
+        public Builder instanceRestrictions(InstanceRestrictions instanceRestrictions) {
             Utils.checkNotNull(instanceRestrictions, "instanceRestrictions");
             this.instanceRestrictions = Optional.ofNullable(instanceRestrictions);
             return this;
@@ -230,7 +234,7 @@ public class UpdateInstanceRestrictionsResponse implements com.clerk.backend_api
         /**
          * Success
          */
-        public Builder instanceRestrictions(Optional<? extends com.clerk.backend_api.models.components.InstanceRestrictions> instanceRestrictions) {
+        public Builder instanceRestrictions(Optional<? extends InstanceRestrictions> instanceRestrictions) {
             Utils.checkNotNull(instanceRestrictions, "instanceRestrictions");
             this.instanceRestrictions = instanceRestrictions;
             return this;

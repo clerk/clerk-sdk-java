@@ -4,32 +4,98 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.OrganizationMemberships;
+import com.clerk.backend_api.models.components.TotalCount;
+import com.clerk.backend_api.models.components.User;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.BanUserRequest;
+import com.clerk.backend_api.models.operations.BanUserRequestBuilder;
+import com.clerk.backend_api.models.operations.BanUserResponse;
+import com.clerk.backend_api.models.operations.CreateUserRequestBody;
+import com.clerk.backend_api.models.operations.CreateUserRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateUserResponse;
+import com.clerk.backend_api.models.operations.DeleteUserProfileImageRequest;
+import com.clerk.backend_api.models.operations.DeleteUserProfileImageRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse;
+import com.clerk.backend_api.models.operations.DeleteUserRequest;
+import com.clerk.backend_api.models.operations.DeleteUserRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteUserResponse;
+import com.clerk.backend_api.models.operations.DisableMFARequest;
+import com.clerk.backend_api.models.operations.DisableMFARequestBuilder;
+import com.clerk.backend_api.models.operations.DisableMFAResponse;
+import com.clerk.backend_api.models.operations.DisableMFAResponseBody;
+import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest;
+import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequestBuilder;
+import com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse;
+import com.clerk.backend_api.models.operations.GetUserListRequest;
+import com.clerk.backend_api.models.operations.GetUserListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetUserListResponse;
+import com.clerk.backend_api.models.operations.GetUserRequest;
+import com.clerk.backend_api.models.operations.GetUserRequestBuilder;
+import com.clerk.backend_api.models.operations.GetUserResponse;
+import com.clerk.backend_api.models.operations.GetUsersCountRequest;
+import com.clerk.backend_api.models.operations.GetUsersCountRequestBuilder;
+import com.clerk.backend_api.models.operations.GetUsersCountResponse;
+import com.clerk.backend_api.models.operations.LockUserRequest;
+import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
+import com.clerk.backend_api.models.operations.LockUserResponse;
+import com.clerk.backend_api.models.operations.ResponseBody;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.SetUserProfileImageRequest;
+import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody;
+import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBuilder;
+import com.clerk.backend_api.models.operations.SetUserProfileImageResponse;
+import com.clerk.backend_api.models.operations.UnbanUserRequest;
+import com.clerk.backend_api.models.operations.UnbanUserRequestBuilder;
+import com.clerk.backend_api.models.operations.UnbanUserResponse;
+import com.clerk.backend_api.models.operations.UnlockUserRequest;
+import com.clerk.backend_api.models.operations.UnlockUserRequestBuilder;
+import com.clerk.backend_api.models.operations.UnlockUserResponse;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataRequest;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataResponse;
+import com.clerk.backend_api.models.operations.UpdateUserRequest;
+import com.clerk.backend_api.models.operations.UpdateUserRequestBody;
+import com.clerk.backend_api.models.operations.UpdateUserRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateUserResponse;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse;
+import com.clerk.backend_api.models.operations.VerifyPasswordRequest;
+import com.clerk.backend_api.models.operations.VerifyPasswordRequestBody;
+import com.clerk.backend_api.models.operations.VerifyPasswordRequestBuilder;
+import com.clerk.backend_api.models.operations.VerifyPasswordResponse;
+import com.clerk.backend_api.models.operations.VerifyPasswordResponseBody;
+import com.clerk.backend_api.models.operations.VerifyTOTPRequest;
+import com.clerk.backend_api.models.operations.VerifyTOTPRequestBody;
+import com.clerk.backend_api.models.operations.VerifyTOTPRequestBuilder;
+import com.clerk.backend_api.models.operations.VerifyTOTPResponse;
+import com.clerk.backend_api.models.operations.VerifyTOTPResponseBody;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class Users implements
             MethodCallGetUserList,
@@ -64,8 +130,8 @@ public class Users implements
      * The users are returned sorted by creation date, with the newest users appearing first.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetUserListRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.GetUserListRequestBuilder(this);
+    public GetUserListRequestBuilder list() {
+        return new GetUserListRequestBuilder(this);
     }
 
     /**
@@ -76,8 +142,8 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetUserListResponse list(
-            com.clerk.backend_api.models.operations.GetUserListRequest request) throws Exception {
+    public GetUserListResponse list(
+            GetUserListRequest request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -89,7 +155,7 @@ public class Users implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.GetUserListRequest.class,
+                GetUserListRequest.class,
                 request, 
                 null));
 
@@ -100,7 +166,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetUserList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetUserList", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -108,18 +177,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetUserList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetUserList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetUserList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetUserList",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetUserList", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetUserList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -127,42 +206,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetUserListResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetUserListResponse
+        GetUserListResponse.Builder _resBuilder = 
+            GetUserListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetUserListResponse _res = _resBuilder.build();
+        GetUserListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.components.User> _out = Utils.mapper().readValue(
+                List<User> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.components.User>>() {});
-                _res.withUserList(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<User>>() {});
+                _res.withUserList(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -171,13 +250,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -193,8 +272,8 @@ public class Users implements
      * A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateUserRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateUserRequestBuilder(this);
+    public CreateUserRequestBuilder create() {
+        return new CreateUserRequestBuilder(this);
     }
 
     /**
@@ -210,18 +289,23 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateUserResponse create(
-            com.clerk.backend_api.models.operations.CreateUserRequestBody request) throws Exception {
+    public CreateUserResponse create(
+            CreateUserRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/users");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<com.clerk.backend_api.models.operations.CreateUserRequestBody>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<CreateUserRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -237,7 +321,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -245,18 +332,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -264,42 +361,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateUserResponse
+        CreateUserResponse.Builder _resBuilder = 
+            CreateUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateUserResponse _res = _resBuilder.build();
+        CreateUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -308,13 +405,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -324,8 +421,8 @@ public class Users implements
      * Returns a total count of all users that match the given filtering criteria.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetUsersCountRequestBuilder count() {
-        return new com.clerk.backend_api.models.operations.GetUsersCountRequestBuilder(this);
+    public GetUsersCountRequestBuilder count() {
+        return new GetUsersCountRequestBuilder(this);
     }
 
     /**
@@ -335,8 +432,8 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetUsersCountResponse count(
-            com.clerk.backend_api.models.operations.GetUsersCountRequest request) throws Exception {
+    public GetUsersCountResponse count(
+            GetUsersCountRequest request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -348,7 +445,7 @@ public class Users implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.GetUsersCountRequest.class,
+                GetUsersCountRequest.class,
                 request, 
                 null));
 
@@ -359,7 +456,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetUsersCount", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetUsersCount", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -367,18 +467,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetUsersCount", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetUsersCount",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetUsersCount", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetUsersCount",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetUsersCount", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetUsersCount",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -386,42 +496,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetUsersCountResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetUsersCountResponse
+        GetUsersCountResponse.Builder _resBuilder = 
+            GetUsersCountResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetUsersCountResponse _res = _resBuilder.build();
+        GetUsersCountResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.TotalCount _out = Utils.mapper().readValue(
+                TotalCount _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.TotalCount>() {});
-                _res.withTotalCount(java.util.Optional.ofNullable(_out));
+                    new TypeReference<TotalCount>() {});
+                _res.withTotalCount(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -430,13 +540,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -446,8 +556,8 @@ public class Users implements
      * Retrieve the details of a user
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetUserRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetUserRequestBuilder(this);
+    public GetUserRequestBuilder get() {
+        return new GetUserRequestBuilder(this);
     }
 
     /**
@@ -457,17 +567,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetUserResponse get(
+    public GetUserResponse get(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.GetUserRequest request =
-            com.clerk.backend_api.models.operations.GetUserRequest
+        GetUserRequest request =
+            GetUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetUserRequest.class,
+                GetUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}",
                 request, null);
@@ -484,7 +594,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -492,18 +605,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -511,42 +634,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetUserResponse
+        GetUserResponse.Builder _resBuilder = 
+            GetUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetUserResponse _res = _resBuilder.build();
+        GetUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -555,13 +678,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -582,8 +705,8 @@ public class Users implements
      * You can also choose to sign the user out of all their active sessions on any device once the password is updated. Just set `sign_out_of_other_sessions` to `true`.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateUserRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateUserRequestBuilder(this);
+    public UpdateUserRequestBuilder update() {
+        return new UpdateUserRequestBuilder(this);
     }
 
     /**
@@ -605,11 +728,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateUserResponse update(
+    public UpdateUserResponse update(
             String userId,
-            com.clerk.backend_api.models.operations.UpdateUserRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateUserRequest request =
-            com.clerk.backend_api.models.operations.UpdateUserRequest
+            UpdateUserRequestBody requestBody) throws Exception {
+        UpdateUserRequest request =
+            UpdateUserRequest
                 .builder()
                 .userId(userId)
                 .requestBody(requestBody)
@@ -617,16 +740,21 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateUserRequest.class,
+                UpdateUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -642,7 +770,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -650,18 +781,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -669,42 +810,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateUserResponse
+        UpdateUserResponse.Builder _resBuilder = 
+            UpdateUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateUserResponse _res = _resBuilder.build();
+        UpdateUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -713,13 +854,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -729,8 +870,8 @@ public class Users implements
      * Delete the specified user
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteUserRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteUserRequestBuilder(this);
+    public DeleteUserRequestBuilder delete() {
+        return new DeleteUserRequestBuilder(this);
     }
 
     /**
@@ -740,17 +881,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteUserResponse delete(
+    public DeleteUserResponse delete(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteUserRequest request =
-            com.clerk.backend_api.models.operations.DeleteUserRequest
+        DeleteUserRequest request =
+            DeleteUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteUserRequest.class,
+                DeleteUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}",
                 request, null);
@@ -767,7 +908,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -775,18 +919,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -794,42 +948,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteUserResponse
+        DeleteUserResponse.Builder _resBuilder = 
+            DeleteUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteUserResponse _res = _resBuilder.build();
+        DeleteUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -838,13 +992,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -854,8 +1008,8 @@ public class Users implements
      * Marks the given user as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.BanUserRequestBuilder ban() {
-        return new com.clerk.backend_api.models.operations.BanUserRequestBuilder(this);
+    public BanUserRequestBuilder ban() {
+        return new BanUserRequestBuilder(this);
     }
 
     /**
@@ -865,17 +1019,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.BanUserResponse ban(
+    public BanUserResponse ban(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.BanUserRequest request =
-            com.clerk.backend_api.models.operations.BanUserRequest
+        BanUserRequest request =
+            BanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.BanUserRequest.class,
+                BanUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}/ban",
                 request, null);
@@ -892,7 +1046,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("BanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "BanUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -900,18 +1057,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("BanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "BanUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("BanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "BanUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("BanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "BanUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -919,42 +1086,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.BanUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.BanUserResponse
+        BanUserResponse.Builder _resBuilder = 
+            BanUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.BanUserResponse _res = _resBuilder.build();
+        BanUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -963,13 +1130,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -979,8 +1146,8 @@ public class Users implements
      * Removes the ban mark from the given user.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UnbanUserRequestBuilder unban() {
-        return new com.clerk.backend_api.models.operations.UnbanUserRequestBuilder(this);
+    public UnbanUserRequestBuilder unban() {
+        return new UnbanUserRequestBuilder(this);
     }
 
     /**
@@ -990,17 +1157,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UnbanUserResponse unban(
+    public UnbanUserResponse unban(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.UnbanUserRequest request =
-            com.clerk.backend_api.models.operations.UnbanUserRequest
+        UnbanUserRequest request =
+            UnbanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UnbanUserRequest.class,
+                UnbanUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}/unban",
                 request, null);
@@ -1017,7 +1184,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UnbanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UnbanUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1025,18 +1195,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UnbanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UnbanUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UnbanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UnbanUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UnbanUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UnbanUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1044,42 +1224,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UnbanUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UnbanUserResponse
+        UnbanUserResponse.Builder _resBuilder = 
+            UnbanUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UnbanUserResponse _res = _resBuilder.build();
+        UnbanUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1088,13 +1268,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1105,8 +1285,8 @@ public class Users implements
      * Lock duration can be configured in the instance's restrictions settings.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.LockUserRequestBuilder lock() {
-        return new com.clerk.backend_api.models.operations.LockUserRequestBuilder(this);
+    public LockUserRequestBuilder lock() {
+        return new LockUserRequestBuilder(this);
     }
 
     /**
@@ -1117,17 +1297,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.LockUserResponse lock(
+    public LockUserResponse lock(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.LockUserRequest request =
-            com.clerk.backend_api.models.operations.LockUserRequest
+        LockUserRequest request =
+            LockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.LockUserRequest.class,
+                LockUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}/lock",
                 request, null);
@@ -1144,7 +1324,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("LockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "LockUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1152,18 +1335,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("LockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "LockUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("LockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "LockUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("LockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "LockUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1171,42 +1364,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.LockUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.LockUserResponse
+        LockUserResponse.Builder _resBuilder = 
+            LockUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.LockUserResponse _res = _resBuilder.build();
+        LockUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1215,13 +1408,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1231,8 +1424,8 @@ public class Users implements
      * Removes the lock from the given user.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UnlockUserRequestBuilder unlock() {
-        return new com.clerk.backend_api.models.operations.UnlockUserRequestBuilder(this);
+    public UnlockUserRequestBuilder unlock() {
+        return new UnlockUserRequestBuilder(this);
     }
 
     /**
@@ -1242,17 +1435,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UnlockUserResponse unlock(
+    public UnlockUserResponse unlock(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.UnlockUserRequest request =
-            com.clerk.backend_api.models.operations.UnlockUserRequest
+        UnlockUserRequest request =
+            UnlockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UnlockUserRequest.class,
+                UnlockUserRequest.class,
                 _baseUrl,
                 "/users/{user_id}/unlock",
                 request, null);
@@ -1269,7 +1462,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UnlockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UnlockUser", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1277,18 +1473,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UnlockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UnlockUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UnlockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UnlockUser",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UnlockUser", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UnlockUser",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1296,42 +1502,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UnlockUserResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UnlockUserResponse
+        UnlockUserResponse.Builder _resBuilder = 
+            UnlockUserResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UnlockUserResponse _res = _resBuilder.build();
+        UnlockUserResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1340,13 +1546,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1356,8 +1562,8 @@ public class Users implements
      * Update a user's profile image
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.SetUserProfileImageRequestBuilder setProfileImage() {
-        return new com.clerk.backend_api.models.operations.SetUserProfileImageRequestBuilder(this);
+    public SetUserProfileImageRequestBuilder setProfileImage() {
+        return new SetUserProfileImageRequestBuilder(this);
     }
 
     /**
@@ -1368,11 +1574,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.SetUserProfileImageResponse setProfileImage(
+    public SetUserProfileImageResponse setProfileImage(
             String userId,
-            com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.SetUserProfileImageRequest request =
-            com.clerk.backend_api.models.operations.SetUserProfileImageRequest
+            SetUserProfileImageRequestBody requestBody) throws Exception {
+        SetUserProfileImageRequest request =
+            SetUserProfileImageRequest
                 .builder()
                 .userId(userId)
                 .requestBody(requestBody)
@@ -1380,16 +1586,21 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.SetUserProfileImageRequest.class,
+                SetUserProfileImageRequest.class,
                 _baseUrl,
                 "/users/{user_id}/profile_image",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "multipart", false);
+                _convertedRequest, 
+                "requestBody",
+                "multipart",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -1405,7 +1616,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("SetUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "SetUserProfileImage", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1413,18 +1627,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("SetUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "SetUserProfileImage",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("SetUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "SetUserProfileImage",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("SetUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "SetUserProfileImage",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1432,42 +1656,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.SetUserProfileImageResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.SetUserProfileImageResponse
+        SetUserProfileImageResponse.Builder _resBuilder = 
+            SetUserProfileImageResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.SetUserProfileImageResponse _res = _resBuilder.build();
+        SetUserProfileImageResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1476,13 +1700,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1492,8 +1716,8 @@ public class Users implements
      * Delete a user's profile image
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteUserProfileImageRequestBuilder deleteProfileImage() {
-        return new com.clerk.backend_api.models.operations.DeleteUserProfileImageRequestBuilder(this);
+    public DeleteUserProfileImageRequestBuilder deleteProfileImage() {
+        return new DeleteUserProfileImageRequestBuilder(this);
     }
 
     /**
@@ -1503,17 +1727,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse deleteProfileImage(
+    public DeleteUserProfileImageResponse deleteProfileImage(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteUserProfileImageRequest request =
-            com.clerk.backend_api.models.operations.DeleteUserProfileImageRequest
+        DeleteUserProfileImageRequest request =
+            DeleteUserProfileImageRequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteUserProfileImageRequest.class,
+                DeleteUserProfileImageRequest.class,
                 _baseUrl,
                 "/users/{user_id}/profile_image",
                 request, null);
@@ -1530,7 +1754,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteUserProfileImage", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1538,18 +1765,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteUserProfileImage",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteUserProfileImage",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteUserProfileImage", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteUserProfileImage",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1557,42 +1794,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse
+        DeleteUserProfileImageResponse.Builder _resBuilder = 
+            DeleteUserProfileImageResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse _res = _resBuilder.build();
+        DeleteUserProfileImageResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1601,13 +1838,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1624,8 +1861,8 @@ public class Users implements
      * You can remove metadata keys at any level by setting their value to `null`.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBuilder updateMetadata() {
-        return new com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBuilder(this);
+    public UpdateUserMetadataRequestBuilder updateMetadata() {
+        return new UpdateUserMetadataRequestBuilder(this);
     }
 
     /**
@@ -1642,10 +1879,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateUserMetadataResponse updateMetadata(
+    public UpdateUserMetadataResponse updateMetadata(
             String userId) throws Exception {
         return updateMetadata(userId, Optional.empty());
     }
+    
     /**
      * Merge and update a user's metadata
      * Update a user's metadata attributes by merging existing values with the provided parameters.
@@ -1661,11 +1899,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateUserMetadataResponse updateMetadata(
+    public UpdateUserMetadataResponse updateMetadata(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateUserMetadataRequest request =
-            com.clerk.backend_api.models.operations.UpdateUserMetadataRequest
+            Optional<? extends UpdateUserMetadataRequestBody> requestBody) throws Exception {
+        UpdateUserMetadataRequest request =
+            UpdateUserMetadataRequest
                 .builder()
                 .userId(userId)
                 .requestBody(requestBody)
@@ -1673,16 +1911,21 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateUserMetadataRequest.class,
+                UpdateUserMetadataRequest.class,
                 _baseUrl,
                 "/users/{user_id}/metadata",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -1695,7 +1938,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateUserMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateUserMetadata", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1703,18 +1949,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateUserMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateUserMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateUserMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateUserMetadata",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateUserMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateUserMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1722,42 +1978,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateUserMetadataResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateUserMetadataResponse
+        UpdateUserMetadataResponse.Builder _resBuilder = 
+            UpdateUserMetadataResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateUserMetadataResponse _res = _resBuilder.build();
+        UpdateUserMetadataResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.User _out = Utils.mapper().readValue(
+                User _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.User>() {});
-                _res.withUser(java.util.Optional.ofNullable(_out));
+                    new TypeReference<User>() {});
+                _res.withUser(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1766,13 +2022,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1783,8 +2039,8 @@ public class Users implements
      * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequestBuilder getOAuthAccessToken() {
-        return new com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequestBuilder(this);
+    public GetOAuthAccessTokenRequestBuilder getOAuthAccessToken() {
+        return new GetOAuthAccessTokenRequestBuilder(this);
     }
 
     /**
@@ -1796,11 +2052,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse getOAuthAccessToken(
+    public GetOAuthAccessTokenResponse getOAuthAccessToken(
             String userId,
             String provider) throws Exception {
-        com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest request =
-            com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest
+        GetOAuthAccessTokenRequest request =
+            GetOAuthAccessTokenRequest
                 .builder()
                 .userId(userId)
                 .provider(provider)
@@ -1808,7 +2064,7 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest.class,
+                GetOAuthAccessTokenRequest.class,
                 _baseUrl,
                 "/users/{user_id}/oauth_access_tokens/{provider}",
                 request, null);
@@ -1825,7 +2081,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetOAuthAccessToken", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetOAuthAccessToken", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1833,18 +2092,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetOAuthAccessToken", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetOAuthAccessToken",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetOAuthAccessToken", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetOAuthAccessToken",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetOAuthAccessToken", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetOAuthAccessToken",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1852,42 +2121,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse
+        GetOAuthAccessTokenResponse.Builder _resBuilder = 
+            GetOAuthAccessTokenResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse _res = _resBuilder.build();
+        GetOAuthAccessTokenResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                java.util.List<com.clerk.backend_api.models.operations.ResponseBody> _out = Utils.mapper().readValue(
+                List<ResponseBody> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<java.util.List<com.clerk.backend_api.models.operations.ResponseBody>>() {});
-                _res.withResponseBodies(java.util.Optional.ofNullable(_out));
+                    new TypeReference<List<ResponseBody>>() {});
+                _res.withResponseBodies(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1896,13 +2165,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1912,8 +2181,8 @@ public class Users implements
      * Retrieve a paginated list of the user's organization memberships
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder getOrganizationMemberships() {
-        return new com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder(this);
+    public UsersGetOrganizationMembershipsRequestBuilder getOrganizationMemberships() {
+        return new UsersGetOrganizationMembershipsRequestBuilder(this);
     }
 
     /**
@@ -1923,10 +2192,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
+    public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId) throws Exception {
         return getOrganizationMemberships(userId, Optional.empty(), Optional.empty());
     }
+    
     /**
      * Retrieve all memberships for a user
      * Retrieve a paginated list of the user's organization memberships
@@ -1939,12 +2209,12 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
+    public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception {
-        com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest request =
-            com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception {
+        UsersGetOrganizationMembershipsRequest request =
+            UsersGetOrganizationMembershipsRequest
                 .builder()
                 .userId(userId)
                 .limit(limit)
@@ -1953,7 +2223,7 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest.class,
+                UsersGetOrganizationMembershipsRequest.class,
                 _baseUrl,
                 "/users/{user_id}/organization_memberships",
                 request, null);
@@ -1964,7 +2234,7 @@ public class Users implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest.class,
+                UsersGetOrganizationMembershipsRequest.class,
                 request, 
                 null));
 
@@ -1975,7 +2245,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UsersGetOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UsersGetOrganizationMemberships", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1983,18 +2256,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UsersGetOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UsersGetOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UsersGetOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UsersGetOrganizationMemberships",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UsersGetOrganizationMemberships", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UsersGetOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -2002,11 +2285,11 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse
+        UsersGetOrganizationMembershipsResponse.Builder _resBuilder = 
+            UsersGetOrganizationMembershipsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -2029,22 +2312,22 @@ public class Users implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder _ret = getOrganizationMemberships();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    UsersGetOrganizationMembershipsRequestBuilder _ret = getOrganizationMemberships();
                     _ret.userId(userId);
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse _res = _resBuilder.build();
+        UsersGetOrganizationMembershipsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMemberships _out = Utils.mapper().readValue(
+                OrganizationMemberships _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMemberships>() {});
-                _res.withOrganizationMemberships(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationMemberships>() {});
+                _res.withOrganizationMemberships(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -2056,9 +2339,9 @@ public class Users implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -2091,8 +2374,8 @@ public class Users implements
      * Useful for custom auth flows and re-verification.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.VerifyPasswordRequestBuilder verifyPassword() {
-        return new com.clerk.backend_api.models.operations.VerifyPasswordRequestBuilder(this);
+    public VerifyPasswordRequestBuilder verifyPassword() {
+        return new VerifyPasswordRequestBuilder(this);
     }
 
     /**
@@ -2103,10 +2386,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyPasswordResponse verifyPassword(
+    public VerifyPasswordResponse verifyPassword(
             String userId) throws Exception {
         return verifyPassword(userId, Optional.empty());
     }
+    
     /**
      * Verify the password of a user
      * Check that the user's password matches the supplied input.
@@ -2116,11 +2400,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyPasswordResponse verifyPassword(
+    public VerifyPasswordResponse verifyPassword(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyPasswordRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.VerifyPasswordRequest request =
-            com.clerk.backend_api.models.operations.VerifyPasswordRequest
+            Optional<? extends VerifyPasswordRequestBody> requestBody) throws Exception {
+        VerifyPasswordRequest request =
+            VerifyPasswordRequest
                 .builder()
                 .userId(userId)
                 .requestBody(requestBody)
@@ -2128,16 +2412,21 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.VerifyPasswordRequest.class,
+                VerifyPasswordRequest.class,
                 _baseUrl,
                 "/users/{user_id}/verify_password",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -2150,7 +2439,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("VerifyPassword", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "VerifyPassword", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -2158,18 +2450,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "500", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("VerifyPassword", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "VerifyPassword",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("VerifyPassword", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "VerifyPassword",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("VerifyPassword", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "VerifyPassword",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -2177,28 +2479,28 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.VerifyPasswordResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.VerifyPasswordResponse
+        VerifyPasswordResponse.Builder _resBuilder = 
+            VerifyPasswordResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.VerifyPasswordResponse _res = _resBuilder.build();
+        VerifyPasswordResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.operations.VerifyPasswordResponseBody _out = Utils.mapper().readValue(
+                VerifyPasswordResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.operations.VerifyPasswordResponseBody>() {});
-                _res.withObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<VerifyPasswordResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
@@ -2207,27 +2509,27 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -2240,8 +2542,8 @@ public class Users implements
      * Useful for custom auth flows and re-verification.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.VerifyTOTPRequestBuilder verifyTOTP() {
-        return new com.clerk.backend_api.models.operations.VerifyTOTPRequestBuilder(this);
+    public VerifyTOTPRequestBuilder verifyTOTP() {
+        return new VerifyTOTPRequestBuilder(this);
     }
 
     /**
@@ -2254,10 +2556,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyTOTPResponse verifyTOTP(
+    public VerifyTOTPResponse verifyTOTP(
             String userId) throws Exception {
         return verifyTOTP(userId, Optional.empty());
     }
+    
     /**
      * Verify a TOTP or backup code for a user
      * Verify that the provided TOTP or backup code is valid for the user.
@@ -2269,11 +2572,11 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.VerifyTOTPResponse verifyTOTP(
+    public VerifyTOTPResponse verifyTOTP(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.VerifyTOTPRequest request =
-            com.clerk.backend_api.models.operations.VerifyTOTPRequest
+            Optional<? extends VerifyTOTPRequestBody> requestBody) throws Exception {
+        VerifyTOTPRequest request =
+            VerifyTOTPRequest
                 .builder()
                 .userId(userId)
                 .requestBody(requestBody)
@@ -2281,16 +2584,21 @@ public class Users implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.VerifyTOTPRequest.class,
+                VerifyTOTPRequest.class,
                 _baseUrl,
                 "/users/{user_id}/verify_totp",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -2303,7 +2611,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("VerifyTOTP", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "VerifyTOTP", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -2311,18 +2622,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "500", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("VerifyTOTP", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "VerifyTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("VerifyTOTP", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "VerifyTOTP",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("VerifyTOTP", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "VerifyTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -2330,28 +2651,28 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.VerifyTOTPResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.VerifyTOTPResponse
+        VerifyTOTPResponse.Builder _resBuilder = 
+            VerifyTOTPResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.VerifyTOTPResponse _res = _resBuilder.build();
+        VerifyTOTPResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.operations.VerifyTOTPResponseBody _out = Utils.mapper().readValue(
+                VerifyTOTPResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.operations.VerifyTOTPResponseBody>() {});
-                _res.withObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<VerifyTOTPResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
@@ -2360,27 +2681,27 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -2390,8 +2711,8 @@ public class Users implements
      * Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at once.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DisableMFARequestBuilder disableMFA() {
-        return new com.clerk.backend_api.models.operations.DisableMFARequestBuilder(this);
+    public DisableMFARequestBuilder disableMFA() {
+        return new DisableMFARequestBuilder(this);
     }
 
     /**
@@ -2401,17 +2722,17 @@ public class Users implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DisableMFAResponse disableMFA(
+    public DisableMFAResponse disableMFA(
             String userId) throws Exception {
-        com.clerk.backend_api.models.operations.DisableMFARequest request =
-            com.clerk.backend_api.models.operations.DisableMFARequest
+        DisableMFARequest request =
+            DisableMFARequest
                 .builder()
                 .userId(userId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DisableMFARequest.class,
+                DisableMFARequest.class,
                 _baseUrl,
                 "/users/{user_id}/mfa",
                 request, null);
@@ -2428,7 +2749,10 @@ public class Users implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DisableMFA", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DisableMFA", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -2436,18 +2760,28 @@ public class Users implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "500", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DisableMFA", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DisableMFA",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DisableMFA", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DisableMFA",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DisableMFA", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DisableMFA",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -2455,42 +2789,42 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DisableMFAResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DisableMFAResponse
+        DisableMFAResponse.Builder _resBuilder = 
+            DisableMFAResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DisableMFAResponse _res = _resBuilder.build();
+        DisableMFAResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.operations.DisableMFAResponseBody _out = Utils.mapper().readValue(
+                DisableMFAResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.operations.DisableMFAResponseBody>() {});
-                _res.withObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DisableMFAResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "500")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -2499,13 +2833,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.OAuthApplicationWithSecret;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_api.utils.Response {
+
+public class RotateOAuthApplicationSecretResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
     /**
      * An OAuth application with client secret
      */
-    private Optional<? extends com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret;
+    private Optional<? extends OAuthApplicationWithSecret> oAuthApplicationWithSecret;
 
     @JsonCreator
     public RotateOAuthApplicationSecretResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
+            Optional<? extends OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret() {
-        return (Optional<com.clerk.backend_api.models.components.OAuthApplicationWithSecret>) oAuthApplicationWithSecret;
+    public Optional<OAuthApplicationWithSecret> oAuthApplicationWithSecret() {
+        return (Optional<OAuthApplicationWithSecret>) oAuthApplicationWithSecret;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
     /**
      * An OAuth application with client secret
      */
-    public RotateOAuthApplicationSecretResponse withOAuthApplicationWithSecret(com.clerk.backend_api.models.components.OAuthApplicationWithSecret oAuthApplicationWithSecret) {
+    public RotateOAuthApplicationSecretResponse withOAuthApplicationWithSecret(OAuthApplicationWithSecret oAuthApplicationWithSecret) {
         Utils.checkNotNull(oAuthApplicationWithSecret, "oAuthApplicationWithSecret");
         this.oAuthApplicationWithSecret = Optional.ofNullable(oAuthApplicationWithSecret);
         return this;
@@ -137,7 +141,7 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
     /**
      * An OAuth application with client secret
      */
-    public RotateOAuthApplicationSecretResponse withOAuthApplicationWithSecret(Optional<? extends com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
+    public RotateOAuthApplicationSecretResponse withOAuthApplicationWithSecret(Optional<? extends OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
         Utils.checkNotNull(oAuthApplicationWithSecret, "oAuthApplicationWithSecret");
         this.oAuthApplicationWithSecret = oAuthApplicationWithSecret;
         return this;
@@ -153,15 +157,15 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
         }
         RotateOAuthApplicationSecretResponse other = (RotateOAuthApplicationSecretResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.oAuthApplicationWithSecret, other.oAuthApplicationWithSecret);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.oAuthApplicationWithSecret, other.oAuthApplicationWithSecret);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret = Optional.empty();  
+        private Optional<? extends OAuthApplicationWithSecret> oAuthApplicationWithSecret = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
         /**
          * An OAuth application with client secret
          */
-        public Builder oAuthApplicationWithSecret(com.clerk.backend_api.models.components.OAuthApplicationWithSecret oAuthApplicationWithSecret) {
+        public Builder oAuthApplicationWithSecret(OAuthApplicationWithSecret oAuthApplicationWithSecret) {
             Utils.checkNotNull(oAuthApplicationWithSecret, "oAuthApplicationWithSecret");
             this.oAuthApplicationWithSecret = Optional.ofNullable(oAuthApplicationWithSecret);
             return this;
@@ -230,7 +234,7 @@ public class RotateOAuthApplicationSecretResponse implements com.clerk.backend_a
         /**
          * An OAuth application with client secret
          */
-        public Builder oAuthApplicationWithSecret(Optional<? extends com.clerk.backend_api.models.components.OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
+        public Builder oAuthApplicationWithSecret(Optional<? extends OAuthApplicationWithSecret> oAuthApplicationWithSecret) {
             Utils.checkNotNull(oAuthApplicationWithSecret, "oAuthApplicationWithSecret");
             this.oAuthApplicationWithSecret = oAuthApplicationWithSecret;
             return this;

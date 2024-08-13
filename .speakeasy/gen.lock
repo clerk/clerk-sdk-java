@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 8a8b44e8346bd0bbfc9f9cf4d44c5332
+  docChecksum: f6e25376d224dc39635a7f5eed081de2
   docVersion: v1
-  speakeasyVersion: 1.355.0
-  generationVersion: 2.387.0
-  releaseVersion: 0.2.0-beta.2
-  configChecksum: 57f8a85077c5d6ca82c3da201d722346
+  speakeasyVersion: 1.363.1
+  generationVersion: 2.396.0
+  releaseVersion: 0.2.0-beta.3
+  configChecksum: 8937a932cdbc31c4c0b1b9677787e07c
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.27.0
+    core: 3.28.1
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1
-    globalSecurity: 2.82.6
+    globalSecurity: 2.82.7
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.1
@@ -26,7 +26,7 @@ features:
     nullables: 0.1.0
     pagination: 0.2.2
     sdkHooks: 0.1.0
-    unions: 0.0.4
+    unions: 0.0.5
 generatedFiles:
   - src/main/java/com/clerk/backend_api/SecuritySource.java
   - src/main/java/com/clerk/backend_api/SDKConfiguration.java

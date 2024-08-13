@@ -8,25 +8,20 @@ import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.Long;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class ListInvitationsRequestBuilder {
 
-    private Optional<? extends Long> limit = Utils.readDefaultOrConstValue(
+    private Optional<Long> limit = Utils.readDefaultOrConstValue(
                             "limit",
                             "10",
-                            new TypeReference<Optional<? extends Long>>() {});
-    private Optional<? extends Long> offset = Utils.readDefaultOrConstValue(
+                            new TypeReference<Optional<Long>>() {});
+    private Optional<Long> offset = Utils.readDefaultOrConstValue(
                             "offset",
                             "0",
-                            new TypeReference<Optional<? extends Long>>() {});
+                            new TypeReference<Optional<Long>>() {});
     private Optional<? extends QueryParamStatus> status = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListInvitations sdk;
 
@@ -40,7 +35,7 @@ public class ListInvitationsRequestBuilder {
         return this;
     }
 
-    public ListInvitationsRequestBuilder limit(Optional<? extends Long> limit) {
+    public ListInvitationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -52,19 +47,19 @@ public class ListInvitationsRequestBuilder {
         return this;
     }
 
-    public ListInvitationsRequestBuilder offset(Optional<? extends Long> offset) {
+    public ListInvitationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public ListInvitationsRequestBuilder status(QueryParamStatus status) {
+    public ListInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.QueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public ListInvitationsRequestBuilder status(Optional<? extends QueryParamStatus> status) {
+    public ListInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.QueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -105,15 +100,15 @@ public class ListInvitationsRequestBuilder {
         });
     }
 
-    private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Limit =
+    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
             new LazySingletonValue<>(
                     "limit",
                     "10",
-                    new TypeReference<Optional<? extends Long>>() {});
+                    new TypeReference<Optional<Long>>() {});
 
-    private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Offset =
+    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
             new LazySingletonValue<>(
                     "offset",
                     "0",
-                    new TypeReference<Optional<? extends Long>>() {});
+                    new TypeReference<Optional<Long>>() {});
 }

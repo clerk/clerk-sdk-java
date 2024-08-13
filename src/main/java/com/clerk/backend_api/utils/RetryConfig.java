@@ -5,8 +5,6 @@
 package com.clerk.backend_api.utils;
 
 import java.util.Optional;
-import com.clerk.backend_api.utils.Utils;
-
 
 public class RetryConfig {
 

@@ -4,18 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
+import java.lang.String;
 
 public class RevokeInvitationRequestBuilder {
 
@@ -26,7 +16,7 @@ public class RevokeInvitationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RevokeInvitationRequestBuilder invitationId(String invitationId) {
+    public RevokeInvitationRequestBuilder invitationId(java.lang.String invitationId) {
         Utils.checkNotNull(invitationId, "invitationId");
         this.invitationId = invitationId;
         return this;

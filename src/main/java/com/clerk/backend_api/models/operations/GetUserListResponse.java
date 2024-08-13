@@ -4,19 +4,24 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.User;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetUserListResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetUserListResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +41,14 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
     /**
      * Success
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList;
+    private Optional<? extends List<User>> userList;
 
     @JsonCreator
     public GetUserListResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList) {
+            Optional<? extends List<User>> userList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +95,8 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.User>> userList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.User>>) userList;
+    public Optional<List<User>> userList() {
+        return (Optional<List<User>>) userList;
     }
 
     public final static Builder builder() {
@@ -128,7 +133,7 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
     /**
      * Success
      */
-    public GetUserListResponse withUserList(java.util.List<com.clerk.backend_api.models.components.User> userList) {
+    public GetUserListResponse withUserList(List<User> userList) {
         Utils.checkNotNull(userList, "userList");
         this.userList = Optional.ofNullable(userList);
         return this;
@@ -137,7 +142,7 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
     /**
      * Success
      */
-    public GetUserListResponse withUserList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList) {
+    public GetUserListResponse withUserList(Optional<? extends List<User>> userList) {
         Utils.checkNotNull(userList, "userList");
         this.userList = userList;
         return this;
@@ -153,15 +158,15 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
         }
         GetUserListResponse other = (GetUserListResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.userList, other.userList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.userList, other.userList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +190,7 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList = Optional.empty();  
+        private Optional<? extends List<User>> userList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +226,7 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
         /**
          * Success
          */
-        public Builder userList(java.util.List<com.clerk.backend_api.models.components.User> userList) {
+        public Builder userList(List<User> userList) {
             Utils.checkNotNull(userList, "userList");
             this.userList = Optional.ofNullable(userList);
             return this;
@@ -230,7 +235,7 @@ public class GetUserListResponse implements com.clerk.backend_api.utils.Response
         /**
          * Success
          */
-        public Builder userList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.User>> userList) {
+        public Builder userList(Optional<? extends List<User>> userList) {
             Utils.checkNotNull(userList, "userList");
             this.userList = userList;
             return this;

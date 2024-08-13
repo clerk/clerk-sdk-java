@@ -17,17 +17,9 @@ Create a Svix app and associate it with the current instance
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSvixAppResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -46,7 +38,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -59,9 +51,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateSvixAppResponse](../../models/operations/CreateSvixAppResponse.md)**
+**[CreateSvixAppResponse](../../models/operations/CreateSvixAppResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -79,17 +73,9 @@ Delete a Svix app and disassociate it from the current instance
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteSvixAppResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -106,7 +92,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -119,9 +105,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteSvixAppResponse](../../models/operations/DeleteSvixAppResponse.md)**
+**[DeleteSvixAppResponse](../../models/operations/DeleteSvixAppResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -139,17 +127,9 @@ Generate a new url for accessing the Svix's management dashboard for that partic
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -168,7 +148,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -181,9 +161,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse](../../models/operations/GenerateSvixAuthURLResponse.md)**
+**[GenerateSvixAuthURLResponse](../../models/operations/GenerateSvixAuthURLResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

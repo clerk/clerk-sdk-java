@@ -14,10 +14,7 @@ import java.util.stream.Collectors;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.clerk.backend_api.utils.Utils.JsonShape;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class QueryParameters {
