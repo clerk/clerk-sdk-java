@@ -1,6 +1,6 @@
 overlay: 1.0.0
 info:
-  title: Overlay File to fix issues in OAS
+  title: Overlay openapi.yml => openapi-fixes.yml
   version: 0.0.0
 actions:
   - target: $["components"]["schemas"]["OTP"]["properties"]["strategy"]["enum"][*]
@@ -13,6 +13,12 @@ actions:
       - "from_oauth_discord"
       - "from_oauth_google"
       - "from_oauth_apple"
+  - target: $["components"]["schemas"]["OTP"]["required"][*]
+    remove: true
+  - target: $["components"]["schemas"]["OTP"]["required"]
+    update:
+      - "status"
+      - "strategy"
   - target: $["components"]["schemas"]["Oauth"]["properties"]["strategy"]["enum"][*]
     remove: true
   - target: $["components"]["schemas"]["Oauth"]["properties"]["strategy"]["enum"]
