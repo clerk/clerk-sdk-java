@@ -33,17 +33,10 @@ The users are returned sorted by creation date, with the newest users appearing 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetUserListRequest;
+import com.clerk.backend_api.models.operations.GetUserListResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -67,7 +60,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -79,16 +72,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                   | [com.clerk.backend_api.models.operations.GetUserListRequest](../../models/operations/GetUserListRequest.md) | :heavy_check_mark:                                                                                          | The request object to use for the request.                                                                  |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [GetUserListRequest](../../models/operations/GetUserListRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetUserListResponse](../../models/operations/GetUserListResponse.md)**
+**[GetUserListResponse](../../models/operations/GetUserListResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -112,17 +107,10 @@ A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateUserRequestBody;
+import com.clerk.backend_api.models.operations.CreateUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -145,7 +133,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -157,16 +145,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                         | [com.clerk.backend_api.models.operations.CreateUserRequestBody](../../models/operations/CreateUserRequestBody.md) | :heavy_check_mark:                                                                                                | The request object to use for the request.                                                                        |
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [CreateUserRequestBody](../../models/operations/CreateUserRequestBody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateUserResponse](../../models/operations/CreateUserResponse.md)**
+**[CreateUserResponse](../../models/operations/CreateUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -184,17 +174,10 @@ Returns a total count of all users that match the given filtering criteria.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetUsersCountRequest;
+import com.clerk.backend_api.models.operations.GetUsersCountResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -217,7 +200,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -229,16 +212,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                       | [com.clerk.backend_api.models.operations.GetUsersCountRequest](../../models/operations/GetUsersCountRequest.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [GetUsersCountRequest](../../models/operations/GetUsersCountRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetUsersCountResponse](../../models/operations/GetUsersCountResponse.md)**
+**[GetUsersCountResponse](../../models/operations/GetUsersCountResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -256,17 +241,9 @@ Retrieve the details of a user
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -286,7 +263,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -298,6 +275,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                      | Type                           | Required                       | Description                    |
@@ -307,7 +286,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetUserResponse](../../models/operations/GetUserResponse.md)**
+**[GetUserResponse](../../models/operations/GetUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -336,17 +315,10 @@ You can also choose to sign the user out of all their active sessions on any dev
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateUserRequestBody;
+import com.clerk.backend_api.models.operations.UpdateUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -368,7 +340,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -380,17 +352,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                                          | *String*                                                                                                          | :heavy_check_mark:                                                                                                | The ID of the user to update                                                                                      |
-| `requestBody`                                                                                                     | [com.clerk.backend_api.models.operations.UpdateUserRequestBody](../../models/operations/UpdateUserRequestBody.md) | :heavy_check_mark:                                                                                                | N/A                                                                                                               |
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `userId`                                                                  | *String*                                                                  | :heavy_check_mark:                                                        | The ID of the user to update                                              |
+| `requestBody`                                                             | [UpdateUserRequestBody](../../models/operations/UpdateUserRequestBody.md) | :heavy_check_mark:                                                        | N/A                                                                       |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateUserResponse](../../models/operations/UpdateUserResponse.md)**
+**[UpdateUserResponse](../../models/operations/UpdateUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -408,17 +382,9 @@ Delete the specified user
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -438,7 +404,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -450,6 +416,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                    | Type                         | Required                     | Description                  |
@@ -459,7 +427,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteUserResponse](../../models/operations/DeleteUserResponse.md)**
+**[DeleteUserResponse](../../models/operations/DeleteUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -477,17 +445,9 @@ Marks the given user as banned, which means that all their sessions are revoked 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.BanUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -507,7 +467,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -519,6 +479,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                 | Type                      | Required                  | Description               |
@@ -528,7 +490,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.BanUserResponse](../../models/operations/BanUserResponse.md)**
+**[BanUserResponse](../../models/operations/BanUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -546,17 +508,9 @@ Removes the ban mark from the given user.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UnbanUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -576,7 +530,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -588,6 +542,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                   | Type                        | Required                    | Description                 |
@@ -597,7 +553,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UnbanUserResponse](../../models/operations/UnbanUserResponse.md)**
+**[UnbanUserResponse](../../models/operations/UnbanUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -616,17 +572,9 @@ Lock duration can be configured in the instance's restrictions settings.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.LockUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -646,7 +594,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -658,6 +606,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                  | Type                       | Required                   | Description                |
@@ -667,7 +617,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.LockUserResponse](../../models/operations/LockUserResponse.md)**
+**[LockUserResponse](../../models/operations/LockUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -685,17 +635,9 @@ Removes the lock from the given user.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UnlockUserResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -715,7 +657,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -727,6 +669,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                    | Type                         | Required                     | Description                  |
@@ -736,7 +680,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UnlockUserResponse](../../models/operations/UnlockUserResponse.md)**
+**[UnlockUserResponse](../../models/operations/UnlockUserResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -754,17 +698,10 @@ Update a user's profile image
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody;
+import com.clerk.backend_api.models.operations.SetUserProfileImageResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -786,7 +723,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -798,17 +735,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                           | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                                                            | *String*                                                                                                                            | :heavy_check_mark:                                                                                                                  | The ID of the user to update the profile image for                                                                                  |
-| `requestBody`                                                                                                                       | [com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody](../../models/operations/SetUserProfileImageRequestBody.md) | :heavy_check_mark:                                                                                                                  | N/A                                                                                                                                 |
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `userId`                                                                                    | *String*                                                                                    | :heavy_check_mark:                                                                          | The ID of the user to update the profile image for                                          |
+| `requestBody`                                                                               | [SetUserProfileImageRequestBody](../../models/operations/SetUserProfileImageRequestBody.md) | :heavy_check_mark:                                                                          | N/A                                                                                         |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.SetUserProfileImageResponse](../../models/operations/SetUserProfileImageResponse.md)**
+**[SetUserProfileImageResponse](../../models/operations/SetUserProfileImageResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -826,17 +765,9 @@ Delete a user's profile image
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -856,7 +787,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -868,6 +799,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                          | Type                                               | Required                                           | Description                                        |
@@ -877,7 +810,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse](../../models/operations/DeleteUserProfileImageResponse.md)**
+**[DeleteUserProfileImageResponse](../../models/operations/DeleteUserProfileImageResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -902,17 +835,10 @@ You can remove metadata keys at any level by setting their value to `null`.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody;
+import com.clerk.backend_api.models.operations.UpdateUserMetadataResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -934,7 +860,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -946,17 +872,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                                                                              | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the user whose metadata will be updated and merged                                                                                          |
-| `requestBody`                                                                                                                                         | [Optional<? extends com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                            | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the user whose metadata will be updated and merged                                        |
+| `requestBody`                                                                                       | [Optional<UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateUserMetadataResponse](../../models/operations/UpdateUserMetadataResponse.md)**
+**[UpdateUserMetadataResponse](../../models/operations/UpdateUserMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -975,17 +903,9 @@ For OAuth 2.0, if the access token has expired and we have a corresponding refre
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -1006,7 +926,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -1018,6 +938,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
@@ -1028,7 +950,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse](../../models/operations/GetOAuthAccessTokenResponse.md)**
+**[GetOAuthAccessTokenResponse](../../models/operations/GetOAuthAccessTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -1046,17 +968,7 @@ Retrieve a paginated list of the user's organization memberships
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -1087,18 +999,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `userId`                                                                                                                                  | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The ID of the user whose organization memberships we want to retrieve                                                                     |
-| `limit`                                                                                                                                   | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse](../../models/operations/UsersGetOrganizationMembershipsResponse.md)**
+**[UsersGetOrganizationMembershipsResponse](../../models/operations/UsersGetOrganizationMembershipsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -1117,17 +1031,10 @@ Useful for custom auth flows and re-verification.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.VerifyPasswordRequestBody;
+import com.clerk.backend_api.models.operations.VerifyPasswordResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -1150,7 +1057,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -1162,17 +1069,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                                                                      | *String*                                                                                                                                      | :heavy_check_mark:                                                                                                                            | The ID of the user for whom to verify the password                                                                                            |
-| `requestBody`                                                                                                                                 | [Optional<? extends com.clerk.backend_api.models.operations.VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                                                                            | N/A                                                                                                                                           |
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `userId`                                                                                    | *String*                                                                                    | :heavy_check_mark:                                                                          | The ID of the user for whom to verify the password                                          |
+| `requestBody`                                                                               | [Optional<VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                          | N/A                                                                                         |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.VerifyPasswordResponse](../../models/operations/VerifyPasswordResponse.md)**
+**[VerifyPasswordResponse](../../models/operations/VerifyPasswordResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -1193,17 +1102,10 @@ Useful for custom auth flows and re-verification.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.VerifyTOTPRequestBody;
+import com.clerk.backend_api.models.operations.VerifyTOTPResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -1226,7 +1128,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -1238,17 +1140,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                                                              | *String*                                                                                                                              | :heavy_check_mark:                                                                                                                    | The ID of the user for whom to verify the TOTP                                                                                        |
-| `requestBody`                                                                                                                         | [Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                                                                    | N/A                                                                                                                                   |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `userId`                                                                            | *String*                                                                            | :heavy_check_mark:                                                                  | The ID of the user for whom to verify the TOTP                                      |
+| `requestBody`                                                                       | [Optional<VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.VerifyTOTPResponse](../../models/operations/VerifyTOTPResponse.md)**
+**[VerifyTOTPResponse](../../models/operations/VerifyTOTPResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -1266,17 +1170,9 @@ Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authen
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DisableMFAResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -1296,7 +1192,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -1308,6 +1204,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                               | Type                                                    | Required                                                | Description                                             |
@@ -1317,7 +1215,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DisableMFAResponse](../../models/operations/DisableMFAResponse.md)**
+**[DisableMFAResponse](../../models/operations/DisableMFAResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

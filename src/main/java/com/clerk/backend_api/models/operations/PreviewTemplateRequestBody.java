@@ -4,20 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 /**
  * PreviewTemplateRequestBody - Required parameters
  */
@@ -30,14 +29,14 @@ public class PreviewTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("subject")
-    private JsonNullable<? extends String> subject;
+    private JsonNullable<String> subject;
 
     /**
      * The template body before variable interpolation
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("body")
-    private Optional<? extends String> body;
+    private Optional<String> body;
 
     /**
      * The local part of the From email address that will be used for emails.
@@ -46,7 +45,7 @@ public class PreviewTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_name")
-    private Optional<? extends String> fromEmailName;
+    private Optional<String> fromEmailName;
 
     /**
      * The local part of the Reply To email address that will be used for emails.
@@ -55,14 +54,14 @@ public class PreviewTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reply_to_email_name")
-    private Optional<? extends String> replyToEmailName;
+    private Optional<String> replyToEmailName;
 
     @JsonCreator
     public PreviewTemplateRequestBody(
-            @JsonProperty("subject") JsonNullable<? extends String> subject,
-            @JsonProperty("body") Optional<? extends String> body,
-            @JsonProperty("from_email_name") Optional<? extends String> fromEmailName,
-            @JsonProperty("reply_to_email_name") Optional<? extends String> replyToEmailName) {
+            @JsonProperty("subject") JsonNullable<String> subject,
+            @JsonProperty("body") Optional<String> body,
+            @JsonProperty("from_email_name") Optional<String> fromEmailName,
+            @JsonProperty("reply_to_email_name") Optional<String> replyToEmailName) {
         Utils.checkNotNull(subject, "subject");
         Utils.checkNotNull(body, "body");
         Utils.checkNotNull(fromEmailName, "fromEmailName");
@@ -81,19 +80,17 @@ public class PreviewTemplateRequestBody {
      * The email subject.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> subject() {
-        return (JsonNullable<String>) subject;
+        return subject;
     }
 
     /**
      * The template body before variable interpolation
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> body() {
-        return (Optional<String>) body;
+        return body;
     }
 
     /**
@@ -101,10 +98,9 @@ public class PreviewTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> fromEmailName() {
-        return (Optional<String>) fromEmailName;
+        return fromEmailName;
     }
 
     /**
@@ -112,10 +108,9 @@ public class PreviewTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> replyToEmailName() {
-        return (Optional<String>) replyToEmailName;
+        return replyToEmailName;
     }
 
     public final static Builder builder() {
@@ -136,7 +131,7 @@ public class PreviewTemplateRequestBody {
      * The email subject.
      * Applicable only to email templates.
      */
-    public PreviewTemplateRequestBody withSubject(JsonNullable<? extends String> subject) {
+    public PreviewTemplateRequestBody withSubject(JsonNullable<String> subject) {
         Utils.checkNotNull(subject, "subject");
         this.subject = subject;
         return this;
@@ -154,7 +149,7 @@ public class PreviewTemplateRequestBody {
     /**
      * The template body before variable interpolation
      */
-    public PreviewTemplateRequestBody withBody(Optional<? extends String> body) {
+    public PreviewTemplateRequestBody withBody(Optional<String> body) {
         Utils.checkNotNull(body, "body");
         this.body = body;
         return this;
@@ -176,7 +171,7 @@ public class PreviewTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    public PreviewTemplateRequestBody withFromEmailName(Optional<? extends String> fromEmailName) {
+    public PreviewTemplateRequestBody withFromEmailName(Optional<String> fromEmailName) {
         Utils.checkNotNull(fromEmailName, "fromEmailName");
         this.fromEmailName = fromEmailName;
         return this;
@@ -198,7 +193,7 @@ public class PreviewTemplateRequestBody {
      * For example, in the address 'hello@example.com', the local part is 'hello'.
      * Applicable only to email templates.
      */
-    public PreviewTemplateRequestBody withReplyToEmailName(Optional<? extends String> replyToEmailName) {
+    public PreviewTemplateRequestBody withReplyToEmailName(Optional<String> replyToEmailName) {
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
         this.replyToEmailName = replyToEmailName;
         return this;
@@ -214,15 +209,15 @@ public class PreviewTemplateRequestBody {
         }
         PreviewTemplateRequestBody other = (PreviewTemplateRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.subject, other.subject) &&
-            java.util.Objects.deepEquals(this.body, other.body) &&
-            java.util.Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            java.util.Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
+            Objects.deepEquals(this.subject, other.subject) &&
+            Objects.deepEquals(this.body, other.body) &&
+            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
+            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             subject,
             body,
             fromEmailName,
@@ -240,13 +235,13 @@ public class PreviewTemplateRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends String> subject = JsonNullable.undefined();
+        private JsonNullable<String> subject = JsonNullable.undefined();
  
-        private Optional<? extends String> body = Optional.empty();
+        private Optional<String> body = Optional.empty();
  
-        private Optional<? extends String> fromEmailName = Optional.empty();
+        private Optional<String> fromEmailName = Optional.empty();
  
-        private Optional<? extends String> replyToEmailName = Optional.empty();  
+        private Optional<String> replyToEmailName = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -266,7 +261,7 @@ public class PreviewTemplateRequestBody {
          * The email subject.
          * Applicable only to email templates.
          */
-        public Builder subject(JsonNullable<? extends String> subject) {
+        public Builder subject(JsonNullable<String> subject) {
             Utils.checkNotNull(subject, "subject");
             this.subject = subject;
             return this;
@@ -284,7 +279,7 @@ public class PreviewTemplateRequestBody {
         /**
          * The template body before variable interpolation
          */
-        public Builder body(Optional<? extends String> body) {
+        public Builder body(Optional<String> body) {
             Utils.checkNotNull(body, "body");
             this.body = body;
             return this;
@@ -306,7 +301,7 @@ public class PreviewTemplateRequestBody {
          * For example, in the address 'hello@example.com', the local part is 'hello'.
          * Applicable only to email templates.
          */
-        public Builder fromEmailName(Optional<? extends String> fromEmailName) {
+        public Builder fromEmailName(Optional<String> fromEmailName) {
             Utils.checkNotNull(fromEmailName, "fromEmailName");
             this.fromEmailName = fromEmailName;
             return this;
@@ -328,7 +323,7 @@ public class PreviewTemplateRequestBody {
          * For example, in the address 'hello@example.com', the local part is 'hello'.
          * Applicable only to email templates.
          */
-        public Builder replyToEmailName(Optional<? extends String> replyToEmailName) {
+        public Builder replyToEmailName(Optional<String> replyToEmailName) {
             Utils.checkNotNull(replyToEmailName, "replyToEmailName");
             this.replyToEmailName = replyToEmailName;
             return this;

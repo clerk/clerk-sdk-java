@@ -4,26 +4,29 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class PhoneNumber {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -37,11 +40,11 @@ public class PhoneNumber {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reserved_for_second_factor")
-    private Optional<? extends Boolean> reservedForSecondFactor;
+    private Optional<Boolean> reservedForSecondFactor;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("default_second_factor")
-    private Optional<? extends Boolean> defaultSecondFactor;
+    private Optional<Boolean> defaultSecondFactor;
 
     @JsonProperty("reserved")
     private boolean reserved;
@@ -51,11 +54,11 @@ public class PhoneNumber {
     private Optional<? extends PhoneNumberVerification> verification;
 
     @JsonProperty("linked_to")
-    private java.util.List<IdentificationLink> linkedTo;
+    private List<IdentificationLink> linkedTo;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_codes")
-    private JsonNullable<? extends java.util.List<String>> backupCodes;
+    private JsonNullable<? extends List<String>> backupCodes;
 
     /**
      * Unix timestamp of creation
@@ -73,15 +76,15 @@ public class PhoneNumber {
 
     @JsonCreator
     public PhoneNumber(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") PhoneNumberObject object,
             @JsonProperty("phone_number") String phoneNumber,
-            @JsonProperty("reserved_for_second_factor") Optional<? extends Boolean> reservedForSecondFactor,
-            @JsonProperty("default_second_factor") Optional<? extends Boolean> defaultSecondFactor,
+            @JsonProperty("reserved_for_second_factor") Optional<Boolean> reservedForSecondFactor,
+            @JsonProperty("default_second_factor") Optional<Boolean> defaultSecondFactor,
             @JsonProperty("reserved") boolean reserved,
             @JsonProperty("verification") Optional<? extends PhoneNumberVerification> verification,
-            @JsonProperty("linked_to") java.util.List<IdentificationLink> linkedTo,
-            @JsonProperty("backup_codes") JsonNullable<? extends java.util.List<String>> backupCodes,
+            @JsonProperty("linked_to") List<IdentificationLink> linkedTo,
+            @JsonProperty("backup_codes") JsonNullable<? extends List<String>> backupCodes,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(id, "id");
@@ -112,16 +115,15 @@ public class PhoneNumber {
             PhoneNumberObject object,
             String phoneNumber,
             boolean reserved,
-            java.util.List<IdentificationLink> linkedTo,
+            List<IdentificationLink> linkedTo,
             long createdAt,
             long updatedAt) {
         this(Optional.empty(), object, phoneNumber, Optional.empty(), Optional.empty(), reserved, Optional.empty(), linkedTo, JsonNullable.undefined(), createdAt, updatedAt);
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -138,16 +140,14 @@ public class PhoneNumber {
         return phoneNumber;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> reservedForSecondFactor() {
-        return (Optional<Boolean>) reservedForSecondFactor;
+        return reservedForSecondFactor;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> defaultSecondFactor() {
-        return (Optional<Boolean>) defaultSecondFactor;
+        return defaultSecondFactor;
     }
 
     @JsonIgnore
@@ -162,14 +162,14 @@ public class PhoneNumber {
     }
 
     @JsonIgnore
-    public java.util.List<IdentificationLink> linkedTo() {
+    public List<IdentificationLink> linkedTo() {
         return linkedTo;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<java.util.List<String>> backupCodes() {
-        return (JsonNullable<java.util.List<String>>) backupCodes;
+    public JsonNullable<List<String>> backupCodes() {
+        return (JsonNullable<List<String>>) backupCodes;
     }
 
     /**
@@ -200,7 +200,7 @@ public class PhoneNumber {
         return this;
     }
 
-    public PhoneNumber withId(Optional<? extends String> id) {
+    public PhoneNumber withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -228,7 +228,7 @@ public class PhoneNumber {
         return this;
     }
 
-    public PhoneNumber withReservedForSecondFactor(Optional<? extends Boolean> reservedForSecondFactor) {
+    public PhoneNumber withReservedForSecondFactor(Optional<Boolean> reservedForSecondFactor) {
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
         this.reservedForSecondFactor = reservedForSecondFactor;
         return this;
@@ -240,7 +240,7 @@ public class PhoneNumber {
         return this;
     }
 
-    public PhoneNumber withDefaultSecondFactor(Optional<? extends Boolean> defaultSecondFactor) {
+    public PhoneNumber withDefaultSecondFactor(Optional<Boolean> defaultSecondFactor) {
         Utils.checkNotNull(defaultSecondFactor, "defaultSecondFactor");
         this.defaultSecondFactor = defaultSecondFactor;
         return this;
@@ -264,19 +264,19 @@ public class PhoneNumber {
         return this;
     }
 
-    public PhoneNumber withLinkedTo(java.util.List<IdentificationLink> linkedTo) {
+    public PhoneNumber withLinkedTo(List<IdentificationLink> linkedTo) {
         Utils.checkNotNull(linkedTo, "linkedTo");
         this.linkedTo = linkedTo;
         return this;
     }
 
-    public PhoneNumber withBackupCodes(java.util.List<String> backupCodes) {
+    public PhoneNumber withBackupCodes(List<String> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = JsonNullable.of(backupCodes);
         return this;
     }
 
-    public PhoneNumber withBackupCodes(JsonNullable<? extends java.util.List<String>> backupCodes) {
+    public PhoneNumber withBackupCodes(JsonNullable<? extends List<String>> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = backupCodes;
         return this;
@@ -312,22 +312,22 @@ public class PhoneNumber {
         }
         PhoneNumber other = (PhoneNumber) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            java.util.Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor) &&
-            java.util.Objects.deepEquals(this.defaultSecondFactor, other.defaultSecondFactor) &&
-            java.util.Objects.deepEquals(this.reserved, other.reserved) &&
-            java.util.Objects.deepEquals(this.verification, other.verification) &&
-            java.util.Objects.deepEquals(this.linkedTo, other.linkedTo) &&
-            java.util.Objects.deepEquals(this.backupCodes, other.backupCodes) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
+            Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor) &&
+            Objects.deepEquals(this.defaultSecondFactor, other.defaultSecondFactor) &&
+            Objects.deepEquals(this.reserved, other.reserved) &&
+            Objects.deepEquals(this.verification, other.verification) &&
+            Objects.deepEquals(this.linkedTo, other.linkedTo) &&
+            Objects.deepEquals(this.backupCodes, other.backupCodes) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             phoneNumber,
@@ -359,23 +359,23 @@ public class PhoneNumber {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private PhoneNumberObject object;
  
         private String phoneNumber;
  
-        private Optional<? extends Boolean> reservedForSecondFactor = Optional.empty();
+        private Optional<Boolean> reservedForSecondFactor = Optional.empty();
  
-        private Optional<? extends Boolean> defaultSecondFactor = Optional.empty();
+        private Optional<Boolean> defaultSecondFactor = Optional.empty();
  
         private Boolean reserved;
  
         private Optional<? extends PhoneNumberVerification> verification = Optional.empty();
  
-        private java.util.List<IdentificationLink> linkedTo;
+        private List<IdentificationLink> linkedTo;
  
-        private JsonNullable<? extends java.util.List<String>> backupCodes = JsonNullable.undefined();
+        private JsonNullable<? extends List<String>> backupCodes = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -391,7 +391,7 @@ public class PhoneNumber {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -419,7 +419,7 @@ public class PhoneNumber {
             return this;
         }
 
-        public Builder reservedForSecondFactor(Optional<? extends Boolean> reservedForSecondFactor) {
+        public Builder reservedForSecondFactor(Optional<Boolean> reservedForSecondFactor) {
             Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
             this.reservedForSecondFactor = reservedForSecondFactor;
             return this;
@@ -431,7 +431,7 @@ public class PhoneNumber {
             return this;
         }
 
-        public Builder defaultSecondFactor(Optional<? extends Boolean> defaultSecondFactor) {
+        public Builder defaultSecondFactor(Optional<Boolean> defaultSecondFactor) {
             Utils.checkNotNull(defaultSecondFactor, "defaultSecondFactor");
             this.defaultSecondFactor = defaultSecondFactor;
             return this;
@@ -455,19 +455,19 @@ public class PhoneNumber {
             return this;
         }
 
-        public Builder linkedTo(java.util.List<IdentificationLink> linkedTo) {
+        public Builder linkedTo(List<IdentificationLink> linkedTo) {
             Utils.checkNotNull(linkedTo, "linkedTo");
             this.linkedTo = linkedTo;
             return this;
         }
 
-        public Builder backupCodes(java.util.List<String> backupCodes) {
+        public Builder backupCodes(List<String> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = JsonNullable.of(backupCodes);
             return this;
         }
 
-        public Builder backupCodes(JsonNullable<? extends java.util.List<String>> backupCodes) {
+        public Builder backupCodes(JsonNullable<? extends List<String>> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = backupCodes;
             return this;

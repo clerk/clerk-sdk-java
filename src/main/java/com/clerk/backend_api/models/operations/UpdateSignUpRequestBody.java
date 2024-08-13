@@ -4,20 +4,20 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateSignUpRequestBody {
 
@@ -28,7 +28,7 @@ public class UpdateSignUpRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("custom_action")
-    private Optional<? extends Boolean> customAction;
+    private Optional<Boolean> customAction;
 
     /**
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
@@ -36,12 +36,12 @@ public class UpdateSignUpRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_id")
-    private JsonNullable<? extends String> externalId;
+    private JsonNullable<String> externalId;
 
     @JsonCreator
     public UpdateSignUpRequestBody(
-            @JsonProperty("custom_action") Optional<? extends Boolean> customAction,
-            @JsonProperty("external_id") JsonNullable<? extends String> externalId) {
+            @JsonProperty("custom_action") Optional<Boolean> customAction,
+            @JsonProperty("external_id") JsonNullable<String> externalId) {
         Utils.checkNotNull(customAction, "customAction");
         Utils.checkNotNull(externalId, "externalId");
         this.customAction = customAction;
@@ -57,20 +57,18 @@ public class UpdateSignUpRequestBody {
      * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
      * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> customAction() {
-        return (Optional<Boolean>) customAction;
+        return customAction;
     }
 
     /**
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> externalId() {
-        return (JsonNullable<String>) externalId;
+        return externalId;
     }
 
     public final static Builder builder() {
@@ -93,7 +91,7 @@ public class UpdateSignUpRequestBody {
      * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
      * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
      */
-    public UpdateSignUpRequestBody withCustomAction(Optional<? extends Boolean> customAction) {
+    public UpdateSignUpRequestBody withCustomAction(Optional<Boolean> customAction) {
         Utils.checkNotNull(customAction, "customAction");
         this.customAction = customAction;
         return this;
@@ -113,7 +111,7 @@ public class UpdateSignUpRequestBody {
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
-    public UpdateSignUpRequestBody withExternalId(JsonNullable<? extends String> externalId) {
+    public UpdateSignUpRequestBody withExternalId(JsonNullable<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -129,13 +127,13 @@ public class UpdateSignUpRequestBody {
         }
         UpdateSignUpRequestBody other = (UpdateSignUpRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.customAction, other.customAction) &&
-            java.util.Objects.deepEquals(this.externalId, other.externalId);
+            Objects.deepEquals(this.customAction, other.customAction) &&
+            Objects.deepEquals(this.externalId, other.externalId);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             customAction,
             externalId);
     }
@@ -149,9 +147,9 @@ public class UpdateSignUpRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends Boolean> customAction = Optional.empty();
+        private Optional<Boolean> customAction = Optional.empty();
  
-        private JsonNullable<? extends String> externalId = JsonNullable.undefined();  
+        private JsonNullable<String> externalId = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -173,7 +171,7 @@ public class UpdateSignUpRequestBody {
          * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
          * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
          */
-        public Builder customAction(Optional<? extends Boolean> customAction) {
+        public Builder customAction(Optional<Boolean> customAction) {
             Utils.checkNotNull(customAction, "customAction");
             this.customAction = customAction;
             return this;
@@ -193,7 +191,7 @@ public class UpdateSignUpRequestBody {
          * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
          * This will be copied to the resulting user when the sign-up is completed.
          */
-        public Builder externalId(JsonNullable<? extends String> externalId) {
+        public Builder externalId(JsonNullable<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;

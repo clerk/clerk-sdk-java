@@ -21,17 +21,7 @@ The SAML Connections are ordered by descending creation date and the most recent
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -61,17 +51,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse](../../models/operations/ListSAMLConnectionsResponse.md)**
+**[ListSAMLConnectionsResponse](../../models/operations/ListSAMLConnectionsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -89,17 +81,11 @@ Create a new SAML Connection.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
+import com.clerk.backend_api.models.operations.Provider;
+import java.lang.Exception;
 
 public class Application {
 
@@ -125,7 +111,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -137,16 +123,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                             | [com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody](../../models/operations/CreateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                                                                    | The request object to use for the request.                                                                                            |
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `request`                                                                                     | [CreateSAMLConnectionRequestBody](../../models/operations/CreateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse](../../models/operations/CreateSAMLConnectionResponse.md)**
+**[CreateSAMLConnectionResponse](../../models/operations/CreateSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -164,17 +152,9 @@ Fetches the SAML Connection whose ID matches the provided `saml_connection_id` i
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetSAMLConnectionResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -194,7 +174,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -206,6 +186,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                     | Type                          | Required                      | Description                   |
@@ -215,7 +197,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetSAMLConnectionResponse](../../models/operations/GetSAMLConnectionResponse.md)**
+**[GetSAMLConnectionResponse](../../models/operations/GetSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -233,17 +215,10 @@ Updates the SAML Connection whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody;
+import com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -265,7 +240,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -277,17 +252,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `samlConnectionId`                                                                                                                    | *String*                                                                                                                              | :heavy_check_mark:                                                                                                                    | The ID of the SAML Connection to update                                                                                               |
-| `requestBody`                                                                                                                         | [com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody](../../models/operations/UpdateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                                                                    | N/A                                                                                                                                   |
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `samlConnectionId`                                                                            | *String*                                                                                      | :heavy_check_mark:                                                                            | The ID of the SAML Connection to update                                                       |
+| `requestBody`                                                                                 | [UpdateSAMLConnectionRequestBody](../../models/operations/UpdateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                            | N/A                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse](../../models/operations/UpdateSAMLConnectionResponse.md)**
+**[UpdateSAMLConnectionResponse](../../models/operations/UpdateSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -305,17 +282,9 @@ Deletes the SAML Connection whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -335,7 +304,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -347,6 +316,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                               | Type                                    | Required                                | Description                             |
@@ -356,7 +327,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse](../../models/operations/DeleteSAMLConnectionResponse.md)**
+**[DeleteSAMLConnectionResponse](../../models/operations/DeleteSAMLConnectionResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

@@ -4,25 +4,28 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class EmailAddress {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -42,7 +45,7 @@ public class EmailAddress {
     private Optional<? extends Verification> verification;
 
     @JsonProperty("linked_to")
-    private java.util.List<IdentificationLink> linkedTo;
+    private List<IdentificationLink> linkedTo;
 
     /**
      * Unix timestamp of creation
@@ -60,12 +63,12 @@ public class EmailAddress {
 
     @JsonCreator
     public EmailAddress(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") EmailAddressObject object,
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("reserved") boolean reserved,
             @JsonProperty("verification") Optional<? extends Verification> verification,
-            @JsonProperty("linked_to") java.util.List<IdentificationLink> linkedTo,
+            @JsonProperty("linked_to") List<IdentificationLink> linkedTo,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(id, "id");
@@ -90,16 +93,15 @@ public class EmailAddress {
             EmailAddressObject object,
             String emailAddress,
             boolean reserved,
-            java.util.List<IdentificationLink> linkedTo,
+            List<IdentificationLink> linkedTo,
             long createdAt,
             long updatedAt) {
         this(Optional.empty(), object, emailAddress, reserved, Optional.empty(), linkedTo, createdAt, updatedAt);
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -128,7 +130,7 @@ public class EmailAddress {
     }
 
     @JsonIgnore
-    public java.util.List<IdentificationLink> linkedTo() {
+    public List<IdentificationLink> linkedTo() {
         return linkedTo;
     }
 
@@ -160,7 +162,7 @@ public class EmailAddress {
         return this;
     }
 
-    public EmailAddress withId(Optional<? extends String> id) {
+    public EmailAddress withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -200,7 +202,7 @@ public class EmailAddress {
         return this;
     }
 
-    public EmailAddress withLinkedTo(java.util.List<IdentificationLink> linkedTo) {
+    public EmailAddress withLinkedTo(List<IdentificationLink> linkedTo) {
         Utils.checkNotNull(linkedTo, "linkedTo");
         this.linkedTo = linkedTo;
         return this;
@@ -236,19 +238,19 @@ public class EmailAddress {
         }
         EmailAddress other = (EmailAddress) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.reserved, other.reserved) &&
-            java.util.Objects.deepEquals(this.verification, other.verification) &&
-            java.util.Objects.deepEquals(this.linkedTo, other.linkedTo) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.reserved, other.reserved) &&
+            Objects.deepEquals(this.verification, other.verification) &&
+            Objects.deepEquals(this.linkedTo, other.linkedTo) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             emailAddress,
@@ -274,7 +276,7 @@ public class EmailAddress {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private EmailAddressObject object;
  
@@ -284,7 +286,7 @@ public class EmailAddress {
  
         private Optional<? extends Verification> verification = Optional.empty();
  
-        private java.util.List<IdentificationLink> linkedTo;
+        private List<IdentificationLink> linkedTo;
  
         private Long createdAt;
  
@@ -300,7 +302,7 @@ public class EmailAddress {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -340,7 +342,7 @@ public class EmailAddress {
             return this;
         }
 
-        public Builder linkedTo(java.util.List<IdentificationLink> linkedTo) {
+        public Builder linkedTo(List<IdentificationLink> linkedTo) {
             Utils.checkNotNull(linkedTo, "linkedTo");
             this.linkedTo = linkedTo;
             return this;

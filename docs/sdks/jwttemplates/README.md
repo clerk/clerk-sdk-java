@@ -19,17 +19,9 @@ List all templates
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListJWTTemplatesResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -45,7 +37,7 @@ public class Application {
             if (res.jwtTemplateList().isPresent()) {
                 // handle response
             }
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -58,9 +50,11 @@ public class Application {
 ```
 
 
+
+
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListJWTTemplatesResponse](../../models/operations/ListJWTTemplatesResponse.md)**
+**[ListJWTTemplatesResponse](../../models/operations/ListJWTTemplatesResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
@@ -77,17 +71,10 @@ Create a new JWT template
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -110,7 +97,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -122,16 +109,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                       | [com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody](../../models/operations/CreateJWTTemplateRequestBody.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [CreateJWTTemplateRequestBody](../../models/operations/CreateJWTTemplateRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateJWTTemplateResponse](../../models/operations/CreateJWTTemplateResponse.md)**
+**[CreateJWTTemplateResponse](../../models/operations/CreateJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -149,17 +138,9 @@ Retrieve the details of a given JWT template
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetJWTTemplateResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -179,7 +160,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -191,6 +172,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter          | Type               | Required           | Description        |
@@ -200,7 +183,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetJWTTemplateResponse](../../models/operations/GetJWTTemplateResponse.md)**
+**[GetJWTTemplateResponse](../../models/operations/GetJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -218,17 +201,10 @@ Updates an existing JWT template
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -250,7 +226,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -262,17 +238,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                           | Type                                                                                                                                                | Required                                                                                                                                            | Description                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `templateId`                                                                                                                                        | *String*                                                                                                                                            | :heavy_check_mark:                                                                                                                                  | The ID of the JWT template to update                                                                                                                |
-| `requestBody`                                                                                                                                       | [Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody>](../../models/operations/UpdateJWTTemplateRequestBody.md) | :heavy_minus_sign:                                                                                                                                  | N/A                                                                                                                                                 |
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `templateId`                                                                                      | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the JWT template to update                                                              |
+| `requestBody`                                                                                     | [Optional<UpdateJWTTemplateRequestBody>](../../models/operations/UpdateJWTTemplateRequestBody.md) | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse](../../models/operations/UpdateJWTTemplateResponse.md)**
+**[UpdateJWTTemplateResponse](../../models/operations/UpdateJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -290,17 +268,9 @@ Delete a Template
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -320,7 +290,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -332,6 +302,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter          | Type               | Required           | Description        |
@@ -341,7 +313,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse](../../models/operations/DeleteJWTTemplateResponse.md)**
+**[DeleteJWTTemplateResponse](../../models/operations/DeleteJWTTemplateResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

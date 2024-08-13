@@ -4,15 +4,13 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 /**
  * UpdateUserUnsafeMetadata - Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
  * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
@@ -43,7 +41,7 @@ public class UpdateUserUnsafeMetadata {
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             );
     }
     

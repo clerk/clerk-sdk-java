@@ -4,20 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.Long;
+import java.lang.String;
+import java.util.List;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class SDKMethodInterfaces {
 
+
     public interface MethodCallGetPublicInterstitial {
         com.clerk.backend_api.models.operations.GetPublicInterstitialResponse getPublicInterstitial(
-            Optional<? extends String> frontendApi,
-            Optional<? extends String> publishableKey) throws Exception;
+            Optional<String> frontendApi,
+            Optional<String> publishableKey) throws Exception;
     }
 
 
@@ -28,14 +26,14 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallGetClientList {
         com.clerk.backend_api.models.operations.GetClientListResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallVerifyClient {
         com.clerk.backend_api.models.operations.VerifyClientResponse verify(
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyClientRequestBody> request) throws Exception;
+            Optional<? extends VerifyClientRequestBody> request) throws Exception;
     }
 
 
@@ -47,7 +45,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateEmailAddress {
         com.clerk.backend_api.models.operations.CreateEmailAddressResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody> request) throws Exception;
+            Optional<? extends CreateEmailAddressRequestBody> request) throws Exception;
     }
 
 
@@ -66,13 +64,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateEmailAddress {
         com.clerk.backend_api.models.operations.UpdateEmailAddressResponse update(
             String emailAddressId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody> requestBody) throws Exception;
+            Optional<? extends UpdateEmailAddressRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallCreatePhoneNumber {
         com.clerk.backend_api.models.operations.CreatePhoneNumberResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody> request) throws Exception;
+            Optional<? extends CreatePhoneNumberRequestBody> request) throws Exception;
     }
 
 
@@ -91,13 +89,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdatePhoneNumber {
         com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse update(
             String phoneNumberId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody> requestBody) throws Exception;
+            Optional<? extends UpdatePhoneNumberRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallGetSessionList {
         com.clerk.backend_api.models.operations.GetSessionListResponse list(
-            com.clerk.backend_api.models.operations.GetSessionListRequest request) throws Exception;
+            GetSessionListRequest request) throws Exception;
     }
 
 
@@ -116,7 +114,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallVerifySession {
         com.clerk.backend_api.models.operations.VerifySessionResponse verify(
             String sessionId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifySessionRequestBody> requestBody) throws Exception;
+            Optional<? extends VerifySessionRequestBody> requestBody) throws Exception;
     }
 
 
@@ -129,28 +127,28 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallGetTemplateList {
         com.clerk.backend_api.models.operations.GetTemplateListResponse list(
-            com.clerk.backend_api.models.operations.TemplateType templateType) throws Exception;
+            TemplateType templateType) throws Exception;
     }
 
 
     public interface MethodCallGetTemplate {
         com.clerk.backend_api.models.operations.GetTemplateResponse get(
-            com.clerk.backend_api.models.operations.PathParamTemplateType templateType,
+            PathParamTemplateType templateType,
             String slug) throws Exception;
     }
 
 
     public interface MethodCallUpsertTemplate {
         com.clerk.backend_api.models.operations.UpsertTemplateResponse upsert(
-            com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType templateType,
+            UpsertTemplatePathParamTemplateType templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.UpsertTemplateRequestBody> requestBody) throws Exception;
+            Optional<? extends UpsertTemplateRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallRevertTemplate {
         com.clerk.backend_api.models.operations.RevertTemplateResponse revert(
-            com.clerk.backend_api.models.operations.RevertTemplatePathParamTemplateType templateType,
+            RevertTemplatePathParamTemplateType templateType,
             String slug) throws Exception;
     }
 
@@ -159,33 +157,33 @@ public class SDKMethodInterfaces {
         com.clerk.backend_api.models.operations.PreviewTemplateResponse preview(
             String templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.PreviewTemplateRequestBody> requestBody) throws Exception;
+            Optional<? extends PreviewTemplateRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallToggleTemplateDelivery {
         com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse toggleDelivery(
-            com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType templateType,
+            ToggleTemplateDeliveryPathParamTemplateType templateType,
             String slug,
-            Optional<? extends com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody> requestBody) throws Exception;
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallGetUserList {
         com.clerk.backend_api.models.operations.GetUserListResponse list(
-            com.clerk.backend_api.models.operations.GetUserListRequest request) throws Exception;
+            GetUserListRequest request) throws Exception;
     }
 
 
     public interface MethodCallCreateUser {
         com.clerk.backend_api.models.operations.CreateUserResponse create(
-            com.clerk.backend_api.models.operations.CreateUserRequestBody request) throws Exception;
+            CreateUserRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallGetUsersCount {
         com.clerk.backend_api.models.operations.GetUsersCountResponse count(
-            com.clerk.backend_api.models.operations.GetUsersCountRequest request) throws Exception;
+            GetUsersCountRequest request) throws Exception;
     }
 
 
@@ -198,7 +196,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateUser {
         com.clerk.backend_api.models.operations.UpdateUserResponse update(
             String userId,
-            com.clerk.backend_api.models.operations.UpdateUserRequestBody requestBody) throws Exception;
+            UpdateUserRequestBody requestBody) throws Exception;
     }
 
 
@@ -235,7 +233,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallSetUserProfileImage {
         com.clerk.backend_api.models.operations.SetUserProfileImageResponse setProfileImage(
             String userId,
-            com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody requestBody) throws Exception;
+            SetUserProfileImageRequestBody requestBody) throws Exception;
     }
 
 
@@ -248,7 +246,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateUserMetadata {
         com.clerk.backend_api.models.operations.UpdateUserMetadataResponse updateMetadata(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody> requestBody) throws Exception;
+            Optional<? extends UpdateUserMetadataRequestBody> requestBody) throws Exception;
     }
 
 
@@ -262,22 +260,22 @@ public class SDKMethodInterfaces {
     public interface MethodCallUsersGetOrganizationMemberships {
         com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallVerifyPassword {
         com.clerk.backend_api.models.operations.VerifyPasswordResponse verifyPassword(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyPasswordRequestBody> requestBody) throws Exception;
+            Optional<? extends VerifyPasswordRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallVerifyTOTP {
         com.clerk.backend_api.models.operations.VerifyTOTPResponse verifyTOTP(
             String userId,
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPRequestBody> requestBody) throws Exception;
+            Optional<? extends VerifyTOTPRequestBody> requestBody) throws Exception;
     }
 
 
@@ -289,15 +287,15 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateInvitation {
         com.clerk.backend_api.models.operations.CreateInvitationResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateInvitationRequestBody> request) throws Exception;
+            Optional<? extends CreateInvitationRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallListInvitations {
         com.clerk.backend_api.models.operations.ListInvitationsResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends com.clerk.backend_api.models.operations.QueryParamStatus> status) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<? extends QueryParamStatus> status) throws Exception;
     }
 
 
@@ -314,7 +312,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateAllowlistIdentifier {
         com.clerk.backend_api.models.operations.CreateAllowlistIdentifierResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateAllowlistIdentifierRequestBody> request) throws Exception;
+            Optional<? extends CreateAllowlistIdentifierRequestBody> request) throws Exception;
     }
 
 
@@ -331,7 +329,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateBlocklistIdentifier {
         com.clerk.backend_api.models.operations.CreateBlocklistIdentifierResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateBlocklistIdentifierRequestBody> request) throws Exception;
+            Optional<? extends CreateBlocklistIdentifierRequestBody> request) throws Exception;
     }
 
 
@@ -343,43 +341,43 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallUpdateInstanceAuthConfig {
         com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse updateAuthConfig(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody> request) throws Exception;
+            Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateProductionInstanceDomain {
         com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse updateProductionDomain(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody> request) throws Exception;
+            Optional<? extends UpdateProductionInstanceDomainRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstance {
         com.clerk.backend_api.models.operations.UpdateInstanceResponse update(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRequestBody> request) throws Exception;
+            Optional<? extends UpdateInstanceRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceRestrictions {
         com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody> request) throws Exception;
+            Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallChangeProductionInstanceDomain {
         com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse changeProductionDomain(
-            Optional<? extends com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody> request) throws Exception;
+            Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceOrganizationSettings {
         com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception;
+            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallCreateActorToken {
         com.clerk.backend_api.models.operations.CreateActorTokenResponse createToken(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateActorTokenRequestBody> request) throws Exception;
+            Optional<? extends CreateActorTokenRequestBody> request) throws Exception;
     }
 
 
@@ -396,7 +394,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallAddDomain {
         com.clerk.backend_api.models.operations.AddDomainResponse add(
-            Optional<? extends com.clerk.backend_api.models.operations.AddDomainRequestBody> request) throws Exception;
+            Optional<? extends AddDomainRequestBody> request) throws Exception;
     }
 
 
@@ -409,7 +407,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateDomain {
         com.clerk.backend_api.models.operations.UpdateDomainResponse update(
             String domainId,
-            com.clerk.backend_api.models.operations.UpdateDomainRequestBody requestBody) throws Exception;
+            UpdateDomainRequestBody requestBody) throws Exception;
     }
 
 
@@ -435,7 +433,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateJWTTemplate {
         com.clerk.backend_api.models.operations.CreateJWTTemplateResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody> request) throws Exception;
+            Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception;
     }
 
 
@@ -448,7 +446,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateJWTTemplate {
         com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse update(
             String templateId,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody> requestBody) throws Exception;
+            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception;
     }
 
 
@@ -460,13 +458,13 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallListOrganizations {
         com.clerk.backend_api.models.operations.ListOrganizationsResponse list(
-            com.clerk.backend_api.models.operations.ListOrganizationsRequest request) throws Exception;
+            ListOrganizationsRequest request) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganization {
         com.clerk.backend_api.models.operations.CreateOrganizationResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationRequestBody> request) throws Exception;
+            Optional<? extends CreateOrganizationRequestBody> request) throws Exception;
     }
 
 
@@ -479,7 +477,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateOrganization {
         com.clerk.backend_api.models.operations.UpdateOrganizationResponse update(
             String organizationId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody requestBody) throws Exception;
+            UpdateOrganizationRequestBody requestBody) throws Exception;
     }
 
 
@@ -492,14 +490,14 @@ public class SDKMethodInterfaces {
     public interface MethodCallMergeOrganizationMetadata {
         com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse mergeMetadata(
             String organizationId,
-            com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody requestBody) throws Exception;
+            MergeOrganizationMetadataRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallUploadOrganizationLogo {
         com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
-            Optional<? extends com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody> requestBody) throws Exception;
+            Optional<? extends UploadOrganizationLogoRequestBody> requestBody) throws Exception;
     }
 
 
@@ -512,31 +510,31 @@ public class SDKMethodInterfaces {
     public interface MethodCallCreateOrganizationInvitation {
         com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse create(
             String organizationId,
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody requestBody) throws Exception;
+            CreateOrganizationInvitationRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationInvitations {
         com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse list(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus> status) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationInvitationBulk {
         com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse createBulk(
             String organizationId,
-            java.util.List<com.clerk.backend_api.models.operations.RequestBody> requestBody) throws Exception;
+            List<RequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallListPendingOrganizationInvitations {
         com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse listPending(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception;
     }
 
 
@@ -551,23 +549,23 @@ public class SDKMethodInterfaces {
         com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse revoke(
             String organizationId,
             String invitationId,
-            com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody requestBody) throws Exception;
+            RevokeOrganizationInvitationRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationMembership {
         com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse create(
             String organizationId,
-            com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody requestBody) throws Exception;
+            CreateOrganizationMembershipRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationMemberships {
         com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse list(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends String> orderBy) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<String> orderBy) throws Exception;
     }
 
 
@@ -575,7 +573,7 @@ public class SDKMethodInterfaces {
         com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse update(
             String organizationId,
             String userId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody requestBody) throws Exception;
+            UpdateOrganizationMembershipRequestBody requestBody) throws Exception;
     }
 
 
@@ -590,13 +588,13 @@ public class SDKMethodInterfaces {
         com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse updateMetadata(
             String organizationId,
             String userId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception;
+            UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallVerifyDomainProxy {
         com.clerk.backend_api.models.operations.VerifyDomainProxyResponse verifyDomain(
-            Optional<? extends com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody> request) throws Exception;
+            Optional<? extends VerifyDomainProxyRequestBody> request) throws Exception;
     }
 
 
@@ -607,7 +605,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateRedirectURL {
         com.clerk.backend_api.models.operations.CreateRedirectURLResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateRedirectURLRequestBody> request) throws Exception;
+            Optional<? extends CreateRedirectURLRequestBody> request) throws Exception;
     }
 
 
@@ -625,7 +623,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateSignInToken {
         com.clerk.backend_api.models.operations.CreateSignInTokenResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody> request) throws Exception;
+            Optional<? extends CreateSignInTokenRequestBody> request) throws Exception;
     }
 
 
@@ -638,20 +636,20 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateSignUp {
         com.clerk.backend_api.models.operations.UpdateSignUpResponse update(
             String id,
-            Optional<? extends com.clerk.backend_api.models.operations.UpdateSignUpRequestBody> requestBody) throws Exception;
+            Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOAuthApplications {
         com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallCreateOAuthApplication {
         com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody> request) throws Exception;
+            Optional<? extends CreateOAuthApplicationRequestBody> request) throws Exception;
     }
 
 
@@ -664,7 +662,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateOAuthApplication {
         com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse updateApplication(
             String oauthApplicationId,
-            com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody requestBody) throws Exception;
+            UpdateOAuthApplicationRequestBody requestBody) throws Exception;
     }
 
 
@@ -682,14 +680,14 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallListSAMLConnections {
         com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse list(
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception;
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallCreateSAMLConnection {
         com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody> request) throws Exception;
+            Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception;
     }
 
 
@@ -702,7 +700,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateSAMLConnection {
         com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse update(
             String samlConnectionId,
-            com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody requestBody) throws Exception;
+            UpdateSAMLConnectionRequestBody requestBody) throws Exception;
     }
 
 
@@ -715,5 +713,6 @@ public class SDKMethodInterfaces {
     public interface MethodCallCreateTestingToken {
         com.clerk.backend_api.models.operations.CreateTestingTokenResponse createDirect() throws Exception;
     }
+
 
 }

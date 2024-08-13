@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Double;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class CreateJWTTemplateRequestBody {
 
@@ -26,7 +28,7 @@ public class CreateJWTTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<? extends String> name;
+    private Optional<String> name;
 
     /**
      * JWT template claims in JSON format
@@ -40,45 +42,45 @@ public class CreateJWTTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lifetime")
-    private JsonNullable<? extends Double> lifetime;
+    private JsonNullable<Double> lifetime;
 
     /**
      * JWT token allowed clock skew
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_clock_skew")
-    private JsonNullable<? extends Double> allowedClockSkew;
+    private JsonNullable<Double> allowedClockSkew;
 
     /**
      * Whether a custom signing key/algorithm is also provided for this template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("custom_signing_key")
-    private Optional<? extends Boolean> customSigningKey;
+    private Optional<Boolean> customSigningKey;
 
     /**
      * The custom signing algorithm to use when minting JWTs
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("signing_algorithm")
-    private JsonNullable<? extends String> signingAlgorithm;
+    private JsonNullable<String> signingAlgorithm;
 
     /**
      * The custom signing private key to use when minting JWTs
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("signing_key")
-    private JsonNullable<? extends String> signingKey;
+    private JsonNullable<String> signingKey;
 
     @JsonCreator
     public CreateJWTTemplateRequestBody(
-            @JsonProperty("name") Optional<? extends String> name,
+            @JsonProperty("name") Optional<String> name,
             @JsonProperty("claims") Optional<? extends Claims> claims,
-            @JsonProperty("lifetime") JsonNullable<? extends Double> lifetime,
-            @JsonProperty("allowed_clock_skew") JsonNullable<? extends Double> allowedClockSkew,
-            @JsonProperty("custom_signing_key") Optional<? extends Boolean> customSigningKey,
-            @JsonProperty("signing_algorithm") JsonNullable<? extends String> signingAlgorithm,
-            @JsonProperty("signing_key") JsonNullable<? extends String> signingKey) {
+            @JsonProperty("lifetime") JsonNullable<Double> lifetime,
+            @JsonProperty("allowed_clock_skew") JsonNullable<Double> allowedClockSkew,
+            @JsonProperty("custom_signing_key") Optional<Boolean> customSigningKey,
+            @JsonProperty("signing_algorithm") JsonNullable<String> signingAlgorithm,
+            @JsonProperty("signing_key") JsonNullable<String> signingKey) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(claims, "claims");
         Utils.checkNotNull(lifetime, "lifetime");
@@ -102,10 +104,9 @@ public class CreateJWTTemplateRequestBody {
     /**
      * JWT template name
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> name() {
-        return (Optional<String>) name;
+        return name;
     }
 
     /**
@@ -120,46 +121,41 @@ public class CreateJWTTemplateRequestBody {
     /**
      * JWT token lifetime
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Double> lifetime() {
-        return (JsonNullable<Double>) lifetime;
+        return lifetime;
     }
 
     /**
      * JWT token allowed clock skew
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Double> allowedClockSkew() {
-        return (JsonNullable<Double>) allowedClockSkew;
+        return allowedClockSkew;
     }
 
     /**
      * Whether a custom signing key/algorithm is also provided for this template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> customSigningKey() {
-        return (Optional<Boolean>) customSigningKey;
+        return customSigningKey;
     }
 
     /**
      * The custom signing algorithm to use when minting JWTs
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> signingAlgorithm() {
-        return (JsonNullable<String>) signingAlgorithm;
+        return signingAlgorithm;
     }
 
     /**
      * The custom signing private key to use when minting JWTs
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> signingKey() {
-        return (JsonNullable<String>) signingKey;
+        return signingKey;
     }
 
     public final static Builder builder() {
@@ -178,7 +174,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * JWT template name
      */
-    public CreateJWTTemplateRequestBody withName(Optional<? extends String> name) {
+    public CreateJWTTemplateRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -214,7 +210,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * JWT token lifetime
      */
-    public CreateJWTTemplateRequestBody withLifetime(JsonNullable<? extends Double> lifetime) {
+    public CreateJWTTemplateRequestBody withLifetime(JsonNullable<Double> lifetime) {
         Utils.checkNotNull(lifetime, "lifetime");
         this.lifetime = lifetime;
         return this;
@@ -232,7 +228,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * JWT token allowed clock skew
      */
-    public CreateJWTTemplateRequestBody withAllowedClockSkew(JsonNullable<? extends Double> allowedClockSkew) {
+    public CreateJWTTemplateRequestBody withAllowedClockSkew(JsonNullable<Double> allowedClockSkew) {
         Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
         this.allowedClockSkew = allowedClockSkew;
         return this;
@@ -250,7 +246,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * Whether a custom signing key/algorithm is also provided for this template
      */
-    public CreateJWTTemplateRequestBody withCustomSigningKey(Optional<? extends Boolean> customSigningKey) {
+    public CreateJWTTemplateRequestBody withCustomSigningKey(Optional<Boolean> customSigningKey) {
         Utils.checkNotNull(customSigningKey, "customSigningKey");
         this.customSigningKey = customSigningKey;
         return this;
@@ -268,7 +264,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * The custom signing algorithm to use when minting JWTs
      */
-    public CreateJWTTemplateRequestBody withSigningAlgorithm(JsonNullable<? extends String> signingAlgorithm) {
+    public CreateJWTTemplateRequestBody withSigningAlgorithm(JsonNullable<String> signingAlgorithm) {
         Utils.checkNotNull(signingAlgorithm, "signingAlgorithm");
         this.signingAlgorithm = signingAlgorithm;
         return this;
@@ -286,7 +282,7 @@ public class CreateJWTTemplateRequestBody {
     /**
      * The custom signing private key to use when minting JWTs
      */
-    public CreateJWTTemplateRequestBody withSigningKey(JsonNullable<? extends String> signingKey) {
+    public CreateJWTTemplateRequestBody withSigningKey(JsonNullable<String> signingKey) {
         Utils.checkNotNull(signingKey, "signingKey");
         this.signingKey = signingKey;
         return this;
@@ -302,18 +298,18 @@ public class CreateJWTTemplateRequestBody {
         }
         CreateJWTTemplateRequestBody other = (CreateJWTTemplateRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.claims, other.claims) &&
-            java.util.Objects.deepEquals(this.lifetime, other.lifetime) &&
-            java.util.Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
-            java.util.Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
-            java.util.Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
-            java.util.Objects.deepEquals(this.signingKey, other.signingKey);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.claims, other.claims) &&
+            Objects.deepEquals(this.lifetime, other.lifetime) &&
+            Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
+            Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
+            Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
+            Objects.deepEquals(this.signingKey, other.signingKey);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             name,
             claims,
             lifetime,
@@ -337,19 +333,19 @@ public class CreateJWTTemplateRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> name = Optional.empty();
+        private Optional<String> name = Optional.empty();
  
         private Optional<? extends Claims> claims = Optional.empty();
  
-        private JsonNullable<? extends Double> lifetime = JsonNullable.undefined();
+        private JsonNullable<Double> lifetime = JsonNullable.undefined();
  
-        private JsonNullable<? extends Double> allowedClockSkew = JsonNullable.undefined();
+        private JsonNullable<Double> allowedClockSkew = JsonNullable.undefined();
  
-        private Optional<? extends Boolean> customSigningKey = Optional.empty();
+        private Optional<Boolean> customSigningKey = Optional.empty();
  
-        private JsonNullable<? extends String> signingAlgorithm = JsonNullable.undefined();
+        private JsonNullable<String> signingAlgorithm = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> signingKey = JsonNullable.undefined();  
+        private JsonNullable<String> signingKey = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -367,7 +363,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * JWT template name
          */
-        public Builder name(Optional<? extends String> name) {
+        public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -403,7 +399,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * JWT token lifetime
          */
-        public Builder lifetime(JsonNullable<? extends Double> lifetime) {
+        public Builder lifetime(JsonNullable<Double> lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
             this.lifetime = lifetime;
             return this;
@@ -421,7 +417,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * JWT token allowed clock skew
          */
-        public Builder allowedClockSkew(JsonNullable<? extends Double> allowedClockSkew) {
+        public Builder allowedClockSkew(JsonNullable<Double> allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
             this.allowedClockSkew = allowedClockSkew;
             return this;
@@ -439,7 +435,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * Whether a custom signing key/algorithm is also provided for this template
          */
-        public Builder customSigningKey(Optional<? extends Boolean> customSigningKey) {
+        public Builder customSigningKey(Optional<Boolean> customSigningKey) {
             Utils.checkNotNull(customSigningKey, "customSigningKey");
             this.customSigningKey = customSigningKey;
             return this;
@@ -457,7 +453,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * The custom signing algorithm to use when minting JWTs
          */
-        public Builder signingAlgorithm(JsonNullable<? extends String> signingAlgorithm) {
+        public Builder signingAlgorithm(JsonNullable<String> signingAlgorithm) {
             Utils.checkNotNull(signingAlgorithm, "signingAlgorithm");
             this.signingAlgorithm = signingAlgorithm;
             return this;
@@ -475,7 +471,7 @@ public class CreateJWTTemplateRequestBody {
         /**
          * The custom signing private key to use when minting JWTs
          */
-        public Builder signingKey(JsonNullable<? extends String> signingKey) {
+        public Builder signingKey(JsonNullable<String> signingKey) {
             Utils.checkNotNull(signingKey, "signingKey");
             this.signingKey = signingKey;
             return this;

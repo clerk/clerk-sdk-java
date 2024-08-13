@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.BlocklistIdentifier;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.utils.Response {
+
+public class CreateBlocklistIdentifierResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier;
+    private Optional<? extends BlocklistIdentifier> blocklistIdentifier;
 
     @JsonCreator
     public CreateBlocklistIdentifierResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier) {
+            Optional<? extends BlocklistIdentifier> blocklistIdentifier) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier() {
-        return (Optional<com.clerk.backend_api.models.components.BlocklistIdentifier>) blocklistIdentifier;
+    public Optional<BlocklistIdentifier> blocklistIdentifier() {
+        return (Optional<BlocklistIdentifier>) blocklistIdentifier;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    public CreateBlocklistIdentifierResponse withBlocklistIdentifier(com.clerk.backend_api.models.components.BlocklistIdentifier blocklistIdentifier) {
+    public CreateBlocklistIdentifierResponse withBlocklistIdentifier(BlocklistIdentifier blocklistIdentifier) {
         Utils.checkNotNull(blocklistIdentifier, "blocklistIdentifier");
         this.blocklistIdentifier = Optional.ofNullable(blocklistIdentifier);
         return this;
@@ -137,7 +141,7 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
     /**
      * Success
      */
-    public CreateBlocklistIdentifierResponse withBlocklistIdentifier(Optional<? extends com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier) {
+    public CreateBlocklistIdentifierResponse withBlocklistIdentifier(Optional<? extends BlocklistIdentifier> blocklistIdentifier) {
         Utils.checkNotNull(blocklistIdentifier, "blocklistIdentifier");
         this.blocklistIdentifier = blocklistIdentifier;
         return this;
@@ -153,15 +157,15 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
         }
         CreateBlocklistIdentifierResponse other = (CreateBlocklistIdentifierResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.blocklistIdentifier, other.blocklistIdentifier);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.blocklistIdentifier, other.blocklistIdentifier);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier = Optional.empty();  
+        private Optional<? extends BlocklistIdentifier> blocklistIdentifier = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
         /**
          * Success
          */
-        public Builder blocklistIdentifier(com.clerk.backend_api.models.components.BlocklistIdentifier blocklistIdentifier) {
+        public Builder blocklistIdentifier(BlocklistIdentifier blocklistIdentifier) {
             Utils.checkNotNull(blocklistIdentifier, "blocklistIdentifier");
             this.blocklistIdentifier = Optional.ofNullable(blocklistIdentifier);
             return this;
@@ -230,7 +234,7 @@ public class CreateBlocklistIdentifierResponse implements com.clerk.backend_api.
         /**
          * Success
          */
-        public Builder blocklistIdentifier(Optional<? extends com.clerk.backend_api.models.components.BlocklistIdentifier> blocklistIdentifier) {
+        public Builder blocklistIdentifier(Optional<? extends BlocklistIdentifier> blocklistIdentifier) {
             Utils.checkNotNull(blocklistIdentifier, "blocklistIdentifier");
             this.blocklistIdentifier = blocklistIdentifier;
             return this;

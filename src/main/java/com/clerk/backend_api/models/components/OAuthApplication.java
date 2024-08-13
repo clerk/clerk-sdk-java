@@ -4,16 +4,17 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
+
 
 public class OAuthApplication {
 
@@ -280,24 +281,24 @@ public class OAuthApplication {
         }
         OAuthApplication other = (OAuthApplication) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.instanceId, other.instanceId) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.clientId, other.clientId) &&
-            java.util.Objects.deepEquals(this.public_, other.public_) &&
-            java.util.Objects.deepEquals(this.scopes, other.scopes) &&
-            java.util.Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            java.util.Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
-            java.util.Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
-            java.util.Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.instanceId, other.instanceId) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.clientId, other.clientId) &&
+            Objects.deepEquals(this.public_, other.public_) &&
+            Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
+            Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
+            Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
+            Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             instanceId,

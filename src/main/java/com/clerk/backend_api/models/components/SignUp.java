@@ -4,20 +4,23 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SignUp {
 
@@ -32,19 +35,19 @@ public class SignUp {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("required_fields")
-    private Optional<? extends java.util.List<String>> requiredFields;
+    private Optional<? extends List<String>> requiredFields;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("optional_fields")
-    private Optional<? extends java.util.List<String>> optionalFields;
+    private Optional<? extends List<String>> optionalFields;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("missing_fields")
-    private Optional<? extends java.util.List<String>> missingFields;
+    private Optional<? extends List<String>> missingFields;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unverified_fields")
-    private Optional<? extends java.util.List<String>> unverifiedFields;
+    private Optional<? extends List<String>> unverifiedFields;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verifications")
@@ -52,30 +55,30 @@ public class SignUp {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("username")
-    private JsonNullable<? extends String> username;
+    private JsonNullable<String> username;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
-    private JsonNullable<? extends String> emailAddress;
+    private JsonNullable<String> emailAddress;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone_number")
-    private JsonNullable<? extends String> phoneNumber;
+    private JsonNullable<String> phoneNumber;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("web3_wallet")
-    private JsonNullable<? extends String> web3Wallet;
+    private JsonNullable<String> web3Wallet;
 
     @JsonProperty("password_enabled")
     private boolean passwordEnabled;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
-    private JsonNullable<? extends String> firstName;
+    private JsonNullable<String> firstName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
-    private JsonNullable<? extends String> lastName;
+    private JsonNullable<String> lastName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
@@ -90,15 +93,15 @@ public class SignUp {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_id")
-    private JsonNullable<? extends String> externalId;
+    private JsonNullable<String> externalId;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_session_id")
-    private JsonNullable<? extends String> createdSessionId;
+    private JsonNullable<String> createdSessionId;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_user_id")
-    private JsonNullable<? extends String> createdUserId;
+    private JsonNullable<String> createdUserId;
 
     @JsonProperty("abandon_at")
     private long abandonAt;
@@ -112,24 +115,24 @@ public class SignUp {
             @JsonProperty("object") SignUpObject object,
             @JsonProperty("id") String id,
             @JsonProperty("status") SignUpStatus status,
-            @JsonProperty("required_fields") Optional<? extends java.util.List<String>> requiredFields,
-            @JsonProperty("optional_fields") Optional<? extends java.util.List<String>> optionalFields,
-            @JsonProperty("missing_fields") Optional<? extends java.util.List<String>> missingFields,
-            @JsonProperty("unverified_fields") Optional<? extends java.util.List<String>> unverifiedFields,
+            @JsonProperty("required_fields") Optional<? extends List<String>> requiredFields,
+            @JsonProperty("optional_fields") Optional<? extends List<String>> optionalFields,
+            @JsonProperty("missing_fields") Optional<? extends List<String>> missingFields,
+            @JsonProperty("unverified_fields") Optional<? extends List<String>> unverifiedFields,
             @JsonProperty("verifications") Optional<? extends Verifications> verifications,
-            @JsonProperty("username") JsonNullable<? extends String> username,
-            @JsonProperty("email_address") JsonNullable<? extends String> emailAddress,
-            @JsonProperty("phone_number") JsonNullable<? extends String> phoneNumber,
-            @JsonProperty("web3_wallet") JsonNullable<? extends String> web3Wallet,
+            @JsonProperty("username") JsonNullable<String> username,
+            @JsonProperty("email_address") JsonNullable<String> emailAddress,
+            @JsonProperty("phone_number") JsonNullable<String> phoneNumber,
+            @JsonProperty("web3_wallet") JsonNullable<String> web3Wallet,
             @JsonProperty("password_enabled") boolean passwordEnabled,
-            @JsonProperty("first_name") JsonNullable<? extends String> firstName,
-            @JsonProperty("last_name") JsonNullable<? extends String> lastName,
+            @JsonProperty("first_name") JsonNullable<String> firstName,
+            @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("unsafe_metadata") Optional<? extends SignUpUnsafeMetadata> unsafeMetadata,
             @JsonProperty("public_metadata") Optional<? extends SignUpPublicMetadata> publicMetadata,
             @JsonProperty("custom_action") boolean customAction,
-            @JsonProperty("external_id") JsonNullable<? extends String> externalId,
-            @JsonProperty("created_session_id") JsonNullable<? extends String> createdSessionId,
-            @JsonProperty("created_user_id") JsonNullable<? extends String> createdUserId,
+            @JsonProperty("external_id") JsonNullable<String> externalId,
+            @JsonProperty("created_session_id") JsonNullable<String> createdSessionId,
+            @JsonProperty("created_user_id") JsonNullable<String> createdUserId,
             @JsonProperty("abandon_at") long abandonAt,
             @JsonProperty("external_account") Optional<? extends ExternalAccount> externalAccount) {
         Utils.checkNotNull(object, "object");
@@ -207,26 +210,26 @@ public class SignUp {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> requiredFields() {
-        return (Optional<java.util.List<String>>) requiredFields;
+    public Optional<List<String>> requiredFields() {
+        return (Optional<List<String>>) requiredFields;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> optionalFields() {
-        return (Optional<java.util.List<String>>) optionalFields;
+    public Optional<List<String>> optionalFields() {
+        return (Optional<List<String>>) optionalFields;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> missingFields() {
-        return (Optional<java.util.List<String>>) missingFields;
+    public Optional<List<String>> missingFields() {
+        return (Optional<List<String>>) missingFields;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> unverifiedFields() {
-        return (Optional<java.util.List<String>>) unverifiedFields;
+    public Optional<List<String>> unverifiedFields() {
+        return (Optional<List<String>>) unverifiedFields;
     }
 
     @SuppressWarnings("unchecked")
@@ -235,28 +238,24 @@ public class SignUp {
         return (Optional<Verifications>) verifications;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> username() {
-        return (JsonNullable<String>) username;
+        return username;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> emailAddress() {
-        return (JsonNullable<String>) emailAddress;
+        return emailAddress;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> phoneNumber() {
-        return (JsonNullable<String>) phoneNumber;
+        return phoneNumber;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> web3Wallet() {
-        return (JsonNullable<String>) web3Wallet;
+        return web3Wallet;
     }
 
     @JsonIgnore
@@ -264,16 +263,14 @@ public class SignUp {
         return passwordEnabled;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> firstName() {
-        return (JsonNullable<String>) firstName;
+        return firstName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> lastName() {
-        return (JsonNullable<String>) lastName;
+        return lastName;
     }
 
     @SuppressWarnings("unchecked")
@@ -293,22 +290,19 @@ public class SignUp {
         return customAction;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> externalId() {
-        return (JsonNullable<String>) externalId;
+        return externalId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> createdSessionId() {
-        return (JsonNullable<String>) createdSessionId;
+        return createdSessionId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> createdUserId() {
-        return (JsonNullable<String>) createdUserId;
+        return createdUserId;
     }
 
     @JsonIgnore
@@ -344,49 +338,49 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withRequiredFields(java.util.List<String> requiredFields) {
+    public SignUp withRequiredFields(List<String> requiredFields) {
         Utils.checkNotNull(requiredFields, "requiredFields");
         this.requiredFields = Optional.ofNullable(requiredFields);
         return this;
     }
 
-    public SignUp withRequiredFields(Optional<? extends java.util.List<String>> requiredFields) {
+    public SignUp withRequiredFields(Optional<? extends List<String>> requiredFields) {
         Utils.checkNotNull(requiredFields, "requiredFields");
         this.requiredFields = requiredFields;
         return this;
     }
 
-    public SignUp withOptionalFields(java.util.List<String> optionalFields) {
+    public SignUp withOptionalFields(List<String> optionalFields) {
         Utils.checkNotNull(optionalFields, "optionalFields");
         this.optionalFields = Optional.ofNullable(optionalFields);
         return this;
     }
 
-    public SignUp withOptionalFields(Optional<? extends java.util.List<String>> optionalFields) {
+    public SignUp withOptionalFields(Optional<? extends List<String>> optionalFields) {
         Utils.checkNotNull(optionalFields, "optionalFields");
         this.optionalFields = optionalFields;
         return this;
     }
 
-    public SignUp withMissingFields(java.util.List<String> missingFields) {
+    public SignUp withMissingFields(List<String> missingFields) {
         Utils.checkNotNull(missingFields, "missingFields");
         this.missingFields = Optional.ofNullable(missingFields);
         return this;
     }
 
-    public SignUp withMissingFields(Optional<? extends java.util.List<String>> missingFields) {
+    public SignUp withMissingFields(Optional<? extends List<String>> missingFields) {
         Utils.checkNotNull(missingFields, "missingFields");
         this.missingFields = missingFields;
         return this;
     }
 
-    public SignUp withUnverifiedFields(java.util.List<String> unverifiedFields) {
+    public SignUp withUnverifiedFields(List<String> unverifiedFields) {
         Utils.checkNotNull(unverifiedFields, "unverifiedFields");
         this.unverifiedFields = Optional.ofNullable(unverifiedFields);
         return this;
     }
 
-    public SignUp withUnverifiedFields(Optional<? extends java.util.List<String>> unverifiedFields) {
+    public SignUp withUnverifiedFields(Optional<? extends List<String>> unverifiedFields) {
         Utils.checkNotNull(unverifiedFields, "unverifiedFields");
         this.unverifiedFields = unverifiedFields;
         return this;
@@ -410,7 +404,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withUsername(JsonNullable<? extends String> username) {
+    public SignUp withUsername(JsonNullable<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
         return this;
@@ -422,7 +416,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withEmailAddress(JsonNullable<? extends String> emailAddress) {
+    public SignUp withEmailAddress(JsonNullable<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -434,7 +428,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withPhoneNumber(JsonNullable<? extends String> phoneNumber) {
+    public SignUp withPhoneNumber(JsonNullable<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
         return this;
@@ -446,7 +440,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withWeb3Wallet(JsonNullable<? extends String> web3Wallet) {
+    public SignUp withWeb3Wallet(JsonNullable<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         this.web3Wallet = web3Wallet;
         return this;
@@ -464,7 +458,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withFirstName(JsonNullable<? extends String> firstName) {
+    public SignUp withFirstName(JsonNullable<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -476,7 +470,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withLastName(JsonNullable<? extends String> lastName) {
+    public SignUp withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -518,7 +512,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withExternalId(JsonNullable<? extends String> externalId) {
+    public SignUp withExternalId(JsonNullable<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -530,7 +524,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withCreatedSessionId(JsonNullable<? extends String> createdSessionId) {
+    public SignUp withCreatedSessionId(JsonNullable<String> createdSessionId) {
         Utils.checkNotNull(createdSessionId, "createdSessionId");
         this.createdSessionId = createdSessionId;
         return this;
@@ -542,7 +536,7 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withCreatedUserId(JsonNullable<? extends String> createdUserId) {
+    public SignUp withCreatedUserId(JsonNullable<String> createdUserId) {
         Utils.checkNotNull(createdUserId, "createdUserId");
         this.createdUserId = createdUserId;
         return this;
@@ -576,34 +570,34 @@ public class SignUp {
         }
         SignUp other = (SignUp) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.requiredFields, other.requiredFields) &&
-            java.util.Objects.deepEquals(this.optionalFields, other.optionalFields) &&
-            java.util.Objects.deepEquals(this.missingFields, other.missingFields) &&
-            java.util.Objects.deepEquals(this.unverifiedFields, other.unverifiedFields) &&
-            java.util.Objects.deepEquals(this.verifications, other.verifications) &&
-            java.util.Objects.deepEquals(this.username, other.username) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            java.util.Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            java.util.Objects.deepEquals(this.passwordEnabled, other.passwordEnabled) &&
-            java.util.Objects.deepEquals(this.firstName, other.firstName) &&
-            java.util.Objects.deepEquals(this.lastName, other.lastName) &&
-            java.util.Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.customAction, other.customAction) &&
-            java.util.Objects.deepEquals(this.externalId, other.externalId) &&
-            java.util.Objects.deepEquals(this.createdSessionId, other.createdSessionId) &&
-            java.util.Objects.deepEquals(this.createdUserId, other.createdUserId) &&
-            java.util.Objects.deepEquals(this.abandonAt, other.abandonAt) &&
-            java.util.Objects.deepEquals(this.externalAccount, other.externalAccount);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.requiredFields, other.requiredFields) &&
+            Objects.deepEquals(this.optionalFields, other.optionalFields) &&
+            Objects.deepEquals(this.missingFields, other.missingFields) &&
+            Objects.deepEquals(this.unverifiedFields, other.unverifiedFields) &&
+            Objects.deepEquals(this.verifications, other.verifications) &&
+            Objects.deepEquals(this.username, other.username) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
+            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
+            Objects.deepEquals(this.passwordEnabled, other.passwordEnabled) &&
+            Objects.deepEquals(this.firstName, other.firstName) &&
+            Objects.deepEquals(this.lastName, other.lastName) &&
+            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.customAction, other.customAction) &&
+            Objects.deepEquals(this.externalId, other.externalId) &&
+            Objects.deepEquals(this.createdSessionId, other.createdSessionId) &&
+            Objects.deepEquals(this.createdUserId, other.createdUserId) &&
+            Objects.deepEquals(this.abandonAt, other.abandonAt) &&
+            Objects.deepEquals(this.externalAccount, other.externalAccount);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             status,
@@ -665,29 +659,29 @@ public class SignUp {
  
         private SignUpStatus status;
  
-        private Optional<? extends java.util.List<String>> requiredFields = Optional.empty();
+        private Optional<? extends List<String>> requiredFields = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> optionalFields = Optional.empty();
+        private Optional<? extends List<String>> optionalFields = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> missingFields = Optional.empty();
+        private Optional<? extends List<String>> missingFields = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> unverifiedFields = Optional.empty();
+        private Optional<? extends List<String>> unverifiedFields = Optional.empty();
  
         private Optional<? extends Verifications> verifications = Optional.empty();
  
-        private JsonNullable<? extends String> username = JsonNullable.undefined();
+        private JsonNullable<String> username = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> emailAddress = JsonNullable.undefined();
+        private JsonNullable<String> emailAddress = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> phoneNumber = JsonNullable.undefined();
+        private JsonNullable<String> phoneNumber = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> web3Wallet = JsonNullable.undefined();
+        private JsonNullable<String> web3Wallet = JsonNullable.undefined();
  
         private Boolean passwordEnabled;
  
-        private JsonNullable<? extends String> firstName = JsonNullable.undefined();
+        private JsonNullable<String> firstName = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> lastName = JsonNullable.undefined();
+        private JsonNullable<String> lastName = JsonNullable.undefined();
  
         private Optional<? extends SignUpUnsafeMetadata> unsafeMetadata = Optional.empty();
  
@@ -695,11 +689,11 @@ public class SignUp {
  
         private Boolean customAction;
  
-        private JsonNullable<? extends String> externalId = JsonNullable.undefined();
+        private JsonNullable<String> externalId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> createdSessionId = JsonNullable.undefined();
+        private JsonNullable<String> createdSessionId = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> createdUserId = JsonNullable.undefined();
+        private JsonNullable<String> createdUserId = JsonNullable.undefined();
  
         private Long abandonAt;
  
@@ -727,49 +721,49 @@ public class SignUp {
             return this;
         }
 
-        public Builder requiredFields(java.util.List<String> requiredFields) {
+        public Builder requiredFields(List<String> requiredFields) {
             Utils.checkNotNull(requiredFields, "requiredFields");
             this.requiredFields = Optional.ofNullable(requiredFields);
             return this;
         }
 
-        public Builder requiredFields(Optional<? extends java.util.List<String>> requiredFields) {
+        public Builder requiredFields(Optional<? extends List<String>> requiredFields) {
             Utils.checkNotNull(requiredFields, "requiredFields");
             this.requiredFields = requiredFields;
             return this;
         }
 
-        public Builder optionalFields(java.util.List<String> optionalFields) {
+        public Builder optionalFields(List<String> optionalFields) {
             Utils.checkNotNull(optionalFields, "optionalFields");
             this.optionalFields = Optional.ofNullable(optionalFields);
             return this;
         }
 
-        public Builder optionalFields(Optional<? extends java.util.List<String>> optionalFields) {
+        public Builder optionalFields(Optional<? extends List<String>> optionalFields) {
             Utils.checkNotNull(optionalFields, "optionalFields");
             this.optionalFields = optionalFields;
             return this;
         }
 
-        public Builder missingFields(java.util.List<String> missingFields) {
+        public Builder missingFields(List<String> missingFields) {
             Utils.checkNotNull(missingFields, "missingFields");
             this.missingFields = Optional.ofNullable(missingFields);
             return this;
         }
 
-        public Builder missingFields(Optional<? extends java.util.List<String>> missingFields) {
+        public Builder missingFields(Optional<? extends List<String>> missingFields) {
             Utils.checkNotNull(missingFields, "missingFields");
             this.missingFields = missingFields;
             return this;
         }
 
-        public Builder unverifiedFields(java.util.List<String> unverifiedFields) {
+        public Builder unverifiedFields(List<String> unverifiedFields) {
             Utils.checkNotNull(unverifiedFields, "unverifiedFields");
             this.unverifiedFields = Optional.ofNullable(unverifiedFields);
             return this;
         }
 
-        public Builder unverifiedFields(Optional<? extends java.util.List<String>> unverifiedFields) {
+        public Builder unverifiedFields(Optional<? extends List<String>> unverifiedFields) {
             Utils.checkNotNull(unverifiedFields, "unverifiedFields");
             this.unverifiedFields = unverifiedFields;
             return this;
@@ -793,7 +787,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder username(JsonNullable<? extends String> username) {
+        public Builder username(JsonNullable<String> username) {
             Utils.checkNotNull(username, "username");
             this.username = username;
             return this;
@@ -805,7 +799,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder emailAddress(JsonNullable<? extends String> emailAddress) {
+        public Builder emailAddress(JsonNullable<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
@@ -817,7 +811,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder phoneNumber(JsonNullable<? extends String> phoneNumber) {
+        public Builder phoneNumber(JsonNullable<String> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = phoneNumber;
             return this;
@@ -829,7 +823,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder web3Wallet(JsonNullable<? extends String> web3Wallet) {
+        public Builder web3Wallet(JsonNullable<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = web3Wallet;
             return this;
@@ -847,7 +841,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder firstName(JsonNullable<? extends String> firstName) {
+        public Builder firstName(JsonNullable<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -859,7 +853,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder lastName(JsonNullable<? extends String> lastName) {
+        public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -901,7 +895,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder externalId(JsonNullable<? extends String> externalId) {
+        public Builder externalId(JsonNullable<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;
@@ -913,7 +907,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder createdSessionId(JsonNullable<? extends String> createdSessionId) {
+        public Builder createdSessionId(JsonNullable<String> createdSessionId) {
             Utils.checkNotNull(createdSessionId, "createdSessionId");
             this.createdSessionId = createdSessionId;
             return this;
@@ -925,7 +919,7 @@ public class SignUp {
             return this;
         }
 
-        public Builder createdUserId(JsonNullable<? extends String> createdUserId) {
+        public Builder createdUserId(JsonNullable<String> createdUserId) {
             Utils.checkNotNull(createdUserId, "createdUserId");
             this.createdUserId = createdUserId;
             return this;

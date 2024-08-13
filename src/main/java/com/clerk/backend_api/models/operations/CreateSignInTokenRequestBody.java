@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateSignInTokenRequestBody {
 
@@ -26,7 +27,7 @@ public class CreateSignInTokenRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("user_id")
-    private Optional<? extends String> userId;
+    private Optional<String> userId;
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
@@ -34,12 +35,12 @@ public class CreateSignInTokenRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_seconds")
-    private Optional<? extends Long> expiresInSeconds;
+    private Optional<Long> expiresInSeconds;
 
     @JsonCreator
     public CreateSignInTokenRequestBody(
-            @JsonProperty("user_id") Optional<? extends String> userId,
-            @JsonProperty("expires_in_seconds") Optional<? extends Long> expiresInSeconds) {
+            @JsonProperty("user_id") Optional<String> userId,
+            @JsonProperty("expires_in_seconds") Optional<Long> expiresInSeconds) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.userId = userId;
@@ -53,20 +54,18 @@ public class CreateSignInTokenRequestBody {
     /**
      * The ID of the user that can use the newly created sign in token
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> userId() {
-        return (Optional<String>) userId;
+        return userId;
     }
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
      * By default, the duration is 30 days.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> expiresInSeconds() {
-        return (Optional<Long>) expiresInSeconds;
+        return expiresInSeconds;
     }
 
     public final static Builder builder() {
@@ -85,7 +84,7 @@ public class CreateSignInTokenRequestBody {
     /**
      * The ID of the user that can use the newly created sign in token
      */
-    public CreateSignInTokenRequestBody withUserId(Optional<? extends String> userId) {
+    public CreateSignInTokenRequestBody withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -105,7 +104,7 @@ public class CreateSignInTokenRequestBody {
      * Optional parameter to specify the life duration of the sign in token in seconds.
      * By default, the duration is 30 days.
      */
-    public CreateSignInTokenRequestBody withExpiresInSeconds(Optional<? extends Long> expiresInSeconds) {
+    public CreateSignInTokenRequestBody withExpiresInSeconds(Optional<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = expiresInSeconds;
         return this;
@@ -121,13 +120,13 @@ public class CreateSignInTokenRequestBody {
         }
         CreateSignInTokenRequestBody other = (CreateSignInTokenRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds);
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             userId,
             expiresInSeconds);
     }
@@ -141,9 +140,9 @@ public class CreateSignInTokenRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends String> userId = Optional.empty();
+        private Optional<String> userId = Optional.empty();
  
-        private Optional<? extends Long> expiresInSeconds;  
+        private Optional<Long> expiresInSeconds;  
         
         private Builder() {
           // force use of static builder() method
@@ -161,7 +160,7 @@ public class CreateSignInTokenRequestBody {
         /**
          * The ID of the user that can use the newly created sign in token
          */
-        public Builder userId(Optional<? extends String> userId) {
+        public Builder userId(Optional<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
@@ -181,7 +180,7 @@ public class CreateSignInTokenRequestBody {
          * Optional parameter to specify the life duration of the sign in token in seconds.
          * By default, the duration is 30 days.
          */
-        public Builder expiresInSeconds(Optional<? extends Long> expiresInSeconds) {
+        public Builder expiresInSeconds(Optional<Long> expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
             this.expiresInSeconds = expiresInSeconds;
             return this;
@@ -196,11 +195,11 @@ public class CreateSignInTokenRequestBody {
                 expiresInSeconds);
         }
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_ExpiresInSeconds =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_ExpiresInSeconds =
                 new LazySingletonValue<>(
                         "expires_in_seconds",
                         "2592000",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
     }
 }
 

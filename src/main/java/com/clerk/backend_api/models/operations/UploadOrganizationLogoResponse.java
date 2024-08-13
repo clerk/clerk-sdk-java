@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.OrganizationWithLogo;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UploadOrganizationLogoResponse implements com.clerk.backend_api.utils.Response {
+
+public class UploadOrganizationLogoResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
     /**
      * An organization with a logo URL.
      */
-    private Optional<? extends com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo;
+    private Optional<? extends OrganizationWithLogo> organizationWithLogo;
 
     @JsonCreator
     public UploadOrganizationLogoResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo) {
+            Optional<? extends OrganizationWithLogo> organizationWithLogo) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo() {
-        return (Optional<com.clerk.backend_api.models.components.OrganizationWithLogo>) organizationWithLogo;
+    public Optional<OrganizationWithLogo> organizationWithLogo() {
+        return (Optional<OrganizationWithLogo>) organizationWithLogo;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
     /**
      * An organization with a logo URL.
      */
-    public UploadOrganizationLogoResponse withOrganizationWithLogo(com.clerk.backend_api.models.components.OrganizationWithLogo organizationWithLogo) {
+    public UploadOrganizationLogoResponse withOrganizationWithLogo(OrganizationWithLogo organizationWithLogo) {
         Utils.checkNotNull(organizationWithLogo, "organizationWithLogo");
         this.organizationWithLogo = Optional.ofNullable(organizationWithLogo);
         return this;
@@ -137,7 +141,7 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
     /**
      * An organization with a logo URL.
      */
-    public UploadOrganizationLogoResponse withOrganizationWithLogo(Optional<? extends com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo) {
+    public UploadOrganizationLogoResponse withOrganizationWithLogo(Optional<? extends OrganizationWithLogo> organizationWithLogo) {
         Utils.checkNotNull(organizationWithLogo, "organizationWithLogo");
         this.organizationWithLogo = organizationWithLogo;
         return this;
@@ -153,15 +157,15 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
         }
         UploadOrganizationLogoResponse other = (UploadOrganizationLogoResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.organizationWithLogo, other.organizationWithLogo);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.organizationWithLogo, other.organizationWithLogo);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo = Optional.empty();  
+        private Optional<? extends OrganizationWithLogo> organizationWithLogo = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
         /**
          * An organization with a logo URL.
          */
-        public Builder organizationWithLogo(com.clerk.backend_api.models.components.OrganizationWithLogo organizationWithLogo) {
+        public Builder organizationWithLogo(OrganizationWithLogo organizationWithLogo) {
             Utils.checkNotNull(organizationWithLogo, "organizationWithLogo");
             this.organizationWithLogo = Optional.ofNullable(organizationWithLogo);
             return this;
@@ -230,7 +234,7 @@ public class UploadOrganizationLogoResponse implements com.clerk.backend_api.uti
         /**
          * An organization with a logo URL.
          */
-        public Builder organizationWithLogo(Optional<? extends com.clerk.backend_api.models.components.OrganizationWithLogo> organizationWithLogo) {
+        public Builder organizationWithLogo(Optional<? extends OrganizationWithLogo> organizationWithLogo) {
             Utils.checkNotNull(organizationWithLogo, "organizationWithLogo");
             this.organizationWithLogo = organizationWithLogo;
             return this;

@@ -18,17 +18,10 @@ You can optionally supply a different duration in seconds using the `expires_in_
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody;
+import com.clerk.backend_api.models.operations.CreateSignInTokenResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -51,7 +44,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -63,16 +56,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                       | [com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody](../../models/operations/CreateSignInTokenRequestBody.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [CreateSignInTokenRequestBody](../../models/operations/CreateSignInTokenRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateSignInTokenResponse](../../models/operations/CreateSignInTokenResponse.md)**
+**[CreateSignInTokenResponse](../../models/operations/CreateSignInTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -90,17 +85,9 @@ Revokes a pending sign-in token
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.RevokeSignInTokenResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -120,7 +107,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -132,6 +119,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                 | Type                                      | Required                                  | Description                               |
@@ -141,7 +130,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.RevokeSignInTokenResponse](../../models/operations/RevokeSignInTokenResponse.md)**
+**[RevokeSignInTokenResponse](../../models/operations/RevokeSignInTokenResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

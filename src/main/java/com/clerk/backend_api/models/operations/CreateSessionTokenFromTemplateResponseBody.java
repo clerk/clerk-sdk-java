@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * CreateSessionTokenFromTemplateResponseBody - OK
  */
@@ -29,12 +29,12 @@ public class CreateSessionTokenFromTemplateResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("jwt")
-    private Optional<? extends String> jwt;
+    private Optional<String> jwt;
 
     @JsonCreator
     public CreateSessionTokenFromTemplateResponseBody(
             @JsonProperty("object") Optional<? extends Object> object,
-            @JsonProperty("jwt") Optional<? extends String> jwt) {
+            @JsonProperty("jwt") Optional<String> jwt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(jwt, "jwt");
         this.object = object;
@@ -51,10 +51,9 @@ public class CreateSessionTokenFromTemplateResponseBody {
         return (Optional<Object>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> jwt() {
-        return (Optional<String>) jwt;
+        return jwt;
     }
 
     public final static Builder builder() {
@@ -79,7 +78,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
         return this;
     }
 
-    public CreateSessionTokenFromTemplateResponseBody withJwt(Optional<? extends String> jwt) {
+    public CreateSessionTokenFromTemplateResponseBody withJwt(Optional<String> jwt) {
         Utils.checkNotNull(jwt, "jwt");
         this.jwt = jwt;
         return this;
@@ -95,13 +94,13 @@ public class CreateSessionTokenFromTemplateResponseBody {
         }
         CreateSessionTokenFromTemplateResponseBody other = (CreateSessionTokenFromTemplateResponseBody) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.jwt, other.jwt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.jwt, other.jwt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             jwt);
     }
@@ -117,7 +116,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
  
         private Optional<? extends Object> object = Optional.empty();
  
-        private Optional<? extends String> jwt = Optional.empty();  
+        private Optional<String> jwt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -141,7 +140,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
             return this;
         }
 
-        public Builder jwt(Optional<? extends String> jwt) {
+        public Builder jwt(Optional<String> jwt) {
             Utils.checkNotNull(jwt, "jwt");
             this.jwt = jwt;
             return this;

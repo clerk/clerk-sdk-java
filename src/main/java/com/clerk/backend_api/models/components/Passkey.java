@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Passkey {
 
@@ -33,19 +34,19 @@ public class Passkey {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
-    private JsonNullable<? extends Long> attempts;
+    private JsonNullable<Long> attempts;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expire_at")
-    private JsonNullable<? extends Long> expireAt;
+    private JsonNullable<Long> expireAt;
 
     @JsonCreator
     public Passkey(
             @JsonProperty("status") PasskeyVerificationStatus status,
             @JsonProperty("strategy") PasskeyVerificationStrategy strategy,
             @JsonProperty("nonce") Optional<? extends VerificationNonce> nonce,
-            @JsonProperty("attempts") JsonNullable<? extends Long> attempts,
-            @JsonProperty("expire_at") JsonNullable<? extends Long> expireAt) {
+            @JsonProperty("attempts") JsonNullable<Long> attempts,
+            @JsonProperty("expire_at") JsonNullable<Long> expireAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(nonce, "nonce");
@@ -80,16 +81,14 @@ public class Passkey {
         return (Optional<VerificationNonce>) nonce;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> attempts() {
-        return (JsonNullable<Long>) attempts;
+        return attempts;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Long> expireAt() {
-        return (JsonNullable<Long>) expireAt;
+        return expireAt;
     }
 
     public final static Builder builder() {
@@ -126,7 +125,7 @@ public class Passkey {
         return this;
     }
 
-    public Passkey withAttempts(JsonNullable<? extends Long> attempts) {
+    public Passkey withAttempts(JsonNullable<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
@@ -138,7 +137,7 @@ public class Passkey {
         return this;
     }
 
-    public Passkey withExpireAt(JsonNullable<? extends Long> expireAt) {
+    public Passkey withExpireAt(JsonNullable<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
         return this;
@@ -154,16 +153,16 @@ public class Passkey {
         }
         Passkey other = (Passkey) o;
         return 
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.strategy, other.strategy) &&
-            java.util.Objects.deepEquals(this.nonce, other.nonce) &&
-            java.util.Objects.deepEquals(this.attempts, other.attempts) &&
-            java.util.Objects.deepEquals(this.expireAt, other.expireAt);
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.strategy, other.strategy) &&
+            Objects.deepEquals(this.nonce, other.nonce) &&
+            Objects.deepEquals(this.attempts, other.attempts) &&
+            Objects.deepEquals(this.expireAt, other.expireAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             status,
             strategy,
             nonce,
@@ -189,9 +188,9 @@ public class Passkey {
  
         private Optional<? extends VerificationNonce> nonce = Optional.empty();
  
-        private JsonNullable<? extends Long> attempts = JsonNullable.undefined();
+        private JsonNullable<Long> attempts = JsonNullable.undefined();
  
-        private JsonNullable<? extends Long> expireAt = JsonNullable.undefined();  
+        private JsonNullable<Long> expireAt = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -227,7 +226,7 @@ public class Passkey {
             return this;
         }
 
-        public Builder attempts(JsonNullable<? extends Long> attempts) {
+        public Builder attempts(JsonNullable<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
@@ -239,7 +238,7 @@ public class Passkey {
             return this;
         }
 
-        public Builder expireAt(JsonNullable<? extends Long> expireAt) {
+        public Builder expireAt(JsonNullable<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;

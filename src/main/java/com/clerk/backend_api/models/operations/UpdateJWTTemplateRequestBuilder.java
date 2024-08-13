@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class UpdateJWTTemplateRequestBuilder {
 
@@ -27,19 +18,19 @@ public class UpdateJWTTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateJWTTemplateRequestBuilder templateId(String templateId) {
+    public UpdateJWTTemplateRequestBuilder templateId(java.lang.String templateId) {
         Utils.checkNotNull(templateId, "templateId");
         this.templateId = templateId;
         return this;
     }
                 
-    public UpdateJWTTemplateRequestBuilder requestBody(UpdateJWTTemplateRequestBody requestBody) {
+    public UpdateJWTTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateJWTTemplateRequestBuilder requestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
+    public UpdateJWTTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

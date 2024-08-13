@@ -4,18 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
+import java.lang.String;
 
 public class CreateSessionTokenFromTemplateRequestBuilder {
 
@@ -27,13 +17,13 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateSessionTokenFromTemplateRequestBuilder sessionId(String sessionId) {
+    public CreateSessionTokenFromTemplateRequestBuilder sessionId(java.lang.String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
         return this;
     }
 
-    public CreateSessionTokenFromTemplateRequestBuilder templateName(String templateName) {
+    public CreateSessionTokenFromTemplateRequestBuilder templateName(java.lang.String templateName) {
         Utils.checkNotNull(templateName, "templateName");
         this.templateName = templateName;
         return this;

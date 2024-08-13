@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.OrganizationMembership;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.backend_api.utils.Response {
+
+public class UpdateOrganizationMembershipMetadataResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership;
+    private Optional<? extends OrganizationMembership> organizationMembership;
 
     @JsonCreator
     public UpdateOrganizationMembershipMetadataResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership) {
+            Optional<? extends OrganizationMembership> organizationMembership) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership() {
-        return (Optional<com.clerk.backend_api.models.components.OrganizationMembership>) organizationMembership;
+    public Optional<OrganizationMembership> organizationMembership() {
+        return (Optional<OrganizationMembership>) organizationMembership;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
     /**
      * Success
      */
-    public UpdateOrganizationMembershipMetadataResponse withOrganizationMembership(com.clerk.backend_api.models.components.OrganizationMembership organizationMembership) {
+    public UpdateOrganizationMembershipMetadataResponse withOrganizationMembership(OrganizationMembership organizationMembership) {
         Utils.checkNotNull(organizationMembership, "organizationMembership");
         this.organizationMembership = Optional.ofNullable(organizationMembership);
         return this;
@@ -137,7 +141,7 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
     /**
      * Success
      */
-    public UpdateOrganizationMembershipMetadataResponse withOrganizationMembership(Optional<? extends com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership) {
+    public UpdateOrganizationMembershipMetadataResponse withOrganizationMembership(Optional<? extends OrganizationMembership> organizationMembership) {
         Utils.checkNotNull(organizationMembership, "organizationMembership");
         this.organizationMembership = organizationMembership;
         return this;
@@ -153,15 +157,15 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
         }
         UpdateOrganizationMembershipMetadataResponse other = (UpdateOrganizationMembershipMetadataResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.organizationMembership, other.organizationMembership);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.organizationMembership, other.organizationMembership);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership = Optional.empty();  
+        private Optional<? extends OrganizationMembership> organizationMembership = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
         /**
          * Success
          */
-        public Builder organizationMembership(com.clerk.backend_api.models.components.OrganizationMembership organizationMembership) {
+        public Builder organizationMembership(OrganizationMembership organizationMembership) {
             Utils.checkNotNull(organizationMembership, "organizationMembership");
             this.organizationMembership = Optional.ofNullable(organizationMembership);
             return this;
@@ -230,7 +234,7 @@ public class UpdateOrganizationMembershipMetadataResponse implements com.clerk.b
         /**
          * Success
          */
-        public Builder organizationMembership(Optional<? extends com.clerk.backend_api.models.components.OrganizationMembership> organizationMembership) {
+        public Builder organizationMembership(Optional<? extends OrganizationMembership> organizationMembership) {
             Utils.checkNotNull(organizationMembership, "organizationMembership");
             this.organizationMembership = organizationMembership;
             return this;

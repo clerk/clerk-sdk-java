@@ -4,18 +4,21 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class GetUserListRequest {
 
@@ -25,7 +28,7 @@ public class GetUserListRequest {
      * Any email addresses not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address")
-    private Optional<? extends java.util.List<String>> emailAddress;
+    private Optional<? extends List<String>> emailAddress;
 
     /**
      * Returns users with the specified phone numbers.
@@ -33,7 +36,7 @@ public class GetUserListRequest {
      * Any phone numbers not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=phone_number")
-    private Optional<? extends java.util.List<String>> phoneNumber;
+    private Optional<? extends List<String>> phoneNumber;
 
     /**
      * Returns users with the specified external ids.
@@ -45,7 +48,7 @@ public class GetUserListRequest {
      * Any external ids not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=external_id")
-    private Optional<? extends java.util.List<String>> externalId;
+    private Optional<? extends List<String>> externalId;
 
     /**
      * Returns users with the specified usernames.
@@ -53,7 +56,7 @@ public class GetUserListRequest {
      * Any usernames not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=username")
-    private Optional<? extends java.util.List<String>> username;
+    private Optional<? extends List<String>> username;
 
     /**
      * Returns users with the specified web3 wallet addresses.
@@ -61,7 +64,7 @@ public class GetUserListRequest {
      * Any web3 wallet addressed not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=web3_wallet")
-    private Optional<? extends java.util.List<String>> web3Wallet;
+    private Optional<? extends List<String>> web3Wallet;
 
     /**
      * Returns users with the user ids specified.
@@ -73,7 +76,7 @@ public class GetUserListRequest {
      * Any user ids not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
-    private Optional<? extends java.util.List<String>> userId;
+    private Optional<? extends List<String>> userId;
 
     /**
      * Returns users that have memberships to the
@@ -85,7 +88,7 @@ public class GetUserListRequest {
      * Accepts up to 100 organization ids.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
-    private Optional<? extends java.util.List<String>> organizationId;
+    private Optional<? extends List<String>> organizationId;
 
     /**
      * Returns users that match the given query.
@@ -93,7 +96,7 @@ public class GetUserListRequest {
      * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
-    private Optional<? extends String> query;
+    private Optional<String> query;
 
     /**
      * Returns users that had session activity since the given date, with day precision.
@@ -101,14 +104,14 @@ public class GetUserListRequest {
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_active_at_since")
-    private Optional<? extends Long> lastActiveAtSince;
+    private Optional<Long> lastActiveAtSince;
 
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=limit")
-    private Optional<? extends Long> limit;
+    private Optional<Long> limit;
 
     /**
      * Skip the first `offset` results when paginating.
@@ -116,7 +119,7 @@ public class GetUserListRequest {
      * To be used in conjunction with `limit`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=offset")
-    private Optional<? extends Long> offset;
+    private Optional<Long> offset;
 
     /**
      * Allows to return users in a particular order.
@@ -127,22 +130,22 @@ public class GetUserListRequest {
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
-    private Optional<? extends String> orderBy;
+    private Optional<String> orderBy;
 
     @JsonCreator
     public GetUserListRequest(
-            Optional<? extends java.util.List<String>> emailAddress,
-            Optional<? extends java.util.List<String>> phoneNumber,
-            Optional<? extends java.util.List<String>> externalId,
-            Optional<? extends java.util.List<String>> username,
-            Optional<? extends java.util.List<String>> web3Wallet,
-            Optional<? extends java.util.List<String>> userId,
-            Optional<? extends java.util.List<String>> organizationId,
-            Optional<? extends String> query,
-            Optional<? extends Long> lastActiveAtSince,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends String> orderBy) {
+            Optional<? extends List<String>> emailAddress,
+            Optional<? extends List<String>> phoneNumber,
+            Optional<? extends List<String>> externalId,
+            Optional<? extends List<String>> username,
+            Optional<? extends List<String>> web3Wallet,
+            Optional<? extends List<String>> userId,
+            Optional<? extends List<String>> organizationId,
+            Optional<String> query,
+            Optional<Long> lastActiveAtSince,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<String> orderBy) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         Utils.checkNotNull(externalId, "externalId");
@@ -180,8 +183,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> emailAddress() {
-        return (Optional<java.util.List<String>>) emailAddress;
+    public Optional<List<String>> emailAddress() {
+        return (Optional<List<String>>) emailAddress;
     }
 
     /**
@@ -191,8 +194,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> phoneNumber() {
-        return (Optional<java.util.List<String>>) phoneNumber;
+    public Optional<List<String>> phoneNumber() {
+        return (Optional<List<String>>) phoneNumber;
     }
 
     /**
@@ -206,8 +209,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> externalId() {
-        return (Optional<java.util.List<String>>) externalId;
+    public Optional<List<String>> externalId() {
+        return (Optional<List<String>>) externalId;
     }
 
     /**
@@ -217,8 +220,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> username() {
-        return (Optional<java.util.List<String>>) username;
+    public Optional<List<String>> username() {
+        return (Optional<List<String>>) username;
     }
 
     /**
@@ -228,8 +231,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> web3Wallet() {
-        return (Optional<java.util.List<String>>) web3Wallet;
+    public Optional<List<String>> web3Wallet() {
+        return (Optional<List<String>>) web3Wallet;
     }
 
     /**
@@ -243,8 +246,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> userId() {
-        return (Optional<java.util.List<String>>) userId;
+    public Optional<List<String>> userId() {
+        return (Optional<List<String>>) userId;
     }
 
     /**
@@ -258,8 +261,8 @@ public class GetUserListRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> organizationId() {
-        return (Optional<java.util.List<String>>) organizationId;
+    public Optional<List<String>> organizationId() {
+        return (Optional<List<String>>) organizationId;
     }
 
     /**
@@ -267,10 +270,9 @@ public class GetUserListRequest {
      * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
      * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> query() {
-        return (Optional<String>) query;
+        return query;
     }
 
     /**
@@ -278,20 +280,18 @@ public class GetUserListRequest {
      * Providing a value with higher precision than day will result in an error.
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> lastActiveAtSince() {
-        return (Optional<Long>) lastActiveAtSince;
+        return lastActiveAtSince;
     }
 
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> limit() {
-        return (Optional<Long>) limit;
+        return limit;
     }
 
     /**
@@ -299,10 +299,9 @@ public class GetUserListRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> offset() {
-        return (Optional<Long>) offset;
+        return offset;
     }
 
     /**
@@ -313,10 +312,9 @@ public class GetUserListRequest {
      * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> orderBy() {
-        return (Optional<String>) orderBy;
+        return orderBy;
     }
 
     public final static Builder builder() {
@@ -328,7 +326,7 @@ public class GetUserListRequest {
      * Accepts up to 100 email addresses.
      * Any email addresses not found are ignored.
      */
-    public GetUserListRequest withEmailAddress(java.util.List<String> emailAddress) {
+    public GetUserListRequest withEmailAddress(List<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
@@ -339,7 +337,7 @@ public class GetUserListRequest {
      * Accepts up to 100 email addresses.
      * Any email addresses not found are ignored.
      */
-    public GetUserListRequest withEmailAddress(Optional<? extends java.util.List<String>> emailAddress) {
+    public GetUserListRequest withEmailAddress(Optional<? extends List<String>> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -350,7 +348,7 @@ public class GetUserListRequest {
      * Accepts up to 100 phone numbers.
      * Any phone numbers not found are ignored.
      */
-    public GetUserListRequest withPhoneNumber(java.util.List<String> phoneNumber) {
+    public GetUserListRequest withPhoneNumber(List<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = Optional.ofNullable(phoneNumber);
         return this;
@@ -361,7 +359,7 @@ public class GetUserListRequest {
      * Accepts up to 100 phone numbers.
      * Any phone numbers not found are ignored.
      */
-    public GetUserListRequest withPhoneNumber(Optional<? extends java.util.List<String>> phoneNumber) {
+    public GetUserListRequest withPhoneNumber(Optional<? extends List<String>> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
         return this;
@@ -376,7 +374,7 @@ public class GetUserListRequest {
      * Accepts up to 100 external ids.
      * Any external ids not found are ignored.
      */
-    public GetUserListRequest withExternalId(java.util.List<String> externalId) {
+    public GetUserListRequest withExternalId(List<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = Optional.ofNullable(externalId);
         return this;
@@ -391,7 +389,7 @@ public class GetUserListRequest {
      * Accepts up to 100 external ids.
      * Any external ids not found are ignored.
      */
-    public GetUserListRequest withExternalId(Optional<? extends java.util.List<String>> externalId) {
+    public GetUserListRequest withExternalId(Optional<? extends List<String>> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -402,7 +400,7 @@ public class GetUserListRequest {
      * Accepts up to 100 usernames.
      * Any usernames not found are ignored.
      */
-    public GetUserListRequest withUsername(java.util.List<String> username) {
+    public GetUserListRequest withUsername(List<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = Optional.ofNullable(username);
         return this;
@@ -413,7 +411,7 @@ public class GetUserListRequest {
      * Accepts up to 100 usernames.
      * Any usernames not found are ignored.
      */
-    public GetUserListRequest withUsername(Optional<? extends java.util.List<String>> username) {
+    public GetUserListRequest withUsername(Optional<? extends List<String>> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
         return this;
@@ -424,7 +422,7 @@ public class GetUserListRequest {
      * Accepts up to 100 web3 wallet addresses.
      * Any web3 wallet addressed not found are ignored.
      */
-    public GetUserListRequest withWeb3Wallet(java.util.List<String> web3Wallet) {
+    public GetUserListRequest withWeb3Wallet(List<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
@@ -435,7 +433,7 @@ public class GetUserListRequest {
      * Accepts up to 100 web3 wallet addresses.
      * Any web3 wallet addressed not found are ignored.
      */
-    public GetUserListRequest withWeb3Wallet(Optional<? extends java.util.List<String>> web3Wallet) {
+    public GetUserListRequest withWeb3Wallet(Optional<? extends List<String>> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         this.web3Wallet = web3Wallet;
         return this;
@@ -450,7 +448,7 @@ public class GetUserListRequest {
      * Accepts up to 100 user ids.
      * Any user ids not found are ignored.
      */
-    public GetUserListRequest withUserId(java.util.List<String> userId) {
+    public GetUserListRequest withUserId(List<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = Optional.ofNullable(userId);
         return this;
@@ -465,7 +463,7 @@ public class GetUserListRequest {
      * Accepts up to 100 user ids.
      * Any user ids not found are ignored.
      */
-    public GetUserListRequest withUserId(Optional<? extends java.util.List<String>> userId) {
+    public GetUserListRequest withUserId(Optional<? extends List<String>> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -480,7 +478,7 @@ public class GetUserListRequest {
      * excluded from the result set.
      * Accepts up to 100 organization ids.
      */
-    public GetUserListRequest withOrganizationId(java.util.List<String> organizationId) {
+    public GetUserListRequest withOrganizationId(List<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = Optional.ofNullable(organizationId);
         return this;
@@ -495,7 +493,7 @@ public class GetUserListRequest {
      * excluded from the result set.
      * Accepts up to 100 organization ids.
      */
-    public GetUserListRequest withOrganizationId(Optional<? extends java.util.List<String>> organizationId) {
+    public GetUserListRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -517,7 +515,7 @@ public class GetUserListRequest {
      * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
      * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
      */
-    public GetUserListRequest withQuery(Optional<? extends String> query) {
+    public GetUserListRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
         this.query = query;
         return this;
@@ -539,7 +537,7 @@ public class GetUserListRequest {
      * Providing a value with higher precision than day will result in an error.
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
      */
-    public GetUserListRequest withLastActiveAtSince(Optional<? extends Long> lastActiveAtSince) {
+    public GetUserListRequest withLastActiveAtSince(Optional<Long> lastActiveAtSince) {
         Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
         this.lastActiveAtSince = lastActiveAtSince;
         return this;
@@ -559,7 +557,7 @@ public class GetUserListRequest {
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
-    public GetUserListRequest withLimit(Optional<? extends Long> limit) {
+    public GetUserListRequest withLimit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -581,7 +579,7 @@ public class GetUserListRequest {
      * Needs to be an integer greater or equal to zero.
      * To be used in conjunction with `limit`.
      */
-    public GetUserListRequest withOffset(Optional<? extends Long> offset) {
+    public GetUserListRequest withOffset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
@@ -609,7 +607,7 @@ public class GetUserListRequest {
      * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
-    public GetUserListRequest withOrderBy(Optional<? extends String> orderBy) {
+    public GetUserListRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
         this.orderBy = orderBy;
         return this;
@@ -625,23 +623,23 @@ public class GetUserListRequest {
         }
         GetUserListRequest other = (GetUserListRequest) o;
         return 
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            java.util.Objects.deepEquals(this.externalId, other.externalId) &&
-            java.util.Objects.deepEquals(this.username, other.username) &&
-            java.util.Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            java.util.Objects.deepEquals(this.userId, other.userId) &&
-            java.util.Objects.deepEquals(this.organizationId, other.organizationId) &&
-            java.util.Objects.deepEquals(this.query, other.query) &&
-            java.util.Objects.deepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
-            java.util.Objects.deepEquals(this.limit, other.limit) &&
-            java.util.Objects.deepEquals(this.offset, other.offset) &&
-            java.util.Objects.deepEquals(this.orderBy, other.orderBy);
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
+            Objects.deepEquals(this.externalId, other.externalId) &&
+            Objects.deepEquals(this.username, other.username) &&
+            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
+            Objects.deepEquals(this.userId, other.userId) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
+            Objects.deepEquals(this.query, other.query) &&
+            Objects.deepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
+            Objects.deepEquals(this.limit, other.limit) &&
+            Objects.deepEquals(this.offset, other.offset) &&
+            Objects.deepEquals(this.orderBy, other.orderBy);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             emailAddress,
             phoneNumber,
             externalId,
@@ -675,29 +673,29 @@ public class GetUserListRequest {
     
     public final static class Builder {
  
-        private Optional<? extends java.util.List<String>> emailAddress = Optional.empty();
+        private Optional<? extends List<String>> emailAddress = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> phoneNumber = Optional.empty();
+        private Optional<? extends List<String>> phoneNumber = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> externalId = Optional.empty();
+        private Optional<? extends List<String>> externalId = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> username = Optional.empty();
+        private Optional<? extends List<String>> username = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> web3Wallet = Optional.empty();
+        private Optional<? extends List<String>> web3Wallet = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> userId = Optional.empty();
+        private Optional<? extends List<String>> userId = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> organizationId = Optional.empty();
+        private Optional<? extends List<String>> organizationId = Optional.empty();
  
-        private Optional<? extends String> query = Optional.empty();
+        private Optional<String> query = Optional.empty();
  
-        private Optional<? extends Long> lastActiveAtSince = Optional.empty();
+        private Optional<Long> lastActiveAtSince = Optional.empty();
  
-        private Optional<? extends Long> limit;
+        private Optional<Long> limit;
  
-        private Optional<? extends Long> offset;
+        private Optional<Long> offset;
  
-        private Optional<? extends String> orderBy;  
+        private Optional<String> orderBy;  
         
         private Builder() {
           // force use of static builder() method
@@ -708,7 +706,7 @@ public class GetUserListRequest {
          * Accepts up to 100 email addresses.
          * Any email addresses not found are ignored.
          */
-        public Builder emailAddress(java.util.List<String> emailAddress) {
+        public Builder emailAddress(List<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = Optional.ofNullable(emailAddress);
             return this;
@@ -719,7 +717,7 @@ public class GetUserListRequest {
          * Accepts up to 100 email addresses.
          * Any email addresses not found are ignored.
          */
-        public Builder emailAddress(Optional<? extends java.util.List<String>> emailAddress) {
+        public Builder emailAddress(Optional<? extends List<String>> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
@@ -730,7 +728,7 @@ public class GetUserListRequest {
          * Accepts up to 100 phone numbers.
          * Any phone numbers not found are ignored.
          */
-        public Builder phoneNumber(java.util.List<String> phoneNumber) {
+        public Builder phoneNumber(List<String> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = Optional.ofNullable(phoneNumber);
             return this;
@@ -741,7 +739,7 @@ public class GetUserListRequest {
          * Accepts up to 100 phone numbers.
          * Any phone numbers not found are ignored.
          */
-        public Builder phoneNumber(Optional<? extends java.util.List<String>> phoneNumber) {
+        public Builder phoneNumber(Optional<? extends List<String>> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = phoneNumber;
             return this;
@@ -756,7 +754,7 @@ public class GetUserListRequest {
          * Accepts up to 100 external ids.
          * Any external ids not found are ignored.
          */
-        public Builder externalId(java.util.List<String> externalId) {
+        public Builder externalId(List<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = Optional.ofNullable(externalId);
             return this;
@@ -771,7 +769,7 @@ public class GetUserListRequest {
          * Accepts up to 100 external ids.
          * Any external ids not found are ignored.
          */
-        public Builder externalId(Optional<? extends java.util.List<String>> externalId) {
+        public Builder externalId(Optional<? extends List<String>> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;
@@ -782,7 +780,7 @@ public class GetUserListRequest {
          * Accepts up to 100 usernames.
          * Any usernames not found are ignored.
          */
-        public Builder username(java.util.List<String> username) {
+        public Builder username(List<String> username) {
             Utils.checkNotNull(username, "username");
             this.username = Optional.ofNullable(username);
             return this;
@@ -793,7 +791,7 @@ public class GetUserListRequest {
          * Accepts up to 100 usernames.
          * Any usernames not found are ignored.
          */
-        public Builder username(Optional<? extends java.util.List<String>> username) {
+        public Builder username(Optional<? extends List<String>> username) {
             Utils.checkNotNull(username, "username");
             this.username = username;
             return this;
@@ -804,7 +802,7 @@ public class GetUserListRequest {
          * Accepts up to 100 web3 wallet addresses.
          * Any web3 wallet addressed not found are ignored.
          */
-        public Builder web3Wallet(java.util.List<String> web3Wallet) {
+        public Builder web3Wallet(List<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = Optional.ofNullable(web3Wallet);
             return this;
@@ -815,7 +813,7 @@ public class GetUserListRequest {
          * Accepts up to 100 web3 wallet addresses.
          * Any web3 wallet addressed not found are ignored.
          */
-        public Builder web3Wallet(Optional<? extends java.util.List<String>> web3Wallet) {
+        public Builder web3Wallet(Optional<? extends List<String>> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = web3Wallet;
             return this;
@@ -830,7 +828,7 @@ public class GetUserListRequest {
          * Accepts up to 100 user ids.
          * Any user ids not found are ignored.
          */
-        public Builder userId(java.util.List<String> userId) {
+        public Builder userId(List<String> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = Optional.ofNullable(userId);
             return this;
@@ -845,7 +843,7 @@ public class GetUserListRequest {
          * Accepts up to 100 user ids.
          * Any user ids not found are ignored.
          */
-        public Builder userId(Optional<? extends java.util.List<String>> userId) {
+        public Builder userId(Optional<? extends List<String>> userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
@@ -860,7 +858,7 @@ public class GetUserListRequest {
          * excluded from the result set.
          * Accepts up to 100 organization ids.
          */
-        public Builder organizationId(java.util.List<String> organizationId) {
+        public Builder organizationId(List<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
             this.organizationId = Optional.ofNullable(organizationId);
             return this;
@@ -875,7 +873,7 @@ public class GetUserListRequest {
          * excluded from the result set.
          * Accepts up to 100 organization ids.
          */
-        public Builder organizationId(Optional<? extends java.util.List<String>> organizationId) {
+        public Builder organizationId(Optional<? extends List<String>> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
             this.organizationId = organizationId;
             return this;
@@ -897,7 +895,7 @@ public class GetUserListRequest {
          * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
          * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
          */
-        public Builder query(Optional<? extends String> query) {
+        public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
             this.query = query;
             return this;
@@ -919,7 +917,7 @@ public class GetUserListRequest {
          * Providing a value with higher precision than day will result in an error.
          * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
          */
-        public Builder lastActiveAtSince(Optional<? extends Long> lastActiveAtSince) {
+        public Builder lastActiveAtSince(Optional<Long> lastActiveAtSince) {
             Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
             this.lastActiveAtSince = lastActiveAtSince;
             return this;
@@ -939,7 +937,7 @@ public class GetUserListRequest {
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
          */
-        public Builder limit(Optional<? extends Long> limit) {
+        public Builder limit(Optional<Long> limit) {
             Utils.checkNotNull(limit, "limit");
             this.limit = limit;
             return this;
@@ -961,7 +959,7 @@ public class GetUserListRequest {
          * Needs to be an integer greater or equal to zero.
          * To be used in conjunction with `limit`.
          */
-        public Builder offset(Optional<? extends Long> offset) {
+        public Builder offset(Optional<Long> offset) {
             Utils.checkNotNull(offset, "offset");
             this.offset = offset;
             return this;
@@ -989,7 +987,7 @@ public class GetUserListRequest {
          * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
          * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
          */
-        public Builder orderBy(Optional<? extends String> orderBy) {
+        public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
             this.orderBy = orderBy;
             return this;
@@ -1020,23 +1018,23 @@ public class GetUserListRequest {
                 orderBy);
         }
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Limit =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(
                         "limit",
                         "10",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
 
-        private static final LazySingletonValue<Optional<? extends Long>> _SINGLETON_VALUE_Offset =
+        private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
                 new LazySingletonValue<>(
                         "offset",
                         "0",
-                        new TypeReference<Optional<? extends Long>>() {});
+                        new TypeReference<Optional<Long>>() {});
 
-        private static final LazySingletonValue<Optional<? extends String>> _SINGLETON_VALUE_OrderBy =
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
                 new LazySingletonValue<>(
                         "order_by",
                         "\"-created_at\"",
-                        new TypeReference<Optional<? extends String>>() {});
+                        new TypeReference<Optional<String>>() {});
     }
 }
 

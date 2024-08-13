@@ -4,20 +4,27 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Invitation;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class ListInvitationsResponse implements com.clerk.backend_api.utils.Response {
+
+public class ListInvitationsResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -37,7 +44,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
     /**
      * List of invitations
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList;
+    private Optional<? extends List<Invitation>> invitationList;
 
     private Callable<Optional<ListInvitationsResponse>> next = () -> Optional.empty();
 
@@ -46,7 +53,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList) {
+            Optional<? extends List<Invitation>> invitationList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -93,8 +100,8 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.Invitation>>) invitationList;
+    public Optional<List<Invitation>> invitationList() {
+        return (Optional<List<Invitation>>) invitationList;
     }
 
     public Optional<ListInvitationsResponse> next() throws Exception {
@@ -141,7 +148,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
     /**
      * List of invitations
      */
-    public ListInvitationsResponse withInvitationList(java.util.List<com.clerk.backend_api.models.components.Invitation> invitationList) {
+    public ListInvitationsResponse withInvitationList(List<Invitation> invitationList) {
         Utils.checkNotNull(invitationList, "invitationList");
         this.invitationList = Optional.ofNullable(invitationList);
         return this;
@@ -150,7 +157,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
     /**
      * List of invitations
      */
-    public ListInvitationsResponse withInvitationList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList) {
+    public ListInvitationsResponse withInvitationList(Optional<? extends List<Invitation>> invitationList) {
         Utils.checkNotNull(invitationList, "invitationList");
         this.invitationList = invitationList;
         return this;
@@ -166,15 +173,15 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
         }
         ListInvitationsResponse other = (ListInvitationsResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.invitationList, other.invitationList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.invitationList, other.invitationList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -199,7 +206,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList = Optional.empty();  
+        private Optional<? extends List<Invitation>> invitationList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -235,7 +242,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
         /**
          * List of invitations
          */
-        public Builder invitationList(java.util.List<com.clerk.backend_api.models.components.Invitation> invitationList) {
+        public Builder invitationList(List<Invitation> invitationList) {
             Utils.checkNotNull(invitationList, "invitationList");
             this.invitationList = Optional.ofNullable(invitationList);
             return this;
@@ -244,7 +251,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
         /**
          * List of invitations
          */
-        public Builder invitationList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Invitation>> invitationList) {
+        public Builder invitationList(Optional<? extends List<Invitation>> invitationList) {
             Utils.checkNotNull(invitationList, "invitationList");
             this.invitationList = invitationList;
             return this;
@@ -253,7 +260,7 @@ public class ListInvitationsResponse implements com.clerk.backend_api.utils.Resp
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @deprecated not part of the public API, may be removed without notice
+         * @Deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<ListInvitationsResponse>> next) {

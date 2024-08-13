@@ -4,32 +4,55 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.OrganizationInvitation;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequest;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse;
+import com.clerk.backend_api.models.operations.GetOrganizationInvitationRequest;
+import com.clerk.backend_api.models.operations.GetOrganizationInvitationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse;
+import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest;
+import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse;
+import com.clerk.backend_api.models.operations.RequestBody;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequest;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
+import java.lang.Deprecated;
+import java.lang.Exception;
 import java.lang.Long;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Object;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional; 
 
 public class OrganizationInvitations implements
             MethodCallCreateOrganizationInvitation,
@@ -66,8 +89,8 @@ public class OrganizationInvitations implements
      * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBuilder(this);
+    public CreateOrganizationInvitationRequestBuilder create() {
+        return new CreateOrganizationInvitationRequestBuilder(this);
     }
 
     /**
@@ -93,11 +116,11 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse create(
+    public CreateOrganizationInvitationResponse create(
             String organizationId,
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequest request =
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequest
+            CreateOrganizationInvitationRequestBody requestBody) throws Exception {
+        CreateOrganizationInvitationRequest request =
+            CreateOrganizationInvitationRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -105,16 +128,21 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequest.class,
+                CreateOrganizationInvitationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -130,7 +158,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateOrganizationInvitation", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -138,18 +169,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateOrganizationInvitation",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -157,42 +198,42 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse
+        CreateOrganizationInvitationResponse.Builder _resBuilder = 
+            CreateOrganizationInvitationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse _res = _resBuilder.build();
+        CreateOrganizationInvitationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationInvitation _out = Utils.mapper().readValue(
+                OrganizationInvitation _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitation>() {});
-                _res.withOrganizationInvitation(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationInvitation>() {});
+                _res.withOrganizationInvitation(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -201,13 +242,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -222,8 +263,8 @@ public class OrganizationInvitations implements
      * Any invitations created as a result of an Organization Domain are not included in the results.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder(this);
+    public ListOrganizationInvitationsRequestBuilder list() {
+        return new ListOrganizationInvitationsRequestBuilder(this);
     }
 
     /**
@@ -238,10 +279,11 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse list(
+    public ListOrganizationInvitationsResponse list(
             String organizationId) throws Exception {
         return list(organizationId, Optional.empty(), Optional.empty(), Optional.empty());
     }
+    
     /**
      * Get a list of organization invitations
      * This request returns the list of organization invitations.
@@ -260,13 +302,13 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse list(
+    public ListOrganizationInvitationsResponse list(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset,
-            Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus> status) throws Exception {
-        com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest request =
-            com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) throws Exception {
+        ListOrganizationInvitationsRequest request =
+            ListOrganizationInvitationsRequest
                 .builder()
                 .organizationId(organizationId)
                 .limit(limit)
@@ -276,7 +318,7 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest.class,
+                ListOrganizationInvitationsRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations",
                 request, null);
@@ -287,7 +329,7 @@ public class OrganizationInvitations implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest.class,
+                ListOrganizationInvitationsRequest.class,
                 request, 
                 null));
 
@@ -298,7 +340,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListOrganizationInvitations", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -306,18 +351,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListOrganizationInvitations",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -325,11 +380,11 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse
+        ListOrganizationInvitationsResponse.Builder _resBuilder = 
+            ListOrganizationInvitationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -352,8 +407,8 @@ public class OrganizationInvitations implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder _ret = list();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    ListOrganizationInvitationsRequestBuilder _ret = list();
                     _ret.organizationId(organizationId);
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
@@ -361,14 +416,14 @@ public class OrganizationInvitations implements
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse _res = _resBuilder.build();
+        ListOrganizationInvitationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationInvitations _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitations>() {});
-                _res.withOrganizationInvitations(java.util.Optional.ofNullable(_out));
+                _res.withOrganizationInvitations(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -380,9 +435,9 @@ public class OrganizationInvitations implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -426,8 +481,8 @@ public class OrganizationInvitations implements
      * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBuilder createBulk() {
-        return new com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBuilder(this);
+    public CreateOrganizationInvitationBulkRequestBuilder createBulk() {
+        return new CreateOrganizationInvitationBulkRequestBuilder(this);
     }
 
     /**
@@ -450,11 +505,11 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse createBulk(
+    public CreateOrganizationInvitationBulkResponse createBulk(
             String organizationId,
-            java.util.List<com.clerk.backend_api.models.operations.RequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest request =
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest
+            List<RequestBody> requestBody) throws Exception {
+        CreateOrganizationInvitationBulkRequest request =
+            CreateOrganizationInvitationBulkRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -462,16 +517,21 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest.class,
+                CreateOrganizationInvitationBulkRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations/bulk",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -487,7 +547,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateOrganizationInvitationBulk", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateOrganizationInvitationBulk", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -495,18 +558,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateOrganizationInvitationBulk", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationInvitationBulk",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateOrganizationInvitationBulk", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateOrganizationInvitationBulk",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateOrganizationInvitationBulk", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateOrganizationInvitationBulk",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -514,42 +587,42 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse
+        CreateOrganizationInvitationBulkResponse.Builder _resBuilder = 
+            CreateOrganizationInvitationBulkResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse _res = _resBuilder.build();
+        CreateOrganizationInvitationBulkResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationInvitations _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitations>() {});
-                _res.withOrganizationInvitations(java.util.Optional.ofNullable(_out));
+                _res.withOrganizationInvitations(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -558,13 +631,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -581,8 +654,8 @@ public class OrganizationInvitations implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequestBuilder listPending() {
-        return new com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequestBuilder(this);
+    public ListPendingOrganizationInvitationsRequestBuilder listPending() {
+        return new ListPendingOrganizationInvitationsRequestBuilder(this);
     }
 
     /**
@@ -599,10 +672,11 @@ public class OrganizationInvitations implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse listPending(
+    public ListPendingOrganizationInvitationsResponse listPending(
             String organizationId) throws Exception {
         return listPending(organizationId, Optional.empty(), Optional.empty());
     }
+    
     /**
      * Get a list of pending organization invitations
      * This request returns the list of organization invitations with "pending" status.
@@ -622,12 +696,12 @@ public class OrganizationInvitations implements
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse listPending(
+    public ListPendingOrganizationInvitationsResponse listPending(
             String organizationId,
-            Optional<? extends Long> limit,
-            Optional<? extends Long> offset) throws Exception {
-        com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest request =
-            com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest
+            Optional<Long> limit,
+            Optional<Long> offset) throws Exception {
+        ListPendingOrganizationInvitationsRequest request =
+            ListPendingOrganizationInvitationsRequest
                 .builder()
                 .organizationId(organizationId)
                 .limit(limit)
@@ -636,7 +710,7 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest.class,
+                ListPendingOrganizationInvitationsRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations/pending",
                 request, null);
@@ -647,7 +721,7 @@ public class OrganizationInvitations implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest.class,
+                ListPendingOrganizationInvitationsRequest.class,
                 request, 
                 null));
 
@@ -658,7 +732,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListPendingOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListPendingOrganizationInvitations", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -666,18 +743,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListPendingOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListPendingOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListPendingOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListPendingOrganizationInvitations",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListPendingOrganizationInvitations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListPendingOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -685,11 +772,11 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.toByteArrayAndClose(_httpRes.body());
+        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
         
         @SuppressWarnings("deprecation")
-        com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse
+        ListPendingOrganizationInvitationsResponse.Builder _resBuilder = 
+            ListPendingOrganizationInvitationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
@@ -712,22 +799,22 @@ public class OrganizationInvitations implements
                     if (_firstResult.size() < _resolvedLimit) {
                         return Optional.empty();
                     };
-                    long _newOffset = _requestOffset + _firstResult.size();
-                    com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequestBuilder _ret = listPending();
+                    long _newOffset = _requestOffset + _firstResult.size(); 
+                    ListPendingOrganizationInvitationsRequestBuilder _ret = listPending();
                     _ret.organizationId(organizationId);
                     _ret.limit(_resolvedLimit);
                     _ret.offset(_newOffset);
                     return Optional.of(_ret.call());
                 });
 
-        com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse _res = _resBuilder.build();
+        ListPendingOrganizationInvitationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationInvitations _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitations>() {});
-                _res.withOrganizationInvitations(java.util.Optional.ofNullable(_out));
+                _res.withOrganizationInvitations(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -739,9 +826,9 @@ public class OrganizationInvitations implements
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     new String(_fullResponse, StandardCharsets.UTF_8),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
@@ -773,8 +860,8 @@ public class OrganizationInvitations implements
      * Use this request to get an existing organization invitation by ID.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetOrganizationInvitationRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetOrganizationInvitationRequestBuilder(this);
+    public GetOrganizationInvitationRequestBuilder get() {
+        return new GetOrganizationInvitationRequestBuilder(this);
     }
 
     /**
@@ -785,11 +872,11 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse get(
+    public GetOrganizationInvitationResponse get(
             String organizationId,
             String invitationId) throws Exception {
-        com.clerk.backend_api.models.operations.GetOrganizationInvitationRequest request =
-            com.clerk.backend_api.models.operations.GetOrganizationInvitationRequest
+        GetOrganizationInvitationRequest request =
+            GetOrganizationInvitationRequest
                 .builder()
                 .organizationId(organizationId)
                 .invitationId(invitationId)
@@ -797,7 +884,7 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetOrganizationInvitationRequest.class,
+                GetOrganizationInvitationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations/{invitation_id}",
                 request, null);
@@ -814,7 +901,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetOrganizationInvitation", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -822,18 +912,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetOrganizationInvitation",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -841,42 +941,42 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse
+        GetOrganizationInvitationResponse.Builder _resBuilder = 
+            GetOrganizationInvitationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse _res = _resBuilder.build();
+        GetOrganizationInvitationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationInvitation _out = Utils.mapper().readValue(
+                OrganizationInvitation _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitation>() {});
-                _res.withOrganizationInvitation(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationInvitation>() {});
+                _res.withOrganizationInvitation(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -885,13 +985,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -905,8 +1005,8 @@ public class OrganizationInvitations implements
      * Only users with "admin" role can revoke invitations.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBuilder revoke() {
-        return new com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBuilder(this);
+    public RevokeOrganizationInvitationRequestBuilder revoke() {
+        return new RevokeOrganizationInvitationRequestBuilder(this);
     }
 
     /**
@@ -922,12 +1022,12 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse revoke(
+    public RevokeOrganizationInvitationResponse revoke(
             String organizationId,
             String invitationId,
-            com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequest request =
-            com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequest
+            RevokeOrganizationInvitationRequestBody requestBody) throws Exception {
+        RevokeOrganizationInvitationRequest request =
+            RevokeOrganizationInvitationRequest
                 .builder()
                 .organizationId(organizationId)
                 .invitationId(invitationId)
@@ -936,16 +1036,21 @@ public class OrganizationInvitations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequest.class,
+                RevokeOrganizationInvitationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/invitations/{invitation_id}/revoke",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -961,7 +1066,10 @@ public class OrganizationInvitations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("RevokeOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "RevokeOrganizationInvitation", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -969,18 +1077,28 @@ public class OrganizationInvitations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("RevokeOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "RevokeOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("RevokeOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "RevokeOrganizationInvitation",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("RevokeOrganizationInvitation", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RevokeOrganizationInvitation",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -988,42 +1106,42 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse
+        RevokeOrganizationInvitationResponse.Builder _resBuilder = 
+            RevokeOrganizationInvitationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse _res = _resBuilder.build();
+        RevokeOrganizationInvitationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationInvitation _out = Utils.mapper().readValue(
+                OrganizationInvitation _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitation>() {});
-                _res.withOrganizationInvitation(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationInvitation>() {});
+                _res.withOrganizationInvitation(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1032,13 +1150,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

@@ -4,18 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
+import java.lang.String;
 
 public class UpdateUserRequestBuilder {
 
@@ -27,13 +17,13 @@ public class UpdateUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateUserRequestBuilder userId(String userId) {
+    public UpdateUserRequestBuilder userId(java.lang.String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public UpdateUserRequestBuilder requestBody(UpdateUserRequestBody requestBody) {
+    public UpdateUserRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateUserRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

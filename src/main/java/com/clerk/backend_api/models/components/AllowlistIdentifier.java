@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class AllowlistIdentifier {
 
@@ -30,11 +31,11 @@ public class AllowlistIdentifier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("invitation_id")
-    private Optional<? extends String> invitationId;
+    private Optional<String> invitationId;
 
     /**
      * An email address or a phone number.
@@ -42,7 +43,7 @@ public class AllowlistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier")
-    private Optional<? extends String> identifier;
+    private Optional<String> identifier;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier_type")
@@ -50,7 +51,7 @@ public class AllowlistIdentifier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
-    private Optional<? extends String> instanceId;
+    private Optional<String> instanceId;
 
     /**
      * Unix timestamp of creation
@@ -58,7 +59,7 @@ public class AllowlistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends Long> createdAt;
+    private Optional<Long> createdAt;
 
     /**
      * Unix timestamp of last update.
@@ -66,18 +67,18 @@ public class AllowlistIdentifier {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<? extends Long> updatedAt;
+    private Optional<Long> updatedAt;
 
     @JsonCreator
     public AllowlistIdentifier(
             @JsonProperty("object") Optional<? extends AllowlistIdentifierObject> object,
-            @JsonProperty("id") Optional<? extends String> id,
-            @JsonProperty("invitation_id") Optional<? extends String> invitationId,
-            @JsonProperty("identifier") Optional<? extends String> identifier,
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("invitation_id") Optional<String> invitationId,
+            @JsonProperty("identifier") Optional<String> identifier,
             @JsonProperty("identifier_type") Optional<? extends IdentifierType> identifierType,
-            @JsonProperty("instance_id") Optional<? extends String> instanceId,
-            @JsonProperty("created_at") Optional<? extends Long> createdAt,
-            @JsonProperty("updated_at") Optional<? extends Long> updatedAt) {
+            @JsonProperty("instance_id") Optional<String> instanceId,
+            @JsonProperty("created_at") Optional<Long> createdAt,
+            @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(invitationId, "invitationId");
@@ -110,26 +111,23 @@ public class AllowlistIdentifier {
         return (Optional<AllowlistIdentifierObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> invitationId() {
-        return (Optional<String>) invitationId;
+        return invitationId;
     }
 
     /**
      * An email address or a phone number.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> identifier() {
-        return (Optional<String>) identifier;
+        return identifier;
     }
 
     @SuppressWarnings("unchecked")
@@ -138,30 +136,27 @@ public class AllowlistIdentifier {
         return (Optional<IdentifierType>) identifierType;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> instanceId() {
-        return (Optional<String>) instanceId;
+        return instanceId;
     }
 
     /**
      * Unix timestamp of creation
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> createdAt() {
-        return (Optional<Long>) createdAt;
+        return createdAt;
     }
 
     /**
      * Unix timestamp of last update.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> updatedAt() {
-        return (Optional<Long>) updatedAt;
+        return updatedAt;
     }
 
     public final static Builder builder() {
@@ -194,7 +189,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
-    public AllowlistIdentifier withId(Optional<? extends String> id) {
+    public AllowlistIdentifier withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -206,7 +201,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
-    public AllowlistIdentifier withInvitationId(Optional<? extends String> invitationId) {
+    public AllowlistIdentifier withInvitationId(Optional<String> invitationId) {
         Utils.checkNotNull(invitationId, "invitationId");
         this.invitationId = invitationId;
         return this;
@@ -226,7 +221,7 @@ public class AllowlistIdentifier {
      * An email address or a phone number.
      * 
      */
-    public AllowlistIdentifier withIdentifier(Optional<? extends String> identifier) {
+    public AllowlistIdentifier withIdentifier(Optional<String> identifier) {
         Utils.checkNotNull(identifier, "identifier");
         this.identifier = identifier;
         return this;
@@ -250,7 +245,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
-    public AllowlistIdentifier withInstanceId(Optional<? extends String> instanceId) {
+    public AllowlistIdentifier withInstanceId(Optional<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
         this.instanceId = instanceId;
         return this;
@@ -270,7 +265,7 @@ public class AllowlistIdentifier {
      * Unix timestamp of creation
      * 
      */
-    public AllowlistIdentifier withCreatedAt(Optional<? extends Long> createdAt) {
+    public AllowlistIdentifier withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -290,7 +285,7 @@ public class AllowlistIdentifier {
      * Unix timestamp of last update.
      * 
      */
-    public AllowlistIdentifier withUpdatedAt(Optional<? extends Long> updatedAt) {
+    public AllowlistIdentifier withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -306,19 +301,19 @@ public class AllowlistIdentifier {
         }
         AllowlistIdentifier other = (AllowlistIdentifier) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.invitationId, other.invitationId) &&
-            java.util.Objects.deepEquals(this.identifier, other.identifier) &&
-            java.util.Objects.deepEquals(this.identifierType, other.identifierType) &&
-            java.util.Objects.deepEquals(this.instanceId, other.instanceId) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.invitationId, other.invitationId) &&
+            Objects.deepEquals(this.identifier, other.identifier) &&
+            Objects.deepEquals(this.identifierType, other.identifierType) &&
+            Objects.deepEquals(this.instanceId, other.instanceId) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             invitationId,
@@ -346,19 +341,19 @@ public class AllowlistIdentifier {
  
         private Optional<? extends AllowlistIdentifierObject> object = Optional.empty();
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
-        private Optional<? extends String> invitationId = Optional.empty();
+        private Optional<String> invitationId = Optional.empty();
  
-        private Optional<? extends String> identifier = Optional.empty();
+        private Optional<String> identifier = Optional.empty();
  
         private Optional<? extends IdentifierType> identifierType = Optional.empty();
  
-        private Optional<? extends String> instanceId = Optional.empty();
+        private Optional<String> instanceId = Optional.empty();
  
-        private Optional<? extends Long> createdAt = Optional.empty();
+        private Optional<Long> createdAt = Optional.empty();
  
-        private Optional<? extends Long> updatedAt = Optional.empty();  
+        private Optional<Long> updatedAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -390,7 +385,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -402,7 +397,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
-        public Builder invitationId(Optional<? extends String> invitationId) {
+        public Builder invitationId(Optional<String> invitationId) {
             Utils.checkNotNull(invitationId, "invitationId");
             this.invitationId = invitationId;
             return this;
@@ -422,7 +417,7 @@ public class AllowlistIdentifier {
          * An email address or a phone number.
          * 
          */
-        public Builder identifier(Optional<? extends String> identifier) {
+        public Builder identifier(Optional<String> identifier) {
             Utils.checkNotNull(identifier, "identifier");
             this.identifier = identifier;
             return this;
@@ -446,7 +441,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
-        public Builder instanceId(Optional<? extends String> instanceId) {
+        public Builder instanceId(Optional<String> instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
             this.instanceId = instanceId;
             return this;
@@ -466,7 +461,7 @@ public class AllowlistIdentifier {
          * Unix timestamp of creation
          * 
          */
-        public Builder createdAt(Optional<? extends Long> createdAt) {
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -486,7 +481,7 @@ public class AllowlistIdentifier {
          * Unix timestamp of last update.
          * 
          */
-        public Builder updatedAt(Optional<? extends Long> updatedAt) {
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;

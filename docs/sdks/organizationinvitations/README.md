@@ -35,17 +35,10 @@ When the organization invitation is accepted, the metadata will be transferred t
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -70,7 +63,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -82,17 +75,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                      | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The ID of the organization for which to send the invitation                                                                                           |
-| `requestBody`                                                                                                                                         | [com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody](../../models/operations/CreateOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization for which to send the invitation                                                   |
+| `requestBody`                                                                                                 | [CreateOrganizationInvitationRequestBody](../../models/operations/CreateOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse](../../models/operations/CreateOrganizationInvitationResponse.md)**
+**[CreateOrganizationInvitationResponse](../../models/operations/CreateOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -115,17 +110,8 @@ Any invitations created as a result of an Organization Domain are not included i
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus;
+import java.lang.Exception;
 
 public class Application {
 
@@ -157,19 +143,21 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                                                         | Type                                                                                                                                                                              | Required                                                                                                                                                                          | Description                                                                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                                                  | *String*                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                | The organization ID.                                                                                                                                                              |
-| `limit`                                                                                                                                                                           | *Optional<? extends Long>*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                             |
-| `offset`                                                                                                                                                                          | *Optional<? extends Long>*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                 |
-| `status`                                                                                                                                                                          | [Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus>](../../models/operations/ListOrganizationInvitationsQueryParamStatus.md) | :heavy_minus_sign:                                                                                                                                                                | Filter organization invitations based on their status                                                                                                                             |
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                                                          | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The organization ID.                                                                                                                      |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `status`                                                                                                                                  | [Optional<ListOrganizationInvitationsQueryParamStatus>](../../models/operations/ListOrganizationInvitationsQueryParamStatus.md)           | :heavy_minus_sign:                                                                                                                        | Filter organization invitations based on their status                                                                                     |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse](../../models/operations/ListOrganizationInvitationsResponse.md)**
+**[ListOrganizationInvitationsResponse](../../models/operations/ListOrganizationInvitationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -199,17 +187,11 @@ When the organization invitation is accepted, the metadata will be transferred t
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse;
+import com.clerk.backend_api.models.operations.RequestBody;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
@@ -221,7 +203,7 @@ public class Application {
 
             CreateOrganizationInvitationBulkResponse res = sdk.organizationInvitations().createBulk()
                 .organizationId("<value>")
-                .requestBody(java.util.List.of(
+                .requestBody(List.of(
                     RequestBody.builder()
                         .emailAddress("<value>")
                         .inviterUserId("<value>")
@@ -235,7 +217,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -247,17 +229,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                    | *String*                                                                                            | :heavy_check_mark:                                                                                  | The organization ID.                                                                                |
-| `requestBody`                                                                                       | List<[com.clerk.backend_api.models.operations.RequestBody](../../models/operations/RequestBody.md)> | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `organizationId`                                            | *String*                                                    | :heavy_check_mark:                                          | The organization ID.                                        |
+| `requestBody`                                               | List<[RequestBody](../../models/operations/RequestBody.md)> | :heavy_check_mark:                                          | N/A                                                         |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse](../../models/operations/CreateOrganizationInvitationBulkResponse.md)**
+**[CreateOrganizationInvitationBulkResponse](../../models/operations/CreateOrganizationInvitationBulkResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -282,17 +266,7 @@ Any invitations created as a result of an Organization Domain are not included i
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
@@ -323,18 +297,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `organizationId`                                                                                                                          | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The organization ID.                                                                                                                      |
-| `limit`                                                                                                                                   | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<? extends Long>*                                                                                                                | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse](../../models/operations/ListPendingOrganizationInvitationsResponse.md)**
+**[ListPendingOrganizationInvitationsResponse](../../models/operations/ListPendingOrganizationInvitationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -352,17 +328,9 @@ Use this request to get an existing organization invitation by ID.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -383,7 +351,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -395,6 +363,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                       | Type                            | Required                        | Description                     |
@@ -405,7 +375,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse](../../models/operations/GetOrganizationInvitationResponse.md)**
+**[GetOrganizationInvitationResponse](../../models/operations/GetOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -427,17 +397,10 @@ Only users with "admin" role can revoke invitations.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody;
+import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -461,7 +424,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -473,18 +436,20 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                      | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The organization ID.                                                                                                                                  |
-| `invitationId`                                                                                                                                        | *String*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The organization invitation ID.                                                                                                                       |
-| `requestBody`                                                                                                                                         | [com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody](../../models/operations/RevokeOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The organization ID.                                                                                          |
+| `invitationId`                                                                                                | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The organization invitation ID.                                                                               |
+| `requestBody`                                                                                                 | [RevokeOrganizationInvitationRequestBody](../../models/operations/RevokeOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse](../../models/operations/RevokeOrganizationInvitationResponse.md)**
+**[RevokeOrganizationInvitationResponse](../../models/operations/RevokeOrganizationInvitationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

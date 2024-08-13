@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class PreviewTemplateRequestBuilder {
 
@@ -28,25 +19,25 @@ public class PreviewTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public PreviewTemplateRequestBuilder templateType(String templateType) {
+    public PreviewTemplateRequestBuilder templateType(java.lang.String templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public PreviewTemplateRequestBuilder slug(String slug) {
+    public PreviewTemplateRequestBuilder slug(java.lang.String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public PreviewTemplateRequestBuilder requestBody(PreviewTemplateRequestBody requestBody) {
+    public PreviewTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.PreviewTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public PreviewTemplateRequestBuilder requestBody(Optional<? extends PreviewTemplateRequestBody> requestBody) {
+    public PreviewTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.PreviewTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

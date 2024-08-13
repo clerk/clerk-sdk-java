@@ -7,4 +7,4 @@ Parameters.
 
 | Field                                          | Type                                           | Required                                       | Description                                    |
 | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `token`                                        | *Optional<? extends String>*                   | :heavy_minus_sign:                             | A JWT Token that represents the active client. |
+| `token`                                        | *Optional<String>*                             | :heavy_minus_sign:                             | A JWT Token that represents the active client. |

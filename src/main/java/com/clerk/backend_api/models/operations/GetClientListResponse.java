@@ -4,20 +4,27 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Client;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class GetClientListResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetClientListResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -37,7 +44,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Client>> clientList;
+    private Optional<? extends List<Client>> clientList;
 
     private Callable<Optional<GetClientListResponse>> next = () -> Optional.empty();
 
@@ -46,7 +53,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.Client>> clientList) {
+            Optional<? extends List<Client>> clientList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -93,8 +100,8 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.Client>> clientList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.Client>>) clientList;
+    public Optional<List<Client>> clientList() {
+        return (Optional<List<Client>>) clientList;
     }
 
     public Optional<GetClientListResponse> next() throws Exception {
@@ -141,7 +148,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public GetClientListResponse withClientList(java.util.List<com.clerk.backend_api.models.components.Client> clientList) {
+    public GetClientListResponse withClientList(List<Client> clientList) {
         Utils.checkNotNull(clientList, "clientList");
         this.clientList = Optional.ofNullable(clientList);
         return this;
@@ -150,7 +157,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
     /**
      * Success
      */
-    public GetClientListResponse withClientList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Client>> clientList) {
+    public GetClientListResponse withClientList(Optional<? extends List<Client>> clientList) {
         Utils.checkNotNull(clientList, "clientList");
         this.clientList = clientList;
         return this;
@@ -166,15 +173,15 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
         }
         GetClientListResponse other = (GetClientListResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.clientList, other.clientList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.clientList, other.clientList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -199,7 +206,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Client>> clientList = Optional.empty();  
+        private Optional<? extends List<Client>> clientList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -235,7 +242,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder clientList(java.util.List<com.clerk.backend_api.models.components.Client> clientList) {
+        public Builder clientList(List<Client> clientList) {
             Utils.checkNotNull(clientList, "clientList");
             this.clientList = Optional.ofNullable(clientList);
             return this;
@@ -244,7 +251,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Success
          */
-        public Builder clientList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Client>> clientList) {
+        public Builder clientList(Optional<? extends List<Client>> clientList) {
             Utils.checkNotNull(clientList, "clientList");
             this.clientList = clientList;
             return this;
@@ -253,7 +260,7 @@ public class GetClientListResponse implements com.clerk.backend_api.utils.Respon
         /**
          * Internal API. Not for public use. Sets the provider of the next page.
          *
-         * @deprecated not part of the public API, may be removed without notice
+         * @Deprecated not part of the public API, may be removed without notice
          */
         @Deprecated
         public Builder next(Callable<Optional<GetClientListResponse>> next) {

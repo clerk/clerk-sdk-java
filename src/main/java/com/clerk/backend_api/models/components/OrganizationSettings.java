@@ -4,19 +4,21 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class OrganizationSettings {
 
@@ -34,11 +36,11 @@ public class OrganizationSettings {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_roles")
-    private Optional<? extends Long> maxAllowedRoles;
+    private Optional<Long> maxAllowedRoles;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_permissions")
-    private Optional<? extends Long> maxAllowedPermissions;
+    private Optional<Long> maxAllowedPermissions;
 
     /**
      * The role key that a user will be assigned after creating an organization.
@@ -56,7 +58,7 @@ public class OrganizationSettings {
     private boolean domainsEnabled;
 
     @JsonProperty("domains_enrollment_modes")
-    private java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes;
+    private List<DomainsEnrollmentModes> domainsEnrollmentModes;
 
     /**
      * The role key that it will be used in order to create an organization invitation or suggestion.
@@ -69,12 +71,12 @@ public class OrganizationSettings {
             @JsonProperty("object") OrganizationSettingsObject object,
             @JsonProperty("enabled") boolean enabled,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
-            @JsonProperty("max_allowed_roles") Optional<? extends Long> maxAllowedRoles,
-            @JsonProperty("max_allowed_permissions") Optional<? extends Long> maxAllowedPermissions,
+            @JsonProperty("max_allowed_roles") Optional<Long> maxAllowedRoles,
+            @JsonProperty("max_allowed_permissions") Optional<Long> maxAllowedPermissions,
             @JsonProperty("creator_role") String creatorRole,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
             @JsonProperty("domains_enabled") boolean domainsEnabled,
-            @JsonProperty("domains_enrollment_modes") java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes,
+            @JsonProperty("domains_enrollment_modes") List<DomainsEnrollmentModes> domainsEnrollmentModes,
             @JsonProperty("domains_default_role") String domainsDefaultRole) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(enabled, "enabled");
@@ -105,7 +107,7 @@ public class OrganizationSettings {
             String creatorRole,
             boolean adminDeleteEnabled,
             boolean domainsEnabled,
-            java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes,
+            List<DomainsEnrollmentModes> domainsEnrollmentModes,
             String domainsDefaultRole) {
         this(object, enabled, maxAllowedMemberships, Optional.empty(), Optional.empty(), creatorRole, adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes, domainsDefaultRole);
     }
@@ -128,16 +130,14 @@ public class OrganizationSettings {
         return maxAllowedMemberships;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> maxAllowedRoles() {
-        return (Optional<Long>) maxAllowedRoles;
+        return maxAllowedRoles;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> maxAllowedPermissions() {
-        return (Optional<Long>) maxAllowedPermissions;
+        return maxAllowedPermissions;
     }
 
     /**
@@ -162,7 +162,7 @@ public class OrganizationSettings {
     }
 
     @JsonIgnore
-    public java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes() {
+    public List<DomainsEnrollmentModes> domainsEnrollmentModes() {
         return domainsEnrollmentModes;
     }
 
@@ -205,7 +205,7 @@ public class OrganizationSettings {
         return this;
     }
 
-    public OrganizationSettings withMaxAllowedRoles(Optional<? extends Long> maxAllowedRoles) {
+    public OrganizationSettings withMaxAllowedRoles(Optional<Long> maxAllowedRoles) {
         Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
         this.maxAllowedRoles = maxAllowedRoles;
         return this;
@@ -217,7 +217,7 @@ public class OrganizationSettings {
         return this;
     }
 
-    public OrganizationSettings withMaxAllowedPermissions(Optional<? extends Long> maxAllowedPermissions) {
+    public OrganizationSettings withMaxAllowedPermissions(Optional<Long> maxAllowedPermissions) {
         Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
         this.maxAllowedPermissions = maxAllowedPermissions;
         return this;
@@ -247,7 +247,7 @@ public class OrganizationSettings {
         return this;
     }
 
-    public OrganizationSettings withDomainsEnrollmentModes(java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes) {
+    public OrganizationSettings withDomainsEnrollmentModes(List<DomainsEnrollmentModes> domainsEnrollmentModes) {
         Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
         this.domainsEnrollmentModes = domainsEnrollmentModes;
         return this;
@@ -272,21 +272,21 @@ public class OrganizationSettings {
         }
         OrganizationSettings other = (OrganizationSettings) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.enabled, other.enabled) &&
-            java.util.Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            java.util.Objects.deepEquals(this.maxAllowedRoles, other.maxAllowedRoles) &&
-            java.util.Objects.deepEquals(this.maxAllowedPermissions, other.maxAllowedPermissions) &&
-            java.util.Objects.deepEquals(this.creatorRole, other.creatorRole) &&
-            java.util.Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            java.util.Objects.deepEquals(this.domainsEnabled, other.domainsEnabled) &&
-            java.util.Objects.deepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
-            java.util.Objects.deepEquals(this.domainsDefaultRole, other.domainsDefaultRole);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.enabled, other.enabled) &&
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Objects.deepEquals(this.maxAllowedRoles, other.maxAllowedRoles) &&
+            Objects.deepEquals(this.maxAllowedPermissions, other.maxAllowedPermissions) &&
+            Objects.deepEquals(this.creatorRole, other.creatorRole) &&
+            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Objects.deepEquals(this.domainsEnabled, other.domainsEnabled) &&
+            Objects.deepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
+            Objects.deepEquals(this.domainsDefaultRole, other.domainsDefaultRole);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             enabled,
             maxAllowedMemberships,
@@ -322,9 +322,9 @@ public class OrganizationSettings {
  
         private Long maxAllowedMemberships;
  
-        private Optional<? extends Long> maxAllowedRoles = Optional.empty();
+        private Optional<Long> maxAllowedRoles = Optional.empty();
  
-        private Optional<? extends Long> maxAllowedPermissions = Optional.empty();
+        private Optional<Long> maxAllowedPermissions = Optional.empty();
  
         private String creatorRole;
  
@@ -332,7 +332,7 @@ public class OrganizationSettings {
  
         private Boolean domainsEnabled;
  
-        private java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes;
+        private List<DomainsEnrollmentModes> domainsEnrollmentModes;
  
         private String domainsDefaultRole;  
         
@@ -367,7 +367,7 @@ public class OrganizationSettings {
             return this;
         }
 
-        public Builder maxAllowedRoles(Optional<? extends Long> maxAllowedRoles) {
+        public Builder maxAllowedRoles(Optional<Long> maxAllowedRoles) {
             Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
             this.maxAllowedRoles = maxAllowedRoles;
             return this;
@@ -379,7 +379,7 @@ public class OrganizationSettings {
             return this;
         }
 
-        public Builder maxAllowedPermissions(Optional<? extends Long> maxAllowedPermissions) {
+        public Builder maxAllowedPermissions(Optional<Long> maxAllowedPermissions) {
             Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
             this.maxAllowedPermissions = maxAllowedPermissions;
             return this;
@@ -409,7 +409,7 @@ public class OrganizationSettings {
             return this;
         }
 
-        public Builder domainsEnrollmentModes(java.util.List<DomainsEnrollmentModes> domainsEnrollmentModes) {
+        public Builder domainsEnrollmentModes(List<DomainsEnrollmentModes> domainsEnrollmentModes) {
             Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
             this.domainsEnrollmentModes = domainsEnrollmentModes;
             return this;

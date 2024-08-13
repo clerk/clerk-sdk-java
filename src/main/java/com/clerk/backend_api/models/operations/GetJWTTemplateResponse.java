@@ -4,19 +4,23 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.JWTTemplate;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetJWTTemplateResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +40,14 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    private Optional<? extends com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate;
+    private Optional<? extends JWTTemplate> jwtTemplate;
 
     @JsonCreator
     public GetJWTTemplateResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate) {
+            Optional<? extends JWTTemplate> jwtTemplate) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +94,8 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate() {
-        return (Optional<com.clerk.backend_api.models.components.JWTTemplate>) jwtTemplate;
+    public Optional<JWTTemplate> jwtTemplate() {
+        return (Optional<JWTTemplate>) jwtTemplate;
     }
 
     public final static Builder builder() {
@@ -128,7 +132,7 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetJWTTemplateResponse withJWTTemplate(com.clerk.backend_api.models.components.JWTTemplate jwtTemplate) {
+    public GetJWTTemplateResponse withJWTTemplate(JWTTemplate jwtTemplate) {
         Utils.checkNotNull(jwtTemplate, "jwtTemplate");
         this.jwtTemplate = Optional.ofNullable(jwtTemplate);
         return this;
@@ -137,7 +141,7 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetJWTTemplateResponse withJWTTemplate(Optional<? extends com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate) {
+    public GetJWTTemplateResponse withJWTTemplate(Optional<? extends JWTTemplate> jwtTemplate) {
         Utils.checkNotNull(jwtTemplate, "jwtTemplate");
         this.jwtTemplate = jwtTemplate;
         return this;
@@ -153,15 +157,15 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
         }
         GetJWTTemplateResponse other = (GetJWTTemplateResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.jwtTemplate, other.jwtTemplate);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.jwtTemplate, other.jwtTemplate);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +189,7 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate = Optional.empty();  
+        private Optional<? extends JWTTemplate> jwtTemplate = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +225,7 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder jwtTemplate(com.clerk.backend_api.models.components.JWTTemplate jwtTemplate) {
+        public Builder jwtTemplate(JWTTemplate jwtTemplate) {
             Utils.checkNotNull(jwtTemplate, "jwtTemplate");
             this.jwtTemplate = Optional.ofNullable(jwtTemplate);
             return this;
@@ -230,7 +234,7 @@ public class GetJWTTemplateResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder jwtTemplate(Optional<? extends com.clerk.backend_api.models.components.JWTTemplate> jwtTemplate) {
+        public Builder jwtTemplate(Optional<? extends JWTTemplate> jwtTemplate) {
             Utils.checkNotNull(jwtTemplate, "jwtTemplate");
             this.jwtTemplate = jwtTemplate;
             return this;

@@ -25,17 +25,10 @@ Most recent organizations will be returned first.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListOrganizationsRequest;
+import com.clerk.backend_api.models.operations.ListOrganizationsResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -58,7 +51,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -70,16 +63,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                               | [com.clerk.backend_api.models.operations.ListOrganizationsRequest](../../models/operations/ListOrganizationsRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [ListOrganizationsRequest](../../models/operations/ListOrganizationsRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.ListOrganizationsResponse](../../models/operations/ListOrganizationsResponse.md)**
+**[ListOrganizationsResponse](../../models/operations/ListOrganizationsResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -105,17 +100,10 @@ Public metadata can be accessed from the Backend API, and are read-only from the
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -140,7 +128,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -152,16 +140,18 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                         | [com.clerk.backend_api.models.operations.CreateOrganizationRequestBody](../../models/operations/CreateOrganizationRequestBody.md) | :heavy_check_mark:                                                                                                                | The request object to use for the request.                                                                                        |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [CreateOrganizationRequestBody](../../models/operations/CreateOrganizationRequestBody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.CreateOrganizationResponse](../../models/operations/CreateOrganizationResponse.md)**
+**[CreateOrganizationResponse](../../models/operations/CreateOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -179,17 +169,9 @@ Fetches the organization whose ID or slug matches the provided `id_or_slug` URL 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetOrganizationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -209,7 +191,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -221,6 +203,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                          | Type                               | Required                           | Description                        |
@@ -230,7 +214,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetOrganizationResponse](../../models/operations/GetOrganizationResponse.md)**
+**[GetOrganizationResponse](../../models/operations/GetOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -248,17 +232,10 @@ Updates an existing organization
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -280,7 +257,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -292,17 +269,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                  | *String*                                                                                                                          | :heavy_check_mark:                                                                                                                | The ID of the organization to update                                                                                              |
-| `requestBody`                                                                                                                     | [com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody](../../models/operations/UpdateOrganizationRequestBody.md) | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `organizationId`                                                                          | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the organization to update                                                      |
+| `requestBody`                                                                             | [UpdateOrganizationRequestBody](../../models/operations/UpdateOrganizationRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UpdateOrganizationResponse](../../models/operations/UpdateOrganizationResponse.md)**
+**[UpdateOrganizationResponse](../../models/operations/UpdateOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -322,17 +301,9 @@ This is not reversible.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteOrganizationResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -352,7 +323,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -364,6 +335,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                            | Type                                 | Required                             | Description                          |
@@ -373,7 +346,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteOrganizationResponse](../../models/operations/DeleteOrganizationResponse.md)**
+**[DeleteOrganizationResponse](../../models/operations/DeleteOrganizationResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -394,17 +367,10 @@ You can remove metadata keys at any level by setting their value to `null`.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -426,7 +392,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -438,17 +404,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                       | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                | *String*                                                                                                                                        | :heavy_check_mark:                                                                                                                              | The ID of the organization for which metadata will be merged or updated                                                                         |
-| `requestBody`                                                                                                                                   | [com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody](../../models/operations/MergeOrganizationMetadataRequestBody.md) | :heavy_check_mark:                                                                                                                              | N/A                                                                                                                                             |
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                        | *String*                                                                                                | :heavy_check_mark:                                                                                      | The ID of the organization for which metadata will be merged or updated                                 |
+| `requestBody`                                                                                           | [MergeOrganizationMetadataRequestBody](../../models/operations/MergeOrganizationMetadataRequestBody.md) | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse](../../models/operations/MergeOrganizationMetadataResponse.md)**
+**[MergeOrganizationMetadataResponse](../../models/operations/MergeOrganizationMetadataResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -469,17 +437,11 @@ Only the following file content types are supported: `image/jpeg`, `image/png`, 
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoFile;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -506,7 +468,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -518,17 +480,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
-| Parameter                                                                                                                                                     | Type                                                                                                                                                          | Required                                                                                                                                                      | Description                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                              | *String*                                                                                                                                                      | :heavy_check_mark:                                                                                                                                            | The ID of the organization for which to upload a logo                                                                                                         |
-| `requestBody`                                                                                                                                                 | [Optional<? extends com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody>](../../models/operations/UploadOrganizationLogoRequestBody.md) | :heavy_minus_sign:                                                                                                                                            | N/A                                                                                                                                                           |
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                            | *String*                                                                                                    | :heavy_check_mark:                                                                                          | The ID of the organization for which to upload a logo                                                       |
+| `requestBody`                                                                                               | [Optional<UploadOrganizationLogoRequestBody>](../../models/operations/UploadOrganizationLogoRequestBody.md) | :heavy_minus_sign:                                                                                          | N/A                                                                                                         |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse](../../models/operations/UploadOrganizationLogoResponse.md)**
+**[UploadOrganizationLogoResponse](../../models/operations/UploadOrganizationLogoResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
@@ -546,17 +510,9 @@ Delete the organization's logo.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -576,7 +532,7 @@ public class Application {
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
             // handle exception
             throw e;
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -588,6 +544,8 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                      | Type                                                           | Required                                                       | Description                                                    |
@@ -597,7 +555,7 @@ public class Application {
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse](../../models/operations/DeleteOrganizationLogoResponse.md)**
+**[DeleteOrganizationLogoResponse](../../models/operations/DeleteOrganizationLogoResponse.md)**
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

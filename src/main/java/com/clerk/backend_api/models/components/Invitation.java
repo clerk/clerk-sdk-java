@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Invitation {
 
@@ -36,14 +38,14 @@ public class Invitation {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("revoked")
-    private Optional<? extends Boolean> revoked;
+    private Optional<Boolean> revoked;
 
     @JsonProperty("status")
     private InvitationStatus status;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
-    private JsonNullable<? extends String> url;
+    private JsonNullable<String> url;
 
     /**
      * Unix timestamp of creation.
@@ -65,9 +67,9 @@ public class Invitation {
             @JsonProperty("id") String id,
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("public_metadata") Optional<? extends InvitationPublicMetadata> publicMetadata,
-            @JsonProperty("revoked") Optional<? extends Boolean> revoked,
+            @JsonProperty("revoked") Optional<Boolean> revoked,
             @JsonProperty("status") InvitationStatus status,
-            @JsonProperty("url") JsonNullable<? extends String> url,
+            @JsonProperty("url") JsonNullable<String> url,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -121,10 +123,9 @@ public class Invitation {
         return (Optional<InvitationPublicMetadata>) publicMetadata;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> revoked() {
-        return (Optional<Boolean>) revoked;
+        return revoked;
     }
 
     @JsonIgnore
@@ -132,10 +133,9 @@ public class Invitation {
         return status;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> url() {
-        return (JsonNullable<String>) url;
+        return url;
     }
 
     /**
@@ -196,7 +196,7 @@ public class Invitation {
         return this;
     }
 
-    public Invitation withRevoked(Optional<? extends Boolean> revoked) {
+    public Invitation withRevoked(Optional<Boolean> revoked) {
         Utils.checkNotNull(revoked, "revoked");
         this.revoked = revoked;
         return this;
@@ -214,7 +214,7 @@ public class Invitation {
         return this;
     }
 
-    public Invitation withUrl(JsonNullable<? extends String> url) {
+    public Invitation withUrl(JsonNullable<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
@@ -250,20 +250,20 @@ public class Invitation {
         }
         Invitation other = (Invitation) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.revoked, other.revoked) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.url, other.url) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.revoked, other.revoked) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.url, other.url) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             emailAddress,
@@ -299,11 +299,11 @@ public class Invitation {
  
         private Optional<? extends InvitationPublicMetadata> publicMetadata = Optional.empty();
  
-        private Optional<? extends Boolean> revoked = Optional.empty();
+        private Optional<Boolean> revoked = Optional.empty();
  
         private InvitationStatus status;
  
-        private JsonNullable<? extends String> url = JsonNullable.undefined();
+        private JsonNullable<String> url = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -349,7 +349,7 @@ public class Invitation {
             return this;
         }
 
-        public Builder revoked(Optional<? extends Boolean> revoked) {
+        public Builder revoked(Optional<Boolean> revoked) {
             Utils.checkNotNull(revoked, "revoked");
             this.revoked = revoked;
             return this;
@@ -367,7 +367,7 @@ public class Invitation {
             return this;
         }
 
-        public Builder url(JsonNullable<? extends String> url) {
+        public Builder url(JsonNullable<String> url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;

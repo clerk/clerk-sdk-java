@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class ToggleTemplateDeliveryRequestBuilder {
 
@@ -28,25 +19,25 @@ public class ToggleTemplateDeliveryRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder templateType(ToggleTemplateDeliveryPathParamTemplateType templateType) {
+    public ToggleTemplateDeliveryRequestBuilder templateType(com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder slug(String slug) {
+    public ToggleTemplateDeliveryRequestBuilder slug(java.lang.String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public ToggleTemplateDeliveryRequestBuilder requestBody(ToggleTemplateDeliveryRequestBody requestBody) {
+    public ToggleTemplateDeliveryRequestBuilder requestBody(com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder requestBody(Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) {
+    public ToggleTemplateDeliveryRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

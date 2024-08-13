@@ -4,19 +4,24 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.JWTTemplate;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Response {
+
+public class ListJWTTemplatesResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +41,14 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
     /**
      * List of JWT templates
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList;
+    private Optional<? extends List<JWTTemplate>> jwtTemplateList;
 
     @JsonCreator
     public ListJWTTemplatesResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList) {
+            Optional<? extends List<JWTTemplate>> jwtTemplateList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +95,8 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.JWTTemplate>>) jwtTemplateList;
+    public Optional<List<JWTTemplate>> jwtTemplateList() {
+        return (Optional<List<JWTTemplate>>) jwtTemplateList;
     }
 
     public final static Builder builder() {
@@ -128,7 +133,7 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
     /**
      * List of JWT templates
      */
-    public ListJWTTemplatesResponse withJWTTemplateList(java.util.List<com.clerk.backend_api.models.components.JWTTemplate> jwtTemplateList) {
+    public ListJWTTemplatesResponse withJWTTemplateList(List<JWTTemplate> jwtTemplateList) {
         Utils.checkNotNull(jwtTemplateList, "jwtTemplateList");
         this.jwtTemplateList = Optional.ofNullable(jwtTemplateList);
         return this;
@@ -137,7 +142,7 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
     /**
      * List of JWT templates
      */
-    public ListJWTTemplatesResponse withJWTTemplateList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList) {
+    public ListJWTTemplatesResponse withJWTTemplateList(Optional<? extends List<JWTTemplate>> jwtTemplateList) {
         Utils.checkNotNull(jwtTemplateList, "jwtTemplateList");
         this.jwtTemplateList = jwtTemplateList;
         return this;
@@ -153,15 +158,15 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
         }
         ListJWTTemplatesResponse other = (ListJWTTemplatesResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.jwtTemplateList, other.jwtTemplateList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.jwtTemplateList, other.jwtTemplateList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +190,7 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList = Optional.empty();  
+        private Optional<? extends List<JWTTemplate>> jwtTemplateList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +226,7 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
         /**
          * List of JWT templates
          */
-        public Builder jwtTemplateList(java.util.List<com.clerk.backend_api.models.components.JWTTemplate> jwtTemplateList) {
+        public Builder jwtTemplateList(List<JWTTemplate> jwtTemplateList) {
             Utils.checkNotNull(jwtTemplateList, "jwtTemplateList");
             this.jwtTemplateList = Optional.ofNullable(jwtTemplateList);
             return this;
@@ -230,7 +235,7 @@ public class ListJWTTemplatesResponse implements com.clerk.backend_api.utils.Res
         /**
          * List of JWT templates
          */
-        public Builder jwtTemplateList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.JWTTemplate>> jwtTemplateList) {
+        public Builder jwtTemplateList(Optional<? extends List<JWTTemplate>> jwtTemplateList) {
             Utils.checkNotNull(jwtTemplateList, "jwtTemplateList");
             this.jwtTemplateList = jwtTemplateList;
             return this;

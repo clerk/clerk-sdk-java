@@ -4,19 +4,24 @@
 
 package com.clerk.backend_api.models.operations;
 
+
+import com.clerk.backend_api.models.components.Session;
+import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class GetSessionListResponse implements com.clerk.backend_api.utils.Response {
+
+public class GetSessionListResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,14 +41,14 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList;
+    private Optional<? extends List<Session>> sessionList;
 
     @JsonCreator
     public GetSessionListResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList) {
+            Optional<? extends List<Session>> sessionList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -90,8 +95,8 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<com.clerk.backend_api.models.components.Session>> sessionList() {
-        return (Optional<java.util.List<com.clerk.backend_api.models.components.Session>>) sessionList;
+    public Optional<List<Session>> sessionList() {
+        return (Optional<List<Session>>) sessionList;
     }
 
     public final static Builder builder() {
@@ -128,7 +133,7 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetSessionListResponse withSessionList(java.util.List<com.clerk.backend_api.models.components.Session> sessionList) {
+    public GetSessionListResponse withSessionList(List<Session> sessionList) {
         Utils.checkNotNull(sessionList, "sessionList");
         this.sessionList = Optional.ofNullable(sessionList);
         return this;
@@ -137,7 +142,7 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
     /**
      * Success
      */
-    public GetSessionListResponse withSessionList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList) {
+    public GetSessionListResponse withSessionList(Optional<? extends List<Session>> sessionList) {
         Utils.checkNotNull(sessionList, "sessionList");
         this.sessionList = sessionList;
         return this;
@@ -153,15 +158,15 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
         }
         GetSessionListResponse other = (GetSessionListResponse) o;
         return 
-            java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.sessionList, other.sessionList);
+            Objects.deepEquals(this.contentType, other.contentType) &&
+            Objects.deepEquals(this.statusCode, other.statusCode) &&
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.sessionList, other.sessionList);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             contentType,
             statusCode,
             rawResponse,
@@ -185,7 +190,7 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList = Optional.empty();  
+        private Optional<? extends List<Session>> sessionList = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -221,7 +226,7 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder sessionList(java.util.List<com.clerk.backend_api.models.components.Session> sessionList) {
+        public Builder sessionList(List<Session> sessionList) {
             Utils.checkNotNull(sessionList, "sessionList");
             this.sessionList = Optional.ofNullable(sessionList);
             return this;
@@ -230,7 +235,7 @@ public class GetSessionListResponse implements com.clerk.backend_api.utils.Respo
         /**
          * Success
          */
-        public Builder sessionList(Optional<? extends java.util.List<com.clerk.backend_api.models.components.Session>> sessionList) {
+        public Builder sessionList(Optional<? extends List<Session>> sessionList) {
             Utils.checkNotNull(sessionList, "sessionList");
             this.sessionList = sessionList;
             return this;

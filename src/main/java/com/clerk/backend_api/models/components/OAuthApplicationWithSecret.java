@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class OAuthApplicationWithSecret {
 
@@ -73,7 +74,7 @@ public class OAuthApplicationWithSecret {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("client_secret")
-    private Optional<? extends String> clientSecret;
+    private Optional<String> clientSecret;
 
     @JsonCreator
     public OAuthApplicationWithSecret(
@@ -90,7 +91,7 @@ public class OAuthApplicationWithSecret {
             @JsonProperty("user_info_url") String userInfoUrl,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("client_secret") Optional<? extends String> clientSecret) {
+            @JsonProperty("client_secret") Optional<String> clientSecret) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(instanceId, "instanceId");
@@ -215,10 +216,9 @@ public class OAuthApplicationWithSecret {
      * Empty if public client.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> clientSecret() {
-        return (Optional<String>) clientSecret;
+        return clientSecret;
     }
 
     public final static Builder builder() {
@@ -325,7 +325,7 @@ public class OAuthApplicationWithSecret {
      * Empty if public client.
      * 
      */
-    public OAuthApplicationWithSecret withClientSecret(Optional<? extends String> clientSecret) {
+    public OAuthApplicationWithSecret withClientSecret(Optional<String> clientSecret) {
         Utils.checkNotNull(clientSecret, "clientSecret");
         this.clientSecret = clientSecret;
         return this;
@@ -341,25 +341,25 @@ public class OAuthApplicationWithSecret {
         }
         OAuthApplicationWithSecret other = (OAuthApplicationWithSecret) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.instanceId, other.instanceId) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.clientId, other.clientId) &&
-            java.util.Objects.deepEquals(this.public_, other.public_) &&
-            java.util.Objects.deepEquals(this.scopes, other.scopes) &&
-            java.util.Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            java.util.Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
-            java.util.Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
-            java.util.Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            java.util.Objects.deepEquals(this.clientSecret, other.clientSecret);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.instanceId, other.instanceId) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.clientId, other.clientId) &&
+            Objects.deepEquals(this.public_, other.public_) &&
+            Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
+            Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
+            Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
+            Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
+            Objects.deepEquals(this.clientSecret, other.clientSecret);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             instanceId,
@@ -423,7 +423,7 @@ public class OAuthApplicationWithSecret {
  
         private Long updatedAt;
  
-        private Optional<? extends String> clientSecret = Optional.empty();  
+        private Optional<String> clientSecret = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -529,7 +529,7 @@ public class OAuthApplicationWithSecret {
          * Empty if public client.
          * 
          */
-        public Builder clientSecret(Optional<? extends String> clientSecret) {
+        public Builder clientSecret(Optional<String> clientSecret) {
             Utils.checkNotNull(clientSecret, "clientSecret");
             this.clientSecret = clientSecret;
             return this;

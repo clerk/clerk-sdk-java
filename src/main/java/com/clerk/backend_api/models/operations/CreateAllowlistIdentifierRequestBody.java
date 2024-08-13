@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class CreateAllowlistIdentifierRequestBody {
 
@@ -34,12 +35,12 @@ public class CreateAllowlistIdentifierRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("notify")
-    private Optional<? extends Boolean> notify_;
+    private Optional<Boolean> notify_;
 
     @JsonCreator
     public CreateAllowlistIdentifierRequestBody(
             @JsonProperty("identifier") String identifier,
-            @JsonProperty("notify") Optional<? extends Boolean> notify_) {
+            @JsonProperty("notify") Optional<Boolean> notify_) {
         Utils.checkNotNull(identifier, "identifier");
         Utils.checkNotNull(notify_, "notify_");
         this.identifier = identifier;
@@ -64,10 +65,9 @@ public class CreateAllowlistIdentifierRequestBody {
      * This flag denotes whether the given identifier will receive an invitation to join the application.
      * Note that this only works for email address and phone number identifiers.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> notify_() {
-        return (Optional<Boolean>) notify_;
+        return notify_;
     }
 
     public final static Builder builder() {
@@ -98,7 +98,7 @@ public class CreateAllowlistIdentifierRequestBody {
      * This flag denotes whether the given identifier will receive an invitation to join the application.
      * Note that this only works for email address and phone number identifiers.
      */
-    public CreateAllowlistIdentifierRequestBody withNotify(Optional<? extends Boolean> notify_) {
+    public CreateAllowlistIdentifierRequestBody withNotify(Optional<Boolean> notify_) {
         Utils.checkNotNull(notify_, "notify_");
         this.notify_ = notify_;
         return this;
@@ -114,13 +114,13 @@ public class CreateAllowlistIdentifierRequestBody {
         }
         CreateAllowlistIdentifierRequestBody other = (CreateAllowlistIdentifierRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.identifier, other.identifier) &&
-            java.util.Objects.deepEquals(this.notify_, other.notify_);
+            Objects.deepEquals(this.identifier, other.identifier) &&
+            Objects.deepEquals(this.notify_, other.notify_);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             identifier,
             notify_);
     }
@@ -136,7 +136,7 @@ public class CreateAllowlistIdentifierRequestBody {
  
         private String identifier;
  
-        private Optional<? extends Boolean> notify_;  
+        private Optional<Boolean> notify_;  
         
         private Builder() {
           // force use of static builder() method
@@ -166,7 +166,7 @@ public class CreateAllowlistIdentifierRequestBody {
          * This flag denotes whether the given identifier will receive an invitation to join the application.
          * Note that this only works for email address and phone number identifiers.
          */
-        public Builder notify_(Optional<? extends Boolean> notify_) {
+        public Builder notify_(Optional<Boolean> notify_) {
             Utils.checkNotNull(notify_, "notify_");
             this.notify_ = notify_;
             return this;
@@ -181,11 +181,11 @@ public class CreateAllowlistIdentifierRequestBody {
                 notify_);
         }
 
-        private static final LazySingletonValue<Optional<? extends Boolean>> _SINGLETON_VALUE_Notify =
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(
                         "notify",
                         "false",
-                        new TypeReference<Optional<? extends Boolean>>() {});
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }
 

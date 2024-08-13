@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class UpsertTemplateRequestBuilder {
 
@@ -28,25 +19,25 @@ public class UpsertTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpsertTemplateRequestBuilder templateType(UpsertTemplatePathParamTemplateType templateType) {
+    public UpsertTemplateRequestBuilder templateType(com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public UpsertTemplateRequestBuilder slug(String slug) {
+    public UpsertTemplateRequestBuilder slug(java.lang.String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public UpsertTemplateRequestBuilder requestBody(UpsertTemplateRequestBody requestBody) {
+    public UpsertTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpsertTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpsertTemplateRequestBuilder requestBody(Optional<? extends UpsertTemplateRequestBody> requestBody) {
+    public UpsertTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpsertTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

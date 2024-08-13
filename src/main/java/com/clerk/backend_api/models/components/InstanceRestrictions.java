@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class InstanceRestrictions {
 
@@ -29,27 +30,27 @@ public class InstanceRestrictions {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowlist")
-    private Optional<? extends Boolean> allowlist;
+    private Optional<Boolean> allowlist;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("blocklist")
-    private Optional<? extends Boolean> blocklist;
+    private Optional<Boolean> blocklist;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("block_email_subaddresses")
-    private Optional<? extends Boolean> blockEmailSubaddresses;
+    private Optional<Boolean> blockEmailSubaddresses;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ignore_dots_for_gmail_addresses")
-    private Optional<? extends Boolean> ignoreDotsForGmailAddresses;
+    private Optional<Boolean> ignoreDotsForGmailAddresses;
 
     @JsonCreator
     public InstanceRestrictions(
             @JsonProperty("object") Optional<? extends InstanceRestrictionsObject> object,
-            @JsonProperty("allowlist") Optional<? extends Boolean> allowlist,
-            @JsonProperty("blocklist") Optional<? extends Boolean> blocklist,
-            @JsonProperty("block_email_subaddresses") Optional<? extends Boolean> blockEmailSubaddresses,
-            @JsonProperty("ignore_dots_for_gmail_addresses") Optional<? extends Boolean> ignoreDotsForGmailAddresses) {
+            @JsonProperty("allowlist") Optional<Boolean> allowlist,
+            @JsonProperty("blocklist") Optional<Boolean> blocklist,
+            @JsonProperty("block_email_subaddresses") Optional<Boolean> blockEmailSubaddresses,
+            @JsonProperty("ignore_dots_for_gmail_addresses") Optional<Boolean> ignoreDotsForGmailAddresses) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(allowlist, "allowlist");
         Utils.checkNotNull(blocklist, "blocklist");
@@ -75,28 +76,24 @@ public class InstanceRestrictions {
         return (Optional<InstanceRestrictionsObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> allowlist() {
-        return (Optional<Boolean>) allowlist;
+        return allowlist;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> blocklist() {
-        return (Optional<Boolean>) blocklist;
+        return blocklist;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> blockEmailSubaddresses() {
-        return (Optional<Boolean>) blockEmailSubaddresses;
+        return blockEmailSubaddresses;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> ignoreDotsForGmailAddresses() {
-        return (Optional<Boolean>) ignoreDotsForGmailAddresses;
+        return ignoreDotsForGmailAddresses;
     }
 
     public final static Builder builder() {
@@ -127,7 +124,7 @@ public class InstanceRestrictions {
         return this;
     }
 
-    public InstanceRestrictions withAllowlist(Optional<? extends Boolean> allowlist) {
+    public InstanceRestrictions withAllowlist(Optional<Boolean> allowlist) {
         Utils.checkNotNull(allowlist, "allowlist");
         this.allowlist = allowlist;
         return this;
@@ -139,7 +136,7 @@ public class InstanceRestrictions {
         return this;
     }
 
-    public InstanceRestrictions withBlocklist(Optional<? extends Boolean> blocklist) {
+    public InstanceRestrictions withBlocklist(Optional<Boolean> blocklist) {
         Utils.checkNotNull(blocklist, "blocklist");
         this.blocklist = blocklist;
         return this;
@@ -151,7 +148,7 @@ public class InstanceRestrictions {
         return this;
     }
 
-    public InstanceRestrictions withBlockEmailSubaddresses(Optional<? extends Boolean> blockEmailSubaddresses) {
+    public InstanceRestrictions withBlockEmailSubaddresses(Optional<Boolean> blockEmailSubaddresses) {
         Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
         this.blockEmailSubaddresses = blockEmailSubaddresses;
         return this;
@@ -163,7 +160,7 @@ public class InstanceRestrictions {
         return this;
     }
 
-    public InstanceRestrictions withIgnoreDotsForGmailAddresses(Optional<? extends Boolean> ignoreDotsForGmailAddresses) {
+    public InstanceRestrictions withIgnoreDotsForGmailAddresses(Optional<Boolean> ignoreDotsForGmailAddresses) {
         Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
         this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
         return this;
@@ -179,16 +176,16 @@ public class InstanceRestrictions {
         }
         InstanceRestrictions other = (InstanceRestrictions) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.allowlist, other.allowlist) &&
-            java.util.Objects.deepEquals(this.blocklist, other.blocklist) &&
-            java.util.Objects.deepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
-            java.util.Objects.deepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.allowlist, other.allowlist) &&
+            Objects.deepEquals(this.blocklist, other.blocklist) &&
+            Objects.deepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
+            Objects.deepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             allowlist,
             blocklist,
@@ -210,13 +207,13 @@ public class InstanceRestrictions {
  
         private Optional<? extends InstanceRestrictionsObject> object = Optional.empty();
  
-        private Optional<? extends Boolean> allowlist = Optional.empty();
+        private Optional<Boolean> allowlist = Optional.empty();
  
-        private Optional<? extends Boolean> blocklist = Optional.empty();
+        private Optional<Boolean> blocklist = Optional.empty();
  
-        private Optional<? extends Boolean> blockEmailSubaddresses = Optional.empty();
+        private Optional<Boolean> blockEmailSubaddresses = Optional.empty();
  
-        private Optional<? extends Boolean> ignoreDotsForGmailAddresses = Optional.empty();  
+        private Optional<Boolean> ignoreDotsForGmailAddresses = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -246,7 +243,7 @@ public class InstanceRestrictions {
             return this;
         }
 
-        public Builder allowlist(Optional<? extends Boolean> allowlist) {
+        public Builder allowlist(Optional<Boolean> allowlist) {
             Utils.checkNotNull(allowlist, "allowlist");
             this.allowlist = allowlist;
             return this;
@@ -258,7 +255,7 @@ public class InstanceRestrictions {
             return this;
         }
 
-        public Builder blocklist(Optional<? extends Boolean> blocklist) {
+        public Builder blocklist(Optional<Boolean> blocklist) {
             Utils.checkNotNull(blocklist, "blocklist");
             this.blocklist = blocklist;
             return this;
@@ -270,7 +267,7 @@ public class InstanceRestrictions {
             return this;
         }
 
-        public Builder blockEmailSubaddresses(Optional<? extends Boolean> blockEmailSubaddresses) {
+        public Builder blockEmailSubaddresses(Optional<Boolean> blockEmailSubaddresses) {
             Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
             this.blockEmailSubaddresses = blockEmailSubaddresses;
             return this;
@@ -282,7 +279,7 @@ public class InstanceRestrictions {
             return this;
         }
 
-        public Builder ignoreDotsForGmailAddresses(Optional<? extends Boolean> ignoreDotsForGmailAddresses) {
+        public Builder ignoreDotsForGmailAddresses(Optional<Boolean> ignoreDotsForGmailAddresses) {
             Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
             this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
             return this;

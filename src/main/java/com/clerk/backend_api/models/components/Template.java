@@ -4,26 +4,29 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Template {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -38,110 +41,110 @@ public class Template {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
-    private JsonNullable<? extends String> instanceId;
+    private JsonNullable<String> instanceId;
 
     /**
      * whether this is a system (default) or user overridden) template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("resource_type")
-    private Optional<? extends String> resourceType;
+    private Optional<String> resourceType;
 
     /**
      * whether this is an email or SMS template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("template_type")
-    private Optional<? extends String> templateType;
+    private Optional<String> templateType;
 
     /**
      * user-friendly name of the template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<? extends String> name;
+    private Optional<String> name;
 
     /**
      * machine-friendly name of the template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
-    private Optional<? extends String> slug;
+    private Optional<String> slug;
 
     /**
      * position with the listing of templates
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("position")
-    private Optional<? extends Long> position;
+    private Optional<Long> position;
 
     /**
      * whether this template can be reverted to the corresponding system default
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("can_revert")
-    private Optional<? extends Boolean> canRevert;
+    private Optional<Boolean> canRevert;
 
     /**
      * whether this template can be deleted
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("can_delete")
-    private Optional<? extends Boolean> canDelete;
+    private Optional<Boolean> canDelete;
 
     /**
      * whether this template can be disabled, true only for notification SMS templates
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("can_disable")
-    private Optional<? extends Boolean> canDisable;
+    private Optional<Boolean> canDisable;
 
     /**
      * email subject
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("subject")
-    private JsonNullable<? extends String> subject;
+    private JsonNullable<String> subject;
 
     /**
      * the editor markup used to generate the body of the template
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("markup")
-    private Optional<? extends String> markup;
+    private Optional<String> markup;
 
     /**
      * the template body before variable interpolation
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("body")
-    private Optional<? extends String> body;
+    private Optional<String> body;
 
     /**
      * list of variables that are available for use in the template body
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("available_variables")
-    private Optional<? extends java.util.List<String>> availableVariables;
+    private Optional<? extends List<String>> availableVariables;
 
     /**
      * list of variables that must be contained in the template body
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("required_variables")
-    private Optional<? extends java.util.List<String>> requiredVariables;
+    private Optional<? extends List<String>> requiredVariables;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_name")
-    private Optional<? extends String> fromEmailName;
+    private Optional<String> fromEmailName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reply_to_email_name")
-    private Optional<? extends String> replyToEmailName;
+    private Optional<String> replyToEmailName;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delivered_by_clerk")
-    private Optional<? extends Boolean> deliveredByClerk;
+    private Optional<Boolean> deliveredByClerk;
 
     /**
      * Unix timestamp of last update.
@@ -149,7 +152,7 @@ public class Template {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<? extends Long> updatedAt;
+    private Optional<Long> updatedAt;
 
     /**
      * Unix timestamp of creation.
@@ -157,31 +160,31 @@ public class Template {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends Long> createdAt;
+    private Optional<Long> createdAt;
 
     @JsonCreator
     public Template(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") Optional<? extends TemplateObject> object,
-            @JsonProperty("instance_id") JsonNullable<? extends String> instanceId,
-            @JsonProperty("resource_type") Optional<? extends String> resourceType,
-            @JsonProperty("template_type") Optional<? extends String> templateType,
-            @JsonProperty("name") Optional<? extends String> name,
-            @JsonProperty("slug") Optional<? extends String> slug,
-            @JsonProperty("position") Optional<? extends Long> position,
-            @JsonProperty("can_revert") Optional<? extends Boolean> canRevert,
-            @JsonProperty("can_delete") Optional<? extends Boolean> canDelete,
-            @JsonProperty("can_disable") Optional<? extends Boolean> canDisable,
-            @JsonProperty("subject") JsonNullable<? extends String> subject,
-            @JsonProperty("markup") Optional<? extends String> markup,
-            @JsonProperty("body") Optional<? extends String> body,
-            @JsonProperty("available_variables") Optional<? extends java.util.List<String>> availableVariables,
-            @JsonProperty("required_variables") Optional<? extends java.util.List<String>> requiredVariables,
-            @JsonProperty("from_email_name") Optional<? extends String> fromEmailName,
-            @JsonProperty("reply_to_email_name") Optional<? extends String> replyToEmailName,
-            @JsonProperty("delivered_by_clerk") Optional<? extends Boolean> deliveredByClerk,
-            @JsonProperty("updated_at") Optional<? extends Long> updatedAt,
-            @JsonProperty("created_at") Optional<? extends Long> createdAt) {
+            @JsonProperty("instance_id") JsonNullable<String> instanceId,
+            @JsonProperty("resource_type") Optional<String> resourceType,
+            @JsonProperty("template_type") Optional<String> templateType,
+            @JsonProperty("name") Optional<String> name,
+            @JsonProperty("slug") Optional<String> slug,
+            @JsonProperty("position") Optional<Long> position,
+            @JsonProperty("can_revert") Optional<Boolean> canRevert,
+            @JsonProperty("can_delete") Optional<Boolean> canDelete,
+            @JsonProperty("can_disable") Optional<Boolean> canDisable,
+            @JsonProperty("subject") JsonNullable<String> subject,
+            @JsonProperty("markup") Optional<String> markup,
+            @JsonProperty("body") Optional<String> body,
+            @JsonProperty("available_variables") Optional<? extends List<String>> availableVariables,
+            @JsonProperty("required_variables") Optional<? extends List<String>> requiredVariables,
+            @JsonProperty("from_email_name") Optional<String> fromEmailName,
+            @JsonProperty("reply_to_email_name") Optional<String> replyToEmailName,
+            @JsonProperty("delivered_by_clerk") Optional<Boolean> deliveredByClerk,
+            @JsonProperty("updated_at") Optional<Long> updatedAt,
+            @JsonProperty("created_at") Optional<Long> createdAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(instanceId, "instanceId");
@@ -230,10 +233,9 @@ public class Template {
         this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -249,109 +251,97 @@ public class Template {
     /**
      * the id of the instance the template belongs to
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> instanceId() {
-        return (JsonNullable<String>) instanceId;
+        return instanceId;
     }
 
     /**
      * whether this is a system (default) or user overridden) template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> resourceType() {
-        return (Optional<String>) resourceType;
+        return resourceType;
     }
 
     /**
      * whether this is an email or SMS template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> templateType() {
-        return (Optional<String>) templateType;
+        return templateType;
     }
 
     /**
      * user-friendly name of the template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> name() {
-        return (Optional<String>) name;
+        return name;
     }
 
     /**
      * machine-friendly name of the template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> slug() {
-        return (Optional<String>) slug;
+        return slug;
     }
 
     /**
      * position with the listing of templates
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> position() {
-        return (Optional<Long>) position;
+        return position;
     }
 
     /**
      * whether this template can be reverted to the corresponding system default
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> canRevert() {
-        return (Optional<Boolean>) canRevert;
+        return canRevert;
     }
 
     /**
      * whether this template can be deleted
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> canDelete() {
-        return (Optional<Boolean>) canDelete;
+        return canDelete;
     }
 
     /**
      * whether this template can be disabled, true only for notification SMS templates
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> canDisable() {
-        return (Optional<Boolean>) canDisable;
+        return canDisable;
     }
 
     /**
      * email subject
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> subject() {
-        return (JsonNullable<String>) subject;
+        return subject;
     }
 
     /**
      * the editor markup used to generate the body of the template
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> markup() {
-        return (Optional<String>) markup;
+        return markup;
     }
 
     /**
      * the template body before variable interpolation
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> body() {
-        return (Optional<String>) body;
+        return body;
     }
 
     /**
@@ -359,8 +349,8 @@ public class Template {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> availableVariables() {
-        return (Optional<java.util.List<String>>) availableVariables;
+    public Optional<List<String>> availableVariables() {
+        return (Optional<List<String>>) availableVariables;
     }
 
     /**
@@ -368,46 +358,41 @@ public class Template {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<java.util.List<String>> requiredVariables() {
-        return (Optional<java.util.List<String>>) requiredVariables;
+    public Optional<List<String>> requiredVariables() {
+        return (Optional<List<String>>) requiredVariables;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> fromEmailName() {
-        return (Optional<String>) fromEmailName;
+        return fromEmailName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> replyToEmailName() {
-        return (Optional<String>) replyToEmailName;
+        return replyToEmailName;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> deliveredByClerk() {
-        return (Optional<Boolean>) deliveredByClerk;
+        return deliveredByClerk;
     }
 
     /**
      * Unix timestamp of last update.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> updatedAt() {
-        return (Optional<Long>) updatedAt;
+        return updatedAt;
     }
 
     /**
      * Unix timestamp of creation.
      * 
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> createdAt() {
-        return (Optional<Long>) createdAt;
+        return createdAt;
     }
 
     public final static Builder builder() {
@@ -420,7 +405,7 @@ public class Template {
         return this;
     }
 
-    public Template withId(Optional<? extends String> id) {
+    public Template withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -458,7 +443,7 @@ public class Template {
     /**
      * the id of the instance the template belongs to
      */
-    public Template withInstanceId(JsonNullable<? extends String> instanceId) {
+    public Template withInstanceId(JsonNullable<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
         this.instanceId = instanceId;
         return this;
@@ -476,7 +461,7 @@ public class Template {
     /**
      * whether this is a system (default) or user overridden) template
      */
-    public Template withResourceType(Optional<? extends String> resourceType) {
+    public Template withResourceType(Optional<String> resourceType) {
         Utils.checkNotNull(resourceType, "resourceType");
         this.resourceType = resourceType;
         return this;
@@ -494,7 +479,7 @@ public class Template {
     /**
      * whether this is an email or SMS template
      */
-    public Template withTemplateType(Optional<? extends String> templateType) {
+    public Template withTemplateType(Optional<String> templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
@@ -512,7 +497,7 @@ public class Template {
     /**
      * user-friendly name of the template
      */
-    public Template withName(Optional<? extends String> name) {
+    public Template withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -530,7 +515,7 @@ public class Template {
     /**
      * machine-friendly name of the template
      */
-    public Template withSlug(Optional<? extends String> slug) {
+    public Template withSlug(Optional<String> slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
@@ -548,7 +533,7 @@ public class Template {
     /**
      * position with the listing of templates
      */
-    public Template withPosition(Optional<? extends Long> position) {
+    public Template withPosition(Optional<Long> position) {
         Utils.checkNotNull(position, "position");
         this.position = position;
         return this;
@@ -566,7 +551,7 @@ public class Template {
     /**
      * whether this template can be reverted to the corresponding system default
      */
-    public Template withCanRevert(Optional<? extends Boolean> canRevert) {
+    public Template withCanRevert(Optional<Boolean> canRevert) {
         Utils.checkNotNull(canRevert, "canRevert");
         this.canRevert = canRevert;
         return this;
@@ -584,7 +569,7 @@ public class Template {
     /**
      * whether this template can be deleted
      */
-    public Template withCanDelete(Optional<? extends Boolean> canDelete) {
+    public Template withCanDelete(Optional<Boolean> canDelete) {
         Utils.checkNotNull(canDelete, "canDelete");
         this.canDelete = canDelete;
         return this;
@@ -602,7 +587,7 @@ public class Template {
     /**
      * whether this template can be disabled, true only for notification SMS templates
      */
-    public Template withCanDisable(Optional<? extends Boolean> canDisable) {
+    public Template withCanDisable(Optional<Boolean> canDisable) {
         Utils.checkNotNull(canDisable, "canDisable");
         this.canDisable = canDisable;
         return this;
@@ -620,7 +605,7 @@ public class Template {
     /**
      * email subject
      */
-    public Template withSubject(JsonNullable<? extends String> subject) {
+    public Template withSubject(JsonNullable<String> subject) {
         Utils.checkNotNull(subject, "subject");
         this.subject = subject;
         return this;
@@ -638,7 +623,7 @@ public class Template {
     /**
      * the editor markup used to generate the body of the template
      */
-    public Template withMarkup(Optional<? extends String> markup) {
+    public Template withMarkup(Optional<String> markup) {
         Utils.checkNotNull(markup, "markup");
         this.markup = markup;
         return this;
@@ -656,7 +641,7 @@ public class Template {
     /**
      * the template body before variable interpolation
      */
-    public Template withBody(Optional<? extends String> body) {
+    public Template withBody(Optional<String> body) {
         Utils.checkNotNull(body, "body");
         this.body = body;
         return this;
@@ -665,7 +650,7 @@ public class Template {
     /**
      * list of variables that are available for use in the template body
      */
-    public Template withAvailableVariables(java.util.List<String> availableVariables) {
+    public Template withAvailableVariables(List<String> availableVariables) {
         Utils.checkNotNull(availableVariables, "availableVariables");
         this.availableVariables = Optional.ofNullable(availableVariables);
         return this;
@@ -674,7 +659,7 @@ public class Template {
     /**
      * list of variables that are available for use in the template body
      */
-    public Template withAvailableVariables(Optional<? extends java.util.List<String>> availableVariables) {
+    public Template withAvailableVariables(Optional<? extends List<String>> availableVariables) {
         Utils.checkNotNull(availableVariables, "availableVariables");
         this.availableVariables = availableVariables;
         return this;
@@ -683,7 +668,7 @@ public class Template {
     /**
      * list of variables that must be contained in the template body
      */
-    public Template withRequiredVariables(java.util.List<String> requiredVariables) {
+    public Template withRequiredVariables(List<String> requiredVariables) {
         Utils.checkNotNull(requiredVariables, "requiredVariables");
         this.requiredVariables = Optional.ofNullable(requiredVariables);
         return this;
@@ -692,7 +677,7 @@ public class Template {
     /**
      * list of variables that must be contained in the template body
      */
-    public Template withRequiredVariables(Optional<? extends java.util.List<String>> requiredVariables) {
+    public Template withRequiredVariables(Optional<? extends List<String>> requiredVariables) {
         Utils.checkNotNull(requiredVariables, "requiredVariables");
         this.requiredVariables = requiredVariables;
         return this;
@@ -704,7 +689,7 @@ public class Template {
         return this;
     }
 
-    public Template withFromEmailName(Optional<? extends String> fromEmailName) {
+    public Template withFromEmailName(Optional<String> fromEmailName) {
         Utils.checkNotNull(fromEmailName, "fromEmailName");
         this.fromEmailName = fromEmailName;
         return this;
@@ -716,7 +701,7 @@ public class Template {
         return this;
     }
 
-    public Template withReplyToEmailName(Optional<? extends String> replyToEmailName) {
+    public Template withReplyToEmailName(Optional<String> replyToEmailName) {
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
         this.replyToEmailName = replyToEmailName;
         return this;
@@ -728,7 +713,7 @@ public class Template {
         return this;
     }
 
-    public Template withDeliveredByClerk(Optional<? extends Boolean> deliveredByClerk) {
+    public Template withDeliveredByClerk(Optional<Boolean> deliveredByClerk) {
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         this.deliveredByClerk = deliveredByClerk;
         return this;
@@ -748,7 +733,7 @@ public class Template {
      * Unix timestamp of last update.
      * 
      */
-    public Template withUpdatedAt(Optional<? extends Long> updatedAt) {
+    public Template withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -768,7 +753,7 @@ public class Template {
      * Unix timestamp of creation.
      * 
      */
-    public Template withCreatedAt(Optional<? extends Long> createdAt) {
+    public Template withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -784,32 +769,32 @@ public class Template {
         }
         Template other = (Template) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.instanceId, other.instanceId) &&
-            java.util.Objects.deepEquals(this.resourceType, other.resourceType) &&
-            java.util.Objects.deepEquals(this.templateType, other.templateType) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.slug, other.slug) &&
-            java.util.Objects.deepEquals(this.position, other.position) &&
-            java.util.Objects.deepEquals(this.canRevert, other.canRevert) &&
-            java.util.Objects.deepEquals(this.canDelete, other.canDelete) &&
-            java.util.Objects.deepEquals(this.canDisable, other.canDisable) &&
-            java.util.Objects.deepEquals(this.subject, other.subject) &&
-            java.util.Objects.deepEquals(this.markup, other.markup) &&
-            java.util.Objects.deepEquals(this.body, other.body) &&
-            java.util.Objects.deepEquals(this.availableVariables, other.availableVariables) &&
-            java.util.Objects.deepEquals(this.requiredVariables, other.requiredVariables) &&
-            java.util.Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            java.util.Objects.deepEquals(this.replyToEmailName, other.replyToEmailName) &&
-            java.util.Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.instanceId, other.instanceId) &&
+            Objects.deepEquals(this.resourceType, other.resourceType) &&
+            Objects.deepEquals(this.templateType, other.templateType) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.slug, other.slug) &&
+            Objects.deepEquals(this.position, other.position) &&
+            Objects.deepEquals(this.canRevert, other.canRevert) &&
+            Objects.deepEquals(this.canDelete, other.canDelete) &&
+            Objects.deepEquals(this.canDisable, other.canDisable) &&
+            Objects.deepEquals(this.subject, other.subject) &&
+            Objects.deepEquals(this.markup, other.markup) &&
+            Objects.deepEquals(this.body, other.body) &&
+            Objects.deepEquals(this.availableVariables, other.availableVariables) &&
+            Objects.deepEquals(this.requiredVariables, other.requiredVariables) &&
+            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
+            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName) &&
+            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             instanceId,
@@ -861,47 +846,47 @@ public class Template {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private Optional<? extends TemplateObject> object = Optional.empty();
  
-        private JsonNullable<? extends String> instanceId = JsonNullable.undefined();
+        private JsonNullable<String> instanceId = JsonNullable.undefined();
  
-        private Optional<? extends String> resourceType = Optional.empty();
+        private Optional<String> resourceType = Optional.empty();
  
-        private Optional<? extends String> templateType = Optional.empty();
+        private Optional<String> templateType = Optional.empty();
  
-        private Optional<? extends String> name = Optional.empty();
+        private Optional<String> name = Optional.empty();
  
-        private Optional<? extends String> slug = Optional.empty();
+        private Optional<String> slug = Optional.empty();
  
-        private Optional<? extends Long> position = Optional.empty();
+        private Optional<Long> position = Optional.empty();
  
-        private Optional<? extends Boolean> canRevert = Optional.empty();
+        private Optional<Boolean> canRevert = Optional.empty();
  
-        private Optional<? extends Boolean> canDelete = Optional.empty();
+        private Optional<Boolean> canDelete = Optional.empty();
  
-        private Optional<? extends Boolean> canDisable = Optional.empty();
+        private Optional<Boolean> canDisable = Optional.empty();
  
-        private JsonNullable<? extends String> subject = JsonNullable.undefined();
+        private JsonNullable<String> subject = JsonNullable.undefined();
  
-        private Optional<? extends String> markup = Optional.empty();
+        private Optional<String> markup = Optional.empty();
  
-        private Optional<? extends String> body = Optional.empty();
+        private Optional<String> body = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> availableVariables = Optional.empty();
+        private Optional<? extends List<String>> availableVariables = Optional.empty();
  
-        private Optional<? extends java.util.List<String>> requiredVariables = Optional.empty();
+        private Optional<? extends List<String>> requiredVariables = Optional.empty();
  
-        private Optional<? extends String> fromEmailName = Optional.empty();
+        private Optional<String> fromEmailName = Optional.empty();
  
-        private Optional<? extends String> replyToEmailName = Optional.empty();
+        private Optional<String> replyToEmailName = Optional.empty();
  
-        private Optional<? extends Boolean> deliveredByClerk = Optional.empty();
+        private Optional<Boolean> deliveredByClerk = Optional.empty();
  
-        private Optional<? extends Long> updatedAt = Optional.empty();
+        private Optional<Long> updatedAt = Optional.empty();
  
-        private Optional<? extends Long> createdAt = Optional.empty();  
+        private Optional<Long> createdAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -913,7 +898,7 @@ public class Template {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -951,7 +936,7 @@ public class Template {
         /**
          * the id of the instance the template belongs to
          */
-        public Builder instanceId(JsonNullable<? extends String> instanceId) {
+        public Builder instanceId(JsonNullable<String> instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
             this.instanceId = instanceId;
             return this;
@@ -969,7 +954,7 @@ public class Template {
         /**
          * whether this is a system (default) or user overridden) template
          */
-        public Builder resourceType(Optional<? extends String> resourceType) {
+        public Builder resourceType(Optional<String> resourceType) {
             Utils.checkNotNull(resourceType, "resourceType");
             this.resourceType = resourceType;
             return this;
@@ -987,7 +972,7 @@ public class Template {
         /**
          * whether this is an email or SMS template
          */
-        public Builder templateType(Optional<? extends String> templateType) {
+        public Builder templateType(Optional<String> templateType) {
             Utils.checkNotNull(templateType, "templateType");
             this.templateType = templateType;
             return this;
@@ -1005,7 +990,7 @@ public class Template {
         /**
          * user-friendly name of the template
          */
-        public Builder name(Optional<? extends String> name) {
+        public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -1023,7 +1008,7 @@ public class Template {
         /**
          * machine-friendly name of the template
          */
-        public Builder slug(Optional<? extends String> slug) {
+        public Builder slug(Optional<String> slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;
@@ -1041,7 +1026,7 @@ public class Template {
         /**
          * position with the listing of templates
          */
-        public Builder position(Optional<? extends Long> position) {
+        public Builder position(Optional<Long> position) {
             Utils.checkNotNull(position, "position");
             this.position = position;
             return this;
@@ -1059,7 +1044,7 @@ public class Template {
         /**
          * whether this template can be reverted to the corresponding system default
          */
-        public Builder canRevert(Optional<? extends Boolean> canRevert) {
+        public Builder canRevert(Optional<Boolean> canRevert) {
             Utils.checkNotNull(canRevert, "canRevert");
             this.canRevert = canRevert;
             return this;
@@ -1077,7 +1062,7 @@ public class Template {
         /**
          * whether this template can be deleted
          */
-        public Builder canDelete(Optional<? extends Boolean> canDelete) {
+        public Builder canDelete(Optional<Boolean> canDelete) {
             Utils.checkNotNull(canDelete, "canDelete");
             this.canDelete = canDelete;
             return this;
@@ -1095,7 +1080,7 @@ public class Template {
         /**
          * whether this template can be disabled, true only for notification SMS templates
          */
-        public Builder canDisable(Optional<? extends Boolean> canDisable) {
+        public Builder canDisable(Optional<Boolean> canDisable) {
             Utils.checkNotNull(canDisable, "canDisable");
             this.canDisable = canDisable;
             return this;
@@ -1113,7 +1098,7 @@ public class Template {
         /**
          * email subject
          */
-        public Builder subject(JsonNullable<? extends String> subject) {
+        public Builder subject(JsonNullable<String> subject) {
             Utils.checkNotNull(subject, "subject");
             this.subject = subject;
             return this;
@@ -1131,7 +1116,7 @@ public class Template {
         /**
          * the editor markup used to generate the body of the template
          */
-        public Builder markup(Optional<? extends String> markup) {
+        public Builder markup(Optional<String> markup) {
             Utils.checkNotNull(markup, "markup");
             this.markup = markup;
             return this;
@@ -1149,7 +1134,7 @@ public class Template {
         /**
          * the template body before variable interpolation
          */
-        public Builder body(Optional<? extends String> body) {
+        public Builder body(Optional<String> body) {
             Utils.checkNotNull(body, "body");
             this.body = body;
             return this;
@@ -1158,7 +1143,7 @@ public class Template {
         /**
          * list of variables that are available for use in the template body
          */
-        public Builder availableVariables(java.util.List<String> availableVariables) {
+        public Builder availableVariables(List<String> availableVariables) {
             Utils.checkNotNull(availableVariables, "availableVariables");
             this.availableVariables = Optional.ofNullable(availableVariables);
             return this;
@@ -1167,7 +1152,7 @@ public class Template {
         /**
          * list of variables that are available for use in the template body
          */
-        public Builder availableVariables(Optional<? extends java.util.List<String>> availableVariables) {
+        public Builder availableVariables(Optional<? extends List<String>> availableVariables) {
             Utils.checkNotNull(availableVariables, "availableVariables");
             this.availableVariables = availableVariables;
             return this;
@@ -1176,7 +1161,7 @@ public class Template {
         /**
          * list of variables that must be contained in the template body
          */
-        public Builder requiredVariables(java.util.List<String> requiredVariables) {
+        public Builder requiredVariables(List<String> requiredVariables) {
             Utils.checkNotNull(requiredVariables, "requiredVariables");
             this.requiredVariables = Optional.ofNullable(requiredVariables);
             return this;
@@ -1185,7 +1170,7 @@ public class Template {
         /**
          * list of variables that must be contained in the template body
          */
-        public Builder requiredVariables(Optional<? extends java.util.List<String>> requiredVariables) {
+        public Builder requiredVariables(Optional<? extends List<String>> requiredVariables) {
             Utils.checkNotNull(requiredVariables, "requiredVariables");
             this.requiredVariables = requiredVariables;
             return this;
@@ -1197,7 +1182,7 @@ public class Template {
             return this;
         }
 
-        public Builder fromEmailName(Optional<? extends String> fromEmailName) {
+        public Builder fromEmailName(Optional<String> fromEmailName) {
             Utils.checkNotNull(fromEmailName, "fromEmailName");
             this.fromEmailName = fromEmailName;
             return this;
@@ -1209,7 +1194,7 @@ public class Template {
             return this;
         }
 
-        public Builder replyToEmailName(Optional<? extends String> replyToEmailName) {
+        public Builder replyToEmailName(Optional<String> replyToEmailName) {
             Utils.checkNotNull(replyToEmailName, "replyToEmailName");
             this.replyToEmailName = replyToEmailName;
             return this;
@@ -1221,7 +1206,7 @@ public class Template {
             return this;
         }
 
-        public Builder deliveredByClerk(Optional<? extends Boolean> deliveredByClerk) {
+        public Builder deliveredByClerk(Optional<Boolean> deliveredByClerk) {
             Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
             this.deliveredByClerk = deliveredByClerk;
             return this;
@@ -1241,7 +1226,7 @@ public class Template {
          * Unix timestamp of last update.
          * 
          */
-        public Builder updatedAt(Optional<? extends Long> updatedAt) {
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;
@@ -1261,7 +1246,7 @@ public class Template {
          * Unix timestamp of creation.
          * 
          */
-        public Builder createdAt(Optional<? extends Long> createdAt) {
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;

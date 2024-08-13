@@ -4,19 +4,19 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * VerifyPasswordResponseBody - The provided password was correct.
  */
@@ -25,11 +25,11 @@ public class VerifyPasswordResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
-    private Optional<? extends Boolean> verified;
+    private Optional<Boolean> verified;
 
     @JsonCreator
     public VerifyPasswordResponseBody(
-            @JsonProperty("verified") Optional<? extends Boolean> verified) {
+            @JsonProperty("verified") Optional<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
     }
@@ -38,10 +38,9 @@ public class VerifyPasswordResponseBody {
         this(Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> verified() {
-        return (Optional<Boolean>) verified;
+        return verified;
     }
 
     public final static Builder builder() {
@@ -54,7 +53,7 @@ public class VerifyPasswordResponseBody {
         return this;
     }
 
-    public VerifyPasswordResponseBody withVerified(Optional<? extends Boolean> verified) {
+    public VerifyPasswordResponseBody withVerified(Optional<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
@@ -70,12 +69,12 @@ public class VerifyPasswordResponseBody {
         }
         VerifyPasswordResponseBody other = (VerifyPasswordResponseBody) o;
         return 
-            java.util.Objects.deepEquals(this.verified, other.verified);
+            Objects.deepEquals(this.verified, other.verified);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             verified);
     }
     
@@ -87,7 +86,7 @@ public class VerifyPasswordResponseBody {
     
     public final static class Builder {
  
-        private Optional<? extends Boolean> verified = Optional.empty();  
+        private Optional<Boolean> verified = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -99,7 +98,7 @@ public class VerifyPasswordResponseBody {
             return this;
         }
 
-        public Builder verified(Optional<? extends Boolean> verified) {
+        public Builder verified(Optional<Boolean> verified) {
             Utils.checkNotNull(verified, "verified");
             this.verified = verified;
             return this;

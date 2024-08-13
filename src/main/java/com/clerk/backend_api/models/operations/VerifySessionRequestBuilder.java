@@ -4,18 +4,9 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.lang.String;
 import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
 
 public class VerifySessionRequestBuilder {
 
@@ -27,19 +18,19 @@ public class VerifySessionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public VerifySessionRequestBuilder sessionId(String sessionId) {
+    public VerifySessionRequestBuilder sessionId(java.lang.String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
         return this;
     }
                 
-    public VerifySessionRequestBuilder requestBody(VerifySessionRequestBody requestBody) {
+    public VerifySessionRequestBuilder requestBody(com.clerk.backend_api.models.operations.VerifySessionRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public VerifySessionRequestBuilder requestBody(Optional<? extends VerifySessionRequestBody> requestBody) {
+    public VerifySessionRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifySessionRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

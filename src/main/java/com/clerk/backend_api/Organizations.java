@@ -4,28 +4,56 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.Organization;
+import com.clerk.backend_api.models.components.OrganizationWithLogo;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateOrganizationRequestBody;
+import com.clerk.backend_api.models.operations.CreateOrganizationRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateOrganizationResponse;
+import com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequest;
+import com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse;
+import com.clerk.backend_api.models.operations.DeleteOrganizationRequest;
+import com.clerk.backend_api.models.operations.DeleteOrganizationRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteOrganizationResponse;
+import com.clerk.backend_api.models.operations.GetOrganizationRequest;
+import com.clerk.backend_api.models.operations.GetOrganizationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetOrganizationResponse;
+import com.clerk.backend_api.models.operations.ListOrganizationsRequest;
+import com.clerk.backend_api.models.operations.ListOrganizationsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListOrganizationsResponse;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequest;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBuilder;
+import com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.UpdateOrganizationRequest;
+import com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody;
+import com.clerk.backend_api.models.operations.UpdateOrganizationRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateOrganizationResponse;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequest;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBuilder;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.utils.JSON;
-import com.clerk.backend_api.utils.Retries.NonRetryableException;
 import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-import org.apache.http.NameValuePair;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.List;
+import java.util.Optional; 
 
 public class Organizations implements
             MethodCallListOrganizations,
@@ -52,8 +80,8 @@ public class Organizations implements
      * Most recent organizations will be returned first.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationsRequestBuilder list() {
-        return new com.clerk.backend_api.models.operations.ListOrganizationsRequestBuilder(this);
+    public ListOrganizationsRequestBuilder list() {
+        return new ListOrganizationsRequestBuilder(this);
     }
 
     /**
@@ -66,8 +94,8 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.ListOrganizationsResponse list(
-            com.clerk.backend_api.models.operations.ListOrganizationsRequest request) throws Exception {
+    public ListOrganizationsResponse list(
+            ListOrganizationsRequest request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -79,7 +107,7 @@ public class Organizations implements
                 this.sdkConfiguration.userAgent);
 
         _req.addQueryParams(Utils.getQueryParams(
-                com.clerk.backend_api.models.operations.ListOrganizationsRequest.class,
+                ListOrganizationsRequest.class,
                 request, 
                 null));
 
@@ -90,7 +118,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("ListOrganizations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "ListOrganizations", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -98,18 +129,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("ListOrganizations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "ListOrganizations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("ListOrganizations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "ListOrganizations",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("ListOrganizations", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListOrganizations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -117,42 +158,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.ListOrganizationsResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.ListOrganizationsResponse
+        ListOrganizationsResponse.Builder _resBuilder = 
+            ListOrganizationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.ListOrganizationsResponse _res = _resBuilder.build();
+        ListOrganizationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.Organizations _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.Organizations>() {});
-                _res.withOrganizations(java.util.Optional.ofNullable(_out));
+                _res.withOrganizations(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -161,13 +202,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -185,8 +226,8 @@ public class Organizations implements
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationRequestBuilder create() {
-        return new com.clerk.backend_api.models.operations.CreateOrganizationRequestBuilder(this);
+    public CreateOrganizationRequestBuilder create() {
+        return new CreateOrganizationRequestBuilder(this);
     }
 
     /**
@@ -203,9 +244,10 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationResponse createDirect() throws Exception {
+    public CreateOrganizationResponse createDirect() throws Exception {
         return create(Optional.empty());
     }
+    
     /**
      * Create an organization
      * Creates a new organization with the given name for an instance.
@@ -221,18 +263,23 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.CreateOrganizationResponse create(
-            Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationRequestBody> request) throws Exception {
+    public CreateOrganizationResponse create(
+            Optional<? extends CreateOrganizationRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/organizations");
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationRequestBody>>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateOrganizationRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "request", "json", false);
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -245,7 +292,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("CreateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "CreateOrganization", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -253,18 +303,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("CreateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "CreateOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("CreateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "CreateOrganization",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("CreateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -272,42 +332,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.CreateOrganizationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.CreateOrganizationResponse
+        CreateOrganizationResponse.Builder _resBuilder = 
+            CreateOrganizationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.CreateOrganizationResponse _res = _resBuilder.build();
+        CreateOrganizationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Organization _out = Utils.mapper().readValue(
+                Organization _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Organization>() {});
-                _res.withOrganization(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Organization>() {});
+                _res.withOrganization(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -316,13 +376,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -332,8 +392,8 @@ public class Organizations implements
      * Fetches the organization whose ID or slug matches the provided `id_or_slug` URL query parameter.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.GetOrganizationRequestBuilder get() {
-        return new com.clerk.backend_api.models.operations.GetOrganizationRequestBuilder(this);
+    public GetOrganizationRequestBuilder get() {
+        return new GetOrganizationRequestBuilder(this);
     }
 
     /**
@@ -343,17 +403,17 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.GetOrganizationResponse get(
+    public GetOrganizationResponse get(
             String organizationId) throws Exception {
-        com.clerk.backend_api.models.operations.GetOrganizationRequest request =
-            com.clerk.backend_api.models.operations.GetOrganizationRequest
+        GetOrganizationRequest request =
+            GetOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.GetOrganizationRequest.class,
+                GetOrganizationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}",
                 request, null);
@@ -370,7 +430,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("GetOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "GetOrganization", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -378,18 +441,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("GetOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "GetOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("GetOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "GetOrganization",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("GetOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -397,42 +470,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.GetOrganizationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.GetOrganizationResponse
+        GetOrganizationResponse.Builder _resBuilder = 
+            GetOrganizationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.GetOrganizationResponse _res = _resBuilder.build();
+        GetOrganizationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Organization _out = Utils.mapper().readValue(
+                Organization _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Organization>() {});
-                _res.withOrganization(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Organization>() {});
+                _res.withOrganization(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -441,13 +514,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -457,8 +530,8 @@ public class Organizations implements
      * Updates an existing organization
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationRequestBuilder update() {
-        return new com.clerk.backend_api.models.operations.UpdateOrganizationRequestBuilder(this);
+    public UpdateOrganizationRequestBuilder update() {
+        return new UpdateOrganizationRequestBuilder(this);
     }
 
     /**
@@ -469,11 +542,11 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UpdateOrganizationResponse update(
+    public UpdateOrganizationResponse update(
             String organizationId,
-            com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UpdateOrganizationRequest request =
-            com.clerk.backend_api.models.operations.UpdateOrganizationRequest
+            UpdateOrganizationRequestBody requestBody) throws Exception {
+        UpdateOrganizationRequest request =
+            UpdateOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -481,16 +554,21 @@ public class Organizations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UpdateOrganizationRequest.class,
+                UpdateOrganizationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -506,7 +584,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UpdateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UpdateOrganization", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -514,18 +595,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UpdateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UpdateOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UpdateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UpdateOrganization",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UpdateOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UpdateOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -533,42 +624,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UpdateOrganizationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UpdateOrganizationResponse
+        UpdateOrganizationResponse.Builder _resBuilder = 
+            UpdateOrganizationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UpdateOrganizationResponse _res = _resBuilder.build();
+        UpdateOrganizationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Organization _out = Utils.mapper().readValue(
+                Organization _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Organization>() {});
-                _res.withOrganization(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Organization>() {});
+                _res.withOrganization(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -577,13 +668,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -595,8 +686,8 @@ public class Organizations implements
      * This is not reversible.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationRequestBuilder delete() {
-        return new com.clerk.backend_api.models.operations.DeleteOrganizationRequestBuilder(this);
+    public DeleteOrganizationRequestBuilder delete() {
+        return new DeleteOrganizationRequestBuilder(this);
     }
 
     /**
@@ -608,17 +699,17 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationResponse delete(
+    public DeleteOrganizationResponse delete(
             String organizationId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteOrganizationRequest request =
-            com.clerk.backend_api.models.operations.DeleteOrganizationRequest
+        DeleteOrganizationRequest request =
+            DeleteOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteOrganizationRequest.class,
+                DeleteOrganizationRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}",
                 request, null);
@@ -635,7 +726,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteOrganization", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -643,18 +737,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteOrganization",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteOrganization", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteOrganization",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -662,42 +766,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteOrganizationResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteOrganizationResponse
+        DeleteOrganizationResponse.Builder _resBuilder = 
+            DeleteOrganizationResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteOrganizationResponse _res = _resBuilder.build();
+        DeleteOrganizationResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.DeletedObject _out = Utils.mapper().readValue(
+                DeletedObject _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.DeletedObject>() {});
-                _res.withDeletedObject(java.util.Optional.ofNullable(_out));
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -706,13 +810,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -725,8 +829,8 @@ public class Organizations implements
      * You can remove metadata keys at any level by setting their value to `null`.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBuilder mergeMetadata() {
-        return new com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBuilder(this);
+    public MergeOrganizationMetadataRequestBuilder mergeMetadata() {
+        return new MergeOrganizationMetadataRequestBuilder(this);
     }
 
     /**
@@ -740,11 +844,11 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse mergeMetadata(
+    public MergeOrganizationMetadataResponse mergeMetadata(
             String organizationId,
-            com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequest request =
-            com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequest
+            MergeOrganizationMetadataRequestBody requestBody) throws Exception {
+        MergeOrganizationMetadataRequest request =
+            MergeOrganizationMetadataRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -752,16 +856,21 @@ public class Organizations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequest.class,
+                MergeOrganizationMetadataRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/metadata",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PATCH");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "json", false);
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
         if (_serializedRequestBody == null) {
             throw new Exception("Request body is required");
         }
@@ -777,7 +886,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("MergeOrganizationMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "MergeOrganizationMetadata", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -785,18 +897,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("MergeOrganizationMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "MergeOrganizationMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("MergeOrganizationMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "MergeOrganizationMetadata",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("MergeOrganizationMetadata", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "MergeOrganizationMetadata",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -804,42 +926,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse
+        MergeOrganizationMetadataResponse.Builder _resBuilder = 
+            MergeOrganizationMetadataResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse _res = _resBuilder.build();
+        MergeOrganizationMetadataResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Organization _out = Utils.mapper().readValue(
+                Organization _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Organization>() {});
-                _res.withOrganization(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Organization>() {});
+                _res.withOrganization(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -848,13 +970,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -867,8 +989,8 @@ public class Organizations implements
      * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBuilder uploadLogo() {
-        return new com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBuilder(this);
+    public UploadOrganizationLogoRequestBuilder uploadLogo() {
+        return new UploadOrganizationLogoRequestBuilder(this);
     }
 
     /**
@@ -881,10 +1003,11 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse uploadLogo(
+    public UploadOrganizationLogoResponse uploadLogo(
             String organizationId) throws Exception {
         return uploadLogo(organizationId, Optional.empty());
     }
+    
     /**
      * Upload a logo for the organization
      * Set or replace an organization's logo, by uploading an image file.
@@ -896,11 +1019,11 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse uploadLogo(
+    public UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
-            Optional<? extends com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody> requestBody) throws Exception {
-        com.clerk.backend_api.models.operations.UploadOrganizationLogoRequest request =
-            com.clerk.backend_api.models.operations.UploadOrganizationLogoRequest
+            Optional<? extends UploadOrganizationLogoRequestBody> requestBody) throws Exception {
+        UploadOrganizationLogoRequest request =
+            UploadOrganizationLogoRequest
                 .builder()
                 .organizationId(organizationId)
                 .requestBody(requestBody)
@@ -908,16 +1031,21 @@ public class Organizations implements
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.UploadOrganizationLogoRequest.class,
+                UploadOrganizationLogoRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/logo",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "PUT");
-        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
-            new TypeReference<java.lang.Object>() {});
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, "requestBody", "multipart", false);
+                _convertedRequest, 
+                "requestBody",
+                "multipart",
+                false);
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -930,7 +1058,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("UploadOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "UploadOrganizationLogo", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -938,18 +1069,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "413", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("UploadOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "UploadOrganizationLogo",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("UploadOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "UploadOrganizationLogo",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("UploadOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UploadOrganizationLogo",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -957,42 +1098,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse
+        UploadOrganizationLogoResponse.Builder _resBuilder = 
+            UploadOrganizationLogoResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse _res = _resBuilder.build();
+        UploadOrganizationLogoResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationWithLogo _out = Utils.mapper().readValue(
+                OrganizationWithLogo _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationWithLogo>() {});
-                _res.withOrganizationWithLogo(java.util.Optional.ofNullable(_out));
+                    new TypeReference<OrganizationWithLogo>() {});
+                _res.withOrganizationWithLogo(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "413")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1001,13 +1142,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1016,8 +1157,8 @@ public class Organizations implements
      * Delete the organization's logo.
      * @return The call builder
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequestBuilder deleteLogo() {
-        return new com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequestBuilder(this);
+    public DeleteOrganizationLogoRequestBuilder deleteLogo() {
+        return new DeleteOrganizationLogoRequestBuilder(this);
     }
 
     /**
@@ -1026,17 +1167,17 @@ public class Organizations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse deleteLogo(
+    public DeleteOrganizationLogoResponse deleteLogo(
             String organizationId) throws Exception {
-        com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequest request =
-            com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequest
+        DeleteOrganizationLogoRequest request =
+            DeleteOrganizationLogoRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
-                com.clerk.backend_api.models.operations.DeleteOrganizationLogoRequest.class,
+                DeleteOrganizationLogoRequest.class,
                 _baseUrl,
                 "/organizations/{organization_id}/logo",
                 request, null);
@@ -1053,7 +1194,10 @@ public class Organizations implements
         HttpRequest _r = 
             sdkConfiguration.hooks()
                .beforeRequest(
-                  new BeforeRequestContextImpl("DeleteOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                  new BeforeRequestContextImpl(
+                      "DeleteOrganizationLogo", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -1061,18 +1205,28 @@ public class Organizations implements
             if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
-                        new AfterErrorContextImpl("DeleteOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterErrorContextImpl(
+                            "DeleteOrganizationLogo",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
                 _httpRes = sdkConfiguration.hooks()
                     .afterSuccess(
-                        new AfterSuccessContextImpl("DeleteOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()),
+                        new AfterSuccessContextImpl(
+                            "DeleteOrganizationLogo",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
                          _httpRes);
             }
         } catch (Exception _e) {
             _httpRes = sdkConfiguration.hooks()
-                    .afterError(new AfterErrorContextImpl("DeleteOrganizationLogo", Optional.of(java.util.List.of()), sdkConfiguration.securitySource()), 
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteOrganizationLogo",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -1080,42 +1234,42 @@ public class Organizations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse.Builder _resBuilder = 
-            com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse
+        DeleteOrganizationLogoResponse.Builder _resBuilder = 
+            DeleteOrganizationLogoResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
                 .rawResponse(_httpRes);
 
-        com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse _res = _resBuilder.build();
+        DeleteOrganizationLogoResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.Organization _out = Utils.mapper().readValue(
+                Organization _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.Organization>() {});
-                _res.withOrganization(java.util.Optional.ofNullable(_out));
+                    new TypeReference<Organization>() {});
+                _res.withOrganization(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.errors.ClerkErrors _out = Utils.mapper().readValue(
+                ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.errors.ClerkErrors>() {});
+                    new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
                 throw new SDKError(
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -1124,13 +1278,13 @@ public class Organizations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    Utils.toByteArrayAndClose(_httpRes.body()));
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.toByteArrayAndClose(_httpRes.body()));
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 }

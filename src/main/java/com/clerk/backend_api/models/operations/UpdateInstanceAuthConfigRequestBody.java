@@ -4,20 +4,21 @@
 
 package com.clerk.backend_api.models.operations;
 
+
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateInstanceAuthConfigRequestBody {
 
@@ -26,7 +27,7 @@ public class UpdateInstanceAuthConfigRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("restricted_to_allowlist")
-    private JsonNullable<? extends Boolean> restrictedToAllowlist;
+    private JsonNullable<Boolean> restrictedToAllowlist;
 
     /**
      * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
@@ -35,21 +36,21 @@ public class UpdateInstanceAuthConfigRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_address")
-    private JsonNullable<? extends String> fromEmailAddress;
+    private JsonNullable<String> fromEmailAddress;
 
     /**
      * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("progressive_sign_up")
-    private JsonNullable<? extends Boolean> progressiveSignUp;
+    private JsonNullable<Boolean> progressiveSignUp;
 
     /**
      * The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("session_token_template")
-    private JsonNullable<? extends String> sessionTokenTemplate;
+    private JsonNullable<String> sessionTokenTemplate;
 
     /**
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
@@ -57,7 +58,7 @@ public class UpdateInstanceAuthConfigRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enhanced_email_deliverability")
-    private JsonNullable<? extends Boolean> enhancedEmailDeliverability;
+    private JsonNullable<Boolean> enhancedEmailDeliverability;
 
     /**
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
@@ -65,16 +66,16 @@ public class UpdateInstanceAuthConfigRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("test_mode")
-    private JsonNullable<? extends Boolean> testMode;
+    private JsonNullable<Boolean> testMode;
 
     @JsonCreator
     public UpdateInstanceAuthConfigRequestBody(
-            @JsonProperty("restricted_to_allowlist") JsonNullable<? extends Boolean> restrictedToAllowlist,
-            @JsonProperty("from_email_address") JsonNullable<? extends String> fromEmailAddress,
-            @JsonProperty("progressive_sign_up") JsonNullable<? extends Boolean> progressiveSignUp,
-            @JsonProperty("session_token_template") JsonNullable<? extends String> sessionTokenTemplate,
-            @JsonProperty("enhanced_email_deliverability") JsonNullable<? extends Boolean> enhancedEmailDeliverability,
-            @JsonProperty("test_mode") JsonNullable<? extends Boolean> testMode) {
+            @JsonProperty("restricted_to_allowlist") JsonNullable<Boolean> restrictedToAllowlist,
+            @JsonProperty("from_email_address") JsonNullable<String> fromEmailAddress,
+            @JsonProperty("progressive_sign_up") JsonNullable<Boolean> progressiveSignUp,
+            @JsonProperty("session_token_template") JsonNullable<String> sessionTokenTemplate,
+            @JsonProperty("enhanced_email_deliverability") JsonNullable<Boolean> enhancedEmailDeliverability,
+            @JsonProperty("test_mode") JsonNullable<Boolean> testMode) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -96,10 +97,9 @@ public class UpdateInstanceAuthConfigRequestBody {
     /**
      * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> restrictedToAllowlist() {
-        return (JsonNullable<Boolean>) restrictedToAllowlist;
+        return restrictedToAllowlist;
     }
 
     /**
@@ -107,48 +107,43 @@ public class UpdateInstanceAuthConfigRequestBody {
      * Only alphanumeric values are allowed.
      * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> fromEmailAddress() {
-        return (JsonNullable<String>) fromEmailAddress;
+        return fromEmailAddress;
     }
 
     /**
      * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> progressiveSignUp() {
-        return (JsonNullable<Boolean>) progressiveSignUp;
+        return progressiveSignUp;
     }
 
     /**
      * The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> sessionTokenTemplate() {
-        return (JsonNullable<String>) sessionTokenTemplate;
+        return sessionTokenTemplate;
     }
 
     /**
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> enhancedEmailDeliverability() {
-        return (JsonNullable<Boolean>) enhancedEmailDeliverability;
+        return enhancedEmailDeliverability;
     }
 
     /**
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Boolean> testMode() {
-        return (JsonNullable<Boolean>) testMode;
+        return testMode;
     }
 
     public final static Builder builder() {
@@ -167,7 +162,7 @@ public class UpdateInstanceAuthConfigRequestBody {
     /**
      * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
      */
-    public UpdateInstanceAuthConfigRequestBody withRestrictedToAllowlist(JsonNullable<? extends Boolean> restrictedToAllowlist) {
+    public UpdateInstanceAuthConfigRequestBody withRestrictedToAllowlist(JsonNullable<Boolean> restrictedToAllowlist) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
         this.restrictedToAllowlist = restrictedToAllowlist;
         return this;
@@ -189,7 +184,7 @@ public class UpdateInstanceAuthConfigRequestBody {
      * Only alphanumeric values are allowed.
      * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
      */
-    public UpdateInstanceAuthConfigRequestBody withFromEmailAddress(JsonNullable<? extends String> fromEmailAddress) {
+    public UpdateInstanceAuthConfigRequestBody withFromEmailAddress(JsonNullable<String> fromEmailAddress) {
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
         this.fromEmailAddress = fromEmailAddress;
         return this;
@@ -207,7 +202,7 @@ public class UpdateInstanceAuthConfigRequestBody {
     /**
      * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
-    public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(JsonNullable<? extends Boolean> progressiveSignUp) {
+    public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
         this.progressiveSignUp = progressiveSignUp;
         return this;
@@ -225,7 +220,7 @@ public class UpdateInstanceAuthConfigRequestBody {
     /**
      * The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.
      */
-    public UpdateInstanceAuthConfigRequestBody withSessionTokenTemplate(JsonNullable<? extends String> sessionTokenTemplate) {
+    public UpdateInstanceAuthConfigRequestBody withSessionTokenTemplate(JsonNullable<String> sessionTokenTemplate) {
         Utils.checkNotNull(sessionTokenTemplate, "sessionTokenTemplate");
         this.sessionTokenTemplate = sessionTokenTemplate;
         return this;
@@ -245,7 +240,7 @@ public class UpdateInstanceAuthConfigRequestBody {
      * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
-    public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(JsonNullable<? extends Boolean> enhancedEmailDeliverability) {
+    public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         return this;
@@ -265,7 +260,7 @@ public class UpdateInstanceAuthConfigRequestBody {
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
-    public UpdateInstanceAuthConfigRequestBody withTestMode(JsonNullable<? extends Boolean> testMode) {
+    public UpdateInstanceAuthConfigRequestBody withTestMode(JsonNullable<Boolean> testMode) {
         Utils.checkNotNull(testMode, "testMode");
         this.testMode = testMode;
         return this;
@@ -281,17 +276,17 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
         UpdateInstanceAuthConfigRequestBody other = (UpdateInstanceAuthConfigRequestBody) o;
         return 
-            java.util.Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
-            java.util.Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
-            java.util.Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
-            java.util.Objects.deepEquals(this.sessionTokenTemplate, other.sessionTokenTemplate) &&
-            java.util.Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
-            java.util.Objects.deepEquals(this.testMode, other.testMode);
+            Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
+            Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
+            Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
+            Objects.deepEquals(this.sessionTokenTemplate, other.sessionTokenTemplate) &&
+            Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
+            Objects.deepEquals(this.testMode, other.testMode);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             restrictedToAllowlist,
             fromEmailAddress,
             progressiveSignUp,
@@ -313,17 +308,17 @@ public class UpdateInstanceAuthConfigRequestBody {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Boolean> restrictedToAllowlist;
+        private JsonNullable<Boolean> restrictedToAllowlist;
  
-        private JsonNullable<? extends String> fromEmailAddress = JsonNullable.undefined();
+        private JsonNullable<String> fromEmailAddress = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> progressiveSignUp = JsonNullable.undefined();
+        private JsonNullable<Boolean> progressiveSignUp = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> sessionTokenTemplate = JsonNullable.undefined();
+        private JsonNullable<String> sessionTokenTemplate = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
+        private JsonNullable<Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
  
-        private JsonNullable<? extends Boolean> testMode = JsonNullable.undefined();  
+        private JsonNullable<Boolean> testMode = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -341,7 +336,7 @@ public class UpdateInstanceAuthConfigRequestBody {
         /**
          * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
          */
-        public Builder restrictedToAllowlist(JsonNullable<? extends Boolean> restrictedToAllowlist) {
+        public Builder restrictedToAllowlist(JsonNullable<Boolean> restrictedToAllowlist) {
             Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
             this.restrictedToAllowlist = restrictedToAllowlist;
             return this;
@@ -363,7 +358,7 @@ public class UpdateInstanceAuthConfigRequestBody {
          * Only alphanumeric values are allowed.
          * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
          */
-        public Builder fromEmailAddress(JsonNullable<? extends String> fromEmailAddress) {
+        public Builder fromEmailAddress(JsonNullable<String> fromEmailAddress) {
             Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
             this.fromEmailAddress = fromEmailAddress;
             return this;
@@ -381,7 +376,7 @@ public class UpdateInstanceAuthConfigRequestBody {
         /**
          * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
          */
-        public Builder progressiveSignUp(JsonNullable<? extends Boolean> progressiveSignUp) {
+        public Builder progressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
             this.progressiveSignUp = progressiveSignUp;
             return this;
@@ -399,7 +394,7 @@ public class UpdateInstanceAuthConfigRequestBody {
         /**
          * The name of the JWT Template used to augment your session tokens. To disable this, pass an empty string.
          */
-        public Builder sessionTokenTemplate(JsonNullable<? extends String> sessionTokenTemplate) {
+        public Builder sessionTokenTemplate(JsonNullable<String> sessionTokenTemplate) {
             Utils.checkNotNull(sessionTokenTemplate, "sessionTokenTemplate");
             this.sessionTokenTemplate = sessionTokenTemplate;
             return this;
@@ -419,7 +414,7 @@ public class UpdateInstanceAuthConfigRequestBody {
          * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
-        public Builder enhancedEmailDeliverability(JsonNullable<? extends Boolean> enhancedEmailDeliverability) {
+        public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = enhancedEmailDeliverability;
             return this;
@@ -439,7 +434,7 @@ public class UpdateInstanceAuthConfigRequestBody {
          * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
          * Defaults to true for development instances.
          */
-        public Builder testMode(JsonNullable<? extends Boolean> testMode) {
+        public Builder testMode(JsonNullable<Boolean> testMode) {
             Utils.checkNotNull(testMode, "testMode");
             this.testMode = testMode;
             return this;
@@ -458,11 +453,11 @@ public class UpdateInstanceAuthConfigRequestBody {
                 testMode);
         }
 
-        private static final LazySingletonValue<JsonNullable<? extends Boolean>> _SINGLETON_VALUE_RestrictedToAllowlist =
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_RestrictedToAllowlist =
                 new LazySingletonValue<>(
                         "restricted_to_allowlist",
                         "false",
-                        new TypeReference<JsonNullable<? extends Boolean>>() {});
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }
 

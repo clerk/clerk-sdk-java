@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
+
 /**
  * OrganizationInvitation - An organization invitation
  */
@@ -25,7 +26,7 @@ public class OrganizationInvitation {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<? extends String> id;
+    private Optional<String> id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -37,19 +38,19 @@ public class OrganizationInvitation {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
-    private Optional<? extends String> emailAddress;
+    private Optional<String> emailAddress;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("role")
-    private Optional<? extends String> role;
+    private Optional<String> role;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization_id")
-    private Optional<? extends String> organizationId;
+    private Optional<String> organizationId;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
-    private Optional<? extends String> status;
+    private Optional<String> status;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -64,27 +65,27 @@ public class OrganizationInvitation {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<? extends Long> createdAt;
+    private Optional<Long> createdAt;
 
     /**
      * Unix timestamp of last update.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<? extends Long> updatedAt;
+    private Optional<Long> updatedAt;
 
     @JsonCreator
     public OrganizationInvitation(
-            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") Optional<? extends OrganizationInvitationObject> object,
-            @JsonProperty("email_address") Optional<? extends String> emailAddress,
-            @JsonProperty("role") Optional<? extends String> role,
-            @JsonProperty("organization_id") Optional<? extends String> organizationId,
-            @JsonProperty("status") Optional<? extends String> status,
+            @JsonProperty("email_address") Optional<String> emailAddress,
+            @JsonProperty("role") Optional<String> role,
+            @JsonProperty("organization_id") Optional<String> organizationId,
+            @JsonProperty("status") Optional<String> status,
             @JsonProperty("public_metadata") Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata,
-            @JsonProperty("created_at") Optional<? extends Long> createdAt,
-            @JsonProperty("updated_at") Optional<? extends Long> updatedAt) {
+            @JsonProperty("created_at") Optional<Long> createdAt,
+            @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -111,10 +112,9 @@ public class OrganizationInvitation {
         this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> id() {
-        return (Optional<String>) id;
+        return id;
     }
 
     /**
@@ -127,28 +127,24 @@ public class OrganizationInvitation {
         return (Optional<OrganizationInvitationObject>) object;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> emailAddress() {
-        return (Optional<String>) emailAddress;
+        return emailAddress;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> role() {
-        return (Optional<String>) role;
+        return role;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> organizationId() {
-        return (Optional<String>) organizationId;
+        return organizationId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> status() {
-        return (Optional<String>) status;
+        return status;
     }
 
     @SuppressWarnings("unchecked")
@@ -166,19 +162,17 @@ public class OrganizationInvitation {
     /**
      * Unix timestamp of creation.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> createdAt() {
-        return (Optional<Long>) createdAt;
+        return createdAt;
     }
 
     /**
      * Unix timestamp of last update.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Long> updatedAt() {
-        return (Optional<Long>) updatedAt;
+        return updatedAt;
     }
 
     public final static Builder builder() {
@@ -191,7 +185,7 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withId(Optional<? extends String> id) {
+    public OrganizationInvitation withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -223,7 +217,7 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withEmailAddress(Optional<? extends String> emailAddress) {
+    public OrganizationInvitation withEmailAddress(Optional<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
@@ -235,7 +229,7 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withRole(Optional<? extends String> role) {
+    public OrganizationInvitation withRole(Optional<String> role) {
         Utils.checkNotNull(role, "role");
         this.role = role;
         return this;
@@ -247,7 +241,7 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withOrganizationId(Optional<? extends String> organizationId) {
+    public OrganizationInvitation withOrganizationId(Optional<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -259,7 +253,7 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withStatus(Optional<? extends String> status) {
+    public OrganizationInvitation withStatus(Optional<String> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -301,7 +295,7 @@ public class OrganizationInvitation {
     /**
      * Unix timestamp of creation.
      */
-    public OrganizationInvitation withCreatedAt(Optional<? extends Long> createdAt) {
+    public OrganizationInvitation withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -319,7 +313,7 @@ public class OrganizationInvitation {
     /**
      * Unix timestamp of last update.
      */
-    public OrganizationInvitation withUpdatedAt(Optional<? extends Long> updatedAt) {
+    public OrganizationInvitation withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -335,21 +329,21 @@ public class OrganizationInvitation {
         }
         OrganizationInvitation other = (OrganizationInvitation) o;
         return 
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.role, other.role) &&
-            java.util.Objects.deepEquals(this.organizationId, other.organizationId) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            java.util.Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
+            Objects.deepEquals(this.role, other.role) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
+            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             id,
             object,
             emailAddress,
@@ -379,25 +373,25 @@ public class OrganizationInvitation {
     
     public final static class Builder {
  
-        private Optional<? extends String> id = Optional.empty();
+        private Optional<String> id = Optional.empty();
  
         private Optional<? extends OrganizationInvitationObject> object = Optional.empty();
  
-        private Optional<? extends String> emailAddress = Optional.empty();
+        private Optional<String> emailAddress = Optional.empty();
  
-        private Optional<? extends String> role = Optional.empty();
+        private Optional<String> role = Optional.empty();
  
-        private Optional<? extends String> organizationId = Optional.empty();
+        private Optional<String> organizationId = Optional.empty();
  
-        private Optional<? extends String> status = Optional.empty();
+        private Optional<String> status = Optional.empty();
  
         private Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata = Optional.empty();
  
         private Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata = Optional.empty();
  
-        private Optional<? extends Long> createdAt = Optional.empty();
+        private Optional<Long> createdAt = Optional.empty();
  
-        private Optional<? extends Long> updatedAt = Optional.empty();  
+        private Optional<Long> updatedAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -409,7 +403,7 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder id(Optional<? extends String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -441,7 +435,7 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder emailAddress(Optional<? extends String> emailAddress) {
+        public Builder emailAddress(Optional<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
@@ -453,7 +447,7 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder role(Optional<? extends String> role) {
+        public Builder role(Optional<String> role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
             return this;
@@ -465,7 +459,7 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder organizationId(Optional<? extends String> organizationId) {
+        public Builder organizationId(Optional<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
             this.organizationId = organizationId;
             return this;
@@ -477,7 +471,7 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder status(Optional<? extends String> status) {
+        public Builder status(Optional<String> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
@@ -519,7 +513,7 @@ public class OrganizationInvitation {
         /**
          * Unix timestamp of creation.
          */
-        public Builder createdAt(Optional<? extends Long> createdAt) {
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -537,7 +531,7 @@ public class OrganizationInvitation {
         /**
          * Unix timestamp of last update.
          */
-        public Builder updatedAt(Optional<? extends Long> updatedAt) {
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;

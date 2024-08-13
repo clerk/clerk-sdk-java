@@ -4,19 +4,20 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Objects;
 import java.util.Optional;
+
 
 public class JWTTemplate {
 
@@ -40,11 +41,11 @@ public class JWTTemplate {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("custom_signing_key")
-    private Optional<? extends Boolean> customSigningKey;
+    private Optional<Boolean> customSigningKey;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("signing_algorithm")
-    private Optional<? extends String> signingAlgorithm;
+    private Optional<String> signingAlgorithm;
 
     /**
      * Unix timestamp of creation.
@@ -68,8 +69,8 @@ public class JWTTemplate {
             @JsonProperty("claims") Claims claims,
             @JsonProperty("lifetime") long lifetime,
             @JsonProperty("allowed_clock_skew") long allowedClockSkew,
-            @JsonProperty("custom_signing_key") Optional<? extends Boolean> customSigningKey,
-            @JsonProperty("signing_algorithm") Optional<? extends String> signingAlgorithm,
+            @JsonProperty("custom_signing_key") Optional<Boolean> customSigningKey,
+            @JsonProperty("signing_algorithm") Optional<String> signingAlgorithm,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -136,16 +137,14 @@ public class JWTTemplate {
         return allowedClockSkew;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> customSigningKey() {
-        return (Optional<Boolean>) customSigningKey;
+        return customSigningKey;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> signingAlgorithm() {
-        return (Optional<String>) signingAlgorithm;
+        return signingAlgorithm;
     }
 
     /**
@@ -212,7 +211,7 @@ public class JWTTemplate {
         return this;
     }
 
-    public JWTTemplate withCustomSigningKey(Optional<? extends Boolean> customSigningKey) {
+    public JWTTemplate withCustomSigningKey(Optional<Boolean> customSigningKey) {
         Utils.checkNotNull(customSigningKey, "customSigningKey");
         this.customSigningKey = customSigningKey;
         return this;
@@ -224,7 +223,7 @@ public class JWTTemplate {
         return this;
     }
 
-    public JWTTemplate withSigningAlgorithm(Optional<? extends String> signingAlgorithm) {
+    public JWTTemplate withSigningAlgorithm(Optional<String> signingAlgorithm) {
         Utils.checkNotNull(signingAlgorithm, "signingAlgorithm");
         this.signingAlgorithm = signingAlgorithm;
         return this;
@@ -260,21 +259,21 @@ public class JWTTemplate {
         }
         JWTTemplate other = (JWTTemplate) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.claims, other.claims) &&
-            java.util.Objects.deepEquals(this.lifetime, other.lifetime) &&
-            java.util.Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
-            java.util.Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
-            java.util.Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.claims, other.claims) &&
+            Objects.deepEquals(this.lifetime, other.lifetime) &&
+            Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
+            Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
+            Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             name,
@@ -316,9 +315,9 @@ public class JWTTemplate {
  
         private Long allowedClockSkew;
  
-        private Optional<? extends Boolean> customSigningKey = Optional.empty();
+        private Optional<Boolean> customSigningKey = Optional.empty();
  
-        private Optional<? extends String> signingAlgorithm = Optional.empty();
+        private Optional<String> signingAlgorithm = Optional.empty();
  
         private Long createdAt;
  
@@ -370,7 +369,7 @@ public class JWTTemplate {
             return this;
         }
 
-        public Builder customSigningKey(Optional<? extends Boolean> customSigningKey) {
+        public Builder customSigningKey(Optional<Boolean> customSigningKey) {
             Utils.checkNotNull(customSigningKey, "customSigningKey");
             this.customSigningKey = customSigningKey;
             return this;
@@ -382,7 +381,7 @@ public class JWTTemplate {
             return this;
         }
 
-        public Builder signingAlgorithm(Optional<? extends String> signingAlgorithm) {
+        public Builder signingAlgorithm(Optional<String> signingAlgorithm) {
             Utils.checkNotNull(signingAlgorithm, "signingAlgorithm");
             this.signingAlgorithm = signingAlgorithm;
             return this;

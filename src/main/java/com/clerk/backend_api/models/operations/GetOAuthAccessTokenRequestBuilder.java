@@ -4,18 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
-import org.openapitools.jackson.nullable.JsonNullable;
-
+import java.lang.String;
 
 public class GetOAuthAccessTokenRequestBuilder {
 
@@ -27,13 +17,13 @@ public class GetOAuthAccessTokenRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetOAuthAccessTokenRequestBuilder userId(String userId) {
+    public GetOAuthAccessTokenRequestBuilder userId(java.lang.String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public GetOAuthAccessTokenRequestBuilder provider(String provider) {
+    public GetOAuthAccessTokenRequestBuilder provider(java.lang.String provider) {
         Utils.checkNotNull(provider, "provider");
         this.provider = provider;
         return this;

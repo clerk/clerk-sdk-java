@@ -4,20 +4,22 @@
 
 package com.clerk.backend_api.models.components;
 
+
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
-import java.lang.Deprecated;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SAMLConnection {
 
@@ -35,23 +37,23 @@ public class SAMLConnection {
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_entity_id")
-    private Optional<? extends String> idpEntityId;
+    private Optional<String> idpEntityId;
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_sso_url")
-    private Optional<? extends String> idpSsoUrl;
+    private Optional<String> idpSsoUrl;
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_certificate")
-    private Optional<? extends String> idpCertificate;
+    private Optional<String> idpCertificate;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
-    private JsonNullable<? extends String> idpMetadataUrl;
+    private JsonNullable<String> idpMetadataUrl;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata")
-    private JsonNullable<? extends String> idpMetadata;
+    private JsonNullable<String> idpMetadata;
 
     @JsonProperty("acs_url")
     private String acsUrl;
@@ -80,11 +82,11 @@ public class SAMLConnection {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_subdomains")
-    private Optional<? extends Boolean> allowSubdomains;
+    private Optional<Boolean> allowSubdomains;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_idp_initiated")
-    private Optional<? extends Boolean> allowIdpInitiated;
+    private Optional<Boolean> allowIdpInitiated;
 
     /**
      * Unix timestamp of creation.
@@ -106,11 +108,11 @@ public class SAMLConnection {
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("domain") String domain,
-            @JsonProperty("idp_entity_id") Optional<? extends String> idpEntityId,
-            @JsonProperty("idp_sso_url") Optional<? extends String> idpSsoUrl,
-            @JsonProperty("idp_certificate") Optional<? extends String> idpCertificate,
-            @JsonProperty("idp_metadata_url") JsonNullable<? extends String> idpMetadataUrl,
-            @JsonProperty("idp_metadata") JsonNullable<? extends String> idpMetadata,
+            @JsonProperty("idp_entity_id") Optional<String> idpEntityId,
+            @JsonProperty("idp_sso_url") Optional<String> idpSsoUrl,
+            @JsonProperty("idp_certificate") Optional<String> idpCertificate,
+            @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
+            @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("acs_url") String acsUrl,
             @JsonProperty("sp_entity_id") String spEntityId,
             @JsonProperty("sp_metadata_url") String spMetadataUrl,
@@ -119,8 +121,8 @@ public class SAMLConnection {
             @JsonProperty("provider") String provider,
             @JsonProperty("user_count") long userCount,
             @JsonProperty("sync_user_attributes") boolean syncUserAttributes,
-            @JsonProperty("allow_subdomains") Optional<? extends Boolean> allowSubdomains,
-            @JsonProperty("allow_idp_initiated") Optional<? extends Boolean> allowIdpInitiated,
+            @JsonProperty("allow_subdomains") Optional<Boolean> allowSubdomains,
+            @JsonProperty("allow_idp_initiated") Optional<Boolean> allowIdpInitiated,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -204,34 +206,29 @@ public class SAMLConnection {
         return domain;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> idpEntityId() {
-        return (Optional<String>) idpEntityId;
+        return idpEntityId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> idpSsoUrl() {
-        return (Optional<String>) idpSsoUrl;
+        return idpSsoUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<String> idpCertificate() {
-        return (Optional<String>) idpCertificate;
+        return idpCertificate;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpMetadataUrl() {
-        return (JsonNullable<String>) idpMetadataUrl;
+        return idpMetadataUrl;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
-        return (JsonNullable<String>) idpMetadata;
+        return idpMetadata;
     }
 
     @JsonIgnore
@@ -275,16 +272,14 @@ public class SAMLConnection {
         return syncUserAttributes;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> allowSubdomains() {
-        return (Optional<Boolean>) allowSubdomains;
+        return allowSubdomains;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<Boolean> allowIdpInitiated() {
-        return (Optional<Boolean>) allowIdpInitiated;
+        return allowIdpInitiated;
     }
 
     /**
@@ -339,7 +334,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withIdpEntityId(Optional<? extends String> idpEntityId) {
+    public SAMLConnection withIdpEntityId(Optional<String> idpEntityId) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         this.idpEntityId = idpEntityId;
         return this;
@@ -351,7 +346,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withIdpSsoUrl(Optional<? extends String> idpSsoUrl) {
+    public SAMLConnection withIdpSsoUrl(Optional<String> idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         this.idpSsoUrl = idpSsoUrl;
         return this;
@@ -363,7 +358,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withIdpCertificate(Optional<? extends String> idpCertificate) {
+    public SAMLConnection withIdpCertificate(Optional<String> idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         this.idpCertificate = idpCertificate;
         return this;
@@ -375,7 +370,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withIdpMetadataUrl(JsonNullable<? extends String> idpMetadataUrl) {
+    public SAMLConnection withIdpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         this.idpMetadataUrl = idpMetadataUrl;
         return this;
@@ -387,7 +382,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withIdpMetadata(JsonNullable<? extends String> idpMetadata) {
+    public SAMLConnection withIdpMetadata(JsonNullable<String> idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         this.idpMetadata = idpMetadata;
         return this;
@@ -453,7 +448,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withAllowSubdomains(Optional<? extends Boolean> allowSubdomains) {
+    public SAMLConnection withAllowSubdomains(Optional<Boolean> allowSubdomains) {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         this.allowSubdomains = allowSubdomains;
         return this;
@@ -465,7 +460,7 @@ public class SAMLConnection {
         return this;
     }
 
-    public SAMLConnection withAllowIdpInitiated(Optional<? extends Boolean> allowIdpInitiated) {
+    public SAMLConnection withAllowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         this.allowIdpInitiated = allowIdpInitiated;
         return this;
@@ -501,32 +496,32 @@ public class SAMLConnection {
         }
         SAMLConnection other = (SAMLConnection) o;
         return 
-            java.util.Objects.deepEquals(this.object, other.object) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
-            java.util.Objects.deepEquals(this.name, other.name) &&
-            java.util.Objects.deepEquals(this.domain, other.domain) &&
-            java.util.Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
-            java.util.Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
-            java.util.Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
-            java.util.Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
-            java.util.Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
-            java.util.Objects.deepEquals(this.acsUrl, other.acsUrl) &&
-            java.util.Objects.deepEquals(this.spEntityId, other.spEntityId) &&
-            java.util.Objects.deepEquals(this.spMetadataUrl, other.spMetadataUrl) &&
-            java.util.Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
-            java.util.Objects.deepEquals(this.active, other.active) &&
-            java.util.Objects.deepEquals(this.provider, other.provider) &&
-            java.util.Objects.deepEquals(this.userCount, other.userCount) &&
-            java.util.Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
-            java.util.Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            java.util.Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            java.util.Objects.deepEquals(this.createdAt, other.createdAt) &&
-            java.util.Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Objects.deepEquals(this.object, other.object) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.domain, other.domain) &&
+            Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
+            Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
+            Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
+            Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
+            Objects.deepEquals(this.acsUrl, other.acsUrl) &&
+            Objects.deepEquals(this.spEntityId, other.spEntityId) &&
+            Objects.deepEquals(this.spMetadataUrl, other.spMetadataUrl) &&
+            Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
+            Objects.deepEquals(this.active, other.active) &&
+            Objects.deepEquals(this.provider, other.provider) &&
+            Objects.deepEquals(this.userCount, other.userCount) &&
+            Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
+            Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
+            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(
+        return Objects.hash(
             object,
             id,
             name,
@@ -586,15 +581,15 @@ public class SAMLConnection {
  
         private String domain;
  
-        private Optional<? extends String> idpEntityId = Optional.empty();
+        private Optional<String> idpEntityId = Optional.empty();
  
-        private Optional<? extends String> idpSsoUrl = Optional.empty();
+        private Optional<String> idpSsoUrl = Optional.empty();
  
-        private Optional<? extends String> idpCertificate = Optional.empty();
+        private Optional<String> idpCertificate = Optional.empty();
  
-        private JsonNullable<? extends String> idpMetadataUrl = JsonNullable.undefined();
+        private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
  
-        private JsonNullable<? extends String> idpMetadata = JsonNullable.undefined();
+        private JsonNullable<String> idpMetadata = JsonNullable.undefined();
  
         private String acsUrl;
  
@@ -612,9 +607,9 @@ public class SAMLConnection {
  
         private Boolean syncUserAttributes;
  
-        private Optional<? extends Boolean> allowSubdomains = Optional.empty();
+        private Optional<Boolean> allowSubdomains = Optional.empty();
  
-        private Optional<? extends Boolean> allowIdpInitiated = Optional.empty();
+        private Optional<Boolean> allowIdpInitiated = Optional.empty();
  
         private Long createdAt;
  
@@ -654,7 +649,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder idpEntityId(Optional<? extends String> idpEntityId) {
+        public Builder idpEntityId(Optional<String> idpEntityId) {
             Utils.checkNotNull(idpEntityId, "idpEntityId");
             this.idpEntityId = idpEntityId;
             return this;
@@ -666,7 +661,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder idpSsoUrl(Optional<? extends String> idpSsoUrl) {
+        public Builder idpSsoUrl(Optional<String> idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
             this.idpSsoUrl = idpSsoUrl;
             return this;
@@ -678,7 +673,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder idpCertificate(Optional<? extends String> idpCertificate) {
+        public Builder idpCertificate(Optional<String> idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
             this.idpCertificate = idpCertificate;
             return this;
@@ -690,7 +685,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder idpMetadataUrl(JsonNullable<? extends String> idpMetadataUrl) {
+        public Builder idpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
             this.idpMetadataUrl = idpMetadataUrl;
             return this;
@@ -702,7 +697,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder idpMetadata(JsonNullable<? extends String> idpMetadata) {
+        public Builder idpMetadata(JsonNullable<String> idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
             this.idpMetadata = idpMetadata;
             return this;
@@ -768,7 +763,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder allowSubdomains(Optional<? extends Boolean> allowSubdomains) {
+        public Builder allowSubdomains(Optional<Boolean> allowSubdomains) {
             Utils.checkNotNull(allowSubdomains, "allowSubdomains");
             this.allowSubdomains = allowSubdomains;
             return this;
@@ -780,7 +775,7 @@ public class SAMLConnection {
             return this;
         }
 
-        public Builder allowIdpInitiated(Optional<? extends Boolean> allowIdpInitiated) {
+        public Builder allowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
             Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
             this.allowIdpInitiated = allowIdpInitiated;
             return this;

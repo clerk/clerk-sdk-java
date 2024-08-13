@@ -16,17 +16,9 @@ It is used by Clerk SDKs when the user's authentication state cannot be immediat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.components.*;
-import com.clerk.backend_api.models.operations.*;
-import com.clerk.backend_api.utils.EventStream;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
-import static java.util.Map.entry;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import java.lang.Exception;
 
 public class Application {
 
@@ -41,7 +33,7 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (com.clerk.backend_api.models.errors.SDKError e) {
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -53,17 +45,19 @@ public class Application {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                             | Type                                  | Required                              | Description                           |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `frontendApi`                         | *Optional<? extends String>*          | :heavy_minus_sign:                    | The Frontend API key of your instance |
-| `publishableKey`                      | *Optional<? extends String>*          | :heavy_minus_sign:                    | The publishable key of your instance  |
+| `frontendApi`                         | *Optional<String>*                    | :heavy_minus_sign:                    | The Frontend API key of your instance |
+| `publishableKey`                      | *Optional<String>*                    | :heavy_minus_sign:                    | The publishable key of your instance  |
 
 
 ### Response
 
-**[com.clerk.backend_api.models.operations.GetPublicInterstitialResponse](../../models/operations/GetPublicInterstitialResponse.md)**
+**[GetPublicInterstitialResponse](../../models/operations/GetPublicInterstitialResponse.md)**
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
