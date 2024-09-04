@@ -37,31 +37,45 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
 
     private final List<TypeReferenceWithShape> typeReferences; // oneOf subschemas 
     private final Class<T> cls;
+    private final boolean strict;
     private final ObjectMapper mapper;
 
-    protected OneOfDeserializer(Class<T> cls, TypeReferenceWithShape... typeReferences) {
+    /**
+     * Constructor.
+     * 
+     * @param cls            oneOf type
+     * @param strict         if true then when multiple matches encountered an
+     *                       exception is thrown. If false then when multiple
+     *                       matches encountered the first match from the
+     *                       typeReferences array is used as deserialization result.
+     * @param typeReferences the types of the oneOf subschemas. When strict is false
+     *                       the first matching member of this array will be the
+     *                       type of the deserialization result.
+     */
+    protected OneOfDeserializer(Class<T> cls, boolean strict, TypeReferenceWithShape... typeReferences) {
         super(cls);
         this.typeReferences= Arrays.asList(typeReferences);
         this.cls = cls;
+        this.strict = strict;
         this.mapper = JSON.getMapper();
     }
 
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        return deserializeOneOf(mapper, p, ctxt, typeReferences, cls);
+        return deserializeOneOf(mapper, p, ctxt, typeReferences, cls, strict);
     }
 
     private static <T> T deserializeOneOf(ObjectMapper mapper, JsonParser p, DeserializationContext ctxt,
-            List<TypeReferenceWithShape> typeReferences, Class<T> cls) throws IOException {
+            List<TypeReferenceWithShape> typeReferences, Class<T> cls, boolean strict) throws IOException {
         TreeNode tree = p.getCodec().readTree(p);
         // TODO don't have to generate json because can use tree.traverse to get a
         // parser to read value, perf advantage and can stop plugging in ObjectMapper
         String json = mapper.writeValueAsString(tree);
-        return deserializeOneOf(mapper, json, typeReferences, cls, ctxt);
+        return deserializeOneOf(mapper, json, typeReferences, cls, ctxt, strict);
     }
 
     private static <T> T deserializeOneOf(ObjectMapper mapper, String json, List<TypeReferenceWithShape> typeReferences, Class<T> cls,
-            DeserializationContext ctxt) throws JsonProcessingException {
+            DeserializationContext ctxt, boolean strict) throws JsonProcessingException {
         List<Match<T>> matches = new ArrayList<>();
         for (TypeReferenceWithShape c : typeReferences) {
             // try to deserialize with each of the member classes
@@ -84,8 +98,14 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
         if (matches.size() == 1) {
             return matches.get(0).value;
         } else if (matches.size() > 1) {
-            throw JsonMappingException.from(ctxt,
-                    "json matched more than one of the possible type references, matches are: " + typeNames(matches) + " - json=\n" + json);
+            if (strict) {
+                throw JsonMappingException.from(ctxt,
+                        "json matched more than one of the possible type references, matches are: " 
+                        + typeNames(matches) + " - json=\n" + json);
+            } else {
+                // return first match
+                return matches.get(0).value;
+            }
         } else {
             throw JsonMappingException.from(ctxt,
                 "json did not match any of the possible type references: " + typeReferenceNames(typeReferences) + ", json=\n" + json);

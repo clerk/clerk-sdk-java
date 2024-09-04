@@ -1,6 +1,8 @@
 # Users
 (*users()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all users
@@ -72,24 +74,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `request`                                                           | [GetUserListRequest](../../models/operations/GetUserListRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
-
 ### Response
 
 **[GetUserListResponse](../../models/operations/GetUserListResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -145,24 +146,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `request`                                                                 | [CreateUserRequestBody](../../models/operations/CreateUserRequestBody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
-
 ### Response
 
 **[CreateUserResponse](../../models/operations/CreateUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## count
 
@@ -212,24 +212,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `request`                                                               | [GetUsersCountRequest](../../models/operations/GetUsersCountRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
-
 ### Response
 
 **[GetUsersCountResponse](../../models/operations/GetUsersCountResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 422                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -275,24 +274,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                      | Type                           | Required                       | Description                    |
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
 | `userId`                       | *String*                       | :heavy_check_mark:             | The ID of the user to retrieve |
 
-
 ### Response
 
 **[GetUserResponse](../../models/operations/GetUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -352,8 +350,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
@@ -361,16 +357,17 @@ public class Application {
 | `userId`                                                                  | *String*                                                                  | :heavy_check_mark:                                                        | The ID of the user to update                                              |
 | `requestBody`                                                             | [UpdateUserRequestBody](../../models/operations/UpdateUserRequestBody.md) | :heavy_check_mark:                                                        | N/A                                                                       |
 
-
 ### Response
 
 **[UpdateUserResponse](../../models/operations/UpdateUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -416,24 +413,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                    | Type                         | Required                     | Description                  |
 | ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
 | `userId`                     | *String*                     | :heavy_check_mark:           | The ID of the user to delete |
 
-
 ### Response
 
 **[DeleteUserResponse](../../models/operations/DeleteUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## ban
 
@@ -479,24 +475,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                 | Type                      | Required                  | Description               |
 | ------------------------- | ------------------------- | ------------------------- | ------------------------- |
 | `userId`                  | *String*                  | :heavy_check_mark:        | The ID of the user to ban |
 
-
 ### Response
 
 **[BanUserResponse](../../models/operations/BanUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## unban
 
@@ -542,24 +537,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                   | Type                        | Required                    | Description                 |
 | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | `userId`                    | *String*                    | :heavy_check_mark:          | The ID of the user to unban |
 
-
 ### Response
 
 **[UnbanUserResponse](../../models/operations/UnbanUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## lock
 
@@ -606,24 +600,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                  | Type                       | Required                   | Description                |
 | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
 | `userId`                   | *String*                   | :heavy_check_mark:         | The ID of the user to lock |
 
-
 ### Response
 
 **[LockUserResponse](../../models/operations/LockUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## unlock
 
@@ -669,24 +662,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                    | Type                         | Required                     | Description                  |
 | ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
 | `userId`                     | *String*                     | :heavy_check_mark:           | The ID of the user to unlock |
 
-
 ### Response
 
 **[UnlockUserResponse](../../models/operations/UnlockUserResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## setProfileImage
 
@@ -735,8 +727,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
@@ -744,16 +734,17 @@ public class Application {
 | `userId`                                                                                    | *String*                                                                                    | :heavy_check_mark:                                                                          | The ID of the user to update the profile image for                                          |
 | `requestBody`                                                                               | [SetUserProfileImageRequestBody](../../models/operations/SetUserProfileImageRequestBody.md) | :heavy_check_mark:                                                                          | N/A                                                                                         |
 
-
 ### Response
 
 **[SetUserProfileImageResponse](../../models/operations/SetUserProfileImageResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## deleteProfileImage
 
@@ -799,24 +790,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                          | Type                                               | Required                                           | Description                                        |
 | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | `userId`                                           | *String*                                           | :heavy_check_mark:                                 | The ID of the user to delete the profile image for |
 
-
 ### Response
 
 **[DeleteUserProfileImageResponse](../../models/operations/DeleteUserProfileImageResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## updateMetadata
 
@@ -872,8 +862,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
@@ -881,16 +869,17 @@ public class Application {
 | `userId`                                                                                            | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the user whose metadata will be updated and merged                                        |
 | `requestBody`                                                                                       | [Optional<UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
 
-
 ### Response
 
 **[UpdateUserMetadataResponse](../../models/operations/UpdateUserMetadataResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## getOAuthAccessToken
 
@@ -938,8 +927,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
@@ -947,16 +934,17 @@ public class Application {
 | `userId`                                                        | *String*                                                        | :heavy_check_mark:                                              | The ID of the user for which to retrieve the OAuth access token |
 | `provider`                                                      | *String*                                                        | :heavy_check_mark:                                              | The ID of the OAuth provider (e.g. `oauth_google`)              |
 
-
 ### Response
 
 **[GetOAuthAccessTokenResponse](../../models/operations/GetOAuthAccessTokenResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 422                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## getOrganizationMemberships
 
@@ -999,8 +987,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
@@ -1009,16 +995,17 @@ public class Application {
 | `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
-
 ### Response
 
 **[UsersGetOrganizationMembershipsResponse](../../models/operations/UsersGetOrganizationMembershipsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## verifyPassword
 
@@ -1069,8 +1056,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
@@ -1078,16 +1063,17 @@ public class Application {
 | `userId`                                                                                    | *String*                                                                                    | :heavy_check_mark:                                                                          | The ID of the user for whom to verify the password                                          |
 | `requestBody`                                                                               | [Optional<VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                          | N/A                                                                                         |
 
-
 ### Response
 
 **[VerifyPasswordResponse](../../models/operations/VerifyPasswordResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## verifyTOTP
 
@@ -1140,8 +1126,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
@@ -1149,16 +1133,17 @@ public class Application {
 | `userId`                                                                            | *String*                                                                            | :heavy_check_mark:                                                                  | The ID of the user for whom to verify the TOTP                                      |
 | `requestBody`                                                                       | [Optional<VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 
-
 ### Response
 
 **[VerifyTOTPResponse](../../models/operations/VerifyTOTPResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## disableMFA
 
@@ -1204,18 +1189,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                               | Type                                                    | Required                                                | Description                                             |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | `userId`                                                | *String*                                                | :heavy_check_mark:                                      | The ID of the user whose MFA methods are to be disabled |
 
-
 ### Response
 
 **[DisableMFAResponse](../../models/operations/DisableMFAResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

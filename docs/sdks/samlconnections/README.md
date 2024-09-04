@@ -1,6 +1,8 @@
 # SamlConnections
 (*samlConnections()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - Get a list of SAML Connections for an instance
@@ -51,8 +53,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
@@ -60,16 +60,17 @@ public class Application {
 | `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
-
 ### Response
 
 **[ListSAMLConnectionsResponse](../../models/operations/ListSAMLConnectionsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -123,24 +124,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `request`                                                                                     | [CreateSAMLConnectionRequestBody](../../models/operations/CreateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
-
 ### Response
 
 **[CreateSAMLConnectionResponse](../../models/operations/CreateSAMLConnectionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -186,24 +186,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                     | Type                          | Required                      | Description                   |
 | ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
 | `samlConnectionId`            | *String*                      | :heavy_check_mark:            | The ID of the SAML Connection |
 
-
 ### Response
 
 **[GetSAMLConnectionResponse](../../models/operations/GetSAMLConnectionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -252,8 +251,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
@@ -261,16 +258,17 @@ public class Application {
 | `samlConnectionId`                                                                            | *String*                                                                                      | :heavy_check_mark:                                                                            | The ID of the SAML Connection to update                                                       |
 | `requestBody`                                                                                 | [UpdateSAMLConnectionRequestBody](../../models/operations/UpdateSAMLConnectionRequestBody.md) | :heavy_check_mark:                                                                            | N/A                                                                                           |
 
-
 ### Response
 
 **[UpdateSAMLConnectionResponse](../../models/operations/UpdateSAMLConnectionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,403,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -316,18 +314,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                               | Type                                    | Required                                | Description                             |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | `samlConnectionId`                      | *String*                                | :heavy_check_mark:                      | The ID of the SAML Connection to delete |
 
-
 ### Response
 
 **[DeleteSAMLConnectionResponse](../../models/operations/DeleteSAMLConnectionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

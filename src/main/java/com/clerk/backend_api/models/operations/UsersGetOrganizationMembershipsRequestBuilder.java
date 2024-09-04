@@ -67,7 +67,6 @@ public class UsersGetOrganizationMembershipsRequestBuilder {
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
         }
-
         return sdk.getOrganizationMemberships(
             userId,
             limit,

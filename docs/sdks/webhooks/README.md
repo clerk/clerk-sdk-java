@@ -1,6 +1,8 @@
 # Webhooks
 (*webhooks()*)
 
+## Overview
+
 ### Available Operations
 
 * [createSvixApp](#createsvixapp) - Create a Svix app
@@ -50,18 +52,17 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[CreateSvixAppResponse](../../models/operations/CreateSvixAppResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## deleteSvixApp
 
@@ -104,18 +105,17 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[DeleteSvixAppResponse](../../models/operations/DeleteSvixAppResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## generateSvixAuthURL
 
@@ -160,12 +160,10 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[GenerateSvixAuthURLResponse](../../models/operations/GenerateSvixAuthURLResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

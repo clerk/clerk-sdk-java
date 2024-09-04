@@ -1,6 +1,8 @@
 # OAuthApplications
 (*oAuthApplications()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - Get a list of OAuth applications for an instance
@@ -53,8 +55,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
@@ -62,16 +62,17 @@ public class Application {
 | `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
-
 ### Response
 
 **[ListOAuthApplicationsResponse](../../models/operations/ListOAuthApplicationsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -126,24 +127,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | `request`                                                                                         | [CreateOAuthApplicationRequestBody](../../models/operations/CreateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                | The request object to use for the request.                                                        |
 
-
 ### Response
 
 **[CreateOAuthApplicationResponse](../../models/operations/CreateOAuthApplicationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -189,24 +189,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                       | Type                            | Required                        | Description                     |
 | ------------------------------- | ------------------------------- | ------------------------------- | ------------------------------- |
 | `oauthApplicationId`            | *String*                        | :heavy_check_mark:              | The ID of the OAuth application |
 
-
 ### Response
 
 **[GetOAuthApplicationResponse](../../models/operations/GetOAuthApplicationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## updateApplication
 
@@ -256,8 +255,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
@@ -265,16 +262,17 @@ public class Application {
 | `oauthApplicationId`                                                                              | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the OAuth application to update                                                         |
 | `requestBody`                                                                                     | [UpdateOAuthApplicationRequestBody](../../models/operations/UpdateOAuthApplicationRequestBody.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
 
-
 ### Response
 
 **[UpdateOAuthApplicationResponse](../../models/operations/UpdateOAuthApplicationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -321,24 +319,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                 | Type                                      | Required                                  | Description                               |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | `oauthApplicationId`                      | *String*                                  | :heavy_check_mark:                        | The ID of the OAuth application to delete |
 
-
 ### Response
 
 **[DeleteOAuthApplicationResponse](../../models/operations/DeleteOAuthApplicationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## rotateSecret
 
@@ -385,18 +382,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `oauthApplicationId`                                                  | *String*                                                              | :heavy_check_mark:                                                    | The ID of the OAuth application for which to rotate the client secret |
 
-
 ### Response
 
 **[RotateOAuthApplicationSecretResponse](../../models/operations/RotateOAuthApplicationSecretResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

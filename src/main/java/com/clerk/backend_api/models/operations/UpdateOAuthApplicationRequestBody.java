@@ -241,8 +241,7 @@ public class UpdateOAuthApplicationRequestBody {
         public UpdateOAuthApplicationRequestBody build() {
             if (scopes == null) {
                 scopes = _SINGLETON_VALUE_Scopes.value();
-            }
-            return new UpdateOAuthApplicationRequestBody(
+            }            return new UpdateOAuthApplicationRequestBody(
                 name,
                 callbackUrl,
                 scopes);

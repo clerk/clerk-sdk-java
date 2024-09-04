@@ -241,8 +241,7 @@ public class UsersGetOrganizationMembershipsRequest {
             }
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
-            }
-            return new UsersGetOrganizationMembershipsRequest(
+            }            return new UsersGetOrganizationMembershipsRequest(
                 userId,
                 limit,
                 offset);

@@ -1002,8 +1002,7 @@ public class GetUserListRequest {
             }
             if (orderBy == null) {
                 orderBy = _SINGLETON_VALUE_OrderBy.value();
-            }
-            return new GetUserListRequest(
+            }            return new GetUserListRequest(
                 emailAddress,
                 phoneNumber,
                 externalId,

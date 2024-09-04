@@ -76,7 +76,7 @@ public class SchemasPasskeyVerification {
     public static final class _Deserializer extends OneOfDeserializer<SchemasPasskeyVerification> {
 
         public _Deserializer() {
-            super(SchemasPasskeyVerification.class,
+            super(SchemasPasskeyVerification.class, false,
                   TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Passkey>() {}, JsonShape.DEFAULT));
         }
     }

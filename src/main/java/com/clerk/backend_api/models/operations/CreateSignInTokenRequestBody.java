@@ -189,8 +189,7 @@ public class CreateSignInTokenRequestBody {
         public CreateSignInTokenRequestBody build() {
             if (expiresInSeconds == null) {
                 expiresInSeconds = _SINGLETON_VALUE_ExpiresInSeconds.value();
-            }
-            return new CreateSignInTokenRequestBody(
+            }            return new CreateSignInTokenRequestBody(
                 userId,
                 expiresInSeconds);
         }

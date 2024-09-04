@@ -88,10 +88,10 @@ public class Verification {
     public static final class _Deserializer extends OneOfDeserializer<Verification> {
 
         public _Deserializer() {
-            super(Verification.class,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Otp>() {}, JsonShape.DEFAULT),
+            super(Verification.class, false,
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Oauth>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Admin>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Oauth>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Otp>() {}, JsonShape.DEFAULT));
         }
     }
     

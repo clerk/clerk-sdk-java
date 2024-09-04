@@ -1,6 +1,8 @@
 # Blocklist
 (*blocklist()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all identifiers on the block-list
@@ -50,18 +52,17 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[ListBlocklistIdentifiersResponse](../../models/operations/ListBlocklistIdentifiersResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401,402                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -112,24 +113,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `request`                                                                                               | [CreateBlocklistIdentifierRequestBody](../../models/operations/CreateBlocklistIdentifierRequestBody.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
-
 ### Response
 
 **[CreateBlocklistIdentifierResponse](../../models/operations/CreateBlocklistIdentifierResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -175,18 +175,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                              | Type                                                   | Required                                               | Description                                            |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | `identifierId`                                         | *String*                                               | :heavy_check_mark:                                     | The ID of the identifier to delete from the block-list |
 
-
 ### Response
 
 **[DeleteBlocklistIdentifierResponse](../../models/operations/DeleteBlocklistIdentifierResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

@@ -1,6 +1,8 @@
 # SignUps
 (*signUps()*)
 
+## Overview
+
 ### Available Operations
 
 * [update](#update) - Update a sign-up
@@ -29,7 +31,7 @@ public class Application {
                 .build();
 
             UpdateSignUpResponse res = sdk.signUps().update()
-                .id("<value>")
+                .id("<id>")
                 .requestBody(UpdateSignUpRequestBody.builder()
                     .build())
                 .call();
@@ -52,8 +54,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
@@ -61,10 +61,10 @@ public class Application {
 | `id`                                                                                    | *String*                                                                                | :heavy_check_mark:                                                                      | The ID of the sign-up to update                                                         |
 | `requestBody`                                                                           | [Optional<UpdateSignUpRequestBody>](../../models/operations/UpdateSignUpRequestBody.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
 
-
 ### Response
 
 **[UpdateSignUpResponse](../../models/operations/UpdateSignUpResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

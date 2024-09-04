@@ -1,6 +1,8 @@
 # Domains
 (*domains()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all instance domains
@@ -49,17 +51,16 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[ListDomainsResponse](../../models/operations/ListDomainsResponse.md)**
+
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models/errors/SDKError | 4xx-5xx                | \*\/*                  |
+
 
 ## add
 
@@ -115,24 +116,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `request`                                                               | [AddDomainRequestBody](../../models/operations/AddDomainRequestBody.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
-
 ### Response
 
 **[AddDomainResponse](../../models/operations/AddDomainResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -179,24 +179,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `domainId`                                                             | *String*                                                               | :heavy_check_mark:                                                     | The ID of the domain that will be deleted. Must be a satellite domain. |
 
-
 ### Response
 
 **[DeleteDomainResponse](../../models/operations/DeleteDomainResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -252,8 +251,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
@@ -261,10 +258,10 @@ public class Application {
 | `domainId`                                                                    | *String*                                                                      | :heavy_check_mark:                                                            | The ID of the domain that will be updated.                                    |
 | `requestBody`                                                                 | [UpdateDomainRequestBody](../../models/operations/UpdateDomainRequestBody.md) | :heavy_check_mark:                                                            | N/A                                                                           |
 
-
 ### Response
 
 **[UpdateDomainResponse](../../models/operations/UpdateDomainResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

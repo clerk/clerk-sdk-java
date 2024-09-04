@@ -1,6 +1,8 @@
 # Proxy
 (*proxy()*)
 
+## Overview
+
 ### Available Operations
 
 * [verifyDomain](#verifydomain) - Verify the proxy configuration for your domain
@@ -60,18 +62,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `request`                                                                               | [VerifyDomainProxyRequestBody](../../models/operations/VerifyDomainProxyRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
-
 ### Response
 
 **[VerifyDomainProxyResponse](../../models/operations/VerifyDomainProxyResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

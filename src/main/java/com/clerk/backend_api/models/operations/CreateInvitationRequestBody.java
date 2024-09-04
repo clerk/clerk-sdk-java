@@ -375,8 +375,7 @@ public class CreateInvitationRequestBody {
             }
             if (ignoreExisting == null) {
                 ignoreExisting = _SINGLETON_VALUE_IgnoreExisting.value();
-            }
-            return new CreateInvitationRequestBody(
+            }            return new CreateInvitationRequestBody(
                 emailAddress,
                 publicMetadata,
                 redirectUrl,

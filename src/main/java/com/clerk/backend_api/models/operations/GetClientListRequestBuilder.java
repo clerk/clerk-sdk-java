@@ -59,7 +59,6 @@ public class GetClientListRequestBuilder {
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
         }
-
         return sdk.list(
             limit,
             offset);

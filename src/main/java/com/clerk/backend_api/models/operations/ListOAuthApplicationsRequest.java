@@ -200,8 +200,7 @@ public class ListOAuthApplicationsRequest {
             }
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
-            }
-            return new ListOAuthApplicationsRequest(
+            }            return new ListOAuthApplicationsRequest(
                 limit,
                 offset);
         }

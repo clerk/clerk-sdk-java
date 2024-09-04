@@ -82,7 +82,7 @@ public class SAMLAccountVerification {
     public static final class _Deserializer extends OneOfDeserializer<SAMLAccountVerification> {
 
         public _Deserializer() {
-            super(SAMLAccountVerification.class,
+            super(SAMLAccountVerification.class, false,
                   TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Saml>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Ticket>() {}, JsonShape.DEFAULT));
         }

@@ -1,6 +1,8 @@
 # Actors
 (*actors()*)
 
+## Overview
+
 ### Available Operations
 
 * [createToken](#createtoken) - Create actor token
@@ -59,24 +61,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
 | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | `request`                                                                             | [CreateActorTokenRequestBody](../../models/operations/CreateActorTokenRequestBody.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
-
 ### Response
 
 **[CreateActorTokenResponse](../../models/operations/CreateActorTokenResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## revokeToken
 
@@ -122,18 +123,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                | Type                                     | Required                                 | Description                              |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | `actorTokenId`                           | *String*                                 | :heavy_check_mark:                       | The ID of the actor token to be revoked. |
 
-
 ### Response
 
 **[RevokeActorTokenResponse](../../models/operations/RevokeActorTokenResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

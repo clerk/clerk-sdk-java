@@ -1,6 +1,8 @@
 # Jwks
 (*jwks()*)
 
+## Overview
+
 ### Available Operations
 
 * [getJWKS](#getjwks) - Retrieve the JSON Web Key Set of the instance
@@ -43,12 +45,10 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[GetJWKSResponse](../../models/operations/GetJWKSResponse.md)**
+
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |

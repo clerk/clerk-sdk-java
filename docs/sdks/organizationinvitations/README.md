@@ -1,6 +1,8 @@
 # OrganizationInvitations
 (*organizationInvitations()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create and send an organization invitation
@@ -75,8 +77,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
@@ -84,16 +84,17 @@ public class Application {
 | `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization for which to send the invitation                                                   |
 | `requestBody`                                                                                                 | [CreateOrganizationInvitationRequestBody](../../models/operations/CreateOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
-
 ### Response
 
 **[CreateOrganizationInvitationResponse](../../models/operations/CreateOrganizationInvitationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## list
 
@@ -143,8 +144,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
@@ -154,16 +153,17 @@ public class Application {
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 | `status`                                                                                                                                  | [Optional<ListOrganizationInvitationsQueryParamStatus>](../../models/operations/ListOrganizationInvitationsQueryParamStatus.md)           | :heavy_minus_sign:                                                                                                                        | Filter organization invitations based on their status                                                                                     |
 
-
 ### Response
 
 **[ListOrganizationInvitationsResponse](../../models/operations/ListOrganizationInvitationsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## createBulk
 
@@ -229,8 +229,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
@@ -238,16 +236,17 @@ public class Application {
 | `organizationId`                                            | *String*                                                    | :heavy_check_mark:                                          | The organization ID.                                        |
 | `requestBody`                                               | List<[RequestBody](../../models/operations/RequestBody.md)> | :heavy_check_mark:                                          | N/A                                                         |
 
-
 ### Response
 
 **[CreateOrganizationInvitationBulkResponse](../../models/operations/CreateOrganizationInvitationBulkResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## ~~listPending~~
 
@@ -297,8 +296,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
@@ -307,16 +304,17 @@ public class Application {
 | `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
-
 ### Response
 
 **[ListPendingOrganizationInvitationsResponse](../../models/operations/ListPendingOrganizationInvitationsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -363,8 +361,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                       | Type                            | Required                        | Description                     |
@@ -372,16 +368,17 @@ public class Application {
 | `organizationId`                | *String*                        | :heavy_check_mark:              | The organization ID.            |
 | `invitationId`                  | *String*                        | :heavy_check_mark:              | The organization invitation ID. |
 
-
 ### Response
 
 **[GetOrganizationInvitationResponse](../../models/operations/GetOrganizationInvitationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## revoke
 
@@ -436,8 +433,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
@@ -446,10 +441,10 @@ public class Application {
 | `invitationId`                                                                                                | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The organization invitation ID.                                                                               |
 | `requestBody`                                                                                                 | [RevokeOrganizationInvitationRequestBody](../../models/operations/RevokeOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
-
 ### Response
 
 **[RevokeOrganizationInvitationResponse](../../models/operations/RevokeOrganizationInvitationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

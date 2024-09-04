@@ -1,6 +1,8 @@
 # Organizations
 (*organizations()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - Get a list of organizations for an instance
@@ -63,24 +65,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `request`                                                                       | [ListOrganizationsRequest](../../models/operations/ListOrganizationsRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
-
 ### Response
 
 **[ListOrganizationsResponse](../../models/operations/ListOrganizationsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -140,24 +141,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `request`                                                                                 | [CreateOrganizationRequestBody](../../models/operations/CreateOrganizationRequestBody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
-
 ### Response
 
 **[CreateOrganizationResponse](../../models/operations/CreateOrganizationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -203,24 +203,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                          | Type                               | Required                           | Description                        |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | `organizationId`                   | *String*                           | :heavy_check_mark:                 | The ID or slug of the organization |
 
-
 ### Response
 
 **[GetOrganizationResponse](../../models/operations/GetOrganizationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403,404                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -269,8 +268,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
@@ -278,16 +275,17 @@ public class Application {
 | `organizationId`                                                                          | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the organization to update                                                      |
 | `requestBody`                                                                             | [UpdateOrganizationRequestBody](../../models/operations/UpdateOrganizationRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 
-
 ### Response
 
 **[UpdateOrganizationResponse](../../models/operations/UpdateOrganizationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402,404,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -335,24 +333,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                            | Type                                 | Required                             | Description                          |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | `organizationId`                     | *String*                             | :heavy_check_mark:                   | The ID of the organization to delete |
 
-
 ### Response
 
 **[DeleteOrganizationResponse](../../models/operations/DeleteOrganizationResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## mergeMetadata
 
@@ -404,8 +401,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
@@ -413,16 +408,17 @@ public class Application {
 | `organizationId`                                                                                        | *String*                                                                                                | :heavy_check_mark:                                                                                      | The ID of the organization for which metadata will be merged or updated                                 |
 | `requestBody`                                                                                           | [MergeOrganizationMetadataRequestBody](../../models/operations/MergeOrganizationMetadataRequestBody.md) | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
 
-
 ### Response
 
 **[MergeOrganizationMetadataResponse](../../models/operations/MergeOrganizationMetadataResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## uploadLogo
 
@@ -480,8 +476,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
@@ -489,16 +483,17 @@ public class Application {
 | `organizationId`                                                                                            | *String*                                                                                                    | :heavy_check_mark:                                                                                          | The ID of the organization for which to upload a logo                                                       |
 | `requestBody`                                                                                               | [Optional<UploadOrganizationLogoRequestBody>](../../models/operations/UploadOrganizationLogoRequestBody.md) | :heavy_minus_sign:                                                                                          | N/A                                                                                                         |
 
-
 ### Response
 
 **[UploadOrganizationLogoResponse](../../models/operations/UploadOrganizationLogoResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,413           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## deleteLogo
 
@@ -544,18 +539,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                      | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | `organizationId`                                               | *String*                                                       | :heavy_check_mark:                                             | The ID of the organization for which the logo will be deleted. |
 
-
 ### Response
 
 **[DeleteOrganizationLogoResponse](../../models/operations/DeleteOrganizationLogoResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

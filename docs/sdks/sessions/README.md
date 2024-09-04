@@ -1,6 +1,8 @@
 # Sessions
 (*sessions()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all sessions
@@ -60,24 +62,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `request`                                                                 | [GetSessionListRequest](../../models/operations/GetSessionListRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
-
 ### Response
 
 **[GetSessionListResponse](../../models/operations/GetSessionListResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -123,24 +124,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter             | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
 | `sessionId`           | *String*              | :heavy_check_mark:    | The ID of the session |
 
-
 ### Response
 
 **[GetSessionResponse](../../models/operations/GetSessionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## revoke
 
@@ -187,24 +187,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter             | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
 | `sessionId`           | *String*              | :heavy_check_mark:    | The ID of the session |
 
-
 ### Response
 
 **[RevokeSessionResponse](../../models/operations/RevokeSessionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## ~~verify~~
 
@@ -258,8 +257,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
@@ -267,16 +264,17 @@ public class Application {
 | `sessionId`                                                                               | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the session                                                                     |
 | `requestBody`                                                                             | [Optional<VerifySessionRequestBody>](../../models/operations/VerifySessionRequestBody.md) | :heavy_minus_sign:                                                                        | Parameters.                                                                               |
 
-
 ### Response
 
 **[VerifySessionResponse](../../models/operations/VerifySessionResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,410           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## createTokenFromTemplate
 
@@ -323,8 +321,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
@@ -332,10 +328,10 @@ public class Application {
 | `sessionId`                                                                   | *String*                                                                      | :heavy_check_mark:                                                            | The ID of the session                                                         |
 | `templateName`                                                                | *String*                                                                      | :heavy_check_mark:                                                            | The name of the JWT Template defined in your instance (e.g. `custom_hasura`). |
 
-
 ### Response
 
 **[CreateSessionTokenFromTemplateResponse](../../models/operations/CreateSessionTokenFromTemplateResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

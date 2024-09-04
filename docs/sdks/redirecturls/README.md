@@ -1,6 +1,8 @@
 # RedirectURLs
 (*redirectURLs()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all redirect URLs
@@ -48,17 +50,16 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[ListRedirectURLsResponse](../../models/operations/ListRedirectURLsResponse.md)**
+
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models/errors/SDKError | 4xx-5xx                | \*\/*                  |
+
 
 ## create
 
@@ -108,24 +109,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `request`                                                                               | [CreateRedirectURLRequestBody](../../models/operations/CreateRedirectURLRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
-
 ### Response
 
 **[CreateRedirectURLResponse](../../models/operations/CreateRedirectURLResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,422                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -150,7 +150,7 @@ public class Application {
                 .build();
 
             GetRedirectURLResponse res = sdk.redirectURLs().get()
-                .id("<value>")
+                .id("<id>")
                 .call();
 
             if (res.redirectURL().isPresent()) {
@@ -171,24 +171,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                  | Type                       | Required                   | Description                |
 | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
 | `id`                       | *String*                   | :heavy_check_mark:         | The ID of the redirect URL |
 
-
 ### Response
 
 **[GetRedirectURLResponse](../../models/operations/GetRedirectURLResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -213,7 +212,7 @@ public class Application {
                 .build();
 
             DeleteRedirectURLResponse res = sdk.redirectURLs().delete()
-                .id("<value>")
+                .id("<id>")
                 .call();
 
             if (res.deletedObject().isPresent()) {
@@ -234,18 +233,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                  | Type                       | Required                   | Description                |
 | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
 | `id`                       | *String*                   | :heavy_check_mark:         | The ID of the redirect URL |
 
-
 ### Response
 
 **[DeleteRedirectURLResponse](../../models/operations/DeleteRedirectURLResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

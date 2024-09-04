@@ -443,8 +443,7 @@ public class UpdateInstanceAuthConfigRequestBody {
         public UpdateInstanceAuthConfigRequestBody build() {
             if (restrictedToAllowlist == null) {
                 restrictedToAllowlist = _SINGLETON_VALUE_RestrictedToAllowlist.value();
-            }
-            return new UpdateInstanceAuthConfigRequestBody(
+            }            return new UpdateInstanceAuthConfigRequestBody(
                 restrictedToAllowlist,
                 fromEmailAddress,
                 progressiveSignUp,

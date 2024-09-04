@@ -277,8 +277,7 @@ public class CreateOAuthApplicationRequestBody {
         public CreateOAuthApplicationRequestBody build() {
             if (scopes == null) {
                 scopes = _SINGLETON_VALUE_Scopes.value();
-            }
-            return new CreateOAuthApplicationRequestBody(
+            }            return new CreateOAuthApplicationRequestBody(
                 name,
                 callbackUrl,
                 scopes,

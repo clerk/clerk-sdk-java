@@ -1,6 +1,8 @@
 # Miscellaneous
 (*miscellaneous()*)
 
+## Overview
+
 ### Available Operations
 
 * [getPublicInterstitial](#getpublicinterstitial) - Returns the markup for the interstitial page
@@ -45,8 +47,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                             | Type                                  | Required                              | Description                           |
@@ -54,10 +54,10 @@ public class Application {
 | `frontendApi`                         | *Optional<String>*                    | :heavy_minus_sign:                    | The Frontend API key of your instance |
 | `publishableKey`                      | *Optional<String>*                    | :heavy_minus_sign:                    | The publishable key of your instance  |
 
-
 ### Response
 
 **[GetPublicInterstitialResponse](../../models/operations/GetPublicInterstitialResponse.md)**
+
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |
