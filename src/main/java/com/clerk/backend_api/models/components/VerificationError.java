@@ -76,7 +76,7 @@ public class VerificationError {
     public static final class _Deserializer extends OneOfDeserializer<VerificationError> {
 
         public _Deserializer() {
-            super(VerificationError.class,
+            super(VerificationError.class, false,
                   TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.SAMLErrorClerkError>() {}, JsonShape.DEFAULT));
         }
     }

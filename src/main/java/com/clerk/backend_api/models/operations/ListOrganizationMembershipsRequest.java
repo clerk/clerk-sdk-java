@@ -311,8 +311,7 @@ public class ListOrganizationMembershipsRequest {
             }
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
-            }
-            return new ListOrganizationMembershipsRequest(
+            }            return new ListOrganizationMembershipsRequest(
                 organizationId,
                 limit,
                 offset,

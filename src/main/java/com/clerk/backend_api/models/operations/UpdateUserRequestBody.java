@@ -2139,8 +2139,7 @@ public class UpdateUserRequestBody {
         public UpdateUserRequestBody build() {
             if (notifyPrimaryEmailAddressChanged == null) {
                 notifyPrimaryEmailAddressChanged = _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged.value();
-            }
-            return new UpdateUserRequestBody(
+            }            return new UpdateUserRequestBody(
                 externalId,
                 firstName,
                 lastName,

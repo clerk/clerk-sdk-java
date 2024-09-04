@@ -1,6 +1,8 @@
 # Allowlist
 (*allowlist()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all identifiers on the allow-list
@@ -50,18 +52,17 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[ListAllowlistIdentifiersResponse](../../models/operations/ListAllowlistIdentifiersResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401,402                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## create
 
@@ -112,24 +113,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `request`                                                                                               | [CreateAllowlistIdentifierRequestBody](../../models/operations/CreateAllowlistIdentifierRequestBody.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
-
 ### Response
 
 **[CreateAllowlistIdentifierResponse](../../models/operations/CreateAllowlistIdentifierResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,402,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -175,18 +175,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                              | Type                                                   | Required                                               | Description                                            |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | `identifierId`                                         | *String*                                               | :heavy_check_mark:                                     | The ID of the identifier to delete from the allow-list |
 
-
 ### Response
 
 **[DeleteAllowlistIdentifierResponse](../../models/operations/DeleteAllowlistIdentifierResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

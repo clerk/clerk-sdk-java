@@ -260,8 +260,7 @@ public class ListInvitationsRequest {
             }
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
-            }
-            return new ListInvitationsRequest(
+            }            return new ListInvitationsRequest(
                 limit,
                 offset,
                 status);

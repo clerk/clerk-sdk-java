@@ -1,6 +1,8 @@
 # Templates
 (*templates()*)
 
+## Overview
+
 ### Available Operations
 
 * [list](#list) - List all templates
@@ -56,24 +58,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                               | Type                                                    | Required                                                | Description                                             |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | `templateType`                                          | [TemplateType](../../models/operations/TemplateType.md) | :heavy_check_mark:                                      | The type of templates to list (email or SMS)            |
 
-
 ### Response
 
 **[GetTemplateListResponse](../../models/operations/GetTemplateListResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -121,8 +122,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
@@ -130,16 +129,17 @@ public class Application {
 | `templateType`                                                            | [PathParamTemplateType](../../models/operations/PathParamTemplateType.md) | :heavy_check_mark:                                                        | The type of templates to retrieve (email or SMS)                          |
 | `slug`                                                                    | *String*                                                                  | :heavy_check_mark:                                                        | The slug (i.e. machine-friendly name) of the template to retrieve         |
 
-
 ### Response
 
 **[GetTemplateResponse](../../models/operations/GetTemplateResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## upsert
 
@@ -190,8 +190,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
@@ -200,16 +198,17 @@ public class Application {
 | `slug`                                                                                                | *String*                                                                                              | :heavy_check_mark:                                                                                    | The slug of the template to update                                                                    |
 | `requestBody`                                                                                         | [Optional<UpsertTemplateRequestBody>](../../models/operations/UpsertTemplateRequestBody.md)           | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |
 
-
 ### Response
 
 **[UpsertTemplateResponse](../../models/operations/UpsertTemplateResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,402,403,404,422   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## revert
 
@@ -257,8 +256,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
@@ -266,16 +263,17 @@ public class Application {
 | `templateType`                                                                                        | [RevertTemplatePathParamTemplateType](../../models/operations/RevertTemplatePathParamTemplateType.md) | :heavy_check_mark:                                                                                    | The type of template to revert                                                                        |
 | `slug`                                                                                                | *String*                                                                                              | :heavy_check_mark:                                                                                    | The slug of the template to revert                                                                    |
 
-
 ### Response
 
 **[RevertTemplateResponse](../../models/operations/RevertTemplateResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,402,404           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## preview
 
@@ -325,8 +323,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
@@ -335,16 +331,17 @@ public class Application {
 | `slug`                                                                                        | *String*                                                                                      | :heavy_check_mark:                                                                            | The slug of the template to preview                                                           |
 | `requestBody`                                                                                 | [Optional<PreviewTemplateRequestBody>](../../models/operations/PreviewTemplateRequestBody.md) | :heavy_minus_sign:                                                                            | Required parameters                                                                           |
 
-
 ### Response
 
 **[PreviewTemplateResponse](../../models/operations/PreviewTemplateResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## toggleDelivery
 
@@ -397,8 +394,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                             | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
@@ -407,10 +402,10 @@ public class Application {
 | `slug`                                                                                                                | *String*                                                                                                              | :heavy_check_mark:                                                                                                    | The slug of the template for which to toggle delivery                                                                 |
 | `requestBody`                                                                                                         | [Optional<ToggleTemplateDeliveryRequestBody>](../../models/operations/ToggleTemplateDeliveryRequestBody.md)           | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
 
-
 ### Response
 
 **[ToggleTemplateDeliveryResponse](../../models/operations/ToggleTemplateDeliveryResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

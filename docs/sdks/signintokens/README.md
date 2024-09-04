@@ -1,6 +1,8 @@
 # SignInTokens
 (*signInTokens()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create sign-in token
@@ -56,24 +58,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `request`                                                                               | [CreateSignInTokenRequestBody](../../models/operations/CreateSignInTokenRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
-
 ### Response
 
 **[CreateSignInTokenResponse](../../models/operations/CreateSignInTokenResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404,422                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## revoke
 
@@ -119,18 +120,16 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                 | Type                                      | Required                                  | Description                               |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | `signInTokenId`                           | *String*                                  | :heavy_check_mark:                        | The ID of the sign-in token to be revoked |
 
-
 ### Response
 
 **[RevokeSignInTokenResponse](../../models/operations/RevokeSignInTokenResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

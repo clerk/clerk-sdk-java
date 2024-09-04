@@ -1,6 +1,8 @@
 # OrganizationMemberships
 (*organizationMemberships()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create a new organization membership
@@ -59,8 +61,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
@@ -68,16 +68,17 @@ public class Application {
 | `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization where the new membership will be created                                           |
 | `requestBody`                                                                                                 | [CreateOrganizationMembershipRequestBody](../../models/operations/CreateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
-
 ### Response
 
 **[CreateOrganizationMembershipResponse](../../models/operations/CreateOrganizationMembershipResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,403,404,422           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## list
 
@@ -121,8 +122,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                                                                                                                           | Type                                                                                                                                                                                                                                | Required                                                                                                                                                                                                                            | Description                                                                                                                                                                                                                         |
@@ -132,16 +131,17 @@ public class Application {
 | `offset`                                                                                                                                                                                                                            | *Optional<Long>*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
 | `orderBy`                                                                                                                                                                                                                           | *Optional<String>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
 
-
 ### Response
 
 **[ListOrganizationMembershipsResponse](../../models/operations/ListOrganizationMembershipsResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401,422                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -192,8 +192,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
@@ -202,16 +200,17 @@ public class Application {
 | `userId`                                                                                                      | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the user that this membership belongs to                                                            |
 | `requestBody`                                                                                                 | [UpdateOrganizationMembershipRequestBody](../../models/operations/UpdateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
-
 ### Response
 
 **[UpdateOrganizationMembershipResponse](../../models/operations/UpdateOrganizationMembershipResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,404,422               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -258,8 +257,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                            | Type                                                 | Required                                             | Description                                          |
@@ -267,16 +264,17 @@ public class Application {
 | `organizationId`                                     | *String*                                             | :heavy_check_mark:                                   | The ID of the organization the membership belongs to |
 | `userId`                                             | *String*                                             | :heavy_check_mark:                                   | The ID of the user that this membership belongs to   |
 
-
 ### Response
 
 **[DeleteOrganizationMembershipResponse](../../models/operations/DeleteOrganizationMembershipResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## updateMetadata
 
@@ -328,8 +326,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                                                     | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
@@ -338,10 +334,10 @@ public class Application {
 | `userId`                                                                                                                      | *String*                                                                                                                      | :heavy_check_mark:                                                                                                            | The ID of the user that this membership belongs to                                                                            |
 | `requestBody`                                                                                                                 | [UpdateOrganizationMembershipMetadataRequestBody](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |
 
-
 ### Response
 
 **[UpdateOrganizationMembershipMetadataResponse](../../models/operations/UpdateOrganizationMembershipMetadataResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

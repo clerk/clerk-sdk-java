@@ -82,9 +82,9 @@ public class PhoneNumberVerification {
     public static final class _Deserializer extends OneOfDeserializer<PhoneNumberVerification> {
 
         public _Deserializer() {
-            super(PhoneNumberVerification.class,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationOTP>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationAdmin>() {}, JsonShape.DEFAULT));
+            super(PhoneNumberVerification.class, false,
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationAdmin>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationOTP>() {}, JsonShape.DEFAULT));
         }
     }
     

@@ -1,9 +1,9 @@
-speakeasyVersion: 1.363.1
+speakeasyVersion: 1.390.1
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:a1d17471885280f9bc34dcc58e923357e6497e706b83ee918cdc2078413a95f4
-        sourceBlobDigest: sha256:709394a2b429d8bae8f4277a60d93a25c65c9a88cecd5f073ee1b576fd8129f1
+        sourceRevisionDigest: sha256:515e4f10455f21ad59bbe16319a383e9e12c116d55bcf7652c681bba41aa304b
+        sourceBlobDigest: sha256:9f3e5fb65dd3e8c708debe9a1dc453eeea8f47bd0bce5691c696b39e7b4391db
         tags:
             - latest
             - main
@@ -11,8 +11,8 @@ targets:
     clerk-java:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:a1d17471885280f9bc34dcc58e923357e6497e706b83ee918cdc2078413a95f4
-        sourceBlobDigest: sha256:709394a2b429d8bae8f4277a60d93a25c65c9a88cecd5f073ee1b576fd8129f1
+        sourceRevisionDigest: sha256:515e4f10455f21ad59bbe16319a383e9e12c116d55bcf7652c681bba41aa304b
+        sourceBlobDigest: sha256:9f3e5fb65dd3e8c708debe9a1dc453eeea8f47bd0bce5691c696b39e7b4391db
         outLocation: /github/workspace/repo
     my-first-target:
         source: clerk-java-sdk

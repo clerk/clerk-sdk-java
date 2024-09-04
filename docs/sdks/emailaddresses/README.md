@@ -1,6 +1,8 @@
 # EmailAddresses
 (*emailAddresses()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create an email address
@@ -56,24 +58,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `request`                                                                                 | [CreateEmailAddressRequestBody](../../models/operations/CreateEmailAddressRequestBody.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
-
 ### Response
 
 **[CreateEmailAddressResponse](../../models/operations/CreateEmailAddressResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404,422       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -119,24 +120,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                               | Type                                    | Required                                | Description                             |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | `emailAddressId`                        | *String*                                | :heavy_check_mark:                      | The ID of the email address to retrieve |
 
-
 ### Response
 
 **[GetEmailAddressResponse](../../models/operations/GetEmailAddressResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -182,24 +182,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                             | Type                                  | Required                              | Description                           |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | `emailAddressId`                      | *String*                              | :heavy_check_mark:                    | The ID of the email address to delete |
 
-
 ### Response
 
 **[DeleteEmailAddressResponse](../../models/operations/DeleteEmailAddressResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -248,8 +247,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
@@ -257,10 +254,10 @@ public class Application {
 | `emailAddressId`                                                                                    | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the email address to update                                                               |
 | `requestBody`                                                                                       | [Optional<UpdateEmailAddressRequestBody>](../../models/operations/UpdateEmailAddressRequestBody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
 
-
 ### Response
 
 **[UpdateEmailAddressResponse](../../models/operations/UpdateEmailAddressResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

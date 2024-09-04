@@ -1,6 +1,8 @@
 # PhoneNumbers
 (*phoneNumbers()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create a phone number
@@ -56,24 +58,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `request`                                                                               | [CreatePhoneNumberRequestBody](../../models/operations/CreatePhoneNumberRequestBody.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
-
 ### Response
 
 **[CreatePhoneNumberResponse](../../models/operations/CreatePhoneNumberResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404,422       | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## get
 
@@ -119,24 +120,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                              | Type                                   | Required                               | Description                            |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | `phoneNumberId`                        | *String*                               | :heavy_check_mark:                     | The ID of the phone number to retrieve |
 
-
 ### Response
 
 **[GetPhoneNumberResponse](../../models/operations/GetPhoneNumberResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## delete
 
@@ -182,24 +182,23 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                            | Type                                 | Required                             | Description                          |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | `phoneNumberId`                      | *String*                             | :heavy_check_mark:                   | The ID of the phone number to delete |
 
-
 ### Response
 
 **[DeletePhoneNumberResponse](../../models/operations/DeletePhoneNumberResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400,401,403,404           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
 
 ## update
 
@@ -248,8 +247,6 @@ public class Application {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
@@ -257,10 +254,10 @@ public class Application {
 | `phoneNumberId`                                                                                   | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the phone number to update                                                              |
 | `requestBody`                                                                                     | [Optional<UpdatePhoneNumberRequestBody>](../../models/operations/UpdatePhoneNumberRequestBody.md) | :heavy_minus_sign:                                                                                | N/A                                                                                               |
 
-
 ### Response
 
 **[UpdatePhoneNumberResponse](../../models/operations/UpdatePhoneNumberResponse.md)**
+
 ### Errors
 
 | Error Object              | Status Code               | Content Type              |

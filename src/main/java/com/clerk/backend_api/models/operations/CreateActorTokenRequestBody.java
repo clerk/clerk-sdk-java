@@ -286,8 +286,7 @@ public class CreateActorTokenRequestBody {
             }
             if (sessionMaxDurationInSeconds == null) {
                 sessionMaxDurationInSeconds = _SINGLETON_VALUE_SessionMaxDurationInSeconds.value();
-            }
-            return new CreateActorTokenRequestBody(
+            }            return new CreateActorTokenRequestBody(
                 userId,
                 actor,
                 expiresInSeconds,

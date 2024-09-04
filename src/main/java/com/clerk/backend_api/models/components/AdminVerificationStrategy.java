@@ -4,7 +4,6 @@
 
 package com.clerk.backend_api.models.components;
 
-
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 

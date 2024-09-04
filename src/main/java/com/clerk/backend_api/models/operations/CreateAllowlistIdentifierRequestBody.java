@@ -175,8 +175,7 @@ public class CreateAllowlistIdentifierRequestBody {
         public CreateAllowlistIdentifierRequestBody build() {
             if (notify_ == null) {
                 notify_ = _SINGLETON_VALUE_Notify.value();
-            }
-            return new CreateAllowlistIdentifierRequestBody(
+            }            return new CreateAllowlistIdentifierRequestBody(
                 identifier,
                 notify_);
         }

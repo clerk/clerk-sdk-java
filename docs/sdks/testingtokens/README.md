@@ -1,6 +1,8 @@
 # TestingTokens
 (*testingTokens()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Retrieve a new testing token
@@ -45,12 +47,10 @@ public class Application {
 }
 ```
 
-
-
-
 ### Response
 
 **[CreateTestingTokenResponse](../../models/operations/CreateTestingTokenResponse.md)**
+
 ### Errors
 
 | Error Object           | Status Code            | Content Type           |

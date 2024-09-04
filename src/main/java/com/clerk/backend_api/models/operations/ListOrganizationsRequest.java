@@ -414,8 +414,7 @@ public class ListOrganizationsRequest {
             }
             if (orderBy == null) {
                 orderBy = _SINGLETON_VALUE_OrderBy.value();
-            }
-            return new ListOrganizationsRequest(
+            }            return new ListOrganizationsRequest(
                 limit,
                 offset,
                 includeMembersCount,

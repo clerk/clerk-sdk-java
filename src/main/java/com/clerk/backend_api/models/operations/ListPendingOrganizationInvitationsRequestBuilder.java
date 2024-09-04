@@ -67,7 +67,6 @@ public class ListPendingOrganizationInvitationsRequestBuilder {
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
         }
-
         return sdk.listPending(
             organizationId,
             limit,

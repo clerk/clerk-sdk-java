@@ -376,8 +376,7 @@ public class GetSessionListRequest {
             }
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
-            }
-            return new GetSessionListRequest(
+            }            return new GetSessionListRequest(
                 clientId,
                 userId,
                 status,
