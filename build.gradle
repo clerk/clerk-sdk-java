@@ -158,3 +158,12 @@ dependencies {
 
 
 apply from: 'build-extras.gradle'
+
+test {
+    testLogging {
+        showStandardStreams true
+        showStackTraces true
+        showExceptions true
+        exceptionFormat "full"
+    }
+}
