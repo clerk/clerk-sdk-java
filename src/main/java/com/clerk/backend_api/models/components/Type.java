@@ -11,7 +11,8 @@ public enum Type {
     OAUTH_GOOGLE("oauth_google"),
     OAUTH_MOCK("oauth_mock"),
     SAML("saml"),
-    OAUTH_APPLE("oauth_apple");
+    OAUTH_APPLE("oauth_apple"),
+    OAUTH_DISCORD("oauth_discord");
 
     @JsonValue
     private final String value;

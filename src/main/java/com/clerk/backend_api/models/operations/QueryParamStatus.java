@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 /**
- * QueryParamStatus - Filter invitations based on their status
+ * QueryParamStatus - Filter organization invitations based on their status
  */
 public enum QueryParamStatus {
     PENDING("pending"),

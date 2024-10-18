@@ -51,6 +51,10 @@ public class Session {
     @JsonProperty("last_active_at")
     private long lastActiveAt;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("latest_activity")
+    private JsonNullable<? extends LatestActivity> latestActivity;
+
     @JsonProperty("expire_at")
     private long expireAt;
 
@@ -81,6 +85,7 @@ public class Session {
             @JsonProperty("status") Status status,
             @JsonProperty("last_active_organization_id") JsonNullable<String> lastActiveOrganizationId,
             @JsonProperty("last_active_at") long lastActiveAt,
+            @JsonProperty("latest_activity") JsonNullable<? extends LatestActivity> latestActivity,
             @JsonProperty("expire_at") long expireAt,
             @JsonProperty("abandon_at") long abandonAt,
             @JsonProperty("updated_at") long updatedAt,
@@ -93,6 +98,7 @@ public class Session {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(lastActiveOrganizationId, "lastActiveOrganizationId");
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        Utils.checkNotNull(latestActivity, "latestActivity");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(abandonAt, "abandonAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -105,6 +111,7 @@ public class Session {
         this.status = status;
         this.lastActiveOrganizationId = lastActiveOrganizationId;
         this.lastActiveAt = lastActiveAt;
+        this.latestActivity = latestActivity;
         this.expireAt = expireAt;
         this.abandonAt = abandonAt;
         this.updatedAt = updatedAt;
@@ -122,7 +129,7 @@ public class Session {
             long abandonAt,
             long updatedAt,
             long createdAt) {
-        this(object, id, userId, clientId, JsonNullable.undefined(), status, JsonNullable.undefined(), lastActiveAt, expireAt, abandonAt, updatedAt, createdAt);
+        this(object, id, userId, clientId, JsonNullable.undefined(), status, JsonNullable.undefined(), lastActiveAt, JsonNullable.undefined(), expireAt, abandonAt, updatedAt, createdAt);
     }
 
     /**
@@ -168,6 +175,12 @@ public class Session {
     @JsonIgnore
     public long lastActiveAt() {
         return lastActiveAt;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<LatestActivity> latestActivity() {
+        return (JsonNullable<LatestActivity>) latestActivity;
     }
 
     @JsonIgnore
@@ -266,6 +279,18 @@ public class Session {
         return this;
     }
 
+    public Session withLatestActivity(LatestActivity latestActivity) {
+        Utils.checkNotNull(latestActivity, "latestActivity");
+        this.latestActivity = JsonNullable.of(latestActivity);
+        return this;
+    }
+
+    public Session withLatestActivity(JsonNullable<? extends LatestActivity> latestActivity) {
+        Utils.checkNotNull(latestActivity, "latestActivity");
+        this.latestActivity = latestActivity;
+        return this;
+    }
+
     public Session withExpireAt(long expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
@@ -316,6 +341,7 @@ public class Session {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.lastActiveOrganizationId, other.lastActiveOrganizationId) &&
             Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Objects.deepEquals(this.latestActivity, other.latestActivity) &&
             Objects.deepEquals(this.expireAt, other.expireAt) &&
             Objects.deepEquals(this.abandonAt, other.abandonAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt) &&
@@ -333,6 +359,7 @@ public class Session {
             status,
             lastActiveOrganizationId,
             lastActiveAt,
+            latestActivity,
             expireAt,
             abandonAt,
             updatedAt,
@@ -350,6 +377,7 @@ public class Session {
                 "status", status,
                 "lastActiveOrganizationId", lastActiveOrganizationId,
                 "lastActiveAt", lastActiveAt,
+                "latestActivity", latestActivity,
                 "expireAt", expireAt,
                 "abandonAt", abandonAt,
                 "updatedAt", updatedAt,
@@ -373,6 +401,8 @@ public class Session {
         private JsonNullable<String> lastActiveOrganizationId = JsonNullable.undefined();
  
         private Long lastActiveAt;
+ 
+        private JsonNullable<? extends LatestActivity> latestActivity = JsonNullable.undefined();
  
         private Long expireAt;
  
@@ -450,6 +480,18 @@ public class Session {
             return this;
         }
 
+        public Builder latestActivity(LatestActivity latestActivity) {
+            Utils.checkNotNull(latestActivity, "latestActivity");
+            this.latestActivity = JsonNullable.of(latestActivity);
+            return this;
+        }
+
+        public Builder latestActivity(JsonNullable<? extends LatestActivity> latestActivity) {
+            Utils.checkNotNull(latestActivity, "latestActivity");
+            this.latestActivity = latestActivity;
+            return this;
+        }
+
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
@@ -492,6 +534,7 @@ public class Session {
                 status,
                 lastActiveOrganizationId,
                 lastActiveAt,
+                latestActivity,
                 expireAt,
                 abandonAt,
                 updatedAt,

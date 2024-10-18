@@ -26,21 +26,21 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
+ * https://clerk.com/docs/reference/clerkjs/client
+ */
 public class Clients implements
             MethodCallGetClientList,
             MethodCallVerifyClient,
@@ -167,46 +167,19 @@ public class Clients implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         GetClientListResponse.Builder _resBuilder = 
             GetClientListResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    GetClientListRequestBuilder _ret = list();
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         GetClientListResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 List<Client> _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<List<Client>>() {});
                 _res.withClientList(Optional.ofNullable(_out));
                 return _res;
@@ -215,13 +188,13 @@ public class Clients implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "410", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -229,7 +202,7 @@ public class Clients implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -238,13 +211,13 @@ public class Clients implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 

@@ -30,7 +30,7 @@ public class VerifyDomainProxyRequestBuilder {
 
     public VerifyDomainProxyResponse call() throws Exception {
 
-        return sdk.verifyDomain(
+        return sdk.verify(
             request);
     }
 }

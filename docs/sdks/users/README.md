@@ -3,6 +3,9 @@
 
 ## Overview
 
+The user object represents a user that has successfully signed up to your application.
+<https://clerk.com/docs/reference/clerkjs/user>
+
 ### Available Operations
 
 * [list](#list) - List all users
@@ -20,9 +23,16 @@
 * [updateMetadata](#updatemetadata) - Merge and update a user's metadata
 * [getOAuthAccessToken](#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](#getorganizationmemberships) - Retrieve all memberships for a user
+* [getOrganizationInvitations](#getorganizationinvitations) - Retrieve all invitations for a user
 * [verifyPassword](#verifypassword) - Verify the password of a user
 * [verifyTOTP](#verifytotp) - Verify a TOTP or backup code for a user
 * [disableMFA](#disablemfa) - Disable a user's MFA methods
+* [deleteBackupCodes](#deletebackupcodes) - Disable all user's Backup codes
+* [deletePasskey](#deletepasskey) - Delete a user passkey
+* [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
+* [createTOTP](#createtotp) - Create a TOTP for a user
+* [deleteTotp](#deletetotp) - Delete all the user's TOTPs
+* [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
 
 ## list
 
@@ -942,7 +952,7 @@ public class Application {
 
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 422                       | application/json          |
+| models/errors/ClerkErrors | 400,422                   | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 
@@ -956,6 +966,8 @@ Retrieve a paginated list of the user's organization memberships
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -966,16 +978,19 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.users().getOrganizationMemberships()
+            UsersGetOrganizationMembershipsResponse res = sdk.users().getOrganizationMemberships()
                 .userId("<value>")
                 .limit(10L)
                 .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .call();
 
+            if (res.organizationMemberships().isPresent()) {
+                // handle response
+            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -1004,6 +1019,75 @@ public class Application {
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403                       | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## getOrganizationInvitations
+
+Retrieve a paginated list of the user's organization invitations
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.QueryParamStatus;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            UsersGetOrganizationInvitationsResponse res = sdk.users().getOrganizationInvitations()
+                .userId("<value>")
+                .limit(10L)
+                .offset(0L)
+                .status(QueryParamStatus.PENDING)
+                .call();
+
+            if (res.organizationInvitationsWithPublicOrganizationData().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                                                                  | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The ID of the user whose organization invitations we want to retrieve                                                                     |
+| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `status`                                                                                                                                  | [Optional<QueryParamStatus>](../../models/operations/QueryParamStatus.md)                                                                 | :heavy_minus_sign:                                                                                                                        | Filter organization invitations based on their status                                                                                     |
+
+### Response
+
+**[UsersGetOrganizationInvitationsResponse](../../models/operations/UsersGetOrganizationInvitationsResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400,403,404               | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 
@@ -1204,4 +1288,383 @@ public class Application {
 | Error Object              | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404,500                   | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## deleteBackupCodes
+
+Disable all of a user's backup codes.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteBackupCodeResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            DeleteBackupCodeResponse res = sdk.users().deleteBackupCodes()
+                .userId("<value>")
+                .call();
+
+            if (res.object().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `userId`                                                 | *String*                                                 | :heavy_check_mark:                                       | The ID of the user whose backup codes are to be deleted. |
+
+### Response
+
+**[DeleteBackupCodeResponse](../../models/operations/DeleteBackupCodeResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 404,500                   | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## deletePasskey
+
+Delete the passkey identification for a given user and notify them through email.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UserPasskeyDeleteResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            UserPasskeyDeleteResponse res = sdk.users().deletePasskey()
+                .userId("<value>")
+                .passkeyIdentificationId("<value>")
+                .call();
+
+            if (res.deletedObject().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                         | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `userId`                                          | *String*                                          | :heavy_check_mark:                                | The ID of the user that owns the passkey identity |
+| `passkeyIdentificationId`                         | *String*                                          | :heavy_check_mark:                                | The ID of the passkey identity to be deleted      |
+
+### Response
+
+**[UserPasskeyDeleteResponse](../../models/operations/UserPasskeyDeleteResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403,404,500               | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## deleteWeb3Wallet
+
+Delete the web3 wallet identification for a given user.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            UserWeb3WalletDeleteResponse res = sdk.users().deleteWeb3Wallet()
+                .userId("<value>")
+                .web3WalletIdentificationId("<value>")
+                .call();
+
+            if (res.deletedObject().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                        | Type                                             | Required                                         | Description                                      |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `userId`                                         | *String*                                         | :heavy_check_mark:                               | The ID of the user that owns the web3 wallet     |
+| `web3WalletIdentificationId`                     | *String*                                         | :heavy_check_mark:                               | The ID of the web3 wallet identity to be deleted |
+
+### Response
+
+**[UserWeb3WalletDeleteResponse](../../models/operations/UserWeb3WalletDeleteResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400,403,404,500           | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## createTOTP
+
+Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateUserTOTPResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            CreateUserTOTPResponse res = sdk.users().createTOTP()
+                .userId("<value>")
+                .call();
+
+            if (res.totp().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                              | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `userId`                                               | *String*                                               | :heavy_check_mark:                                     | The ID of the user for whom the TOTP is being created. |
+
+### Response
+
+**[CreateUserTOTPResponse](../../models/operations/CreateUserTOTPResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403,404,500               | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## deleteTotp
+
+Deletes all of the user's TOTPs.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteTOTPResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            DeleteTOTPResponse res = sdk.users().deleteTotp()
+                .userId("<value>")
+                .call();
+
+            if (res.object().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                        | Type                                             | Required                                         | Description                                      |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `userId`                                         | *String*                                         | :heavy_check_mark:                               | The ID of the user whose TOTPs are to be deleted |
+
+### Response
+
+**[DeleteTOTPResponse](../../models/operations/DeleteTOTPResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 404,500                   | application/json          |
+| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+
+
+## deleteExternalAccount
+
+Delete an external account by ID.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.DeleteExternalAccountResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .build();
+
+            DeleteExternalAccountResponse res = sdk.users().deleteExternalAccount()
+                .userId("<value>")
+                .externalAccountId("<value>")
+                .call();
+
+            if (res.deletedObject().isPresent()) {
+                // handle response
+            }
+        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                | Type                                     | Required                                 | Description                              |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| `userId`                                 | *String*                                 | :heavy_check_mark:                       | The ID of the user's external account    |
+| `externalAccountId`                      | *String*                                 | :heavy_check_mark:                       | The ID of the external account to delete |
+
+### Response
+
+**[DeleteExternalAccountResponse](../../models/operations/DeleteExternalAccountResponse.md)**
+
+### Errors
+
+| Error Object              | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400,403,404,500           | application/json          |
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |

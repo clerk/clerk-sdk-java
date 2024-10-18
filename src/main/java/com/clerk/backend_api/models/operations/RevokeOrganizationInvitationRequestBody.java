@@ -8,10 +8,13 @@ package com.clerk.backend_api.models.operations;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class RevokeOrganizationInvitationRequestBody {
@@ -20,14 +23,19 @@ public class RevokeOrganizationInvitationRequestBody {
      * The ID of the user that revokes the invitation.
      * Must be an administrator in the organization.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("requesting_user_id")
-    private String requestingUserId;
+    private JsonNullable<String> requestingUserId;
 
     @JsonCreator
     public RevokeOrganizationInvitationRequestBody(
-            @JsonProperty("requesting_user_id") String requestingUserId) {
+            @JsonProperty("requesting_user_id") JsonNullable<String> requestingUserId) {
         Utils.checkNotNull(requestingUserId, "requestingUserId");
         this.requestingUserId = requestingUserId;
+    }
+    
+    public RevokeOrganizationInvitationRequestBody() {
+        this(JsonNullable.undefined());
     }
 
     /**
@@ -35,7 +43,7 @@ public class RevokeOrganizationInvitationRequestBody {
      * Must be an administrator in the organization.
      */
     @JsonIgnore
-    public String requestingUserId() {
+    public JsonNullable<String> requestingUserId() {
         return requestingUserId;
     }
 
@@ -48,6 +56,16 @@ public class RevokeOrganizationInvitationRequestBody {
      * Must be an administrator in the organization.
      */
     public RevokeOrganizationInvitationRequestBody withRequestingUserId(String requestingUserId) {
+        Utils.checkNotNull(requestingUserId, "requestingUserId");
+        this.requestingUserId = JsonNullable.of(requestingUserId);
+        return this;
+    }
+
+    /**
+     * The ID of the user that revokes the invitation.
+     * Must be an administrator in the organization.
+     */
+    public RevokeOrganizationInvitationRequestBody withRequestingUserId(JsonNullable<String> requestingUserId) {
         Utils.checkNotNull(requestingUserId, "requestingUserId");
         this.requestingUserId = requestingUserId;
         return this;
@@ -80,7 +98,7 @@ public class RevokeOrganizationInvitationRequestBody {
     
     public final static class Builder {
  
-        private String requestingUserId;  
+        private JsonNullable<String> requestingUserId = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -91,6 +109,16 @@ public class RevokeOrganizationInvitationRequestBody {
          * Must be an administrator in the organization.
          */
         public Builder requestingUserId(String requestingUserId) {
+            Utils.checkNotNull(requestingUserId, "requestingUserId");
+            this.requestingUserId = JsonNullable.of(requestingUserId);
+            return this;
+        }
+
+        /**
+         * The ID of the user that revokes the invitation.
+         * Must be an administrator in the organization.
+         */
+        public Builder requestingUserId(JsonNullable<String> requestingUserId) {
             Utils.checkNotNull(requestingUserId, "requestingUserId");
             this.requestingUserId = requestingUserId;
             return this;

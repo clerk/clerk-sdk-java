@@ -38,7 +38,8 @@ public class UpdateOrganizationRequestBody {
     private Optional<? extends UpdateOrganizationPrivateMetadata> privateMetadata;
 
     /**
-     * The new name of the organization
+     * The new name of the organization.
+     * May not contain URLs or HTML.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
@@ -65,6 +66,13 @@ public class UpdateOrganizationRequestBody {
     @JsonProperty("admin_delete_enabled")
     private JsonNullable<Boolean> adminDeleteEnabled;
 
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("created_at")
+    private Optional<String> createdAt;
+
     @JsonCreator
     public UpdateOrganizationRequestBody(
             @JsonProperty("public_metadata") Optional<? extends UpdateOrganizationPublicMetadata> publicMetadata,
@@ -72,23 +80,26 @@ public class UpdateOrganizationRequestBody {
             @JsonProperty("name") JsonNullable<String> name,
             @JsonProperty("slug") JsonNullable<String> slug,
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
-            @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled) {
+            @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled,
+            @JsonProperty("created_at") Optional<String> createdAt) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
+        Utils.checkNotNull(createdAt, "createdAt");
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
         this.name = name;
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.adminDeleteEnabled = adminDeleteEnabled;
+        this.createdAt = createdAt;
     }
     
     public UpdateOrganizationRequestBody() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -110,7 +121,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * The new name of the organization
+     * The new name of the organization.
+     * May not contain URLs or HTML.
      */
     @JsonIgnore
     public JsonNullable<String> name() {
@@ -139,6 +151,14 @@ public class UpdateOrganizationRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> adminDeleteEnabled() {
         return adminDeleteEnabled;
+    }
+
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonIgnore
+    public Optional<String> createdAt() {
+        return createdAt;
     }
 
     public final static Builder builder() {
@@ -182,7 +202,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * The new name of the organization
+     * The new name of the organization.
+     * May not contain URLs or HTML.
      */
     public UpdateOrganizationRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -191,7 +212,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * The new name of the organization
+     * The new name of the organization.
+     * May not contain URLs or HTML.
      */
     public UpdateOrganizationRequestBody withName(JsonNullable<String> name) {
         Utils.checkNotNull(name, "name");
@@ -252,6 +274,24 @@ public class UpdateOrganizationRequestBody {
         this.adminDeleteEnabled = adminDeleteEnabled;
         return this;
     }
+
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public UpdateOrganizationRequestBody withCreatedAt(String createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = Optional.ofNullable(createdAt);
+        return this;
+    }
+
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public UpdateOrganizationRequestBody withCreatedAt(Optional<String> createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = createdAt;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -268,7 +308,8 @@ public class UpdateOrganizationRequestBody {
             Objects.deepEquals(this.name, other.name) &&
             Objects.deepEquals(this.slug, other.slug) &&
             Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled);
+            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
@@ -279,7 +320,8 @@ public class UpdateOrganizationRequestBody {
             name,
             slug,
             maxAllowedMemberships,
-            adminDeleteEnabled);
+            adminDeleteEnabled,
+            createdAt);
     }
     
     @Override
@@ -290,7 +332,8 @@ public class UpdateOrganizationRequestBody {
                 "name", name,
                 "slug", slug,
                 "maxAllowedMemberships", maxAllowedMemberships,
-                "adminDeleteEnabled", adminDeleteEnabled);
+                "adminDeleteEnabled", adminDeleteEnabled,
+                "createdAt", createdAt);
     }
     
     public final static class Builder {
@@ -305,7 +348,9 @@ public class UpdateOrganizationRequestBody {
  
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
  
-        private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();  
+        private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();
+ 
+        private Optional<String> createdAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -348,7 +393,8 @@ public class UpdateOrganizationRequestBody {
         }
 
         /**
-         * The new name of the organization
+         * The new name of the organization.
+         * May not contain URLs or HTML.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -357,7 +403,8 @@ public class UpdateOrganizationRequestBody {
         }
 
         /**
-         * The new name of the organization
+         * The new name of the organization.
+         * May not contain URLs or HTML.
          */
         public Builder name(JsonNullable<String> name) {
             Utils.checkNotNull(name, "name");
@@ -418,6 +465,24 @@ public class UpdateOrganizationRequestBody {
             this.adminDeleteEnabled = adminDeleteEnabled;
             return this;
         }
+
+        /**
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder createdAt(String createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
+        /**
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder createdAt(Optional<String> createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = createdAt;
+            return this;
+        }
         
         public UpdateOrganizationRequestBody build() {
             return new UpdateOrganizationRequestBody(
@@ -426,7 +491,8 @@ public class UpdateOrganizationRequestBody {
                 name,
                 slug,
                 maxAllowedMemberships,
-                adminDeleteEnabled);
+                adminDeleteEnabled,
+                createdAt);
         }
     }
 }

@@ -222,12 +222,28 @@ public class User {
     private Optional<Boolean> createOrganizationEnabled;
 
     /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("create_organizations_limit")
+    private JsonNullable<Long> createOrganizationsLimit;
+
+    /**
      * Unix timestamp of the latest session activity, with day precision.
      * 
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_active_at")
     private JsonNullable<Long> lastActiveAt;
+
+    /**
+     * Unix timestamp of when the user accepted the legal requirements.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("legal_accepted_at")
+    private JsonNullable<Long> legalAcceptedAt;
 
     @JsonCreator
     public User(
@@ -267,7 +283,9 @@ public class User {
             @JsonProperty("created_at") Optional<Long> createdAt,
             @JsonProperty("delete_self_enabled") Optional<Boolean> deleteSelfEnabled,
             @JsonProperty("create_organization_enabled") Optional<Boolean> createOrganizationEnabled,
-            @JsonProperty("last_active_at") JsonNullable<Long> lastActiveAt) {
+            @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
+            @JsonProperty("last_active_at") JsonNullable<Long> lastActiveAt,
+            @JsonProperty("legal_accepted_at") JsonNullable<Long> legalAcceptedAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalId, "externalId");
@@ -304,7 +322,9 @@ public class User {
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         this.id = id;
         this.object = object;
         this.externalId = externalId;
@@ -341,11 +361,13 @@ public class User {
         this.createdAt = createdAt;
         this.deleteSelfEnabled = deleteSelfEnabled;
         this.createOrganizationEnabled = createOrganizationEnabled;
+        this.createOrganizationsLimit = createOrganizationsLimit;
         this.lastActiveAt = lastActiveAt;
+        this.legalAcceptedAt = legalAcceptedAt;
     }
     
     public User() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -591,12 +613,30 @@ public class User {
     }
 
     /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     * 
+     */
+    @JsonIgnore
+    public JsonNullable<Long> createOrganizationsLimit() {
+        return createOrganizationsLimit;
+    }
+
+    /**
      * Unix timestamp of the latest session activity, with day precision.
      * 
      */
     @JsonIgnore
     public JsonNullable<Long> lastActiveAt() {
         return lastActiveAt;
+    }
+
+    /**
+     * Unix timestamp of when the user accepted the legal requirements.
+     * 
+     */
+    @JsonIgnore
+    public JsonNullable<Long> legalAcceptedAt() {
+        return legalAcceptedAt;
     }
 
     public final static Builder builder() {
@@ -1140,6 +1180,26 @@ public class User {
     }
 
     /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     * 
+     */
+    public User withCreateOrganizationsLimit(long createOrganizationsLimit) {
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+        this.createOrganizationsLimit = JsonNullable.of(createOrganizationsLimit);
+        return this;
+    }
+
+    /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     * 
+     */
+    public User withCreateOrganizationsLimit(JsonNullable<Long> createOrganizationsLimit) {
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+        this.createOrganizationsLimit = createOrganizationsLimit;
+        return this;
+    }
+
+    /**
      * Unix timestamp of the latest session activity, with day precision.
      * 
      */
@@ -1156,6 +1216,26 @@ public class User {
     public User withLastActiveAt(JsonNullable<Long> lastActiveAt) {
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         this.lastActiveAt = lastActiveAt;
+        return this;
+    }
+
+    /**
+     * Unix timestamp of when the user accepted the legal requirements.
+     * 
+     */
+    public User withLegalAcceptedAt(long legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of when the user accepted the legal requirements.
+     * 
+     */
+    public User withLegalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = legalAcceptedAt;
         return this;
     }
     
@@ -1205,7 +1285,9 @@ public class User {
             Objects.deepEquals(this.createdAt, other.createdAt) &&
             Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
             Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
-            Objects.deepEquals(this.lastActiveAt, other.lastActiveAt);
+            Objects.deepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
+            Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt);
     }
     
     @Override
@@ -1247,7 +1329,9 @@ public class User {
             createdAt,
             deleteSelfEnabled,
             createOrganizationEnabled,
-            lastActiveAt);
+            createOrganizationsLimit,
+            lastActiveAt,
+            legalAcceptedAt);
     }
     
     @Override
@@ -1289,7 +1373,9 @@ public class User {
                 "createdAt", createdAt,
                 "deleteSelfEnabled", deleteSelfEnabled,
                 "createOrganizationEnabled", createOrganizationEnabled,
-                "lastActiveAt", lastActiveAt);
+                "createOrganizationsLimit", createOrganizationsLimit,
+                "lastActiveAt", lastActiveAt,
+                "legalAcceptedAt", legalAcceptedAt);
     }
     
     public final static class Builder {
@@ -1367,7 +1453,11 @@ public class User {
  
         private Optional<Boolean> createOrganizationEnabled = Optional.empty();
  
-        private JsonNullable<Long> lastActiveAt = JsonNullable.undefined();  
+        private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
+ 
+        private JsonNullable<Long> lastActiveAt = JsonNullable.undefined();
+ 
+        private JsonNullable<Long> legalAcceptedAt = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -1910,6 +2000,26 @@ public class User {
         }
 
         /**
+         * The maximum number of organizations the user can create. 0 means unlimited.
+         * 
+         */
+        public Builder createOrganizationsLimit(long createOrganizationsLimit) {
+            Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+            this.createOrganizationsLimit = JsonNullable.of(createOrganizationsLimit);
+            return this;
+        }
+
+        /**
+         * The maximum number of organizations the user can create. 0 means unlimited.
+         * 
+         */
+        public Builder createOrganizationsLimit(JsonNullable<Long> createOrganizationsLimit) {
+            Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+            this.createOrganizationsLimit = createOrganizationsLimit;
+            return this;
+        }
+
+        /**
          * Unix timestamp of the latest session activity, with day precision.
          * 
          */
@@ -1926,6 +2036,26 @@ public class User {
         public Builder lastActiveAt(JsonNullable<Long> lastActiveAt) {
             Utils.checkNotNull(lastActiveAt, "lastActiveAt");
             this.lastActiveAt = lastActiveAt;
+            return this;
+        }
+
+        /**
+         * Unix timestamp of when the user accepted the legal requirements.
+         * 
+         */
+        public Builder legalAcceptedAt(long legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of when the user accepted the legal requirements.
+         * 
+         */
+        public Builder legalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = legalAcceptedAt;
             return this;
         }
         
@@ -1967,7 +2097,9 @@ public class User {
                 createdAt,
                 deleteSelfEnabled,
                 createOrganizationEnabled,
-                lastActiveAt);
+                createOrganizationsLimit,
+                lastActiveAt,
+                legalAcceptedAt);
         }
     }
 }

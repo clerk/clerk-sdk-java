@@ -35,58 +35,107 @@ public class Clerk {
         "https://api.clerk.com/v1",
     };
 
+    /**
+     * Various endpoints that do not belong in any particular category.
+     */
     private final Miscellaneous miscellaneous;
 
     private final Jwks jwks;
 
+    /**
+     * The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
+     * https://clerk.com/docs/reference/clerkjs/client
+     */
     private final Clients clients;
 
     private final EmailAddresses emailAddresses;
 
     private final PhoneNumbers phoneNumbers;
 
+    /**
+     * The Session object is an abstraction over an HTTP session.
+     * It models the period of information exchange between a user and the server.
+     * Sessions are created when a user successfully goes through the sign in or sign up flows.
+     * https://clerk.com/docs/reference/clerkjs/session
+     */
     private final Sessions sessions;
+
+    private final EmailSMSTemplates emailSMSTemplates;
+
+    private final EmailAndSmsTemplates emailAndSmsTemplates;
 
     private final Templates templates;
 
+    /**
+     * The user object represents a user that has successfully signed up to your application.
+     * https://clerk.com/docs/reference/clerkjs/user
+     */
     private final Users users;
 
+    /**
+     * Invitations allow you to invite someone to sign up to your application, via email.
+     * https://clerk.com/docs/authentication/invitations
+     */
     private final Invitations invitations;
 
-    private final Allowlist allowlist;
+    private final OrganizationInvitations organizationInvitations;
 
-    private final Blocklist blocklist;
+    private final AllowlistBlocklist allowlistBlocklist;
 
-    private final Instance instance;
+    private final AllowlistIdentifiers allowlistIdentifiers;
 
-    private final Actors actors;
+    private final BlocklistIdentifiers blocklistIdentifiers;
 
+    private final BetaFeatures betaFeatures;
+
+    private final ActorTokens actorTokens;
+
+    /**
+     * Domains represent each instance's URLs and DNS setup.
+     */
     private final Domains domains;
 
+    private final InstanceSettings instanceSettings;
+
+    /**
+     * You can configure webhooks to be notified about various events that happen on your instance.
+     * https://clerk.com/docs/integration/webhooks
+     */
     private final Webhooks webhooks;
 
     private final JwtTemplates jwtTemplates;
 
+    /**
+     * Organizations are used to group members under a common entity and provide shared access to resources.
+     * https://clerk.com/docs/organizations/overview
+     */
     private final Organizations organizations;
-
-    private final OrganizationInvitations organizationInvitations;
 
     private final OrganizationMemberships organizationMemberships;
 
-    private final Proxy proxy;
+    private final OrganizationDomains organizationDomains;
+
+    private final OrganizationDomain organizationDomain;
+
+    private final ProxyChecks proxyChecks;
 
     private final RedirectURLs redirectURLs;
+
+    private final ClerkRedirectUrls redirectUrls;
 
     private final SignInTokens signInTokens;
 
     private final SignUps signUps;
 
-    private final OAuthApplications oAuthApplications;
+    private final OauthApplications oauthApplications;
 
     private final SamlConnections samlConnections;
 
     private final TestingTokens testingTokens;
 
+    /**
+     * Various endpoints that do not belong in any particular category.
+     */
     public Miscellaneous miscellaneous() {
         return miscellaneous;
     }
@@ -95,6 +144,10 @@ public class Clerk {
         return jwks;
     }
 
+    /**
+     * The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
+     * https://clerk.com/docs/reference/clerkjs/client
+     */
     public Clients clients() {
         return clients;
     }
@@ -107,42 +160,83 @@ public class Clerk {
         return phoneNumbers;
     }
 
+    /**
+     * The Session object is an abstraction over an HTTP session.
+     * It models the period of information exchange between a user and the server.
+     * Sessions are created when a user successfully goes through the sign in or sign up flows.
+     * https://clerk.com/docs/reference/clerkjs/session
+     */
     public Sessions sessions() {
         return sessions;
+    }
+
+    public EmailSMSTemplates emailSMSTemplates() {
+        return emailSMSTemplates;
+    }
+
+    public EmailAndSmsTemplates emailAndSmsTemplates() {
+        return emailAndSmsTemplates;
     }
 
     public Templates templates() {
         return templates;
     }
 
+    /**
+     * The user object represents a user that has successfully signed up to your application.
+     * https://clerk.com/docs/reference/clerkjs/user
+     */
     public Users users() {
         return users;
     }
 
+    /**
+     * Invitations allow you to invite someone to sign up to your application, via email.
+     * https://clerk.com/docs/authentication/invitations
+     */
     public Invitations invitations() {
         return invitations;
     }
 
-    public Allowlist allowlist() {
-        return allowlist;
+    public OrganizationInvitations organizationInvitations() {
+        return organizationInvitations;
     }
 
-    public Blocklist blocklist() {
-        return blocklist;
+    public AllowlistBlocklist allowlistBlocklist() {
+        return allowlistBlocklist;
     }
 
-    public Instance instance() {
-        return instance;
+    public AllowlistIdentifiers allowlistIdentifiers() {
+        return allowlistIdentifiers;
     }
 
-    public Actors actors() {
-        return actors;
+    public BlocklistIdentifiers blocklistIdentifiers() {
+        return blocklistIdentifiers;
     }
 
+    public BetaFeatures betaFeatures() {
+        return betaFeatures;
+    }
+
+    public ActorTokens actorTokens() {
+        return actorTokens;
+    }
+
+    /**
+     * Domains represent each instance's URLs and DNS setup.
+     */
     public Domains domains() {
         return domains;
     }
 
+    public InstanceSettings instanceSettings() {
+        return instanceSettings;
+    }
+
+    /**
+     * You can configure webhooks to be notified about various events that happen on your instance.
+     * https://clerk.com/docs/integration/webhooks
+     */
     public Webhooks webhooks() {
         return webhooks;
     }
@@ -151,24 +245,36 @@ public class Clerk {
         return jwtTemplates;
     }
 
+    /**
+     * Organizations are used to group members under a common entity and provide shared access to resources.
+     * https://clerk.com/docs/organizations/overview
+     */
     public Organizations organizations() {
         return organizations;
-    }
-
-    public OrganizationInvitations organizationInvitations() {
-        return organizationInvitations;
     }
 
     public OrganizationMemberships organizationMemberships() {
         return organizationMemberships;
     }
 
-    public Proxy proxy() {
-        return proxy;
+    public OrganizationDomains organizationDomains() {
+        return organizationDomains;
+    }
+
+    public OrganizationDomain organizationDomain() {
+        return organizationDomain;
+    }
+
+    public ProxyChecks proxyChecks() {
+        return proxyChecks;
     }
 
     public RedirectURLs redirectURLs() {
         return redirectURLs;
+    }
+
+    public ClerkRedirectUrls redirectUrls() {
+        return redirectUrls;
     }
 
     public SignInTokens signInTokens() {
@@ -179,8 +285,8 @@ public class Clerk {
         return signUps;
     }
 
-    public OAuthApplications oAuthApplications() {
-        return oAuthApplications;
+    public OauthApplications oauthApplications() {
+        return oauthApplications;
     }
 
     public SamlConnections samlConnections() {
@@ -324,24 +430,31 @@ public class Clerk {
         this.emailAddresses = new EmailAddresses(sdkConfiguration);
         this.phoneNumbers = new PhoneNumbers(sdkConfiguration);
         this.sessions = new Sessions(sdkConfiguration);
+        this.emailSMSTemplates = new EmailSMSTemplates(sdkConfiguration);
+        this.emailAndSmsTemplates = new EmailAndSmsTemplates(sdkConfiguration);
         this.templates = new Templates(sdkConfiguration);
         this.users = new Users(sdkConfiguration);
         this.invitations = new Invitations(sdkConfiguration);
-        this.allowlist = new Allowlist(sdkConfiguration);
-        this.blocklist = new Blocklist(sdkConfiguration);
-        this.instance = new Instance(sdkConfiguration);
-        this.actors = new Actors(sdkConfiguration);
+        this.organizationInvitations = new OrganizationInvitations(sdkConfiguration);
+        this.allowlistBlocklist = new AllowlistBlocklist(sdkConfiguration);
+        this.allowlistIdentifiers = new AllowlistIdentifiers(sdkConfiguration);
+        this.blocklistIdentifiers = new BlocklistIdentifiers(sdkConfiguration);
+        this.betaFeatures = new BetaFeatures(sdkConfiguration);
+        this.actorTokens = new ActorTokens(sdkConfiguration);
         this.domains = new Domains(sdkConfiguration);
+        this.instanceSettings = new InstanceSettings(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);
         this.jwtTemplates = new JwtTemplates(sdkConfiguration);
         this.organizations = new Organizations(sdkConfiguration);
-        this.organizationInvitations = new OrganizationInvitations(sdkConfiguration);
         this.organizationMemberships = new OrganizationMemberships(sdkConfiguration);
-        this.proxy = new Proxy(sdkConfiguration);
+        this.organizationDomains = new OrganizationDomains(sdkConfiguration);
+        this.organizationDomain = new OrganizationDomain(sdkConfiguration);
+        this.proxyChecks = new ProxyChecks(sdkConfiguration);
         this.redirectURLs = new RedirectURLs(sdkConfiguration);
+        this.redirectUrls = new ClerkRedirectUrls(sdkConfiguration);
         this.signInTokens = new SignInTokens(sdkConfiguration);
         this.signUps = new SignUps(sdkConfiguration);
-        this.oAuthApplications = new OAuthApplications(sdkConfiguration);
+        this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.sdkConfiguration.initialize();

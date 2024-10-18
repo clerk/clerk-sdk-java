@@ -24,7 +24,7 @@ public class RevokeActorTokenRequestBuilder {
 
     public RevokeActorTokenResponse call() throws Exception {
 
-        return sdk.revokeToken(
+        return sdk.revoke(
             actorTokenId);
     }
 }

@@ -47,6 +47,7 @@ import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
+import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Object;
 import java.lang.String;
@@ -55,6 +56,10 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * Organizations are used to group members under a common entity and provide shared access to resources.
+ * https://clerk.com/docs/organizations/overview
+ */
 public class Organizations implements
             MethodCallListOrganizations,
             MethodCallCreateOrganization,
@@ -224,6 +229,8 @@ public class Organizations implements
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+     * The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
      * @return The call builder
      */
     public CreateOrganizationRequestBuilder create() {
@@ -241,6 +248,8 @@ public class Organizations implements
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+     * The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -259,6 +268,8 @@ public class Organizations implements
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+     * The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -405,10 +416,25 @@ public class Organizations implements
      */
     public GetOrganizationResponse get(
             String organizationId) throws Exception {
+        return get(organizationId, Optional.empty());
+    }
+    
+    /**
+     * Retrieve an organization by ID or slug
+     * Fetches the organization whose ID or slug matches the provided `id_or_slug` URL query parameter.
+     * @param organizationId The ID or slug of the organization
+     * @param includeMembersCount Flag to denote whether or not the organization's members count should be included in the response.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetOrganizationResponse get(
+            String organizationId,
+            Optional<Boolean> includeMembersCount) throws Exception {
         GetOrganizationRequest request =
             GetOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
+                .includeMembersCount(includeMembersCount)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
@@ -422,6 +448,11 @@ public class Organizations implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 this.sdkConfiguration.userAgent);
+
+        _req.addQueryParams(Utils.getQueryParams(
+                GetOrganizationRequest.class,
+                request, 
+                null));
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

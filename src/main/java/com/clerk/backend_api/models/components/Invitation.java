@@ -48,6 +48,14 @@ public class Invitation {
     private JsonNullable<String> url;
 
     /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_at")
+    private JsonNullable<Long> expiresAt;
+
+    /**
      * Unix timestamp of creation.
      * 
      */
@@ -70,6 +78,7 @@ public class Invitation {
             @JsonProperty("revoked") Optional<Boolean> revoked,
             @JsonProperty("status") InvitationStatus status,
             @JsonProperty("url") JsonNullable<String> url,
+            @JsonProperty("expires_at") JsonNullable<Long> expiresAt,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -79,6 +88,7 @@ public class Invitation {
         Utils.checkNotNull(revoked, "revoked");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(url, "url");
+        Utils.checkNotNull(expiresAt, "expiresAt");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -88,6 +98,7 @@ public class Invitation {
         this.revoked = revoked;
         this.status = status;
         this.url = url;
+        this.expiresAt = expiresAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -99,7 +110,7 @@ public class Invitation {
             InvitationStatus status,
             long createdAt,
             long updatedAt) {
-        this(object, id, emailAddress, Optional.empty(), Optional.empty(), status, JsonNullable.undefined(), createdAt, updatedAt);
+        this(object, id, emailAddress, Optional.empty(), Optional.empty(), status, JsonNullable.undefined(), JsonNullable.undefined(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -136,6 +147,15 @@ public class Invitation {
     @JsonIgnore
     public JsonNullable<String> url() {
         return url;
+    }
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresAt() {
+        return expiresAt;
     }
 
     /**
@@ -221,6 +241,26 @@ public class Invitation {
     }
 
     /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    public Invitation withExpiresAt(long expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = JsonNullable.of(expiresAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    public Invitation withExpiresAt(JsonNullable<Long> expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = expiresAt;
+        return this;
+    }
+
+    /**
      * Unix timestamp of creation.
      * 
      */
@@ -257,6 +297,7 @@ public class Invitation {
             Objects.deepEquals(this.revoked, other.revoked) &&
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.url, other.url) &&
+            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
             Objects.deepEquals(this.createdAt, other.createdAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
@@ -271,6 +312,7 @@ public class Invitation {
             revoked,
             status,
             url,
+            expiresAt,
             createdAt,
             updatedAt);
     }
@@ -285,6 +327,7 @@ public class Invitation {
                 "revoked", revoked,
                 "status", status,
                 "url", url,
+                "expiresAt", expiresAt,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -304,6 +347,8 @@ public class Invitation {
         private InvitationStatus status;
  
         private JsonNullable<String> url = JsonNullable.undefined();
+ 
+        private JsonNullable<Long> expiresAt = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -374,6 +419,26 @@ public class Invitation {
         }
 
         /**
+         * Unix timestamp of expiration.
+         * 
+         */
+        public Builder expiresAt(long expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = JsonNullable.of(expiresAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of expiration.
+         * 
+         */
+        public Builder expiresAt(JsonNullable<Long> expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = expiresAt;
+            return this;
+        }
+
+        /**
          * Unix timestamp of creation.
          * 
          */
@@ -402,6 +467,7 @@ public class Invitation {
                 revoked,
                 status,
                 url,
+                expiresAt,
                 createdAt,
                 updatedAt);
         }

@@ -3,11 +3,13 @@
 
 ## Overview
 
+Various endpoints that do not belong in any particular category.
+
 ### Available Operations
 
-* [getPublicInterstitial](#getpublicinterstitial) - Returns the markup for the interstitial page
+* [getInterstitial](#getinterstitial) - Returns the markup for the interstitial page
 
-## getPublicInterstitial
+## getInterstitial
 
 The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
 It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
@@ -29,7 +31,7 @@ public class Application {
             Clerk sdk = Clerk.builder()
                 .build();
 
-            GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+            GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
                 .frontendApi("<value>")
                 .publishableKey("<value>")
                 .call();

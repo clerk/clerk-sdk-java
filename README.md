@@ -31,7 +31,6 @@ More information about the API can be found at https://clerk.com/docs
 * [SDK Installation](#sdk-installation)
 * [SDK Example Usage](#sdk-example-usage)
 * [Available Resources and Operations](#available-resources-and-operations)
-* [Pagination](#pagination)
 * [Error Handling](#error-handling)
 * [Server Selection](#server-selection)
 * [Authentication](#authentication)
@@ -48,7 +47,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:0.3.0-beta.3'
+implementation 'com.clerk:backend-api:0.3.0-beta.4'
 ```
 
 Maven:
@@ -56,7 +55,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>0.3.0-beta.3</version>
+    <version>0.3.0-beta.4</version>
 </dependency>
 ```
 
@@ -78,55 +77,15 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example 1
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
-
-            sdk.clients().list()
-                .limit(10L)
-                .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
-
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
-    }
-}
-```
-
-### Create Actor Tokens
-
-This example shows how to create an actor token that can be used to impersonate the given user.
+### Example
 
 ```java
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.models.operations.CreateActorTokenRequestBody;
-import com.clerk.backend_api.models.operations.CreateActorTokenResponse;
+import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
 import java.lang.Exception;
-import java.util.Map;
 
 public class Application {
 
@@ -136,17 +95,11 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            CreateActorTokenRequestBody req = CreateActorTokenRequestBody.builder()
-                .userId("<value>")
-                .actor(Map.ofEntries(
-                        Map.entry("sub", "user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb")))
-                .build();
-
-            CreateActorTokenResponse res = sdk.actors().createToken()
-                .request(req)
+            GetEmailAddressResponse res = sdk.emailAddresses().get()
+                .emailAddressId("<value>")
                 .call();
 
-            if (res.actorToken().isPresent()) {
+            if (res.emailAddress().isPresent()) {
                 // handle response
             }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
@@ -170,11 +123,11 @@ public class Application {
 
 ### [miscellaneous()](docs/sdks/miscellaneous/README.md)
 
-* [getPublicInterstitial](docs/sdks/miscellaneous/README.md#getpublicinterstitial) - Returns the markup for the interstitial page
+* [getInterstitial](docs/sdks/miscellaneous/README.md#getinterstitial) - Returns the markup for the interstitial page
 
 ### [jwks()](docs/sdks/jwks/README.md)
 
-* [getJWKS](docs/sdks/jwks/README.md#getjwks) - Retrieve the JSON Web Key Set of the instance
+* [get](docs/sdks/jwks/README.md#get) - Retrieve the JSON Web Key Set of the instance
 
 ### [clients()](docs/sdks/clients/README.md)
 
@@ -204,14 +157,18 @@ public class Application {
 * [~~verify~~](docs/sdks/sessions/README.md#verify) - Verify a session :warning: **Deprecated**
 * [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a jwt template
 
+### [emailSMSTemplates()](docs/sdks/emailsmstemplates/README.md)
+
+* [~~get~~](docs/sdks/emailsmstemplates/README.md#get) - Retrieve a template :warning: **Deprecated**
+* [~~toggleTemplateDelivery~~](docs/sdks/emailsmstemplates/README.md#toggletemplatedelivery) - Toggle the delivery by Clerk for a template of a given type and slug :warning: **Deprecated**
+
+### [emailAndSmsTemplates()](docs/sdks/emailandsmstemplates/README.md)
+
+* [~~upsert~~](docs/sdks/emailandsmstemplates/README.md#upsert) - Update a template for a given type and slug :warning: **Deprecated**
+
 ### [templates()](docs/sdks/templates/README.md)
 
-* [list](docs/sdks/templates/README.md#list) - List all templates
-* [get](docs/sdks/templates/README.md#get) - Retrieve a template
-* [upsert](docs/sdks/templates/README.md#upsert) - Update a template for a given type and slug
-* [revert](docs/sdks/templates/README.md#revert) - Revert a template
-* [preview](docs/sdks/templates/README.md#preview) - Preview changes to a template
-* [toggleDelivery](docs/sdks/templates/README.md#toggledelivery) - Toggle the delivery by Clerk for a template of a given type and slug
+* [~~preview~~](docs/sdks/templates/README.md#preview) - Preview changes to a template :warning: **Deprecated**
 
 ### [users()](docs/sdks/users/README.md)
 
@@ -230,9 +187,16 @@ public class Application {
 * [updateMetadata](docs/sdks/users/README.md#updatemetadata) - Merge and update a user's metadata
 * [getOAuthAccessToken](docs/sdks/users/README.md#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](docs/sdks/users/README.md#getorganizationmemberships) - Retrieve all memberships for a user
+* [getOrganizationInvitations](docs/sdks/users/README.md#getorganizationinvitations) - Retrieve all invitations for a user
 * [verifyPassword](docs/sdks/users/README.md#verifypassword) - Verify the password of a user
 * [verifyTOTP](docs/sdks/users/README.md#verifytotp) - Verify a TOTP or backup code for a user
 * [disableMFA](docs/sdks/users/README.md#disablemfa) - Disable a user's MFA methods
+* [deleteBackupCodes](docs/sdks/users/README.md#deletebackupcodes) - Disable all user's Backup codes
+* [deletePasskey](docs/sdks/users/README.md#deletepasskey) - Delete a user passkey
+* [deleteWeb3Wallet](docs/sdks/users/README.md#deleteweb3wallet) - Delete a user web3 wallet
+* [createTOTP](docs/sdks/users/README.md#createtotp) - Create a TOTP for a user
+* [deleteTotp](docs/sdks/users/README.md#deletetotp) - Delete all the user's TOTPs
+* [deleteExternalAccount](docs/sdks/users/README.md#deleteexternalaccount) - Delete External Account
 
 ### [invitations()](docs/sdks/invitations/README.md)
 
@@ -240,31 +204,41 @@ public class Application {
 * [list](docs/sdks/invitations/README.md#list) - List all invitations
 * [revoke](docs/sdks/invitations/README.md#revoke) - Revokes an invitation
 
-### [allowlist()](docs/sdks/allowlist/README.md)
+### [organizationInvitations()](docs/sdks/organizationinvitations/README.md)
 
-* [list](docs/sdks/allowlist/README.md#list) - List all identifiers on the allow-list
-* [create](docs/sdks/allowlist/README.md#create) - Add identifier to the allow-list
-* [delete](docs/sdks/allowlist/README.md#delete) - Delete identifier from allow-list
+* [getAll](docs/sdks/organizationinvitations/README.md#getall) - Get a list of organization invitations for the current instance
+* [create](docs/sdks/organizationinvitations/README.md#create) - Create and send an organization invitation
+* [list](docs/sdks/organizationinvitations/README.md#list) - Get a list of organization invitations
+* [bulkCreate](docs/sdks/organizationinvitations/README.md#bulkcreate) - Bulk create and send organization invitations
+* [~~listPending~~](docs/sdks/organizationinvitations/README.md#listpending) - Get a list of pending organization invitations :warning: **Deprecated**
+* [get](docs/sdks/organizationinvitations/README.md#get) - Retrieve an organization invitation by ID
+* [revoke](docs/sdks/organizationinvitations/README.md#revoke) - Revoke a pending organization invitation
 
-### [blocklist()](docs/sdks/blocklist/README.md)
+### [allowlistBlocklist()](docs/sdks/allowlistblocklist/README.md)
 
-* [list](docs/sdks/blocklist/README.md#list) - List all identifiers on the block-list
-* [create](docs/sdks/blocklist/README.md#create) - Add identifier to the block-list
-* [delete](docs/sdks/blocklist/README.md#delete) - Delete identifier from block-list
+* [listAllowlistIdentifiers](docs/sdks/allowlistblocklist/README.md#listallowlistidentifiers) - List all identifiers on the allow-list
+* [createAllowlistIdentifier](docs/sdks/allowlistblocklist/README.md#createallowlistidentifier) - Add identifier to the allow-list
+* [createBlocklistIdentifier](docs/sdks/allowlistblocklist/README.md#createblocklistidentifier) - Add identifier to the block-list
+* [deleteBlocklistIdentifier](docs/sdks/allowlistblocklist/README.md#deleteblocklistidentifier) - Delete identifier from block-list
 
-### [instance()](docs/sdks/instance/README.md)
+### [allowlistIdentifiers()](docs/sdks/allowlistidentifiers/README.md)
 
-* [updateAuthConfig](docs/sdks/instance/README.md#updateauthconfig) - Update instance settings
-* [~~updateProductionDomain~~](docs/sdks/instance/README.md#updateproductiondomain) - Update production instance domain :warning: **Deprecated**
-* [update](docs/sdks/instance/README.md#update) - Update instance settings
-* [updateRestrictions](docs/sdks/instance/README.md#updaterestrictions) - Update instance restrictions
-* [changeProductionDomain](docs/sdks/instance/README.md#changeproductiondomain) - Update production instance domain
-* [updateOrganizationSettings](docs/sdks/instance/README.md#updateorganizationsettings) - Update instance organization settings
+* [delete](docs/sdks/allowlistidentifiers/README.md#delete) - Delete identifier from allow-list
 
-### [actors()](docs/sdks/actors/README.md)
+### [blocklistIdentifiers()](docs/sdks/blocklistidentifiers/README.md)
 
-* [createToken](docs/sdks/actors/README.md#createtoken) - Create actor token
-* [revokeToken](docs/sdks/actors/README.md#revoketoken) - Revoke actor token
+* [list](docs/sdks/blocklistidentifiers/README.md#list) - List all identifiers on the block-list
+
+### [betaFeatures()](docs/sdks/betafeatures/README.md)
+
+* [updateInstanceSettings](docs/sdks/betafeatures/README.md#updateinstancesettings) - Update instance settings
+* [~~updateDomain~~](docs/sdks/betafeatures/README.md#updatedomain) - Update production instance domain :warning: **Deprecated**
+* [changeProductionInstanceDomain](docs/sdks/betafeatures/README.md#changeproductioninstancedomain) - Update production instance domain
+
+### [actorTokens()](docs/sdks/actortokens/README.md)
+
+* [create](docs/sdks/actortokens/README.md#create) - Create actor token
+* [revoke](docs/sdks/actortokens/README.md#revoke) - Revoke actor token
 
 ### [domains()](docs/sdks/domains/README.md)
 
@@ -272,6 +246,12 @@ public class Application {
 * [add](docs/sdks/domains/README.md#add) - Add a domain
 * [delete](docs/sdks/domains/README.md#delete) - Delete a satellite domain
 * [update](docs/sdks/domains/README.md#update) - Update a domain
+
+### [instanceSettings()](docs/sdks/instancesettings/README.md)
+
+* [update](docs/sdks/instancesettings/README.md#update) - Update instance settings
+* [updateRestrictions](docs/sdks/instancesettings/README.md#updaterestrictions) - Update instance restrictions
+* [updateOrganizationSettings](docs/sdks/instancesettings/README.md#updateorganizationsettings) - Update instance organization settings
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
@@ -298,15 +278,6 @@ public class Application {
 * [uploadLogo](docs/sdks/organizations/README.md#uploadlogo) - Upload a logo for the organization
 * [deleteLogo](docs/sdks/organizations/README.md#deletelogo) - Delete the organization's logo.
 
-### [organizationInvitations()](docs/sdks/organizationinvitations/README.md)
-
-* [create](docs/sdks/organizationinvitations/README.md#create) - Create and send an organization invitation
-* [list](docs/sdks/organizationinvitations/README.md#list) - Get a list of organization invitations
-* [createBulk](docs/sdks/organizationinvitations/README.md#createbulk) - Bulk create and send organization invitations
-* [~~listPending~~](docs/sdks/organizationinvitations/README.md#listpending) - Get a list of pending organization invitations :warning: **Deprecated**
-* [get](docs/sdks/organizationinvitations/README.md#get) - Retrieve an organization invitation by ID
-* [revoke](docs/sdks/organizationinvitations/README.md#revoke) - Revoke a pending organization invitation
-
 ### [organizationMemberships()](docs/sdks/organizationmemberships/README.md)
 
 * [create](docs/sdks/organizationmemberships/README.md#create) - Create a new organization membership
@@ -314,17 +285,31 @@ public class Application {
 * [update](docs/sdks/organizationmemberships/README.md#update) - Update an organization membership
 * [delete](docs/sdks/organizationmemberships/README.md#delete) - Remove a member from an organization
 * [updateMetadata](docs/sdks/organizationmemberships/README.md#updatemetadata) - Merge and update organization membership metadata
+* [getAll](docs/sdks/organizationmemberships/README.md#getall) - Get a list of all organization memberships within an instance.
 
-### [proxy()](docs/sdks/proxy/README.md)
+### [organizationDomains()](docs/sdks/organizationdomains/README.md)
 
-* [verifyDomain](docs/sdks/proxy/README.md#verifydomain) - Verify the proxy configuration for your domain
+* [create](docs/sdks/organizationdomains/README.md#create) - Create a new organization domain.
+* [list](docs/sdks/organizationdomains/README.md#list) - Get a list of all domains of an organization.
+* [delete](docs/sdks/organizationdomains/README.md#delete) - Remove a domain from an organization.
+
+### [organizationDomain()](docs/sdks/organizationdomain/README.md)
+
+* [update](docs/sdks/organizationdomain/README.md#update) - Update an organization domain.
+
+### [proxyChecks()](docs/sdks/proxychecks/README.md)
+
+* [verify](docs/sdks/proxychecks/README.md#verify) - Verify the proxy configuration for your domain
 
 ### [redirectURLs()](docs/sdks/redirecturls/README.md)
 
 * [list](docs/sdks/redirecturls/README.md#list) - List all redirect URLs
-* [create](docs/sdks/redirecturls/README.md#create) - Create a redirect URL
-* [get](docs/sdks/redirecturls/README.md#get) - Retrieve a redirect URL
-* [delete](docs/sdks/redirecturls/README.md#delete) - Delete a redirect URL
+
+### [redirectUrls()](docs/sdks/clerkredirecturls/README.md)
+
+* [create](docs/sdks/clerkredirecturls/README.md#create) - Create a redirect URL
+* [get](docs/sdks/clerkredirecturls/README.md#get) - Retrieve a redirect URL
+* [delete](docs/sdks/clerkredirecturls/README.md#delete) - Delete a redirect URL
 
 ### [signInTokens()](docs/sdks/signintokens/README.md)
 
@@ -335,12 +320,12 @@ public class Application {
 
 * [update](docs/sdks/signups/README.md#update) - Update a sign-up
 
-### [oAuthApplications()](docs/sdks/oauthapplications/README.md)
+### [oauthApplications()](docs/sdks/oauthapplications/README.md)
 
 * [list](docs/sdks/oauthapplications/README.md#list) - Get a list of OAuth applications for an instance
 * [create](docs/sdks/oauthapplications/README.md#create) - Create an OAuth application
 * [get](docs/sdks/oauthapplications/README.md#get) - Retrieve an OAuth application by ID
-* [updateApplication](docs/sdks/oauthapplications/README.md#updateapplication) - Update an OAuth application
+* [update](docs/sdks/oauthapplications/README.md#update) - Update an OAuth application
 * [delete](docs/sdks/oauthapplications/README.md#delete) - Delete an OAuth application
 * [rotateSecret](docs/sdks/oauthapplications/README.md#rotatesecret) - Rotate the client secret of the given OAuth application
 
@@ -356,49 +341,6 @@ public class Application {
 
 * [create](docs/sdks/testingtokens/README.md#create) - Retrieve a new testing token
 <!-- End Available Resources and Operations [operations] -->
-
-<!-- Start Pagination [pagination] -->
-## Pagination
-
-Some of the endpoints in this SDK support pagination. To use pagination, you make your SDK calls as usual, but the
-returned response object will have a `next` method that can be called to pull down the next group of results. The `next`
-function returns an `Optional` value, which `isPresent` until there are no more pages to be fetched.
-
-Here's an example of one such pagination call:
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
-
-            sdk.clients().list()
-                .limit(10L)
-                .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
-
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
-    }
-}
-```
-<!-- End Pagination [pagination] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -416,6 +358,8 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetClientListResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -426,15 +370,18 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.clients().list()
+            GetClientListResponse res = sdk.clients().list()
                 .limit(10L)
                 .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .call();
 
+            if (res.clientList().isPresent()) {
+                // handle response
+            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -476,7 +423,7 @@ public class Application {
                 .serverIndex(0)
                 .build();
 
-            GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+            GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
                 .frontendApi("<value>")
                 .publishableKey("<value>")
                 .call();
@@ -514,7 +461,7 @@ public class Application {
                 .serverURL("https://api.clerk.com/v1")
                 .build();
 
-            GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+            GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
                 .frontendApi("<value>")
                 .publishableKey("<value>")
                 .call();
@@ -561,7 +508,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+            GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
                 .frontendApi("<value>")
                 .publishableKey("<value>")
                 .call();

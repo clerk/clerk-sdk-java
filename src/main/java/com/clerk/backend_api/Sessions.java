@@ -44,6 +44,12 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * The Session object is an abstraction over an HTTP session.
+ * It models the period of information exchange between a user and the server.
+ * Sessions are created when a user successfully goes through the sign in or sign up flows.
+ * https://clerk.com/docs/reference/clerkjs/session
+ */
 public class Sessions implements
             MethodCallGetSessionList,
             MethodCallGetSession,

@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class RevokeOrganizationInvitationRequest {
@@ -29,19 +31,25 @@ public class RevokeOrganizationInvitationRequest {
     private String invitationId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private RevokeOrganizationInvitationRequestBody requestBody;
+    private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody;
 
     @JsonCreator
     public RevokeOrganizationInvitationRequest(
             String organizationId,
             String invitationId,
-            RevokeOrganizationInvitationRequestBody requestBody) {
+            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(invitationId, "invitationId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
         this.invitationId = invitationId;
         this.requestBody = requestBody;
+    }
+    
+    public RevokeOrganizationInvitationRequest(
+            String organizationId,
+            String invitationId) {
+        this(organizationId, invitationId, Optional.empty());
     }
 
     /**
@@ -60,9 +68,10 @@ public class RevokeOrganizationInvitationRequest {
         return invitationId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public RevokeOrganizationInvitationRequestBody requestBody() {
-        return requestBody;
+    public Optional<RevokeOrganizationInvitationRequestBody> requestBody() {
+        return (Optional<RevokeOrganizationInvitationRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -88,6 +97,12 @@ public class RevokeOrganizationInvitationRequest {
     }
 
     public RevokeOrganizationInvitationRequest withRequestBody(RevokeOrganizationInvitationRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public RevokeOrganizationInvitationRequest withRequestBody(Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -130,7 +145,7 @@ public class RevokeOrganizationInvitationRequest {
  
         private String invitationId;
  
-        private RevokeOrganizationInvitationRequestBody requestBody;  
+        private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -155,6 +170,12 @@ public class RevokeOrganizationInvitationRequest {
         }
 
         public Builder requestBody(RevokeOrganizationInvitationRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

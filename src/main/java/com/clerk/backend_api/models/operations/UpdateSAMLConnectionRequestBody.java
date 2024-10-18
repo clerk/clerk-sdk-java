@@ -105,6 +105,13 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonProperty("allow_idp_initiated")
     private JsonNullable<Boolean> allowIdpInitiated;
 
+    /**
+     * Enable or deactivate additional identifications
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("disable_additional_identifications")
+    private JsonNullable<Boolean> disableAdditionalIdentifications;
+
     @JsonCreator
     public UpdateSAMLConnectionRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
@@ -118,7 +125,8 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("active") JsonNullable<Boolean> active,
             @JsonProperty("sync_user_attributes") JsonNullable<Boolean> syncUserAttributes,
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
-            @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated) {
+            @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated,
+            @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -131,6 +139,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         this.name = name;
         this.domain = domain;
         this.idpEntityId = idpEntityId;
@@ -143,10 +152,11 @@ public class UpdateSAMLConnectionRequestBody {
         this.syncUserAttributes = syncUserAttributes;
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
+        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
     }
     
     public UpdateSAMLConnectionRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -244,6 +254,14 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> allowIdpInitiated() {
         return allowIdpInitiated;
+    }
+
+    /**
+     * Enable or deactivate additional identifications
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> disableAdditionalIdentifications() {
+        return disableAdditionalIdentifications;
     }
 
     public final static Builder builder() {
@@ -465,6 +483,24 @@ public class UpdateSAMLConnectionRequestBody {
         this.allowIdpInitiated = allowIdpInitiated;
         return this;
     }
+
+    /**
+     * Enable or deactivate additional identifications
+     */
+    public UpdateSAMLConnectionRequestBody withDisableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        this.disableAdditionalIdentifications = JsonNullable.of(disableAdditionalIdentifications);
+        return this;
+    }
+
+    /**
+     * Enable or deactivate additional identifications
+     */
+    public UpdateSAMLConnectionRequestBody withDisableAdditionalIdentifications(JsonNullable<Boolean> disableAdditionalIdentifications) {
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -487,7 +523,8 @@ public class UpdateSAMLConnectionRequestBody {
             Objects.deepEquals(this.active, other.active) &&
             Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
             Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated);
+            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
+            Objects.deepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications);
     }
     
     @Override
@@ -504,7 +541,8 @@ public class UpdateSAMLConnectionRequestBody {
             active,
             syncUserAttributes,
             allowSubdomains,
-            allowIdpInitiated);
+            allowIdpInitiated,
+            disableAdditionalIdentifications);
     }
     
     @Override
@@ -521,7 +559,8 @@ public class UpdateSAMLConnectionRequestBody {
                 "active", active,
                 "syncUserAttributes", syncUserAttributes,
                 "allowSubdomains", allowSubdomains,
-                "allowIdpInitiated", allowIdpInitiated);
+                "allowIdpInitiated", allowIdpInitiated,
+                "disableAdditionalIdentifications", disableAdditionalIdentifications);
     }
     
     public final static class Builder {
@@ -548,7 +587,9 @@ public class UpdateSAMLConnectionRequestBody {
  
         private JsonNullable<Boolean> allowSubdomains = JsonNullable.undefined();
  
-        private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();  
+        private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();
+ 
+        private JsonNullable<Boolean> disableAdditionalIdentifications = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -769,6 +810,24 @@ public class UpdateSAMLConnectionRequestBody {
             this.allowIdpInitiated = allowIdpInitiated;
             return this;
         }
+
+        /**
+         * Enable or deactivate additional identifications
+         */
+        public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
+            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+            this.disableAdditionalIdentifications = JsonNullable.of(disableAdditionalIdentifications);
+            return this;
+        }
+
+        /**
+         * Enable or deactivate additional identifications
+         */
+        public Builder disableAdditionalIdentifications(JsonNullable<Boolean> disableAdditionalIdentifications) {
+            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+            this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+            return this;
+        }
         
         public UpdateSAMLConnectionRequestBody build() {
             return new UpdateSAMLConnectionRequestBody(
@@ -783,7 +842,8 @@ public class UpdateSAMLConnectionRequestBody {
                 active,
                 syncUserAttributes,
                 allowSubdomains,
-                allowIdpInitiated);
+                allowIdpInitiated,
+                disableAdditionalIdentifications);
         }
     }
 }

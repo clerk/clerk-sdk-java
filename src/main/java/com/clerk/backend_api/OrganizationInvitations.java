@@ -5,6 +5,7 @@
 package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.components.OrganizationInvitation;
+import com.clerk.backend_api.models.components.OrganizationInvitationsWithPublicOrganizationData;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest;
@@ -17,6 +18,9 @@ import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRespo
 import com.clerk.backend_api.models.operations.GetOrganizationInvitationRequest;
 import com.clerk.backend_api.models.operations.GetOrganizationInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse;
+import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsRequest;
+import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsResponse;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder;
@@ -39,22 +43,19 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional; 
 
 public class OrganizationInvitations implements
+            MethodCallListInstanceOrganizationInvitations,
             MethodCallCreateOrganizationInvitation,
             MethodCallListOrganizationInvitations,
             MethodCallCreateOrganizationInvitationBulk,
@@ -70,6 +71,151 @@ public class OrganizationInvitations implements
 
 
     /**
+     * Get a list of organization invitations for the current instance
+     * This request returns the list of organization invitations for the instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * You can filter them by providing the 'status' query parameter, that accepts multiple values.
+     * You can change the order by providing the 'order' query parameter, that accepts multiple values.
+     * You can filter by the invited user email address providing the `query` query parameter.
+     * The organization invitations are ordered by descending creation date by default.
+     * @return The call builder
+     */
+    public ListInstanceOrganizationInvitationsRequestBuilder getAll() {
+        return new ListInstanceOrganizationInvitationsRequestBuilder(this);
+    }
+
+    /**
+     * Get a list of organization invitations for the current instance
+     * This request returns the list of organization invitations for the instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * You can filter them by providing the 'status' query parameter, that accepts multiple values.
+     * You can change the order by providing the 'order' query parameter, that accepts multiple values.
+     * You can filter by the invited user email address providing the `query` query parameter.
+     * The organization invitations are ordered by descending creation date by default.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ListInstanceOrganizationInvitationsResponse getAll(
+            ListInstanceOrganizationInvitationsRequest request) throws Exception {
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
+                "/organization_invitations");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        _req.addQueryParams(Utils.getQueryParams(
+                ListInstanceOrganizationInvitationsRequest.class,
+                request, 
+                null));
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "ListInstanceOrganizationInvitations", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListInstanceOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "ListInstanceOrganizationInvitations",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "ListInstanceOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        ListInstanceOrganizationInvitationsResponse.Builder _resBuilder = 
+            ListInstanceOrganizationInvitationsResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        ListInstanceOrganizationInvitationsResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                OrganizationInvitationsWithPublicOrganizationData _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<OrganizationInvitationsWithPublicOrganizationData>() {});
+                _res.withOrganizationInvitationsWithPublicOrganizationData(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
      * Create and send an organization invitation
      * Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.
      * You can specify the `role` for the invited organization member.
@@ -80,7 +226,7 @@ public class OrganizationInvitations implements
      * When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.
      * Use this parameter to implement a custom invitation acceptance flow.
      * 
-     * You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.
+     * You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.
      * That user must be a member with administrator privileges in the organization.
      * Only "admin" members can create organization invitations.
      * 
@@ -104,7 +250,7 @@ public class OrganizationInvitations implements
      * When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.
      * Use this parameter to implement a custom invitation acceptance flow.
      * 
-     * You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.
+     * You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.
      * That user must be a member with administrator privileges in the organization.
      * Only "admin" members can create organization invitations.
      * 
@@ -380,48 +526,19 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         ListOrganizationInvitationsResponse.Builder _resBuilder = 
             ListOrganizationInvitationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    ListOrganizationInvitationsRequestBuilder _ret = list();
-                    _ret.organizationId(organizationId);
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    _ret.status(status);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         ListOrganizationInvitationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationInvitations _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitations>() {});
                 _res.withOrganizationInvitations(Optional.ofNullable(_out));
                 return _res;
@@ -430,13 +547,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -444,7 +561,7 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -453,13 +570,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -472,7 +589,7 @@ public class OrganizationInvitations implements
      * The request body supports passing an optional `redirect_url` parameter for each invitation.
      * When the invited user clicks the link to accept the invitation, they will be redirected to the provided URL.
      * Use this parameter to implement a custom invitation acceptance flow.
-     * You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitation
+     * You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitation
      * can have a different inviter user.
      * Inviter users must be members with administrator privileges in the organization.
      * Only "admin" members can create organization invitations.
@@ -481,7 +598,7 @@ public class OrganizationInvitations implements
      * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      * @return The call builder
      */
-    public CreateOrganizationInvitationBulkRequestBuilder createBulk() {
+    public CreateOrganizationInvitationBulkRequestBuilder bulkCreate() {
         return new CreateOrganizationInvitationBulkRequestBuilder(this);
     }
 
@@ -493,7 +610,7 @@ public class OrganizationInvitations implements
      * The request body supports passing an optional `redirect_url` parameter for each invitation.
      * When the invited user clicks the link to accept the invitation, they will be redirected to the provided URL.
      * Use this parameter to implement a custom invitation acceptance flow.
-     * You must specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitation
+     * You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter. Each invitation
      * can have a different inviter user.
      * Inviter users must be members with administrator privileges in the organization.
      * Only "admin" members can create organization invitations.
@@ -505,7 +622,7 @@ public class OrganizationInvitations implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationInvitationBulkResponse createBulk(
+    public CreateOrganizationInvitationBulkResponse bulkCreate(
             String organizationId,
             List<RequestBody> requestBody) throws Exception {
         CreateOrganizationInvitationBulkRequest request =
@@ -772,47 +889,19 @@ public class OrganizationInvitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         ListPendingOrganizationInvitationsResponse.Builder _resBuilder = 
             ListPendingOrganizationInvitationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    ListPendingOrganizationInvitationsRequestBuilder _ret = listPending();
-                    _ret.organizationId(organizationId);
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         ListPendingOrganizationInvitationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationInvitations _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationInvitations>() {});
                 _res.withOrganizationInvitations(Optional.ofNullable(_out));
                 return _res;
@@ -821,13 +910,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -835,7 +924,7 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -844,13 +933,13 @@ public class OrganizationInvitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -1001,7 +1090,7 @@ public class OrganizationInvitations implements
      * Use this request to revoke a previously issued organization invitation.
      * Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.
      * Only organization invitations with "pending" status can be revoked.
-     * The request needs the `requesting_user_id` parameter to specify the user which revokes the invitation.
+     * The request accepts the `requesting_user_id` parameter to specify the user which revokes the invitation.
      * Only users with "admin" role can revoke invitations.
      * @return The call builder
      */
@@ -1014,7 +1103,25 @@ public class OrganizationInvitations implements
      * Use this request to revoke a previously issued organization invitation.
      * Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.
      * Only organization invitations with "pending" status can be revoked.
-     * The request needs the `requesting_user_id` parameter to specify the user which revokes the invitation.
+     * The request accepts the `requesting_user_id` parameter to specify the user which revokes the invitation.
+     * Only users with "admin" role can revoke invitations.
+     * @param organizationId The organization ID.
+     * @param invitationId The organization invitation ID.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RevokeOrganizationInvitationResponse revoke(
+            String organizationId,
+            String invitationId) throws Exception {
+        return revoke(organizationId, invitationId, Optional.empty());
+    }
+    
+    /**
+     * Revoke a pending organization invitation
+     * Use this request to revoke a previously issued organization invitation.
+     * Revoking an organization invitation makes it invalid; the invited user will no longer be able to join the organization with the revoked invitation.
+     * Only organization invitations with "pending" status can be revoked.
+     * The request accepts the `requesting_user_id` parameter to specify the user which revokes the invitation.
      * Only users with "admin" role can revoke invitations.
      * @param organizationId The organization ID.
      * @param invitationId The organization invitation ID.
@@ -1025,7 +1132,7 @@ public class OrganizationInvitations implements
     public RevokeOrganizationInvitationResponse revoke(
             String organizationId,
             String invitationId,
-            RevokeOrganizationInvitationRequestBody requestBody) throws Exception {
+            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) throws Exception {
         RevokeOrganizationInvitationRequest request =
             RevokeOrganizationInvitationRequest
                 .builder()
@@ -1051,9 +1158,6 @@ public class OrganizationInvitations implements
                 "requestBody",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

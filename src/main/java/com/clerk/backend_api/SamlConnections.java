@@ -5,8 +5,8 @@
 package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.components.DeletedObject;
-import com.clerk.backend_api.models.components.SAMLConnection;
 import com.clerk.backend_api.models.components.SAMLConnections;
+import com.clerk.backend_api.models.components.SchemasSAMLConnection;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody;
@@ -35,17 +35,13 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional; 
 
@@ -171,46 +167,19 @@ public class SamlConnections implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         ListSAMLConnectionsResponse.Builder _resBuilder = 
             ListSAMLConnectionsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    ListSAMLConnectionsRequestBuilder _ret = list();
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         ListSAMLConnectionsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 SAMLConnections _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<SAMLConnections>() {});
                 _res.withSAMLConnections(Optional.ofNullable(_out));
                 return _res;
@@ -219,13 +188,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -233,7 +202,7 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -242,13 +211,13 @@ public class SamlConnections implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -359,10 +328,10 @@ public class SamlConnections implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                SAMLConnection _out = Utils.mapper().readValue(
+                SchemasSAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<SAMLConnection>() {});
-                _res.withSAMLConnection(Optional.ofNullable(_out));
+                    new TypeReference<SchemasSAMLConnection>() {});
+                _res.withSchemasSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -497,10 +466,10 @@ public class SamlConnections implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                SAMLConnection _out = Utils.mapper().readValue(
+                SchemasSAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<SAMLConnection>() {});
-                _res.withSAMLConnection(Optional.ofNullable(_out));
+                    new TypeReference<SchemasSAMLConnection>() {});
+                _res.withSchemasSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -651,10 +620,10 @@ public class SamlConnections implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                SAMLConnection _out = Utils.mapper().readValue(
+                SchemasSAMLConnection _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<SAMLConnection>() {});
-                _res.withSAMLConnection(Optional.ofNullable(_out));
+                    new TypeReference<SchemasSAMLConnection>() {});
+                _res.withSchemasSAMLConnection(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(

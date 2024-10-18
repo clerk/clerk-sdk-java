@@ -11,10 +11,10 @@ import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateInvitationResponse;
+import com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus;
 import com.clerk.backend_api.models.operations.ListInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListInvitationsResponse;
-import com.clerk.backend_api.models.operations.QueryParamStatus;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequest;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
@@ -28,20 +28,20 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * Invitations allow you to invite someone to sign up to your application, via email.
+ * https://clerk.com/docs/authentication/invitations
+ */
 public class Invitations implements
             MethodCallCreateInvitation,
             MethodCallListInvitations,
@@ -244,7 +244,7 @@ public class Invitations implements
     public ListInvitationsResponse list(
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends QueryParamStatus> status) throws Exception {
+            Optional<? extends ListInvitationsQueryParamStatus> status) throws Exception {
         ListInvitationsRequest request =
             ListInvitationsRequest
                 .builder()
@@ -315,47 +315,19 @@ public class Invitations implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         ListInvitationsResponse.Builder _resBuilder = 
             ListInvitationsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    ListInvitationsRequestBuilder _ret = list();
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    _ret.status(status);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         ListInvitationsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 List<Invitation> _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<List<Invitation>>() {});
                 _res.withInvitationList(Optional.ofNullable(_out));
                 return _res;
@@ -364,7 +336,7 @@ public class Invitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -373,13 +345,13 @@ public class Invitations implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
