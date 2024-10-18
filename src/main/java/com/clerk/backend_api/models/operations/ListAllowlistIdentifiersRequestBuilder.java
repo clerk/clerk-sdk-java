@@ -15,6 +15,6 @@ public class ListAllowlistIdentifiersRequestBuilder {
 
     public ListAllowlistIdentifiersResponse call() throws Exception {
 
-        return sdk.listDirect();
+        return sdk.listAllowlistIdentifiersDirect();
     }
 }

@@ -4,13 +4,11 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class ListInvitationsRequestBuilder {
 
@@ -22,7 +20,7 @@ public class ListInvitationsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
-    private Optional<? extends QueryParamStatus> status = Optional.empty();
+    private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListInvitations sdk;
 
     public ListInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListInvitations sdk) {
@@ -53,13 +51,13 @@ public class ListInvitationsRequestBuilder {
         return this;
     }
                 
-    public ListInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.QueryParamStatus status) {
+    public ListInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public ListInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.QueryParamStatus> status) {
+    public ListInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -76,27 +74,6 @@ public class ListInvitationsRequestBuilder {
             limit,
             offset,
             status);
-    }
-    
-    /**
-     * Returns a stream that performs next page calls till no more pages
-     * are returned. Unlike the {@link #call()} method this method will
-     * throw an {@link SDKError} if any page retrieval has an HTTP status 
-     * code >= 300 (Note that 3XX is not an error range but will need 
-     * special handling by the user if for example the HTTP client is 
-     * not configured to follow redirects).
-     * 
-     * @throws {@link SDKError} if HTTP status code >= 300 is encountered
-     **/  
-    public Stream<ListInvitationsResponse> callAsStream() {
-        return Utils.stream(() -> Optional.of(call()), x -> {
-            if (x.statusCode() >= 300) {
-                byte[] body = Utils.toByteArrayAndClose(x.rawResponse().body());
-                throw new SDKError(x.rawResponse(), x.statusCode(), x.contentType(), body);
-            } else {
-                return x.next();
-            }
-        });
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

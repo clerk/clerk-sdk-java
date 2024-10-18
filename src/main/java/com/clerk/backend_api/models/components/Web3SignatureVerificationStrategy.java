@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum Web3SignatureVerificationStrategy {
-    WEB3_METAMASK_SIGNATURE("web3_metamask_signature");
+    WEB3_METAMASK_SIGNATURE("web3_metamask_signature"),
+    WEB3_COINBASE_WALLET_SIGNATURE("web3_coinbase_wallet_signature");
 
     @JsonValue
     private final String value;

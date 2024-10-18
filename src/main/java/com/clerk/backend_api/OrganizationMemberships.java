@@ -14,6 +14,9 @@ import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRespo
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest;
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse;
+import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequest;
+import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequestBuilder;
+import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse;
@@ -35,17 +38,13 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional; 
 
@@ -54,7 +53,8 @@ public class OrganizationMemberships implements
             MethodCallListOrganizationMemberships,
             MethodCallUpdateOrganizationMembership,
             MethodCallDeleteOrganizationMembership,
-            MethodCallUpdateOrganizationMembershipMetadata {
+            MethodCallUpdateOrganizationMembershipMetadata,
+            MethodCallInstanceGetOrganizationMemberships {
 
     private final SDKConfiguration sdkConfiguration;
 
@@ -67,6 +67,10 @@ public class OrganizationMemberships implements
      * Create a new organization membership
      * Adds a user as a member to the given organization.
      * Only users in the same instance as the organization can be added as members.
+     * 
+     * This organization will be the user's [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a
+     * different organization as active before then.
      * @return The call builder
      */
     public CreateOrganizationMembershipRequestBuilder create() {
@@ -77,6 +81,10 @@ public class OrganizationMemberships implements
      * Create a new organization membership
      * Adds a user as a member to the given organization.
      * Only users in the same instance as the organization can be added as members.
+     * 
+     * This organization will be the user's [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a
+     * different organization as active before then.
      * @param organizationId The ID of the organization where the new membership will be created
      * @param requestBody
      * @return The response from the API call
@@ -333,48 +341,19 @@ public class OrganizationMemberships implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         ListOrganizationMembershipsResponse.Builder _resBuilder = 
             ListOrganizationMembershipsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    ListOrganizationMembershipsRequestBuilder _ret = list();
-                    _ret.organizationId(organizationId);
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    _ret.orderBy(orderBy);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         ListOrganizationMembershipsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 com.clerk.backend_api.models.components.OrganizationMemberships _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<com.clerk.backend_api.models.components.OrganizationMemberships>() {});
                 _res.withOrganizationMemberships(Optional.ofNullable(_out));
                 return _res;
@@ -383,13 +362,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -397,7 +376,7 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -406,13 +385,13 @@ public class OrganizationMemberships implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -846,6 +825,168 @@ public class OrganizationMemberships implements
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Get a list of all organization memberships within an instance.
+     * Retrieves all organization user memberships for the given instance.
+     * @return The call builder
+     */
+    public InstanceGetOrganizationMembershipsRequestBuilder getAll() {
+        return new InstanceGetOrganizationMembershipsRequestBuilder(this);
+    }
+
+    /**
+     * Get a list of all organization memberships within an instance.
+     * Retrieves all organization user memberships for the given instance.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public InstanceGetOrganizationMembershipsResponse getAllDirect() throws Exception {
+        return getAll(Optional.empty(), Optional.empty(), Optional.empty());
+    }
+    
+    /**
+     * Get a list of all organization memberships within an instance.
+     * Retrieves all organization user memberships for the given instance.
+     * @param limit Applies a limit to the number of results returned.
+    Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+    Needs to be an integer greater or equal to zero.
+    To be used in conjunction with `limit`.
+     * @param orderBy Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+    By prepending one of those values with + or -,
+    we can choose to sort in ascending (ASC) or descending (DESC) order.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public InstanceGetOrganizationMembershipsResponse getAll(
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<String> orderBy) throws Exception {
+        InstanceGetOrganizationMembershipsRequest request =
+            InstanceGetOrganizationMembershipsRequest
+                .builder()
+                .limit(limit)
+                .offset(offset)
+                .orderBy(orderBy)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
+                "/organization_memberships");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        _req.addQueryParams(Utils.getQueryParams(
+                InstanceGetOrganizationMembershipsRequest.class,
+                request, 
+                null));
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "InstanceGetOrganizationMemberships", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "InstanceGetOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "InstanceGetOrganizationMemberships",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "InstanceGetOrganizationMemberships",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        InstanceGetOrganizationMembershipsResponse.Builder _resBuilder = 
+            InstanceGetOrganizationMembershipsResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        InstanceGetOrganizationMembershipsResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                com.clerk.backend_api.models.components.OrganizationMemberships _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMemberships>() {});
+                _res.withOrganizationMemberships(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "500")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),

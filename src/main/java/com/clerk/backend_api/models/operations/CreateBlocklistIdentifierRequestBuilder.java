@@ -30,7 +30,7 @@ public class CreateBlocklistIdentifierRequestBuilder {
 
     public CreateBlocklistIdentifierResponse call() throws Exception {
 
-        return sdk.create(
+        return sdk.createBlocklistIdentifier(
             request);
     }
 }

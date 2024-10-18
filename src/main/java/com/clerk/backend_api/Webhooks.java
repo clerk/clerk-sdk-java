@@ -29,6 +29,10 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * You can configure webhooks to be notified about various events that happen on your instance.
+ * https://clerk.com/docs/integration/webhooks
+ */
 public class Webhooks implements
             MethodCallCreateSvixApp,
             MethodCallDeleteSvixApp,

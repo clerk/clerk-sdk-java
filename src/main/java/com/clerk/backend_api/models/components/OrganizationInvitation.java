@@ -45,6 +45,10 @@ public class OrganizationInvitation {
     private Optional<String> role;
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("role_name")
+    private Optional<String> roleName;
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization_id")
     private Optional<String> organizationId;
 
@@ -80,6 +84,7 @@ public class OrganizationInvitation {
             @JsonProperty("object") Optional<? extends OrganizationInvitationObject> object,
             @JsonProperty("email_address") Optional<String> emailAddress,
             @JsonProperty("role") Optional<String> role,
+            @JsonProperty("role_name") Optional<String> roleName,
             @JsonProperty("organization_id") Optional<String> organizationId,
             @JsonProperty("status") Optional<String> status,
             @JsonProperty("public_metadata") Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata,
@@ -90,6 +95,7 @@ public class OrganizationInvitation {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(role, "role");
+        Utils.checkNotNull(roleName, "roleName");
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -100,6 +106,7 @@ public class OrganizationInvitation {
         this.object = object;
         this.emailAddress = emailAddress;
         this.role = role;
+        this.roleName = roleName;
         this.organizationId = organizationId;
         this.status = status;
         this.publicMetadata = publicMetadata;
@@ -109,7 +116,7 @@ public class OrganizationInvitation {
     }
     
     public OrganizationInvitation() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -135,6 +142,11 @@ public class OrganizationInvitation {
     @JsonIgnore
     public Optional<String> role() {
         return role;
+    }
+
+    @JsonIgnore
+    public Optional<String> roleName() {
+        return roleName;
     }
 
     @JsonIgnore
@@ -232,6 +244,18 @@ public class OrganizationInvitation {
     public OrganizationInvitation withRole(Optional<String> role) {
         Utils.checkNotNull(role, "role");
         this.role = role;
+        return this;
+    }
+
+    public OrganizationInvitation withRoleName(String roleName) {
+        Utils.checkNotNull(roleName, "roleName");
+        this.roleName = Optional.ofNullable(roleName);
+        return this;
+    }
+
+    public OrganizationInvitation withRoleName(Optional<String> roleName) {
+        Utils.checkNotNull(roleName, "roleName");
+        this.roleName = roleName;
         return this;
     }
 
@@ -333,6 +357,7 @@ public class OrganizationInvitation {
             Objects.deepEquals(this.object, other.object) &&
             Objects.deepEquals(this.emailAddress, other.emailAddress) &&
             Objects.deepEquals(this.role, other.role) &&
+            Objects.deepEquals(this.roleName, other.roleName) &&
             Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
@@ -348,6 +373,7 @@ public class OrganizationInvitation {
             object,
             emailAddress,
             role,
+            roleName,
             organizationId,
             status,
             publicMetadata,
@@ -363,6 +389,7 @@ public class OrganizationInvitation {
                 "object", object,
                 "emailAddress", emailAddress,
                 "role", role,
+                "roleName", roleName,
                 "organizationId", organizationId,
                 "status", status,
                 "publicMetadata", publicMetadata,
@@ -380,6 +407,8 @@ public class OrganizationInvitation {
         private Optional<String> emailAddress = Optional.empty();
  
         private Optional<String> role = Optional.empty();
+ 
+        private Optional<String> roleName = Optional.empty();
  
         private Optional<String> organizationId = Optional.empty();
  
@@ -450,6 +479,18 @@ public class OrganizationInvitation {
         public Builder role(Optional<String> role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
+            return this;
+        }
+
+        public Builder roleName(String roleName) {
+            Utils.checkNotNull(roleName, "roleName");
+            this.roleName = Optional.ofNullable(roleName);
+            return this;
+        }
+
+        public Builder roleName(Optional<String> roleName) {
+            Utils.checkNotNull(roleName, "roleName");
+            this.roleName = roleName;
             return this;
         }
 
@@ -543,6 +584,7 @@ public class OrganizationInvitation {
                 object,
                 emailAddress,
                 role,
+                roleName,
                 organizationId,
                 status,
                 publicMetadata,

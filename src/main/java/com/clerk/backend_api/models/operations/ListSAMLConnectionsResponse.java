@@ -11,8 +11,6 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -20,7 +18,6 @@ import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 
 public class ListSAMLConnectionsResponse implements Response {
@@ -44,8 +41,6 @@ public class ListSAMLConnectionsResponse implements Response {
      * A list of SAML Connections
      */
     private Optional<? extends SAMLConnections> samlConnections;
-
-    private Callable<Optional<ListSAMLConnectionsResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public ListSAMLConnectionsResponse(
@@ -101,16 +96,6 @@ public class ListSAMLConnectionsResponse implements Response {
     @JsonIgnore
     public Optional<SAMLConnections> samlConnections() {
         return (Optional<SAMLConnections>) samlConnections;
-    }
-
-    public Optional<ListSAMLConnectionsResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private ListSAMLConnectionsResponse withNext(Callable<Optional<ListSAMLConnectionsResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -197,7 +182,6 @@ public class ListSAMLConnectionsResponse implements Response {
     }
     
     public final static class Builder {
-        private Callable<Optional<ListSAMLConnectionsResponse>> next;
  
         private String contentType;
  
@@ -255,26 +239,13 @@ public class ListSAMLConnectionsResponse implements Response {
             this.samlConnections = samlConnections;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @Deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<ListSAMLConnectionsResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public ListSAMLConnectionsResponse build() {
             return new ListSAMLConnectionsResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                samlConnections)
-                .withNext(next);
+                samlConnections);
         }
     }
 }

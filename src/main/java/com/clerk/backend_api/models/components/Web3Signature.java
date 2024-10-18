@@ -26,8 +26,13 @@ public class Web3Signature {
     @JsonProperty("strategy")
     private Web3SignatureVerificationStrategy strategy;
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("nonce")
-    private Nonce nonce;
+    private JsonNullable<String> nonce;
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("message")
+    private JsonNullable<String> message;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
@@ -41,26 +46,28 @@ public class Web3Signature {
     public Web3Signature(
             @JsonProperty("status") Web3SignatureVerificationStatus status,
             @JsonProperty("strategy") Web3SignatureVerificationStrategy strategy,
-            @JsonProperty("nonce") Nonce nonce,
+            @JsonProperty("nonce") JsonNullable<String> nonce,
+            @JsonProperty("message") JsonNullable<String> message,
             @JsonProperty("attempts") JsonNullable<Long> attempts,
             @JsonProperty("expire_at") JsonNullable<Long> expireAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(nonce, "nonce");
+        Utils.checkNotNull(message, "message");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         this.status = status;
         this.strategy = strategy;
         this.nonce = nonce;
+        this.message = message;
         this.attempts = attempts;
         this.expireAt = expireAt;
     }
     
     public Web3Signature(
             Web3SignatureVerificationStatus status,
-            Web3SignatureVerificationStrategy strategy,
-            Nonce nonce) {
-        this(status, strategy, nonce, JsonNullable.undefined(), JsonNullable.undefined());
+            Web3SignatureVerificationStrategy strategy) {
+        this(status, strategy, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -74,8 +81,13 @@ public class Web3Signature {
     }
 
     @JsonIgnore
-    public Nonce nonce() {
+    public JsonNullable<String> nonce() {
         return nonce;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> message() {
+        return message;
     }
 
     @JsonIgnore
@@ -104,9 +116,27 @@ public class Web3Signature {
         return this;
     }
 
-    public Web3Signature withNonce(Nonce nonce) {
+    public Web3Signature withNonce(String nonce) {
+        Utils.checkNotNull(nonce, "nonce");
+        this.nonce = JsonNullable.of(nonce);
+        return this;
+    }
+
+    public Web3Signature withNonce(JsonNullable<String> nonce) {
         Utils.checkNotNull(nonce, "nonce");
         this.nonce = nonce;
+        return this;
+    }
+
+    public Web3Signature withMessage(String message) {
+        Utils.checkNotNull(message, "message");
+        this.message = JsonNullable.of(message);
+        return this;
+    }
+
+    public Web3Signature withMessage(JsonNullable<String> message) {
+        Utils.checkNotNull(message, "message");
+        this.message = message;
         return this;
     }
 
@@ -147,6 +177,7 @@ public class Web3Signature {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.strategy, other.strategy) &&
             Objects.deepEquals(this.nonce, other.nonce) &&
+            Objects.deepEquals(this.message, other.message) &&
             Objects.deepEquals(this.attempts, other.attempts) &&
             Objects.deepEquals(this.expireAt, other.expireAt);
     }
@@ -157,6 +188,7 @@ public class Web3Signature {
             status,
             strategy,
             nonce,
+            message,
             attempts,
             expireAt);
     }
@@ -167,6 +199,7 @@ public class Web3Signature {
                 "status", status,
                 "strategy", strategy,
                 "nonce", nonce,
+                "message", message,
                 "attempts", attempts,
                 "expireAt", expireAt);
     }
@@ -177,7 +210,9 @@ public class Web3Signature {
  
         private Web3SignatureVerificationStrategy strategy;
  
-        private Nonce nonce;
+        private JsonNullable<String> nonce = JsonNullable.undefined();
+ 
+        private JsonNullable<String> message = JsonNullable.undefined();
  
         private JsonNullable<Long> attempts = JsonNullable.undefined();
  
@@ -199,9 +234,27 @@ public class Web3Signature {
             return this;
         }
 
-        public Builder nonce(Nonce nonce) {
+        public Builder nonce(String nonce) {
+            Utils.checkNotNull(nonce, "nonce");
+            this.nonce = JsonNullable.of(nonce);
+            return this;
+        }
+
+        public Builder nonce(JsonNullable<String> nonce) {
             Utils.checkNotNull(nonce, "nonce");
             this.nonce = nonce;
+            return this;
+        }
+
+        public Builder message(String message) {
+            Utils.checkNotNull(message, "message");
+            this.message = JsonNullable.of(message);
+            return this;
+        }
+
+        public Builder message(JsonNullable<String> message) {
+            Utils.checkNotNull(message, "message");
+            this.message = message;
             return this;
         }
 
@@ -234,6 +287,7 @@ public class Web3Signature {
                 status,
                 strategy,
                 nonce,
+                message,
                 attempts,
                 expireAt);
         }

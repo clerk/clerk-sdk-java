@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
@@ -36,18 +37,30 @@ public class UpdateDomainRequestBody {
     @JsonProperty("proxy_url")
     private JsonNullable<String> proxyUrl;
 
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("is_secondary")
+    private JsonNullable<Boolean> isSecondary;
+
     @JsonCreator
     public UpdateDomainRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
-            @JsonProperty("proxy_url") JsonNullable<String> proxyUrl) {
+            @JsonProperty("proxy_url") JsonNullable<String> proxyUrl,
+            @JsonProperty("is_secondary") JsonNullable<Boolean> isSecondary) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(proxyUrl, "proxyUrl");
+        Utils.checkNotNull(isSecondary, "isSecondary");
         this.name = name;
         this.proxyUrl = proxyUrl;
+        this.isSecondary = isSecondary;
     }
     
     public UpdateDomainRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -67,6 +80,16 @@ public class UpdateDomainRequestBody {
     @JsonIgnore
     public JsonNullable<String> proxyUrl() {
         return proxyUrl;
+    }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> isSecondary() {
+        return isSecondary;
     }
 
     public final static Builder builder() {
@@ -114,6 +137,28 @@ public class UpdateDomainRequestBody {
         this.proxyUrl = proxyUrl;
         return this;
     }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    public UpdateDomainRequestBody withIsSecondary(boolean isSecondary) {
+        Utils.checkNotNull(isSecondary, "isSecondary");
+        this.isSecondary = JsonNullable.of(isSecondary);
+        return this;
+    }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    public UpdateDomainRequestBody withIsSecondary(JsonNullable<Boolean> isSecondary) {
+        Utils.checkNotNull(isSecondary, "isSecondary");
+        this.isSecondary = isSecondary;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -126,28 +171,33 @@ public class UpdateDomainRequestBody {
         UpdateDomainRequestBody other = (UpdateDomainRequestBody) o;
         return 
             Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
+            Objects.deepEquals(this.isSecondary, other.isSecondary);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             name,
-            proxyUrl);
+            proxyUrl,
+            isSecondary);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateDomainRequestBody.class,
                 "name", name,
-                "proxyUrl", proxyUrl);
+                "proxyUrl", proxyUrl,
+                "isSecondary", isSecondary);
     }
     
     public final static class Builder {
  
         private JsonNullable<String> name = JsonNullable.undefined();
  
-        private JsonNullable<String> proxyUrl = JsonNullable.undefined();  
+        private JsonNullable<String> proxyUrl = JsonNullable.undefined();
+ 
+        private JsonNullable<Boolean> isSecondary = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -194,11 +244,34 @@ public class UpdateDomainRequestBody {
             this.proxyUrl = proxyUrl;
             return this;
         }
+
+        /**
+         * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+         * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+         * multiple secondaries) on the same root domain (eTLD+1).
+         */
+        public Builder isSecondary(boolean isSecondary) {
+            Utils.checkNotNull(isSecondary, "isSecondary");
+            this.isSecondary = JsonNullable.of(isSecondary);
+            return this;
+        }
+
+        /**
+         * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+         * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+         * multiple secondaries) on the same root domain (eTLD+1).
+         */
+        public Builder isSecondary(JsonNullable<Boolean> isSecondary) {
+            Utils.checkNotNull(isSecondary, "isSecondary");
+            this.isSecondary = isSecondary;
+            return this;
+        }
         
         public UpdateDomainRequestBody build() {
             return new UpdateDomainRequestBody(
                 name,
-                proxyUrl);
+                proxyUrl,
+                isSecondary);
         }
     }
 }

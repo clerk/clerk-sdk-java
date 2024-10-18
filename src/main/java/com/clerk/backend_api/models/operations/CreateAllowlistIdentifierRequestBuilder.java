@@ -30,7 +30,7 @@ public class CreateAllowlistIdentifierRequestBuilder {
 
     public CreateAllowlistIdentifierResponse call() throws Exception {
 
-        return sdk.create(
+        return sdk.createAllowlistIdentifier(
             request);
     }
 }

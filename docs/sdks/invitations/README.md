@@ -3,6 +3,9 @@
 
 ## Overview
 
+Invitations allow you to invite someone to sign up to your application, via email.
+<https://clerk.com/docs/authentication/invitations>
+
 ### Available Operations
 
 * [create](#create) - Create an invitation
@@ -88,7 +91,9 @@ Returns all non-revoked invitations for your application, sorted by creation dat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.QueryParamStatus;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus;
+import com.clerk.backend_api.models.operations.ListInvitationsResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -99,15 +104,18 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.invitations().list()
+            ListInvitationsResponse res = sdk.invitations().list()
                 .limit(10L)
                 .offset(0L)
-                .status(QueryParamStatus.REVOKED)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .status(ListInvitationsQueryParamStatus.EXPIRED)
+                .call();
 
+            if (res.invitationList().isPresent()) {
+                // handle response
+            }
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
             throw e;
@@ -123,7 +131,7 @@ public class Application {
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
-| `status`                                                                                                                                  | [Optional<QueryParamStatus>](../../models/operations/QueryParamStatus.md)                                                                 | :heavy_minus_sign:                                                                                                                        | Filter invitations based on their status                                                                                                  |
+| `status`                                                                                                                                  | [Optional<ListInvitationsQueryParamStatus>](../../models/operations/ListInvitationsQueryParamStatus.md)                                   | :heavy_minus_sign:                                                                                                                        | Filter invitations based on their status                                                                                                  |
 
 ### Response
 

@@ -5,7 +5,7 @@
 package com.clerk.backend_api.models.operations;
 
 
-import com.clerk.backend_api.models.components.SAMLConnection;
+import com.clerk.backend_api.models.components.SchemasSAMLConnection;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,22 +40,22 @@ public class UpdateSAMLConnectionResponse implements Response {
     /**
      * A SAML Connection
      */
-    private Optional<? extends SAMLConnection> samlConnection;
+    private Optional<? extends SchemasSAMLConnection> schemasSAMLConnection;
 
     @JsonCreator
     public UpdateSAMLConnectionResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends SAMLConnection> samlConnection) {
+            Optional<? extends SchemasSAMLConnection> schemasSAMLConnection) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(samlConnection, "samlConnection");
+        Utils.checkNotNull(schemasSAMLConnection, "schemasSAMLConnection");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.samlConnection = samlConnection;
+        this.schemasSAMLConnection = schemasSAMLConnection;
     }
     
     public UpdateSAMLConnectionResponse(
@@ -94,8 +94,8 @@ public class UpdateSAMLConnectionResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SAMLConnection> samlConnection() {
-        return (Optional<SAMLConnection>) samlConnection;
+    public Optional<SchemasSAMLConnection> schemasSAMLConnection() {
+        return (Optional<SchemasSAMLConnection>) schemasSAMLConnection;
     }
 
     public final static Builder builder() {
@@ -132,18 +132,18 @@ public class UpdateSAMLConnectionResponse implements Response {
     /**
      * A SAML Connection
      */
-    public UpdateSAMLConnectionResponse withSAMLConnection(SAMLConnection samlConnection) {
-        Utils.checkNotNull(samlConnection, "samlConnection");
-        this.samlConnection = Optional.ofNullable(samlConnection);
+    public UpdateSAMLConnectionResponse withSchemasSAMLConnection(SchemasSAMLConnection schemasSAMLConnection) {
+        Utils.checkNotNull(schemasSAMLConnection, "schemasSAMLConnection");
+        this.schemasSAMLConnection = Optional.ofNullable(schemasSAMLConnection);
         return this;
     }
 
     /**
      * A SAML Connection
      */
-    public UpdateSAMLConnectionResponse withSAMLConnection(Optional<? extends SAMLConnection> samlConnection) {
-        Utils.checkNotNull(samlConnection, "samlConnection");
-        this.samlConnection = samlConnection;
+    public UpdateSAMLConnectionResponse withSchemasSAMLConnection(Optional<? extends SchemasSAMLConnection> schemasSAMLConnection) {
+        Utils.checkNotNull(schemasSAMLConnection, "schemasSAMLConnection");
+        this.schemasSAMLConnection = schemasSAMLConnection;
         return this;
     }
     
@@ -160,7 +160,7 @@ public class UpdateSAMLConnectionResponse implements Response {
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
             Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.samlConnection, other.samlConnection);
+            Objects.deepEquals(this.schemasSAMLConnection, other.schemasSAMLConnection);
     }
     
     @Override
@@ -169,7 +169,7 @@ public class UpdateSAMLConnectionResponse implements Response {
             contentType,
             statusCode,
             rawResponse,
-            samlConnection);
+            schemasSAMLConnection);
     }
     
     @Override
@@ -178,7 +178,7 @@ public class UpdateSAMLConnectionResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "samlConnection", samlConnection);
+                "schemasSAMLConnection", schemasSAMLConnection);
     }
     
     public final static class Builder {
@@ -189,7 +189,7 @@ public class UpdateSAMLConnectionResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends SAMLConnection> samlConnection = Optional.empty();  
+        private Optional<? extends SchemasSAMLConnection> schemasSAMLConnection = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -225,18 +225,18 @@ public class UpdateSAMLConnectionResponse implements Response {
         /**
          * A SAML Connection
          */
-        public Builder samlConnection(SAMLConnection samlConnection) {
-            Utils.checkNotNull(samlConnection, "samlConnection");
-            this.samlConnection = Optional.ofNullable(samlConnection);
+        public Builder schemasSAMLConnection(SchemasSAMLConnection schemasSAMLConnection) {
+            Utils.checkNotNull(schemasSAMLConnection, "schemasSAMLConnection");
+            this.schemasSAMLConnection = Optional.ofNullable(schemasSAMLConnection);
             return this;
         }
 
         /**
          * A SAML Connection
          */
-        public Builder samlConnection(Optional<? extends SAMLConnection> samlConnection) {
-            Utils.checkNotNull(samlConnection, "samlConnection");
-            this.samlConnection = samlConnection;
+        public Builder schemasSAMLConnection(Optional<? extends SchemasSAMLConnection> schemasSAMLConnection) {
+            Utils.checkNotNull(schemasSAMLConnection, "schemasSAMLConnection");
+            this.schemasSAMLConnection = schemasSAMLConnection;
             return this;
         }
         
@@ -245,7 +245,7 @@ public class UpdateSAMLConnectionResponse implements Response {
                 contentType,
                 statusCode,
                 rawResponse,
-                samlConnection);
+                schemasSAMLConnection);
         }
     }
 }

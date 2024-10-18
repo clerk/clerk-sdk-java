@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class UpdateUserMetadataRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends UpdateUserMetadataPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Metadata saved on the user that is only visible to your backend.
@@ -34,7 +36,7 @@ public class UpdateUserMetadataRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends UpdateUserMetadataPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     /**
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
@@ -44,13 +46,13 @@ public class UpdateUserMetadataRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
-    private Optional<? extends UpdateUserMetadataUnsafeMetadata> unsafeMetadata;
+    private Optional<? extends Map<String, Object>> unsafeMetadata;
 
     @JsonCreator
     public UpdateUserMetadataRequestBody(
-            @JsonProperty("public_metadata") Optional<? extends UpdateUserMetadataPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends UpdateUserMetadataPrivateMetadata> privateMetadata,
-            @JsonProperty("unsafe_metadata") Optional<? extends UpdateUserMetadataUnsafeMetadata> unsafeMetadata) {
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("unsafe_metadata") Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
@@ -69,8 +71,8 @@ public class UpdateUserMetadataRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateUserMetadataPublicMetadata> publicMetadata() {
-        return (Optional<UpdateUserMetadataPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -79,8 +81,8 @@ public class UpdateUserMetadataRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateUserMetadataPrivateMetadata> privateMetadata() {
-        return (Optional<UpdateUserMetadataPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     /**
@@ -91,8 +93,8 @@ public class UpdateUserMetadataRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateUserMetadataUnsafeMetadata> unsafeMetadata() {
-        return (Optional<UpdateUserMetadataUnsafeMetadata>) unsafeMetadata;
+    public Optional<Map<String, Object>> unsafeMetadata() {
+        return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
     public final static Builder builder() {
@@ -103,7 +105,7 @@ public class UpdateUserMetadataRequestBody {
      * Metadata saved on the user, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateUserMetadataRequestBody withPublicMetadata(UpdateUserMetadataPublicMetadata publicMetadata) {
+    public UpdateUserMetadataRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -113,7 +115,7 @@ public class UpdateUserMetadataRequestBody {
      * Metadata saved on the user, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateUserMetadataRequestBody withPublicMetadata(Optional<? extends UpdateUserMetadataPublicMetadata> publicMetadata) {
+    public UpdateUserMetadataRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -123,7 +125,7 @@ public class UpdateUserMetadataRequestBody {
      * Metadata saved on the user that is only visible to your backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateUserMetadataRequestBody withPrivateMetadata(UpdateUserMetadataPrivateMetadata privateMetadata) {
+    public UpdateUserMetadataRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -133,7 +135,7 @@ public class UpdateUserMetadataRequestBody {
      * Metadata saved on the user that is only visible to your backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateUserMetadataRequestBody withPrivateMetadata(Optional<? extends UpdateUserMetadataPrivateMetadata> privateMetadata) {
+    public UpdateUserMetadataRequestBody withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -145,7 +147,7 @@ public class UpdateUserMetadataRequestBody {
      * 
      * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
      */
-    public UpdateUserMetadataRequestBody withUnsafeMetadata(UpdateUserMetadataUnsafeMetadata unsafeMetadata) {
+    public UpdateUserMetadataRequestBody withUnsafeMetadata(Map<String, Object> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
         return this;
@@ -157,7 +159,7 @@ public class UpdateUserMetadataRequestBody {
      * 
      * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
      */
-    public UpdateUserMetadataRequestBody withUnsafeMetadata(Optional<? extends UpdateUserMetadataUnsafeMetadata> unsafeMetadata) {
+    public UpdateUserMetadataRequestBody withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
         return this;
@@ -196,11 +198,11 @@ public class UpdateUserMetadataRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends UpdateUserMetadataPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends UpdateUserMetadataPrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
  
-        private Optional<? extends UpdateUserMetadataUnsafeMetadata> unsafeMetadata = Optional.empty();  
+        private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -210,7 +212,7 @@ public class UpdateUserMetadataRequestBody {
          * Metadata saved on the user, that is visible to both your frontend and backend.
          * The new object will be merged with the existing value.
          */
-        public Builder publicMetadata(UpdateUserMetadataPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -220,7 +222,7 @@ public class UpdateUserMetadataRequestBody {
          * Metadata saved on the user, that is visible to both your frontend and backend.
          * The new object will be merged with the existing value.
          */
-        public Builder publicMetadata(Optional<? extends UpdateUserMetadataPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -230,7 +232,7 @@ public class UpdateUserMetadataRequestBody {
          * Metadata saved on the user that is only visible to your backend.
          * The new object will be merged with the existing value.
          */
-        public Builder privateMetadata(UpdateUserMetadataPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -240,7 +242,7 @@ public class UpdateUserMetadataRequestBody {
          * Metadata saved on the user that is only visible to your backend.
          * The new object will be merged with the existing value.
          */
-        public Builder privateMetadata(Optional<? extends UpdateUserMetadataPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
@@ -252,7 +254,7 @@ public class UpdateUserMetadataRequestBody {
          * 
          * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
          */
-        public Builder unsafeMetadata(UpdateUserMetadataUnsafeMetadata unsafeMetadata) {
+        public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
             return this;
@@ -264,7 +266,7 @@ public class UpdateUserMetadataRequestBody {
          * 
          * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
          */
-        public Builder unsafeMetadata(Optional<? extends UpdateUserMetadataUnsafeMetadata> unsafeMetadata) {
+        public Builder unsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = unsafeMetadata;
             return this;

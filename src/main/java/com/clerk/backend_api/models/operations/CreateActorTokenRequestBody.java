@@ -14,10 +14,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,7 +23,7 @@ import java.util.Optional;
 public class CreateActorTokenRequestBody {
 
     /**
-     * The ID of the user that can use the newly created sign in token.
+     * The ID of the user being impersonated.
      */
     @JsonProperty("user_id")
     private String userId;
@@ -35,7 +33,7 @@ public class CreateActorTokenRequestBody {
      * This whole payload will be also included in the JWT session token.
      */
     @JsonProperty("actor")
-    private Map<String, Object> actor;
+    private Actor actor;
 
     /**
      * Optional parameter to specify the life duration of the actor token in seconds.
@@ -56,11 +54,11 @@ public class CreateActorTokenRequestBody {
     @JsonCreator
     public CreateActorTokenRequestBody(
             @JsonProperty("user_id") String userId,
-            @JsonProperty("actor") Map<String, Object> actor,
+            @JsonProperty("actor") Actor actor,
             @JsonProperty("expires_in_seconds") Optional<Long> expiresInSeconds,
             @JsonProperty("session_max_duration_in_seconds") Optional<Long> sessionMaxDurationInSeconds) {
         Utils.checkNotNull(userId, "userId");
-        actor = Utils.emptyMapIfNull(actor);
+        Utils.checkNotNull(actor, "actor");
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         Utils.checkNotNull(sessionMaxDurationInSeconds, "sessionMaxDurationInSeconds");
         this.userId = userId;
@@ -71,12 +69,12 @@ public class CreateActorTokenRequestBody {
     
     public CreateActorTokenRequestBody(
             String userId,
-            Map<String, Object> actor) {
+            Actor actor) {
         this(userId, actor, Optional.empty(), Optional.empty());
     }
 
     /**
-     * The ID of the user that can use the newly created sign in token.
+     * The ID of the user being impersonated.
      */
     @JsonIgnore
     public String userId() {
@@ -88,7 +86,7 @@ public class CreateActorTokenRequestBody {
      * This whole payload will be also included in the JWT session token.
      */
     @JsonIgnore
-    public Map<String, Object> actor() {
+    public Actor actor() {
         return actor;
     }
 
@@ -115,7 +113,7 @@ public class CreateActorTokenRequestBody {
     }
 
     /**
-     * The ID of the user that can use the newly created sign in token.
+     * The ID of the user being impersonated.
      */
     public CreateActorTokenRequestBody withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -127,7 +125,7 @@ public class CreateActorTokenRequestBody {
      * The actor payload. It needs to include a sub property which should contain the ID of the actor.
      * This whole payload will be also included in the JWT session token.
      */
-    public CreateActorTokenRequestBody withActor(Map<String, Object> actor) {
+    public CreateActorTokenRequestBody withActor(Actor actor) {
         Utils.checkNotNull(actor, "actor");
         this.actor = actor;
         return this;
@@ -211,7 +209,7 @@ public class CreateActorTokenRequestBody {
  
         private String userId;
  
-        private Map<String, Object> actor;
+        private Actor actor;
  
         private Optional<Long> expiresInSeconds;
  
@@ -222,7 +220,7 @@ public class CreateActorTokenRequestBody {
         }
 
         /**
-         * The ID of the user that can use the newly created sign in token.
+         * The ID of the user being impersonated.
          */
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -234,7 +232,7 @@ public class CreateActorTokenRequestBody {
          * The actor payload. It needs to include a sub property which should contain the ID of the actor.
          * This whole payload will be also included in the JWT session token.
          */
-        public Builder actor(Map<String, Object> actor) {
+        public Builder actor(Actor actor) {
             Utils.checkNotNull(actor, "actor");
             this.actor = actor;
             return this;

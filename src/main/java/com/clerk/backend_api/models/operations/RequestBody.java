@@ -16,6 +16,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Objects;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class RequestBody {
@@ -30,8 +31,9 @@ public class RequestBody {
      * The ID of the user that invites the new member to the organization.
      * Must be an administrator in the organization.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("inviter_user_id")
-    private String inviterUserId;
+    private JsonNullable<String> inviterUserId;
 
     /**
      * The role of the new member in the organization.
@@ -63,7 +65,7 @@ public class RequestBody {
     @JsonCreator
     public RequestBody(
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("inviter_user_id") String inviterUserId,
+            @JsonProperty("inviter_user_id") JsonNullable<String> inviterUserId,
             @JsonProperty("role") String role,
             @JsonProperty("public_metadata") Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata,
@@ -84,9 +86,8 @@ public class RequestBody {
     
     public RequestBody(
             String emailAddress,
-            String inviterUserId,
             String role) {
-        this(emailAddress, inviterUserId, role, Optional.empty(), Optional.empty(), Optional.empty());
+        this(emailAddress, JsonNullable.undefined(), role, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -102,7 +103,7 @@ public class RequestBody {
      * Must be an administrator in the organization.
      */
     @JsonIgnore
-    public String inviterUserId() {
+    public JsonNullable<String> inviterUserId() {
         return inviterUserId;
     }
 
@@ -158,6 +159,16 @@ public class RequestBody {
      * Must be an administrator in the organization.
      */
     public RequestBody withInviterUserId(String inviterUserId) {
+        Utils.checkNotNull(inviterUserId, "inviterUserId");
+        this.inviterUserId = JsonNullable.of(inviterUserId);
+        return this;
+    }
+
+    /**
+     * The ID of the user that invites the new member to the organization.
+     * Must be an administrator in the organization.
+     */
+    public RequestBody withInviterUserId(JsonNullable<String> inviterUserId) {
         Utils.checkNotNull(inviterUserId, "inviterUserId");
         this.inviterUserId = inviterUserId;
         return this;
@@ -270,7 +281,7 @@ public class RequestBody {
  
         private String emailAddress;
  
-        private String inviterUserId;
+        private JsonNullable<String> inviterUserId = JsonNullable.undefined();
  
         private String role;
  
@@ -298,6 +309,16 @@ public class RequestBody {
          * Must be an administrator in the organization.
          */
         public Builder inviterUserId(String inviterUserId) {
+            Utils.checkNotNull(inviterUserId, "inviterUserId");
+            this.inviterUserId = JsonNullable.of(inviterUserId);
+            return this;
+        }
+
+        /**
+         * The ID of the user that invites the new member to the organization.
+         * Must be an administrator in the organization.
+         */
+        public Builder inviterUserId(JsonNullable<String> inviterUserId) {
             Utils.checkNotNull(inviterUserId, "inviterUserId");
             this.inviterUserId = inviterUserId;
             return this;

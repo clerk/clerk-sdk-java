@@ -30,7 +30,7 @@ public class ChangeProductionInstanceDomainRequestBuilder {
 
     public ChangeProductionInstanceDomainResponse call() throws Exception {
 
-        return sdk.changeProductionDomain(
+        return sdk.changeProductionInstanceDomain(
             request);
     }
 }

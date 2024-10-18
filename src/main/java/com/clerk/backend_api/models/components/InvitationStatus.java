@@ -10,7 +10,8 @@ import java.lang.String;
 public enum InvitationStatus {
     PENDING("pending"),
     ACCEPTED("accepted"),
-    REVOKED("revoked");
+    REVOKED("revoked"),
+    EXPIRED("expired");
 
     @JsonValue
     private final String value;

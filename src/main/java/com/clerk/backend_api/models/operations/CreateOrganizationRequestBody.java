@@ -22,7 +22,8 @@ import java.util.Optional;
 public class CreateOrganizationRequestBody {
 
     /**
-     * The name of the new organization
+     * The name of the new organization.
+     * May not contain URLs or HTML.
      */
     @JsonProperty("name")
     private String name;
@@ -63,6 +64,13 @@ public class CreateOrganizationRequestBody {
     @JsonProperty("max_allowed_memberships")
     private Optional<Long> maxAllowedMemberships;
 
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("created_at")
+    private Optional<String> createdAt;
+
     @JsonCreator
     public CreateOrganizationRequestBody(
             @JsonProperty("name") String name,
@@ -70,29 +78,33 @@ public class CreateOrganizationRequestBody {
             @JsonProperty("private_metadata") Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata,
             @JsonProperty("public_metadata") Optional<? extends CreateOrganizationPublicMetadata> publicMetadata,
             @JsonProperty("slug") Optional<String> slug,
-            @JsonProperty("max_allowed_memberships") Optional<Long> maxAllowedMemberships) {
+            @JsonProperty("max_allowed_memberships") Optional<Long> maxAllowedMemberships,
+            @JsonProperty("created_at") Optional<String> createdAt) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
+        Utils.checkNotNull(createdAt, "createdAt");
         this.name = name;
         this.createdBy = createdBy;
         this.privateMetadata = privateMetadata;
         this.publicMetadata = publicMetadata;
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
+        this.createdAt = createdAt;
     }
     
     public CreateOrganizationRequestBody(
             String name,
             String createdBy) {
-        this(name, createdBy, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(name, createdBy, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
-     * The name of the new organization
+     * The name of the new organization.
+     * May not contain URLs or HTML.
      */
     @JsonIgnore
     public String name() {
@@ -143,12 +155,21 @@ public class CreateOrganizationRequestBody {
         return maxAllowedMemberships;
     }
 
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonIgnore
+    public Optional<String> createdAt() {
+        return createdAt;
+    }
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * The name of the new organization
+     * The name of the new organization.
+     * May not contain URLs or HTML.
      */
     public CreateOrganizationRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -240,6 +261,24 @@ public class CreateOrganizationRequestBody {
         this.maxAllowedMemberships = maxAllowedMemberships;
         return this;
     }
+
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public CreateOrganizationRequestBody withCreatedAt(String createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = Optional.ofNullable(createdAt);
+        return this;
+    }
+
+    /**
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public CreateOrganizationRequestBody withCreatedAt(Optional<String> createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = createdAt;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -256,7 +295,8 @@ public class CreateOrganizationRequestBody {
             Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships);
+            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
@@ -267,7 +307,8 @@ public class CreateOrganizationRequestBody {
             privateMetadata,
             publicMetadata,
             slug,
-            maxAllowedMemberships);
+            maxAllowedMemberships,
+            createdAt);
     }
     
     @Override
@@ -278,7 +319,8 @@ public class CreateOrganizationRequestBody {
                 "privateMetadata", privateMetadata,
                 "publicMetadata", publicMetadata,
                 "slug", slug,
-                "maxAllowedMemberships", maxAllowedMemberships);
+                "maxAllowedMemberships", maxAllowedMemberships,
+                "createdAt", createdAt);
     }
     
     public final static class Builder {
@@ -293,14 +335,17 @@ public class CreateOrganizationRequestBody {
  
         private Optional<String> slug = Optional.empty();
  
-        private Optional<Long> maxAllowedMemberships = Optional.empty();  
+        private Optional<Long> maxAllowedMemberships = Optional.empty();
+ 
+        private Optional<String> createdAt = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * The name of the new organization
+         * The name of the new organization.
+         * May not contain URLs or HTML.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -392,6 +437,24 @@ public class CreateOrganizationRequestBody {
             this.maxAllowedMemberships = maxAllowedMemberships;
             return this;
         }
+
+        /**
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder createdAt(String createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
+        /**
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder createdAt(Optional<String> createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = createdAt;
+            return this;
+        }
         
         public CreateOrganizationRequestBody build() {
             return new CreateOrganizationRequestBody(
@@ -400,7 +463,8 @@ public class CreateOrganizationRequestBody {
                 privateMetadata,
                 publicMetadata,
                 slug,
-                maxAllowedMemberships);
+                maxAllowedMemberships,
+                createdAt);
         }
     }
 }
