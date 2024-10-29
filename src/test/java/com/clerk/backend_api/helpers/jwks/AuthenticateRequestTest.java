@@ -59,15 +59,18 @@ public class AuthenticateRequestTest {
         if (state.isSignedIn()) {
             assertTrue(state.reason().isEmpty());
             assertEquals(token, state.token().get());
+            assertTrue(state.claims().isPresent());
+            assertTrue(state.claims().get().getSubject().contains("user_"));
+
         } else {
             assertTrue(state.isSignedOut());
             assertEquals(TokenVerificationErrorReason.TOKEN_EXPIRED, state.reason().get());
             assertTrue(state.token().isEmpty());
+            assertTrue(state.claims().isEmpty());
             System.out.println("WARNING: the provided session token is expired.");
         }
     }
 
-    // @EnabledIfEnvironmentVariable(named = "CLERK_SECRET_KEY", matches = ".+")
     @Test
     public void testAuthenticateRequestNoSessionToken() throws URISyntaxException {
         AuthenticateRequestOptions arOptions = AuthenticateRequestOptions //
