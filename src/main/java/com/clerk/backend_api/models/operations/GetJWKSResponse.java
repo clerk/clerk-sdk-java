@@ -5,6 +5,7 @@
 package com.clerk.backend_api.models.operations;
 
 
+import com.clerk.backend_api.models.components.WellKnownJWKS;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,8 +14,10 @@ import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class GetJWKSResponse implements Response {
@@ -34,17 +37,32 @@ public class GetJWKSResponse implements Response {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    /**
+     * Get the JSON Web Key Set
+     */
+    private Optional<? extends WellKnownJWKS> wellKnownJWKS;
+
     @JsonCreator
     public GetJWKSResponse(
             String contentType,
             int statusCode,
-            HttpResponse<InputStream> rawResponse) {
+            HttpResponse<InputStream> rawResponse,
+            Optional<? extends WellKnownJWKS> wellKnownJWKS) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
+        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+        this.wellKnownJWKS = wellKnownJWKS;
+    }
+    
+    public GetJWKSResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, statusCode, rawResponse, Optional.empty());
     }
 
     /**
@@ -69,6 +87,15 @@ public class GetJWKSResponse implements Response {
     @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
+    }
+
+    /**
+     * Get the JSON Web Key Set
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<WellKnownJWKS> wellKnownJWKS() {
+        return (Optional<WellKnownJWKS>) wellKnownJWKS;
     }
 
     public final static Builder builder() {
@@ -101,6 +128,24 @@ public class GetJWKSResponse implements Response {
         this.rawResponse = rawResponse;
         return this;
     }
+
+    /**
+     * Get the JSON Web Key Set
+     */
+    public GetJWKSResponse withWellKnownJWKS(WellKnownJWKS wellKnownJWKS) {
+        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
+        this.wellKnownJWKS = Optional.ofNullable(wellKnownJWKS);
+        return this;
+    }
+
+    /**
+     * Get the JSON Web Key Set
+     */
+    public GetJWKSResponse withWellKnownJWKS(Optional<? extends WellKnownJWKS> wellKnownJWKS) {
+        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
+        this.wellKnownJWKS = wellKnownJWKS;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -114,7 +159,8 @@ public class GetJWKSResponse implements Response {
         return 
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse);
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.wellKnownJWKS, other.wellKnownJWKS);
     }
     
     @Override
@@ -122,7 +168,8 @@ public class GetJWKSResponse implements Response {
         return Objects.hash(
             contentType,
             statusCode,
-            rawResponse);
+            rawResponse,
+            wellKnownJWKS);
     }
     
     @Override
@@ -130,7 +177,8 @@ public class GetJWKSResponse implements Response {
         return Utils.toString(GetJWKSResponse.class,
                 "contentType", contentType,
                 "statusCode", statusCode,
-                "rawResponse", rawResponse);
+                "rawResponse", rawResponse,
+                "wellKnownJWKS", wellKnownJWKS);
     }
     
     public final static class Builder {
@@ -139,7 +187,9 @@ public class GetJWKSResponse implements Response {
  
         private Integer statusCode;
  
-        private HttpResponse<InputStream> rawResponse;  
+        private HttpResponse<InputStream> rawResponse;
+ 
+        private Optional<? extends WellKnownJWKS> wellKnownJWKS = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -171,12 +221,31 @@ public class GetJWKSResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
+        /**
+         * Get the JSON Web Key Set
+         */
+        public Builder wellKnownJWKS(WellKnownJWKS wellKnownJWKS) {
+            Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
+            this.wellKnownJWKS = Optional.ofNullable(wellKnownJWKS);
+            return this;
+        }
+
+        /**
+         * Get the JSON Web Key Set
+         */
+        public Builder wellKnownJWKS(Optional<? extends WellKnownJWKS> wellKnownJWKS) {
+            Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
+            this.wellKnownJWKS = wellKnownJWKS;
+            return this;
+        }
         
         public GetJWKSResponse build() {
             return new GetJWKSResponse(
                 contentType,
                 statusCode,
-                rawResponse);
+                rawResponse,
+                wellKnownJWKS);
         }
     }
 }

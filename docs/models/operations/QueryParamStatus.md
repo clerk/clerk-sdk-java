@@ -1,6 +1,6 @@
 # QueryParamStatus
 
-Filter invitations based on their status
+Filter organization invitations based on their status
 
 
 ## Values

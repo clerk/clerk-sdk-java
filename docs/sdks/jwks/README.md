@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getJWKS](#getjwks) - Retrieve the JSON Web Key Set of the instance
+* [get](#get) - Retrieve the JSON Web Key Set of the instance
 
-## getJWKS
+## get
 
 Retrieve the JSON Web Key Set of the instance
 
@@ -29,10 +29,12 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            GetJWKSResponse res = sdk.jwks().getJWKS()
+            GetJWKSResponse res = sdk.jwks().get()
                 .call();
 
-            // handle response
+            if (res.wellKnownJWKS().isPresent()) {
+                // handle response
+            }
         } catch (SDKError e) {
             // handle exception
             throw e;

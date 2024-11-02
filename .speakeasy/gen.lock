@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: f6e25376d224dc39635a7f5eed081de2
+  docChecksum: 360e2b992ec7b171685132d827f3b1f7
   docVersion: v1
-  speakeasyVersion: 1.390.1
-  generationVersion: 2.409.0
-  releaseVersion: 0.3.0-beta.3
-  configChecksum: 457823c8a9591ad2fc26d7cbfd0453a1
+  speakeasyVersion: 1.385.0
+  generationVersion: 2.407.2
+  releaseVersion: 0.3.0-beta.4
+  configChecksum: b0df6ba5eac8f8909dc3ed95a3f66438
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -24,7 +24,6 @@ features:
     groups: 2.81.2
     nameOverrides: 2.81.3
     nullables: 0.1.0
-    pagination: 0.2.2
     sdkHooks: 0.1.0
     unions: 0.0.5
 generatedFiles:
@@ -36,24 +35,31 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/EmailAddresses.java
   - src/main/java/com/clerk/backend_api/PhoneNumbers.java
   - src/main/java/com/clerk/backend_api/Sessions.java
+  - src/main/java/com/clerk/backend_api/EmailSMSTemplates.java
+  - src/main/java/com/clerk/backend_api/EmailAndSmsTemplates.java
   - src/main/java/com/clerk/backend_api/Templates.java
   - src/main/java/com/clerk/backend_api/Users.java
   - src/main/java/com/clerk/backend_api/Invitations.java
-  - src/main/java/com/clerk/backend_api/Allowlist.java
-  - src/main/java/com/clerk/backend_api/Blocklist.java
-  - src/main/java/com/clerk/backend_api/Instance.java
-  - src/main/java/com/clerk/backend_api/Actors.java
+  - src/main/java/com/clerk/backend_api/OrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/AllowlistBlocklist.java
+  - src/main/java/com/clerk/backend_api/AllowlistIdentifiers.java
+  - src/main/java/com/clerk/backend_api/BlocklistIdentifiers.java
+  - src/main/java/com/clerk/backend_api/BetaFeatures.java
+  - src/main/java/com/clerk/backend_api/ActorTokens.java
   - src/main/java/com/clerk/backend_api/Domains.java
+  - src/main/java/com/clerk/backend_api/InstanceSettings.java
   - src/main/java/com/clerk/backend_api/Webhooks.java
   - src/main/java/com/clerk/backend_api/JwtTemplates.java
   - src/main/java/com/clerk/backend_api/Organizations.java
-  - src/main/java/com/clerk/backend_api/OrganizationInvitations.java
   - src/main/java/com/clerk/backend_api/OrganizationMemberships.java
-  - src/main/java/com/clerk/backend_api/Proxy.java
+  - src/main/java/com/clerk/backend_api/OrganizationDomains.java
+  - src/main/java/com/clerk/backend_api/OrganizationDomain.java
+  - src/main/java/com/clerk/backend_api/ProxyChecks.java
   - src/main/java/com/clerk/backend_api/RedirectURLs.java
+  - src/main/java/com/clerk/backend_api/ClerkRedirectUrls.java
   - src/main/java/com/clerk/backend_api/SignInTokens.java
   - src/main/java/com/clerk/backend_api/SignUps.java
-  - src/main/java/com/clerk/backend_api/OAuthApplications.java
+  - src/main/java/com/clerk/backend_api/OauthApplications.java
   - src/main/java/com/clerk/backend_api/SamlConnections.java
   - src/main/java/com/clerk/backend_api/TestingTokens.java
   - src/main/java/com/clerk/backend_api/models/operations/GetPublicInterstitialRequestBuilder.java
@@ -74,12 +80,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSessionRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifySessionRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSessionTokenFromTemplateRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetTemplateListRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUsersCountRequestBuilder.java
@@ -95,30 +99,44 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthAccessTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteBackupCodeRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserPasskeyDeleteRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateUserTOTPRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteTOTPRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteExternalAccountRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListInvitationsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListInstanceOrganizationInvitationsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListAllowlistIdentifiersRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateAllowlistIdentifierRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListBlocklistIdentifiersRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateBlocklistIdentifierRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteBlocklistIdentifierRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListBlocklistIdentifiersRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceAuthConfigRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeActorTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListDomainsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSvixAppRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteSvixAppRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLRequestBuilder.java
@@ -135,17 +153,16 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/MergeOrganizationMetadataRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UploadOrganizationLogoRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationLogoRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationMembershipsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipMetadataRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationDomainRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationDomainsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationDomainRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListRedirectURLsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateRedirectURLRequestBuilder.java
@@ -255,30 +272,23 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/Object.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSessionTokenFromTemplateResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSessionTokenFromTemplateResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/TemplateType.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetTemplateListRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetTemplateListResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/PathParamTemplateType.java
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplatePathParamTemplateType.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevertTemplatePathParamTemplateType.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponseBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryPathParamTemplateType.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplatePathParamTemplateType.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpsertTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/PasswordHasher.java
   - src/main/java/com/clerk/backend_api/models/operations/PublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/PrivateMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/UnsafeMetadata.java
@@ -288,7 +298,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetUsersCountResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateUserPasswordHasher.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserPublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserPrivateMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserUnsafeMetadata.java
@@ -311,9 +320,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/SetUserProfileImageResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserProfileImageRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserProfileImageResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataPublicMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataPrivateMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataUnsafeMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateUserMetadataResponse.java
@@ -323,6 +329,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthAccessTokenResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/QueryParamStatus.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordResponseBody.java
@@ -335,36 +344,68 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteBackupCodeRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteBackupCodeResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteBackupCodeResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserPasskeyDeleteRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserPasskeyDeleteResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateUserTOTPRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateUserTOTPResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteTOTPRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteTOTPResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteTOTPResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteExternalAccountRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteExternalAccountResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateInvitationPublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateInvitationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateInvitationResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/QueryParamStatus.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListInvitationsQueryParamStatus.java
   - src/main/java/com/clerk/backend_api/models/operations/ListInvitationsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListInvitationsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListInstanceOrganizationInvitationsQueryParamStatus.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListInstanceOrganizationInvitationsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListInstanceOrganizationInvitationsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationPublicMetadata.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationPrivateMetadata.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsQueryParamStatus.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkPublicMetadata.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkPrivateMetadata.java
+  - src/main/java/com/clerk/backend_api/models/operations/RequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ListAllowlistIdentifiersResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateAllowlistIdentifierRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateAllowlistIdentifierResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListBlocklistIdentifiersResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateBlocklistIdentifierRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateBlocklistIdentifierResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteBlocklistIdentifierRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteBlocklistIdentifierResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListBlocklistIdentifiersResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceAuthConfigRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceAuthConfigResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/Actor.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeActorTokenRequest.java
@@ -377,6 +418,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceRestrictionsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceOrganizationSettingsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSvixAppResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteSvixAppResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLResponse.java
@@ -418,26 +465,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UploadOrganizationLogoResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationLogoRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationLogoResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationPublicMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationPrivateMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsQueryParamStatus.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationInvitationsResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkPublicMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkPrivateMetadata.java
-  - src/main/java/com/clerk/backend_api/models/operations/RequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationInvitationBulkResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/ListPendingOrganizationInvitationsResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipResponse.java
@@ -453,6 +480,18 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipMetadataRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipMetadataRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipMetadataResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationDomainRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationDomainRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationDomainResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationDomainsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationDomainsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationDomainRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationDomainResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationDomainRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationDomainRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationDomainResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ListRedirectURLsResponse.java
@@ -497,11 +536,14 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DeleteSAMLConnectionRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteSAMLConnectionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateTestingTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/Keys.java
+  - src/main/java/com/clerk/backend_api/models/components/WellKnownJWKS.java
   - src/main/java/com/clerk/backend_api/models/components/Object.java
   - src/main/java/com/clerk/backend_api/models/components/Client.java
   - src/main/java/com/clerk/backend_api/models/components/SessionObject.java
   - src/main/java/com/clerk/backend_api/models/components/Actor.java
   - src/main/java/com/clerk/backend_api/models/components/Status.java
+  - src/main/java/com/clerk/backend_api/models/components/LatestActivity.java
   - src/main/java/com/clerk/backend_api/models/components/Session.java
   - src/main/java/com/clerk/backend_api/models/components/Meta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkError.java
@@ -552,11 +594,13 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/VerificationError.java
   - src/main/java/com/clerk/backend_api/models/components/Saml.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/SAMLConnectionSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/models/components/SamlConnection.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccount.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasPasskeyObject.java
   - src/main/java/com/clerk/backend_api/models/components/PasskeyVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/PasskeyVerificationStrategy.java
-  - src/main/java/com/clerk/backend_api/models/components/VerificationNonce.java
+  - src/main/java/com/clerk/backend_api/models/components/Nonce.java
   - src/main/java/com/clerk/backend_api/models/components/Passkey.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasPasskeyVerification.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasPasskey.java
@@ -566,7 +610,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerificationAdmin.java
   - src/main/java/com/clerk/backend_api/models/components/Web3SignatureVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/Web3SignatureVerificationStrategy.java
-  - src/main/java/com/clerk/backend_api/models/components/Nonce.java
   - src/main/java/com/clerk/backend_api/models/components/Web3Signature.java
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerification.java
   - src/main/java/com/clerk/backend_api/models/components/Web3Wallet.java
@@ -582,6 +625,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OrganizationMembershipOrganization.java
   - src/main/java/com/clerk/backend_api/models/components/PublicUserData.java
   - src/main/java/com/clerk/backend_api/models/components/OrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationsWithPublicOrganizationData.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationWithPublicOrganizationDataObject.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationWithPublicOrganizationDataPublicMetadata.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationWithPublicOrganizationDataPrivateMetadata.java
+  - src/main/java/com/clerk/backend_api/models/components/PublicOrganizationData.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationWithPublicOrganizationData.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationObject.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationPublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationStatus.java
@@ -590,20 +639,20 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/InvitationRevokedPublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationRevokedStatus.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationRevoked.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationPublicMetadata.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationPrivateMetadata.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitation.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitations.java
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifierObject.java
   - src/main/java/com/clerk/backend_api/models/components/IdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifier.java
-  - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifiers.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierObject.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierIdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifier.java
+  - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifiers.java
   - src/main/java/com/clerk/backend_api/models/components/InstanceSettingsObject.java
   - src/main/java/com/clerk/backend_api/models/components/InstanceSettings.java
-  - src/main/java/com/clerk/backend_api/models/components/InstanceRestrictionsObject.java
-  - src/main/java/com/clerk/backend_api/models/components/InstanceRestrictions.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationSettingsObject.java
-  - src/main/java/com/clerk/backend_api/models/components/DomainsEnrollmentModes.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationSettings.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenStatus.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenActor.java
@@ -612,6 +661,11 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/DomainObject.java
   - src/main/java/com/clerk/backend_api/models/components/Domain.java
   - src/main/java/com/clerk/backend_api/models/components/CNameTarget.java
+  - src/main/java/com/clerk/backend_api/models/components/InstanceRestrictionsObject.java
+  - src/main/java/com/clerk/backend_api/models/components/InstanceRestrictions.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationSettingsObject.java
+  - src/main/java/com/clerk/backend_api/models/components/DomainsEnrollmentModes.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationSettings.java
   - src/main/java/com/clerk/backend_api/models/components/SvixURL.java
   - src/main/java/com/clerk/backend_api/models/components/JWTTemplateObject.java
   - src/main/java/com/clerk/backend_api/models/components/Claims.java
@@ -625,11 +679,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OrganizationWithLogoPublicMetadata.java
   - src/main/java/com/clerk/backend_api/models/components/OrganizationWithLogoPrivateMetadata.java
   - src/main/java/com/clerk/backend_api/models/components/OrganizationWithLogo.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationObject.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationPublicMetadata.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitationPrivateMetadata.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitation.java
-  - src/main/java/com/clerk/backend_api/models/components/OrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationDomainObject.java
+  - src/main/java/com/clerk/backend_api/models/components/EnrollmentMode.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationDomainStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationDomainVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationDomain.java
+  - src/main/java/com/clerk/backend_api/models/components/OrganizationDomains.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheckObject.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheck.java
   - src/main/java/com/clerk/backend_api/models/components/RedirectURLObject.java
@@ -650,9 +705,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationWithSecretObject.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationWithSecret.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnections.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLConnectionObject.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnectionObject.java
   - src/main/java/com/clerk/backend_api/models/components/AttributeMapping.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLConnection.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnection.java
   - src/main/java/com/clerk/backend_api/models/components/TestingTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/TestingToken.java
   - src/main/java/com/clerk/backend_api/models/components/Security.java
@@ -699,30 +754,23 @@ generatedFiles:
   - docs/models/operations/Object.md
   - docs/models/operations/CreateSessionTokenFromTemplateResponseBody.md
   - docs/models/operations/CreateSessionTokenFromTemplateResponse.md
-  - docs/models/operations/TemplateType.md
-  - docs/models/operations/GetTemplateListRequest.md
-  - docs/models/operations/GetTemplateListResponse.md
   - docs/models/operations/PathParamTemplateType.md
   - docs/models/operations/GetTemplateRequest.md
   - docs/models/operations/GetTemplateResponse.md
-  - docs/models/operations/UpsertTemplatePathParamTemplateType.md
-  - docs/models/operations/UpsertTemplateRequestBody.md
-  - docs/models/operations/UpsertTemplateRequest.md
-  - docs/models/operations/UpsertTemplateResponse.md
-  - docs/models/operations/RevertTemplatePathParamTemplateType.md
-  - docs/models/operations/RevertTemplateRequest.md
-  - docs/models/operations/RevertTemplateResponse.md
-  - docs/models/operations/PreviewTemplateRequestBody.md
-  - docs/models/operations/PreviewTemplateRequest.md
-  - docs/models/operations/PreviewTemplateResponseBody.md
-  - docs/models/operations/PreviewTemplateResponse.md
   - docs/models/operations/ToggleTemplateDeliveryPathParamTemplateType.md
   - docs/models/operations/ToggleTemplateDeliveryRequestBody.md
   - docs/models/operations/ToggleTemplateDeliveryRequest.md
   - docs/models/operations/ToggleTemplateDeliveryResponse.md
+  - docs/models/operations/UpsertTemplatePathParamTemplateType.md
+  - docs/models/operations/UpsertTemplateRequestBody.md
+  - docs/models/operations/UpsertTemplateRequest.md
+  - docs/models/operations/UpsertTemplateResponse.md
+  - docs/models/operations/PreviewTemplateRequestBody.md
+  - docs/models/operations/PreviewTemplateRequest.md
+  - docs/models/operations/PreviewTemplateResponseBody.md
+  - docs/models/operations/PreviewTemplateResponse.md
   - docs/models/operations/GetUserListRequest.md
   - docs/models/operations/GetUserListResponse.md
-  - docs/models/operations/PasswordHasher.md
   - docs/models/operations/PublicMetadata.md
   - docs/models/operations/PrivateMetadata.md
   - docs/models/operations/UnsafeMetadata.md
@@ -732,7 +780,6 @@ generatedFiles:
   - docs/models/operations/GetUsersCountResponse.md
   - docs/models/operations/GetUserRequest.md
   - docs/models/operations/GetUserResponse.md
-  - docs/models/operations/UpdateUserPasswordHasher.md
   - docs/models/operations/UpdateUserPublicMetadata.md
   - docs/models/operations/UpdateUserPrivateMetadata.md
   - docs/models/operations/UpdateUserUnsafeMetadata.md
@@ -755,9 +802,6 @@ generatedFiles:
   - docs/models/operations/SetUserProfileImageResponse.md
   - docs/models/operations/DeleteUserProfileImageRequest.md
   - docs/models/operations/DeleteUserProfileImageResponse.md
-  - docs/models/operations/UpdateUserMetadataPublicMetadata.md
-  - docs/models/operations/UpdateUserMetadataPrivateMetadata.md
-  - docs/models/operations/UpdateUserMetadataUnsafeMetadata.md
   - docs/models/operations/UpdateUserMetadataRequestBody.md
   - docs/models/operations/UpdateUserMetadataRequest.md
   - docs/models/operations/UpdateUserMetadataResponse.md
@@ -767,6 +811,9 @@ generatedFiles:
   - docs/models/operations/GetOAuthAccessTokenResponse.md
   - docs/models/operations/UsersGetOrganizationMembershipsRequest.md
   - docs/models/operations/UsersGetOrganizationMembershipsResponse.md
+  - docs/models/operations/QueryParamStatus.md
+  - docs/models/operations/UsersGetOrganizationInvitationsRequest.md
+  - docs/models/operations/UsersGetOrganizationInvitationsResponse.md
   - docs/models/operations/VerifyPasswordRequestBody.md
   - docs/models/operations/VerifyPasswordRequest.md
   - docs/models/operations/VerifyPasswordResponseBody.md
@@ -779,36 +826,68 @@ generatedFiles:
   - docs/models/operations/DisableMFARequest.md
   - docs/models/operations/DisableMFAResponseBody.md
   - docs/models/operations/DisableMFAResponse.md
+  - docs/models/operations/DeleteBackupCodeRequest.md
+  - docs/models/operations/DeleteBackupCodeResponseBody.md
+  - docs/models/operations/DeleteBackupCodeResponse.md
+  - docs/models/operations/UserPasskeyDeleteRequest.md
+  - docs/models/operations/UserPasskeyDeleteResponse.md
+  - docs/models/operations/UserWeb3WalletDeleteRequest.md
+  - docs/models/operations/UserWeb3WalletDeleteResponse.md
+  - docs/models/operations/CreateUserTOTPRequest.md
+  - docs/models/operations/CreateUserTOTPResponse.md
+  - docs/models/operations/DeleteTOTPRequest.md
+  - docs/models/operations/DeleteTOTPResponseBody.md
+  - docs/models/operations/DeleteTOTPResponse.md
+  - docs/models/operations/DeleteExternalAccountRequest.md
+  - docs/models/operations/DeleteExternalAccountResponse.md
   - docs/models/operations/CreateInvitationPublicMetadata.md
   - docs/models/operations/CreateInvitationRequestBody.md
   - docs/models/operations/CreateInvitationResponse.md
-  - docs/models/operations/QueryParamStatus.md
+  - docs/models/operations/ListInvitationsQueryParamStatus.md
   - docs/models/operations/ListInvitationsRequest.md
   - docs/models/operations/ListInvitationsResponse.md
   - docs/models/operations/RevokeInvitationRequest.md
   - docs/models/operations/RevokeInvitationResponse.md
+  - docs/models/operations/ListInstanceOrganizationInvitationsQueryParamStatus.md
+  - docs/models/operations/ListInstanceOrganizationInvitationsRequest.md
+  - docs/models/operations/ListInstanceOrganizationInvitationsResponse.md
+  - docs/models/operations/CreateOrganizationInvitationPublicMetadata.md
+  - docs/models/operations/CreateOrganizationInvitationPrivateMetadata.md
+  - docs/models/operations/CreateOrganizationInvitationRequestBody.md
+  - docs/models/operations/CreateOrganizationInvitationRequest.md
+  - docs/models/operations/CreateOrganizationInvitationResponse.md
+  - docs/models/operations/ListOrganizationInvitationsQueryParamStatus.md
+  - docs/models/operations/ListOrganizationInvitationsRequest.md
+  - docs/models/operations/ListOrganizationInvitationsResponse.md
+  - docs/models/operations/CreateOrganizationInvitationBulkPublicMetadata.md
+  - docs/models/operations/CreateOrganizationInvitationBulkPrivateMetadata.md
+  - docs/models/operations/RequestBody.md
+  - docs/models/operations/CreateOrganizationInvitationBulkRequest.md
+  - docs/models/operations/CreateOrganizationInvitationBulkResponse.md
+  - docs/models/operations/ListPendingOrganizationInvitationsRequest.md
+  - docs/models/operations/ListPendingOrganizationInvitationsResponse.md
+  - docs/models/operations/GetOrganizationInvitationRequest.md
+  - docs/models/operations/GetOrganizationInvitationResponse.md
+  - docs/models/operations/RevokeOrganizationInvitationRequestBody.md
+  - docs/models/operations/RevokeOrganizationInvitationRequest.md
+  - docs/models/operations/RevokeOrganizationInvitationResponse.md
   - docs/models/operations/ListAllowlistIdentifiersResponse.md
   - docs/models/operations/CreateAllowlistIdentifierRequestBody.md
   - docs/models/operations/CreateAllowlistIdentifierResponse.md
-  - docs/models/operations/DeleteAllowlistIdentifierRequest.md
-  - docs/models/operations/DeleteAllowlistIdentifierResponse.md
-  - docs/models/operations/ListBlocklistIdentifiersResponse.md
   - docs/models/operations/CreateBlocklistIdentifierRequestBody.md
   - docs/models/operations/CreateBlocklistIdentifierResponse.md
   - docs/models/operations/DeleteBlocklistIdentifierRequest.md
   - docs/models/operations/DeleteBlocklistIdentifierResponse.md
+  - docs/models/operations/DeleteAllowlistIdentifierRequest.md
+  - docs/models/operations/DeleteAllowlistIdentifierResponse.md
+  - docs/models/operations/ListBlocklistIdentifiersResponse.md
   - docs/models/operations/UpdateInstanceAuthConfigRequestBody.md
   - docs/models/operations/UpdateInstanceAuthConfigResponse.md
   - docs/models/operations/UpdateProductionInstanceDomainRequestBody.md
   - docs/models/operations/UpdateProductionInstanceDomainResponse.md
-  - docs/models/operations/UpdateInstanceRequestBody.md
-  - docs/models/operations/UpdateInstanceResponse.md
-  - docs/models/operations/UpdateInstanceRestrictionsRequestBody.md
-  - docs/models/operations/UpdateInstanceRestrictionsResponse.md
   - docs/models/operations/ChangeProductionInstanceDomainRequestBody.md
   - docs/models/operations/ChangeProductionInstanceDomainResponse.md
-  - docs/models/operations/UpdateInstanceOrganizationSettingsRequestBody.md
-  - docs/models/operations/UpdateInstanceOrganizationSettingsResponse.md
+  - docs/models/operations/Actor.md
   - docs/models/operations/CreateActorTokenRequestBody.md
   - docs/models/operations/CreateActorTokenResponse.md
   - docs/models/operations/RevokeActorTokenRequest.md
@@ -821,6 +900,12 @@ generatedFiles:
   - docs/models/operations/UpdateDomainRequestBody.md
   - docs/models/operations/UpdateDomainRequest.md
   - docs/models/operations/UpdateDomainResponse.md
+  - docs/models/operations/UpdateInstanceRequestBody.md
+  - docs/models/operations/UpdateInstanceResponse.md
+  - docs/models/operations/UpdateInstanceRestrictionsRequestBody.md
+  - docs/models/operations/UpdateInstanceRestrictionsResponse.md
+  - docs/models/operations/UpdateInstanceOrganizationSettingsRequestBody.md
+  - docs/models/operations/UpdateInstanceOrganizationSettingsResponse.md
   - docs/models/operations/CreateSvixAppResponse.md
   - docs/models/operations/DeleteSvixAppResponse.md
   - docs/models/operations/GenerateSvixAuthURLResponse.md
@@ -862,26 +947,6 @@ generatedFiles:
   - docs/models/operations/UploadOrganizationLogoResponse.md
   - docs/models/operations/DeleteOrganizationLogoRequest.md
   - docs/models/operations/DeleteOrganizationLogoResponse.md
-  - docs/models/operations/CreateOrganizationInvitationPublicMetadata.md
-  - docs/models/operations/CreateOrganizationInvitationPrivateMetadata.md
-  - docs/models/operations/CreateOrganizationInvitationRequestBody.md
-  - docs/models/operations/CreateOrganizationInvitationRequest.md
-  - docs/models/operations/CreateOrganizationInvitationResponse.md
-  - docs/models/operations/ListOrganizationInvitationsQueryParamStatus.md
-  - docs/models/operations/ListOrganizationInvitationsRequest.md
-  - docs/models/operations/ListOrganizationInvitationsResponse.md
-  - docs/models/operations/CreateOrganizationInvitationBulkPublicMetadata.md
-  - docs/models/operations/CreateOrganizationInvitationBulkPrivateMetadata.md
-  - docs/models/operations/RequestBody.md
-  - docs/models/operations/CreateOrganizationInvitationBulkRequest.md
-  - docs/models/operations/CreateOrganizationInvitationBulkResponse.md
-  - docs/models/operations/ListPendingOrganizationInvitationsRequest.md
-  - docs/models/operations/ListPendingOrganizationInvitationsResponse.md
-  - docs/models/operations/GetOrganizationInvitationRequest.md
-  - docs/models/operations/GetOrganizationInvitationResponse.md
-  - docs/models/operations/RevokeOrganizationInvitationRequestBody.md
-  - docs/models/operations/RevokeOrganizationInvitationRequest.md
-  - docs/models/operations/RevokeOrganizationInvitationResponse.md
   - docs/models/operations/CreateOrganizationMembershipRequestBody.md
   - docs/models/operations/CreateOrganizationMembershipRequest.md
   - docs/models/operations/CreateOrganizationMembershipResponse.md
@@ -897,6 +962,18 @@ generatedFiles:
   - docs/models/operations/UpdateOrganizationMembershipMetadataRequestBody.md
   - docs/models/operations/UpdateOrganizationMembershipMetadataRequest.md
   - docs/models/operations/UpdateOrganizationMembershipMetadataResponse.md
+  - docs/models/operations/InstanceGetOrganizationMembershipsRequest.md
+  - docs/models/operations/InstanceGetOrganizationMembershipsResponse.md
+  - docs/models/operations/CreateOrganizationDomainRequestBody.md
+  - docs/models/operations/CreateOrganizationDomainRequest.md
+  - docs/models/operations/CreateOrganizationDomainResponse.md
+  - docs/models/operations/ListOrganizationDomainsRequest.md
+  - docs/models/operations/ListOrganizationDomainsResponse.md
+  - docs/models/operations/DeleteOrganizationDomainRequest.md
+  - docs/models/operations/DeleteOrganizationDomainResponse.md
+  - docs/models/operations/UpdateOrganizationDomainRequestBody.md
+  - docs/models/operations/UpdateOrganizationDomainRequest.md
+  - docs/models/operations/UpdateOrganizationDomainResponse.md
   - docs/models/operations/VerifyDomainProxyRequestBody.md
   - docs/models/operations/VerifyDomainProxyResponse.md
   - docs/models/operations/ListRedirectURLsResponse.md
@@ -941,11 +1018,14 @@ generatedFiles:
   - docs/models/operations/DeleteSAMLConnectionRequest.md
   - docs/models/operations/DeleteSAMLConnectionResponse.md
   - docs/models/operations/CreateTestingTokenResponse.md
+  - docs/models/components/Keys.md
+  - docs/models/components/WellKnownJWKS.md
   - docs/models/components/Object.md
   - docs/models/components/Client.md
   - docs/models/components/SessionObject.md
   - docs/models/components/Actor.md
   - docs/models/components/Status.md
+  - docs/models/components/LatestActivity.md
   - docs/models/components/Session.md
   - docs/models/components/Meta.md
   - docs/models/components/ClerkError.md
@@ -996,11 +1076,13 @@ generatedFiles:
   - docs/models/components/VerificationError.md
   - docs/models/components/Saml.md
   - docs/models/components/SAMLAccountVerification.md
+  - docs/models/components/SAMLConnectionSAMLConnection.md
+  - docs/models/components/SamlConnection.md
   - docs/models/components/SAMLAccount.md
   - docs/models/components/SchemasPasskeyObject.md
   - docs/models/components/PasskeyVerificationStatus.md
   - docs/models/components/PasskeyVerificationStrategy.md
-  - docs/models/components/VerificationNonce.md
+  - docs/models/components/Nonce.md
   - docs/models/components/Passkey.md
   - docs/models/components/SchemasPasskeyVerification.md
   - docs/models/components/SchemasPasskey.md
@@ -1010,7 +1092,6 @@ generatedFiles:
   - docs/models/components/Web3WalletVerificationAdmin.md
   - docs/models/components/Web3SignatureVerificationStatus.md
   - docs/models/components/Web3SignatureVerificationStrategy.md
-  - docs/models/components/Nonce.md
   - docs/models/components/Web3Signature.md
   - docs/models/components/Web3WalletVerification.md
   - docs/models/components/Web3Wallet.md
@@ -1026,6 +1107,12 @@ generatedFiles:
   - docs/models/components/OrganizationMembershipOrganization.md
   - docs/models/components/PublicUserData.md
   - docs/models/components/OrganizationMembership.md
+  - docs/models/components/OrganizationInvitationsWithPublicOrganizationData.md
+  - docs/models/components/OrganizationInvitationWithPublicOrganizationDataObject.md
+  - docs/models/components/OrganizationInvitationWithPublicOrganizationDataPublicMetadata.md
+  - docs/models/components/OrganizationInvitationWithPublicOrganizationDataPrivateMetadata.md
+  - docs/models/components/PublicOrganizationData.md
+  - docs/models/components/OrganizationInvitationWithPublicOrganizationData.md
   - docs/models/components/InvitationObject.md
   - docs/models/components/InvitationPublicMetadata.md
   - docs/models/components/InvitationStatus.md
@@ -1034,20 +1121,20 @@ generatedFiles:
   - docs/models/components/InvitationRevokedPublicMetadata.md
   - docs/models/components/InvitationRevokedStatus.md
   - docs/models/components/InvitationRevoked.md
+  - docs/models/components/OrganizationInvitationObject.md
+  - docs/models/components/OrganizationInvitationPublicMetadata.md
+  - docs/models/components/OrganizationInvitationPrivateMetadata.md
+  - docs/models/components/OrganizationInvitation.md
+  - docs/models/components/OrganizationInvitations.md
   - docs/models/components/AllowlistIdentifierObject.md
   - docs/models/components/IdentifierType.md
   - docs/models/components/AllowlistIdentifier.md
-  - docs/models/components/BlocklistIdentifiers.md
   - docs/models/components/BlocklistIdentifierObject.md
   - docs/models/components/BlocklistIdentifierIdentifierType.md
   - docs/models/components/BlocklistIdentifier.md
+  - docs/models/components/BlocklistIdentifiers.md
   - docs/models/components/InstanceSettingsObject.md
   - docs/models/components/InstanceSettings.md
-  - docs/models/components/InstanceRestrictionsObject.md
-  - docs/models/components/InstanceRestrictions.md
-  - docs/models/components/OrganizationSettingsObject.md
-  - docs/models/components/DomainsEnrollmentModes.md
-  - docs/models/components/OrganizationSettings.md
   - docs/models/components/ActorTokenObject.md
   - docs/models/components/ActorTokenStatus.md
   - docs/models/components/ActorTokenActor.md
@@ -1056,6 +1143,11 @@ generatedFiles:
   - docs/models/components/DomainObject.md
   - docs/models/components/Domain.md
   - docs/models/components/CNameTarget.md
+  - docs/models/components/InstanceRestrictionsObject.md
+  - docs/models/components/InstanceRestrictions.md
+  - docs/models/components/OrganizationSettingsObject.md
+  - docs/models/components/DomainsEnrollmentModes.md
+  - docs/models/components/OrganizationSettings.md
   - docs/models/components/SvixURL.md
   - docs/models/components/JWTTemplateObject.md
   - docs/models/components/Claims.md
@@ -1069,11 +1161,12 @@ generatedFiles:
   - docs/models/components/OrganizationWithLogoPublicMetadata.md
   - docs/models/components/OrganizationWithLogoPrivateMetadata.md
   - docs/models/components/OrganizationWithLogo.md
-  - docs/models/components/OrganizationInvitationObject.md
-  - docs/models/components/OrganizationInvitationPublicMetadata.md
-  - docs/models/components/OrganizationInvitationPrivateMetadata.md
-  - docs/models/components/OrganizationInvitation.md
-  - docs/models/components/OrganizationInvitations.md
+  - docs/models/components/OrganizationDomainObject.md
+  - docs/models/components/EnrollmentMode.md
+  - docs/models/components/OrganizationDomainStatus.md
+  - docs/models/components/OrganizationDomainVerification.md
+  - docs/models/components/OrganizationDomain.md
+  - docs/models/components/OrganizationDomains.md
   - docs/models/components/ProxyCheckObject.md
   - docs/models/components/ProxyCheck.md
   - docs/models/components/RedirectURLObject.md
@@ -1094,9 +1187,9 @@ generatedFiles:
   - docs/models/components/OAuthApplicationWithSecretObject.md
   - docs/models/components/OAuthApplicationWithSecret.md
   - docs/models/components/SAMLConnections.md
-  - docs/models/components/SAMLConnectionObject.md
+  - docs/models/components/SchemasSAMLConnectionObject.md
   - docs/models/components/AttributeMapping.md
-  - docs/models/components/SAMLConnection.md
+  - docs/models/components/SchemasSAMLConnection.md
   - docs/models/components/TestingTokenObject.md
   - docs/models/components/TestingToken.md
   - docs/models/components/Security.md
@@ -1109,21 +1202,28 @@ generatedFiles:
   - docs/sdks/emailaddresses/README.md
   - docs/sdks/phonenumbers/README.md
   - docs/sdks/sessions/README.md
+  - docs/sdks/emailsmstemplates/README.md
+  - docs/sdks/emailandsmstemplates/README.md
   - docs/sdks/templates/README.md
   - docs/sdks/users/README.md
   - docs/sdks/invitations/README.md
-  - docs/sdks/allowlist/README.md
-  - docs/sdks/blocklist/README.md
-  - docs/sdks/instance/README.md
-  - docs/sdks/actors/README.md
+  - docs/sdks/organizationinvitations/README.md
+  - docs/sdks/allowlistblocklist/README.md
+  - docs/sdks/allowlistidentifiers/README.md
+  - docs/sdks/blocklistidentifiers/README.md
+  - docs/sdks/betafeatures/README.md
+  - docs/sdks/actortokens/README.md
   - docs/sdks/domains/README.md
+  - docs/sdks/instancesettings/README.md
   - docs/sdks/webhooks/README.md
   - docs/sdks/jwttemplates/README.md
   - docs/sdks/organizations/README.md
-  - docs/sdks/organizationinvitations/README.md
   - docs/sdks/organizationmemberships/README.md
-  - docs/sdks/proxy/README.md
+  - docs/sdks/organizationdomains/README.md
+  - docs/sdks/organizationdomain/README.md
+  - docs/sdks/proxychecks/README.md
   - docs/sdks/redirecturls/README.md
+  - docs/sdks/clerkredirecturls/README.md
   - docs/sdks/signintokens/README.md
   - docs/sdks/signups/README.md
   - docs/sdks/oauthapplications/README.md

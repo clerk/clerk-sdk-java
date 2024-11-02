@@ -24,7 +24,7 @@ public class DeleteBlocklistIdentifierRequestBuilder {
 
     public DeleteBlocklistIdentifierResponse call() throws Exception {
 
-        return sdk.delete(
+        return sdk.deleteBlocklistIdentifier(
             identifierId);
     }
 }

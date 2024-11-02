@@ -30,7 +30,7 @@ public class CreateActorTokenRequestBuilder {
 
     public CreateActorTokenResponse call() throws Exception {
 
-        return sdk.createToken(
+        return sdk.create(
             request);
     }
 }

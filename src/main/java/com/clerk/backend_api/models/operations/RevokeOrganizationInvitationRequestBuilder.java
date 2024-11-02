@@ -6,12 +6,13 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class RevokeOrganizationInvitationRequestBuilder {
 
     private String organizationId;
     private String invitationId;
-    private RevokeOrganizationInvitationRequestBody requestBody;
+    private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody = Optional.empty();
     private final SDKMethodInterfaces.MethodCallRevokeOrganizationInvitation sdk;
 
     public RevokeOrganizationInvitationRequestBuilder(SDKMethodInterfaces.MethodCallRevokeOrganizationInvitation sdk) {
@@ -29,8 +30,14 @@ public class RevokeOrganizationInvitationRequestBuilder {
         this.invitationId = invitationId;
         return this;
     }
-
+                
     public RevokeOrganizationInvitationRequestBuilder requestBody(com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public RevokeOrganizationInvitationRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

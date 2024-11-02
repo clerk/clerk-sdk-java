@@ -44,7 +44,7 @@ public class GetPublicInterstitialRequestBuilder {
 
     public GetPublicInterstitialResponse call() throws Exception {
 
-        return sdk.getPublicInterstitial(
+        return sdk.getInterstitial(
             frontendApi,
             publishableKey);
     }

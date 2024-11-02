@@ -11,8 +11,6 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -21,7 +19,6 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 
 public class ListInvitationsResponse implements Response {
@@ -45,8 +42,6 @@ public class ListInvitationsResponse implements Response {
      * List of invitations
      */
     private Optional<? extends List<Invitation>> invitationList;
-
-    private Callable<Optional<ListInvitationsResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public ListInvitationsResponse(
@@ -102,16 +97,6 @@ public class ListInvitationsResponse implements Response {
     @JsonIgnore
     public Optional<List<Invitation>> invitationList() {
         return (Optional<List<Invitation>>) invitationList;
-    }
-
-    public Optional<ListInvitationsResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private ListInvitationsResponse withNext(Callable<Optional<ListInvitationsResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -198,7 +183,6 @@ public class ListInvitationsResponse implements Response {
     }
     
     public final static class Builder {
-        private Callable<Optional<ListInvitationsResponse>> next;
  
         private String contentType;
  
@@ -256,26 +240,13 @@ public class ListInvitationsResponse implements Response {
             this.invitationList = invitationList;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @Deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<ListInvitationsResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public ListInvitationsResponse build() {
             return new ListInvitationsResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                invitationList)
-                .withNext(next);
+                invitationList);
         }
     }
 }

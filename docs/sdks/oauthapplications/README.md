@@ -1,5 +1,5 @@
-# OAuthApplications
-(*oAuthApplications()*)
+# OauthApplications
+(*oauthApplications()*)
 
 ## Overview
 
@@ -8,7 +8,7 @@
 * [list](#list) - Get a list of OAuth applications for an instance
 * [create](#create) - Create an OAuth application
 * [get](#get) - Retrieve an OAuth application by ID
-* [updateApplication](#updateapplication) - Update an OAuth application
+* [update](#update) - Update an OAuth application
 * [delete](#delete) - Delete an OAuth application
 * [rotateSecret](#rotatesecret) - Rotate the client secret of the given OAuth application
 
@@ -25,6 +25,8 @@ Most recent OAuth applications will be returned first.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -35,15 +37,18 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.oAuthApplications().list()
+            ListOAuthApplicationsResponse res = sdk.oauthApplications().list()
                 .limit(10L)
                 .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .call();
 
+            if (res.oAuthApplications().isPresent()) {
+                // handle response
+            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -105,7 +110,7 @@ public class Application {
                 .scopes("profile email public_metadata")
                 .build();
 
-            CreateOAuthApplicationResponse res = sdk.oAuthApplications().create()
+            CreateOAuthApplicationResponse res = sdk.oauthApplications().create()
                 .request(req)
                 .call();
 
@@ -167,7 +172,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            GetOAuthApplicationResponse res = sdk.oAuthApplications().get()
+            GetOAuthApplicationResponse res = sdk.oauthApplications().get()
                 .oauthApplicationId("<value>")
                 .call();
 
@@ -207,7 +212,7 @@ public class Application {
 | models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
 
 
-## updateApplication
+## update
 
 Updates an existing OAuth application
 
@@ -230,7 +235,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            UpdateOAuthApplicationResponse res = sdk.oAuthApplications().updateApplication()
+            UpdateOAuthApplicationResponse res = sdk.oauthApplications().update()
                 .oauthApplicationId("<value>")
                 .requestBody(UpdateOAuthApplicationRequestBody.builder()
                     .scopes("profile email public_metadata private_metadata")
@@ -297,7 +302,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            DeleteOAuthApplicationResponse res = sdk.oAuthApplications().delete()
+            DeleteOAuthApplicationResponse res = sdk.oauthApplications().delete()
                 .oauthApplicationId("<value>")
                 .call();
 
@@ -360,7 +365,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            RotateOAuthApplicationSecretResponse res = sdk.oAuthApplications().rotateSecret()
+            RotateOAuthApplicationSecretResponse res = sdk.oauthApplications().rotateSecret()
                 .oauthApplicationId("<value>")
                 .call();
 

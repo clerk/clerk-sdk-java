@@ -23,6 +23,9 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * Various endpoints that do not belong in any particular category.
+ */
 public class Miscellaneous implements
             MethodCallGetPublicInterstitial {
 
@@ -39,7 +42,7 @@ public class Miscellaneous implements
      * It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
      * @return The call builder
      */
-    public GetPublicInterstitialRequestBuilder getPublicInterstitial() {
+    public GetPublicInterstitialRequestBuilder getInterstitial() {
         return new GetPublicInterstitialRequestBuilder(this);
     }
 
@@ -50,8 +53,8 @@ public class Miscellaneous implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPublicInterstitialResponse getPublicInterstitialDirect() throws Exception {
-        return getPublicInterstitial(Optional.empty(), Optional.empty());
+    public GetPublicInterstitialResponse getInterstitialDirect() throws Exception {
+        return getInterstitial(Optional.empty(), Optional.empty());
     }
     
     /**
@@ -63,7 +66,7 @@ public class Miscellaneous implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPublicInterstitialResponse getPublicInterstitial(
+    public GetPublicInterstitialResponse getInterstitial(
             Optional<String> frontendApi,
             Optional<String> publishableKey) throws Exception {
         GetPublicInterstitialRequest request =
