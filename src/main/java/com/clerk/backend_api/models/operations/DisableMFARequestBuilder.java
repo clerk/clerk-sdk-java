@@ -16,7 +16,7 @@ public class DisableMFARequestBuilder {
         this.sdk = sdk;
     }
 
-    public DisableMFARequestBuilder userId(java.lang.String userId) {
+    public DisableMFARequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

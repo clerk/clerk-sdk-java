@@ -18,19 +18,19 @@ public class VerifyTOTPRequestBuilder {
         this.sdk = sdk;
     }
 
-    public VerifyTOTPRequestBuilder userId(java.lang.String userId) {
+    public VerifyTOTPRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
                 
-    public VerifyTOTPRequestBuilder requestBody(com.clerk.backend_api.models.operations.VerifyTOTPRequestBody requestBody) {
+    public VerifyTOTPRequestBuilder requestBody(VerifyTOTPRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public VerifyTOTPRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifyTOTPRequestBody> requestBody) {
+    public VerifyTOTPRequestBuilder requestBody(Optional<? extends VerifyTOTPRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

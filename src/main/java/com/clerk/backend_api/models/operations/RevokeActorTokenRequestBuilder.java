@@ -16,7 +16,7 @@ public class RevokeActorTokenRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RevokeActorTokenRequestBuilder actorTokenId(java.lang.String actorTokenId) {
+    public RevokeActorTokenRequestBuilder actorTokenId(String actorTokenId) {
         Utils.checkNotNull(actorTokenId, "actorTokenId");
         this.actorTokenId = actorTokenId;
         return this;

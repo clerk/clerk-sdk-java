@@ -16,7 +16,7 @@ public class GetClientRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetClientRequestBuilder clientId(java.lang.String clientId) {
+    public GetClientRequestBuilder clientId(String clientId) {
         Utils.checkNotNull(clientId, "clientId");
         this.clientId = clientId;
         return this;

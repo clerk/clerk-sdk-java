@@ -17,13 +17,13 @@ public class SetUserProfileImageRequestBuilder {
         this.sdk = sdk;
     }
 
-    public SetUserProfileImageRequestBuilder userId(java.lang.String userId) {
+    public SetUserProfileImageRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public SetUserProfileImageRequestBuilder requestBody(com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody requestBody) {
+    public SetUserProfileImageRequestBuilder requestBody(SetUserProfileImageRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

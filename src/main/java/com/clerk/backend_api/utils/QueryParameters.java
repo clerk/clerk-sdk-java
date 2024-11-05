@@ -61,6 +61,8 @@ public class QueryParameters {
                         List<NameValuePair> pipeDelimitedParams = parseDelimitedParams(queryParamsMetadata, value, "|");
                         allParams.addAll(pipeDelimitedParams);
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -71,16 +73,15 @@ public class QueryParameters {
     private static List<NameValuePair> parseSerializedParams(QueryParamsMetadata queryParamsMetadata, Object value)
             throws JsonProcessingException {
         List<NameValuePair> params = new ArrayList<>();
-
         switch (queryParamsMetadata.serialization) {
             case "json":
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(value);
-
                 params.add(new BasicNameValuePair(queryParamsMetadata.name, json));
                 break;
+            default:
+                break;
         }
-
         return params;
     }
 

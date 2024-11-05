@@ -17,13 +17,13 @@ public class DeleteOrganizationDomainRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteOrganizationDomainRequestBuilder organizationId(java.lang.String organizationId) {
+    public DeleteOrganizationDomainRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public DeleteOrganizationDomainRequestBuilder domainId(java.lang.String domainId) {
+    public DeleteOrganizationDomainRequestBuilder domainId(String domainId) {
         Utils.checkNotNull(domainId, "domainId");
         this.domainId = domainId;
         return this;

@@ -18,25 +18,25 @@ public class GetPublicInterstitialRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public GetPublicInterstitialRequestBuilder frontendApi(java.lang.String frontendApi) {
+    public GetPublicInterstitialRequestBuilder frontendApi(String frontendApi) {
         Utils.checkNotNull(frontendApi, "frontendApi");
         this.frontendApi = Optional.of(frontendApi);
         return this;
     }
 
-    public GetPublicInterstitialRequestBuilder frontendApi(java.util.Optional<java.lang.String> frontendApi) {
+    public GetPublicInterstitialRequestBuilder frontendApi(Optional<String> frontendApi) {
         Utils.checkNotNull(frontendApi, "frontendApi");
         this.frontendApi = frontendApi;
         return this;
     }
                 
-    public GetPublicInterstitialRequestBuilder publishableKey(java.lang.String publishableKey) {
+    public GetPublicInterstitialRequestBuilder publishableKey(String publishableKey) {
         Utils.checkNotNull(publishableKey, "publishableKey");
         this.publishableKey = Optional.of(publishableKey);
         return this;
     }
 
-    public GetPublicInterstitialRequestBuilder publishableKey(java.util.Optional<java.lang.String> publishableKey) {
+    public GetPublicInterstitialRequestBuilder publishableKey(Optional<String> publishableKey) {
         Utils.checkNotNull(publishableKey, "publishableKey");
         this.publishableKey = publishableKey;
         return this;

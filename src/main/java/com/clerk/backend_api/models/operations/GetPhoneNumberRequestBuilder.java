@@ -16,7 +16,7 @@ public class GetPhoneNumberRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetPhoneNumberRequestBuilder phoneNumberId(java.lang.String phoneNumberId) {
+    public GetPhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
         Utils.checkNotNull(phoneNumberId, "phoneNumberId");
         this.phoneNumberId = phoneNumberId;
         return this;

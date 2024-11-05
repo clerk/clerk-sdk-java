@@ -18,6 +18,9 @@ import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+/**
+ * SignInToken - Success
+ */
 
 public class SignInToken {
 

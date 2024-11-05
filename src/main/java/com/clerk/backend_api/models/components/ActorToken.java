@@ -17,6 +17,9 @@ import java.lang.String;
 import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+/**
+ * ActorToken - Success
+ */
 
 public class ActorToken {
 

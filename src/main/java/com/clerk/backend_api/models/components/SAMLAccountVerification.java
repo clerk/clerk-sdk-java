@@ -83,8 +83,8 @@ public class SAMLAccountVerification {
 
         public _Deserializer() {
             super(SAMLAccountVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Saml>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Ticket>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Saml>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Ticket>() {}, JsonShape.DEFAULT));
         }
     }
     

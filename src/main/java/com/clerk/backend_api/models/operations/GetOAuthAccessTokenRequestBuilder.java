@@ -17,13 +17,13 @@ public class GetOAuthAccessTokenRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetOAuthAccessTokenRequestBuilder userId(java.lang.String userId) {
+    public GetOAuthAccessTokenRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public GetOAuthAccessTokenRequestBuilder provider(java.lang.String provider) {
+    public GetOAuthAccessTokenRequestBuilder provider(String provider) {
         Utils.checkNotNull(provider, "provider");
         this.provider = provider;
         return this;

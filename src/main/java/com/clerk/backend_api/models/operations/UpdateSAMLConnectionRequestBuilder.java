@@ -17,13 +17,13 @@ public class UpdateSAMLConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateSAMLConnectionRequestBuilder samlConnectionId(java.lang.String samlConnectionId) {
+    public UpdateSAMLConnectionRequestBuilder samlConnectionId(String samlConnectionId) {
         Utils.checkNotNull(samlConnectionId, "samlConnectionId");
         this.samlConnectionId = samlConnectionId;
         return this;
     }
 
-    public UpdateSAMLConnectionRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody requestBody) {
+    public UpdateSAMLConnectionRequestBuilder requestBody(UpdateSAMLConnectionRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

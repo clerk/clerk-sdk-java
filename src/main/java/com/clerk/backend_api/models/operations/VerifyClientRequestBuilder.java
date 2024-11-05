@@ -16,13 +16,13 @@ public class VerifyClientRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public VerifyClientRequestBuilder request(com.clerk.backend_api.models.operations.VerifyClientRequestBody request) {
+    public VerifyClientRequestBuilder request(VerifyClientRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public VerifyClientRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifyClientRequestBody> request) {
+    public VerifyClientRequestBuilder request(Optional<? extends VerifyClientRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

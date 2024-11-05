@@ -33,12 +33,14 @@ public final class EventStream<T> implements AutoCloseable {
     private final EventStreamReader reader;
     private final TypeReference<T> typeReference;
     private final ObjectMapper mapper;
+    private final Optional<String> terminalMessage;
 
     // Internal use only
-    public EventStream(InputStream in, TypeReference<T> typeReference, ObjectMapper mapper) {
+    public EventStream(InputStream in, TypeReference<T> typeReference, ObjectMapper mapper, Optional<String> terminalMessage) {
         this.reader = new EventStreamReader(in);
         this.typeReference = typeReference;
         this.mapper = mapper;
+        this.terminalMessage = terminalMessage;
     }
 
     /**
@@ -50,6 +52,7 @@ public final class EventStream<T> implements AutoCloseable {
      */
     public Optional<T> next() throws IOException {
         return reader.readMessage() //
+                .filter(x -> !terminalMessage.isPresent() || !terminalMessage.get().equals(x.data())) //
                 .map(x -> Utils.asType(x, mapper, typeReference));
     }
 
@@ -124,3 +127,4 @@ public final class EventStream<T> implements AutoCloseable {
     }
 
 }
+

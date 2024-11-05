@@ -16,7 +16,7 @@ public class DeleteBlocklistIdentifierRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteBlocklistIdentifierRequestBuilder identifierId(java.lang.String identifierId) {
+    public DeleteBlocklistIdentifierRequestBuilder identifierId(String identifierId) {
         Utils.checkNotNull(identifierId, "identifierId");
         this.identifierId = identifierId;
         return this;

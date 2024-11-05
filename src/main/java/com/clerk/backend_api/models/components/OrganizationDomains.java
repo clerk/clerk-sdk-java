@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * OrganizationDomains - A list of organization domains
+ */
 
 public class OrganizationDomains {
 

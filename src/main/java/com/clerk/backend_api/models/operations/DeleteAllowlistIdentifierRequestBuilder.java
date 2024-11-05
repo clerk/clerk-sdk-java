@@ -16,7 +16,7 @@ public class DeleteAllowlistIdentifierRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteAllowlistIdentifierRequestBuilder identifierId(java.lang.String identifierId) {
+    public DeleteAllowlistIdentifierRequestBuilder identifierId(String identifierId) {
         Utils.checkNotNull(identifierId, "identifierId");
         this.identifierId = identifierId;
         return this;

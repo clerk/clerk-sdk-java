@@ -19,40 +19,29 @@ Updates the settings of an instance
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateInstanceAuthConfigRequestBody req = UpdateInstanceAuthConfigRequestBody.builder()
                 .build();
 
-            UpdateInstanceAuthConfigRequestBody req = UpdateInstanceAuthConfigRequestBody.builder()
-                .build();
-
-            UpdateInstanceAuthConfigResponse res = sdk.betaFeatures().updateInstanceSettings()
+        UpdateInstanceAuthConfigResponse res = sdk.betaFeatures().updateInstanceSettings()
                 .request(req)
                 .call();
 
-            if (res.instanceSettings().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.instanceSettings().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -69,11 +58,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 402, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## ~~updateDomain~~
 
@@ -91,38 +79,27 @@ WARNING: Changing your domain will invalidate all current user sessions (i.e. us
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateProductionInstanceDomainRequestBody req = UpdateProductionInstanceDomainRequestBody.builder()
                 .build();
 
-            UpdateProductionInstanceDomainRequestBody req = UpdateProductionInstanceDomainRequestBody.builder()
-                .build();
-
-            UpdateProductionInstanceDomainResponse res = sdk.betaFeatures().updateDomain()
+        UpdateProductionInstanceDomainResponse res = sdk.betaFeatures().updateDomain()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -139,11 +116,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## changeProductionInstanceDomain
 
@@ -159,38 +135,27 @@ WARNING: Changing your domain will invalidate all current user sessions (i.e. us
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        ChangeProductionInstanceDomainRequestBody req = ChangeProductionInstanceDomainRequestBody.builder()
                 .build();
 
-            ChangeProductionInstanceDomainRequestBody req = ChangeProductionInstanceDomainRequestBody.builder()
-                .build();
-
-            ChangeProductionInstanceDomainResponse res = sdk.betaFeatures().changeProductionInstanceDomain()
+        ChangeProductionInstanceDomainResponse res = sdk.betaFeatures().changeProductionInstanceDomain()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -207,7 +172,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

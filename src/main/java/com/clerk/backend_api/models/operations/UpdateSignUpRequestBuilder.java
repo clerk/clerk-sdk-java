@@ -18,19 +18,19 @@ public class UpdateSignUpRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateSignUpRequestBuilder id(java.lang.String id) {
+    public UpdateSignUpRequestBuilder id(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
     }
                 
-    public UpdateSignUpRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateSignUpRequestBody requestBody) {
+    public UpdateSignUpRequestBuilder requestBody(UpdateSignUpRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateSignUpRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateSignUpRequestBody> requestBody) {
+    public UpdateSignUpRequestBuilder requestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

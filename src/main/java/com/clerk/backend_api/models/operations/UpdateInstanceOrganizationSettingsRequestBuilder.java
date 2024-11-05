@@ -16,13 +16,13 @@ public class UpdateInstanceOrganizationSettingsRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public UpdateInstanceOrganizationSettingsRequestBuilder request(com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody request) {
+    public UpdateInstanceOrganizationSettingsRequestBuilder request(UpdateInstanceOrganizationSettingsRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public UpdateInstanceOrganizationSettingsRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody> request) {
+    public UpdateInstanceOrganizationSettingsRequestBuilder request(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

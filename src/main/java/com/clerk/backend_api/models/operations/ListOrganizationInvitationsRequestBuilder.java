@@ -29,7 +29,7 @@ public class ListOrganizationInvitationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListOrganizationInvitationsRequestBuilder organizationId(java.lang.String organizationId) {
+    public ListOrganizationInvitationsRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -41,7 +41,7 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public ListOrganizationInvitationsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -53,19 +53,19 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public ListOrganizationInvitationsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public ListOrganizationInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus status) {
+    public ListOrganizationInvitationsRequestBuilder status(ListOrganizationInvitationsQueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus> status) {
+    public ListOrganizationInvitationsRequestBuilder status(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;

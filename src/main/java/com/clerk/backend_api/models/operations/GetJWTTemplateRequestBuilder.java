@@ -16,7 +16,7 @@ public class GetJWTTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetJWTTemplateRequestBuilder templateId(java.lang.String templateId) {
+    public GetJWTTemplateRequestBuilder templateId(String templateId) {
         Utils.checkNotNull(templateId, "templateId");
         this.templateId = templateId;
         return this;

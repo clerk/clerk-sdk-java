@@ -16,7 +16,7 @@ public class DeleteDomainRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteDomainRequestBuilder domainId(java.lang.String domainId) {
+    public DeleteDomainRequestBuilder domainId(String domainId) {
         Utils.checkNotNull(domainId, "domainId");
         this.domainId = domainId;
         return this;

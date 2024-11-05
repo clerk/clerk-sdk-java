@@ -13,14 +13,14 @@ public class Options {
         RETRY_CONFIG;
     }
 
-    private Optional<com.clerk.backend_api.utils.RetryConfig> retryConfig = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
 
-    private Options(Optional<com.clerk.backend_api.utils.RetryConfig> retryConfig) {
+    private Options(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
     }
 
-    public Optional<com.clerk.backend_api.utils.RetryConfig> retryConfig() {
+    public Optional<RetryConfig> retryConfig() {
         return retryConfig;
     }
 
@@ -36,17 +36,17 @@ public class Options {
 
     public final static class Builder {
 
-        private Optional<com.clerk.backend_api.utils.RetryConfig> retryConfig = Optional.empty();
+        private Optional<RetryConfig> retryConfig = Optional.empty();
 
         private Builder() {}
 
-        public Builder retryConfig(com.clerk.backend_api.utils.RetryConfig retryConfig) throws IllegalArgumentException {
+        public Builder retryConfig(RetryConfig retryConfig) throws IllegalArgumentException {
             Utils.checkNotNull(retryConfig, "retryConfig");
             this.retryConfig = Optional.of(retryConfig);
             return this;
         }
 
-        public Builder retryConfig(Optional<com.clerk.backend_api.utils.RetryConfig> retryConfig) throws IllegalArgumentException {
+        public Builder retryConfig(Optional<RetryConfig> retryConfig) throws IllegalArgumentException {
             Utils.checkNotNull(retryConfig, "retryConfig");
             this.retryConfig = retryConfig;
             return this;

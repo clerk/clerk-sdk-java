@@ -17,13 +17,13 @@ public class UpdateOrganizationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateOrganizationRequestBuilder organizationId(java.lang.String organizationId) {
+    public UpdateOrganizationRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public UpdateOrganizationRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody requestBody) {
+    public UpdateOrganizationRequestBuilder requestBody(UpdateOrganizationRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

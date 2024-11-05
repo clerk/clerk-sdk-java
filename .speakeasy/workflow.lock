@@ -1,9 +1,9 @@
-speakeasyVersion: 1.385.0
+speakeasyVersion: 1.428.0
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:547ac0cdc4df29c4395905aecf9e3715ccd81c463706682d31eb5a0a094075b5
-        sourceBlobDigest: sha256:def78a57452610c201cfa2962c4354e41a16ddf30c45520ee396f78452eceb7e
+        sourceRevisionDigest: sha256:b654e43e024e196fe7824140a1352efa4a12b63d9fda5373be91d01780dcd4b2
+        sourceBlobDigest: sha256:b7d68649cec7493887787a96c7bc78466ced094c923f7bdbf6f7600aa86e3b3a
         tags:
             - latest
             - main
@@ -11,18 +11,18 @@ targets:
     clerk-java:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:547ac0cdc4df29c4395905aecf9e3715ccd81c463706682d31eb5a0a094075b5
-        sourceBlobDigest: sha256:def78a57452610c201cfa2962c4354e41a16ddf30c45520ee396f78452eceb7e
-        outLocation: /github/workspace/repo
+        sourceRevisionDigest: sha256:b654e43e024e196fe7824140a1352efa4a12b63d9fda5373be91d01780dcd4b2
+        sourceBlobDigest: sha256:b7d68649cec7493887787a96c7bc78466ced094c923f7bdbf6f7600aa86e3b3a
+        codeSamplesNamespace: clerk-java-sdk-code-samples
+        codeSamplesRevisionDigest: sha256:b018b9dd693908629edb929f8bf30c507fa87d0d14227cd6ba0f5c857cd15bfe
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
         sourceRevisionDigest: sha256:5e10a06ed81708645c450c8bbac2ac9a99d115ea4929af0d91ecb2f6419d1500
         sourceBlobDigest: sha256:be6a2adf86086a55368c73204dfb84b5ca2f9d8514f771aff33857624a212e56
-        outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
-    speakeasyVersion: v1.385.0
+    speakeasyVersion: latest
     sources:
         clerk-java-sdk:
             inputs:
@@ -42,3 +42,7 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $gpg_secret_key
                     gpgPassPhrase: $gpg_pass_phrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/clerk/clerk/clerk-java-sdk-code-samples
+                blocking: false

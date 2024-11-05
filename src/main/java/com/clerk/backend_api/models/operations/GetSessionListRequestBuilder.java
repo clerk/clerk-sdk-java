@@ -15,7 +15,7 @@ public class GetSessionListRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetSessionListRequestBuilder request(com.clerk.backend_api.models.operations.GetSessionListRequest request) {
+    public GetSessionListRequestBuilder request(GetSessionListRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

@@ -18,19 +18,19 @@ public class UpdatePhoneNumberRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdatePhoneNumberRequestBuilder phoneNumberId(java.lang.String phoneNumberId) {
+    public UpdatePhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
         Utils.checkNotNull(phoneNumberId, "phoneNumberId");
         this.phoneNumberId = phoneNumberId;
         return this;
     }
                 
-    public UpdatePhoneNumberRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody requestBody) {
+    public UpdatePhoneNumberRequestBuilder requestBody(UpdatePhoneNumberRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdatePhoneNumberRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody> requestBody) {
+    public UpdatePhoneNumberRequestBuilder requestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

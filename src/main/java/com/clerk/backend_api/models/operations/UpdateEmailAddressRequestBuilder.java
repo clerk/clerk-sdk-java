@@ -18,19 +18,19 @@ public class UpdateEmailAddressRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateEmailAddressRequestBuilder emailAddressId(java.lang.String emailAddressId) {
+    public UpdateEmailAddressRequestBuilder emailAddressId(String emailAddressId) {
         Utils.checkNotNull(emailAddressId, "emailAddressId");
         this.emailAddressId = emailAddressId;
         return this;
     }
                 
-    public UpdateEmailAddressRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody requestBody) {
+    public UpdateEmailAddressRequestBuilder requestBody(UpdateEmailAddressRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateEmailAddressRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody> requestBody) {
+    public UpdateEmailAddressRequestBuilder requestBody(Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

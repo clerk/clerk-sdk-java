@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Organizations - A list of organizations
+ */
 
 public class Organizations {
 

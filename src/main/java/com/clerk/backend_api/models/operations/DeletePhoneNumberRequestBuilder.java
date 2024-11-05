@@ -16,7 +16,7 @@ public class DeletePhoneNumberRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeletePhoneNumberRequestBuilder phoneNumberId(java.lang.String phoneNumberId) {
+    public DeletePhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
         Utils.checkNotNull(phoneNumberId, "phoneNumberId");
         this.phoneNumberId = phoneNumberId;
         return this;

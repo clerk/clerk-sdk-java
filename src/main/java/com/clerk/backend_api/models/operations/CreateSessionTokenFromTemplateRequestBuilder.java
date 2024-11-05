@@ -17,13 +17,13 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateSessionTokenFromTemplateRequestBuilder sessionId(java.lang.String sessionId) {
+    public CreateSessionTokenFromTemplateRequestBuilder sessionId(String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
         return this;
     }
 
-    public CreateSessionTokenFromTemplateRequestBuilder templateName(java.lang.String templateName) {
+    public CreateSessionTokenFromTemplateRequestBuilder templateName(String templateName) {
         Utils.checkNotNull(templateName, "templateName");
         this.templateName = templateName;
         return this;

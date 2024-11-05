@@ -16,13 +16,13 @@ public class CreateAllowlistIdentifierRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateAllowlistIdentifierRequestBuilder request(com.clerk.backend_api.models.operations.CreateAllowlistIdentifierRequestBody request) {
+    public CreateAllowlistIdentifierRequestBuilder request(CreateAllowlistIdentifierRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateAllowlistIdentifierRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateAllowlistIdentifierRequestBody> request) {
+    public CreateAllowlistIdentifierRequestBuilder request(Optional<? extends CreateAllowlistIdentifierRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

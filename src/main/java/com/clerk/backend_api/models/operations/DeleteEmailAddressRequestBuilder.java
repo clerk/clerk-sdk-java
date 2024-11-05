@@ -16,7 +16,7 @@ public class DeleteEmailAddressRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteEmailAddressRequestBuilder emailAddressId(java.lang.String emailAddressId) {
+    public DeleteEmailAddressRequestBuilder emailAddressId(String emailAddressId) {
         Utils.checkNotNull(emailAddressId, "emailAddressId");
         this.emailAddressId = emailAddressId;
         return this;

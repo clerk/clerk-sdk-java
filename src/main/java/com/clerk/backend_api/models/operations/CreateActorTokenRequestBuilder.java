@@ -16,13 +16,13 @@ public class CreateActorTokenRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateActorTokenRequestBuilder request(com.clerk.backend_api.models.operations.CreateActorTokenRequestBody request) {
+    public CreateActorTokenRequestBuilder request(CreateActorTokenRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateActorTokenRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateActorTokenRequestBody> request) {
+    public CreateActorTokenRequestBuilder request(Optional<? extends CreateActorTokenRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

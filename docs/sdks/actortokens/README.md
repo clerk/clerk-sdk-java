@@ -19,7 +19,7 @@ The `actor` parameter needs to include at least a "sub" key whose value is the I
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.Actor;
 import com.clerk.backend_api.models.operations.CreateActorTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateActorTokenResponse;
@@ -27,36 +27,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+            .build();
 
-            CreateActorTokenRequestBody req = CreateActorTokenRequestBody.builder()
-                .userId("<value>")
+        CreateActorTokenRequestBody req = CreateActorTokenRequestBody.builder()
+                .userId("<id>")
                 .actor(Actor.builder()
-                        .build())
+                    .build())
                 .build();
 
-            CreateActorTokenResponse res = sdk.actorTokens().create()
+        CreateActorTokenResponse res = sdk.actorTokens().create()
                 .request(req)
                 .call();
 
-            if (res.actorToken().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.actorToken().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -73,11 +62,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,402,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 402, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke
 
@@ -89,36 +77,25 @@ Revokes a pending actor token.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.RevokeActorTokenResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            RevokeActorTokenResponse res = sdk.actorTokens().revoke()
-                .actorTokenId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        RevokeActorTokenResponse res = sdk.actorTokens().revoke()
+                .actorTokenId("<id>")
                 .call();
 
-            if (res.actorToken().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.actorToken().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -135,7 +112,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 400, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

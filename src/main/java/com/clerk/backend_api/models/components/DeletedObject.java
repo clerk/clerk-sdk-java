@@ -17,6 +17,9 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * DeletedObject - Deleted Object
+ */
 
 public class DeletedObject {
 

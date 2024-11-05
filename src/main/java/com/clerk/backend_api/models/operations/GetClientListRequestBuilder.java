@@ -32,7 +32,7 @@ public class GetClientListRequestBuilder {
         return this;
     }
 
-    public GetClientListRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public GetClientListRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -44,7 +44,7 @@ public class GetClientListRequestBuilder {
         return this;
     }
 
-    public GetClientListRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public GetClientListRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;

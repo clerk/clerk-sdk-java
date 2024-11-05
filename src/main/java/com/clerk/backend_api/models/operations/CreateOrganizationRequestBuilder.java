@@ -16,13 +16,13 @@ public class CreateOrganizationRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateOrganizationRequestBuilder request(com.clerk.backend_api.models.operations.CreateOrganizationRequestBody request) {
+    public CreateOrganizationRequestBuilder request(CreateOrganizationRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateOrganizationRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateOrganizationRequestBody> request) {
+    public CreateOrganizationRequestBuilder request(Optional<? extends CreateOrganizationRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

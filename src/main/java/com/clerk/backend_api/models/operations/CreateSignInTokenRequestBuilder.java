@@ -16,13 +16,13 @@ public class CreateSignInTokenRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateSignInTokenRequestBuilder request(com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody request) {
+    public CreateSignInTokenRequestBuilder request(CreateSignInTokenRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateSignInTokenRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody> request) {
+    public CreateSignInTokenRequestBuilder request(Optional<? extends CreateSignInTokenRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

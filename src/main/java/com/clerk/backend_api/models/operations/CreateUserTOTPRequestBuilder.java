@@ -16,7 +16,7 @@ public class CreateUserTOTPRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateUserTOTPRequestBuilder userId(java.lang.String userId) {
+    public CreateUserTOTPRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

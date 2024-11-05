@@ -21,6 +21,9 @@ import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+/**
+ * PhoneNumber - Success
+ */
 
 public class PhoneNumber {
 

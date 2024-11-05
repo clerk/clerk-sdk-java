@@ -17,13 +17,13 @@ public class MergeOrganizationMetadataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public MergeOrganizationMetadataRequestBuilder organizationId(java.lang.String organizationId) {
+    public MergeOrganizationMetadataRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public MergeOrganizationMetadataRequestBuilder requestBody(com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody requestBody) {
+    public MergeOrganizationMetadataRequestBuilder requestBody(MergeOrganizationMetadataRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

@@ -16,7 +16,7 @@ public class UnbanUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UnbanUserRequestBuilder userId(java.lang.String userId) {
+    public UnbanUserRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

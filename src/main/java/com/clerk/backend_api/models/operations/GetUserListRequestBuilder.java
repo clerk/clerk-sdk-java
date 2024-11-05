@@ -15,7 +15,7 @@ public class GetUserListRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetUserListRequestBuilder request(com.clerk.backend_api.models.operations.GetUserListRequest request) {
+    public GetUserListRequestBuilder request(GetUserListRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

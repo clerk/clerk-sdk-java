@@ -18,19 +18,19 @@ public class UploadOrganizationLogoRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UploadOrganizationLogoRequestBuilder organizationId(java.lang.String organizationId) {
+    public UploadOrganizationLogoRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
                 
-    public UploadOrganizationLogoRequestBuilder requestBody(com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody requestBody) {
+    public UploadOrganizationLogoRequestBuilder requestBody(UploadOrganizationLogoRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UploadOrganizationLogoRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody> requestBody) {
+    public UploadOrganizationLogoRequestBuilder requestBody(Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

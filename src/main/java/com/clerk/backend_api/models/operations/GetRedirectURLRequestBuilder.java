@@ -16,7 +16,7 @@ public class GetRedirectURLRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetRedirectURLRequestBuilder id(java.lang.String id) {
+    public GetRedirectURLRequestBuilder id(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;

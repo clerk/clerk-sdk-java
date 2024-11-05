@@ -16,7 +16,7 @@ public class DeleteTOTPRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteTOTPRequestBuilder userId(java.lang.String userId) {
+    public DeleteTOTPRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

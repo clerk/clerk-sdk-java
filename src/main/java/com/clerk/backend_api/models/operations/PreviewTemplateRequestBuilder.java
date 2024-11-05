@@ -19,25 +19,25 @@ public class PreviewTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public PreviewTemplateRequestBuilder templateType(java.lang.String templateType) {
+    public PreviewTemplateRequestBuilder templateType(String templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public PreviewTemplateRequestBuilder slug(java.lang.String slug) {
+    public PreviewTemplateRequestBuilder slug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public PreviewTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.PreviewTemplateRequestBody requestBody) {
+    public PreviewTemplateRequestBuilder requestBody(PreviewTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public PreviewTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.PreviewTemplateRequestBody> requestBody) {
+    public PreviewTemplateRequestBuilder requestBody(Optional<? extends PreviewTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

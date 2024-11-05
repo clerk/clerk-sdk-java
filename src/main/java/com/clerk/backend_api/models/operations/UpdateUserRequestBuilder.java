@@ -17,13 +17,13 @@ public class UpdateUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateUserRequestBuilder userId(java.lang.String userId) {
+    public UpdateUserRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public UpdateUserRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateUserRequestBody requestBody) {
+    public UpdateUserRequestBuilder requestBody(UpdateUserRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

@@ -13,6 +13,9 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 
+/**
+ * SvixURL - Response that contains a temporary Svix URL to access management dashboard
+ */
 
 public class SvixURL {
 

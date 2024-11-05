@@ -17,13 +17,13 @@ public class UserWeb3WalletDeleteRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UserWeb3WalletDeleteRequestBuilder userId(java.lang.String userId) {
+    public UserWeb3WalletDeleteRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public UserWeb3WalletDeleteRequestBuilder web3WalletIdentificationId(java.lang.String web3WalletIdentificationId) {
+    public UserWeb3WalletDeleteRequestBuilder web3WalletIdentificationId(String web3WalletIdentificationId) {
         Utils.checkNotNull(web3WalletIdentificationId, "web3WalletIdentificationId");
         this.web3WalletIdentificationId = web3WalletIdentificationId;
         return this;

@@ -15,7 +15,7 @@ public class ListInstanceOrganizationInvitationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListInstanceOrganizationInvitationsRequestBuilder request(com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsRequest request) {
+    public ListInstanceOrganizationInvitationsRequestBuilder request(ListInstanceOrganizationInvitationsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

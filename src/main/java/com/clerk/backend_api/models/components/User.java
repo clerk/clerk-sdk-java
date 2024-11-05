@@ -22,6 +22,9 @@ import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+/**
+ * User - Success
+ */
 
 public class User {
 

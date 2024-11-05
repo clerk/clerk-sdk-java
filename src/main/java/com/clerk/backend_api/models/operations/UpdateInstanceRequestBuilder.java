@@ -16,13 +16,13 @@ public class UpdateInstanceRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public UpdateInstanceRequestBuilder request(com.clerk.backend_api.models.operations.UpdateInstanceRequestBody request) {
+    public UpdateInstanceRequestBuilder request(UpdateInstanceRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public UpdateInstanceRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRequestBody> request) {
+    public UpdateInstanceRequestBuilder request(Optional<? extends UpdateInstanceRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

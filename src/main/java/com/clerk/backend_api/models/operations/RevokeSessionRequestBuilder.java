@@ -16,7 +16,7 @@ public class RevokeSessionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RevokeSessionRequestBuilder sessionId(java.lang.String sessionId) {
+    public RevokeSessionRequestBuilder sessionId(String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
         return this;

@@ -19,25 +19,25 @@ public class ToggleTemplateDeliveryRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder templateType(com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType templateType) {
+    public ToggleTemplateDeliveryRequestBuilder templateType(ToggleTemplateDeliveryPathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder slug(java.lang.String slug) {
+    public ToggleTemplateDeliveryRequestBuilder slug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public ToggleTemplateDeliveryRequestBuilder requestBody(com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody requestBody) {
+    public ToggleTemplateDeliveryRequestBuilder requestBody(ToggleTemplateDeliveryRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public ToggleTemplateDeliveryRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody> requestBody) {
+    public ToggleTemplateDeliveryRequestBuilder requestBody(Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

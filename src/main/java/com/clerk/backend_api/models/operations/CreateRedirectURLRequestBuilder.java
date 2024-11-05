@@ -16,13 +16,13 @@ public class CreateRedirectURLRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateRedirectURLRequestBuilder request(com.clerk.backend_api.models.operations.CreateRedirectURLRequestBody request) {
+    public CreateRedirectURLRequestBuilder request(CreateRedirectURLRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateRedirectURLRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateRedirectURLRequestBody> request) {
+    public CreateRedirectURLRequestBuilder request(Optional<? extends CreateRedirectURLRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

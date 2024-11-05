@@ -29,7 +29,7 @@ public class ListOrganizationMembershipsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListOrganizationMembershipsRequestBuilder organizationId(java.lang.String organizationId) {
+    public ListOrganizationMembershipsRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -41,7 +41,7 @@ public class ListOrganizationMembershipsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationMembershipsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public ListOrganizationMembershipsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -53,19 +53,19 @@ public class ListOrganizationMembershipsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationMembershipsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public ListOrganizationMembershipsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public ListOrganizationMembershipsRequestBuilder orderBy(java.lang.String orderBy) {
+    public ListOrganizationMembershipsRequestBuilder orderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
         this.orderBy = Optional.of(orderBy);
         return this;
     }
 
-    public ListOrganizationMembershipsRequestBuilder orderBy(java.util.Optional<java.lang.String> orderBy) {
+    public ListOrganizationMembershipsRequestBuilder orderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
         this.orderBy = orderBy;
         return this;

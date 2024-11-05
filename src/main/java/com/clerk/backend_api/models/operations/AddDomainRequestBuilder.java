@@ -16,13 +16,13 @@ public class AddDomainRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public AddDomainRequestBuilder request(com.clerk.backend_api.models.operations.AddDomainRequestBody request) {
+    public AddDomainRequestBuilder request(AddDomainRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public AddDomainRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.AddDomainRequestBody> request) {
+    public AddDomainRequestBuilder request(Optional<? extends AddDomainRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

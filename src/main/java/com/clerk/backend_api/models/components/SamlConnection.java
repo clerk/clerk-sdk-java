@@ -77,7 +77,7 @@ public class SamlConnection {
 
         public _Deserializer() {
             super(SamlConnection.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.SAMLConnectionSAMLConnection>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<SAMLConnectionSAMLConnection>() {}, JsonShape.DEFAULT));
         }
     }
     

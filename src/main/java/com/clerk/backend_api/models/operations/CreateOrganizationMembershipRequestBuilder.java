@@ -17,13 +17,13 @@ public class CreateOrganizationMembershipRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateOrganizationMembershipRequestBuilder organizationId(java.lang.String organizationId) {
+    public CreateOrganizationMembershipRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public CreateOrganizationMembershipRequestBuilder requestBody(com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody requestBody) {
+    public CreateOrganizationMembershipRequestBuilder requestBody(CreateOrganizationMembershipRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

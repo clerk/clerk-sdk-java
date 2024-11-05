@@ -16,13 +16,13 @@ public class VerifyDomainProxyRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public VerifyDomainProxyRequestBuilder request(com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody request) {
+    public VerifyDomainProxyRequestBuilder request(VerifyDomainProxyRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public VerifyDomainProxyRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody> request) {
+    public VerifyDomainProxyRequestBuilder request(Optional<? extends VerifyDomainProxyRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

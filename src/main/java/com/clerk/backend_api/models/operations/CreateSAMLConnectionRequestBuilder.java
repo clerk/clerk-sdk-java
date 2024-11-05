@@ -16,13 +16,13 @@ public class CreateSAMLConnectionRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateSAMLConnectionRequestBuilder request(com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody request) {
+    public CreateSAMLConnectionRequestBuilder request(CreateSAMLConnectionRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateSAMLConnectionRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody> request) {
+    public CreateSAMLConnectionRequestBuilder request(Optional<? extends CreateSAMLConnectionRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

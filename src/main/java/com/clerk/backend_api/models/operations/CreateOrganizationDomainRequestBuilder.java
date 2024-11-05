@@ -17,13 +17,13 @@ public class CreateOrganizationDomainRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateOrganizationDomainRequestBuilder organizationId(java.lang.String organizationId) {
+    public CreateOrganizationDomainRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public CreateOrganizationDomainRequestBuilder requestBody(com.clerk.backend_api.models.operations.CreateOrganizationDomainRequestBody requestBody) {
+    public CreateOrganizationDomainRequestBuilder requestBody(CreateOrganizationDomainRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

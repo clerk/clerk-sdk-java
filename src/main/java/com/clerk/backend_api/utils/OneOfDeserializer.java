@@ -35,7 +35,7 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
 
     private static final long serialVersionUID = -1;
 
-    private final List<TypeReferenceWithShape> typeReferences; // oneOf subschemas 
+    private final transient List<TypeReferenceWithShape> typeReferences; // oneOf subschemas 
     private final Class<T> cls;
     private final boolean strict;
     private final ObjectMapper mapper;

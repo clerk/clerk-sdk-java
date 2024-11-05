@@ -18,6 +18,9 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * JWTTemplate - List of JWT templates
+ */
 
 public class JWTTemplate {
 

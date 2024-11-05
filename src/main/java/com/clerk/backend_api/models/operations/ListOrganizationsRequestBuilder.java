@@ -15,7 +15,7 @@ public class ListOrganizationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListOrganizationsRequestBuilder request(com.clerk.backend_api.models.operations.ListOrganizationsRequest request) {
+    public ListOrganizationsRequestBuilder request(ListOrganizationsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
