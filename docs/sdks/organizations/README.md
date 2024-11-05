@@ -3,6 +3,9 @@
 
 ## Overview
 
+Organizations are used to group members under a common entity and provide shared access to resources.
+<https://clerk.com/docs/organizations/overview>
+
 ### Available Operations
 
 * [list](#list) - Get a list of organizations for an instance
@@ -94,6 +97,8 @@ You can provide additional metadata for the organization and set any custom attr
 Organizations support private and public metadata.
 Private metadata can only be accessed from the Backend API.
 Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+the next time they create a session, presuming they don't explicitly set a different organization as active before then.
 
 ### Example Usage
 
@@ -183,6 +188,7 @@ public class Application {
 
             GetOrganizationResponse res = sdk.organizations().get()
                 .organizationId("<value>")
+                .includeMembersCount(false)
                 .call();
 
             if (res.organization().isPresent()) {
@@ -205,9 +211,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                          | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `organizationId`                   | *String*                           | :heavy_check_mark:                 | The ID or slug of the organization |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                   | *String*                                                                                           | :heavy_check_mark:                                                                                 | The ID or slug of the organization                                                                 |
+| `includeMembersCount`                                                                              | *Optional<Boolean>*                                                                                | :heavy_minus_sign:                                                                                 | Flag to denote whether or not the organization's members count should be included in the response. |
 
 ### Response
 
@@ -450,7 +457,6 @@ public class Application {
             UploadOrganizationLogoResponse res = sdk.organizations().uploadLogo()
                 .organizationId("<value>")
                 .requestBody(UploadOrganizationLogoRequestBody.builder()
-                    .uploaderUserId("<value>")
                     .file(UploadOrganizationLogoFile.builder()
                             .fileName("<value>")
                             .content("0x07D3D6E1EC".getBytes())

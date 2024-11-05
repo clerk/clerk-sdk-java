@@ -61,6 +61,10 @@ public class SAMLAccount {
     @JsonProperty("verification")
     private Optional<? extends SAMLAccountVerification> verification;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("saml_connection")
+    private JsonNullable<? extends SamlConnection> samlConnection;
+
     @JsonCreator
     public SAMLAccount(
             @JsonProperty("id") String id,
@@ -72,7 +76,8 @@ public class SAMLAccount {
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("provider_user_id") JsonNullable<String> providerUserId,
             @JsonProperty("public_metadata") Optional<? extends SAMLAccountPublicMetadata> publicMetadata,
-            @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification) {
+            @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification,
+            @JsonProperty("saml_connection") JsonNullable<? extends SamlConnection> samlConnection) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(provider, "provider");
@@ -83,6 +88,7 @@ public class SAMLAccount {
         Utils.checkNotNull(providerUserId, "providerUserId");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(verification, "verification");
+        Utils.checkNotNull(samlConnection, "samlConnection");
         this.id = id;
         this.object = object;
         this.provider = provider;
@@ -93,6 +99,7 @@ public class SAMLAccount {
         this.providerUserId = providerUserId;
         this.publicMetadata = publicMetadata;
         this.verification = verification;
+        this.samlConnection = samlConnection;
     }
     
     public SAMLAccount(
@@ -101,7 +108,7 @@ public class SAMLAccount {
             String provider,
             boolean active,
             String emailAddress) {
-        this(id, object, provider, active, emailAddress, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(id, object, provider, active, emailAddress, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -158,6 +165,12 @@ public class SAMLAccount {
     @JsonIgnore
     public Optional<SAMLAccountVerification> verification() {
         return (Optional<SAMLAccountVerification>) verification;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<SamlConnection> samlConnection() {
+        return (JsonNullable<SamlConnection>) samlConnection;
     }
 
     public final static Builder builder() {
@@ -257,6 +270,18 @@ public class SAMLAccount {
         this.verification = verification;
         return this;
     }
+
+    public SAMLAccount withSamlConnection(SamlConnection samlConnection) {
+        Utils.checkNotNull(samlConnection, "samlConnection");
+        this.samlConnection = JsonNullable.of(samlConnection);
+        return this;
+    }
+
+    public SAMLAccount withSamlConnection(JsonNullable<? extends SamlConnection> samlConnection) {
+        Utils.checkNotNull(samlConnection, "samlConnection");
+        this.samlConnection = samlConnection;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -277,7 +302,8 @@ public class SAMLAccount {
             Objects.deepEquals(this.lastName, other.lastName) &&
             Objects.deepEquals(this.providerUserId, other.providerUserId) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.verification, other.verification);
+            Objects.deepEquals(this.verification, other.verification) &&
+            Objects.deepEquals(this.samlConnection, other.samlConnection);
     }
     
     @Override
@@ -292,7 +318,8 @@ public class SAMLAccount {
             lastName,
             providerUserId,
             publicMetadata,
-            verification);
+            verification,
+            samlConnection);
     }
     
     @Override
@@ -307,7 +334,8 @@ public class SAMLAccount {
                 "lastName", lastName,
                 "providerUserId", providerUserId,
                 "publicMetadata", publicMetadata,
-                "verification", verification);
+                "verification", verification,
+                "samlConnection", samlConnection);
     }
     
     public final static class Builder {
@@ -330,7 +358,9 @@ public class SAMLAccount {
  
         private Optional<? extends SAMLAccountPublicMetadata> publicMetadata = Optional.empty();
  
-        private Optional<? extends SAMLAccountVerification> verification = Optional.empty();  
+        private Optional<? extends SAMLAccountVerification> verification = Optional.empty();
+ 
+        private JsonNullable<? extends SamlConnection> samlConnection = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -429,6 +459,18 @@ public class SAMLAccount {
             this.verification = verification;
             return this;
         }
+
+        public Builder samlConnection(SamlConnection samlConnection) {
+            Utils.checkNotNull(samlConnection, "samlConnection");
+            this.samlConnection = JsonNullable.of(samlConnection);
+            return this;
+        }
+
+        public Builder samlConnection(JsonNullable<? extends SamlConnection> samlConnection) {
+            Utils.checkNotNull(samlConnection, "samlConnection");
+            this.samlConnection = samlConnection;
+            return this;
+        }
         
         public SAMLAccount build() {
             return new SAMLAccount(
@@ -441,7 +483,8 @@ public class SAMLAccount {
                 lastName,
                 providerUserId,
                 publicMetadata,
-                verification);
+                verification,
+                samlConnection);
         }
     }
 }

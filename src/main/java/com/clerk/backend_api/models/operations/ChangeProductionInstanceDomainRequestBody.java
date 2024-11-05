@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
@@ -26,15 +27,27 @@ public class ChangeProductionInstanceDomainRequestBody {
     @JsonProperty("home_url")
     private Optional<String> homeUrl;
 
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("is_secondary")
+    private Optional<Boolean> isSecondary;
+
     @JsonCreator
     public ChangeProductionInstanceDomainRequestBody(
-            @JsonProperty("home_url") Optional<String> homeUrl) {
+            @JsonProperty("home_url") Optional<String> homeUrl,
+            @JsonProperty("is_secondary") Optional<Boolean> isSecondary) {
         Utils.checkNotNull(homeUrl, "homeUrl");
+        Utils.checkNotNull(isSecondary, "isSecondary");
         this.homeUrl = homeUrl;
+        this.isSecondary = isSecondary;
     }
     
     public ChangeProductionInstanceDomainRequestBody() {
-        this(Optional.empty());
+        this(Optional.empty(), Optional.empty());
     }
 
     /**
@@ -43,6 +56,16 @@ public class ChangeProductionInstanceDomainRequestBody {
     @JsonIgnore
     public Optional<String> homeUrl() {
         return homeUrl;
+    }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    @JsonIgnore
+    public Optional<Boolean> isSecondary() {
+        return isSecondary;
     }
 
     public final static Builder builder() {
@@ -66,6 +89,28 @@ public class ChangeProductionInstanceDomainRequestBody {
         this.homeUrl = homeUrl;
         return this;
     }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    public ChangeProductionInstanceDomainRequestBody withIsSecondary(boolean isSecondary) {
+        Utils.checkNotNull(isSecondary, "isSecondary");
+        this.isSecondary = Optional.ofNullable(isSecondary);
+        return this;
+    }
+
+    /**
+     * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+     * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+     * multiple secondaries) on the same root domain (eTLD+1).
+     */
+    public ChangeProductionInstanceDomainRequestBody withIsSecondary(Optional<Boolean> isSecondary) {
+        Utils.checkNotNull(isSecondary, "isSecondary");
+        this.isSecondary = isSecondary;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -77,24 +122,29 @@ public class ChangeProductionInstanceDomainRequestBody {
         }
         ChangeProductionInstanceDomainRequestBody other = (ChangeProductionInstanceDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.homeUrl, other.homeUrl);
+            Objects.deepEquals(this.homeUrl, other.homeUrl) &&
+            Objects.deepEquals(this.isSecondary, other.isSecondary);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            homeUrl);
+            homeUrl,
+            isSecondary);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ChangeProductionInstanceDomainRequestBody.class,
-                "homeUrl", homeUrl);
+                "homeUrl", homeUrl,
+                "isSecondary", isSecondary);
     }
     
     public final static class Builder {
  
-        private Optional<String> homeUrl = Optional.empty();  
+        private Optional<String> homeUrl = Optional.empty();
+ 
+        private Optional<Boolean> isSecondary = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -117,10 +167,33 @@ public class ChangeProductionInstanceDomainRequestBody {
             this.homeUrl = homeUrl;
             return this;
         }
+
+        /**
+         * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+         * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+         * multiple secondaries) on the same root domain (eTLD+1).
+         */
+        public Builder isSecondary(boolean isSecondary) {
+            Utils.checkNotNull(isSecondary, "isSecondary");
+            this.isSecondary = Optional.ofNullable(isSecondary);
+            return this;
+        }
+
+        /**
+         * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
+         * will be stored as part of the domain. This is useful for supporting multiple apps (one primary and
+         * multiple secondaries) on the same root domain (eTLD+1).
+         */
+        public Builder isSecondary(Optional<Boolean> isSecondary) {
+            Utils.checkNotNull(isSecondary, "isSecondary");
+            this.isSecondary = isSecondary;
+            return this;
+        }
         
         public ChangeProductionInstanceDomainRequestBody build() {
             return new ChangeProductionInstanceDomainRequestBody(
-                homeUrl);
+                homeUrl,
+                isSecondary);
         }
     }
 }

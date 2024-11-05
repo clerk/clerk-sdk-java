@@ -23,6 +23,8 @@ The SAML Connections are ordered by descending creation date and the most recent
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -33,15 +35,18 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.samlConnections().list()
+            ListSAMLConnectionsResponse res = sdk.samlConnections().list()
                 .limit(10L)
                 .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .call();
 
+            if (res.samlConnections().isPresent()) {
+                // handle response
+            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {
@@ -106,7 +111,7 @@ public class Application {
                 .request(req)
                 .call();
 
-            if (res.samlConnection().isPresent()) {
+            if (res.schemasSAMLConnection().isPresent()) {
                 // handle response
             }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
@@ -168,7 +173,7 @@ public class Application {
                 .samlConnectionId("<value>")
                 .call();
 
-            if (res.samlConnection().isPresent()) {
+            if (res.schemasSAMLConnection().isPresent()) {
                 // handle response
             }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
@@ -233,7 +238,7 @@ public class Application {
                     .build())
                 .call();
 
-            if (res.samlConnection().isPresent()) {
+            if (res.schemasSAMLConnection().isPresent()) {
                 // handle response
             }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {

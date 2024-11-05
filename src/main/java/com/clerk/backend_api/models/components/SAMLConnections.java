@@ -19,7 +19,7 @@ import java.util.Objects;
 public class SAMLConnections {
 
     @JsonProperty("data")
-    private List<SAMLConnection> data;
+    private List<SchemasSAMLConnection> data;
 
     /**
      * Total number of SAML Connections
@@ -30,7 +30,7 @@ public class SAMLConnections {
 
     @JsonCreator
     public SAMLConnections(
-            @JsonProperty("data") List<SAMLConnection> data,
+            @JsonProperty("data") List<SchemasSAMLConnection> data,
             @JsonProperty("total_count") long totalCount) {
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(totalCount, "totalCount");
@@ -39,7 +39,7 @@ public class SAMLConnections {
     }
 
     @JsonIgnore
-    public List<SAMLConnection> data() {
+    public List<SchemasSAMLConnection> data() {
         return data;
     }
 
@@ -56,7 +56,7 @@ public class SAMLConnections {
         return new Builder();
     }
 
-    public SAMLConnections withData(List<SAMLConnection> data) {
+    public SAMLConnections withData(List<SchemasSAMLConnection> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
         return this;
@@ -102,7 +102,7 @@ public class SAMLConnections {
     
     public final static class Builder {
  
-        private List<SAMLConnection> data;
+        private List<SchemasSAMLConnection> data;
  
         private Long totalCount;  
         
@@ -110,7 +110,7 @@ public class SAMLConnections {
           // force use of static builder() method
         }
 
-        public Builder data(List<SAMLConnection> data) {
+        public Builder data(List<SchemasSAMLConnection> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;

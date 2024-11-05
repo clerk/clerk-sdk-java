@@ -30,7 +30,7 @@ public class Passkey {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("nonce")
-    private Optional<? extends VerificationNonce> nonce;
+    private Optional<? extends Nonce> nonce;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
@@ -44,7 +44,7 @@ public class Passkey {
     public Passkey(
             @JsonProperty("status") PasskeyVerificationStatus status,
             @JsonProperty("strategy") PasskeyVerificationStrategy strategy,
-            @JsonProperty("nonce") Optional<? extends VerificationNonce> nonce,
+            @JsonProperty("nonce") Optional<? extends Nonce> nonce,
             @JsonProperty("attempts") JsonNullable<Long> attempts,
             @JsonProperty("expire_at") JsonNullable<Long> expireAt) {
         Utils.checkNotNull(status, "status");
@@ -77,8 +77,8 @@ public class Passkey {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VerificationNonce> nonce() {
-        return (Optional<VerificationNonce>) nonce;
+    public Optional<Nonce> nonce() {
+        return (Optional<Nonce>) nonce;
     }
 
     @JsonIgnore
@@ -107,13 +107,13 @@ public class Passkey {
         return this;
     }
 
-    public Passkey withNonce(VerificationNonce nonce) {
+    public Passkey withNonce(Nonce nonce) {
         Utils.checkNotNull(nonce, "nonce");
         this.nonce = Optional.ofNullable(nonce);
         return this;
     }
 
-    public Passkey withNonce(Optional<? extends VerificationNonce> nonce) {
+    public Passkey withNonce(Optional<? extends Nonce> nonce) {
         Utils.checkNotNull(nonce, "nonce");
         this.nonce = nonce;
         return this;
@@ -186,7 +186,7 @@ public class Passkey {
  
         private PasskeyVerificationStrategy strategy;
  
-        private Optional<? extends VerificationNonce> nonce = Optional.empty();
+        private Optional<? extends Nonce> nonce = Optional.empty();
  
         private JsonNullable<Long> attempts = JsonNullable.undefined();
  
@@ -208,13 +208,13 @@ public class Passkey {
             return this;
         }
 
-        public Builder nonce(VerificationNonce nonce) {
+        public Builder nonce(Nonce nonce) {
             Utils.checkNotNull(nonce, "nonce");
             this.nonce = Optional.ofNullable(nonce);
             return this;
         }
 
-        public Builder nonce(Optional<? extends VerificationNonce> nonce) {
+        public Builder nonce(Optional<? extends Nonce> nonce) {
             Utils.checkNotNull(nonce, "nonce");
             this.nonce = nonce;
             return this;

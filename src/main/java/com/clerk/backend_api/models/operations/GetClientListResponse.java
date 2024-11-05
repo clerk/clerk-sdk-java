@@ -11,8 +11,6 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
-import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -21,7 +19,6 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 
 public class GetClientListResponse implements Response {
@@ -45,8 +42,6 @@ public class GetClientListResponse implements Response {
      * Success
      */
     private Optional<? extends List<Client>> clientList;
-
-    private Callable<Optional<GetClientListResponse>> next = () -> Optional.empty();
 
     @JsonCreator
     public GetClientListResponse(
@@ -102,16 +97,6 @@ public class GetClientListResponse implements Response {
     @JsonIgnore
     public Optional<List<Client>> clientList() {
         return (Optional<List<Client>>) clientList;
-    }
-
-    public Optional<GetClientListResponse> next() throws Exception {
-        return this.next.call();
-    }
-    
-    // internal use only
-    private GetClientListResponse withNext(Callable<Optional<GetClientListResponse>> next) {
-        this.next = next;
-        return this;
     }
 
     public final static Builder builder() {
@@ -198,7 +183,6 @@ public class GetClientListResponse implements Response {
     }
     
     public final static class Builder {
-        private Callable<Optional<GetClientListResponse>> next;
  
         private String contentType;
  
@@ -256,26 +240,13 @@ public class GetClientListResponse implements Response {
             this.clientList = clientList;
             return this;
         }
-
-        /**
-         * Internal API. Not for public use. Sets the provider of the next page.
-         *
-         * @Deprecated not part of the public API, may be removed without notice
-         */
-        @Deprecated
-        public Builder next(Callable<Optional<GetClientListResponse>> next) {
-            Utils.checkNotNull(next, "next");
-            this.next = next;
-            return this;
-        }
         
         public GetClientListResponse build() {
             return new GetClientListResponse(
                 contentType,
                 statusCode,
                 rawResponse,
-                clientList)
-                .withNext(next);
+                clientList);
         }
     }
 }

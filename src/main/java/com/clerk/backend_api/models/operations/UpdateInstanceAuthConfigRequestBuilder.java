@@ -30,7 +30,7 @@ public class UpdateInstanceAuthConfigRequestBuilder {
 
     public UpdateInstanceAuthConfigResponse call() throws Exception {
 
-        return sdk.updateAuthConfig(
+        return sdk.updateInstanceSettings(
             request);
     }
 }

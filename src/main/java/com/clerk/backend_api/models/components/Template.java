@@ -93,11 +93,11 @@ public class Template {
     private Optional<Boolean> canDelete;
 
     /**
-     * whether this template can be disabled, true only for notification SMS templates
+     * whether this template can be enabled or disabled, true only for notification SMS templates
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("can_disable")
-    private Optional<Boolean> canDisable;
+    @JsonProperty("can_toggle")
+    private Optional<Boolean> canToggle;
 
     /**
      * email subject
@@ -146,6 +146,10 @@ public class Template {
     @JsonProperty("delivered_by_clerk")
     private Optional<Boolean> deliveredByClerk;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("enabled")
+    private Optional<Boolean> enabled;
+
     /**
      * Unix timestamp of last update.
      * 
@@ -174,7 +178,7 @@ public class Template {
             @JsonProperty("position") Optional<Long> position,
             @JsonProperty("can_revert") Optional<Boolean> canRevert,
             @JsonProperty("can_delete") Optional<Boolean> canDelete,
-            @JsonProperty("can_disable") Optional<Boolean> canDisable,
+            @JsonProperty("can_toggle") Optional<Boolean> canToggle,
             @JsonProperty("subject") JsonNullable<String> subject,
             @JsonProperty("markup") Optional<String> markup,
             @JsonProperty("body") Optional<String> body,
@@ -183,6 +187,7 @@ public class Template {
             @JsonProperty("from_email_name") Optional<String> fromEmailName,
             @JsonProperty("reply_to_email_name") Optional<String> replyToEmailName,
             @JsonProperty("delivered_by_clerk") Optional<Boolean> deliveredByClerk,
+            @JsonProperty("enabled") Optional<Boolean> enabled,
             @JsonProperty("updated_at") Optional<Long> updatedAt,
             @JsonProperty("created_at") Optional<Long> createdAt) {
         Utils.checkNotNull(id, "id");
@@ -195,7 +200,7 @@ public class Template {
         Utils.checkNotNull(position, "position");
         Utils.checkNotNull(canRevert, "canRevert");
         Utils.checkNotNull(canDelete, "canDelete");
-        Utils.checkNotNull(canDisable, "canDisable");
+        Utils.checkNotNull(canToggle, "canToggle");
         Utils.checkNotNull(subject, "subject");
         Utils.checkNotNull(markup, "markup");
         Utils.checkNotNull(body, "body");
@@ -204,6 +209,7 @@ public class Template {
         Utils.checkNotNull(fromEmailName, "fromEmailName");
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
+        Utils.checkNotNull(enabled, "enabled");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(createdAt, "createdAt");
         this.id = id;
@@ -216,7 +222,7 @@ public class Template {
         this.position = position;
         this.canRevert = canRevert;
         this.canDelete = canDelete;
-        this.canDisable = canDisable;
+        this.canToggle = canToggle;
         this.subject = subject;
         this.markup = markup;
         this.body = body;
@@ -225,12 +231,13 @@ public class Template {
         this.fromEmailName = fromEmailName;
         this.replyToEmailName = replyToEmailName;
         this.deliveredByClerk = deliveredByClerk;
+        this.enabled = enabled;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
     
     public Template() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -313,11 +320,11 @@ public class Template {
     }
 
     /**
-     * whether this template can be disabled, true only for notification SMS templates
+     * whether this template can be enabled or disabled, true only for notification SMS templates
      */
     @JsonIgnore
-    public Optional<Boolean> canDisable() {
-        return canDisable;
+    public Optional<Boolean> canToggle() {
+        return canToggle;
     }
 
     /**
@@ -375,6 +382,11 @@ public class Template {
     @JsonIgnore
     public Optional<Boolean> deliveredByClerk() {
         return deliveredByClerk;
+    }
+
+    @JsonIgnore
+    public Optional<Boolean> enabled() {
+        return enabled;
     }
 
     /**
@@ -576,20 +588,20 @@ public class Template {
     }
 
     /**
-     * whether this template can be disabled, true only for notification SMS templates
+     * whether this template can be enabled or disabled, true only for notification SMS templates
      */
-    public Template withCanDisable(boolean canDisable) {
-        Utils.checkNotNull(canDisable, "canDisable");
-        this.canDisable = Optional.ofNullable(canDisable);
+    public Template withCanToggle(boolean canToggle) {
+        Utils.checkNotNull(canToggle, "canToggle");
+        this.canToggle = Optional.ofNullable(canToggle);
         return this;
     }
 
     /**
-     * whether this template can be disabled, true only for notification SMS templates
+     * whether this template can be enabled or disabled, true only for notification SMS templates
      */
-    public Template withCanDisable(Optional<Boolean> canDisable) {
-        Utils.checkNotNull(canDisable, "canDisable");
-        this.canDisable = canDisable;
+    public Template withCanToggle(Optional<Boolean> canToggle) {
+        Utils.checkNotNull(canToggle, "canToggle");
+        this.canToggle = canToggle;
         return this;
     }
 
@@ -719,6 +731,18 @@ public class Template {
         return this;
     }
 
+    public Template withEnabled(boolean enabled) {
+        Utils.checkNotNull(enabled, "enabled");
+        this.enabled = Optional.ofNullable(enabled);
+        return this;
+    }
+
+    public Template withEnabled(Optional<Boolean> enabled) {
+        Utils.checkNotNull(enabled, "enabled");
+        this.enabled = enabled;
+        return this;
+    }
+
     /**
      * Unix timestamp of last update.
      * 
@@ -779,7 +803,7 @@ public class Template {
             Objects.deepEquals(this.position, other.position) &&
             Objects.deepEquals(this.canRevert, other.canRevert) &&
             Objects.deepEquals(this.canDelete, other.canDelete) &&
-            Objects.deepEquals(this.canDisable, other.canDisable) &&
+            Objects.deepEquals(this.canToggle, other.canToggle) &&
             Objects.deepEquals(this.subject, other.subject) &&
             Objects.deepEquals(this.markup, other.markup) &&
             Objects.deepEquals(this.body, other.body) &&
@@ -788,6 +812,7 @@ public class Template {
             Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
             Objects.deepEquals(this.replyToEmailName, other.replyToEmailName) &&
             Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
+            Objects.deepEquals(this.enabled, other.enabled) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt) &&
             Objects.deepEquals(this.createdAt, other.createdAt);
     }
@@ -805,7 +830,7 @@ public class Template {
             position,
             canRevert,
             canDelete,
-            canDisable,
+            canToggle,
             subject,
             markup,
             body,
@@ -814,6 +839,7 @@ public class Template {
             fromEmailName,
             replyToEmailName,
             deliveredByClerk,
+            enabled,
             updatedAt,
             createdAt);
     }
@@ -831,7 +857,7 @@ public class Template {
                 "position", position,
                 "canRevert", canRevert,
                 "canDelete", canDelete,
-                "canDisable", canDisable,
+                "canToggle", canToggle,
                 "subject", subject,
                 "markup", markup,
                 "body", body,
@@ -840,6 +866,7 @@ public class Template {
                 "fromEmailName", fromEmailName,
                 "replyToEmailName", replyToEmailName,
                 "deliveredByClerk", deliveredByClerk,
+                "enabled", enabled,
                 "updatedAt", updatedAt,
                 "createdAt", createdAt);
     }
@@ -866,7 +893,7 @@ public class Template {
  
         private Optional<Boolean> canDelete = Optional.empty();
  
-        private Optional<Boolean> canDisable = Optional.empty();
+        private Optional<Boolean> canToggle = Optional.empty();
  
         private JsonNullable<String> subject = JsonNullable.undefined();
  
@@ -883,6 +910,8 @@ public class Template {
         private Optional<String> replyToEmailName = Optional.empty();
  
         private Optional<Boolean> deliveredByClerk = Optional.empty();
+ 
+        private Optional<Boolean> enabled = Optional.empty();
  
         private Optional<Long> updatedAt = Optional.empty();
  
@@ -1069,20 +1098,20 @@ public class Template {
         }
 
         /**
-         * whether this template can be disabled, true only for notification SMS templates
+         * whether this template can be enabled or disabled, true only for notification SMS templates
          */
-        public Builder canDisable(boolean canDisable) {
-            Utils.checkNotNull(canDisable, "canDisable");
-            this.canDisable = Optional.ofNullable(canDisable);
+        public Builder canToggle(boolean canToggle) {
+            Utils.checkNotNull(canToggle, "canToggle");
+            this.canToggle = Optional.ofNullable(canToggle);
             return this;
         }
 
         /**
-         * whether this template can be disabled, true only for notification SMS templates
+         * whether this template can be enabled or disabled, true only for notification SMS templates
          */
-        public Builder canDisable(Optional<Boolean> canDisable) {
-            Utils.checkNotNull(canDisable, "canDisable");
-            this.canDisable = canDisable;
+        public Builder canToggle(Optional<Boolean> canToggle) {
+            Utils.checkNotNull(canToggle, "canToggle");
+            this.canToggle = canToggle;
             return this;
         }
 
@@ -1212,6 +1241,18 @@ public class Template {
             return this;
         }
 
+        public Builder enabled(boolean enabled) {
+            Utils.checkNotNull(enabled, "enabled");
+            this.enabled = Optional.ofNullable(enabled);
+            return this;
+        }
+
+        public Builder enabled(Optional<Boolean> enabled) {
+            Utils.checkNotNull(enabled, "enabled");
+            this.enabled = enabled;
+            return this;
+        }
+
         /**
          * Unix timestamp of last update.
          * 
@@ -1264,7 +1305,7 @@ public class Template {
                 position,
                 canRevert,
                 canDelete,
-                canDisable,
+                canToggle,
                 subject,
                 markup,
                 body,
@@ -1273,6 +1314,7 @@ public class Template {
                 fromEmailName,
                 replyToEmailName,
                 deliveredByClerk,
+                enabled,
                 updatedAt,
                 createdAt);
         }

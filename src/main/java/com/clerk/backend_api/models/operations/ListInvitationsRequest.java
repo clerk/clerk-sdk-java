@@ -40,13 +40,13 @@ public class ListInvitationsRequest {
      * Filter invitations based on their status
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=status")
-    private Optional<? extends QueryParamStatus> status;
+    private Optional<? extends ListInvitationsQueryParamStatus> status;
 
     @JsonCreator
     public ListInvitationsRequest(
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends QueryParamStatus> status) {
+            Optional<? extends ListInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(status, "status");
@@ -83,8 +83,8 @@ public class ListInvitationsRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<QueryParamStatus> status() {
-        return (Optional<QueryParamStatus>) status;
+    public Optional<ListInvitationsQueryParamStatus> status() {
+        return (Optional<ListInvitationsQueryParamStatus>) status;
     }
 
     public final static Builder builder() {
@@ -136,7 +136,7 @@ public class ListInvitationsRequest {
     /**
      * Filter invitations based on their status
      */
-    public ListInvitationsRequest withStatus(QueryParamStatus status) {
+    public ListInvitationsRequest withStatus(ListInvitationsQueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.ofNullable(status);
         return this;
@@ -145,7 +145,7 @@ public class ListInvitationsRequest {
     /**
      * Filter invitations based on their status
      */
-    public ListInvitationsRequest withStatus(Optional<? extends QueryParamStatus> status) {
+    public ListInvitationsRequest withStatus(Optional<? extends ListInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -188,7 +188,7 @@ public class ListInvitationsRequest {
  
         private Optional<Long> offset;
  
-        private Optional<? extends QueryParamStatus> status = Optional.empty();  
+        private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -239,7 +239,7 @@ public class ListInvitationsRequest {
         /**
          * Filter invitations based on their status
          */
-        public Builder status(QueryParamStatus status) {
+        public Builder status(ListInvitationsQueryParamStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = Optional.ofNullable(status);
             return this;
@@ -248,7 +248,7 @@ public class ListInvitationsRequest {
         /**
          * Filter invitations based on their status
          */
-        public Builder status(Optional<? extends QueryParamStatus> status) {
+        public Builder status(Optional<? extends ListInvitationsQueryParamStatus> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;

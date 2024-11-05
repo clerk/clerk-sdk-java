@@ -4,6 +4,7 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.WellKnownJWKS;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.GetJWKSRequestBuilder;
 import com.clerk.backend_api.models.operations.GetJWKSResponse;
@@ -14,6 +15,7 @@ import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
 import com.clerk.backend_api.utils.Utils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.String;
@@ -37,7 +39,7 @@ public class Jwks implements
      * Retrieve the JSON Web Key Set of the instance
      * @return The call builder
      */
-    public GetJWKSRequestBuilder getJWKS() {
+    public GetJWKSRequestBuilder get() {
         return new GetJWKSRequestBuilder(this);
     }
 
@@ -47,14 +49,14 @@ public class Jwks implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetJWKSResponse getJWKSDirect() throws Exception {
+    public GetJWKSResponse getDirect() throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/jwks");
         
         HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "*/*")
+        _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 this.sdkConfiguration.userAgent);
 
@@ -115,8 +117,19 @@ public class Jwks implements
         GetJWKSResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            // no content 
-            return _res;
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                WellKnownJWKS _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<WellKnownJWKS>() {});
+                _res.withWellKnownJWKS(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
             // no content 

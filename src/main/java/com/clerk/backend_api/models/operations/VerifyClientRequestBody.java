@@ -23,7 +23,7 @@ import java.util.Optional;
 public class VerifyClientRequestBody {
 
     /**
-     * A JWT Token that represents the active client.
+     * A JWT that represents the active client.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
@@ -41,7 +41,7 @@ public class VerifyClientRequestBody {
     }
 
     /**
-     * A JWT Token that represents the active client.
+     * A JWT that represents the active client.
      */
     @JsonIgnore
     public Optional<String> token() {
@@ -53,7 +53,7 @@ public class VerifyClientRequestBody {
     }
 
     /**
-     * A JWT Token that represents the active client.
+     * A JWT that represents the active client.
      */
     public VerifyClientRequestBody withToken(String token) {
         Utils.checkNotNull(token, "token");
@@ -62,7 +62,7 @@ public class VerifyClientRequestBody {
     }
 
     /**
-     * A JWT Token that represents the active client.
+     * A JWT that represents the active client.
      */
     public VerifyClientRequestBody withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
@@ -104,7 +104,7 @@ public class VerifyClientRequestBody {
         }
 
         /**
-         * A JWT Token that represents the active client.
+         * A JWT that represents the active client.
          */
         public Builder token(String token) {
             Utils.checkNotNull(token, "token");
@@ -113,7 +113,7 @@ public class VerifyClientRequestBody {
         }
 
         /**
-         * A JWT Token that represents the active client.
+         * A JWT that represents the active client.
          */
         public Builder token(Optional<String> token) {
             Utils.checkNotNull(token, "token");

@@ -31,7 +31,7 @@ public class Application {
                 .build();
 
             UpdateSignUpResponse res = sdk.signUps().update()
-                .id("<id>")
+                .id("<value>")
                 .requestBody(UpdateSignUpRequestBody.builder()
                     .build())
                 .call();

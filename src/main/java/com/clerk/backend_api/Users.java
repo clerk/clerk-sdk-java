@@ -5,6 +5,7 @@
 package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.OrganizationInvitationsWithPublicOrganizationData;
 import com.clerk.backend_api.models.components.OrganizationMemberships;
 import com.clerk.backend_api.models.components.TotalCount;
 import com.clerk.backend_api.models.components.User;
@@ -16,6 +17,20 @@ import com.clerk.backend_api.models.operations.BanUserResponse;
 import com.clerk.backend_api.models.operations.CreateUserRequestBody;
 import com.clerk.backend_api.models.operations.CreateUserRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateUserResponse;
+import com.clerk.backend_api.models.operations.CreateUserTOTPRequest;
+import com.clerk.backend_api.models.operations.CreateUserTOTPRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateUserTOTPResponse;
+import com.clerk.backend_api.models.operations.DeleteBackupCodeRequest;
+import com.clerk.backend_api.models.operations.DeleteBackupCodeRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteBackupCodeResponse;
+import com.clerk.backend_api.models.operations.DeleteBackupCodeResponseBody;
+import com.clerk.backend_api.models.operations.DeleteExternalAccountRequest;
+import com.clerk.backend_api.models.operations.DeleteExternalAccountRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteExternalAccountResponse;
+import com.clerk.backend_api.models.operations.DeleteTOTPRequest;
+import com.clerk.backend_api.models.operations.DeleteTOTPRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteTOTPResponse;
+import com.clerk.backend_api.models.operations.DeleteTOTPResponseBody;
 import com.clerk.backend_api.models.operations.DeleteUserProfileImageRequest;
 import com.clerk.backend_api.models.operations.DeleteUserProfileImageRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse;
@@ -41,6 +56,7 @@ import com.clerk.backend_api.models.operations.GetUsersCountResponse;
 import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
+import com.clerk.backend_api.models.operations.QueryParamStatus;
 import com.clerk.backend_api.models.operations.ResponseBody;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequest;
@@ -61,6 +77,15 @@ import com.clerk.backend_api.models.operations.UpdateUserRequest;
 import com.clerk.backend_api.models.operations.UpdateUserRequestBody;
 import com.clerk.backend_api.models.operations.UpdateUserRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateUserResponse;
+import com.clerk.backend_api.models.operations.UserPasskeyDeleteRequest;
+import com.clerk.backend_api.models.operations.UserPasskeyDeleteRequestBuilder;
+import com.clerk.backend_api.models.operations.UserPasskeyDeleteResponse;
+import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteRequest;
+import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteRequestBuilder;
+import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteResponse;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsRequest;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsRequestBuilder;
+import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsResponse;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse;
@@ -83,20 +108,21 @@ import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional; 
 
+/**
+ * The user object represents a user that has successfully signed up to your application.
+ * https://clerk.com/docs/reference/clerkjs/user
+ */
 public class Users implements
             MethodCallGetUserList,
             MethodCallCreateUser,
@@ -113,9 +139,16 @@ public class Users implements
             MethodCallUpdateUserMetadata,
             MethodCallGetOAuthAccessToken,
             MethodCallUsersGetOrganizationMemberships,
+            MethodCallUsersGetOrganizationInvitations,
             MethodCallVerifyPassword,
             MethodCallVerifyTOTP,
-            MethodCallDisableMFA {
+            MethodCallDisableMFA,
+            MethodCallDeleteBackupCode,
+            MethodCallUserPasskeyDelete,
+            MethodCallUserWeb3WalletDelete,
+            MethodCallCreateUserTOTP,
+            MethodCallDeleteTOTP,
+            MethodCallDeleteExternalAccount {
 
     private final SDKConfiguration sdkConfiguration;
 
@@ -2089,7 +2122,7 @@ public class Users implements
         HttpResponse<InputStream> _httpRes;
         try {
             _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "422", "4XX", "5XX")) {
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
@@ -2145,7 +2178,7 @@ public class Users implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "422")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -2285,47 +2318,19 @@ public class Users implements
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        byte[] _fullResponse = Utils.extractByteArrayFromBody(_httpRes);
-        
-        @SuppressWarnings("deprecation")
         UsersGetOrganizationMembershipsResponse.Builder _resBuilder = 
             UsersGetOrganizationMembershipsResponse
                 .builder()
                 .contentType(_contentType)
                 .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes)
-                .next(() -> {
-                    String _stringBody = new String(_fullResponse, StandardCharsets.UTF_8);
-                    ReadContext _body = JsonPath.parse(_stringBody);
-
-                    if (request == null) {
-                        return Optional.empty();
-                    }
-                    long _requestOffset = request.offset().get();
-                    @SuppressWarnings("unchecked")
-                    List<Long> _firstResult = _body.read("$", List.class);
-                    if (_firstResult == null || _firstResult.isEmpty()){
-                        return Optional.empty();
-                    };
-                    long _resolvedLimit = limit.get();
-                    
-                    if (_firstResult.size() < _resolvedLimit) {
-                        return Optional.empty();
-                    };
-                    long _newOffset = _requestOffset + _firstResult.size(); 
-                    UsersGetOrganizationMembershipsRequestBuilder _ret = getOrganizationMemberships();
-                    _ret.userId(userId);
-                    _ret.limit(_resolvedLimit);
-                    _ret.offset(_newOffset);
-                    return Optional.of(_ret.call());
-                });
+                .rawResponse(_httpRes);
 
         UsersGetOrganizationMembershipsResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 OrganizationMemberships _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<OrganizationMemberships>() {});
                 _res.withOrganizationMemberships(Optional.ofNullable(_out));
                 return _res;
@@ -2334,13 +2339,13 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "403")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
-                    new String(_fullResponse, StandardCharsets.UTF_8),
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<ClerkErrors>() {});
                 throw _out;
             } else {
@@ -2348,7 +2353,7 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "Unexpected content-type received: " + _contentType, 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
@@ -2357,13 +2362,180 @@ public class Users implements
                     _httpRes, 
                     _httpRes.statusCode(), 
                     "API error occurred", 
-                    _fullResponse);
+                    Utils.extractByteArrayFromBody(_httpRes));
         }
         throw new SDKError(
             _httpRes, 
             _httpRes.statusCode(), 
             "Unexpected status code received: " + _httpRes.statusCode(), 
-            _fullResponse);
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Retrieve all invitations for a user
+     * Retrieve a paginated list of the user's organization invitations
+     * @return The call builder
+     */
+    public UsersGetOrganizationInvitationsRequestBuilder getOrganizationInvitations() {
+        return new UsersGetOrganizationInvitationsRequestBuilder(this);
+    }
+
+    /**
+     * Retrieve all invitations for a user
+     * Retrieve a paginated list of the user's organization invitations
+     * @param userId The ID of the user whose organization invitations we want to retrieve
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
+            String userId) throws Exception {
+        return getOrganizationInvitations(userId, Optional.empty(), Optional.empty(), Optional.empty());
+    }
+    
+    /**
+     * Retrieve all invitations for a user
+     * Retrieve a paginated list of the user's organization invitations
+     * @param userId The ID of the user whose organization invitations we want to retrieve
+     * @param limit Applies a limit to the number of results returned.
+    Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+    Needs to be an integer greater or equal to zero.
+    To be used in conjunction with `limit`.
+     * @param status Filter organization invitations based on their status
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
+            String userId,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<? extends QueryParamStatus> status) throws Exception {
+        UsersGetOrganizationInvitationsRequest request =
+            UsersGetOrganizationInvitationsRequest
+                .builder()
+                .userId(userId)
+                .limit(limit)
+                .offset(offset)
+                .status(status)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                UsersGetOrganizationInvitationsRequest.class,
+                _baseUrl,
+                "/users/{user_id}/organization_invitations",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        _req.addQueryParams(Utils.getQueryParams(
+                UsersGetOrganizationInvitationsRequest.class,
+                request, 
+                null));
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "UsersGetOrganizationInvitations", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UsersGetOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "UsersGetOrganizationInvitations",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UsersGetOrganizationInvitations",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        UsersGetOrganizationInvitationsResponse.Builder _resBuilder = 
+            UsersGetOrganizationInvitationsResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        UsersGetOrganizationInvitationsResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                OrganizationInvitationsWithPublicOrganizationData _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<OrganizationInvitationsWithPublicOrganizationData>() {});
+                _res.withOrganizationInvitationsWithPublicOrganizationData(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
     }
 
 
@@ -2814,6 +2986,845 @@ public class Users implements
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Disable all user's Backup codes
+     * Disable all of a user's backup codes.
+     * @return The call builder
+     */
+    public DeleteBackupCodeRequestBuilder deleteBackupCodes() {
+        return new DeleteBackupCodeRequestBuilder(this);
+    }
+
+    /**
+     * Disable all user's Backup codes
+     * Disable all of a user's backup codes.
+     * @param userId The ID of the user whose backup codes are to be deleted.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteBackupCodeResponse deleteBackupCodes(
+            String userId) throws Exception {
+        DeleteBackupCodeRequest request =
+            DeleteBackupCodeRequest
+                .builder()
+                .userId(userId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                DeleteBackupCodeRequest.class,
+                _baseUrl,
+                "/users/{user_id}/backup_code",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "DeleteBackupCode", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteBackupCode",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "DeleteBackupCode",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteBackupCode",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        DeleteBackupCodeResponse.Builder _resBuilder = 
+            DeleteBackupCodeResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        DeleteBackupCodeResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                DeleteBackupCodeResponseBody _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<DeleteBackupCodeResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Delete a user passkey
+     * Delete the passkey identification for a given user and notify them through email.
+     * @return The call builder
+     */
+    public UserPasskeyDeleteRequestBuilder deletePasskey() {
+        return new UserPasskeyDeleteRequestBuilder(this);
+    }
+
+    /**
+     * Delete a user passkey
+     * Delete the passkey identification for a given user and notify them through email.
+     * @param userId The ID of the user that owns the passkey identity
+     * @param passkeyIdentificationId The ID of the passkey identity to be deleted
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UserPasskeyDeleteResponse deletePasskey(
+            String userId,
+            String passkeyIdentificationId) throws Exception {
+        UserPasskeyDeleteRequest request =
+            UserPasskeyDeleteRequest
+                .builder()
+                .userId(userId)
+                .passkeyIdentificationId(passkeyIdentificationId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                UserPasskeyDeleteRequest.class,
+                _baseUrl,
+                "/users/{user_id}/passkeys/{passkey_identification_id}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "UserPasskeyDelete", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UserPasskeyDelete",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "UserPasskeyDelete",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UserPasskeyDelete",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        UserPasskeyDeleteResponse.Builder _resBuilder = 
+            UserPasskeyDeleteResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        UserPasskeyDeleteResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                DeletedObject _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Delete a user web3 wallet
+     * Delete the web3 wallet identification for a given user.
+     * @return The call builder
+     */
+    public UserWeb3WalletDeleteRequestBuilder deleteWeb3Wallet() {
+        return new UserWeb3WalletDeleteRequestBuilder(this);
+    }
+
+    /**
+     * Delete a user web3 wallet
+     * Delete the web3 wallet identification for a given user.
+     * @param userId The ID of the user that owns the web3 wallet
+     * @param web3WalletIdentificationId The ID of the web3 wallet identity to be deleted
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
+            String userId,
+            String web3WalletIdentificationId) throws Exception {
+        UserWeb3WalletDeleteRequest request =
+            UserWeb3WalletDeleteRequest
+                .builder()
+                .userId(userId)
+                .web3WalletIdentificationId(web3WalletIdentificationId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                UserWeb3WalletDeleteRequest.class,
+                _baseUrl,
+                "/users/{user_id}/web3_wallets/{web3_wallet_identification_id}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "UserWeb3WalletDelete", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UserWeb3WalletDelete",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "UserWeb3WalletDelete",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "UserWeb3WalletDelete",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        UserWeb3WalletDeleteResponse.Builder _resBuilder = 
+            UserWeb3WalletDeleteResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        UserWeb3WalletDeleteResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                DeletedObject _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Create a TOTP for a user
+     * Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
+     * 
+     * @return The call builder
+     */
+    public CreateUserTOTPRequestBuilder createTOTP() {
+        return new CreateUserTOTPRequestBuilder(this);
+    }
+
+    /**
+     * Create a TOTP for a user
+     * Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
+     * 
+     * @param userId The ID of the user for whom the TOTP is being created.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateUserTOTPResponse createTOTP(
+            String userId) throws Exception {
+        CreateUserTOTPRequest request =
+            CreateUserTOTPRequest
+                .builder()
+                .userId(userId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                CreateUserTOTPRequest.class,
+                _baseUrl,
+                "/users/{user_id}/totp",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "CreateUserTOTP", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateUserTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "CreateUserTOTP",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateUserTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        CreateUserTOTPResponse.Builder _resBuilder = 
+            CreateUserTOTPResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        CreateUserTOTPResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                Map<String, Object> _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<Map<String, Object>>() {});
+                _res.withTotp(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "403", "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Delete all the user's TOTPs
+     * Deletes all of the user's TOTPs.
+     * @return The call builder
+     */
+    public DeleteTOTPRequestBuilder deleteTotp() {
+        return new DeleteTOTPRequestBuilder(this);
+    }
+
+    /**
+     * Delete all the user's TOTPs
+     * Deletes all of the user's TOTPs.
+     * @param userId The ID of the user whose TOTPs are to be deleted
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteTOTPResponse deleteTotp(
+            String userId) throws Exception {
+        DeleteTOTPRequest request =
+            DeleteTOTPRequest
+                .builder()
+                .userId(userId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                DeleteTOTPRequest.class,
+                _baseUrl,
+                "/users/{user_id}/totp",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "DeleteTOTP", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "DeleteTOTP",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteTOTP",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        DeleteTOTPResponse.Builder _resBuilder = 
+            DeleteTOTPResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        DeleteTOTPResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                DeleteTOTPResponseBody _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<DeleteTOTPResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Delete External Account
+     * Delete an external account by ID.
+     * @return The call builder
+     */
+    public DeleteExternalAccountRequestBuilder deleteExternalAccount() {
+        return new DeleteExternalAccountRequestBuilder(this);
+    }
+
+    /**
+     * Delete External Account
+     * Delete an external account by ID.
+     * @param userId The ID of the user's external account
+     * @param externalAccountId The ID of the external account to delete
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteExternalAccountResponse deleteExternalAccount(
+            String userId,
+            String externalAccountId) throws Exception {
+        DeleteExternalAccountRequest request =
+            DeleteExternalAccountRequest
+                .builder()
+                .userId(userId)
+                .externalAccountId(externalAccountId)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                DeleteExternalAccountRequest.class,
+                _baseUrl,
+                "/users/{user_id}/external_accounts/{external_account_id}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "DeleteExternalAccount", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "4XX", "500", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteExternalAccount",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "DeleteExternalAccount",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "DeleteExternalAccount",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        DeleteExternalAccountResponse.Builder _resBuilder = 
+            DeleteExternalAccountResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        DeleteExternalAccountResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                DeletedObject _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<DeletedObject>() {});
+                _res.withDeletedObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "500")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),

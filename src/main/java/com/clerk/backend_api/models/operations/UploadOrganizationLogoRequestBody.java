@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class UploadOrganizationLogoRequestBody {
@@ -20,26 +21,31 @@ public class UploadOrganizationLogoRequestBody {
      * The ID of the user that will be credited with the image upload.
      */
     @SpeakeasyMetadata("multipartForm:name=uploader_user_id")
-    private String uploaderUserId;
+    private Optional<String> uploaderUserId;
 
     @SpeakeasyMetadata("multipartForm:file")
     private UploadOrganizationLogoFile file;
 
     @JsonCreator
     public UploadOrganizationLogoRequestBody(
-            String uploaderUserId,
+            Optional<String> uploaderUserId,
             UploadOrganizationLogoFile file) {
         Utils.checkNotNull(uploaderUserId, "uploaderUserId");
         Utils.checkNotNull(file, "file");
         this.uploaderUserId = uploaderUserId;
         this.file = file;
     }
+    
+    public UploadOrganizationLogoRequestBody(
+            UploadOrganizationLogoFile file) {
+        this(Optional.empty(), file);
+    }
 
     /**
      * The ID of the user that will be credited with the image upload.
      */
     @JsonIgnore
-    public String uploaderUserId() {
+    public Optional<String> uploaderUserId() {
         return uploaderUserId;
     }
 
@@ -56,6 +62,15 @@ public class UploadOrganizationLogoRequestBody {
      * The ID of the user that will be credited with the image upload.
      */
     public UploadOrganizationLogoRequestBody withUploaderUserId(String uploaderUserId) {
+        Utils.checkNotNull(uploaderUserId, "uploaderUserId");
+        this.uploaderUserId = Optional.ofNullable(uploaderUserId);
+        return this;
+    }
+
+    /**
+     * The ID of the user that will be credited with the image upload.
+     */
+    public UploadOrganizationLogoRequestBody withUploaderUserId(Optional<String> uploaderUserId) {
         Utils.checkNotNull(uploaderUserId, "uploaderUserId");
         this.uploaderUserId = uploaderUserId;
         return this;
@@ -97,7 +112,7 @@ public class UploadOrganizationLogoRequestBody {
     
     public final static class Builder {
  
-        private String uploaderUserId;
+        private Optional<String> uploaderUserId = Optional.empty();
  
         private UploadOrganizationLogoFile file;  
         
@@ -109,6 +124,15 @@ public class UploadOrganizationLogoRequestBody {
          * The ID of the user that will be credited with the image upload.
          */
         public Builder uploaderUserId(String uploaderUserId) {
+            Utils.checkNotNull(uploaderUserId, "uploaderUserId");
+            this.uploaderUserId = Optional.ofNullable(uploaderUserId);
+            return this;
+        }
+
+        /**
+         * The ID of the user that will be credited with the image upload.
+         */
+        public Builder uploaderUserId(Optional<String> uploaderUserId) {
             Utils.checkNotNull(uploaderUserId, "uploaderUserId");
             this.uploaderUserId = uploaderUserId;
             return this;
