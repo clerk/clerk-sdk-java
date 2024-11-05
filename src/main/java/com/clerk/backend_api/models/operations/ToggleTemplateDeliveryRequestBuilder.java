@@ -45,7 +45,7 @@ public class ToggleTemplateDeliveryRequestBuilder {
 
     public ToggleTemplateDeliveryResponse call() throws Exception {
 
-        return sdk.toggleDelivery(
+        return sdk.toggleTemplateDelivery(
             templateType,
             slug,
             requestBody);

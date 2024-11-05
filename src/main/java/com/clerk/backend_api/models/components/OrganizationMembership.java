@@ -42,6 +42,10 @@ public class OrganizationMembership {
     private Optional<String> role;
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("role_name")
+    private Optional<String> roleName;
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("permissions")
     private Optional<? extends List<String>> permissions;
 
@@ -86,6 +90,7 @@ public class OrganizationMembership {
             @JsonProperty("id") Optional<String> id,
             @JsonProperty("object") Optional<? extends OrganizationMembershipObject> object,
             @JsonProperty("role") Optional<String> role,
+            @JsonProperty("role_name") Optional<String> roleName,
             @JsonProperty("permissions") Optional<? extends List<String>> permissions,
             @JsonProperty("public_metadata") Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata,
@@ -96,6 +101,7 @@ public class OrganizationMembership {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(role, "role");
+        Utils.checkNotNull(roleName, "roleName");
         Utils.checkNotNull(permissions, "permissions");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -106,6 +112,7 @@ public class OrganizationMembership {
         this.id = id;
         this.object = object;
         this.role = role;
+        this.roleName = roleName;
         this.permissions = permissions;
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
@@ -116,7 +123,7 @@ public class OrganizationMembership {
     }
     
     public OrganizationMembership() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -137,6 +144,11 @@ public class OrganizationMembership {
     @JsonIgnore
     public Optional<String> role() {
         return role;
+    }
+
+    @JsonIgnore
+    public Optional<String> roleName() {
+        return roleName;
     }
 
     @SuppressWarnings("unchecked")
@@ -236,6 +248,18 @@ public class OrganizationMembership {
     public OrganizationMembership withRole(Optional<String> role) {
         Utils.checkNotNull(role, "role");
         this.role = role;
+        return this;
+    }
+
+    public OrganizationMembership withRoleName(String roleName) {
+        Utils.checkNotNull(roleName, "roleName");
+        this.roleName = Optional.ofNullable(roleName);
+        return this;
+    }
+
+    public OrganizationMembership withRoleName(Optional<String> roleName) {
+        Utils.checkNotNull(roleName, "roleName");
+        this.roleName = roleName;
         return this;
     }
 
@@ -360,6 +384,7 @@ public class OrganizationMembership {
             Objects.deepEquals(this.id, other.id) &&
             Objects.deepEquals(this.object, other.object) &&
             Objects.deepEquals(this.role, other.role) &&
+            Objects.deepEquals(this.roleName, other.roleName) &&
             Objects.deepEquals(this.permissions, other.permissions) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
@@ -375,6 +400,7 @@ public class OrganizationMembership {
             id,
             object,
             role,
+            roleName,
             permissions,
             publicMetadata,
             privateMetadata,
@@ -390,6 +416,7 @@ public class OrganizationMembership {
                 "id", id,
                 "object", object,
                 "role", role,
+                "roleName", roleName,
                 "permissions", permissions,
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
@@ -406,6 +433,8 @@ public class OrganizationMembership {
         private Optional<? extends OrganizationMembershipObject> object = Optional.empty();
  
         private Optional<String> role = Optional.empty();
+ 
+        private Optional<String> roleName = Optional.empty();
  
         private Optional<? extends List<String>> permissions = Optional.empty();
  
@@ -466,6 +495,18 @@ public class OrganizationMembership {
         public Builder role(Optional<String> role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
+            return this;
+        }
+
+        public Builder roleName(String roleName) {
+            Utils.checkNotNull(roleName, "roleName");
+            this.roleName = Optional.ofNullable(roleName);
+            return this;
+        }
+
+        public Builder roleName(Optional<String> roleName) {
+            Utils.checkNotNull(roleName, "roleName");
+            this.roleName = roleName;
             return this;
         }
 
@@ -582,6 +623,7 @@ public class OrganizationMembership {
                 id,
                 object,
                 role,
+                roleName,
                 permissions,
                 publicMetadata,
                 privateMetadata,

@@ -3,6 +3,9 @@
 
 ## Overview
 
+The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
+<https://clerk.com/docs/reference/clerkjs/client>
+
 ### Available Operations
 
 * [~~list~~](#list) - List all clients :warning: **Deprecated**
@@ -23,6 +26,8 @@ Warning: the endpoint is being deprecated and will be removed in future versions
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetClientListResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -33,15 +38,18 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
                 .build();
 
-            sdk.clients().list()
+            GetClientListResponse res = sdk.clients().list()
                 .limit(10L)
                 .offset(0L)
-                .callAsStreamUnwrapped()
-                .forEach(item -> {
-                   // handle item
-                });
+                .call();
 
+            if (res.clientList().isPresent()) {
+                // handle response
+            }
         } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
             // handle exception
             throw e;
         } catch (Exception e) {

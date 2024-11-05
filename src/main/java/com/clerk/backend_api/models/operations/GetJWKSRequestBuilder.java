@@ -15,6 +15,6 @@ public class GetJWKSRequestBuilder {
 
     public GetJWKSResponse call() throws Exception {
 
-        return sdk.getJWKSDirect();
+        return sdk.getDirect();
     }
 }

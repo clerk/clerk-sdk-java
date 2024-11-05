@@ -11,24 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateSignUpRequestBody {
-
-    /**
-     * Specifies whether a custom action has run for this sign-up attempt.
-     * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-     * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("custom_action")
-    private Optional<Boolean> customAction;
 
     /**
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
@@ -40,26 +29,13 @@ public class UpdateSignUpRequestBody {
 
     @JsonCreator
     public UpdateSignUpRequestBody(
-            @JsonProperty("custom_action") Optional<Boolean> customAction,
             @JsonProperty("external_id") JsonNullable<String> externalId) {
-        Utils.checkNotNull(customAction, "customAction");
         Utils.checkNotNull(externalId, "externalId");
-        this.customAction = customAction;
         this.externalId = externalId;
     }
     
     public UpdateSignUpRequestBody() {
-        this(Optional.empty(), JsonNullable.undefined());
-    }
-
-    /**
-     * Specifies whether a custom action has run for this sign-up attempt.
-     * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-     * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-     */
-    @JsonIgnore
-    public Optional<Boolean> customAction() {
-        return customAction;
+        this(JsonNullable.undefined());
     }
 
     /**
@@ -73,28 +49,6 @@ public class UpdateSignUpRequestBody {
 
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Specifies whether a custom action has run for this sign-up attempt.
-     * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-     * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-     */
-    public UpdateSignUpRequestBody withCustomAction(boolean customAction) {
-        Utils.checkNotNull(customAction, "customAction");
-        this.customAction = Optional.ofNullable(customAction);
-        return this;
-    }
-
-    /**
-     * Specifies whether a custom action has run for this sign-up attempt.
-     * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-     * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-     */
-    public UpdateSignUpRequestBody withCustomAction(Optional<Boolean> customAction) {
-        Utils.checkNotNull(customAction, "customAction");
-        this.customAction = customAction;
-        return this;
     }
 
     /**
@@ -127,54 +81,27 @@ public class UpdateSignUpRequestBody {
         }
         UpdateSignUpRequestBody other = (UpdateSignUpRequestBody) o;
         return 
-            Objects.deepEquals(this.customAction, other.customAction) &&
             Objects.deepEquals(this.externalId, other.externalId);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            customAction,
             externalId);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateSignUpRequestBody.class,
-                "customAction", customAction,
                 "externalId", externalId);
     }
     
     public final static class Builder {
  
-        private Optional<Boolean> customAction = Optional.empty();
- 
         private JsonNullable<String> externalId = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * Specifies whether a custom action has run for this sign-up attempt.
-         * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-         * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-         */
-        public Builder customAction(boolean customAction) {
-            Utils.checkNotNull(customAction, "customAction");
-            this.customAction = Optional.ofNullable(customAction);
-            return this;
-        }
-
-        /**
-         * Specifies whether a custom action has run for this sign-up attempt.
-         * This is important when your instance has been configured to require a custom action to run before converting a sign-up into a user.
-         * After executing any external business logic you deem necessary, you can mark the sign-up as ready-to-convert by setting `custom_action` to `true`.
-         */
-        public Builder customAction(Optional<Boolean> customAction) {
-            Utils.checkNotNull(customAction, "customAction");
-            this.customAction = customAction;
-            return this;
         }
 
         /**
@@ -199,7 +126,6 @@ public class UpdateSignUpRequestBody {
         
         public UpdateSignUpRequestBody build() {
             return new UpdateSignUpRequestBody(
-                customAction,
                 externalId);
         }
     }

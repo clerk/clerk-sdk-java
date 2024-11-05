@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -65,28 +66,38 @@ public class CreateInvitationRequestBody {
     @JsonProperty("ignore_existing")
     private JsonNullable<Boolean> ignoreExisting;
 
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_in_days")
+    private JsonNullable<Long> expiresInDays;
+
     @JsonCreator
     public CreateInvitationRequestBody(
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("public_metadata") Optional<? extends CreateInvitationPublicMetadata> publicMetadata,
             @JsonProperty("redirect_url") Optional<String> redirectUrl,
             @JsonProperty("notify") JsonNullable<Boolean> notify_,
-            @JsonProperty("ignore_existing") JsonNullable<Boolean> ignoreExisting) {
+            @JsonProperty("ignore_existing") JsonNullable<Boolean> ignoreExisting,
+            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         Utils.checkNotNull(notify_, "notify_");
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
         this.emailAddress = emailAddress;
         this.publicMetadata = publicMetadata;
         this.redirectUrl = redirectUrl;
         this.notify_ = notify_;
         this.ignoreExisting = ignoreExisting;
+        this.expiresInDays = expiresInDays;
     }
     
     public CreateInvitationRequestBody(
             String emailAddress) {
-        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -132,6 +143,14 @@ public class CreateInvitationRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> ignoreExisting() {
         return ignoreExisting;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresInDays() {
+        return expiresInDays;
     }
 
     public final static Builder builder() {
@@ -226,6 +245,24 @@ public class CreateInvitationRequestBody {
         this.ignoreExisting = ignoreExisting;
         return this;
     }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     */
+    public CreateInvitationRequestBody withExpiresInDays(long expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = JsonNullable.of(expiresInDays);
+        return this;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     */
+    public CreateInvitationRequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = expiresInDays;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -241,7 +278,8 @@ public class CreateInvitationRequestBody {
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
             Objects.deepEquals(this.notify_, other.notify_) &&
-            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting);
+            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting) &&
+            Objects.deepEquals(this.expiresInDays, other.expiresInDays);
     }
     
     @Override
@@ -251,7 +289,8 @@ public class CreateInvitationRequestBody {
             publicMetadata,
             redirectUrl,
             notify_,
-            ignoreExisting);
+            ignoreExisting,
+            expiresInDays);
     }
     
     @Override
@@ -261,7 +300,8 @@ public class CreateInvitationRequestBody {
                 "publicMetadata", publicMetadata,
                 "redirectUrl", redirectUrl,
                 "notify_", notify_,
-                "ignoreExisting", ignoreExisting);
+                "ignoreExisting", ignoreExisting,
+                "expiresInDays", expiresInDays);
     }
     
     public final static class Builder {
@@ -274,7 +314,9 @@ public class CreateInvitationRequestBody {
  
         private JsonNullable<Boolean> notify_;
  
-        private JsonNullable<Boolean> ignoreExisting;  
+        private JsonNullable<Boolean> ignoreExisting;
+ 
+        private JsonNullable<Long> expiresInDays = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -368,6 +410,24 @@ public class CreateInvitationRequestBody {
             this.ignoreExisting = ignoreExisting;
             return this;
         }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation does not expire.
+         */
+        public Builder expiresInDays(long expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = JsonNullable.of(expiresInDays);
+            return this;
+        }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation does not expire.
+         */
+        public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = expiresInDays;
+            return this;
+        }
         
         public CreateInvitationRequestBody build() {
             if (notify_ == null) {
@@ -380,7 +440,8 @@ public class CreateInvitationRequestBody {
                 publicMetadata,
                 redirectUrl,
                 notify_,
-                ignoreExisting);
+                ignoreExisting,
+                expiresInDays);
         }
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =

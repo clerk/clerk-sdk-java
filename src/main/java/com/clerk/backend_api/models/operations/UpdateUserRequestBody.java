@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -113,123 +114,17 @@ public class UpdateUserRequestBody {
 
     /**
      * The hashing algorithm that was used to generate the password digest.
-     * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-     * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
      * 
-     * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+     * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-     * Insecure schemes are marked with `(insecure)` in the list below.
-     * 
-     * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-     * 
-     * **bcrypt:** The digest should be of the following form:
-     * 
-     * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-     * 
-     * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **md5** (insecure): The digest should follow the regular form e.g.:
-     * 
-     * `5f4dcc3b5aa765d61d8327deb882cf99`
-     * 
-     * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: Both the salt and the hash are expected to be base64-encoded.
-     * 
-     * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-     *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-     *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-     * 
-     * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-     * 
-     * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-     * 1. uses sha1 instead of sha256
-     * 2. accepts the hash as a hex-encoded string
-     * 
-     * The format is the following:
-     * 
-     * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-     * 
-     * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-     * 
-     * The format is the following:
-     * 
-     * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-     * 
-     * - $P$ is the prefix used to identify phpass hashes.
-     * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-     * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-     * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-     * 
-     * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-     * The value is expected to have 6 segments separated by the $ character and include the following information:
-     * 
-     * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-     * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-     * _signer key:_ The base64 encoded signer key.
-     * _salt separator:_ The base64 encoded salt separator.
-     * _rounds:_ The number of rounds the algorithm needs to run.
-     * _memory cost:_ The cost of the algorithm run
-     * 
-     * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-     * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-     * 
-     * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-     * 
-     * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-     * 
-     * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-     * 
-     * The value is expected to have 3 segments separated by the $ character and include the following information:
-     * 
-     * _algorithm args:_ The algorithm used to generate the hash.
-     * _salt:_ The salt used to generate the above hash.
-     * _hash:_ The actual Base64 hash.
-     * 
-     * The algorithm args are the parameters used to generate the hash and are included in the digest.
-     * 
-     * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-     * 
-     * _version (v):_ The argon version, version 19 is assumed
-     * _memory (m):_ The memory used by the algorithm (in kibibytes)
-     * _iterations (t):_ The number of iterations to perform
-     * _parallelism (p):_ The number of threads to use
-     * 
-     * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-     * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-     * The final part is the actual digest.
-     * 
-     * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-     * 
-     * **argon2id:** See the previous algorithm for an explanation of the formatting.
-     * 
-     * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-     * 
-     * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-     * 
-     * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-     * 
-     * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+     * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_hasher")
-    private Optional<? extends UpdateUserPasswordHasher> passwordHasher;
+    private Optional<String> passwordHasher;
 
     /**
      * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
@@ -301,6 +196,28 @@ public class UpdateUserRequestBody {
     private JsonNullable<Boolean> createOrganizationEnabled;
 
     /**
+     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("legal_accepted_at")
+    private JsonNullable<String> legalAcceptedAt;
+
+    /**
+     * When set to `true` all legal checks are skipped.
+     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("skip_legal_checks")
+    private JsonNullable<Boolean> skipLegalChecks;
+
+    /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("create_organizations_limit")
+    private JsonNullable<Long> createOrganizationsLimit;
+
+    /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -320,7 +237,7 @@ public class UpdateUserRequestBody {
             @JsonProperty("profile_image_id") JsonNullable<String> profileImageId,
             @JsonProperty("password") JsonNullable<String> password,
             @JsonProperty("password_digest") Optional<String> passwordDigest,
-            @JsonProperty("password_hasher") Optional<? extends UpdateUserPasswordHasher> passwordHasher,
+            @JsonProperty("password_hasher") Optional<String> passwordHasher,
             @JsonProperty("skip_password_checks") JsonNullable<Boolean> skipPasswordChecks,
             @JsonProperty("sign_out_of_other_sessions") JsonNullable<Boolean> signOutOfOtherSessions,
             @JsonProperty("totp_secret") Optional<String> totpSecret,
@@ -330,6 +247,9 @@ public class UpdateUserRequestBody {
             @JsonProperty("unsafe_metadata") Optional<? extends UpdateUserUnsafeMetadata> unsafeMetadata,
             @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
             @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
+            @JsonProperty("legal_accepted_at") JsonNullable<String> legalAcceptedAt,
+            @JsonProperty("skip_legal_checks") JsonNullable<Boolean> skipLegalChecks,
+            @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
             @JsonProperty("created_at") Optional<String> createdAt) {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
@@ -352,6 +272,9 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(createdAt, "createdAt");
         this.externalId = externalId;
         this.firstName = firstName;
@@ -374,11 +297,14 @@ public class UpdateUserRequestBody {
         this.unsafeMetadata = unsafeMetadata;
         this.deleteSelfEnabled = deleteSelfEnabled;
         this.createOrganizationEnabled = createOrganizationEnabled;
+        this.legalAcceptedAt = legalAcceptedAt;
+        this.skipLegalChecks = skipLegalChecks;
+        this.createOrganizationsLimit = createOrganizationsLimit;
         this.createdAt = createdAt;
     }
     
     public UpdateUserRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -480,124 +406,17 @@ public class UpdateUserRequestBody {
 
     /**
      * The hashing algorithm that was used to generate the password digest.
-     * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-     * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
      * 
-     * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+     * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-     * Insecure schemes are marked with `(insecure)` in the list below.
-     * 
-     * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-     * 
-     * **bcrypt:** The digest should be of the following form:
-     * 
-     * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-     * 
-     * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **md5** (insecure): The digest should follow the regular form e.g.:
-     * 
-     * `5f4dcc3b5aa765d61d8327deb882cf99`
-     * 
-     * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: Both the salt and the hash are expected to be base64-encoded.
-     * 
-     * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-     *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-     *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-     * 
-     * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-     * 
-     * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-     * 1. uses sha1 instead of sha256
-     * 2. accepts the hash as a hex-encoded string
-     * 
-     * The format is the following:
-     * 
-     * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-     * 
-     * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-     * 
-     * The format is the following:
-     * 
-     * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-     * 
-     * - $P$ is the prefix used to identify phpass hashes.
-     * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-     * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-     * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-     * 
-     * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-     * The value is expected to have 6 segments separated by the $ character and include the following information:
-     * 
-     * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-     * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-     * _signer key:_ The base64 encoded signer key.
-     * _salt separator:_ The base64 encoded salt separator.
-     * _rounds:_ The number of rounds the algorithm needs to run.
-     * _memory cost:_ The cost of the algorithm run
-     * 
-     * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-     * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-     * 
-     * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-     * 
-     * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-     * 
-     * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-     * 
-     * The value is expected to have 3 segments separated by the $ character and include the following information:
-     * 
-     * _algorithm args:_ The algorithm used to generate the hash.
-     * _salt:_ The salt used to generate the above hash.
-     * _hash:_ The actual Base64 hash.
-     * 
-     * The algorithm args are the parameters used to generate the hash and are included in the digest.
-     * 
-     * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-     * 
-     * _version (v):_ The argon version, version 19 is assumed
-     * _memory (m):_ The memory used by the algorithm (in kibibytes)
-     * _iterations (t):_ The number of iterations to perform
-     * _parallelism (p):_ The number of threads to use
-     * 
-     * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-     * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-     * The final part is the actual digest.
-     * 
-     * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-     * 
-     * **argon2id:** See the previous algorithm for an explanation of the formatting.
-     * 
-     * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-     * 
-     * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-     * 
-     * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-     * 
-     * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+     * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateUserPasswordHasher> passwordHasher() {
-        return (Optional<UpdateUserPasswordHasher>) passwordHasher;
+    public Optional<String> passwordHasher() {
+        return passwordHasher;
     }
 
     /**
@@ -680,6 +499,31 @@ public class UpdateUserRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> createOrganizationEnabled() {
         return createOrganizationEnabled;
+    }
+
+    /**
+     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    @JsonIgnore
+    public JsonNullable<String> legalAcceptedAt() {
+        return legalAcceptedAt;
+    }
+
+    /**
+     * When set to `true` all legal checks are skipped.
+     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> skipLegalChecks() {
+        return skipLegalChecks;
+    }
+
+    /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> createOrganizationsLimit() {
+        return createOrganizationsLimit;
     }
 
     /**
@@ -912,121 +756,15 @@ public class UpdateUserRequestBody {
 
     /**
      * The hashing algorithm that was used to generate the password digest.
-     * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-     * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
      * 
-     * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+     * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-     * Insecure schemes are marked with `(insecure)` in the list below.
-     * 
-     * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-     * 
-     * **bcrypt:** The digest should be of the following form:
-     * 
-     * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-     * 
-     * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **md5** (insecure): The digest should follow the regular form e.g.:
-     * 
-     * `5f4dcc3b5aa765d61d8327deb882cf99`
-     * 
-     * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: Both the salt and the hash are expected to be base64-encoded.
-     * 
-     * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-     *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-     *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-     * 
-     * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-     * 
-     * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-     * 1. uses sha1 instead of sha256
-     * 2. accepts the hash as a hex-encoded string
-     * 
-     * The format is the following:
-     * 
-     * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-     * 
-     * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-     * 
-     * The format is the following:
-     * 
-     * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-     * 
-     * - $P$ is the prefix used to identify phpass hashes.
-     * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-     * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-     * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-     * 
-     * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-     * The value is expected to have 6 segments separated by the $ character and include the following information:
-     * 
-     * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-     * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-     * _signer key:_ The base64 encoded signer key.
-     * _salt separator:_ The base64 encoded salt separator.
-     * _rounds:_ The number of rounds the algorithm needs to run.
-     * _memory cost:_ The cost of the algorithm run
-     * 
-     * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-     * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-     * 
-     * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-     * 
-     * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-     * 
-     * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-     * 
-     * The value is expected to have 3 segments separated by the $ character and include the following information:
-     * 
-     * _algorithm args:_ The algorithm used to generate the hash.
-     * _salt:_ The salt used to generate the above hash.
-     * _hash:_ The actual Base64 hash.
-     * 
-     * The algorithm args are the parameters used to generate the hash and are included in the digest.
-     * 
-     * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-     * 
-     * _version (v):_ The argon version, version 19 is assumed
-     * _memory (m):_ The memory used by the algorithm (in kibibytes)
-     * _iterations (t):_ The number of iterations to perform
-     * _parallelism (p):_ The number of threads to use
-     * 
-     * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-     * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-     * The final part is the actual digest.
-     * 
-     * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-     * 
-     * **argon2id:** See the previous algorithm for an explanation of the formatting.
-     * 
-     * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-     * 
-     * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-     * 
-     * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-     * 
-     * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+     * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
-    public UpdateUserRequestBody withPasswordHasher(UpdateUserPasswordHasher passwordHasher) {
+    public UpdateUserRequestBody withPasswordHasher(String passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
         this.passwordHasher = Optional.ofNullable(passwordHasher);
         return this;
@@ -1034,121 +772,15 @@ public class UpdateUserRequestBody {
 
     /**
      * The hashing algorithm that was used to generate the password digest.
-     * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-     * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
      * 
-     * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+     * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-     * Insecure schemes are marked with `(insecure)` in the list below.
-     * 
-     * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-     * 
-     * **bcrypt:** The digest should be of the following form:
-     * 
-     * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-     * 
-     * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-     * 
-     * **md5** (insecure): The digest should follow the regular form e.g.:
-     * 
-     * `5f4dcc3b5aa765d61d8327deb882cf99`
-     * 
-     * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: Both the salt and the hash are expected to be base64-encoded.
-     * 
-     * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-     * 
-     * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-     *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-     *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-     * 
-     * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-     * 
-     * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-     * 
-     * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-     * 
-     * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-     * 1. uses sha1 instead of sha256
-     * 2. accepts the hash as a hex-encoded string
-     * 
-     * The format is the following:
-     * 
-     * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-     * 
-     * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-     * 
-     * The format is the following:
-     * 
-     * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-     * 
-     * - $P$ is the prefix used to identify phpass hashes.
-     * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-     * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-     * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-     * 
-     * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-     * The value is expected to have 6 segments separated by the $ character and include the following information:
-     * 
-     * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-     * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-     * _signer key:_ The base64 encoded signer key.
-     * _salt separator:_ The base64 encoded salt separator.
-     * _rounds:_ The number of rounds the algorithm needs to run.
-     * _memory cost:_ The cost of the algorithm run
-     * 
-     * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-     * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-     * 
-     * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-     * 
-     * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-     * 
-     * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-     * 
-     * The value is expected to have 3 segments separated by the $ character and include the following information:
-     * 
-     * _algorithm args:_ The algorithm used to generate the hash.
-     * _salt:_ The salt used to generate the above hash.
-     * _hash:_ The actual Base64 hash.
-     * 
-     * The algorithm args are the parameters used to generate the hash and are included in the digest.
-     * 
-     * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-     * 
-     * _version (v):_ The argon version, version 19 is assumed
-     * _memory (m):_ The memory used by the algorithm (in kibibytes)
-     * _iterations (t):_ The number of iterations to perform
-     * _parallelism (p):_ The number of threads to use
-     * 
-     * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-     * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-     * The final part is the actual digest.
-     * 
-     * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-     * 
-     * **argon2id:** See the previous algorithm for an explanation of the formatting.
-     * 
-     * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-     * 
-     * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-     * 
-     * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-     * 
-     * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+     * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
-    public UpdateUserRequestBody withPasswordHasher(Optional<? extends UpdateUserPasswordHasher> passwordHasher) {
+    public UpdateUserRequestBody withPasswordHasher(Optional<String> passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
         this.passwordHasher = passwordHasher;
         return this;
@@ -1329,6 +961,62 @@ public class UpdateUserRequestBody {
     }
 
     /**
+     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public UpdateUserRequestBody withLegalAcceptedAt(String legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+        return this;
+    }
+
+    /**
+     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     */
+    public UpdateUserRequestBody withLegalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = legalAcceptedAt;
+        return this;
+    }
+
+    /**
+     * When set to `true` all legal checks are skipped.
+     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+     */
+    public UpdateUserRequestBody withSkipLegalChecks(boolean skipLegalChecks) {
+        Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+        this.skipLegalChecks = JsonNullable.of(skipLegalChecks);
+        return this;
+    }
+
+    /**
+     * When set to `true` all legal checks are skipped.
+     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+     */
+    public UpdateUserRequestBody withSkipLegalChecks(JsonNullable<Boolean> skipLegalChecks) {
+        Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+        this.skipLegalChecks = skipLegalChecks;
+        return this;
+    }
+
+    /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     */
+    public UpdateUserRequestBody withCreateOrganizationsLimit(long createOrganizationsLimit) {
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+        this.createOrganizationsLimit = JsonNullable.of(createOrganizationsLimit);
+        return this;
+    }
+
+    /**
+     * The maximum number of organizations the user can create. 0 means unlimited.
+     */
+    public UpdateUserRequestBody withCreateOrganizationsLimit(JsonNullable<Long> createOrganizationsLimit) {
+        Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+        this.createOrganizationsLimit = createOrganizationsLimit;
+        return this;
+    }
+
+    /**
      * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public UpdateUserRequestBody withCreatedAt(String createdAt) {
@@ -1377,6 +1065,9 @@ public class UpdateUserRequestBody {
             Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
             Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
             Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
+            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Objects.deepEquals(this.skipLegalChecks, other.skipLegalChecks) &&
+            Objects.deepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
             Objects.deepEquals(this.createdAt, other.createdAt);
     }
     
@@ -1404,6 +1095,9 @@ public class UpdateUserRequestBody {
             unsafeMetadata,
             deleteSelfEnabled,
             createOrganizationEnabled,
+            legalAcceptedAt,
+            skipLegalChecks,
+            createOrganizationsLimit,
             createdAt);
     }
     
@@ -1431,6 +1125,9 @@ public class UpdateUserRequestBody {
                 "unsafeMetadata", unsafeMetadata,
                 "deleteSelfEnabled", deleteSelfEnabled,
                 "createOrganizationEnabled", createOrganizationEnabled,
+                "legalAcceptedAt", legalAcceptedAt,
+                "skipLegalChecks", skipLegalChecks,
+                "createOrganizationsLimit", createOrganizationsLimit,
                 "createdAt", createdAt);
     }
     
@@ -1458,7 +1155,7 @@ public class UpdateUserRequestBody {
  
         private Optional<String> passwordDigest = Optional.empty();
  
-        private Optional<? extends UpdateUserPasswordHasher> passwordHasher = Optional.empty();
+        private Optional<String> passwordHasher = Optional.empty();
  
         private JsonNullable<Boolean> skipPasswordChecks = JsonNullable.undefined();
  
@@ -1477,6 +1174,12 @@ public class UpdateUserRequestBody {
         private JsonNullable<Boolean> deleteSelfEnabled = JsonNullable.undefined();
  
         private JsonNullable<Boolean> createOrganizationEnabled = JsonNullable.undefined();
+ 
+        private JsonNullable<String> legalAcceptedAt = JsonNullable.undefined();
+ 
+        private JsonNullable<Boolean> skipLegalChecks = JsonNullable.undefined();
+ 
+        private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
  
         private Optional<String> createdAt = Optional.empty();  
         
@@ -1702,121 +1405,15 @@ public class UpdateUserRequestBody {
 
         /**
          * The hashing algorithm that was used to generate the password digest.
-         * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-         * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
          * 
-         * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+         * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-         * Insecure schemes are marked with `(insecure)` in the list below.
-         * 
-         * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-         * 
-         * **bcrypt:** The digest should be of the following form:
-         * 
-         * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-         * 
-         * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-         * 
-         * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-         * 
-         * **md5** (insecure): The digest should follow the regular form e.g.:
-         * 
-         * `5f4dcc3b5aa765d61d8327deb882cf99`
-         * 
-         * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-         * 
-         * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         * Note: Both the salt and the hash are expected to be base64-encoded.
-         * 
-         * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-         * 
-         * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-         *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-         *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-         * 
-         * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-         * 
-         * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-         * 
-         * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-         * 1. uses sha1 instead of sha256
-         * 2. accepts the hash as a hex-encoded string
-         * 
-         * The format is the following:
-         * 
-         * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-         * 
-         * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-         * 
-         * The format is the following:
-         * 
-         * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-         * 
-         * - $P$ is the prefix used to identify phpass hashes.
-         * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-         * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-         * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-         * 
-         * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-         * The value is expected to have 6 segments separated by the $ character and include the following information:
-         * 
-         * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-         * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-         * _signer key:_ The base64 encoded signer key.
-         * _salt separator:_ The base64 encoded salt separator.
-         * _rounds:_ The number of rounds the algorithm needs to run.
-         * _memory cost:_ The cost of the algorithm run
-         * 
-         * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-         * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-         * 
-         * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-         * 
-         * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-         * 
-         * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-         * 
-         * The value is expected to have 3 segments separated by the $ character and include the following information:
-         * 
-         * _algorithm args:_ The algorithm used to generate the hash.
-         * _salt:_ The salt used to generate the above hash.
-         * _hash:_ The actual Base64 hash.
-         * 
-         * The algorithm args are the parameters used to generate the hash and are included in the digest.
-         * 
-         * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-         * 
-         * _version (v):_ The argon version, version 19 is assumed
-         * _memory (m):_ The memory used by the algorithm (in kibibytes)
-         * _iterations (t):_ The number of iterations to perform
-         * _parallelism (p):_ The number of threads to use
-         * 
-         * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-         * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-         * The final part is the actual digest.
-         * 
-         * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-         * 
-         * **argon2id:** See the previous algorithm for an explanation of the formatting.
-         * 
-         * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-         * 
-         * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-         * 
-         * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-         * 
-         * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+         * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
-        public Builder passwordHasher(UpdateUserPasswordHasher passwordHasher) {
+        public Builder passwordHasher(String passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
             this.passwordHasher = Optional.ofNullable(passwordHasher);
             return this;
@@ -1824,121 +1421,15 @@ public class UpdateUserRequestBody {
 
         /**
          * The hashing algorithm that was used to generate the password digest.
-         * The algorithms we support at the moment are [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), [bcrypt_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [md5](https://en.wikipedia.org/wiki/MD5), pbkdf2_sha256, pbkdf2_sha512, [pbkdf2_sha256_django](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [phpass](https://www.openwall.com/phpass/), [scrypt_firebase](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [sha256](https://en.wikipedia.org/wiki/SHA-2), [scrypt_werkzeug](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash)
-         * and the [argon2](https://argon2.online/) variants argon2i and argon2id.
          * 
-         * If you need support for any particular hashing algorithm, [please let us know](https://clerk.com/support).
+         * The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * Note: for password hashers considered insecure (at this moment MD5 and SHA256), the corresponding user password hashes will be transparently migrated to Bcrypt (a secure hasher) upon the user's first successful password sign in.
-         * Insecure schemes are marked with `(insecure)` in the list below.
-         * 
-         * Each of the supported hashers expects the incoming digest to be in a particular format. Specifically:
-         * 
-         * **bcrypt:** The digest should be of the following form:
-         * 
-         * `$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-         * 
-         * **bcrypt_sha256_django:** This is the Django-specific variant of Bcrypt, using SHA256 hashing function. The format should be as follows (as exported from Django):
-         * 
-         * `bcrypt_sha256$$&lt;algorithm version&gt;$&lt;cost&gt;$&lt;salt &amp; hash&gt;`
-         * 
-         * **md5** (insecure): The digest should follow the regular form e.g.:
-         * 
-         * `5f4dcc3b5aa765d61d8327deb882cf99`
-         * 
-         * **pbkdf2_sha256:** This is the PBKDF2 algorithm using the SHA256 hashing function. The format should be as follows:
-         * 
-         * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         * Note: Both the salt and the hash are expected to be base64-encoded.
-         * 
-         * **pbkdf2_sha512:** This is the PBKDF2 algorithm using the SHA512 hashing function. The format should be as follows:
-         * 
-         * `pbkdf2_sha512$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         *   _iterations:_ The number of iterations used. Must be an integer less than 420000.
-         *   _salt:_ The salt used when generating the hash. Must be less than bytes.
-         *   _hash:_ The hex-encoded hash. Must have been generated with a key length less than 1024 bytes.
-         * 
-         * **pbkdf2_sha256_django:** This is the Django-specific variant of PBKDF2 and the digest should have the following format (as exported from Django):
-         * 
-         * `pbkdf2_sha256$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;`
-         * 
-         * Note: The salt is expected to be un-encoded, the hash is expected base64-encoded.
-         * 
-         * **pbkdf2_sha1:** This is similar to pkbdf2_sha256_django, but with two differences:
-         * 1. uses sha1 instead of sha256
-         * 2. accepts the hash as a hex-encoded string
-         * 
-         * The format is the following:
-         * 
-         * `pbkdf2_sha1$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash-as-hex-string&gt;`
-         * 
-         * **phpass:** Portable public domain password hashing framework for use in PHP applications. Digests hashed with phpass have the following sections:
-         * 
-         * The format is the following:
-         * 
-         * `$P$&lt;rounds&gt;&lt;salt&gt;&lt;encoded-checksum&gt;`
-         * 
-         * - $P$ is the prefix used to identify phpass hashes.
-         * - rounds is a single character encoding a 6-bit integer representing the number of rounds used.
-         * - salt is eight characters drawn from [./0-9A-Za-z], providing a 48-bit salt.
-         * - checksum is 22 characters drawn from the same set, encoding the 128-bit checksum with MD5.
-         * 
-         * **scrypt_firebase:** The Firebase-specific variant of scrypt.
-         * The value is expected to have 6 segments separated by the $ character and include the following information:
-         * 
-         * _hash:_ The actual Base64 hash. This can be retrieved when exporting the user from Firebase.
-         * _salt:_ The salt used to generate the above hash. Again, this is given when exporting the user.
-         * _signer key:_ The base64 encoded signer key.
-         * _salt separator:_ The base64 encoded salt separator.
-         * _rounds:_ The number of rounds the algorithm needs to run.
-         * _memory cost:_ The cost of the algorithm run
-         * 
-         * The first 2 (hash and salt) are per user and can be retrieved when exporting the user from Firebase.
-         * The other 4 values (signer key, salt separator, rounds and memory cost) are project-wide settings and can be retrieved from the project's password hash parameters.
-         * 
-         * Once you have all these, you can combine it in the following format and send this as the digest in order for Clerk to accept it:
-         * 
-         * `&lt;hash&gt;$&lt;salt&gt;$&lt;signer key&gt;$&lt;salt separator&gt;$&lt;rounds&gt;$&lt;memory cost&gt;`
-         * 
-         * **scrypt_werkzeug:** The Werkzeug-specific variant of scrypt.
-         * 
-         * The value is expected to have 3 segments separated by the $ character and include the following information:
-         * 
-         * _algorithm args:_ The algorithm used to generate the hash.
-         * _salt:_ The salt used to generate the above hash.
-         * _hash:_ The actual Base64 hash.
-         * 
-         * The algorithm args are the parameters used to generate the hash and are included in the digest.
-         * 
-         * **argon2i:** Algorithms in the argon2 family generate digests that encode the following information:
-         * 
-         * _version (v):_ The argon version, version 19 is assumed
-         * _memory (m):_ The memory used by the algorithm (in kibibytes)
-         * _iterations (t):_ The number of iterations to perform
-         * _parallelism (p):_ The number of threads to use
-         * 
-         * Parts are demarcated by the `$` character, with the first part identifying the algorithm variant.
-         * The middle part is a comma-separated list of the encoding options (memory, iterations, parallelism).
-         * The final part is the actual digest.
-         * 
-         * `$argon2i$v=19$m=4096,t=3,p=1$4t6CL3P7YiHBtwESXawI8Hm20zJj4cs7/4/G3c187e0$m7RQFczcKr5bIR0IIxbpO2P0tyrLjf3eUW3M3QSwnLc`
-         * 
-         * **argon2id:** See the previous algorithm for an explanation of the formatting.
-         * 
-         * For the argon2id case, the value of the algorithm in the first part of the digest is `argon2id`:
-         * 
-         * `$argon2id$v=19$m=64,t=4,p=8$Z2liZXJyaXNo$iGXEpMBTDYQ8G/71tF0qGjxRHEmR3gpGULcE93zUJVU`
-         * 
-         * **sha256** (insecure): The digest should be a 64-length hex string, e.g.:
-         * 
-         * `9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`
+         * Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
-        public Builder passwordHasher(Optional<? extends UpdateUserPasswordHasher> passwordHasher) {
+        public Builder passwordHasher(Optional<String> passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
             this.passwordHasher = passwordHasher;
             return this;
@@ -2119,6 +1610,62 @@ public class UpdateUserRequestBody {
         }
 
         /**
+         * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder legalAcceptedAt(String legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+            return this;
+        }
+
+        /**
+         * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         */
+        public Builder legalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = legalAcceptedAt;
+            return this;
+        }
+
+        /**
+         * When set to `true` all legal checks are skipped.
+         * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+         */
+        public Builder skipLegalChecks(boolean skipLegalChecks) {
+            Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+            this.skipLegalChecks = JsonNullable.of(skipLegalChecks);
+            return this;
+        }
+
+        /**
+         * When set to `true` all legal checks are skipped.
+         * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
+         */
+        public Builder skipLegalChecks(JsonNullable<Boolean> skipLegalChecks) {
+            Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+            this.skipLegalChecks = skipLegalChecks;
+            return this;
+        }
+
+        /**
+         * The maximum number of organizations the user can create. 0 means unlimited.
+         */
+        public Builder createOrganizationsLimit(long createOrganizationsLimit) {
+            Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+            this.createOrganizationsLimit = JsonNullable.of(createOrganizationsLimit);
+            return this;
+        }
+
+        /**
+         * The maximum number of organizations the user can create. 0 means unlimited.
+         */
+        public Builder createOrganizationsLimit(JsonNullable<Long> createOrganizationsLimit) {
+            Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
+            this.createOrganizationsLimit = createOrganizationsLimit;
+            return this;
+        }
+
+        /**
          * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(String createdAt) {
@@ -2161,6 +1708,9 @@ public class UpdateUserRequestBody {
                 unsafeMetadata,
                 deleteSelfEnabled,
                 createOrganizationEnabled,
+                legalAcceptedAt,
+                skipLegalChecks,
+                createOrganizationsLimit,
                 createdAt);
         }
 

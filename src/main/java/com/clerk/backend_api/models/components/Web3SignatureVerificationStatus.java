@@ -8,7 +8,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum Web3SignatureVerificationStatus {
-    VERIFIED("verified");
+    UNVERIFIED("unverified"),
+    VERIFIED("verified"),
+    FAILED("failed"),
+    EXPIRED("expired");
 
     @JsonValue
     private final String value;

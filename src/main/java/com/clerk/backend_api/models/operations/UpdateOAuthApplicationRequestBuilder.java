@@ -31,7 +31,7 @@ public class UpdateOAuthApplicationRequestBuilder {
 
     public UpdateOAuthApplicationResponse call() throws Exception {
 
-        return sdk.updateApplication(
+        return sdk.update(
             oauthApplicationId,
             requestBody);
     }

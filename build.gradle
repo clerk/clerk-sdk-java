@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 group = "com.clerk"
-version = "0.3.0-beta.3"
+version = "0.3.0-beta.4"
 
 sourcesJar {
     archiveBaseName = "backend-api"
@@ -101,7 +101,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.clerk'
             artifactId = 'backend-api'
-            version = '0.3.0-beta.3'
+            version = '0.3.0-beta.4'
 
             from components.java
 
@@ -152,18 +152,8 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'org.apache.httpcomponents:httpmime:4.5.14'
     implementation 'commons-io:commons-io:2.15.1'
-    implementation 'com.jayway.jsonpath:json-path:2.9.0'
 }
 
 
 
 apply from: 'build-extras.gradle'
-
-test {
-    testLogging {
-        showStandardStreams true
-        showStackTraces true
-        showExceptions true
-        exceptionFormat "full"
-    }
-}

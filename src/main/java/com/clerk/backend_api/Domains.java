@@ -39,6 +39,9 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional; 
 
+/**
+ * Domains represent each instance's URLs and DNS setup.
+ */
 public class Domains implements
             MethodCallListDomains,
             MethodCallAddDomain,

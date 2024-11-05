@@ -32,7 +32,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
 
     public CreateOrganizationInvitationBulkResponse call() throws Exception {
 
-        return sdk.createBulk(
+        return sdk.bulkCreate(
             organizationId,
             requestBody);
     }
