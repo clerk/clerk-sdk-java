@@ -83,8 +83,8 @@ public class PhoneNumberVerification {
 
         public _Deserializer() {
             super(PhoneNumberVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationAdmin>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.VerificationOTP>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<VerificationAdmin>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<VerificationOTP>() {}, JsonShape.DEFAULT));
         }
     }
     

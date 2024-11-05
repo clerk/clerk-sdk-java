@@ -16,7 +16,7 @@ public class DeleteSAMLConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteSAMLConnectionRequestBuilder samlConnectionId(java.lang.String samlConnectionId) {
+    public DeleteSAMLConnectionRequestBuilder samlConnectionId(String samlConnectionId) {
         Utils.checkNotNull(samlConnectionId, "samlConnectionId");
         this.samlConnectionId = samlConnectionId;
         return this;

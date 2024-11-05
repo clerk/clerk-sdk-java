@@ -16,7 +16,7 @@ public class LockUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public LockUserRequestBuilder userId(java.lang.String userId) {
+    public LockUserRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

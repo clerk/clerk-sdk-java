@@ -19,25 +19,25 @@ public class UpsertTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpsertTemplateRequestBuilder templateType(com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType templateType) {
+    public UpsertTemplateRequestBuilder templateType(UpsertTemplatePathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public UpsertTemplateRequestBuilder slug(java.lang.String slug) {
+    public UpsertTemplateRequestBuilder slug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;
     }
                 
-    public UpsertTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpsertTemplateRequestBody requestBody) {
+    public UpsertTemplateRequestBuilder requestBody(UpsertTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpsertTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpsertTemplateRequestBody> requestBody) {
+    public UpsertTemplateRequestBuilder requestBody(Optional<? extends UpsertTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

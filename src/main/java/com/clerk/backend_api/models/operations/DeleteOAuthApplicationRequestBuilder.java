@@ -16,7 +16,7 @@ public class DeleteOAuthApplicationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteOAuthApplicationRequestBuilder oauthApplicationId(java.lang.String oauthApplicationId) {
+    public DeleteOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
         Utils.checkNotNull(oauthApplicationId, "oauthApplicationId");
         this.oauthApplicationId = oauthApplicationId;
         return this;

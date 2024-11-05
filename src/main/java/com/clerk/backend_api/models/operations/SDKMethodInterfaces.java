@@ -5,6 +5,7 @@
 package com.clerk.backend_api.models.operations;
 
 import java.lang.Boolean;
+import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.List;
@@ -14,127 +15,140 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallGetPublicInterstitial {
-        com.clerk.backend_api.models.operations.GetPublicInterstitialResponse getInterstitial(
+        GetPublicInterstitialResponse getInterstitial(
             Optional<String> frontendApi,
             Optional<String> publishableKey) throws Exception;
     }
 
 
     public interface MethodCallGetJWKS {
-        com.clerk.backend_api.models.operations.GetJWKSResponse getDirect() throws Exception;
+        GetJWKSResponse getDirect() throws Exception;
     }
 
 
     public interface MethodCallGetClientList {
-        com.clerk.backend_api.models.operations.GetClientListResponse list(
+        GetClientListResponse list(
             Optional<Long> limit,
             Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallVerifyClient {
-        com.clerk.backend_api.models.operations.VerifyClientResponse verify(
+        VerifyClientResponse verify(
             Optional<? extends VerifyClientRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetClient {
-        com.clerk.backend_api.models.operations.GetClientResponse get(
+        GetClientResponse get(
             String clientId) throws Exception;
     }
 
 
     public interface MethodCallCreateEmailAddress {
-        com.clerk.backend_api.models.operations.CreateEmailAddressResponse create(
+        CreateEmailAddressResponse create(
             Optional<? extends CreateEmailAddressRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetEmailAddress {
-        com.clerk.backend_api.models.operations.GetEmailAddressResponse get(
+        GetEmailAddressResponse get(
             String emailAddressId) throws Exception;
     }
 
 
     public interface MethodCallDeleteEmailAddress {
-        com.clerk.backend_api.models.operations.DeleteEmailAddressResponse delete(
+        DeleteEmailAddressResponse delete(
             String emailAddressId) throws Exception;
     }
 
 
     public interface MethodCallUpdateEmailAddress {
-        com.clerk.backend_api.models.operations.UpdateEmailAddressResponse update(
+        UpdateEmailAddressResponse update(
             String emailAddressId,
             Optional<? extends UpdateEmailAddressRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallCreatePhoneNumber {
-        com.clerk.backend_api.models.operations.CreatePhoneNumberResponse create(
+        CreatePhoneNumberResponse create(
             Optional<? extends CreatePhoneNumberRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetPhoneNumber {
-        com.clerk.backend_api.models.operations.GetPhoneNumberResponse get(
+        GetPhoneNumberResponse get(
             String phoneNumberId) throws Exception;
     }
 
 
     public interface MethodCallDeletePhoneNumber {
-        com.clerk.backend_api.models.operations.DeletePhoneNumberResponse delete(
+        DeletePhoneNumberResponse delete(
             String phoneNumberId) throws Exception;
     }
 
 
     public interface MethodCallUpdatePhoneNumber {
-        com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse update(
+        UpdatePhoneNumberResponse update(
             String phoneNumberId,
             Optional<? extends UpdatePhoneNumberRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallGetSessionList {
-        com.clerk.backend_api.models.operations.GetSessionListResponse list(
+        GetSessionListResponse list(
             GetSessionListRequest request) throws Exception;
     }
 
 
     public interface MethodCallGetSession {
-        com.clerk.backend_api.models.operations.GetSessionResponse get(
+        GetSessionResponse get(
             String sessionId) throws Exception;
     }
 
 
     public interface MethodCallRevokeSession {
-        com.clerk.backend_api.models.operations.RevokeSessionResponse revoke(
+        RevokeSessionResponse revoke(
             String sessionId) throws Exception;
     }
 
 
     public interface MethodCallVerifySession {
-        com.clerk.backend_api.models.operations.VerifySessionResponse verify(
+        VerifySessionResponse verify(
             String sessionId,
             Optional<? extends VerifySessionRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallCreateSessionTokenFromTemplate {
-        com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
+        CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
             String sessionId,
             String templateName) throws Exception;
     }
 
 
+    public interface MethodCallGetTemplateList {
+        GetTemplateListResponse list(
+            TemplateType templateType) throws Exception;
+    }
+
+
+    public interface MethodCallRevertTemplate {
+        RevertTemplateResponse revert(
+            RevertTemplatePathParamTemplateType templateType,
+            String slug) throws Exception;
+    }
+
+
     public interface MethodCallGetTemplate {
-        com.clerk.backend_api.models.operations.GetTemplateResponse get(
+        GetTemplateResponse get(
             PathParamTemplateType templateType,
             String slug) throws Exception;
     }
 
 
     public interface MethodCallToggleTemplateDelivery {
-        com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse toggleTemplateDelivery(
+        ToggleTemplateDeliveryResponse toggleTemplateDelivery(
             ToggleTemplateDeliveryPathParamTemplateType templateType,
             String slug,
             Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) throws Exception;
@@ -142,7 +156,7 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallUpsertTemplate {
-        com.clerk.backend_api.models.operations.UpsertTemplateResponse upsert(
+        UpsertTemplateResponse upsert(
             UpsertTemplatePathParamTemplateType templateType,
             String slug,
             Optional<? extends UpsertTemplateRequestBody> requestBody) throws Exception;
@@ -150,7 +164,7 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallPreviewTemplate {
-        com.clerk.backend_api.models.operations.PreviewTemplateResponse preview(
+        PreviewTemplateResponse preview(
             String templateType,
             String slug,
             Optional<? extends PreviewTemplateRequestBody> requestBody) throws Exception;
@@ -158,95 +172,95 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallGetUserList {
-        com.clerk.backend_api.models.operations.GetUserListResponse list(
+        GetUserListResponse list(
             GetUserListRequest request) throws Exception;
     }
 
 
     public interface MethodCallCreateUser {
-        com.clerk.backend_api.models.operations.CreateUserResponse create(
+        CreateUserResponse create(
             CreateUserRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallGetUsersCount {
-        com.clerk.backend_api.models.operations.GetUsersCountResponse count(
+        GetUsersCountResponse count(
             GetUsersCountRequest request) throws Exception;
     }
 
 
     public interface MethodCallGetUser {
-        com.clerk.backend_api.models.operations.GetUserResponse get(
+        GetUserResponse get(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUpdateUser {
-        com.clerk.backend_api.models.operations.UpdateUserResponse update(
+        UpdateUserResponse update(
             String userId,
             UpdateUserRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteUser {
-        com.clerk.backend_api.models.operations.DeleteUserResponse delete(
+        DeleteUserResponse delete(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallBanUser {
-        com.clerk.backend_api.models.operations.BanUserResponse ban(
+        BanUserResponse ban(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUnbanUser {
-        com.clerk.backend_api.models.operations.UnbanUserResponse unban(
+        UnbanUserResponse unban(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallLockUser {
-        com.clerk.backend_api.models.operations.LockUserResponse lock(
+        LockUserResponse lock(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUnlockUser {
-        com.clerk.backend_api.models.operations.UnlockUserResponse unlock(
+        UnlockUserResponse unlock(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallSetUserProfileImage {
-        com.clerk.backend_api.models.operations.SetUserProfileImageResponse setProfileImage(
+        SetUserProfileImageResponse setProfileImage(
             String userId,
             SetUserProfileImageRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteUserProfileImage {
-        com.clerk.backend_api.models.operations.DeleteUserProfileImageResponse deleteProfileImage(
+        DeleteUserProfileImageResponse deleteProfileImage(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUpdateUserMetadata {
-        com.clerk.backend_api.models.operations.UpdateUserMetadataResponse updateMetadata(
+        UpdateUserMetadataResponse updateMetadata(
             String userId,
             Optional<? extends UpdateUserMetadataRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallGetOAuthAccessToken {
-        com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse getOAuthAccessToken(
+        GetOAuthAccessTokenResponse getOAuthAccessToken(
             String userId,
             String provider) throws Exception;
     }
 
 
     public interface MethodCallUsersGetOrganizationMemberships {
-        com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
+        UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId,
             Optional<Long> limit,
             Optional<Long> offset) throws Exception;
@@ -254,7 +268,7 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallUsersGetOrganizationInvitations {
-        com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
+        UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
             String userId,
             Optional<Long> limit,
             Optional<Long> offset,
@@ -263,72 +277,72 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallVerifyPassword {
-        com.clerk.backend_api.models.operations.VerifyPasswordResponse verifyPassword(
+        VerifyPasswordResponse verifyPassword(
             String userId,
             Optional<? extends VerifyPasswordRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallVerifyTOTP {
-        com.clerk.backend_api.models.operations.VerifyTOTPResponse verifyTOTP(
+        VerifyTOTPResponse verifyTOTP(
             String userId,
             Optional<? extends VerifyTOTPRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallDisableMFA {
-        com.clerk.backend_api.models.operations.DisableMFAResponse disableMFA(
+        DisableMFAResponse disableMFA(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallDeleteBackupCode {
-        com.clerk.backend_api.models.operations.DeleteBackupCodeResponse deleteBackupCodes(
+        DeleteBackupCodeResponse deleteBackupCodes(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUserPasskeyDelete {
-        com.clerk.backend_api.models.operations.UserPasskeyDeleteResponse deletePasskey(
+        UserPasskeyDeleteResponse deletePasskey(
             String userId,
             String passkeyIdentificationId) throws Exception;
     }
 
 
     public interface MethodCallUserWeb3WalletDelete {
-        com.clerk.backend_api.models.operations.UserWeb3WalletDeleteResponse deleteWeb3Wallet(
+        UserWeb3WalletDeleteResponse deleteWeb3Wallet(
             String userId,
             String web3WalletIdentificationId) throws Exception;
     }
 
 
     public interface MethodCallCreateUserTOTP {
-        com.clerk.backend_api.models.operations.CreateUserTOTPResponse createTOTP(
+        CreateUserTOTPResponse createTOTP(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallDeleteTOTP {
-        com.clerk.backend_api.models.operations.DeleteTOTPResponse deleteTotp(
+        DeleteTOTPResponse deleteTotp(
             String userId) throws Exception;
     }
 
 
     public interface MethodCallDeleteExternalAccount {
-        com.clerk.backend_api.models.operations.DeleteExternalAccountResponse deleteExternalAccount(
+        DeleteExternalAccountResponse deleteExternalAccount(
             String userId,
             String externalAccountId) throws Exception;
     }
 
 
     public interface MethodCallCreateInvitation {
-        com.clerk.backend_api.models.operations.CreateInvitationResponse create(
+        CreateInvitationResponse create(
             Optional<? extends CreateInvitationRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallListInvitations {
-        com.clerk.backend_api.models.operations.ListInvitationsResponse list(
+        ListInvitationsResponse list(
             Optional<Long> limit,
             Optional<Long> offset,
             Optional<? extends ListInvitationsQueryParamStatus> status) throws Exception;
@@ -336,26 +350,26 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallRevokeInvitation {
-        com.clerk.backend_api.models.operations.RevokeInvitationResponse revoke(
+        RevokeInvitationResponse revoke(
             String invitationId) throws Exception;
     }
 
 
     public interface MethodCallListInstanceOrganizationInvitations {
-        com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsResponse getAll(
+        ListInstanceOrganizationInvitationsResponse getAll(
             ListInstanceOrganizationInvitationsRequest request) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationInvitation {
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse create(
+        CreateOrganizationInvitationResponse create(
             String organizationId,
             CreateOrganizationInvitationRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationInvitations {
-        com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse list(
+        ListOrganizationInvitationsResponse list(
             String organizationId,
             Optional<Long> limit,
             Optional<Long> offset,
@@ -364,14 +378,14 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateOrganizationInvitationBulk {
-        com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse bulkCreate(
+        CreateOrganizationInvitationBulkResponse bulkCreate(
             String organizationId,
             List<RequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallListPendingOrganizationInvitations {
-        com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse listPending(
+        ListPendingOrganizationInvitationsResponse listPending(
             String organizationId,
             Optional<Long> limit,
             Optional<Long> offset) throws Exception;
@@ -379,14 +393,14 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallGetOrganizationInvitation {
-        com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse get(
+        GetOrganizationInvitationResponse get(
             String organizationId,
             String invitationId) throws Exception;
     }
 
 
     public interface MethodCallRevokeOrganizationInvitation {
-        com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse revoke(
+        RevokeOrganizationInvitationResponse revoke(
             String organizationId,
             String invitationId,
             Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) throws Exception;
@@ -394,217 +408,217 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallListAllowlistIdentifiers {
-        com.clerk.backend_api.models.operations.ListAllowlistIdentifiersResponse listAllowlistIdentifiersDirect() throws Exception;
+        ListAllowlistIdentifiersResponse listAllowlistIdentifiersDirect() throws Exception;
     }
 
 
     public interface MethodCallCreateAllowlistIdentifier {
-        com.clerk.backend_api.models.operations.CreateAllowlistIdentifierResponse createAllowlistIdentifier(
+        CreateAllowlistIdentifierResponse createAllowlistIdentifier(
             Optional<? extends CreateAllowlistIdentifierRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallCreateBlocklistIdentifier {
-        com.clerk.backend_api.models.operations.CreateBlocklistIdentifierResponse createBlocklistIdentifier(
+        CreateBlocklistIdentifierResponse createBlocklistIdentifier(
             Optional<? extends CreateBlocklistIdentifierRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallDeleteBlocklistIdentifier {
-        com.clerk.backend_api.models.operations.DeleteBlocklistIdentifierResponse deleteBlocklistIdentifier(
+        DeleteBlocklistIdentifierResponse deleteBlocklistIdentifier(
             String identifierId) throws Exception;
     }
 
 
     public interface MethodCallDeleteAllowlistIdentifier {
-        com.clerk.backend_api.models.operations.DeleteAllowlistIdentifierResponse delete(
+        DeleteAllowlistIdentifierResponse delete(
             String identifierId) throws Exception;
     }
 
 
     public interface MethodCallListBlocklistIdentifiers {
-        com.clerk.backend_api.models.operations.ListBlocklistIdentifiersResponse listDirect() throws Exception;
+        ListBlocklistIdentifiersResponse listDirect() throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceAuthConfig {
-        com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse updateInstanceSettings(
+        UpdateInstanceAuthConfigResponse updateInstanceSettings(
             Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateProductionInstanceDomain {
-        com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse updateDomain(
+        UpdateProductionInstanceDomainResponse updateDomain(
             Optional<? extends UpdateProductionInstanceDomainRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallChangeProductionInstanceDomain {
-        com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse changeProductionInstanceDomain(
+        ChangeProductionInstanceDomainResponse changeProductionInstanceDomain(
             Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallCreateActorToken {
-        com.clerk.backend_api.models.operations.CreateActorTokenResponse create(
+        CreateActorTokenResponse create(
             Optional<? extends CreateActorTokenRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallRevokeActorToken {
-        com.clerk.backend_api.models.operations.RevokeActorTokenResponse revoke(
+        RevokeActorTokenResponse revoke(
             String actorTokenId) throws Exception;
     }
 
 
     public interface MethodCallListDomains {
-        com.clerk.backend_api.models.operations.ListDomainsResponse listDirect() throws Exception;
+        ListDomainsResponse listDirect() throws Exception;
     }
 
 
     public interface MethodCallAddDomain {
-        com.clerk.backend_api.models.operations.AddDomainResponse add(
+        AddDomainResponse add(
             Optional<? extends AddDomainRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallDeleteDomain {
-        com.clerk.backend_api.models.operations.DeleteDomainResponse delete(
+        DeleteDomainResponse delete(
             String domainId) throws Exception;
     }
 
 
     public interface MethodCallUpdateDomain {
-        com.clerk.backend_api.models.operations.UpdateDomainResponse update(
+        UpdateDomainResponse update(
             String domainId,
             UpdateDomainRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstance {
-        com.clerk.backend_api.models.operations.UpdateInstanceResponse update(
+        UpdateInstanceResponse update(
             Optional<? extends UpdateInstanceRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceRestrictions {
-        com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse updateRestrictions(
+        UpdateInstanceRestrictionsResponse updateRestrictions(
             Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceOrganizationSettings {
-        com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
+        UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
             Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallCreateSvixApp {
-        com.clerk.backend_api.models.operations.CreateSvixAppResponse createSvixAppDirect() throws Exception;
+        CreateSvixAppResponse createSvixAppDirect() throws Exception;
     }
 
 
     public interface MethodCallDeleteSvixApp {
-        com.clerk.backend_api.models.operations.DeleteSvixAppResponse deleteSvixAppDirect() throws Exception;
+        DeleteSvixAppResponse deleteSvixAppDirect() throws Exception;
     }
 
 
     public interface MethodCallGenerateSvixAuthURL {
-        com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception;
+        GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception;
     }
 
 
     public interface MethodCallListJWTTemplates {
-        com.clerk.backend_api.models.operations.ListJWTTemplatesResponse listDirect() throws Exception;
+        ListJWTTemplatesResponse listDirect() throws Exception;
     }
 
 
     public interface MethodCallCreateJWTTemplate {
-        com.clerk.backend_api.models.operations.CreateJWTTemplateResponse create(
+        CreateJWTTemplateResponse create(
             Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetJWTTemplate {
-        com.clerk.backend_api.models.operations.GetJWTTemplateResponse get(
+        GetJWTTemplateResponse get(
             String templateId) throws Exception;
     }
 
 
     public interface MethodCallUpdateJWTTemplate {
-        com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse update(
+        UpdateJWTTemplateResponse update(
             String templateId,
             Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteJWTTemplate {
-        com.clerk.backend_api.models.operations.DeleteJWTTemplateResponse delete(
+        DeleteJWTTemplateResponse delete(
             String templateId) throws Exception;
     }
 
 
     public interface MethodCallListOrganizations {
-        com.clerk.backend_api.models.operations.ListOrganizationsResponse list(
+        ListOrganizationsResponse list(
             ListOrganizationsRequest request) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganization {
-        com.clerk.backend_api.models.operations.CreateOrganizationResponse create(
+        CreateOrganizationResponse create(
             Optional<? extends CreateOrganizationRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetOrganization {
-        com.clerk.backend_api.models.operations.GetOrganizationResponse get(
+        GetOrganizationResponse get(
             String organizationId,
             Optional<Boolean> includeMembersCount) throws Exception;
     }
 
 
     public interface MethodCallUpdateOrganization {
-        com.clerk.backend_api.models.operations.UpdateOrganizationResponse update(
+        UpdateOrganizationResponse update(
             String organizationId,
             UpdateOrganizationRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganization {
-        com.clerk.backend_api.models.operations.DeleteOrganizationResponse delete(
+        DeleteOrganizationResponse delete(
             String organizationId) throws Exception;
     }
 
 
     public interface MethodCallMergeOrganizationMetadata {
-        com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse mergeMetadata(
+        MergeOrganizationMetadataResponse mergeMetadata(
             String organizationId,
             MergeOrganizationMetadataRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallUploadOrganizationLogo {
-        com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse uploadLogo(
+        UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
             Optional<? extends UploadOrganizationLogoRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganizationLogo {
-        com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse deleteLogo(
+        DeleteOrganizationLogoResponse deleteLogo(
             String organizationId) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationMembership {
-        com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse create(
+        CreateOrganizationMembershipResponse create(
             String organizationId,
             CreateOrganizationMembershipRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationMemberships {
-        com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse list(
+        ListOrganizationMembershipsResponse list(
             String organizationId,
             Optional<Long> limit,
             Optional<Long> offset,
@@ -613,7 +627,7 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallUpdateOrganizationMembership {
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse update(
+        UpdateOrganizationMembershipResponse update(
             String organizationId,
             String userId,
             UpdateOrganizationMembershipRequestBody requestBody) throws Exception;
@@ -621,14 +635,14 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallDeleteOrganizationMembership {
-        com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse delete(
+        DeleteOrganizationMembershipResponse delete(
             String organizationId,
             String userId) throws Exception;
     }
 
 
     public interface MethodCallUpdateOrganizationMembershipMetadata {
-        com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse updateMetadata(
+        UpdateOrganizationMembershipMetadataResponse updateMetadata(
             String organizationId,
             String userId,
             UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception;
@@ -636,7 +650,7 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallInstanceGetOrganizationMemberships {
-        com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse getAll(
+        InstanceGetOrganizationMembershipsResponse getAll(
             Optional<Long> limit,
             Optional<Long> offset,
             Optional<String> orderBy) throws Exception;
@@ -644,27 +658,27 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateOrganizationDomain {
-        com.clerk.backend_api.models.operations.CreateOrganizationDomainResponse create(
+        CreateOrganizationDomainResponse create(
             String organizationId,
             CreateOrganizationDomainRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationDomains {
-        com.clerk.backend_api.models.operations.ListOrganizationDomainsResponse list(
+        ListOrganizationDomainsResponse list(
             ListOrganizationDomainsRequest request) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganizationDomain {
-        com.clerk.backend_api.models.operations.DeleteOrganizationDomainResponse delete(
+        DeleteOrganizationDomainResponse delete(
             String organizationId,
             String domainId) throws Exception;
     }
 
 
     public interface MethodCallUpdateOrganizationDomain {
-        com.clerk.backend_api.models.operations.UpdateOrganizationDomainResponse update(
+        UpdateOrganizationDomainResponse update(
             String organizationId,
             String domainId,
             UpdateOrganizationDomainRequestBody requestBody) throws Exception;
@@ -672,125 +686,125 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallVerifyDomainProxy {
-        com.clerk.backend_api.models.operations.VerifyDomainProxyResponse verify(
+        VerifyDomainProxyResponse verify(
             Optional<? extends VerifyDomainProxyRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallListRedirectURLs {
-        com.clerk.backend_api.models.operations.ListRedirectURLsResponse listDirect() throws Exception;
+        ListRedirectURLsResponse listDirect() throws Exception;
     }
 
 
     public interface MethodCallCreateRedirectURL {
-        com.clerk.backend_api.models.operations.CreateRedirectURLResponse create(
+        CreateRedirectURLResponse create(
             Optional<? extends CreateRedirectURLRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetRedirectURL {
-        com.clerk.backend_api.models.operations.GetRedirectURLResponse get(
+        GetRedirectURLResponse get(
             String id) throws Exception;
     }
 
 
     public interface MethodCallDeleteRedirectURL {
-        com.clerk.backend_api.models.operations.DeleteRedirectURLResponse delete(
+        DeleteRedirectURLResponse delete(
             String id) throws Exception;
     }
 
 
     public interface MethodCallCreateSignInToken {
-        com.clerk.backend_api.models.operations.CreateSignInTokenResponse create(
+        CreateSignInTokenResponse create(
             Optional<? extends CreateSignInTokenRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallRevokeSignInToken {
-        com.clerk.backend_api.models.operations.RevokeSignInTokenResponse revoke(
+        RevokeSignInTokenResponse revoke(
             String signInTokenId) throws Exception;
     }
 
 
     public interface MethodCallUpdateSignUp {
-        com.clerk.backend_api.models.operations.UpdateSignUpResponse update(
+        UpdateSignUpResponse update(
             String id,
             Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception;
     }
 
 
     public interface MethodCallListOAuthApplications {
-        com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse list(
+        ListOAuthApplicationsResponse list(
             Optional<Long> limit,
             Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallCreateOAuthApplication {
-        com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse create(
+        CreateOAuthApplicationResponse create(
             Optional<? extends CreateOAuthApplicationRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetOAuthApplication {
-        com.clerk.backend_api.models.operations.GetOAuthApplicationResponse get(
+        GetOAuthApplicationResponse get(
             String oauthApplicationId) throws Exception;
     }
 
 
     public interface MethodCallUpdateOAuthApplication {
-        com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse update(
+        UpdateOAuthApplicationResponse update(
             String oauthApplicationId,
             UpdateOAuthApplicationRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteOAuthApplication {
-        com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse delete(
+        DeleteOAuthApplicationResponse delete(
             String oauthApplicationId) throws Exception;
     }
 
 
     public interface MethodCallRotateOAuthApplicationSecret {
-        com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse rotateSecret(
+        RotateOAuthApplicationSecretResponse rotateSecret(
             String oauthApplicationId) throws Exception;
     }
 
 
     public interface MethodCallListSAMLConnections {
-        com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse list(
+        ListSAMLConnectionsResponse list(
             Optional<Long> limit,
             Optional<Long> offset) throws Exception;
     }
 
 
     public interface MethodCallCreateSAMLConnection {
-        com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse create(
+        CreateSAMLConnectionResponse create(
             Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception;
     }
 
 
     public interface MethodCallGetSAMLConnection {
-        com.clerk.backend_api.models.operations.GetSAMLConnectionResponse get(
+        GetSAMLConnectionResponse get(
             String samlConnectionId) throws Exception;
     }
 
 
     public interface MethodCallUpdateSAMLConnection {
-        com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse update(
+        UpdateSAMLConnectionResponse update(
             String samlConnectionId,
             UpdateSAMLConnectionRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallDeleteSAMLConnection {
-        com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse delete(
+        DeleteSAMLConnectionResponse delete(
             String samlConnectionId) throws Exception;
     }
 
 
     public interface MethodCallCreateTestingToken {
-        com.clerk.backend_api.models.operations.CreateTestingTokenResponse createDirect() throws Exception;
+        CreateTestingTokenResponse createDirect() throws Exception;
     }
 
 

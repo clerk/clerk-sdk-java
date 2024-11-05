@@ -14,6 +14,9 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 
+/**
+ * TotalCount - Success
+ */
 
 public class TotalCount {
 

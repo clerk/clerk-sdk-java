@@ -19,7 +19,7 @@ public class GetOrganizationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetOrganizationRequestBuilder organizationId(java.lang.String organizationId) {
+    public GetOrganizationRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
@@ -31,7 +31,7 @@ public class GetOrganizationRequestBuilder {
         return this;
     }
 
-    public GetOrganizationRequestBuilder includeMembersCount(java.util.Optional<java.lang.Boolean> includeMembersCount) {
+    public GetOrganizationRequestBuilder includeMembersCount(Optional<Boolean> includeMembersCount) {
         Utils.checkNotNull(includeMembersCount, "includeMembersCount");
         this.includeMembersCount = includeMembersCount;
         return this;

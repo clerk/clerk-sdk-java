@@ -17,13 +17,13 @@ public class DeleteExternalAccountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteExternalAccountRequestBuilder userId(java.lang.String userId) {
+    public DeleteExternalAccountRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public DeleteExternalAccountRequestBuilder externalAccountId(java.lang.String externalAccountId) {
+    public DeleteExternalAccountRequestBuilder externalAccountId(String externalAccountId) {
         Utils.checkNotNull(externalAccountId, "externalAccountId");
         this.externalAccountId = externalAccountId;
         return this;

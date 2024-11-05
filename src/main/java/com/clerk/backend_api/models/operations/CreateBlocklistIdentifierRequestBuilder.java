@@ -16,13 +16,13 @@ public class CreateBlocklistIdentifierRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateBlocklistIdentifierRequestBuilder request(com.clerk.backend_api.models.operations.CreateBlocklistIdentifierRequestBody request) {
+    public CreateBlocklistIdentifierRequestBuilder request(CreateBlocklistIdentifierRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateBlocklistIdentifierRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateBlocklistIdentifierRequestBody> request) {
+    public CreateBlocklistIdentifierRequestBuilder request(Optional<? extends CreateBlocklistIdentifierRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

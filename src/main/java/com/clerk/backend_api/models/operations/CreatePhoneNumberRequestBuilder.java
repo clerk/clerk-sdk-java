@@ -16,13 +16,13 @@ public class CreatePhoneNumberRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreatePhoneNumberRequestBuilder request(com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody request) {
+    public CreatePhoneNumberRequestBuilder request(CreatePhoneNumberRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreatePhoneNumberRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody> request) {
+    public CreatePhoneNumberRequestBuilder request(Optional<? extends CreatePhoneNumberRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

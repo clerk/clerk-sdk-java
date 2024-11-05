@@ -16,7 +16,7 @@ public class DeleteOrganizationLogoRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteOrganizationLogoRequestBuilder organizationId(java.lang.String organizationId) {
+    public DeleteOrganizationLogoRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;

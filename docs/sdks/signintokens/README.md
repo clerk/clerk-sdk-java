@@ -20,40 +20,29 @@ You can optionally supply a different duration in seconds using the `expires_in_
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateSignInTokenResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        CreateSignInTokenRequestBody req = CreateSignInTokenRequestBody.builder()
                 .build();
 
-            CreateSignInTokenRequestBody req = CreateSignInTokenRequestBody.builder()
-                .build();
-
-            CreateSignInTokenResponse res = sdk.signInTokens().create()
+        CreateSignInTokenResponse res = sdk.signInTokens().create()
                 .request(req)
                 .call();
 
-            if (res.signInToken().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.signInToken().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -70,11 +59,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 404, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke
 
@@ -86,36 +74,25 @@ Revokes a pending sign-in token
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.RevokeSignInTokenResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            RevokeSignInTokenResponse res = sdk.signInTokens().revoke()
-                .signInTokenId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        RevokeSignInTokenResponse res = sdk.signInTokens().revoke()
+                .signInTokenId("<id>")
                 .call();
 
-            if (res.signInToken().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.signInToken().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -132,7 +109,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 400, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

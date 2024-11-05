@@ -16,7 +16,7 @@ public class DeleteBackupCodeRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteBackupCodeRequestBuilder userId(java.lang.String userId) {
+    public DeleteBackupCodeRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

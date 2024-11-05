@@ -25,37 +25,26 @@ Most recent OAuth applications will be returned first.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            ListOAuthApplicationsResponse res = sdk.oauthApplications().list()
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        ListOAuthApplicationsResponse res = sdk.oauthApplications().list()
                 .limit(10L)
                 .offset(0L)
                 .call();
 
-            if (res.oAuthApplications().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oAuthApplications().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -64,8 +53,8 @@ public class Application {
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 ### Response
 
@@ -73,11 +62,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 403, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## create
 
@@ -91,43 +79,32 @@ All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody;
 import com.clerk.backend_api.models.operations.CreateOAuthApplicationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            CreateOAuthApplicationRequestBody req = CreateOAuthApplicationRequestBody.builder()
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        CreateOAuthApplicationRequestBody req = CreateOAuthApplicationRequestBody.builder()
                 .name("<value>")
-                .callbackUrl("<value>")
+                .callbackUrl("https://probable-heating.com/")
                 .scopes("profile email public_metadata")
                 .build();
 
-            CreateOAuthApplicationResponse res = sdk.oauthApplications().create()
+        CreateOAuthApplicationResponse res = sdk.oauthApplications().create()
                 .request(req)
                 .call();
 
-            if (res.oAuthApplicationWithSecret().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oAuthApplicationWithSecret().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -144,11 +121,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 403, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -160,36 +136,25 @@ Fetches the OAuth application whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.GetOAuthApplicationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            GetOAuthApplicationResponse res = sdk.oauthApplications().get()
-                .oauthApplicationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        GetOAuthApplicationResponse res = sdk.oauthApplications().get()
+                .oauthApplicationId("<id>")
                 .call();
 
-            if (res.oAuthApplication().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oAuthApplication().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -206,11 +171,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -222,40 +186,29 @@ Updates an existing OAuth application
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            UpdateOAuthApplicationResponse res = sdk.oauthApplications().update()
-                .oauthApplicationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateOAuthApplicationResponse res = sdk.oauthApplications().update()
+                .oauthApplicationId("<id>")
                 .requestBody(UpdateOAuthApplicationRequestBody.builder()
                     .scopes("profile email public_metadata private_metadata")
                     .build())
                 .call();
 
-            if (res.oAuthApplication().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oAuthApplication().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -273,11 +226,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 403, 404, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -290,36 +242,25 @@ This is not reversible.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.DeleteOAuthApplicationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            DeleteOAuthApplicationResponse res = sdk.oauthApplications().delete()
-                .oauthApplicationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        DeleteOAuthApplicationResponse res = sdk.oauthApplications().delete()
+                .oauthApplicationId("<id>")
                 .call();
 
-            if (res.deletedObject().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.deletedObject().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -336,11 +277,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## rotateSecret
 
@@ -353,36 +293,25 @@ When the client secret is rotated, make sure to update it in authorized OAuth cl
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            RotateOAuthApplicationSecretResponse res = sdk.oauthApplications().rotateSecret()
-                .oauthApplicationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        RotateOAuthApplicationSecretResponse res = sdk.oauthApplications().rotateSecret()
+                .oauthApplicationId("<id>")
                 .call();
 
-            if (res.oAuthApplicationWithSecret().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oAuthApplicationWithSecret().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -399,7 +328,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403,404                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

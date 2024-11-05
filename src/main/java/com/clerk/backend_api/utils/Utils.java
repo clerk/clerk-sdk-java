@@ -4,36 +4,44 @@
 
 package com.clerk.backend_api.utils;
 
-import java.io.InputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.concurrent.Callable;
-import java.util.function.BiPredicate;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.function.BiPredicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -44,7 +52,6 @@ import javax.net.ssl.SSLSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
-
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -137,7 +144,7 @@ public final class Utils {
 
                                 pathParams.put(pathParamsMetadata.name,
                                         String.join(",",
-                                                array.stream().map(v -> Utils.valToString(v))
+                                                array.stream().map(v -> valToString(v))
                                                         .collect(Collectors.toList())));
                                 break;
                             case MAP:
@@ -149,17 +156,17 @@ public final class Utils {
                                 pathParams.put(pathParamsMetadata.name,
                                         String.join(",", map.entrySet().stream().map(e -> {
                                             if (pathParamsMetadata.explode) {
-                                                return String.format("%s=%s", Utils.valToString(e.getKey()),
-                                                        Utils.valToString(e.getValue()));
+                                                return String.format("%s=%s", valToString(e.getKey()),
+                                                        valToString(e.getValue()));
                                             } else {
-                                                return String.format("%s,%s", Utils.valToString(e.getKey()),
-                                                        Utils.valToString(e.getValue()));
+                                                return String.format("%s,%s", valToString(e.getKey()),
+                                                        valToString(e.getValue()));
                                             }
                                         }).collect(Collectors.toList())));
                                 break;
                             case OBJECT:
                                 if (!allowIntrospection(value.getClass())) {
-                                    pathParams.put(pathParamsMetadata.name, Utils.valToString(value));
+                                    pathParams.put(pathParamsMetadata.name, valToString(value));
                                     break;
                                 }
                                 List<String> values = new ArrayList<>();
@@ -180,17 +187,17 @@ public final class Utils {
 
                                     if (pathParamsMetadata.explode) {
                                         values.add(String.format("%s=%s", valuePathParamsMetadata.name,
-                                                Utils.valToString(val)));
+                                                valToString(val)));
                                     } else {
                                         values.add(String.format("%s,%s", valuePathParamsMetadata.name,
-                                                Utils.valToString(val)));
+                                                valToString(val)));
                                     }
                                 }
 
                                 pathParams.put(pathParamsMetadata.name, String.join(",", values));
                                 break;
                             default:
-                                pathParams.put(pathParamsMetadata.name, Utils.valToString(value));
+                                pathParams.put(pathParamsMetadata.name, valToString(value));
                                 break;
                         }
                 }
@@ -287,7 +294,7 @@ public final class Utils {
             String key = match.substring(1, match.length() - 1);
             String value = params.get(key);
             if (value != null) {
-                m.appendReplacement(sb, value);
+                m.appendReplacement(sb, URLEncoder.encode(value, StandardCharsets.UTF_8));
             }
         }
         m.appendTail(sb);
@@ -344,10 +351,10 @@ public final class Utils {
                         if (headerMetadata.explode) {
                             items.add(
                                     String.format("%s=%s", valueHeaderMetadata.name,
-                                            Utils.valToString(valueFieldValue)));
+                                            valToString(valueFieldValue)));
                         } else {
                             items.add(valueHeaderMetadata.name);
-                            items.add(Utils.valToString(valueFieldValue));
+                            items.add(valToString(valueFieldValue));
                         }
                     }
 
@@ -370,11 +377,11 @@ public final class Utils {
 
                     for (Map.Entry<?, ?> entry : map.entrySet()) {
                         if (headerMetadata.explode) {
-                            items.add(String.format("%s=%s", Utils.valToString(entry.getKey()),
-                                    Utils.valToString(entry.getValue())));
+                            items.add(String.format("%s=%s", valToString(entry.getKey()),
+                                    valToString(entry.getValue())));
                         } else {
-                            items.add(Utils.valToString(entry.getKey()));
-                            items.add(Utils.valToString(entry.getValue()));
+                            items.add(valToString(entry.getKey()));
+                            items.add(valToString(entry.getValue()));
                         }
                     }
 
@@ -397,7 +404,7 @@ public final class Utils {
                     List<String> items = new ArrayList<>();
 
                     for (Object item : array) {
-                        items.add(Utils.valToString(item));
+                        items.add(valToString(item));
                     }
 
                     if (!result.containsKey(headerMetadata.name)) {
@@ -415,7 +422,7 @@ public final class Utils {
                     }
 
                     List<String> values = result.get(headerMetadata.name);
-                    values.add(Utils.valToString(value));
+                    values.add(valToString(value));
                     break;
                 }
             }
@@ -425,17 +432,16 @@ public final class Utils {
     }
 
     public static String valToString(Object value) {
-        switch (Types.getType(value.getClass())) {
-            case ENUM:
-                try {
-                    Field field = value.getClass().getDeclaredField("value");
-                    field.setAccessible(true);
-                    return String.valueOf(field.get(value));
-                } catch (Exception e) {
-                    return "ERROR_UNKNOWN_VALUE";
-                }
-            default:
-                return String.valueOf(resolveOptionals(value));
+        if (value.getClass().isEnum()) {
+            try {
+                Field field = value.getClass().getDeclaredField("value");
+                field.setAccessible(true);
+                return String.valueOf(field.get(value));
+            } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+                return "ERROR_UNKNOWN_VALUE";
+            }
+        } else {
+            return String.valueOf(resolveOptionals(value));
         }
     }
 
@@ -464,16 +470,15 @@ public final class Utils {
     private static Map<String, String> parseSerializedParams(PathParamsMetadata pathParamsMetadata, Object value)
             throws JsonProcessingException {
         Map<String, String> params = new HashMap<>();
-
         switch (pathParamsMetadata.serialization) {
             case "json":
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(value);
-
-                params.put(pathParamsMetadata.name, URLEncoder.encode(json, StandardCharsets.UTF_8));
+                params.put(pathParamsMetadata.name, json);
+                break;
+            default: 
                 break;
         }
-
         return params;
     }
     
@@ -961,7 +966,7 @@ public final class Utils {
         
         public HttpResponseCached(HttpResponse<InputStream> response) throws IOException {
             this.response = response;
-            this.bytes = Utils.toByteArrayAndClose(response.body());
+            this.bytes = toByteArrayAndClose(response.body());
         }
 
         public String bodyAsUtf8() {
@@ -1050,4 +1055,130 @@ public final class Utils {
             return (String) o;
         }
     }
+    
+    public static void recordTest(String id) {
+        try {
+            new File("build").mkdir();
+            Files.writeString(Paths.get("build/test-javav2-record.txt"), id + "\n", StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+    
+    /**
+     * Returns an equivalent url with query parameters sorted by name. Sort is
+     * stable in that parameters with the same name will not be reordered. 
+     * 
+     * @param url input
+     * @return url with query parameters sorted by name
+     */
+    public static String sortQueryParameters(String url) {
+        if (url == null || url.isBlank()) {
+            return "";
+        }
+        String[] parts = url.split("\\?");
+        if (parts.length == 1) {
+            return url;
+        }
+        String query = parts[1];
+        String[] params = query.split("&");
+        sortByDelimitedKey(params, "=");
+        return parts[0] + "?" + Arrays.stream(params).collect(Collectors.joining("&"));
+    }
+
+    public static Object sortSerializedMaps(Object input, String regex, String delim) {
+        if (input == null) {
+            return input;
+        } else if (input instanceof String) {
+            return sortMapString((String) input, regex, delim);
+        } else if (input.getClass().isArray()) {
+            Object[] a = (Object[]) input;
+            String[] b = new String[a.length];
+            for (int i = 0; i < a.length; i++) {
+                if (!(a[i] instanceof String)) {
+                    throw new IllegalArgumentException("expected array item type of String, found " + a[i]);
+                }
+                b[i] = sortMapString((String) a[i], regex, delim);
+            }
+            return b;
+        } else if (input instanceof Map) {
+            @SuppressWarnings("unchecked")
+            Map<Object, Object> a = (Map<Object, Object>) input;
+            Map<String, String> b = new LinkedHashMap<>();
+            for (Entry<Object, Object> entry: a.entrySet()) {
+                if (!(entry.getKey() instanceof String)) {
+                    throw new IllegalArgumentException("expected map key type of String, found " + entry.getKey());
+                }
+                if (!(entry.getValue() instanceof String)) {
+                    throw new IllegalArgumentException("expected map value type of String, found " + entry.getValue());
+                }
+                b.put((String) entry.getKey(), sortMapString((String) entry.getValue(), regex, delim));
+            }
+            return b;
+        } else {
+            throw new IllegalArgumentException("unexpected type: " + input.getClass());
+        }
+    }
+    
+    private static String sortMapString(String input, String regex, String delim) {
+        return Pattern.compile(regex).matcher(input).replaceAll(m -> {
+            String escapedDelim = Pattern.quote(delim);
+            String result = m.group();
+            for (int i = 1; i <= m.groupCount(); i++) {
+                final String match = m.group(i);
+                String[] pairs;
+                if (match.contains("=")) {
+                    pairs = match.split(escapedDelim);
+                    sortByDelimitedKey(pairs, "=");
+                } else {
+                    String[] values = match.split(escapedDelim);
+                    if (values.length == 1) {
+                        pairs = values;
+                    } else {
+                        pairs = new String[values.length / 2];
+                        for (int j = 0; j < values.length; j += 2) {
+                            pairs[j / 2] = values[j] + delim + values[j + 1];
+                        }
+                    }
+                    sortByDelimitedKey(pairs, delim);
+                }
+                String joined = Arrays.stream(pairs).collect(Collectors.joining(delim));
+                result = result.replace(m.group(i), joined);
+            }
+            return result;
+        });
+    }
+    
+    private static void sortByDelimitedKey(String[] array, String delim) {
+        Arrays.sort(array, (a, b) -> {
+            String escapedDelim = Pattern.quote(delim);
+            String aKey = a.split(escapedDelim)[0];
+            String bKey = b.split(escapedDelim)[0];
+            return aKey.compareTo(bKey);
+        });
+    }
+
+    public static boolean isPresentAndNotNull(Optional<?> x) {
+        return x.isPresent();    
+    }
+    
+    public static boolean isPresentAndNotNull(JsonNullable<?> x) {
+        return x.isPresent() && x.get() != null;
+    }
+
+    private static final String OPEN_BRACKET_MARKER = UUID.randomUUID().toString().replace("-", "");
+    private static final String CLOSE_BRACKET_MARKER = UUID.randomUUID().toString().replace("-", "");
+    
+    public static String urlEncode(String s) {
+        // Ensure that complies with RFC 2732 (URLEncoder does not and we don't want to
+        // encode [, ] chars)
+        return URLEncoder.encode( //
+                s.replace("[", OPEN_BRACKET_MARKER) //
+                        .replace("]", CLOSE_BRACKET_MARKER), //
+                StandardCharsets.UTF_8) //
+                .replace(OPEN_BRACKET_MARKER, "[") //
+                .replace(CLOSE_BRACKET_MARKER, "]");
+    }
+    
 }

@@ -27,41 +27,30 @@ different organization as active before then.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationMembershipResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            CreateOrganizationMembershipResponse res = sdk.organizationMemberships().create()
-                .organizationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        CreateOrganizationMembershipResponse res = sdk.organizationMemberships().create()
+                .organizationId("<id>")
                 .requestBody(CreateOrganizationMembershipRequestBody.builder()
-                    .userId("<value>")
+                    .userId("<id>")
                     .role("<value>")
                     .build())
                 .call();
 
-            if (res.organizationMembership().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMembership().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -79,11 +68,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## list
 
@@ -95,39 +83,28 @@ Retrieves all user memberships for the given organization
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            ListOrganizationMembershipsResponse res = sdk.organizationMemberships().list()
-                .organizationId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        ListOrganizationMembershipsResponse res = sdk.organizationMemberships().list()
+                .organizationId("<id>")
                 .limit(10L)
                 .offset(0L)
                 .orderBy("<value>")
                 .call();
 
-            if (res.organizationMemberships().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMemberships().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -137,9 +114,9 @@ public class Application {
 | Parameter                                                                                                                                                                                                                           | Type                                                                                                                                                                                                                                | Required                                                                                                                                                                                                                            | Description                                                                                                                                                                                                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `organizationId`                                                                                                                                                                                                                    | *String*                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                  | The organization ID.                                                                                                                                                                                                                |
-| `limit`                                                                                                                                                                                                                             | *Optional<Long>*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                  | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                               |
-| `offset`                                                                                                                                                                                                                            | *Optional<Long>*                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
-| `orderBy`                                                                                                                                                                                                                           | *Optional<String>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
+| `limit`                                                                                                                                                                                                                             | *Optional\<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                  | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                               |
+| `offset`                                                                                                                                                                                                                            | *Optional\<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
+| `orderBy`                                                                                                                                                                                                                           | *Optional\<String>*                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
 
 ### Response
 
@@ -147,11 +124,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 401,422                   | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 401, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -163,41 +139,30 @@ Updates the properties of an existing organization membership
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            UpdateOrganizationMembershipResponse res = sdk.organizationMemberships().update()
-                .organizationId("<value>")
-                .userId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateOrganizationMembershipResponse res = sdk.organizationMemberships().update()
+                .organizationId("<id>")
+                .userId("<id>")
                 .requestBody(UpdateOrganizationMembershipRequestBody.builder()
                     .role("<value>")
                     .build())
                 .call();
 
-            if (res.organizationMembership().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMembership().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -216,11 +181,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -232,37 +196,26 @@ Removes the given membership from the organization
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            DeleteOrganizationMembershipResponse res = sdk.organizationMemberships().delete()
-                .organizationId("<value>")
-                .userId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        DeleteOrganizationMembershipResponse res = sdk.organizationMemberships().delete()
+                .organizationId("<id>")
+                .userId("<id>")
                 .call();
 
-            if (res.organizationMembership().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMembership().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -280,11 +233,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,401,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## updateMetadata
 
@@ -298,40 +250,29 @@ You can remove metadata keys at any level by setting their value to `null`.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            UpdateOrganizationMembershipMetadataResponse res = sdk.organizationMemberships().updateMetadata()
-                .organizationId("<value>")
-                .userId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateOrganizationMembershipMetadataResponse res = sdk.organizationMemberships().updateMetadata()
+                .organizationId("<id>")
+                .userId("<id>")
                 .requestBody(UpdateOrganizationMembershipMetadataRequestBody.builder()
                     .build())
                 .call();
 
-            if (res.organizationMembership().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMembership().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -350,11 +291,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,404,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## getAll
 
@@ -366,38 +306,27 @@ Retrieves all organization user memberships for the given instance.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            InstanceGetOrganizationMembershipsResponse res = sdk.organizationMemberships().getAll()
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        InstanceGetOrganizationMembershipsResponse res = sdk.organizationMemberships().getAll()
                 .limit(10L)
                 .offset(0L)
                 .orderBy("<value>")
                 .call();
 
-            if (res.organizationMemberships().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.organizationMemberships().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -406,9 +335,9 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                            | *Optional<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                 | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                              |
-| `offset`                                                                                                                                                                                                                           | *Optional<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                 | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                  |
-| `orderBy`                                                                                                                                                                                                                          | *Optional<String>*                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                 | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order. |
+| `limit`                                                                                                                                                                                                                            | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                              |
+| `offset`                                                                                                                                                                                                                           | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                  |
+| `orderBy`                                                                                                                                                                                                                          | *Optional\<String>*                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                 | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order. |
 
 ### Response
 
@@ -416,7 +345,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400,401,422,500           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 400, 401, 422, 500        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

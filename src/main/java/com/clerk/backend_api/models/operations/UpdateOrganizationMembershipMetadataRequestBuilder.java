@@ -18,19 +18,19 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateOrganizationMembershipMetadataRequestBuilder organizationId(java.lang.String organizationId) {
+    public UpdateOrganizationMembershipMetadataRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public UpdateOrganizationMembershipMetadataRequestBuilder userId(java.lang.String userId) {
+    public UpdateOrganizationMembershipMetadataRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public UpdateOrganizationMembershipMetadataRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody requestBody) {
+    public UpdateOrganizationMembershipMetadataRequestBuilder requestBody(UpdateOrganizationMembershipMetadataRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

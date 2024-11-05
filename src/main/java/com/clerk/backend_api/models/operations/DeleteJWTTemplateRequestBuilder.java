@@ -16,7 +16,7 @@ public class DeleteJWTTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteJWTTemplateRequestBuilder templateId(java.lang.String templateId) {
+    public DeleteJWTTemplateRequestBuilder templateId(String templateId) {
         Utils.checkNotNull(templateId, "templateId");
         this.templateId = templateId;
         return this;

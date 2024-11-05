@@ -16,13 +16,13 @@ public class UpdateInstanceRestrictionsRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public UpdateInstanceRestrictionsRequestBuilder request(com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody request) {
+    public UpdateInstanceRestrictionsRequestBuilder request(UpdateInstanceRestrictionsRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public UpdateInstanceRestrictionsRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody> request) {
+    public UpdateInstanceRestrictionsRequestBuilder request(Optional<? extends UpdateInstanceRestrictionsRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

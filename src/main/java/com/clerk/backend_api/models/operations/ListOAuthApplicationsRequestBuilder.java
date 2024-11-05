@@ -32,7 +32,7 @@ public class ListOAuthApplicationsRequestBuilder {
         return this;
     }
 
-    public ListOAuthApplicationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public ListOAuthApplicationsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -44,7 +44,7 @@ public class ListOAuthApplicationsRequestBuilder {
         return this;
     }
 
-    public ListOAuthApplicationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public ListOAuthApplicationsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;

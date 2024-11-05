@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Domains - A list of domains
+ */
 
 public class Domains {
 

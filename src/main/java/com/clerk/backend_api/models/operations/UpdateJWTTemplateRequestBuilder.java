@@ -18,19 +18,19 @@ public class UpdateJWTTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateJWTTemplateRequestBuilder templateId(java.lang.String templateId) {
+    public UpdateJWTTemplateRequestBuilder templateId(String templateId) {
         Utils.checkNotNull(templateId, "templateId");
         this.templateId = templateId;
         return this;
     }
                 
-    public UpdateJWTTemplateRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody requestBody) {
+    public UpdateJWTTemplateRequestBuilder requestBody(UpdateJWTTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateJWTTemplateRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody> requestBody) {
+    public UpdateJWTTemplateRequestBuilder requestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

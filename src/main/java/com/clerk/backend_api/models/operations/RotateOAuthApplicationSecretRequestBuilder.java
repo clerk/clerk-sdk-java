@@ -16,7 +16,7 @@ public class RotateOAuthApplicationSecretRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RotateOAuthApplicationSecretRequestBuilder oauthApplicationId(java.lang.String oauthApplicationId) {
+    public RotateOAuthApplicationSecretRequestBuilder oauthApplicationId(String oauthApplicationId) {
         Utils.checkNotNull(oauthApplicationId, "oauthApplicationId");
         this.oauthApplicationId = oauthApplicationId;
         return this;

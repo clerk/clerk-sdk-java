@@ -77,7 +77,7 @@ public class Error {
 
         public _Deserializer() {
             super(Error.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.ErrorClerkError>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<ErrorClerkError>() {}, JsonShape.DEFAULT));
         }
     }
     

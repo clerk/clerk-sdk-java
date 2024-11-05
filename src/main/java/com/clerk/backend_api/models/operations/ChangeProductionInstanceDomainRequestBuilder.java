@@ -16,13 +16,13 @@ public class ChangeProductionInstanceDomainRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public ChangeProductionInstanceDomainRequestBuilder request(com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody request) {
+    public ChangeProductionInstanceDomainRequestBuilder request(ChangeProductionInstanceDomainRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public ChangeProductionInstanceDomainRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody> request) {
+    public ChangeProductionInstanceDomainRequestBuilder request(Optional<? extends ChangeProductionInstanceDomainRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

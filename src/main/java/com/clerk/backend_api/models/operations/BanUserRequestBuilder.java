@@ -16,7 +16,7 @@ public class BanUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public BanUserRequestBuilder userId(java.lang.String userId) {
+    public BanUserRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * OAuthApplications - A list of OAuth applications
+ */
 
 public class OAuthApplications {
 

@@ -15,7 +15,7 @@ public class CreateUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateUserRequestBuilder request(com.clerk.backend_api.models.operations.CreateUserRequestBody request) {
+    public CreateUserRequestBuilder request(CreateUserRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

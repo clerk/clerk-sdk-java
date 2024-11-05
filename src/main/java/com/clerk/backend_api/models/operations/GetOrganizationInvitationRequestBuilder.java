@@ -17,13 +17,13 @@ public class GetOrganizationInvitationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetOrganizationInvitationRequestBuilder organizationId(java.lang.String organizationId) {
+    public GetOrganizationInvitationRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public GetOrganizationInvitationRequestBuilder invitationId(java.lang.String invitationId) {
+    public GetOrganizationInvitationRequestBuilder invitationId(String invitationId) {
         Utils.checkNotNull(invitationId, "invitationId");
         this.invitationId = invitationId;
         return this;

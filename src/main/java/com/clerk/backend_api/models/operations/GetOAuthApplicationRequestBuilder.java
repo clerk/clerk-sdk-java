@@ -16,7 +16,7 @@ public class GetOAuthApplicationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetOAuthApplicationRequestBuilder oauthApplicationId(java.lang.String oauthApplicationId) {
+    public GetOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
         Utils.checkNotNull(oauthApplicationId, "oauthApplicationId");
         this.oauthApplicationId = oauthApplicationId;
         return this;

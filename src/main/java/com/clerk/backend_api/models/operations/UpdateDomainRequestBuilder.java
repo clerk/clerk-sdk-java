@@ -17,13 +17,13 @@ public class UpdateDomainRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateDomainRequestBuilder domainId(java.lang.String domainId) {
+    public UpdateDomainRequestBuilder domainId(String domainId) {
         Utils.checkNotNull(domainId, "domainId");
         this.domainId = domainId;
         return this;
     }
 
-    public UpdateDomainRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateDomainRequestBody requestBody) {
+    public UpdateDomainRequestBuilder requestBody(UpdateDomainRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

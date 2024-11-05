@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * OrganizationMemberships - A list of organization memberships
+ */
 
 public class OrganizationMemberships {
 

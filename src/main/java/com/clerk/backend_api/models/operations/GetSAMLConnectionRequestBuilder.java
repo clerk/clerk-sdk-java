@@ -16,7 +16,7 @@ public class GetSAMLConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetSAMLConnectionRequestBuilder samlConnectionId(java.lang.String samlConnectionId) {
+    public GetSAMLConnectionRequestBuilder samlConnectionId(String samlConnectionId) {
         Utils.checkNotNull(samlConnectionId, "samlConnectionId");
         this.samlConnectionId = samlConnectionId;
         return this;

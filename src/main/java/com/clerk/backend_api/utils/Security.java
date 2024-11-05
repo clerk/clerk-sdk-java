@@ -5,6 +5,7 @@
 package com.clerk.backend_api.utils;
 
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public final class Security {
@@ -122,7 +123,9 @@ public final class Security {
                 request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
                 break;
             case "oauth2":
-                request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
+                if (!"client_credentials".equals(schemeMetadata.subtype)) {
+                    request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
+                }
                 break;
             case "http":
                 switch (schemeMetadata.subtype) {
@@ -171,6 +174,9 @@ public final class Security {
         }
 
         requestBuilder.addHeader("Authorization",
-                "Basic " + Base64.getEncoder().encodeToString(String.format("%s:%s", username, password).getBytes()));
+                "Basic " 
+                + Base64.getEncoder()
+                     .encodeToString(String.format("%s:%s", username, password)
+                     .getBytes(StandardCharsets.UTF_8)));
     }
 }

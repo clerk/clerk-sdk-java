@@ -16,7 +16,7 @@ public class RevokeSignInTokenRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RevokeSignInTokenRequestBuilder signInTokenId(java.lang.String signInTokenId) {
+    public RevokeSignInTokenRequestBuilder signInTokenId(String signInTokenId) {
         Utils.checkNotNull(signInTokenId, "signInTokenId");
         this.signInTokenId = signInTokenId;
         return this;

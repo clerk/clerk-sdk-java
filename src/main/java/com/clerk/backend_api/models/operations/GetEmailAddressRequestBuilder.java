@@ -16,7 +16,7 @@ public class GetEmailAddressRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetEmailAddressRequestBuilder emailAddressId(java.lang.String emailAddressId) {
+    public GetEmailAddressRequestBuilder emailAddressId(String emailAddressId) {
         Utils.checkNotNull(emailAddressId, "emailAddressId");
         this.emailAddressId = emailAddressId;
         return this;

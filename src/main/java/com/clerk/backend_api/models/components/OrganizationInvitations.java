@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * OrganizationInvitations - A list of organization invitations
+ */
 
 public class OrganizationInvitations {
 

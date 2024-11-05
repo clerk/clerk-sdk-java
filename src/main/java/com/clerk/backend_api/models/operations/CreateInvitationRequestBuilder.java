@@ -16,13 +16,13 @@ public class CreateInvitationRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateInvitationRequestBuilder request(com.clerk.backend_api.models.operations.CreateInvitationRequestBody request) {
+    public CreateInvitationRequestBuilder request(CreateInvitationRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateInvitationRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateInvitationRequestBody> request) {
+    public CreateInvitationRequestBuilder request(Optional<? extends CreateInvitationRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

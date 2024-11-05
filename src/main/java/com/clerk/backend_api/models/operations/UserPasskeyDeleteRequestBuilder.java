@@ -17,13 +17,13 @@ public class UserPasskeyDeleteRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UserPasskeyDeleteRequestBuilder userId(java.lang.String userId) {
+    public UserPasskeyDeleteRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    public UserPasskeyDeleteRequestBuilder passkeyIdentificationId(java.lang.String passkeyIdentificationId) {
+    public UserPasskeyDeleteRequestBuilder passkeyIdentificationId(String passkeyIdentificationId) {
         Utils.checkNotNull(passkeyIdentificationId, "passkeyIdentificationId");
         this.passkeyIdentificationId = passkeyIdentificationId;
         return this;

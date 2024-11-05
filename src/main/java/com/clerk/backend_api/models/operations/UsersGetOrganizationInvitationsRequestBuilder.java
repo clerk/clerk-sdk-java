@@ -29,7 +29,7 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UsersGetOrganizationInvitationsRequestBuilder userId(java.lang.String userId) {
+    public UsersGetOrganizationInvitationsRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
@@ -41,7 +41,7 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public UsersGetOrganizationInvitationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public UsersGetOrganizationInvitationsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -53,19 +53,19 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public UsersGetOrganizationInvitationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public UsersGetOrganizationInvitationsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public UsersGetOrganizationInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.QueryParamStatus status) {
+    public UsersGetOrganizationInvitationsRequestBuilder status(QueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public UsersGetOrganizationInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.QueryParamStatus> status) {
+    public UsersGetOrganizationInvitationsRequestBuilder status(Optional<? extends QueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;

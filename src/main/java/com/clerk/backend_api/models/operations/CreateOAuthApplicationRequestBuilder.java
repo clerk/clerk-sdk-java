@@ -16,13 +16,13 @@ public class CreateOAuthApplicationRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateOAuthApplicationRequestBuilder request(com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody request) {
+    public CreateOAuthApplicationRequestBuilder request(CreateOAuthApplicationRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateOAuthApplicationRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateOAuthApplicationRequestBody> request) {
+    public CreateOAuthApplicationRequestBuilder request(Optional<? extends CreateOAuthApplicationRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

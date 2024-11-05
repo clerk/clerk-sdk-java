@@ -16,7 +16,7 @@ public class RevokeInvitationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RevokeInvitationRequestBuilder invitationId(java.lang.String invitationId) {
+    public RevokeInvitationRequestBuilder invitationId(String invitationId) {
         Utils.checkNotNull(invitationId, "invitationId");
         this.invitationId = invitationId;
         return this;

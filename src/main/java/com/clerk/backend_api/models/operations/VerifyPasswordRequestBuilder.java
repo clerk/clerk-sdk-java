@@ -18,19 +18,19 @@ public class VerifyPasswordRequestBuilder {
         this.sdk = sdk;
     }
 
-    public VerifyPasswordRequestBuilder userId(java.lang.String userId) {
+    public VerifyPasswordRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
                 
-    public VerifyPasswordRequestBuilder requestBody(com.clerk.backend_api.models.operations.VerifyPasswordRequestBody requestBody) {
+    public VerifyPasswordRequestBuilder requestBody(VerifyPasswordRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public VerifyPasswordRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifyPasswordRequestBody> requestBody) {
+    public VerifyPasswordRequestBuilder requestBody(Optional<? extends VerifyPasswordRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

@@ -33,7 +33,7 @@ public class ListInvitationsRequestBuilder {
         return this;
     }
 
-    public ListInvitationsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public ListInvitationsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -45,19 +45,19 @@ public class ListInvitationsRequestBuilder {
         return this;
     }
 
-    public ListInvitationsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public ListInvitationsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public ListInvitationsRequestBuilder status(com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus status) {
+    public ListInvitationsRequestBuilder status(ListInvitationsQueryParamStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = Optional.of(status);
         return this;
     }
 
-    public ListInvitationsRequestBuilder status(java.util.Optional<? extends com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus> status) {
+    public ListInvitationsRequestBuilder status(Optional<? extends ListInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;

@@ -16,7 +16,7 @@ public class DeleteRedirectURLRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteRedirectURLRequestBuilder id(java.lang.String id) {
+    public DeleteRedirectURLRequestBuilder id(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;

@@ -34,7 +34,7 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
         return this;
     }
 
-    public InstanceGetOrganizationMembershipsRequestBuilder limit(java.util.Optional<java.lang.Long> limit) {
+    public InstanceGetOrganizationMembershipsRequestBuilder limit(Optional<Long> limit) {
         Utils.checkNotNull(limit, "limit");
         this.limit = limit;
         return this;
@@ -46,19 +46,19 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
         return this;
     }
 
-    public InstanceGetOrganizationMembershipsRequestBuilder offset(java.util.Optional<java.lang.Long> offset) {
+    public InstanceGetOrganizationMembershipsRequestBuilder offset(Optional<Long> offset) {
         Utils.checkNotNull(offset, "offset");
         this.offset = offset;
         return this;
     }
                 
-    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(java.lang.String orderBy) {
+    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
         this.orderBy = Optional.of(orderBy);
         return this;
     }
 
-    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(java.util.Optional<java.lang.String> orderBy) {
+    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
         this.orderBy = orderBy;
         return this;

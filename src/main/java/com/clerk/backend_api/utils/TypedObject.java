@@ -37,7 +37,12 @@ public class TypedObject {
     public JsonShape shape() {
         return shape;
     }
-
+    
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+    
     public static <T> TypedObject of(T value, JsonShape shape, TypeReference<T> typeReference) {
         return new TypedObject(value, shape, typeReference);
     }

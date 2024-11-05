@@ -83,8 +83,8 @@ public class Web3WalletVerification {
 
         public _Deserializer() {
             super(Web3WalletVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Web3Signature>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Web3WalletVerificationAdmin>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Web3Signature>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Web3WalletVerificationAdmin>() {}, JsonShape.DEFAULT));
         }
     }
     

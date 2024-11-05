@@ -23,37 +23,26 @@ The SAML Connections are ordered by descending creation date and the most recent
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            ListSAMLConnectionsResponse res = sdk.samlConnections().list()
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        ListSAMLConnectionsResponse res = sdk.samlConnections().list()
                 .limit(10L)
                 .offset(0L)
                 .call();
 
-            if (res.samlConnections().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.samlConnections().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -62,8 +51,8 @@ public class Application {
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional<Long>*                                                                                                                          | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 ### Response
 
@@ -71,11 +60,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 402, 403, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## create
 
@@ -87,7 +75,7 @@ Create a new SAML Connection.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody;
 import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
 import com.clerk.backend_api.models.operations.Provider;
@@ -95,36 +83,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+            .build();
 
-            CreateSAMLConnectionRequestBody req = CreateSAMLConnectionRequestBody.builder()
+        CreateSAMLConnectionRequestBody req = CreateSAMLConnectionRequestBody.builder()
                 .name("<value>")
-                .domain("<value>")
-                .provider(Provider.SAML_OKTA)
+                .domain("low-packaging.info")
+                .provider(Provider.SAML_CUSTOM)
                 .build();
 
-            CreateSAMLConnectionResponse res = sdk.samlConnections().create()
+        CreateSAMLConnectionResponse res = sdk.samlConnections().create()
                 .request(req)
                 .call();
 
-            if (res.schemasSAMLConnection().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.schemasSAMLConnection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -141,11 +118,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,403,422               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 402, 403, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## get
 
@@ -157,36 +133,25 @@ Fetches the SAML Connection whose ID matches the provided `saml_connection_id` i
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.GetSAMLConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            GetSAMLConnectionResponse res = sdk.samlConnections().get()
-                .samlConnectionId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        GetSAMLConnectionResponse res = sdk.samlConnections().get()
+                .samlConnectionId("<id>")
                 .call();
 
-            if (res.schemasSAMLConnection().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.schemasSAMLConnection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -203,11 +168,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 402, 403, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## update
 
@@ -219,39 +183,28 @@ Updates the SAML Connection whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody;
 import com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            UpdateSAMLConnectionResponse res = sdk.samlConnections().update()
-                .samlConnectionId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        UpdateSAMLConnectionResponse res = sdk.samlConnections().update()
+                .samlConnectionId("<id>")
                 .requestBody(UpdateSAMLConnectionRequestBody.builder()
                     .build())
                 .call();
 
-            if (res.schemasSAMLConnection().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.schemasSAMLConnection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -269,11 +222,10 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,403,404,422           | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
-
+| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
@@ -285,36 +237,25 @@ Deletes the SAML Connection whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.DeleteSAMLConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-                .build();
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
-            DeleteSAMLConnectionResponse res = sdk.samlConnections().delete()
-                .samlConnectionId("<value>")
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        DeleteSAMLConnectionResponse res = sdk.samlConnections().delete()
+                .samlConnectionId("<id>")
                 .call();
 
-            if (res.deletedObject().isPresent()) {
-                // handle response
-            }
-        } catch (com.clerk.backend_api.models.errors.ClerkErrors e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.deletedObject().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -331,7 +272,7 @@ public class Application {
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
+| Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402,403,404               | application/json          |
-| models/errors/SDKError    | 4xx-5xx                   | \*\/*                     |
+| models/errors/ClerkErrors | 402, 403, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

@@ -15,6 +15,9 @@ import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * SAMLConnections - A list of SAML Connections
+ */
 
 public class SAMLConnections {
 

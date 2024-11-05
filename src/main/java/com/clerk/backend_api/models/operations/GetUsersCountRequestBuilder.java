@@ -15,7 +15,7 @@ public class GetUsersCountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetUsersCountRequestBuilder request(com.clerk.backend_api.models.operations.GetUsersCountRequest request) {
+    public GetUsersCountRequestBuilder request(GetUsersCountRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

@@ -16,13 +16,13 @@ public class CreateEmailAddressRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateEmailAddressRequestBuilder request(com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody request) {
+    public CreateEmailAddressRequestBuilder request(CreateEmailAddressRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateEmailAddressRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody> request) {
+    public CreateEmailAddressRequestBuilder request(Optional<? extends CreateEmailAddressRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

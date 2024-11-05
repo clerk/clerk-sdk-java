@@ -77,7 +77,7 @@ public class SchemasPasskeyVerification {
 
         public _Deserializer() {
             super(SchemasPasskeyVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<com.clerk.backend_api.models.components.Passkey>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Passkey>() {}, JsonShape.DEFAULT));
         }
     }
     

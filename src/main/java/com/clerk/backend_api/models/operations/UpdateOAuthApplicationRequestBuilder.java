@@ -17,13 +17,13 @@ public class UpdateOAuthApplicationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateOAuthApplicationRequestBuilder oauthApplicationId(java.lang.String oauthApplicationId) {
+    public UpdateOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
         Utils.checkNotNull(oauthApplicationId, "oauthApplicationId");
         this.oauthApplicationId = oauthApplicationId;
         return this;
     }
 
-    public UpdateOAuthApplicationRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody requestBody) {
+    public UpdateOAuthApplicationRequestBuilder requestBody(UpdateOAuthApplicationRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

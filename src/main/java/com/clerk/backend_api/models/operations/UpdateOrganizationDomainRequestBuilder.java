@@ -18,19 +18,19 @@ public class UpdateOrganizationDomainRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateOrganizationDomainRequestBuilder organizationId(java.lang.String organizationId) {
+    public UpdateOrganizationDomainRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public UpdateOrganizationDomainRequestBuilder domainId(java.lang.String domainId) {
+    public UpdateOrganizationDomainRequestBuilder domainId(String domainId) {
         Utils.checkNotNull(domainId, "domainId");
         this.domainId = domainId;
         return this;
     }
 
-    public UpdateOrganizationDomainRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequestBody requestBody) {
+    public UpdateOrganizationDomainRequestBuilder requestBody(UpdateOrganizationDomainRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

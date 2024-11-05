@@ -18,19 +18,19 @@ public class VerifySessionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public VerifySessionRequestBuilder sessionId(java.lang.String sessionId) {
+    public VerifySessionRequestBuilder sessionId(String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
         return this;
     }
                 
-    public VerifySessionRequestBuilder requestBody(com.clerk.backend_api.models.operations.VerifySessionRequestBody requestBody) {
+    public VerifySessionRequestBuilder requestBody(VerifySessionRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public VerifySessionRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.VerifySessionRequestBody> requestBody) {
+    public VerifySessionRequestBuilder requestBody(Optional<? extends VerifySessionRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

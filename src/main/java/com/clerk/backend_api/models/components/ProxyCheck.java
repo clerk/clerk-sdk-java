@@ -15,6 +15,9 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 
+/**
+ * ProxyCheck - Health check information about a domain's proxy configuration validation attempt.
+ */
 
 public class ProxyCheck {
 

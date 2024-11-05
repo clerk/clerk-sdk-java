@@ -16,7 +16,7 @@ public class DeleteUserRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteUserRequestBuilder userId(java.lang.String userId) {
+    public DeleteUserRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

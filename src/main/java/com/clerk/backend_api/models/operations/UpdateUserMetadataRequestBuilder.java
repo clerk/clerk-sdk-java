@@ -18,19 +18,19 @@ public class UpdateUserMetadataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateUserMetadataRequestBuilder userId(java.lang.String userId) {
+    public UpdateUserMetadataRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
                 
-    public UpdateUserMetadataRequestBuilder requestBody(com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody requestBody) {
+    public UpdateUserMetadataRequestBuilder requestBody(UpdateUserMetadataRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = Optional.of(requestBody);
         return this;
     }
 
-    public UpdateUserMetadataRequestBuilder requestBody(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody> requestBody) {
+    public UpdateUserMetadataRequestBuilder requestBody(Optional<? extends UpdateUserMetadataRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

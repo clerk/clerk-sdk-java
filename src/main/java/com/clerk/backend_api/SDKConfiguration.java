@@ -21,11 +21,14 @@ class SDKConfiguration {
     public HTTPClient defaultClient;
     public String serverUrl;
     public int serverIdx = 0;
-    public String language = "java";
-    public String openapiDocVersion = "v1";
-    public String sdkVersion = "0.3.0-beta.4";
-    public String genVersion = "2.407.2";
-    public String userAgent = "speakeasy-sdk/java 0.3.0-beta.4 2.407.2 v1 com.clerk.backend_api";
+    private static final String LANGUAGE = "java";
+    public static final String OPENAPI_DOC_VERSION = "v1";
+    public static final String SDK_VERSION = "1.0.0";
+    public static final String GEN_VERSION = "2.447.4";
+    private static final String BASE_PACKAGE = "com.clerk.backend_api";
+    public static final String USER_AGENT = 
+            String.format("speakeasy-sdk/%s %s %s %s %s", 
+                LANGUAGE, SDK_VERSION, GEN_VERSION, OPENAPI_DOC_VERSION, BASE_PACKAGE);
 
     private Hooks _hooks = createHooks();
 

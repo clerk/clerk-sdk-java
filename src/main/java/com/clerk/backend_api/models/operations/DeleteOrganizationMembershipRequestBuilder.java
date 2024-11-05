@@ -17,13 +17,13 @@ public class DeleteOrganizationMembershipRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteOrganizationMembershipRequestBuilder organizationId(java.lang.String organizationId) {
+    public DeleteOrganizationMembershipRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
         return this;
     }
 
-    public DeleteOrganizationMembershipRequestBuilder userId(java.lang.String userId) {
+    public DeleteOrganizationMembershipRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

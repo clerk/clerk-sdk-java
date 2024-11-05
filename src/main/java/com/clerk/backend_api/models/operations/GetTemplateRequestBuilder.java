@@ -17,13 +17,13 @@ public class GetTemplateRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetTemplateRequestBuilder templateType(com.clerk.backend_api.models.operations.PathParamTemplateType templateType) {
+    public GetTemplateRequestBuilder templateType(PathParamTemplateType templateType) {
         Utils.checkNotNull(templateType, "templateType");
         this.templateType = templateType;
         return this;
     }
 
-    public GetTemplateRequestBuilder slug(java.lang.String slug) {
+    public GetTemplateRequestBuilder slug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
         return this;

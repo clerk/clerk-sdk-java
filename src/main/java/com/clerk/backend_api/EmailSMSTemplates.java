@@ -7,11 +7,19 @@ package com.clerk.backend_api;
 import com.clerk.backend_api.models.components.Template;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetTemplateListRequest;
+import com.clerk.backend_api.models.operations.GetTemplateListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetTemplateListResponse;
 import com.clerk.backend_api.models.operations.GetTemplateRequest;
 import com.clerk.backend_api.models.operations.GetTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.GetTemplateResponse;
 import com.clerk.backend_api.models.operations.PathParamTemplateType;
+import com.clerk.backend_api.models.operations.RevertTemplatePathParamTemplateType;
+import com.clerk.backend_api.models.operations.RevertTemplateRequest;
+import com.clerk.backend_api.models.operations.RevertTemplateRequestBuilder;
+import com.clerk.backend_api.models.operations.RevertTemplateResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
+import com.clerk.backend_api.models.operations.TemplateType;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody;
@@ -37,6 +45,8 @@ import java.util.List;
 import java.util.Optional; 
 
 public class EmailSMSTemplates implements
+            MethodCallGetTemplateList,
+            MethodCallRevertTemplate,
             MethodCallGetTemplate,
             MethodCallToggleTemplateDelivery {
 
@@ -45,6 +55,295 @@ public class EmailSMSTemplates implements
     EmailSMSTemplates(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
+
+    /**
+     * List all templates
+     * Returns a list of all templates.
+     * The templates are returned sorted by position.
+     * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public GetTemplateListRequestBuilder list() {
+        return new GetTemplateListRequestBuilder(this);
+    }
+
+    /**
+     * List all templates
+     * Returns a list of all templates.
+     * The templates are returned sorted by position.
+     * @param templateType The type of templates to list (email or SMS)
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public GetTemplateListResponse list(
+            TemplateType templateType) throws Exception {
+        GetTemplateListRequest request =
+            GetTemplateListRequest
+                .builder()
+                .templateType(templateType)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                GetTemplateListRequest.class,
+                _baseUrl,
+                "/templates/{template_type}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "GetTemplateList", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetTemplateList",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        GetTemplateListResponse.Builder _resBuilder = 
+            GetTemplateListResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        GetTemplateListResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                List<Template> _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<List<Template>>() {});
+                _res.withTemplateList(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Revert a template
+     * Reverts an updated template to its default state
+     * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public RevertTemplateRequestBuilder revert() {
+        return new RevertTemplateRequestBuilder(this);
+    }
+
+    /**
+     * Revert a template
+     * Reverts an updated template to its default state
+     * @param templateType The type of template to revert
+     * @param slug The slug of the template to revert
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public RevertTemplateResponse revert(
+            RevertTemplatePathParamTemplateType templateType,
+            String slug) throws Exception {
+        RevertTemplateRequest request =
+            RevertTemplateRequest
+                .builder()
+                .templateType(templateType)
+                .slug(slug)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                RevertTemplateRequest.class,
+                _baseUrl,
+                "/templates/{template_type}/{slug}/revert",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "RevertTemplate", 
+                      Optional.of(List.of()), 
+                      sdkConfiguration.securitySource()),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "404", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()), 
+                            sdkConfiguration.securitySource()),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "RevertTemplate",
+                            Optional.of(List.of()),
+                            sdkConfiguration.securitySource()), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        RevertTemplateResponse.Builder _resBuilder = 
+            RevertTemplateResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        RevertTemplateResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                Template _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<Template>() {});
+                _res.withTemplate(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "404")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
 
 
     /**
@@ -88,7 +387,7 @@ public class EmailSMSTemplates implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -268,7 +567,7 @@ public class EmailSMSTemplates implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

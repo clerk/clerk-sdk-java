@@ -16,7 +16,7 @@ public class DeleteUserProfileImageRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteUserProfileImageRequestBuilder userId(java.lang.String userId) {
+    public DeleteUserProfileImageRequestBuilder userId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;

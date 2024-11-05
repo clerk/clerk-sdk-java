@@ -16,13 +16,13 @@ public class UpdateInstanceAuthConfigRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public UpdateInstanceAuthConfigRequestBuilder request(com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody request) {
+    public UpdateInstanceAuthConfigRequestBuilder request(UpdateInstanceAuthConfigRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public UpdateInstanceAuthConfigRequestBuilder request(java.util.Optional<? extends com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody> request) {
+    public UpdateInstanceAuthConfigRequestBuilder request(Optional<? extends UpdateInstanceAuthConfigRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

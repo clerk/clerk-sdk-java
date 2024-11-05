@@ -20,6 +20,7 @@ import java.util.Optional;
 /**
  * ClerkErrors - Request was not successful
  */
+@SuppressWarnings("serial")
 public class ClerkErrors extends RuntimeException {
 
     @JsonProperty("errors")
