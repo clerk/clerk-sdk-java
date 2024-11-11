@@ -5,18 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 
+import com.clerk.backend_api.models.components.Totp;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
 import java.lang.Integer;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,14 +40,14 @@ public class CreateUserTOTPResponse implements Response {
     /**
      * A TOTP (Time-based One-Time Password)
      */
-    private Optional<? extends Map<String, Object>> totp;
+    private Optional<? extends Totp> totp;
 
     @JsonCreator
     public CreateUserTOTPResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends Map<String, Object>> totp) {
+            Optional<? extends Totp> totp) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -95,8 +94,8 @@ public class CreateUserTOTPResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Map<String, Object>> totp() {
-        return (Optional<Map<String, Object>>) totp;
+    public Optional<Totp> totp() {
+        return (Optional<Totp>) totp;
     }
 
     public final static Builder builder() {
@@ -133,7 +132,7 @@ public class CreateUserTOTPResponse implements Response {
     /**
      * A TOTP (Time-based One-Time Password)
      */
-    public CreateUserTOTPResponse withTotp(Map<String, Object> totp) {
+    public CreateUserTOTPResponse withTotp(Totp totp) {
         Utils.checkNotNull(totp, "totp");
         this.totp = Optional.ofNullable(totp);
         return this;
@@ -142,7 +141,7 @@ public class CreateUserTOTPResponse implements Response {
     /**
      * A TOTP (Time-based One-Time Password)
      */
-    public CreateUserTOTPResponse withTotp(Optional<? extends Map<String, Object>> totp) {
+    public CreateUserTOTPResponse withTotp(Optional<? extends Totp> totp) {
         Utils.checkNotNull(totp, "totp");
         this.totp = totp;
         return this;
@@ -190,7 +189,7 @@ public class CreateUserTOTPResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends Map<String, Object>> totp = Optional.empty();  
+        private Optional<? extends Totp> totp = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -226,7 +225,7 @@ public class CreateUserTOTPResponse implements Response {
         /**
          * A TOTP (Time-based One-Time Password)
          */
-        public Builder totp(Map<String, Object> totp) {
+        public Builder totp(Totp totp) {
             Utils.checkNotNull(totp, "totp");
             this.totp = Optional.ofNullable(totp);
             return this;
@@ -235,7 +234,7 @@ public class CreateUserTOTPResponse implements Response {
         /**
          * A TOTP (Time-based One-Time Password)
          */
-        public Builder totp(Optional<? extends Map<String, Object>> totp) {
+        public Builder totp(Optional<? extends Totp> totp) {
             Utils.checkNotNull(totp, "totp");
             this.totp = totp;
             return this;

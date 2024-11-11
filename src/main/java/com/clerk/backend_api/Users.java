@@ -8,6 +8,7 @@ import com.clerk.backend_api.models.components.DeletedObject;
 import com.clerk.backend_api.models.components.OrganizationInvitationsWithPublicOrganizationData;
 import com.clerk.backend_api.models.components.OrganizationMemberships;
 import com.clerk.backend_api.models.components.TotalCount;
+import com.clerk.backend_api.models.components.Totp;
 import com.clerk.backend_api.models.components.User;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
@@ -116,7 +117,6 @@ import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional; 
 
 /**
@@ -3532,9 +3532,9 @@ public class Users implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Map<String, Object> _out = Utils.mapper().readValue(
+                Totp _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Map<String, Object>>() {});
+                    new TypeReference<Totp>() {});
                 _res.withTotp(Optional.ofNullable(_out));
                 return _res;
             } else {
