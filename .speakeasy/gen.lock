@@ -1,19 +1,20 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 360e2b992ec7b171685132d827f3b1f7
+  docChecksum: b7d2d41694154c8bb06badd95ee5eabf
   docVersion: v1
-  speakeasyVersion: 1.428.0
-  generationVersion: 2.447.4
-  releaseVersion: 1.0.0
-  configChecksum: b91b6226ca33a5ba8fbd403738077ddb
+  speakeasyVersion: 1.437.0
+  generationVersion: 2.456.0
+  releaseVersion: 1.2.0
+  configChecksum: 09ed2850809d9e84b4ae26784404d320
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
+    additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.30.7
+    core: 3.31.0
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1
@@ -188,6 +189,7 @@ generatedFiles:
   - docs/models/components/TicketVerificationStrategy.md
   - docs/models/components/TotalCount.md
   - docs/models/components/TotalCountObject.md
+  - docs/models/components/Totp.md
   - docs/models/components/Type.md
   - docs/models/components/UnsafeMetadata.md
   - docs/models/components/User.md
@@ -751,6 +753,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/TicketVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCount.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Totp.java
   - src/main/java/com/clerk/backend_api/models/components/Type.java
   - src/main/java/com/clerk/backend_api/models/components/UnsafeMetadata.java
   - src/main/java/com/clerk/backend_api/models/components/User.java
@@ -1393,6 +1396,7 @@ examples:
       responses:
         "401":
           application/json: {"errors": []}
+        "200": {}
   GetTemplateList:
     speakeasy-default-get-template-list:
       parameters:
@@ -1401,6 +1405,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   RevertTemplate:
     speakeasy-default-revert-template:
       parameters:
@@ -1410,6 +1415,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   GetTemplate:
     speakeasy-default-get-template:
       parameters:
@@ -1419,6 +1425,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   ToggleTemplateDelivery:
     speakeasy-default-toggle-template-delivery:
       parameters:
@@ -1428,6 +1435,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   UpsertTemplate:
     speakeasy-default-upsert-template:
       parameters:
@@ -1437,6 +1445,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   PreviewTemplate:
     speakeasy-default-preview-template:
       parameters:
@@ -1446,6 +1455,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   GetUserList:
     "":
       parameters:
@@ -1579,6 +1589,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": []}
+        "200": {}
   UsersGetOrganizationMemberships:
     speakeasy-default-users-get-organization-memberships:
       parameters:
@@ -1609,6 +1620,7 @@ examples:
       responses:
         "500":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   VerifyTOTP:
     speakeasy-default-verify-TOTP:
       parameters:
@@ -1617,6 +1629,7 @@ examples:
       responses:
         "500":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   DisableMFA:
     speakeasy-default-disable-MFA:
       parameters:
@@ -1625,6 +1638,7 @@ examples:
       responses:
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   DeleteBackupCode:
     speakeasy-default-delete-backup-code:
       parameters:
@@ -1633,6 +1647,7 @@ examples:
       responses:
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   UserPasskeyDelete:
     speakeasy-default-user-passkey-delete:
       parameters:
@@ -1662,7 +1677,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"key": "<value>", "key1": "<value>"}
+          application/json: {"object": "<value>", "id": "<id>", "secret": "<value>", "uri": "https://creamy-merit.net", "verified": false, "key": "<value>", "key1": "<value>"}
         "403":
           application/json: {"errors": []}
   DeleteTOTP:
@@ -1673,6 +1688,7 @@ examples:
       responses:
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   DeleteExternalAccount:
     speakeasy-default-delete-external-account:
       parameters:
@@ -1723,6 +1739,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": []}
+        "200": {}
   ListOrganizationInvitations:
     speakeasy-default-list-organization-invitations:
       parameters:
@@ -1743,7 +1760,7 @@ examples:
         application/json: []
       responses:
         "200":
-          application/json: {"total_count": 932144}
+          application/json: {"data": [], "total_count": 932144}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListPendingOrganizationInvitations:
@@ -1766,6 +1783,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   RevokeOrganizationInvitation:
     speakeasy-default-revoke-organization-invitation:
       parameters:
@@ -1775,21 +1793,25 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   ListAllowlistIdentifiers:
     speakeasy-default-list-allowlist-identifiers:
       responses:
         "401":
           application/json: {"errors": []}
+        "200": {}
   CreateAllowlistIdentifier:
     speakeasy-default-create-allowlist-identifier:
       responses:
         "400":
           application/json: {"errors": []}
+        "200": {}
   CreateBlocklistIdentifier:
     speakeasy-default-create-blocklist-identifier:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   DeleteBlocklistIdentifier:
     speakeasy-default-delete-blocklist-identifier:
       parameters:
@@ -1822,6 +1844,7 @@ examples:
       responses:
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   UpdateProductionInstanceDomain:
     speakeasy-default-update-production-instance-domain:
       responses:
@@ -1893,6 +1916,7 @@ examples:
       responses:
         "402":
           application/json: {"errors": []}
+        "200": {}
   UpdateInstanceOrganizationSettings:
     speakeasy-default-update-instance-organization-settings:
       responses:
@@ -2046,6 +2070,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   ListOrganizationMemberships:
     speakeasy-default-list-organization-memberships:
       parameters:
@@ -2068,6 +2093,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   DeleteOrganizationMembership:
     speakeasy-default-delete-organization-membership:
       parameters:
@@ -2077,6 +2103,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   UpdateOrganizationMembershipMetadata:
     speakeasy-default-update-organization-membership-metadata:
       parameters:
@@ -2086,6 +2113,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   InstanceGetOrganizationMemberships:
     speakeasy-default-instance-get-organization-memberships:
       responses:
@@ -2101,6 +2129,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   ListOrganizationDomains:
     speakeasy-default-list-organization-domains:
       parameters:
@@ -2132,6 +2161,7 @@ examples:
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "200": {}
   VerifyDomainProxy:
     speakeasy-default-verify-domain-proxy:
       responses:

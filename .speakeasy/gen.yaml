@@ -13,7 +13,7 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 java:
-  version: 1.0.0
+  version: 1.2.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -21,6 +21,7 @@ java:
   companyEmail: info@mycompany.com
   companyName: My Company
   companyURL: www.mycompany.com
+  defaultErrorName: SDKError
   flattenGlobalSecurity: true
   githubURL: github.com/owner/repo
   groupID: com.clerk

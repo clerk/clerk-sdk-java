@@ -1,9 +1,9 @@
-speakeasyVersion: 1.428.0
+speakeasyVersion: 1.437.0
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:b654e43e024e196fe7824140a1352efa4a12b63d9fda5373be91d01780dcd4b2
-        sourceBlobDigest: sha256:b7d68649cec7493887787a96c7bc78466ced094c923f7bdbf6f7600aa86e3b3a
+        sourceRevisionDigest: sha256:1a486565939833e7da8fd89f4dca29e4ca17f28654e44085a3363f0f1e440eeb
+        sourceBlobDigest: sha256:3a79bd76a35cec51d82efcdad7c5fffff14db6ed394011e299ac78c2f6159e12
         tags:
             - latest
             - main
@@ -11,10 +11,10 @@ targets:
     clerk-java:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:b654e43e024e196fe7824140a1352efa4a12b63d9fda5373be91d01780dcd4b2
-        sourceBlobDigest: sha256:b7d68649cec7493887787a96c7bc78466ced094c923f7bdbf6f7600aa86e3b3a
+        sourceRevisionDigest: sha256:1a486565939833e7da8fd89f4dca29e4ca17f28654e44085a3363f0f1e440eeb
+        sourceBlobDigest: sha256:3a79bd76a35cec51d82efcdad7c5fffff14db6ed394011e299ac78c2f6159e12
         codeSamplesNamespace: clerk-java-sdk-code-samples
-        codeSamplesRevisionDigest: sha256:b018b9dd693908629edb929f8bf30c507fa87d0d14227cd6ba0f5c857cd15bfe
+        codeSamplesRevisionDigest: sha256:d767573120892d3ab715b3145a54847f35113612c3817bacc394d4b02e93896d
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
@@ -26,7 +26,7 @@ workflow:
     sources:
         clerk-java-sdk:
             inputs:
-                - location: https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2021-02-05.yml
+                - location: https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2024-10-01.yml
             overlays:
                 - location: fixes.yml
                 - location: .speakeasy/speakeasy-suggestions.yaml
