@@ -3,10 +3,10 @@ id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
   docChecksum: b7d2d41694154c8bb06badd95ee5eabf
   docVersion: v1
-  speakeasyVersion: 1.437.0
-  generationVersion: 2.456.0
-  releaseVersion: 1.2.0
-  configChecksum: 09ed2850809d9e84b4ae26784404d320
+  speakeasyVersion: 1.441.0
+  generationVersion: 2.460.1
+  releaseVersion: 1.3.0
+  configChecksum: 97544bded64ebb467d8148b7b71880ba
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.31.0
+    core: 3.32.0
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1
@@ -1234,6 +1234,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/OneOfDeserializer.java
   - src/main/java/com/clerk/backend_api/utils/Options.java
   - src/main/java/com/clerk/backend_api/utils/PathParamsMetadata.java
+  - src/main/java/com/clerk/backend_api/utils/QueryParameter.java
   - src/main/java/com/clerk/backend_api/utils/QueryParameters.java
   - src/main/java/com/clerk/backend_api/utils/QueryParamsMetadata.java
   - src/main/java/com/clerk/backend_api/utils/RequestBody.java
@@ -1248,6 +1249,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/SpeakeasyMetadata.java
   - src/main/java/com/clerk/backend_api/utils/TypedObject.java
   - src/main/java/com/clerk/backend_api/utils/Types.java
+  - src/main/java/com/clerk/backend_api/utils/Utf8UrlEncoder.java
   - src/main/java/com/clerk/backend_api/utils/Utils.java
 examples:
   GetPublicInterstitial: {}
