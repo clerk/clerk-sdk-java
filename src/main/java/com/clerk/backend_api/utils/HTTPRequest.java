@@ -4,6 +4,7 @@
 
 package com.clerk.backend_api.utils;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublisher;
@@ -15,15 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.message.BasicNameValuePair;
-
 public class HTTPRequest {
 
+    private static final String FRAGMENT_SEGMENT_START = "#";
+    private static final String QUERY_NAME_VALUE_DELIMITER = "=";
+    private static final String QUERY_PARAMETER_DELIMITER = "&";
+    private static final String QUERY_SEGMENT_START = "?";
     private final String baseURL;
     private final String method;
-    private final List<NameValuePair> queryParams = new ArrayList<>();
+    private final List<QueryParameter> queryParams = new ArrayList<>();
     private final Map<String, List<String>> headers = new HashMap<>();
     private Optional<SerializedBody> body = Optional.empty(); // mutable
 
@@ -54,21 +55,21 @@ public class HTTPRequest {
         return this;
     }
     
-    public HTTPRequest addQueryParam(String name, String value) {
-        addQueryParam(new BasicNameValuePair(name, value));
-        return this;
-    }
-
-    public HTTPRequest addQueryParam(NameValuePair param) {
+    public HTTPRequest addQueryParam(QueryParameter param) {
         this.queryParams.add(param);
         return this;
     }
     
-    public HTTPRequest addQueryParams(Collection<NameValuePair> params) {
+    public HTTPRequest addQueryParam(String key, String value, boolean allowReserved) {
+        this.queryParams.add(QueryParameter.of(key, value, allowReserved));
+        return this;
+    }
+    
+    public HTTPRequest addQueryParams(Collection<QueryParameter> params) {
         params.forEach(p -> addQueryParam(p));
         return this;
     }
-
+    
     public HttpRequest build() {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder();
 
@@ -81,14 +82,49 @@ public class HTTPRequest {
         }
         requestBuilder.method(method, bodyPublisher);
         try {
-            URIBuilder b = new URIBuilder(this.baseURL);
-            queryParams.forEach(pair -> b.addParameter(pair.getName(), pair.getValue()));
-            requestBuilder.uri(b.build());
+            requestBuilder.uri(new URI(buildUrl(baseURL, queryParams)));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         headers.forEach((k, list) -> list.forEach(v -> requestBuilder.header(k, v)));
         return requestBuilder.build();
     }
-
+    
+    // VisibleForTesting
+    public static String buildUrl(String baseURL, Collection<QueryParameter> queryParams) {
+        if (queryParams.isEmpty()) {
+            return baseURL;
+        } else {
+            final String base;
+            final String fragment;
+            int i = baseURL.indexOf(FRAGMENT_SEGMENT_START);
+            if (i == -1) {
+                base = baseURL;
+                fragment = "";
+            } else {
+                base = baseURL.substring(0, i);
+                fragment = baseURL.substring(i);
+            }
+            StringBuilder b = new StringBuilder(base);
+            if (!base.contains(QUERY_SEGMENT_START)) {
+                b.append(QUERY_SEGMENT_START);
+            } else {
+                b.append(QUERY_PARAMETER_DELIMITER);
+            }
+            boolean first = true;
+            for (QueryParameter p : queryParams) {
+                 if (!first) {
+                     b.append(QUERY_PARAMETER_DELIMITER);
+                 }
+                 first = false;
+                 // don't allow reserved characters to be unencoded in key (??)
+                 b.append(Utf8UrlEncoder.DEFAULT.encode(p.name()));
+                 b.append(QUERY_NAME_VALUE_DELIMITER);
+                 b.append(Utf8UrlEncoder.allowReserved(p.allowReserved()).encode(p.value()));
+            }
+            b.append(fragment);
+            return b.toString();
+        }
+    }
+    
 }

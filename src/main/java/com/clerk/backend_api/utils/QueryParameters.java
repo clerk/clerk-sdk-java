@@ -11,16 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class QueryParameters {
-    public static <T extends Object> List<NameValuePair> parseQueryParams(Class<T> type, T queryParams,
+    public static <T extends Object> List<QueryParameter> parseQueryParams(Class<T> type, T queryParams,
             Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
-        List<NameValuePair> allParams = new ArrayList<>();
+        List<QueryParameter> allParams = new ArrayList<>();
 
         Field[] fields = type.getDeclaredFields();
 
@@ -45,20 +42,20 @@ public class QueryParameters {
             }
 
             if (queryParamsMetadata.serialization != null && !queryParamsMetadata.serialization.isBlank()) {
-                List<NameValuePair> params = parseSerializedParams(queryParamsMetadata, value);
+                List<QueryParameter> params = parseSerializedParams(queryParamsMetadata, value);
                 allParams.addAll(params);
             } else {
                 switch (queryParamsMetadata.style) {
                     case "form":
-                        List<NameValuePair> formParams = parseDelimitedParams(queryParamsMetadata, value, ",");
+                        List<QueryParameter> formParams = parseDelimitedParams(queryParamsMetadata, value, ",");
                         allParams.addAll(formParams);
                         break;
                     case "deepObject":
-                        List<NameValuePair> deepObjectParams = parseDeepObjectParams(queryParamsMetadata, value);
+                        List<QueryParameter> deepObjectParams = parseDeepObjectParams(queryParamsMetadata, value);
                         allParams.addAll(deepObjectParams);
                         break;
                     case "pipeDelimited":
-                        List<NameValuePair> pipeDelimitedParams = parseDelimitedParams(queryParamsMetadata, value, "|");
+                        List<QueryParameter> pipeDelimitedParams = parseDelimitedParams(queryParamsMetadata, value, "|");
                         allParams.addAll(pipeDelimitedParams);
                         break;
                     default:
@@ -70,14 +67,14 @@ public class QueryParameters {
         return allParams;
     }
 
-    private static List<NameValuePair> parseSerializedParams(QueryParamsMetadata queryParamsMetadata, Object value)
+    private static List<QueryParameter> parseSerializedParams(QueryParamsMetadata queryParamsMetadata, Object value)
             throws JsonProcessingException {
-        List<NameValuePair> params = new ArrayList<>();
+        List<QueryParameter> params = new ArrayList<>();
         switch (queryParamsMetadata.serialization) {
             case "json":
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(value);
-                params.add(new BasicNameValuePair(queryParamsMetadata.name, json));
+                params.add(QueryParameter.of(queryParamsMetadata.name, json, queryParamsMetadata.allowReserved));
                 break;
             default:
                 break;
@@ -85,9 +82,9 @@ public class QueryParameters {
         return params;
     }
 
-    private static List<NameValuePair> parseDelimitedParams(QueryParamsMetadata queryParamsMetadata, Object value, String delimiter)
+    private static List<QueryParameter> parseDelimitedParams(QueryParamsMetadata queryParamsMetadata, Object value, String delimiter)
             throws IllegalArgumentException, IllegalAccessException {
-        List<NameValuePair> params = new ArrayList<>();
+        List<QueryParameter> params = new ArrayList<>();
 
         switch (Types.getType(value.getClass())) {
             case ARRAY: {
@@ -107,7 +104,7 @@ public class QueryParameters {
                     values.add(String.join(delimiter, items));
                 }
 
-                params.addAll(values.stream().map(v -> new BasicNameValuePair(queryParamsMetadata.name, v))
+                params.addAll(values.stream().map(v -> QueryParameter.of(queryParamsMetadata.name, v, queryParamsMetadata.allowReserved))
                         .collect(Collectors.toList()));
                 break;
             }
@@ -121,20 +118,20 @@ public class QueryParameters {
                     String val = Utils.valToString(entry.getValue());
 
                     if (queryParamsMetadata.explode) {
-                        params.add(new BasicNameValuePair(key, val));
+                        params.add(QueryParameter.of(key, val, queryParamsMetadata.allowReserved));
                     } else {
                         items.add(String.format("%s%s%s", key, delimiter, val));
                     }
                 }
 
                 if (items.size() > 0) {
-                    params.add(new BasicNameValuePair(queryParamsMetadata.name, String.join(delimiter, items)));
+                    params.add(QueryParameter.of(queryParamsMetadata.name, String.join(delimiter, items), queryParamsMetadata.allowReserved));
                 }
                 break;
             }
             case OBJECT: {
                 if (!Utils.allowIntrospection(value.getClass())) {
-                    params.add(new BasicNameValuePair(queryParamsMetadata.name, Utils.valToString(value)));
+                    params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(value), queryParamsMetadata.allowReserved));
                     break;
                 }
                 Field[] fields = value.getClass().getDeclaredFields();
@@ -155,29 +152,29 @@ public class QueryParameters {
                     }
 
                     if (queryParamsMetadata.explode) {
-                        params.add(new BasicNameValuePair(metadata.name, Utils.valToString(val)));
+                        params.add(QueryParameter.of(metadata.name, Utils.valToString(val), metadata.allowReserved));
                     } else {
                         items.add(String.format("%s%s%s", metadata.name, delimiter, Utils.valToString(val)));
                     }
                 }
 
                 if (items.size() > 0) {
-                    params.add(new BasicNameValuePair(queryParamsMetadata.name, String.join(delimiter, items)));
+                    params.add(QueryParameter.of(queryParamsMetadata.name, String.join(delimiter, items), queryParamsMetadata.allowReserved));
                 }
                 break;
             }
             default:
-                params.add(new BasicNameValuePair(queryParamsMetadata.name, Utils.valToString(value)));
+                params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(value), queryParamsMetadata.allowReserved));
                 break;
         }
 
         return params;
     }
 
-    private static List<NameValuePair> parseDeepObjectParams(QueryParamsMetadata queryParamsMetadata, Object value) 
+    private static List<QueryParameter> parseDeepObjectParams(QueryParamsMetadata queryParamsMetadata, Object value) 
         throws Exception {
         
-        List<NameValuePair> params = new ArrayList<>();
+        List<QueryParameter> params = new ArrayList<>();
 
         switch (Types.getType(value.getClass())) {
             case MAP: {
@@ -189,12 +186,12 @@ public class QueryParameters {
 
                     if (val instanceof List || val.getClass().isArray()) {
                         for (Object v : Utils.toList(val)) {
-                            params.add(new BasicNameValuePair(String.format("%s[%s]", queryParamsMetadata.name, key),
-                                    Utils.valToString(v)));
+                            params.add(QueryParameter.of(String.format("%s[%s]", queryParamsMetadata.name, key),
+                                    Utils.valToString(v), queryParamsMetadata.allowReserved));
                         }
                     } else {
-                        params.add(new BasicNameValuePair(String.format("%s[%s]", queryParamsMetadata.name, key),
-                                Utils.valToString(val)));
+                        params.add(QueryParameter.of(String.format("%s[%s]", queryParamsMetadata.name, key),
+                                Utils.valToString(val), queryParamsMetadata.allowReserved));
                     }
                 }
 
@@ -221,14 +218,14 @@ public class QueryParameters {
 
                     if (val instanceof List || val.getClass().isArray()) {
                         for (Object v : Utils.toList(val)) {
-                            params.add(new BasicNameValuePair(
+                            params.add(QueryParameter.of(
                                     String.format("%s[%s]", queryParamsMetadata.name, metadata.name),
-                                    Utils.valToString(v)));
+                                    Utils.valToString(v), metadata.allowReserved));
                         }
                     } else {
                         params.add(
-                                new BasicNameValuePair(String.format("%s[%s]", queryParamsMetadata.name, metadata.name),
-                                        Utils.valToString(val)));
+                                QueryParameter.of(String.format("%s[%s]", queryParamsMetadata.name, metadata.name),
+                                        Utils.valToString(val), metadata.allowReserved));
                     }
                 }
 

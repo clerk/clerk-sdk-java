@@ -15,7 +15,6 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpHeaders;
@@ -144,7 +143,9 @@ public final class Utils {
 
                                 pathParams.put(pathParamsMetadata.name,
                                         String.join(",",
-                                                array.stream().map(v -> valToString(v))
+                                                array.stream()
+                                                        .map(v -> valToString(v))
+                                                        .map(v -> pathEncode(v, pathParamsMetadata.allowReserved))
                                                         .collect(Collectors.toList())));
                                 break;
                             case MAP:
@@ -156,17 +157,17 @@ public final class Utils {
                                 pathParams.put(pathParamsMetadata.name,
                                         String.join(",", map.entrySet().stream().map(e -> {
                                             if (pathParamsMetadata.explode) {
-                                                return String.format("%s=%s", valToString(e.getKey()),
-                                                        valToString(e.getValue()));
+                                                return String.format("%s=%s", pathEncode(valToString(e.getKey()), false),
+                                                        pathEncode(valToString(e.getValue()), false));
                                             } else {
-                                                return String.format("%s,%s", valToString(e.getKey()),
-                                                        valToString(e.getValue()));
+                                                return String.format("%s,%s", pathEncode(valToString(e.getKey()), false),
+                                                        pathEncode(valToString(e.getValue()), false));
                                             }
                                         }).collect(Collectors.toList())));
                                 break;
                             case OBJECT:
                                 if (!allowIntrospection(value.getClass())) {
-                                    pathParams.put(pathParamsMetadata.name, valToString(value));
+                                    pathParams.put(pathParamsMetadata.name, pathEncode(valToString(value), pathParamsMetadata.allowReserved));
                                     break;
                                 }
                                 List<String> values = new ArrayList<>();
@@ -187,17 +188,17 @@ public final class Utils {
 
                                     if (pathParamsMetadata.explode) {
                                         values.add(String.format("%s=%s", valuePathParamsMetadata.name,
-                                                valToString(val)));
+                                                pathEncode(valToString(val), valuePathParamsMetadata.allowReserved)));
                                     } else {
                                         values.add(String.format("%s,%s", valuePathParamsMetadata.name,
-                                                valToString(val)));
+                                                pathEncode(valToString(val), valuePathParamsMetadata.allowReserved)));
                                     }
                                 }
 
                                 pathParams.put(pathParamsMetadata.name, String.join(",", values));
                                 break;
                             default:
-                                pathParams.put(pathParamsMetadata.name, valToString(value));
+                                pathParams.put(pathParamsMetadata.name, pathEncode(valToString(value), pathParamsMetadata.allowReserved));
                                 break;
                         }
                 }
@@ -205,6 +206,10 @@ public final class Utils {
         }
 
         return baseURL + templateUrl(path, pathParams);
+    }
+    
+    private static String pathEncode(String s, boolean allowReserved) {
+        return Utf8UrlEncoder.allowReserved(allowReserved).encode(s);
     }
 
     public static boolean contentTypeMatches(String contentType, String pattern) {
@@ -256,7 +261,7 @@ public final class Utils {
         return RequestBody.serialize(request, requestField, serializationMethod, nullable);
     }
     
-    public static <T extends Object> List<NameValuePair> getQueryParams(Class<T> type, Optional<? extends T> params,
+    public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, Optional<? extends T> params,
             Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
         if (params.isEmpty()) {
             return Collections.emptyList();
@@ -265,7 +270,7 @@ public final class Utils {
         }
     }
     
-    public static <T extends Object> List<NameValuePair> getQueryParams(Class<T> type, JsonNullable<? extends T> params,
+    public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, JsonNullable<? extends T> params,
             Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
         if (!params.isPresent() || params.get() == null) {
             return Collections.emptyList();
@@ -274,7 +279,7 @@ public final class Utils {
         }
     }
 
-    public static <T extends Object> List<NameValuePair> getQueryParams(Class<T> type, T params,
+    public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, T params,
             Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
         return QueryParameters.parseQueryParams(type, params, globals);
     }
@@ -282,6 +287,8 @@ public final class Utils {
     public static HTTPRequest configureSecurity(HTTPRequest request, Object security) throws Exception {
         return Security.configureSecurity(request, security);
     }
+    
+    private static final String DOLLAR_MARKER = "D9qPtyhOYzkHGu3c";
 
     public static String templateUrl(String url, Map<String, String> params) {
         StringBuilder sb = new StringBuilder();
@@ -294,12 +301,16 @@ public final class Utils {
             String key = match.substring(1, match.length() - 1);
             String value = params.get(key);
             if (value != null) {
-                m.appendReplacement(sb, URLEncoder.encode(value, StandardCharsets.UTF_8));
+                // note that we replace $ characters in values with a marker 
+                // and then replace the markers at the end with the $ characters
+                // because the presence of dollar signs can stuff up the next 
+                // regex find
+                m.appendReplacement(sb, value.replace("$", DOLLAR_MARKER));
             }
         }
         m.appendTail(sb);
 
-        return sb.toString();
+        return sb.toString().replace(DOLLAR_MARKER, "$");
     }
 
     public static Map<String, List<String>> getHeadersFromMetadata(Object headers, Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
@@ -474,7 +485,7 @@ public final class Utils {
             case "json":
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(value);
-                params.put(pathParamsMetadata.name, json);
+                params.put(pathParamsMetadata.name, pathEncode(json, pathParamsMetadata.allowReserved));
                 break;
             default: 
                 break;
@@ -1167,18 +1178,18 @@ public final class Utils {
         return x.isPresent() && x.get() != null;
     }
 
-    private static final String OPEN_BRACKET_MARKER = UUID.randomUUID().toString().replace("-", "");
-    private static final String CLOSE_BRACKET_MARKER = UUID.randomUUID().toString().replace("-", "");
-    
-    public static String urlEncode(String s) {
-        // Ensure that complies with RFC 2732 (URLEncoder does not and we don't want to
-        // encode [, ] chars)
-        return URLEncoder.encode( //
-                s.replace("[", OPEN_BRACKET_MARKER) //
-                        .replace("]", CLOSE_BRACKET_MARKER), //
-                StandardCharsets.UTF_8) //
-                .replace(OPEN_BRACKET_MARKER, "[") //
-                .replace(CLOSE_BRACKET_MARKER, "]");
+    public static void setSseSentinel(Object o, String value) {
+        if (o == null || value.isBlank()) {
+            return;
+        } else {
+            try {
+                Field field = o.getClass().getDeclaredField("_eventSentinel");
+                field.setAccessible(true);
+                field.set(o, Optional.of(value));
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                // ignore
+            }
+        }
     }
     
 }

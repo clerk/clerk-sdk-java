@@ -8,12 +8,14 @@ import java.lang.reflect.Field;
 
 class QueryParamsMetadata {
 
+    // these parameters set via reflection
+
     String style = "form";
     boolean explode = true;
     String name;
     String serialization;
+    boolean allowReserved;
 
-    // queryParam:style=simple,explode=false,name=apiID
     static QueryParamsMetadata parse(Field field) throws IllegalArgumentException, IllegalAccessException {
         return Metadata.parse("queryParam", new QueryParamsMetadata(), field);
     }

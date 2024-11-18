@@ -108,7 +108,7 @@ public final class Security {
                         break;
                     case "query":
                         request.addQueryParam(
-                                securityMetadata.name, Utils.valToString(value));
+                                securityMetadata.name, Utils.valToString(value), false);
                         break;
                     case "cookie":
                         request.addHeader("Cookie",
