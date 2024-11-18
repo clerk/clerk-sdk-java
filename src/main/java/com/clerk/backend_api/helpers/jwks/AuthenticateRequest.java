@@ -1,5 +1,6 @@
 package com.clerk.backend_api.helpers.jwks;
 
+import io.jsonwebtoken.Claims;
 import java.net.HttpCookie;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
@@ -60,12 +61,12 @@ public final class AuthenticateRequest {
         }
 
         try {
-            VerifyToken.verifyToken(sessionToken, verifyTokenOptions);
+            Claims claims = VerifyToken.verifyToken(sessionToken, verifyTokenOptions);
+            return RequestState.signedIn(sessionToken, claims);
         } catch (TokenVerificationException e) {
             return RequestState.signedOut(e.reason());
         }
 
-        return RequestState.signedIn(sessionToken);
     }
 
     /**
