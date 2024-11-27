@@ -41,3 +41,6 @@ actions:
   - target: $["paths"]["/email_addresses/{email_address_id}"]["get"]
     update:
       x-speakeasy-usage-example: true
+  - target: $["components"]["schemas"]["Ticket"]["properties"]["strategy"]["enum"]
+    update:
+      - "saml"
