@@ -246,24 +246,12 @@ public class OauthApplications implements
      * Creates a new OAuth application with the given name and callback URL for an instance.
      * The callback URL must be a valid url.
      * All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateOAuthApplicationResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create an OAuth application
-     * Creates a new OAuth application with the given name and callback URL for an instance.
-     * The callback URL must be a valid url.
-     * All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateOAuthApplicationResponse create(
-            Optional<? extends CreateOAuthApplicationRequestBody> request) throws Exception {
+            CreateOAuthApplicationRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -273,12 +261,15 @@ public class OauthApplications implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateOAuthApplicationRequestBody>>() {});
+                new TypeReference<CreateOAuthApplicationRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

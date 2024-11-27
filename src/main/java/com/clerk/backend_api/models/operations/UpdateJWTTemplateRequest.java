@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class UpdateJWTTemplateRequest {
@@ -25,21 +23,16 @@ public class UpdateJWTTemplateRequest {
     private String templateId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private Optional<? extends UpdateJWTTemplateRequestBody> requestBody;
+    private UpdateJWTTemplateRequestBody requestBody;
 
     @JsonCreator
     public UpdateJWTTemplateRequest(
             String templateId,
-            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
+            UpdateJWTTemplateRequestBody requestBody) {
         Utils.checkNotNull(templateId, "templateId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.templateId = templateId;
         this.requestBody = requestBody;
-    }
-    
-    public UpdateJWTTemplateRequest(
-            String templateId) {
-        this(templateId, Optional.empty());
     }
 
     /**
@@ -50,10 +43,9 @@ public class UpdateJWTTemplateRequest {
         return templateId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateJWTTemplateRequestBody> requestBody() {
-        return (Optional<UpdateJWTTemplateRequestBody>) requestBody;
+    public UpdateJWTTemplateRequestBody requestBody() {
+        return requestBody;
     }
 
     public final static Builder builder() {
@@ -70,12 +62,6 @@ public class UpdateJWTTemplateRequest {
     }
 
     public UpdateJWTTemplateRequest withRequestBody(UpdateJWTTemplateRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.ofNullable(requestBody);
-        return this;
-    }
-
-    public UpdateJWTTemplateRequest withRequestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -113,7 +99,7 @@ public class UpdateJWTTemplateRequest {
  
         private String templateId;
  
-        private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();  
+        private UpdateJWTTemplateRequestBody requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -129,12 +115,6 @@ public class UpdateJWTTemplateRequest {
         }
 
         public Builder requestBody(UpdateJWTTemplateRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = Optional.ofNullable(requestBody);
-            return this;
-        }
-
-        public Builder requestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

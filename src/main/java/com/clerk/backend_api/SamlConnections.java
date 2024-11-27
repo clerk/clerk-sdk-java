@@ -234,22 +234,12 @@ public class SamlConnections implements
     /**
      * Create a SAML Connection
      * Create a new SAML Connection.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateSAMLConnectionResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create a SAML Connection
-     * Create a new SAML Connection.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateSAMLConnectionResponse create(
-            Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception {
+            CreateSAMLConnectionRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -259,12 +249,15 @@ public class SamlConnections implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateSAMLConnectionRequestBody>>() {});
+                new TypeReference<CreateSAMLConnectionRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

@@ -35,7 +35,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallVerifyClient {
         VerifyClientResponse verify(
-            Optional<? extends VerifyClientRequestBody> request) throws Exception;
+            VerifyClientRequestBody request) throws Exception;
     }
 
 
@@ -47,7 +47,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateEmailAddress {
         CreateEmailAddressResponse create(
-            Optional<? extends CreateEmailAddressRequestBody> request) throws Exception;
+            CreateEmailAddressRequestBody request) throws Exception;
     }
 
 
@@ -66,13 +66,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateEmailAddress {
         UpdateEmailAddressResponse update(
             String emailAddressId,
-            Optional<? extends UpdateEmailAddressRequestBody> requestBody) throws Exception;
+            UpdateEmailAddressRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallCreatePhoneNumber {
         CreatePhoneNumberResponse create(
-            Optional<? extends CreatePhoneNumberRequestBody> request) throws Exception;
+            CreatePhoneNumberRequestBody request) throws Exception;
     }
 
 
@@ -91,7 +91,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdatePhoneNumber {
         UpdatePhoneNumberResponse update(
             String phoneNumberId,
-            Optional<? extends UpdatePhoneNumberRequestBody> requestBody) throws Exception;
+            UpdatePhoneNumberRequestBody requestBody) throws Exception;
     }
 
 
@@ -248,7 +248,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateUserMetadata {
         UpdateUserMetadataResponse updateMetadata(
             String userId,
-            Optional<? extends UpdateUserMetadataRequestBody> requestBody) throws Exception;
+            UpdateUserMetadataRequestBody requestBody) throws Exception;
     }
 
 
@@ -279,14 +279,14 @@ public class SDKMethodInterfaces {
     public interface MethodCallVerifyPassword {
         VerifyPasswordResponse verifyPassword(
             String userId,
-            Optional<? extends VerifyPasswordRequestBody> requestBody) throws Exception;
+            VerifyPasswordRequestBody requestBody) throws Exception;
     }
 
 
     public interface MethodCallVerifyTOTP {
         VerifyTOTPResponse verifyTOTP(
             String userId,
-            Optional<? extends VerifyTOTPRequestBody> requestBody) throws Exception;
+            VerifyTOTPRequestBody requestBody) throws Exception;
     }
 
 
@@ -337,7 +337,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateInvitation {
         CreateInvitationResponse create(
-            Optional<? extends CreateInvitationRequestBody> request) throws Exception;
+            CreateInvitationRequestBody request) throws Exception;
     }
 
 
@@ -414,13 +414,13 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateAllowlistIdentifier {
         CreateAllowlistIdentifierResponse createAllowlistIdentifier(
-            Optional<? extends CreateAllowlistIdentifierRequestBody> request) throws Exception;
+            CreateAllowlistIdentifierRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallCreateBlocklistIdentifier {
         CreateBlocklistIdentifierResponse createBlocklistIdentifier(
-            Optional<? extends CreateBlocklistIdentifierRequestBody> request) throws Exception;
+            CreateBlocklistIdentifierRequestBody request) throws Exception;
     }
 
 
@@ -443,7 +443,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallUpdateInstanceAuthConfig {
         UpdateInstanceAuthConfigResponse updateInstanceSettings(
-            Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception;
+            UpdateInstanceAuthConfigRequestBody request) throws Exception;
     }
 
 
@@ -455,13 +455,13 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallChangeProductionInstanceDomain {
         ChangeProductionInstanceDomainResponse changeProductionInstanceDomain(
-            Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception;
+            ChangeProductionInstanceDomainRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallCreateActorToken {
         CreateActorTokenResponse create(
-            Optional<? extends CreateActorTokenRequestBody> request) throws Exception;
+            CreateActorTokenRequestBody request) throws Exception;
     }
 
 
@@ -478,7 +478,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallAddDomain {
         AddDomainResponse add(
-            Optional<? extends AddDomainRequestBody> request) throws Exception;
+            AddDomainRequestBody request) throws Exception;
     }
 
 
@@ -497,19 +497,19 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallUpdateInstance {
         UpdateInstanceResponse update(
-            Optional<? extends UpdateInstanceRequestBody> request) throws Exception;
+            UpdateInstanceRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceRestrictions {
         UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception;
+            UpdateInstanceRestrictionsRequestBody request) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceOrganizationSettings {
         UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception;
+            UpdateInstanceOrganizationSettingsRequestBody request) throws Exception;
     }
 
 
@@ -535,7 +535,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateJWTTemplate {
         CreateJWTTemplateResponse create(
-            Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception;
+            CreateJWTTemplateRequestBody request) throws Exception;
     }
 
 
@@ -548,7 +548,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateJWTTemplate {
         UpdateJWTTemplateResponse update(
             String templateId,
-            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception;
+            UpdateJWTTemplateRequestBody requestBody) throws Exception;
     }
 
 
@@ -566,7 +566,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateOrganization {
         CreateOrganizationResponse create(
-            Optional<? extends CreateOrganizationRequestBody> request) throws Exception;
+            CreateOrganizationRequestBody request) throws Exception;
     }
 
 
@@ -600,7 +600,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUploadOrganizationLogo {
         UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
-            Optional<? extends UploadOrganizationLogoRequestBody> requestBody) throws Exception;
+            UploadOrganizationLogoRequestBody requestBody) throws Exception;
     }
 
 
@@ -687,7 +687,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallVerifyDomainProxy {
         VerifyDomainProxyResponse verify(
-            Optional<? extends VerifyDomainProxyRequestBody> request) throws Exception;
+            VerifyDomainProxyRequestBody request) throws Exception;
     }
 
 
@@ -698,7 +698,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateRedirectURL {
         CreateRedirectURLResponse create(
-            Optional<? extends CreateRedirectURLRequestBody> request) throws Exception;
+            CreateRedirectURLRequestBody request) throws Exception;
     }
 
 
@@ -716,7 +716,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateSignInToken {
         CreateSignInTokenResponse create(
-            Optional<? extends CreateSignInTokenRequestBody> request) throws Exception;
+            CreateSignInTokenRequestBody request) throws Exception;
     }
 
 
@@ -729,7 +729,7 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateSignUp {
         UpdateSignUpResponse update(
             String id,
-            Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception;
+            UpdateSignUpRequestBody requestBody) throws Exception;
     }
 
 
@@ -742,7 +742,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateOAuthApplication {
         CreateOAuthApplicationResponse create(
-            Optional<? extends CreateOAuthApplicationRequestBody> request) throws Exception;
+            CreateOAuthApplicationRequestBody request) throws Exception;
     }
 
 
@@ -780,7 +780,7 @@ public class SDKMethodInterfaces {
 
     public interface MethodCallCreateSAMLConnection {
         CreateSAMLConnectionResponse create(
-            Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception;
+            CreateSAMLConnectionRequestBody request) throws Exception;
     }
 
 

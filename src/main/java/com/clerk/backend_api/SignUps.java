@@ -53,25 +53,13 @@ public class SignUps implements
      * Update a sign-up
      * Update the sign-up with the given ID
      * @param id The ID of the sign-up to update
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateSignUpResponse update(
-            String id) throws Exception {
-        return update(id, Optional.empty());
-    }
-    
-    /**
-     * Update a sign-up
-     * Update the sign-up with the given ID
-     * @param id The ID of the sign-up to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateSignUpResponse update(
             String id,
-            Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception {
+            UpdateSignUpRequestBody requestBody) throws Exception {
         UpdateSignUpRequest request =
             UpdateSignUpRequest
                 .builder()
@@ -96,6 +84,9 @@ public class SignUps implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

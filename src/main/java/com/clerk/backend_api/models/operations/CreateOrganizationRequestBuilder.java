@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateOrganizationRequestBuilder {
 
-    private Optional<? extends CreateOrganizationRequestBody> request = Optional.empty();
+    private CreateOrganizationRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateOrganization sdk;
 
     public CreateOrganizationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganization sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateOrganizationRequestBuilder request(CreateOrganizationRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateOrganizationRequestBuilder request(Optional<? extends CreateOrganizationRequestBody> request) {
+    public CreateOrganizationRequestBuilder request(CreateOrganizationRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

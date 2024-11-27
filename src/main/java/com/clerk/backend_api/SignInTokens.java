@@ -59,24 +59,12 @@ public class SignInTokens implements
      * Creates a new sign-in token and associates it with the given user.
      * By default, sign-in tokens expire in 30 days.
      * You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateSignInTokenResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create sign-in token
-     * Creates a new sign-in token and associates it with the given user.
-     * By default, sign-in tokens expire in 30 days.
-     * You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateSignInTokenResponse create(
-            Optional<? extends CreateSignInTokenRequestBody> request) throws Exception {
+            CreateSignInTokenRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -86,12 +74,15 @@ public class SignInTokens implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateSignInTokenRequestBody>>() {});
+                new TypeReference<CreateSignInTokenRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

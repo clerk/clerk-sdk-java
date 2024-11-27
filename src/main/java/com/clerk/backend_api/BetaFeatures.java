@@ -60,22 +60,12 @@ public class BetaFeatures implements
     /**
      * Update instance settings
      * Updates the settings of an instance
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateInstanceAuthConfigResponse updateInstanceSettingsDirect() throws Exception {
-        return updateInstanceSettings(Optional.empty());
-    }
-    
-    /**
-     * Update instance settings
-     * Updates the settings of an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceAuthConfigResponse updateInstanceSettings(
-            Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception {
+            UpdateInstanceAuthConfigRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -85,12 +75,15 @@ public class BetaFeatures implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends UpdateInstanceAuthConfigRequestBody>>() {});
+                new TypeReference<UpdateInstanceAuthConfigRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -375,26 +368,12 @@ public class BetaFeatures implements
      * Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public ChangeProductionInstanceDomainResponse changeProductionInstanceDomainDirect() throws Exception {
-        return changeProductionInstanceDomain(Optional.empty());
-    }
-    
-    /**
-     * Update production instance domain
-     * Change the domain of a production instance.
-     * 
-     * Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
-     * 
-     * WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ChangeProductionInstanceDomainResponse changeProductionInstanceDomain(
-            Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception {
+            ChangeProductionInstanceDomainRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -404,12 +383,15 @@ public class BetaFeatures implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends ChangeProductionInstanceDomainRequestBody>>() {});
+                new TypeReference<ChangeProductionInstanceDomainRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

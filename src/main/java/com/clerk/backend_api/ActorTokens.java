@@ -57,23 +57,12 @@ public class ActorTokens implements
      * Create actor token
      * Create an actor token that can be used to impersonate the given user.
      * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor (impersonating) user.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateActorTokenResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create actor token
-     * Create an actor token that can be used to impersonate the given user.
-     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor (impersonating) user.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateActorTokenResponse create(
-            Optional<? extends CreateActorTokenRequestBody> request) throws Exception {
+            CreateActorTokenRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -83,12 +72,15 @@ public class ActorTokens implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateActorTokenRequestBody>>() {});
+                new TypeReference<CreateActorTokenRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

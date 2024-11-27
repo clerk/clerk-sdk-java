@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class UpdateEmailAddressRequest {
@@ -25,21 +23,16 @@ public class UpdateEmailAddressRequest {
     private String emailAddressId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private Optional<? extends UpdateEmailAddressRequestBody> requestBody;
+    private UpdateEmailAddressRequestBody requestBody;
 
     @JsonCreator
     public UpdateEmailAddressRequest(
             String emailAddressId,
-            Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
+            UpdateEmailAddressRequestBody requestBody) {
         Utils.checkNotNull(emailAddressId, "emailAddressId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.emailAddressId = emailAddressId;
         this.requestBody = requestBody;
-    }
-    
-    public UpdateEmailAddressRequest(
-            String emailAddressId) {
-        this(emailAddressId, Optional.empty());
     }
 
     /**
@@ -50,10 +43,9 @@ public class UpdateEmailAddressRequest {
         return emailAddressId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateEmailAddressRequestBody> requestBody() {
-        return (Optional<UpdateEmailAddressRequestBody>) requestBody;
+    public UpdateEmailAddressRequestBody requestBody() {
+        return requestBody;
     }
 
     public final static Builder builder() {
@@ -70,12 +62,6 @@ public class UpdateEmailAddressRequest {
     }
 
     public UpdateEmailAddressRequest withRequestBody(UpdateEmailAddressRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.ofNullable(requestBody);
-        return this;
-    }
-
-    public UpdateEmailAddressRequest withRequestBody(Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -113,7 +99,7 @@ public class UpdateEmailAddressRequest {
  
         private String emailAddressId;
  
-        private Optional<? extends UpdateEmailAddressRequestBody> requestBody = Optional.empty();  
+        private UpdateEmailAddressRequestBody requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -129,12 +115,6 @@ public class UpdateEmailAddressRequest {
         }
 
         public Builder requestBody(UpdateEmailAddressRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = Optional.ofNullable(requestBody);
-            return this;
-        }
-
-        public Builder requestBody(Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

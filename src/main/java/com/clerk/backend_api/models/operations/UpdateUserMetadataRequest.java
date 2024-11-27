@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class UpdateUserMetadataRequest {
@@ -25,21 +23,16 @@ public class UpdateUserMetadataRequest {
     private String userId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private Optional<? extends UpdateUserMetadataRequestBody> requestBody;
+    private UpdateUserMetadataRequestBody requestBody;
 
     @JsonCreator
     public UpdateUserMetadataRequest(
             String userId,
-            Optional<? extends UpdateUserMetadataRequestBody> requestBody) {
+            UpdateUserMetadataRequestBody requestBody) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.userId = userId;
         this.requestBody = requestBody;
-    }
-    
-    public UpdateUserMetadataRequest(
-            String userId) {
-        this(userId, Optional.empty());
     }
 
     /**
@@ -50,10 +43,9 @@ public class UpdateUserMetadataRequest {
         return userId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateUserMetadataRequestBody> requestBody() {
-        return (Optional<UpdateUserMetadataRequestBody>) requestBody;
+    public UpdateUserMetadataRequestBody requestBody() {
+        return requestBody;
     }
 
     public final static Builder builder() {
@@ -70,12 +62,6 @@ public class UpdateUserMetadataRequest {
     }
 
     public UpdateUserMetadataRequest withRequestBody(UpdateUserMetadataRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.ofNullable(requestBody);
-        return this;
-    }
-
-    public UpdateUserMetadataRequest withRequestBody(Optional<? extends UpdateUserMetadataRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -113,7 +99,7 @@ public class UpdateUserMetadataRequest {
  
         private String userId;
  
-        private Optional<? extends UpdateUserMetadataRequestBody> requestBody = Optional.empty();  
+        private UpdateUserMetadataRequestBody requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -129,12 +115,6 @@ public class UpdateUserMetadataRequest {
         }
 
         public Builder requestBody(UpdateUserMetadataRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = Optional.ofNullable(requestBody);
-            return this;
-        }
-
-        public Builder requestBody(Optional<? extends UpdateUserMetadataRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
