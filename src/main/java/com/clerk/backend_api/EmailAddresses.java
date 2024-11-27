@@ -65,22 +65,12 @@ public class EmailAddresses implements
     /**
      * Create an email address
      * Create a new email address
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateEmailAddressResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create an email address
-     * Create a new email address
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateEmailAddressResponse create(
-            Optional<? extends CreateEmailAddressRequestBody> request) throws Exception {
+            CreateEmailAddressRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -90,12 +80,15 @@ public class EmailAddresses implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateEmailAddressRequestBody>>() {});
+                new TypeReference<CreateEmailAddressRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -492,25 +485,13 @@ public class EmailAddresses implements
      * Update an email address
      * Updates an email address.
      * @param emailAddressId The ID of the email address to update
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateEmailAddressResponse update(
-            String emailAddressId) throws Exception {
-        return update(emailAddressId, Optional.empty());
-    }
-    
-    /**
-     * Update an email address
-     * Updates an email address.
-     * @param emailAddressId The ID of the email address to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateEmailAddressResponse update(
             String emailAddressId,
-            Optional<? extends UpdateEmailAddressRequestBody> requestBody) throws Exception {
+            UpdateEmailAddressRequestBody requestBody) throws Exception {
         UpdateEmailAddressRequest request =
             UpdateEmailAddressRequest
                 .builder()
@@ -535,6 +516,9 @@ public class EmailAddresses implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

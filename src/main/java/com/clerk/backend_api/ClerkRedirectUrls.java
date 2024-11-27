@@ -60,22 +60,12 @@ public class ClerkRedirectUrls implements
     /**
      * Create a redirect URL
      * Create a redirect URL
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateRedirectURLResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create a redirect URL
-     * Create a redirect URL
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateRedirectURLResponse create(
-            Optional<? extends CreateRedirectURLRequestBody> request) throws Exception {
+            CreateRedirectURLRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -85,12 +75,15 @@ public class ClerkRedirectUrls implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateRedirectURLRequestBody>>() {});
+                new TypeReference<CreateRedirectURLRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

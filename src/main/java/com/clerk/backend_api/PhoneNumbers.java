@@ -65,22 +65,12 @@ public class PhoneNumbers implements
     /**
      * Create a phone number
      * Create a new phone number
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreatePhoneNumberResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create a phone number
-     * Create a new phone number
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreatePhoneNumberResponse create(
-            Optional<? extends CreatePhoneNumberRequestBody> request) throws Exception {
+            CreatePhoneNumberRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -90,12 +80,15 @@ public class PhoneNumbers implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreatePhoneNumberRequestBody>>() {});
+                new TypeReference<CreatePhoneNumberRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -492,25 +485,13 @@ public class PhoneNumbers implements
      * Update a phone number
      * Updates a phone number
      * @param phoneNumberId The ID of the phone number to update
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdatePhoneNumberResponse update(
-            String phoneNumberId) throws Exception {
-        return update(phoneNumberId, Optional.empty());
-    }
-    
-    /**
-     * Update a phone number
-     * Updates a phone number
-     * @param phoneNumberId The ID of the phone number to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdatePhoneNumberResponse update(
             String phoneNumberId,
-            Optional<? extends UpdatePhoneNumberRequestBody> requestBody) throws Exception {
+            UpdatePhoneNumberRequestBody requestBody) throws Exception {
         UpdatePhoneNumberRequest request =
             UpdatePhoneNumberRequest
                 .builder()
@@ -535,6 +516,9 @@ public class PhoneNumbers implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

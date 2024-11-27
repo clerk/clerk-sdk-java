@@ -6,12 +6,11 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
-import java.util.Optional;
 
 public class UploadOrganizationLogoRequestBuilder {
 
     private String organizationId;
-    private Optional<? extends UploadOrganizationLogoRequestBody> requestBody = Optional.empty();
+    private UploadOrganizationLogoRequestBody requestBody;
     private final SDKMethodInterfaces.MethodCallUploadOrganizationLogo sdk;
 
     public UploadOrganizationLogoRequestBuilder(SDKMethodInterfaces.MethodCallUploadOrganizationLogo sdk) {
@@ -23,14 +22,8 @@ public class UploadOrganizationLogoRequestBuilder {
         this.organizationId = organizationId;
         return this;
     }
-                
-    public UploadOrganizationLogoRequestBuilder requestBody(UploadOrganizationLogoRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.of(requestBody);
-        return this;
-    }
 
-    public UploadOrganizationLogoRequestBuilder requestBody(Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
+    public UploadOrganizationLogoRequestBuilder requestBody(UploadOrganizationLogoRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

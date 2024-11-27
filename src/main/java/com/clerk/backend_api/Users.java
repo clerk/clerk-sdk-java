@@ -1909,32 +1909,13 @@ public class Users implements
      * 
      * You can remove metadata keys at any level by setting their value to `null`.
      * @param userId The ID of the user whose metadata will be updated and merged
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateUserMetadataResponse updateMetadata(
-            String userId) throws Exception {
-        return updateMetadata(userId, Optional.empty());
-    }
-    
-    /**
-     * Merge and update a user's metadata
-     * Update a user's metadata attributes by merging existing values with the provided parameters.
-     * 
-     * This endpoint behaves differently than the *Update a user* endpoint.
-     * Metadata values will not be replaced entirely.
-     * Instead, a deep merge will be performed.
-     * Deep means that any nested JSON objects will be merged as well.
-     * 
-     * You can remove metadata keys at any level by setting their value to `null`.
-     * @param userId The ID of the user whose metadata will be updated and merged
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateUserMetadataResponse updateMetadata(
             String userId,
-            Optional<? extends UpdateUserMetadataRequestBody> requestBody) throws Exception {
+            UpdateUserMetadataRequestBody requestBody) throws Exception {
         UpdateUserMetadataRequest request =
             UpdateUserMetadataRequest
                 .builder()
@@ -1959,6 +1940,9 @@ public class Users implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -2555,26 +2539,13 @@ public class Users implements
      * Check that the user's password matches the supplied input.
      * Useful for custom auth flows and re-verification.
      * @param userId The ID of the user for whom to verify the password
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public VerifyPasswordResponse verifyPassword(
-            String userId) throws Exception {
-        return verifyPassword(userId, Optional.empty());
-    }
-    
-    /**
-     * Verify the password of a user
-     * Check that the user's password matches the supplied input.
-     * Useful for custom auth flows and re-verification.
-     * @param userId The ID of the user for whom to verify the password
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public VerifyPasswordResponse verifyPassword(
             String userId,
-            Optional<? extends VerifyPasswordRequestBody> requestBody) throws Exception {
+            VerifyPasswordRequestBody requestBody) throws Exception {
         VerifyPasswordRequest request =
             VerifyPasswordRequest
                 .builder()
@@ -2599,6 +2570,9 @@ public class Users implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -2725,28 +2699,13 @@ public class Users implements
      * become invalid).
      * Useful for custom auth flows and re-verification.
      * @param userId The ID of the user for whom to verify the TOTP
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public VerifyTOTPResponse verifyTOTP(
-            String userId) throws Exception {
-        return verifyTOTP(userId, Optional.empty());
-    }
-    
-    /**
-     * Verify a TOTP or backup code for a user
-     * Verify that the provided TOTP or backup code is valid for the user.
-     * Verifying a backup code will result it in being consumed (i.e. it will
-     * become invalid).
-     * Useful for custom auth flows and re-verification.
-     * @param userId The ID of the user for whom to verify the TOTP
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public VerifyTOTPResponse verifyTOTP(
             String userId,
-            Optional<? extends VerifyTOTPRequestBody> requestBody) throws Exception {
+            VerifyTOTPRequestBody requestBody) throws Exception {
         VerifyTOTPRequest request =
             VerifyTOTPRequest
                 .builder()
@@ -2771,6 +2730,9 @@ public class Users implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

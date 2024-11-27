@@ -6,12 +6,11 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
-import java.util.Optional;
 
 public class UpdateEmailAddressRequestBuilder {
 
     private String emailAddressId;
-    private Optional<? extends UpdateEmailAddressRequestBody> requestBody = Optional.empty();
+    private UpdateEmailAddressRequestBody requestBody;
     private final SDKMethodInterfaces.MethodCallUpdateEmailAddress sdk;
 
     public UpdateEmailAddressRequestBuilder(SDKMethodInterfaces.MethodCallUpdateEmailAddress sdk) {
@@ -23,14 +22,8 @@ public class UpdateEmailAddressRequestBuilder {
         this.emailAddressId = emailAddressId;
         return this;
     }
-                
-    public UpdateEmailAddressRequestBuilder requestBody(UpdateEmailAddressRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.of(requestBody);
-        return this;
-    }
 
-    public UpdateEmailAddressRequestBuilder requestBody(Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
+    public UpdateEmailAddressRequestBuilder requestBody(UpdateEmailAddressRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

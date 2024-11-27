@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateSAMLConnectionRequestBuilder {
 
-    private Optional<? extends CreateSAMLConnectionRequestBody> request = Optional.empty();
+    private CreateSAMLConnectionRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateSAMLConnection sdk;
 
     public CreateSAMLConnectionRequestBuilder(SDKMethodInterfaces.MethodCallCreateSAMLConnection sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateSAMLConnectionRequestBuilder request(CreateSAMLConnectionRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateSAMLConnectionRequestBuilder request(Optional<? extends CreateSAMLConnectionRequestBody> request) {
+    public CreateSAMLConnectionRequestBuilder request(CreateSAMLConnectionRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

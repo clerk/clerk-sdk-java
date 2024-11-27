@@ -180,22 +180,12 @@ public class JwtTemplates implements
     /**
      * Create a JWT template
      * Create a new JWT template
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateJWTTemplateResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create a JWT template
-     * Create a new JWT template
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateJWTTemplateResponse create(
-            Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception {
+            CreateJWTTemplateRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -205,12 +195,15 @@ public class JwtTemplates implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateJWTTemplateRequestBody>>() {});
+                new TypeReference<CreateJWTTemplateRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -469,25 +462,13 @@ public class JwtTemplates implements
      * Update a JWT template
      * Updates an existing JWT template
      * @param templateId The ID of the JWT template to update
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateJWTTemplateResponse update(
-            String templateId) throws Exception {
-        return update(templateId, Optional.empty());
-    }
-    
-    /**
-     * Update a JWT template
-     * Updates an existing JWT template
-     * @param templateId The ID of the JWT template to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateJWTTemplateResponse update(
             String templateId,
-            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception {
+            UpdateJWTTemplateRequestBody requestBody) throws Exception {
         UpdateJWTTemplateRequest request =
             UpdateJWTTemplateRequest
                 .builder()
@@ -512,6 +493,9 @@ public class JwtTemplates implements
                 "requestBody",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

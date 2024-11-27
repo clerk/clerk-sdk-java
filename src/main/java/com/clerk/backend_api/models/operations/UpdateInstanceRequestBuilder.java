@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class UpdateInstanceRequestBuilder {
 
-    private Optional<? extends UpdateInstanceRequestBody> request = Optional.empty();
+    private UpdateInstanceRequestBody request;
     private final SDKMethodInterfaces.MethodCallUpdateInstance sdk;
 
     public UpdateInstanceRequestBuilder(SDKMethodInterfaces.MethodCallUpdateInstance sdk) {
         this.sdk = sdk;
     }
-                
-    public UpdateInstanceRequestBuilder request(UpdateInstanceRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public UpdateInstanceRequestBuilder request(Optional<? extends UpdateInstanceRequestBody> request) {
+    public UpdateInstanceRequestBuilder request(UpdateInstanceRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

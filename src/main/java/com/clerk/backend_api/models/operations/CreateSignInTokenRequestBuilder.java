@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateSignInTokenRequestBuilder {
 
-    private Optional<? extends CreateSignInTokenRequestBody> request = Optional.empty();
+    private CreateSignInTokenRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateSignInToken sdk;
 
     public CreateSignInTokenRequestBuilder(SDKMethodInterfaces.MethodCallCreateSignInToken sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateSignInTokenRequestBuilder request(CreateSignInTokenRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateSignInTokenRequestBuilder request(Optional<? extends CreateSignInTokenRequestBody> request) {
+    public CreateSignInTokenRequestBuilder request(CreateSignInTokenRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

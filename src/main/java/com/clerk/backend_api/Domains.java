@@ -191,26 +191,12 @@ public class Domains implements
      * The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
      * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
      * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public AddDomainResponse addDirect() throws Exception {
-        return add(Optional.empty());
-    }
-    
-    /**
-     * Add a domain
-     * Add a new domain for your instance.
-     * Useful in the case of multi-domain instances, allows adding satellite domains to an instance.
-     * The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
-     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
-     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public AddDomainResponse add(
-            Optional<? extends AddDomainRequestBody> request) throws Exception {
+            AddDomainRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -220,12 +206,15 @@ public class Domains implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends AddDomainRequestBody>>() {});
+                new TypeReference<AddDomainRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

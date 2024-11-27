@@ -16,9 +16,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * VerifyClientRequestBody - Parameters.
- */
 
 public class VerifyClientRequestBody {
 

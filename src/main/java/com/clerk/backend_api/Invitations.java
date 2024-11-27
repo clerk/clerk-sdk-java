@@ -70,24 +70,12 @@ public class Invitations implements
      * Creates a new invitation for the given email address and sends the invitation email.
      * Keep in mind that you cannot create an invitation if there is already one for the given email address.
      * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public CreateInvitationResponse createDirect() throws Exception {
-        return create(Optional.empty());
-    }
-    
-    /**
-     * Create an invitation
-     * Creates a new invitation for the given email address and sends the invitation email.
-     * Keep in mind that you cannot create an invitation if there is already one for the given email address.
-     * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateInvitationResponse create(
-            Optional<? extends CreateInvitationRequestBody> request) throws Exception {
+            CreateInvitationRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -97,12 +85,15 @@ public class Invitations implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends CreateInvitationRequestBody>>() {});
+                new TypeReference<CreateInvitationRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

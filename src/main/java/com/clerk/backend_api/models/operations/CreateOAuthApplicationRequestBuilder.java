@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateOAuthApplicationRequestBuilder {
 
-    private Optional<? extends CreateOAuthApplicationRequestBody> request = Optional.empty();
+    private CreateOAuthApplicationRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateOAuthApplication sdk;
 
     public CreateOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOAuthApplication sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateOAuthApplicationRequestBuilder request(CreateOAuthApplicationRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateOAuthApplicationRequestBuilder request(Optional<? extends CreateOAuthApplicationRequestBody> request) {
+    public CreateOAuthApplicationRequestBuilder request(CreateOAuthApplicationRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

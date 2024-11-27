@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateEmailAddressRequestBuilder {
 
-    private Optional<? extends CreateEmailAddressRequestBody> request = Optional.empty();
+    private CreateEmailAddressRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateEmailAddress sdk;
 
     public CreateEmailAddressRequestBuilder(SDKMethodInterfaces.MethodCallCreateEmailAddress sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateEmailAddressRequestBuilder request(CreateEmailAddressRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateEmailAddressRequestBuilder request(Optional<? extends CreateEmailAddressRequestBody> request) {
+    public CreateEmailAddressRequestBuilder request(CreateEmailAddressRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

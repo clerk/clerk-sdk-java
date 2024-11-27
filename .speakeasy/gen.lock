@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: b7d2d41694154c8bb06badd95ee5eabf
+  docChecksum: f252eab002a20aa369d77a296d7c0a20
   docVersion: v1
-  speakeasyVersion: 1.441.0
-  generationVersion: 2.460.1
-  releaseVersion: 1.3.0
-  configChecksum: 97544bded64ebb467d8148b7b71880ba
+  speakeasyVersion: 1.448.0
+  generationVersion: 2.466.0
+  releaseVersion: 1.4.0
+  configChecksum: d53c47a510eb971ffc5be704cbfee77e
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.32.0
+    core: 3.32.2
     deprecations: 2.81.1
     examples: 2.81.3
     flattening: 2.81.1
@@ -26,7 +26,6 @@ features:
     nameOverrides: 2.81.3
     nullables: 0.1.0
     sdkHooks: 0.1.0
-    tests: 0.1.0
     unions: 0.0.6
 generatedFiles:
   - .gitattributes
@@ -1619,6 +1618,8 @@ examples:
       parameters:
         path:
           user_id: "<id>"
+      requestBody:
+        application/json: {"password": "fSBhIihdxMPlTHN"}
       responses:
         "500":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
@@ -1628,6 +1629,8 @@ examples:
       parameters:
         path:
           user_id: "<id>"
+      requestBody:
+        application/json: {"code": "<value>"}
       responses:
         "500":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
@@ -1704,6 +1707,8 @@ examples:
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateInvitation:
     speakeasy-default-create-invitation:
+      requestBody:
+        application/json: {"email_address": "Loyal79@yahoo.com"}
       responses:
         "200":
           application/json: {"object": "invitation", "id": "<id>", "email_address": "Loyal79@yahoo.com", "revoked": false, "status": "pending", "created_at": 86, "updated_at": 169727}
@@ -1804,12 +1809,16 @@ examples:
         "200": {}
   CreateAllowlistIdentifier:
     speakeasy-default-create-allowlist-identifier:
+      requestBody:
+        application/json: {"identifier": "<value>"}
       responses:
         "400":
           application/json: {"errors": []}
         "200": {}
   CreateBlocklistIdentifier:
     speakeasy-default-create-blocklist-identifier:
+      requestBody:
+        application/json: {"identifier": "<value>"}
       responses:
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
@@ -1883,6 +1892,8 @@ examples:
           application/json: {"data": [{"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://definite-deer.com", "development_origin": "<value>"}, {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://agile-publicity.com", "development_origin": "<value>"}, {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": true, "frontend_api_url": "https://memorable-overcoat.com", "development_origin": "<value>"}], "total_count": 54607}
   AddDomain:
     speakeasy-default-add-domain:
+      requestBody:
+        application/json: {"name": "<value>", "is_satellite": false}
       responses:
         "200":
           application/json: {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://super-validity.name", "development_origin": "<value>"}
@@ -1996,6 +2007,8 @@ examples:
           application/json: {"errors": []}
   CreateOrganization:
     speakeasy-default-create-organization:
+      requestBody:
+        application/json: {"name": "<value>", "created_by": "<value>"}
       responses:
         "200":
           application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 486589, "created_at": 638424, "updated_at": 417458}
@@ -2047,6 +2060,8 @@ examples:
       parameters:
         path:
           organization_id: "<id>"
+      requestBody:
+        multipart/form-data: {"file": {"": "0x0DDEE4e6Ea"}}
       responses:
         "200":
           application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 23224, "created_at": 881128, "updated_at": 868828, "image_url": "https://unused-cricket.net"}
@@ -2297,6 +2312,8 @@ examples:
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateSAMLConnection:
     speakeasy-default-create-SAML-connection:
+      requestBody:
+        application/json: {"name": "<value>", "domain": "low-packaging.info", "provider": "saml_custom"}
       responses:
         "200":
           application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "low-packaging.info", "idp_entity_id": "<id>", "idp_sso_url": "https://black-and-white-secrecy.org/", "idp_certificate": "<value>", "acs_url": "https://deafening-bonnet.net/", "sp_entity_id": "<id>", "sp_metadata_url": "https://outrageous-resolve.org", "active": true, "provider": "<value>", "user_count": 259629, "sync_user_attributes": true, "created_at": 230313, "updated_at": 211337}
@@ -2337,3 +2354,4 @@ examples:
       responses:
         "200":
           application/json: {"object": "testing_token", "token": "1713877200-c_2J2MvPu9PnXcuhbPZNao0LOXqK9A7YrnBn0HmIWxy", "expires_at": 1713880800}
+generatedTests: {}

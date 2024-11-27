@@ -6,12 +6,11 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
-import java.util.Optional;
 
 public class UpdateJWTTemplateRequestBuilder {
 
     private String templateId;
-    private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();
+    private UpdateJWTTemplateRequestBody requestBody;
     private final SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk;
 
     public UpdateJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk) {
@@ -23,14 +22,8 @@ public class UpdateJWTTemplateRequestBuilder {
         this.templateId = templateId;
         return this;
     }
-                
-    public UpdateJWTTemplateRequestBuilder requestBody(UpdateJWTTemplateRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.of(requestBody);
-        return this;
-    }
 
-    public UpdateJWTTemplateRequestBuilder requestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
+    public UpdateJWTTemplateRequestBuilder requestBody(UpdateJWTTemplateRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

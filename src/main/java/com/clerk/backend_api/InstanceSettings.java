@@ -60,22 +60,12 @@ public class InstanceSettings implements
     /**
      * Update instance settings
      * Updates the settings of an instance
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateInstanceResponse updateDirect() throws Exception {
-        return update(Optional.empty());
-    }
-    
-    /**
-     * Update instance settings
-     * Updates the settings of an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceResponse update(
-            Optional<? extends UpdateInstanceRequestBody> request) throws Exception {
+            UpdateInstanceRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -85,12 +75,15 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends UpdateInstanceRequestBody>>() {});
+                new TypeReference<UpdateInstanceRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -199,22 +192,12 @@ public class InstanceSettings implements
     /**
      * Update instance restrictions
      * Updates the restriction settings of an instance
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() throws Exception {
-        return updateRestrictions(Optional.empty());
-    }
-    
-    /**
-     * Update instance restrictions
-     * Updates the restriction settings of an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception {
+            UpdateInstanceRestrictionsRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -224,12 +207,15 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends UpdateInstanceRestrictionsRequestBody>>() {});
+                new TypeReference<UpdateInstanceRestrictionsRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -349,22 +335,12 @@ public class InstanceSettings implements
     /**
      * Update instance organization settings
      * Updates the organization settings of the instance
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() throws Exception {
-        return updateOrganizationSettings(Optional.empty());
-    }
-    
-    /**
-     * Update instance organization settings
-     * Updates the organization settings of the instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception {
+            UpdateInstanceOrganizationSettingsRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -374,12 +350,15 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>>() {});
+                new TypeReference<UpdateInstanceOrganizationSettingsRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 

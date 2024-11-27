@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class VerifyDomainProxyRequestBuilder {
 
-    private Optional<? extends VerifyDomainProxyRequestBody> request = Optional.empty();
+    private VerifyDomainProxyRequestBody request;
     private final SDKMethodInterfaces.MethodCallVerifyDomainProxy sdk;
 
     public VerifyDomainProxyRequestBuilder(SDKMethodInterfaces.MethodCallVerifyDomainProxy sdk) {
         this.sdk = sdk;
     }
-                
-    public VerifyDomainProxyRequestBuilder request(VerifyDomainProxyRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public VerifyDomainProxyRequestBuilder request(Optional<? extends VerifyDomainProxyRequestBody> request) {
+    public VerifyDomainProxyRequestBuilder request(VerifyDomainProxyRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

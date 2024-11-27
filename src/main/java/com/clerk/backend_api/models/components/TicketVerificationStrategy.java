@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum TicketVerificationStrategy {
-    TICKET("ticket");
+    TICKET("ticket"),
+    SAML("saml");
 
     @JsonValue
     private final String value;

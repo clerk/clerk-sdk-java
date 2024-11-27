@@ -5,24 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
-import java.util.Optional;
 
 public class CreateBlocklistIdentifierRequestBuilder {
 
-    private Optional<? extends CreateBlocklistIdentifierRequestBody> request = Optional.empty();
+    private CreateBlocklistIdentifierRequestBody request;
     private final SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk;
 
     public CreateBlocklistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk) {
         this.sdk = sdk;
     }
-                
-    public CreateBlocklistIdentifierRequestBuilder request(CreateBlocklistIdentifierRequestBody request) {
-        Utils.checkNotNull(request, "request");
-        this.request = Optional.of(request);
-        return this;
-    }
 
-    public CreateBlocklistIdentifierRequestBuilder request(Optional<? extends CreateBlocklistIdentifierRequestBody> request) {
+    public CreateBlocklistIdentifierRequestBuilder request(CreateBlocklistIdentifierRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.Objects;
-import java.util.Optional;
 
 
 public class UploadOrganizationLogoRequest {
@@ -25,21 +23,16 @@ public class UploadOrganizationLogoRequest {
     private String organizationId;
 
     @SpeakeasyMetadata("request:mediaType=multipart/form-data")
-    private Optional<? extends UploadOrganizationLogoRequestBody> requestBody;
+    private UploadOrganizationLogoRequestBody requestBody;
 
     @JsonCreator
     public UploadOrganizationLogoRequest(
             String organizationId,
-            Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
+            UploadOrganizationLogoRequestBody requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
         this.requestBody = requestBody;
-    }
-    
-    public UploadOrganizationLogoRequest(
-            String organizationId) {
-        this(organizationId, Optional.empty());
     }
 
     /**
@@ -50,10 +43,9 @@ public class UploadOrganizationLogoRequest {
         return organizationId;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UploadOrganizationLogoRequestBody> requestBody() {
-        return (Optional<UploadOrganizationLogoRequestBody>) requestBody;
+    public UploadOrganizationLogoRequestBody requestBody() {
+        return requestBody;
     }
 
     public final static Builder builder() {
@@ -70,12 +62,6 @@ public class UploadOrganizationLogoRequest {
     }
 
     public UploadOrganizationLogoRequest withRequestBody(UploadOrganizationLogoRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = Optional.ofNullable(requestBody);
-        return this;
-    }
-
-    public UploadOrganizationLogoRequest withRequestBody(Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -113,7 +99,7 @@ public class UploadOrganizationLogoRequest {
  
         private String organizationId;
  
-        private Optional<? extends UploadOrganizationLogoRequestBody> requestBody = Optional.empty();  
+        private UploadOrganizationLogoRequestBody requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -129,12 +115,6 @@ public class UploadOrganizationLogoRequest {
         }
 
         public Builder requestBody(UploadOrganizationLogoRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = Optional.ofNullable(requestBody);
-            return this;
-        }
-
-        public Builder requestBody(Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

@@ -719,10 +719,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `userId`                                                                                             | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the user whose metadata will be updated and merged                                         |
-| `requestBody`                                                                                        | [Optional\<UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `userId`                                                                                  | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the user whose metadata will be updated and merged                              |
+| `requestBody`                                                                             | [UpdateUserMetadataRequestBody](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 
 ### Response
 
@@ -939,10 +939,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `userId`                                                                                     | *String*                                                                                     | :heavy_check_mark:                                                                           | The ID of the user for whom to verify the password                                           |
-| `requestBody`                                                                                | [Optional\<VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                           | N/A                                                                                          |
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `userId`                                                                          | *String*                                                                          | :heavy_check_mark:                                                                | The ID of the user for whom to verify the password                                |
+| `requestBody`                                                                     | [VerifyPasswordRequestBody](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_check_mark:                                                                | N/A                                                                               |
 
 ### Response
 
@@ -997,10 +997,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `userId`                                                                             | *String*                                                                             | :heavy_check_mark:                                                                   | The ID of the user for whom to verify the TOTP                                       |
-| `requestBody`                                                                        | [Optional\<VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `userId`                                                                  | *String*                                                                  | :heavy_check_mark:                                                        | The ID of the user for whom to verify the TOTP                            |
+| `requestBody`                                                             | [VerifyTOTPRequestBody](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_check_mark:                                                        | N/A                                                                       |
 
 ### Response
 

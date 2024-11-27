@@ -234,22 +234,12 @@ public class Clients implements
     /**
      * Verify a client
      * Verifies the client in the provided token
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public VerifyClientResponse verifyDirect() throws Exception {
-        return verify(Optional.empty());
-    }
-    
-    /**
-     * Verify a client
-     * Verifies the client in the provided token
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public VerifyClientResponse verify(
-            Optional<? extends VerifyClientRequestBody> request) throws Exception {
+            VerifyClientRequestBody request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -259,12 +249,15 @@ public class Clients implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<Optional<? extends VerifyClientRequestBody>>() {});
+                new TypeReference<VerifyClientRequestBody>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
+        if (_serializedRequestBody == null) {
+            throw new Exception("Request body is required");
+        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
