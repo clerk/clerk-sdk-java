@@ -15,7 +15,6 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
@@ -24,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.function.BiPredicate;
 import java.util.regex.Matcher;
@@ -50,7 +50,6 @@ import java.util.stream.StreamSupport;
 import javax.net.ssl.SSLSession;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.NameValuePair;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -1192,4 +1191,15 @@ public final class Utils {
         }
     }
     
+    public static String sessionKey(String... items) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            String input = Arrays.stream(items).collect(Collectors.joining(":"));
+            byte[] bytes = md.digest(input.getBytes(StandardCharsets.UTF_8));
+            return Utils.bytesToLowerCaseHex(bytes);
+        } catch (NoSuchAlgorithmException e) {
+            // not expected, MD5 always available
+            throw new RuntimeException(e);
+        }
+    }
 }
