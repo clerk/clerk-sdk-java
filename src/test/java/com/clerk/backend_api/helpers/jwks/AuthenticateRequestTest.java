@@ -155,7 +155,7 @@ public class AuthenticateRequestTest {
     }
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "CLERK_SESSION_KEY", matches = ".+")
+    @EnabledIfEnvironmentVariable(named = "CLERK_SESSION_TOKEN", matches = ".+")
     public void testAuthenticateRequestNoSecretKey() throws URISyntaxException {
         String token = sessionToken.get();
 
