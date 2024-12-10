@@ -30,10 +30,11 @@ More information about the API can be found at https://clerk.com/docs
 
 * [SDK Installation](#sdk-installation)
 * [SDK Example Usage](#sdk-example-usage)
+* [Authentication](#authentication)
+* [Request Authentication](#request-authentication)
 * [Available Resources and Operations](#available-resources-and-operations)
 * [Error Handling](#error-handling)
 * [Server Selection](#server-selection)
-* [Authentication](#authentication)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -106,6 +107,68 @@ public class Application {
 }
 ```
 <!-- End SDK Example Usage [usage] -->
+
+<!-- Start Authentication [security] -->
+## Authentication
+
+### Per-Client Security Schemes
+
+This SDK supports the following security scheme globally:
+
+| Name         | Type | Scheme      |
+| ------------ | ---- | ----------- |
+| `bearerAuth` | http | HTTP Bearer |
+
+To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
+                .frontendApi("<value>")
+                .publishableKey("<value>")
+                .call();
+
+        // handle response
+    }
+}
+```
+<!-- End Authentication [security] -->
+
+## Request Authentication
+
+Use the [authenticateRequest](https://github.com/clerk/clerk-sdk-java/blob/main/src/main/java/com/clerk/backend_api/helpers/jwks/AuthenticateRequest.java) method to authenticate a request from your app's frontend (when using a Clerk frontend SDK) to Clerk's Backend API. For example the following utility function checks if the user is effectively signed in:
+
+```java
+import java.net.http.HttpRequest;
+import com.clerk.backend_api.helpers.jwks.AuthenticateRequest;
+import com.clerk.backend_api.helpers.jwks.AuthenticateRequestOptions;
+import com.clerk.backend_api.helpers.jwks.RequestState;
+
+public class UserAuthentication {
+
+    public static boolean isSignedIn(HttpRequest request) {
+        RequestState requestState = AuthenticateRequest.authenticateRequest(request, AuthenticateRequestOptions
+                .secretKey(System.getenv("CLERK_SECRET_KEY"))
+                .authorizedParty("https://example.com")
+                .build());
+        return state.isSignedIn();
+    }
+```
+
+If the request is correctly authenticated, the token's claims are made available in `requestState.claims()`. Otherwise the reason for the token verification failure is given by `requestState.reason()`.
+
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
@@ -417,43 +480,6 @@ public class Application {
 ```
 <!-- End Server Selection [server] -->
 
-<!-- Start Authentication [security] -->
-## Authentication
-
-### Per-Client Security Schemes
-
-This SDK supports the following security scheme globally:
-
-| Name         | Type | Scheme      |
-| ------------ | ---- | ----------- |
-| `bearerAuth` | http | HTTP Bearer |
-
-To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-            .build();
-
-        GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
-                .frontendApi("<value>")
-                .publishableKey("<value>")
-                .call();
-
-        // handle response
-    }
-}
-```
-<!-- End Authentication [security] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 
