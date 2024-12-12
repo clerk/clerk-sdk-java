@@ -88,10 +88,10 @@ public class BetaFeatures implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -99,7 +99,7 @@ public class BetaFeatures implements
                   new BeforeRequestContextImpl(
                       "UpdateInstanceAuthConfig", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -110,7 +110,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "UpdateInstanceAuthConfig",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -119,7 +119,7 @@ public class BetaFeatures implements
                         new AfterSuccessContextImpl(
                             "UpdateInstanceAuthConfig",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -128,7 +128,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "UpdateInstanceAuthConfig",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -256,10 +256,10 @@ public class BetaFeatures implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -267,7 +267,7 @@ public class BetaFeatures implements
                   new BeforeRequestContextImpl(
                       "UpdateProductionInstanceDomain", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -278,7 +278,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "UpdateProductionInstanceDomain",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -287,7 +287,7 @@ public class BetaFeatures implements
                         new AfterSuccessContextImpl(
                             "UpdateProductionInstanceDomain",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -296,7 +296,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "UpdateProductionInstanceDomain",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -396,10 +396,10 @@ public class BetaFeatures implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -407,7 +407,7 @@ public class BetaFeatures implements
                   new BeforeRequestContextImpl(
                       "ChangeProductionInstanceDomain", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -418,7 +418,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "ChangeProductionInstanceDomain",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -427,7 +427,7 @@ public class BetaFeatures implements
                         new AfterSuccessContextImpl(
                             "ChangeProductionInstanceDomain",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -436,7 +436,7 @@ public class BetaFeatures implements
                         new AfterErrorContextImpl(
                             "ChangeProductionInstanceDomain",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
