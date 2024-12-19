@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PathParamTemplateType - The type of templates to retrieve (email or SMS)
@@ -23,5 +25,14 @@ public enum PathParamTemplateType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<PathParamTemplateType> fromValue(String value) {
+        for (PathParamTemplateType o: PathParamTemplateType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

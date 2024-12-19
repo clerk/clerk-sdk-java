@@ -119,10 +119,10 @@ public class SamlConnections implements
                 ListSAMLConnectionsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -130,7 +130,7 @@ public class SamlConnections implements
                   new BeforeRequestContextImpl(
                       "ListSAMLConnections", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -141,7 +141,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "ListSAMLConnections",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -150,7 +150,7 @@ public class SamlConnections implements
                         new AfterSuccessContextImpl(
                             "ListSAMLConnections",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -159,7 +159,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "ListSAMLConnections",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -262,10 +262,10 @@ public class SamlConnections implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -273,7 +273,7 @@ public class SamlConnections implements
                   new BeforeRequestContextImpl(
                       "CreateSAMLConnection", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -284,7 +284,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "CreateSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -293,7 +293,7 @@ public class SamlConnections implements
                         new AfterSuccessContextImpl(
                             "CreateSAMLConnection",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -302,7 +302,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "CreateSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -400,10 +400,10 @@ public class SamlConnections implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -411,7 +411,7 @@ public class SamlConnections implements
                   new BeforeRequestContextImpl(
                       "GetSAMLConnection", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -422,7 +422,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "GetSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -431,7 +431,7 @@ public class SamlConnections implements
                         new AfterSuccessContextImpl(
                             "GetSAMLConnection",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -440,7 +440,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "GetSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -554,10 +554,10 @@ public class SamlConnections implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -565,7 +565,7 @@ public class SamlConnections implements
                   new BeforeRequestContextImpl(
                       "UpdateSAMLConnection", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -576,7 +576,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "UpdateSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -585,7 +585,7 @@ public class SamlConnections implements
                         new AfterSuccessContextImpl(
                             "UpdateSAMLConnection",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -594,7 +594,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "UpdateSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -692,10 +692,10 @@ public class SamlConnections implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -703,7 +703,7 @@ public class SamlConnections implements
                   new BeforeRequestContextImpl(
                       "DeleteSAMLConnection", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -714,7 +714,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "DeleteSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -723,7 +723,7 @@ public class SamlConnections implements
                         new AfterSuccessContextImpl(
                             "DeleteSAMLConnection",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -732,7 +732,7 @@ public class SamlConnections implements
                         new AfterErrorContextImpl(
                             "DeleteSAMLConnection",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

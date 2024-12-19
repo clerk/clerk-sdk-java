@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class SetUserProfileImageRequestBody {
 
-    @SpeakeasyMetadata("multipartForm:file")
+    @SpeakeasyMetadata("multipartForm:file,name=file")
     private Optional<? extends File> file;
 
     @JsonCreator

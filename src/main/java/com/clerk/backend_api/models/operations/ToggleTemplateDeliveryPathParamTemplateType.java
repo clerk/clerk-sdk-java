@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ToggleTemplateDeliveryPathParamTemplateType - The type of template to toggle delivery for
@@ -23,5 +25,14 @@ public enum ToggleTemplateDeliveryPathParamTemplateType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ToggleTemplateDeliveryPathParamTemplateType> fromValue(String value) {
+        for (ToggleTemplateDeliveryPathParamTemplateType o: ToggleTemplateDeliveryPathParamTemplateType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

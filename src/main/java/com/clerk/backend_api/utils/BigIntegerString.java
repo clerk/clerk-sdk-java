@@ -24,8 +24,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 // Note that Jackson 2.16.1 does not support @JsonValue and @JsonFormat combined so we must use
 // a custom serializer/deserializer
 
-@JsonSerialize(using = BigIntegerString.BigIntegerStringSerializer.class)
-@JsonDeserialize(using = BigIntegerString.BigIntegerStringDeserializer.class)
+@JsonSerialize(using = BigIntegerString.Serializer.class)
+@JsonDeserialize(using = BigIntegerString.Deserializer.class)
 public class BigIntegerString {
 
     private final BigInteger value;
@@ -64,16 +64,11 @@ public class BigIntegerString {
         return Objects.equals(value, other.value);
     }
     
-    public static final class BigIntegerStringSerializer extends StdSerializer<BigIntegerString> {
+    @SuppressWarnings("serial")
+    public static final class Serializer extends StdSerializer<BigIntegerString> {
 
-        private static final long serialVersionUID = -2474225842945673085L;
-
-        public BigIntegerStringSerializer() {
-            this(null);
-        }
-
-        public BigIntegerStringSerializer(Class<BigIntegerString> t) {
-            super(t);
+        protected Serializer() {
+            super(BigIntegerString.class);
         }
 
         @Override
@@ -83,16 +78,11 @@ public class BigIntegerString {
         }
     }
 
-    public static final class BigIntegerStringDeserializer extends StdDeserializer<BigIntegerString> {
+    @SuppressWarnings("serial")
+    public static final class Deserializer extends StdDeserializer<BigIntegerString> {
 
-        private static final long serialVersionUID = -2474225842945673085L;
-
-        public BigIntegerStringDeserializer() {
-            this(null);
-        }
-
-        public BigIntegerStringDeserializer(Class<BigIntegerString> t) {
-            super(t);
+        protected Deserializer() {
+            super(BigIntegerString.class);
         }
 
         @Override

@@ -4,7 +4,6 @@
 
 package com.clerk.backend_api;
 
-import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
@@ -12,6 +11,7 @@ import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend
@@ -388,9 +388,16 @@ public class Clerk {
             this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
             return this;
         }
-        // Visible for testing, will be accessed via reflection
-        void _hooks(com.clerk.backend_api.utils.Hooks hooks) {
-            sdkConfiguration.setHooks(hooks);    
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(com.clerk.backend_api.utils.Hooks hooks) {
+            sdkConfiguration.setHooks(hooks);  
+            return this;  
+        }
+        
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(Consumer<? super com.clerk.backend_api.utils.Hooks> consumer) {
+            consumer.accept(sdkConfiguration.hooks());
+            return this;    
         }
         
         /**

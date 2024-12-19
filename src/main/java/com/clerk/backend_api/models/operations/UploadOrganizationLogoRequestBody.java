@@ -23,7 +23,7 @@ public class UploadOrganizationLogoRequestBody {
     @SpeakeasyMetadata("multipartForm:name=uploader_user_id")
     private Optional<String> uploaderUserId;
 
-    @SpeakeasyMetadata("multipartForm:file")
+    @SpeakeasyMetadata("multipartForm:file,name=file")
     private UploadOrganizationLogoFile file;
 
     @JsonCreator
