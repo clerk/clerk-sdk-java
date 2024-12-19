@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum Strategy {
     PHONE_CODE("phone_code"),
@@ -24,5 +26,14 @@ public enum Strategy {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<Strategy> fromValue(String value) {
+        for (Strategy o: Strategy.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

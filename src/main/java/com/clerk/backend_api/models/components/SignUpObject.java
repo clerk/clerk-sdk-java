@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum SignUpObject {
     SIGN_UP_ATTEMPT("sign_up_attempt");
@@ -19,5 +21,14 @@ public enum SignUpObject {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<SignUpObject> fromValue(String value) {
+        for (SignUpObject o: SignUpObject.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

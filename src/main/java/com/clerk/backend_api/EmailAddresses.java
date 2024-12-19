@@ -93,10 +93,10 @@ public class EmailAddresses implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -104,7 +104,7 @@ public class EmailAddresses implements
                   new BeforeRequestContextImpl(
                       "CreateEmailAddress", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -115,7 +115,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "CreateEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -124,7 +124,7 @@ public class EmailAddresses implements
                         new AfterSuccessContextImpl(
                             "CreateEmailAddress",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -133,7 +133,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "CreateEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -231,10 +231,10 @@ public class EmailAddresses implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -242,7 +242,7 @@ public class EmailAddresses implements
                   new BeforeRequestContextImpl(
                       "GetEmailAddress", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -253,7 +253,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "GetEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -262,7 +262,7 @@ public class EmailAddresses implements
                         new AfterSuccessContextImpl(
                             "GetEmailAddress",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -271,7 +271,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "GetEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -369,10 +369,10 @@ public class EmailAddresses implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -380,7 +380,7 @@ public class EmailAddresses implements
                   new BeforeRequestContextImpl(
                       "DeleteEmailAddress", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -391,7 +391,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "DeleteEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -400,7 +400,7 @@ public class EmailAddresses implements
                         new AfterSuccessContextImpl(
                             "DeleteEmailAddress",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -409,7 +409,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "DeleteEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -523,10 +523,10 @@ public class EmailAddresses implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -534,7 +534,7 @@ public class EmailAddresses implements
                   new BeforeRequestContextImpl(
                       "UpdateEmailAddress", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -545,7 +545,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "UpdateEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -554,7 +554,7 @@ public class EmailAddresses implements
                         new AfterSuccessContextImpl(
                             "UpdateEmailAddress",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -563,7 +563,7 @@ public class EmailAddresses implements
                         new AfterErrorContextImpl(
                             "UpdateEmailAddress",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

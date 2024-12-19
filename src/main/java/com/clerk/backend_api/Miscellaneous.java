@@ -90,7 +90,7 @@ public class Miscellaneous implements
                 GetPublicInterstitialRequest.class,
                 request, 
                 null));
-
+        Optional<SecuritySource> _hookSecuritySource = Optional.empty();
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -98,7 +98,7 @@ public class Miscellaneous implements
                   new BeforeRequestContextImpl(
                       "GetPublicInterstitial", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -109,7 +109,7 @@ public class Miscellaneous implements
                         new AfterErrorContextImpl(
                             "GetPublicInterstitial",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -118,7 +118,7 @@ public class Miscellaneous implements
                         new AfterSuccessContextImpl(
                             "GetPublicInterstitial",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -127,7 +127,7 @@ public class Miscellaneous implements
                         new AfterErrorContextImpl(
                             "GetPublicInterstitial",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

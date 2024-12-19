@@ -77,10 +77,10 @@ public class AllowlistBlocklist implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -88,7 +88,7 @@ public class AllowlistBlocklist implements
                   new BeforeRequestContextImpl(
                       "ListAllowlistIdentifiers", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -99,7 +99,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "ListAllowlistIdentifiers",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -108,7 +108,7 @@ public class AllowlistBlocklist implements
                         new AfterSuccessContextImpl(
                             "ListAllowlistIdentifiers",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -117,7 +117,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "ListAllowlistIdentifiers",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -220,10 +220,10 @@ public class AllowlistBlocklist implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -231,7 +231,7 @@ public class AllowlistBlocklist implements
                   new BeforeRequestContextImpl(
                       "CreateAllowlistIdentifier", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -242,7 +242,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "CreateAllowlistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -251,7 +251,7 @@ public class AllowlistBlocklist implements
                         new AfterSuccessContextImpl(
                             "CreateAllowlistIdentifier",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -260,7 +260,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "CreateAllowlistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -363,10 +363,10 @@ public class AllowlistBlocklist implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -374,7 +374,7 @@ public class AllowlistBlocklist implements
                   new BeforeRequestContextImpl(
                       "CreateBlocklistIdentifier", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -385,7 +385,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "CreateBlocklistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -394,7 +394,7 @@ public class AllowlistBlocklist implements
                         new AfterSuccessContextImpl(
                             "CreateBlocklistIdentifier",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -403,7 +403,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "CreateBlocklistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -501,10 +501,10 @@ public class AllowlistBlocklist implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -512,7 +512,7 @@ public class AllowlistBlocklist implements
                   new BeforeRequestContextImpl(
                       "DeleteBlocklistIdentifier", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -523,7 +523,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "DeleteBlocklistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -532,7 +532,7 @@ public class AllowlistBlocklist implements
                         new AfterSuccessContextImpl(
                             "DeleteBlocklistIdentifier",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -541,7 +541,7 @@ public class AllowlistBlocklist implements
                         new AfterErrorContextImpl(
                             "DeleteBlocklistIdentifier",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

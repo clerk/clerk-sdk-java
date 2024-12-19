@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum OAuthApplicationObject {
     OAUTH_APPLICATION("oauth_application");
@@ -19,5 +21,14 @@ public enum OAuthApplicationObject {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<OAuthApplicationObject> fromValue(String value) {
+        for (OAuthApplicationObject o: OAuthApplicationObject.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }
