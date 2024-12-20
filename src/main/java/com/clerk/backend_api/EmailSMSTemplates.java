@@ -98,10 +98,10 @@ public class EmailSMSTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -109,7 +109,7 @@ public class EmailSMSTemplates implements
                   new BeforeRequestContextImpl(
                       "GetTemplateList", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -120,7 +120,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "GetTemplateList",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -129,7 +129,7 @@ public class EmailSMSTemplates implements
                         new AfterSuccessContextImpl(
                             "GetTemplateList",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -138,7 +138,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "GetTemplateList",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -243,10 +243,10 @@ public class EmailSMSTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -254,7 +254,7 @@ public class EmailSMSTemplates implements
                   new BeforeRequestContextImpl(
                       "RevertTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -265,7 +265,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "RevertTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -274,7 +274,7 @@ public class EmailSMSTemplates implements
                         new AfterSuccessContextImpl(
                             "RevertTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -283,7 +283,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "RevertTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -388,10 +388,10 @@ public class EmailSMSTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -399,7 +399,7 @@ public class EmailSMSTemplates implements
                   new BeforeRequestContextImpl(
                       "GetTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -410,7 +410,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "GetTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -419,7 +419,7 @@ public class EmailSMSTemplates implements
                         new AfterSuccessContextImpl(
                             "GetTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -428,7 +428,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "GetTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -568,10 +568,10 @@ public class EmailSMSTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -579,7 +579,7 @@ public class EmailSMSTemplates implements
                   new BeforeRequestContextImpl(
                       "ToggleTemplateDelivery", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -590,7 +590,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "ToggleTemplateDelivery",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -599,7 +599,7 @@ public class EmailSMSTemplates implements
                         new AfterSuccessContextImpl(
                             "ToggleTemplateDelivery",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -608,7 +608,7 @@ public class EmailSMSTemplates implements
                         new AfterErrorContextImpl(
                             "ToggleTemplateDelivery",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

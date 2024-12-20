@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum Web3SignatureVerificationStrategy {
     WEB3_METAMASK_SIGNATURE("web3_metamask_signature"),
@@ -20,5 +22,14 @@ public enum Web3SignatureVerificationStrategy {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<Web3SignatureVerificationStrategy> fromValue(String value) {
+        for (Web3SignatureVerificationStrategy o: Web3SignatureVerificationStrategy.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

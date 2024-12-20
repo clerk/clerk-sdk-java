@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum InvitationRevokedObject {
     INVITATION("invitation");
@@ -19,5 +21,14 @@ public enum InvitationRevokedObject {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<InvitationRevokedObject> fromValue(String value) {
+        for (InvitationRevokedObject o: InvitationRevokedObject.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

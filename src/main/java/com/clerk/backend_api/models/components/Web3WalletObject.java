@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Web3WalletObject - String representing the object's type. Objects of the same type share the same value.
@@ -23,5 +25,14 @@ public enum Web3WalletObject {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<Web3WalletObject> fromValue(String value) {
+        for (Web3WalletObject o: Web3WalletObject.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

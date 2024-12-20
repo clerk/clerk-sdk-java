@@ -88,10 +88,10 @@ public class ClerkRedirectUrls implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -99,7 +99,7 @@ public class ClerkRedirectUrls implements
                   new BeforeRequestContextImpl(
                       "CreateRedirectURL", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -110,7 +110,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "CreateRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -119,7 +119,7 @@ public class ClerkRedirectUrls implements
                         new AfterSuccessContextImpl(
                             "CreateRedirectURL",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -128,7 +128,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "CreateRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -226,10 +226,10 @@ public class ClerkRedirectUrls implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -237,7 +237,7 @@ public class ClerkRedirectUrls implements
                   new BeforeRequestContextImpl(
                       "GetRedirectURL", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -248,7 +248,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "GetRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -257,7 +257,7 @@ public class ClerkRedirectUrls implements
                         new AfterSuccessContextImpl(
                             "GetRedirectURL",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -266,7 +266,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "GetRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -364,10 +364,10 @@ public class ClerkRedirectUrls implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -375,7 +375,7 @@ public class ClerkRedirectUrls implements
                   new BeforeRequestContextImpl(
                       "DeleteRedirectURL", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -386,7 +386,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "DeleteRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -395,7 +395,7 @@ public class ClerkRedirectUrls implements
                         new AfterSuccessContextImpl(
                             "DeleteRedirectURL",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -404,7 +404,7 @@ public class ClerkRedirectUrls implements
                         new AfterErrorContextImpl(
                             "DeleteRedirectURL",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

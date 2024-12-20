@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TemplateType - The type of templates to list (email or SMS)
@@ -23,5 +25,14 @@ public enum TemplateType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TemplateType> fromValue(String value) {
+        for (TemplateType o: TemplateType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

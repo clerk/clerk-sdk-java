@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum OauthVerificationStatus {
     UNVERIFIED("unverified"),
@@ -23,5 +25,14 @@ public enum OauthVerificationStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<OauthVerificationStatus> fromValue(String value) {
+        for (OauthVerificationStatus o: OauthVerificationStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

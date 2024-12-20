@@ -143,7 +143,7 @@ public final class RequestBody {
             }
 
             if (metadata.file) {
-                serializeMultipartFile(builder, val);
+                serializeMultipartFile(metadata.name, builder, val);
             } else if (metadata.json) {
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(val);
@@ -171,13 +171,12 @@ public final class RequestBody {
         }));
     }
 
-    private static void serializeMultipartFile(MultipartEntityBuilder builder, Object file)
+    private static void serializeMultipartFile(String fieldName, MultipartEntityBuilder builder, Object file)
             throws IllegalArgumentException, IllegalAccessException {
         if (Types.getType(file.getClass()) != Types.OBJECT) {
             throw new RuntimeException("Invalid type for multipart file");
         }
 
-        String fieldName = "";
         String fileName = "";
         byte[] content = null;
 
@@ -199,12 +198,11 @@ public final class RequestBody {
             if (metadata.content) {
                 content = (byte[]) val;
             } else {
-                fieldName = metadata.name;
                 fileName = Utils.valToString(val);
             }
         }
 
-        if (fieldName.isBlank() || fileName.isBlank() || content == null) {
+        if (fileName.isBlank() || content == null) {
             throw new RuntimeException("Invalid multipart file");
         }
 

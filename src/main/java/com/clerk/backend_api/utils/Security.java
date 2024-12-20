@@ -6,7 +6,11 @@ package com.clerk.backend_api.utils;
 
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public final class Security {
     
@@ -125,7 +129,7 @@ public final class Security {
             case "oauth2":
                 if (!"client_credentials".equals(schemeMetadata.subtype)) {
                     request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
-                }
+                } 
                 break;
             case "http":
                 switch (schemeMetadata.subtype) {
@@ -178,5 +182,61 @@ public final class Security {
                 + Base64.getEncoder()
                      .encodeToString(String.format("%s:%s", username, password)
                      .getBytes(StandardCharsets.UTF_8)));
+    }
+    
+    public static Stream<Field> findFieldsWhereMetadataContainsRegexes(Object o, String... regexes) {
+        Field[] fields = o.getClass().getDeclaredFields();
+        return Arrays.stream(fields) //
+                .filter(f -> {
+                    SpeakeasyMetadata[] anns = f.getDeclaredAnnotationsByType(SpeakeasyMetadata.class);
+                    if (anns == null) {
+                        return false;
+                    }
+                    return Arrays //
+                        .stream(regexes) //
+                        .allMatch(regex -> matches(anns, regex));
+                });
+    }
+    
+    public static Optional<String> findStringValueWhereMetadataContainsRegexes(Object o, String... regexes) {
+        return findValueWhereMetadataContainsRegexes(o, regexes).map(x -> (String) x);
+    }
+    
+    public static Optional<String> findStringValueWhereMetadataNameIs(Object o, String name) {
+        return Security.findStringValueWhereMetadataContainsRegexes(o, "\\bname=" + name + "\\b");
+    }
+    
+    public static Optional<Object> findValueWhereMetadataContainsRegexes(Object o, String... regexes) {
+        return findFieldsWhereMetadataContainsRegexes(o, regexes)
+                   .flatMap(f -> {
+                        f.setAccessible(true);
+                        Object result;
+                        try {
+                            result = f.get(o);
+                        } catch (IllegalArgumentException | IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if (result instanceof Optional) {
+                            @SuppressWarnings("unchecked")
+                            Optional<Object> r = (Optional<Object>) result;
+                            if (r.isEmpty()) {
+                                return Stream.empty();
+                            } else {
+                               return Stream.of(r.get());
+                            }
+                        } else {
+                            return Stream.of(result);
+                        }
+                    }).findAny();
+    }
+
+    private static boolean matches(SpeakeasyMetadata[] anns, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        for (SpeakeasyMetadata ann : anns) {
+            if (pattern.matcher(ann.value()).find()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

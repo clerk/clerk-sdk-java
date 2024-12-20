@@ -127,10 +127,10 @@ public class OauthApplications implements
                 ListOAuthApplicationsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -138,7 +138,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "ListOAuthApplications", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -149,7 +149,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "ListOAuthApplications",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -158,7 +158,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "ListOAuthApplications",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -167,7 +167,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "ListOAuthApplications",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -274,10 +274,10 @@ public class OauthApplications implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -285,7 +285,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "CreateOAuthApplication", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -296,7 +296,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "CreateOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -305,7 +305,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "CreateOAuthApplication",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -314,7 +314,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "CreateOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -412,10 +412,10 @@ public class OauthApplications implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -423,7 +423,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "GetOAuthApplication", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -434,7 +434,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "GetOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -443,7 +443,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "GetOAuthApplication",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -452,7 +452,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "GetOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -566,10 +566,10 @@ public class OauthApplications implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -577,7 +577,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "UpdateOAuthApplication", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -588,7 +588,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "UpdateOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -597,7 +597,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "UpdateOAuthApplication",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -606,7 +606,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "UpdateOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -706,10 +706,10 @@ public class OauthApplications implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -717,7 +717,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "DeleteOAuthApplication", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -728,7 +728,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "DeleteOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -737,7 +737,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "DeleteOAuthApplication",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -746,7 +746,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "DeleteOAuthApplication",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -846,10 +846,10 @@ public class OauthApplications implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -857,7 +857,7 @@ public class OauthApplications implements
                   new BeforeRequestContextImpl(
                       "RotateOAuthApplicationSecret", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -868,7 +868,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "RotateOAuthApplicationSecret",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -877,7 +877,7 @@ public class OauthApplications implements
                         new AfterSuccessContextImpl(
                             "RotateOAuthApplicationSecret",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -886,7 +886,7 @@ public class OauthApplications implements
                         new AfterErrorContextImpl(
                             "RotateOAuthApplicationSecret",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
