@@ -79,10 +79,10 @@ public class JwtTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -90,7 +90,7 @@ public class JwtTemplates implements
                   new BeforeRequestContextImpl(
                       "ListJWTTemplates", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -101,7 +101,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "ListJWTTemplates",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -110,7 +110,7 @@ public class JwtTemplates implements
                         new AfterSuccessContextImpl(
                             "ListJWTTemplates",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -119,7 +119,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "ListJWTTemplates",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -208,10 +208,10 @@ public class JwtTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -219,7 +219,7 @@ public class JwtTemplates implements
                   new BeforeRequestContextImpl(
                       "CreateJWTTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -230,7 +230,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "CreateJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -239,7 +239,7 @@ public class JwtTemplates implements
                         new AfterSuccessContextImpl(
                             "CreateJWTTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -248,7 +248,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "CreateJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -346,10 +346,10 @@ public class JwtTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -357,7 +357,7 @@ public class JwtTemplates implements
                   new BeforeRequestContextImpl(
                       "GetJWTTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -368,7 +368,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "GetJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -377,7 +377,7 @@ public class JwtTemplates implements
                         new AfterSuccessContextImpl(
                             "GetJWTTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -386,7 +386,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "GetJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -500,10 +500,10 @@ public class JwtTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -511,7 +511,7 @@ public class JwtTemplates implements
                   new BeforeRequestContextImpl(
                       "UpdateJWTTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -522,7 +522,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "UpdateJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -531,7 +531,7 @@ public class JwtTemplates implements
                         new AfterSuccessContextImpl(
                             "UpdateJWTTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -540,7 +540,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "UpdateJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -636,10 +636,10 @@ public class JwtTemplates implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -647,7 +647,7 @@ public class JwtTemplates implements
                   new BeforeRequestContextImpl(
                       "DeleteJWTTemplate", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -658,7 +658,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "DeleteJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -667,7 +667,7 @@ public class JwtTemplates implements
                         new AfterSuccessContextImpl(
                             "DeleteJWTTemplate",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -676,7 +676,7 @@ public class JwtTemplates implements
                         new AfterErrorContextImpl(
                             "DeleteJWTTemplate",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

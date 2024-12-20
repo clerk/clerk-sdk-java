@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class UploadOrganizationLogoFile {
 
-    @SpeakeasyMetadata("multipartForm:name=file")
+    @SpeakeasyMetadata("multipartForm:name=fileName")
     private String fileName;
 
     @SpeakeasyMetadata("multipartForm:content")

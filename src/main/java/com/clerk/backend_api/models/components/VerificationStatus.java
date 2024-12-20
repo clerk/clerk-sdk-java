@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum VerificationStatus {
     UNVERIFIED("unverified"),
@@ -22,5 +24,14 @@ public enum VerificationStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<VerificationStatus> fromValue(String value) {
+        for (VerificationStatus o: VerificationStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

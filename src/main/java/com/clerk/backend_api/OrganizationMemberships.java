@@ -124,10 +124,10 @@ public class OrganizationMemberships implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -135,7 +135,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "CreateOrganizationMembership", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -146,7 +146,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "CreateOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -155,7 +155,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "CreateOrganizationMembership",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -164,7 +164,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "CreateOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -293,10 +293,10 @@ public class OrganizationMemberships implements
                 ListOrganizationMembershipsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -304,7 +304,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "ListOrganizationMemberships", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -315,7 +315,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "ListOrganizationMemberships",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -324,7 +324,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "ListOrganizationMemberships",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -333,7 +333,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "ListOrganizationMemberships",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -450,10 +450,10 @@ public class OrganizationMemberships implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -461,7 +461,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "UpdateOrganizationMembership", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -472,7 +472,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "UpdateOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -481,7 +481,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "UpdateOrganizationMembership",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -490,7 +490,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "UpdateOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -591,10 +591,10 @@ public class OrganizationMemberships implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -602,7 +602,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "DeleteOrganizationMembership", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -613,7 +613,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "DeleteOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -622,7 +622,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "DeleteOrganizationMembership",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -631,7 +631,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "DeleteOrganizationMembership",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -752,10 +752,10 @@ public class OrganizationMemberships implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -763,7 +763,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "UpdateOrganizationMembershipMetadata", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -774,7 +774,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "UpdateOrganizationMembershipMetadata",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -783,7 +783,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "UpdateOrganizationMembershipMetadata",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -792,7 +792,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "UpdateOrganizationMembershipMetadata",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }
@@ -914,10 +914,10 @@ public class OrganizationMemberships implements
                 InstanceGetOrganizationMembershipsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HttpRequest _r = 
             sdkConfiguration.hooks()
@@ -925,7 +925,7 @@ public class OrganizationMemberships implements
                   new BeforeRequestContextImpl(
                       "InstanceGetOrganizationMemberships", 
                       Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
+                      _hookSecuritySource),
                   _req.build());
         HttpResponse<InputStream> _httpRes;
         try {
@@ -936,7 +936,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "InstanceGetOrganizationMemberships",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                         Optional.of(_httpRes),
                         Optional.empty());
             } else {
@@ -945,7 +945,7 @@ public class OrganizationMemberships implements
                         new AfterSuccessContextImpl(
                             "InstanceGetOrganizationMemberships",
                             Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
+                            _hookSecuritySource),
                          _httpRes);
             }
         } catch (Exception _e) {
@@ -954,7 +954,7 @@ public class OrganizationMemberships implements
                         new AfterErrorContextImpl(
                             "InstanceGetOrganizationMemberships",
                             Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
+                            _hookSecuritySource), 
                         Optional.empty(),
                         Optional.of(_e));
         }

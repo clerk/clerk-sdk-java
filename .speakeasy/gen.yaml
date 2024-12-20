@@ -13,7 +13,7 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 java:
-  version: 1.4.0
+  version: 1.5.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
