@@ -167,7 +167,7 @@ public class UserAuthentication {
                 .secretKey(System.getenv("CLERK_SECRET_KEY"))
                 .authorizedParty("https://example.com")
                 .build());
-        return state.isSignedIn();
+        return requestState.isSignedIn();
     }
 ```
 
