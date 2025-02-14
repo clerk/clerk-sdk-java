@@ -8,6 +8,8 @@ import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
+import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 
 public class ListSAMLConnectionsRequestBuilder {
@@ -20,6 +22,7 @@ public class ListSAMLConnectionsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
+    private Optional<? extends List<String>> organizationId = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListSAMLConnections sdk;
 
     public ListSAMLConnectionsRequestBuilder(SDKMethodInterfaces.MethodCallListSAMLConnections sdk) {
@@ -49,6 +52,18 @@ public class ListSAMLConnectionsRequestBuilder {
         this.offset = offset;
         return this;
     }
+                
+    public ListSAMLConnectionsRequestBuilder organizationId(List<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = Optional.of(organizationId);
+        return this;
+    }
+
+    public ListSAMLConnectionsRequestBuilder organizationId(Optional<? extends List<String>> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
 
     public ListSAMLConnectionsResponse call() throws Exception {
         if (limit == null) {
@@ -59,7 +74,8 @@ public class ListSAMLConnectionsRequestBuilder {
         }
         return sdk.list(
             limit,
-            offset);
+            offset,
+            organizationId);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

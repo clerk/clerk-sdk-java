@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateInvitationRequestBuilder {
 
-    private CreateInvitationRequestBody request;
+    private Optional<? extends CreateInvitationRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateInvitation sdk;
 
     public CreateInvitationRequestBuilder(SDKMethodInterfaces.MethodCallCreateInvitation sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateInvitationRequestBuilder request(CreateInvitationRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateInvitationRequestBuilder request(Optional<? extends CreateInvitationRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

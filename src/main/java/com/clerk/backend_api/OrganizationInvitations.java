@@ -9,6 +9,7 @@ import com.clerk.backend_api.models.components.OrganizationInvitationsWithPublic
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequest;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequest;
@@ -28,7 +29,6 @@ import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRespon
 import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListPendingOrganizationInvitationsResponse;
-import com.clerk.backend_api.models.operations.RequestBody;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequest;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBuilder;
@@ -184,7 +184,7 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "500")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -198,7 +198,29 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -258,13 +280,40 @@ public class OrganizationInvitations implements
      * The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.
      * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      * @param organizationId The ID of the organization for which to send the invitation
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateOrganizationInvitationResponse create(
+            String organizationId) throws Exception {
+        return create(organizationId, Optional.empty());
+    }
+    
+    /**
+     * Create and send an organization invitation
+     * Creates a new organization invitation and sends an email to the provided `email_address` with a link to accept the invitation and join the organization.
+     * You can specify the `role` for the invited organization member.
+     * 
+     * New organization invitations get a "pending" status until they are revoked by an organization administrator or accepted by the invitee.
+     * 
+     * The request body supports passing an optional `redirect_url` parameter.
+     * When the invited user clicks the link to accept the invitation, they will be redirected to the URL provided.
+     * Use this parameter to implement a custom invitation acceptance flow.
+     * 
+     * You can specify the ID of the user that will send the invitation with the `inviter_user_id` parameter.
+     * That user must be a member with administrator privileges in the organization.
+     * Only "admin" members can create organization invitations.
+     * 
+     * You can optionally provide public and private metadata for the organization invitation.
+     * The public metadata are visible by both the Frontend and the Backend whereas the private ones only by the Backend.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * @param organizationId The ID of the organization for which to send the invitation
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateOrganizationInvitationResponse create(
             String organizationId,
-            CreateOrganizationInvitationRequestBody requestBody) throws Exception {
+            Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) throws Exception {
         CreateOrganizationInvitationRequest request =
             CreateOrganizationInvitationRequest
                 .builder()
@@ -289,9 +338,6 @@ public class OrganizationInvitations implements
                 "requestBody",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -382,7 +428,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -564,7 +618,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -624,7 +686,7 @@ public class OrganizationInvitations implements
      */
     public CreateOrganizationInvitationBulkResponse bulkCreate(
             String organizationId,
-            List<RequestBody> requestBody) throws Exception {
+            List<CreateOrganizationInvitationBulkRequestBody> requestBody) throws Exception {
         CreateOrganizationInvitationBulkRequest request =
             CreateOrganizationInvitationBulkRequest
                 .builder()
@@ -742,7 +804,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -927,7 +997,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -1068,7 +1146,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -1248,7 +1334,15 @@ public class OrganizationInvitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

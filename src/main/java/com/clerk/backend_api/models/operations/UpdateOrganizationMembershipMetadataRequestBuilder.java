@@ -6,12 +6,13 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateOrganizationMembershipMetadataRequestBuilder {
 
     private String organizationId;
     private String userId;
-    private UpdateOrganizationMembershipMetadataRequestBody requestBody;
+    private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateOrganizationMembershipMetadata sdk;
 
     public UpdateOrganizationMembershipMetadataRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOrganizationMembershipMetadata sdk) {
@@ -29,8 +30,14 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
         this.userId = userId;
         return this;
     }
-
+                
     public UpdateOrganizationMembershipMetadataRequestBuilder requestBody(UpdateOrganizationMembershipMetadataRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public UpdateOrganizationMembershipMetadataRequestBuilder requestBody(Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

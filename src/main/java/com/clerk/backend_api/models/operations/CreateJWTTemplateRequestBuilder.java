@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateJWTTemplateRequestBuilder {
 
-    private CreateJWTTemplateRequestBody request;
+    private Optional<? extends CreateJWTTemplateRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateJWTTemplate sdk;
 
     public CreateJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallCreateJWTTemplate sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateJWTTemplateRequestBuilder request(CreateJWTTemplateRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateJWTTemplateRequestBuilder request(Optional<? extends CreateJWTTemplateRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

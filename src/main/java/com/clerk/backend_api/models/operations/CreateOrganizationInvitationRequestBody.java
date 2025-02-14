@@ -11,9 +11,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -43,17 +46,19 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     /**
      * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
@@ -62,32 +67,42 @@ public class CreateOrganizationInvitationRequestBody {
     @JsonProperty("redirect_url")
     private Optional<String> redirectUrl;
 
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_in_days")
+    private JsonNullable<Long> expiresInDays;
+
     @JsonCreator
     public CreateOrganizationInvitationRequestBody(
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("inviter_user_id") JsonNullable<String> inviterUserId,
             @JsonProperty("role") String role,
-            @JsonProperty("public_metadata") Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata,
-            @JsonProperty("redirect_url") Optional<String> redirectUrl) {
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("redirect_url") Optional<String> redirectUrl,
+            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(inviterUserId, "inviterUserId");
         Utils.checkNotNull(role, "role");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
         this.emailAddress = emailAddress;
         this.inviterUserId = inviterUserId;
         this.role = role;
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
         this.redirectUrl = redirectUrl;
+        this.expiresInDays = expiresInDays;
     }
     
     public CreateOrganizationInvitationRequestBody(
             String emailAddress,
             String role) {
-        this(emailAddress, JsonNullable.undefined(), role, Optional.empty(), Optional.empty(), Optional.empty());
+        this(emailAddress, JsonNullable.undefined(), role, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     /**
@@ -117,20 +132,22 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateOrganizationInvitationPublicMetadata> publicMetadata() {
-        return (Optional<CreateOrganizationInvitationPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
      * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateOrganizationInvitationPrivateMetadata> privateMetadata() {
-        return (Optional<CreateOrganizationInvitationPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     /**
@@ -139,6 +156,14 @@ public class CreateOrganizationInvitationRequestBody {
     @JsonIgnore
     public Optional<String> redirectUrl() {
         return redirectUrl;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresInDays() {
+        return expiresInDays;
     }
 
     public final static Builder builder() {
@@ -185,8 +210,9 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
-    public CreateOrganizationInvitationRequestBody withPublicMetadata(CreateOrganizationInvitationPublicMetadata publicMetadata) {
+    public CreateOrganizationInvitationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -194,8 +220,9 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
-    public CreateOrganizationInvitationRequestBody withPublicMetadata(Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata) {
+    public CreateOrganizationInvitationRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -203,8 +230,9 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
-    public CreateOrganizationInvitationRequestBody withPrivateMetadata(CreateOrganizationInvitationPrivateMetadata privateMetadata) {
+    public CreateOrganizationInvitationRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -212,8 +240,9 @@ public class CreateOrganizationInvitationRequestBody {
 
     /**
      * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
      */
-    public CreateOrganizationInvitationRequestBody withPrivateMetadata(Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata) {
+    public CreateOrganizationInvitationRequestBody withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -236,6 +265,24 @@ public class CreateOrganizationInvitationRequestBody {
         this.redirectUrl = redirectUrl;
         return this;
     }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     */
+    public CreateOrganizationInvitationRequestBody withExpiresInDays(long expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = JsonNullable.of(expiresInDays);
+        return this;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     */
+    public CreateOrganizationInvitationRequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = expiresInDays;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -252,7 +299,8 @@ public class CreateOrganizationInvitationRequestBody {
             Objects.deepEquals(this.role, other.role) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.redirectUrl, other.redirectUrl);
+            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
+            Objects.deepEquals(this.expiresInDays, other.expiresInDays);
     }
     
     @Override
@@ -263,7 +311,8 @@ public class CreateOrganizationInvitationRequestBody {
             role,
             publicMetadata,
             privateMetadata,
-            redirectUrl);
+            redirectUrl,
+            expiresInDays);
     }
     
     @Override
@@ -274,7 +323,8 @@ public class CreateOrganizationInvitationRequestBody {
                 "role", role,
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
-                "redirectUrl", redirectUrl);
+                "redirectUrl", redirectUrl,
+                "expiresInDays", expiresInDays);
     }
     
     public final static class Builder {
@@ -285,11 +335,13 @@ public class CreateOrganizationInvitationRequestBody {
  
         private String role;
  
-        private Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
  
-        private Optional<String> redirectUrl = Optional.empty();  
+        private Optional<String> redirectUrl = Optional.empty();
+ 
+        private JsonNullable<Long> expiresInDays = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -335,8 +387,9 @@ public class CreateOrganizationInvitationRequestBody {
 
         /**
          * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
          */
-        public Builder publicMetadata(CreateOrganizationInvitationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -344,8 +397,9 @@ public class CreateOrganizationInvitationRequestBody {
 
         /**
          * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
          */
-        public Builder publicMetadata(Optional<? extends CreateOrganizationInvitationPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -353,8 +407,9 @@ public class CreateOrganizationInvitationRequestBody {
 
         /**
          * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
          */
-        public Builder privateMetadata(CreateOrganizationInvitationPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -362,8 +417,9 @@ public class CreateOrganizationInvitationRequestBody {
 
         /**
          * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
          */
-        public Builder privateMetadata(Optional<? extends CreateOrganizationInvitationPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
@@ -386,6 +442,24 @@ public class CreateOrganizationInvitationRequestBody {
             this.redirectUrl = redirectUrl;
             return this;
         }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+         */
+        public Builder expiresInDays(long expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = JsonNullable.of(expiresInDays);
+            return this;
+        }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+         */
+        public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = expiresInDays;
+            return this;
+        }
         
         public CreateOrganizationInvitationRequestBody build() {
             return new CreateOrganizationInvitationRequestBody(
@@ -394,7 +468,8 @@ public class CreateOrganizationInvitationRequestBody {
                 role,
                 publicMetadata,
                 privateMetadata,
-                redirectUrl);
+                redirectUrl,
+                expiresInDays);
         }
     }
 }

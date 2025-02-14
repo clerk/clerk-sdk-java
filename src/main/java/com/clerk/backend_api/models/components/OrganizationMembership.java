@@ -12,10 +12,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -54,14 +56,14 @@ public class OrganizationMembership {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Metadata saved on the organization membership, accessible only from the Backend API
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization")
@@ -92,8 +94,8 @@ public class OrganizationMembership {
             @JsonProperty("role") Optional<String> role,
             @JsonProperty("role_name") Optional<String> roleName,
             @JsonProperty("permissions") Optional<? extends List<String>> permissions,
-            @JsonProperty("public_metadata") Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("organization") Optional<? extends OrganizationMembershipOrganization> organization,
             @JsonProperty("public_user_data") Optional<? extends PublicUserData> publicUserData,
             @JsonProperty("created_at") Optional<Long> createdAt,
@@ -162,8 +164,8 @@ public class OrganizationMembership {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<OrganizationMembershipPublicMetadata> publicMetadata() {
-        return (Optional<OrganizationMembershipPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -171,8 +173,8 @@ public class OrganizationMembership {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<OrganizationMembershipPrivateMetadata> privateMetadata() {
-        return (Optional<OrganizationMembershipPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     @SuppressWarnings("unchecked")
@@ -278,7 +280,7 @@ public class OrganizationMembership {
     /**
      * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
      */
-    public OrganizationMembership withPublicMetadata(OrganizationMembershipPublicMetadata publicMetadata) {
+    public OrganizationMembership withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -287,7 +289,7 @@ public class OrganizationMembership {
     /**
      * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
      */
-    public OrganizationMembership withPublicMetadata(Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata) {
+    public OrganizationMembership withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -296,7 +298,7 @@ public class OrganizationMembership {
     /**
      * Metadata saved on the organization membership, accessible only from the Backend API
      */
-    public OrganizationMembership withPrivateMetadata(OrganizationMembershipPrivateMetadata privateMetadata) {
+    public OrganizationMembership withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -305,7 +307,7 @@ public class OrganizationMembership {
     /**
      * Metadata saved on the organization membership, accessible only from the Backend API
      */
-    public OrganizationMembership withPrivateMetadata(Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata) {
+    public OrganizationMembership withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -438,9 +440,9 @@ public class OrganizationMembership {
  
         private Optional<? extends List<String>> permissions = Optional.empty();
  
-        private Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
  
         private Optional<? extends OrganizationMembershipOrganization> organization = Optional.empty();
  
@@ -525,7 +527,7 @@ public class OrganizationMembership {
         /**
          * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
          */
-        public Builder publicMetadata(OrganizationMembershipPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -534,7 +536,7 @@ public class OrganizationMembership {
         /**
          * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
          */
-        public Builder publicMetadata(Optional<? extends OrganizationMembershipPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -543,7 +545,7 @@ public class OrganizationMembership {
         /**
          * Metadata saved on the organization membership, accessible only from the Backend API
          */
-        public Builder privateMetadata(OrganizationMembershipPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -552,7 +554,7 @@ public class OrganizationMembership {
         /**
          * Metadata saved on the organization membership, accessible only from the Backend API
          */
-        public Builder privateMetadata(Optional<? extends OrganizationMembershipPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;

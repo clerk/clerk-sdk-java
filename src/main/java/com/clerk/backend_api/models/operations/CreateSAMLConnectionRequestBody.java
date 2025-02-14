@@ -74,6 +74,13 @@ public class CreateSAMLConnectionRequestBody {
     private JsonNullable<String> idpMetadata;
 
     /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("organization_id")
+    private JsonNullable<String> organizationId;
+
+    /**
      * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -90,6 +97,7 @@ public class CreateSAMLConnectionRequestBody {
             @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
+            @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("attribute_mapping") JsonNullable<? extends AttributeMapping> attributeMapping) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
@@ -99,6 +107,7 @@ public class CreateSAMLConnectionRequestBody {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(idpMetadata, "idpMetadata");
+        Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         this.name = name;
         this.domain = domain;
@@ -108,6 +117,7 @@ public class CreateSAMLConnectionRequestBody {
         this.idpCertificate = idpCertificate;
         this.idpMetadataUrl = idpMetadataUrl;
         this.idpMetadata = idpMetadata;
+        this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
     }
     
@@ -115,7 +125,7 @@ public class CreateSAMLConnectionRequestBody {
             String name,
             String domain,
             Provider provider) {
-        this(name, domain, provider, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(name, domain, provider, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -180,6 +190,14 @@ public class CreateSAMLConnectionRequestBody {
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
         return idpMetadata;
+    }
+
+    /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    @JsonIgnore
+    public JsonNullable<String> organizationId() {
+        return organizationId;
     }
 
     /**
@@ -313,6 +331,24 @@ public class CreateSAMLConnectionRequestBody {
     }
 
     /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    public CreateSAMLConnectionRequestBody withOrganizationId(String organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = JsonNullable.of(organizationId);
+        return this;
+    }
+
+    /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    public CreateSAMLConnectionRequestBody withOrganizationId(JsonNullable<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
      * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     public CreateSAMLConnectionRequestBody withAttributeMapping(AttributeMapping attributeMapping) {
@@ -348,6 +384,7 @@ public class CreateSAMLConnectionRequestBody {
             Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
             Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.attributeMapping, other.attributeMapping);
     }
     
@@ -362,6 +399,7 @@ public class CreateSAMLConnectionRequestBody {
             idpCertificate,
             idpMetadataUrl,
             idpMetadata,
+            organizationId,
             attributeMapping);
     }
     
@@ -376,6 +414,7 @@ public class CreateSAMLConnectionRequestBody {
                 "idpCertificate", idpCertificate,
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
+                "organizationId", organizationId,
                 "attributeMapping", attributeMapping);
     }
     
@@ -396,6 +435,8 @@ public class CreateSAMLConnectionRequestBody {
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
  
         private JsonNullable<String> idpMetadata = JsonNullable.undefined();
+ 
+        private JsonNullable<String> organizationId = JsonNullable.undefined();
  
         private JsonNullable<? extends AttributeMapping> attributeMapping = JsonNullable.undefined();  
         
@@ -521,6 +562,24 @@ public class CreateSAMLConnectionRequestBody {
         }
 
         /**
+         * The ID of the organization to which users of this SAML Connection will be added
+         */
+        public Builder organizationId(String organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = JsonNullable.of(organizationId);
+            return this;
+        }
+
+        /**
+         * The ID of the organization to which users of this SAML Connection will be added
+         */
+        public Builder organizationId(JsonNullable<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        /**
          * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(AttributeMapping attributeMapping) {
@@ -548,6 +607,7 @@ public class CreateSAMLConnectionRequestBody {
                 idpCertificate,
                 idpMetadataUrl,
                 idpMetadata,
+                organizationId,
                 attributeMapping);
         }
     }

@@ -9,6 +9,7 @@ import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -75,6 +76,36 @@ public class GetUsersCountRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
 
+    /**
+     * Counts users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+     * and will be included in the resulting count.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address_query")
+    private Optional<String> emailAddressQuery;
+
+    /**
+     * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+     * and will be included in the resulting count.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=phone_number_query")
+    private Optional<String> phoneNumberQuery;
+
+    /**
+     * Counts users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+     * and will be included in the resulting count.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=username_query")
+    private Optional<String> usernameQuery;
+
+    /**
+     * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=banned")
+    private Optional<Boolean> banned;
+
     @JsonCreator
     public GetUsersCountRequest(
             Optional<? extends List<String>> emailAddress,
@@ -83,7 +114,11 @@ public class GetUsersCountRequest {
             Optional<? extends List<String>> username,
             Optional<? extends List<String>> web3Wallet,
             Optional<? extends List<String>> userId,
-            Optional<String> query) {
+            Optional<String> query,
+            Optional<String> emailAddressQuery,
+            Optional<String> phoneNumberQuery,
+            Optional<String> usernameQuery,
+            Optional<Boolean> banned) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         Utils.checkNotNull(externalId, "externalId");
@@ -91,6 +126,10 @@ public class GetUsersCountRequest {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        Utils.checkNotNull(banned, "banned");
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.externalId = externalId;
@@ -98,10 +137,14 @@ public class GetUsersCountRequest {
         this.web3Wallet = web3Wallet;
         this.userId = userId;
         this.query = query;
+        this.emailAddressQuery = emailAddressQuery;
+        this.phoneNumberQuery = phoneNumberQuery;
+        this.usernameQuery = usernameQuery;
+        this.banned = banned;
     }
     
     public GetUsersCountRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -178,6 +221,44 @@ public class GetUsersCountRequest {
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Counts users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+     * and will be included in the resulting count.
+     */
+    @JsonIgnore
+    public Optional<String> emailAddressQuery() {
+        return emailAddressQuery;
+    }
+
+    /**
+     * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+     * and will be included in the resulting count.
+     */
+    @JsonIgnore
+    public Optional<String> phoneNumberQuery() {
+        return phoneNumberQuery;
+    }
+
+    /**
+     * Counts users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+     * and will be included in the resulting count.
+     */
+    @JsonIgnore
+    public Optional<String> usernameQuery() {
+        return usernameQuery;
+    }
+
+    /**
+     * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    @JsonIgnore
+    public Optional<Boolean> banned() {
+        return banned;
     }
 
     public final static Builder builder() {
@@ -337,6 +418,90 @@ public class GetUsersCountRequest {
         this.query = query;
         return this;
     }
+
+    /**
+     * Counts users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withEmailAddressQuery(String emailAddressQuery) {
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        this.emailAddressQuery = Optional.ofNullable(emailAddressQuery);
+        return this;
+    }
+
+    /**
+     * Counts users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withEmailAddressQuery(Optional<String> emailAddressQuery) {
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        this.emailAddressQuery = emailAddressQuery;
+        return this;
+    }
+
+    /**
+     * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withPhoneNumberQuery(String phoneNumberQuery) {
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        this.phoneNumberQuery = Optional.ofNullable(phoneNumberQuery);
+        return this;
+    }
+
+    /**
+     * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withPhoneNumberQuery(Optional<String> phoneNumberQuery) {
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        this.phoneNumberQuery = phoneNumberQuery;
+        return this;
+    }
+
+    /**
+     * Counts users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withUsernameQuery(String usernameQuery) {
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        this.usernameQuery = Optional.ofNullable(usernameQuery);
+        return this;
+    }
+
+    /**
+     * Counts users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+     * and will be included in the resulting count.
+     */
+    public GetUsersCountRequest withUsernameQuery(Optional<String> usernameQuery) {
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        this.usernameQuery = usernameQuery;
+        return this;
+    }
+
+    /**
+     * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    public GetUsersCountRequest withBanned(boolean banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = Optional.ofNullable(banned);
+        return this;
+    }
+
+    /**
+     * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    public GetUsersCountRequest withBanned(Optional<Boolean> banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = banned;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -354,7 +519,11 @@ public class GetUsersCountRequest {
             Objects.deepEquals(this.username, other.username) &&
             Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
             Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.query, other.query);
+            Objects.deepEquals(this.query, other.query) &&
+            Objects.deepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
+            Objects.deepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
+            Objects.deepEquals(this.usernameQuery, other.usernameQuery) &&
+            Objects.deepEquals(this.banned, other.banned);
     }
     
     @Override
@@ -366,7 +535,11 @@ public class GetUsersCountRequest {
             username,
             web3Wallet,
             userId,
-            query);
+            query,
+            emailAddressQuery,
+            phoneNumberQuery,
+            usernameQuery,
+            banned);
     }
     
     @Override
@@ -378,7 +551,11 @@ public class GetUsersCountRequest {
                 "username", username,
                 "web3Wallet", web3Wallet,
                 "userId", userId,
-                "query", query);
+                "query", query,
+                "emailAddressQuery", emailAddressQuery,
+                "phoneNumberQuery", phoneNumberQuery,
+                "usernameQuery", usernameQuery,
+                "banned", banned);
     }
     
     public final static class Builder {
@@ -395,7 +572,15 @@ public class GetUsersCountRequest {
  
         private Optional<? extends List<String>> userId = Optional.empty();
  
-        private Optional<String> query = Optional.empty();  
+        private Optional<String> query = Optional.empty();
+ 
+        private Optional<String> emailAddressQuery = Optional.empty();
+ 
+        private Optional<String> phoneNumberQuery = Optional.empty();
+ 
+        private Optional<String> usernameQuery = Optional.empty();
+ 
+        private Optional<Boolean> banned = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -554,6 +739,90 @@ public class GetUsersCountRequest {
             this.query = query;
             return this;
         }
+
+        /**
+         * Counts users with emails that match the given query, via case-insensitive partial match.
+         * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+         * and will be included in the resulting count.
+         */
+        public Builder emailAddressQuery(String emailAddressQuery) {
+            Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+            this.emailAddressQuery = Optional.ofNullable(emailAddressQuery);
+            return this;
+        }
+
+        /**
+         * Counts users with emails that match the given query, via case-insensitive partial match.
+         * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`,
+         * and will be included in the resulting count.
+         */
+        public Builder emailAddressQuery(Optional<String> emailAddressQuery) {
+            Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+            this.emailAddressQuery = emailAddressQuery;
+            return this;
+        }
+
+        /**
+         * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+         * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+         * and will be included in the resulting count.
+         */
+        public Builder phoneNumberQuery(String phoneNumberQuery) {
+            Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+            this.phoneNumberQuery = Optional.ofNullable(phoneNumberQuery);
+            return this;
+        }
+
+        /**
+         * Counts users with phone numbers that match the given query, via case-insensitive partial match.
+         * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
+         * and will be included in the resulting count.
+         */
+        public Builder phoneNumberQuery(Optional<String> phoneNumberQuery) {
+            Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+            this.phoneNumberQuery = phoneNumberQuery;
+            return this;
+        }
+
+        /**
+         * Counts users with usernames that match the given query, via case-insensitive partial match.
+         * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+         * and will be included in the resulting count.
+         */
+        public Builder usernameQuery(String usernameQuery) {
+            Utils.checkNotNull(usernameQuery, "usernameQuery");
+            this.usernameQuery = Optional.ofNullable(usernameQuery);
+            return this;
+        }
+
+        /**
+         * Counts users with usernames that match the given query, via case-insensitive partial match.
+         * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
+         * and will be included in the resulting count.
+         */
+        public Builder usernameQuery(Optional<String> usernameQuery) {
+            Utils.checkNotNull(usernameQuery, "usernameQuery");
+            this.usernameQuery = usernameQuery;
+            return this;
+        }
+
+        /**
+         * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+         */
+        public Builder banned(boolean banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = Optional.ofNullable(banned);
+            return this;
+        }
+
+        /**
+         * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
+         */
+        public Builder banned(Optional<Boolean> banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = banned;
+            return this;
+        }
         
         public GetUsersCountRequest build() {
             return new GetUsersCountRequest(
@@ -563,7 +832,11 @@ public class GetUsersCountRequest {
                 username,
                 web3Wallet,
                 userId,
-                query);
+                query,
+                emailAddressQuery,
+                phoneNumberQuery,
+                usernameQuery,
+                banned);
         }
     }
 }

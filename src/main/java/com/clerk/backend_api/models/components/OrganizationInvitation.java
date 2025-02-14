@@ -12,11 +12,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * OrganizationInvitation - An organization invitation
@@ -58,11 +61,23 @@ public class OrganizationInvitation {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("url")
+    private JsonNullable<String> url;
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_at")
+    private JsonNullable<Long> expiresAt;
 
     /**
      * Unix timestamp of creation.
@@ -87,8 +102,10 @@ public class OrganizationInvitation {
             @JsonProperty("role_name") Optional<String> roleName,
             @JsonProperty("organization_id") Optional<String> organizationId,
             @JsonProperty("status") Optional<String> status,
-            @JsonProperty("public_metadata") Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("url") JsonNullable<String> url,
+            @JsonProperty("expires_at") JsonNullable<Long> expiresAt,
             @JsonProperty("created_at") Optional<Long> createdAt,
             @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(id, "id");
@@ -100,6 +117,8 @@ public class OrganizationInvitation {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
+        Utils.checkNotNull(url, "url");
+        Utils.checkNotNull(expiresAt, "expiresAt");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.id = id;
@@ -111,12 +130,14 @@ public class OrganizationInvitation {
         this.status = status;
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
+        this.url = url;
+        this.expiresAt = expiresAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
     
     public OrganizationInvitation() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -161,14 +182,28 @@ public class OrganizationInvitation {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<OrganizationInvitationPublicMetadata> publicMetadata() {
-        return (Optional<OrganizationInvitationPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<OrganizationInvitationPrivateMetadata> privateMetadata() {
-        return (Optional<OrganizationInvitationPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> url() {
+        return url;
+    }
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresAt() {
+        return expiresAt;
     }
 
     /**
@@ -283,27 +318,59 @@ public class OrganizationInvitation {
         return this;
     }
 
-    public OrganizationInvitation withPublicMetadata(OrganizationInvitationPublicMetadata publicMetadata) {
+    public OrganizationInvitation withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public OrganizationInvitation withPublicMetadata(Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata) {
+    public OrganizationInvitation withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
     }
 
-    public OrganizationInvitation withPrivateMetadata(OrganizationInvitationPrivateMetadata privateMetadata) {
+    public OrganizationInvitation withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
     }
 
-    public OrganizationInvitation withPrivateMetadata(Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata) {
+    public OrganizationInvitation withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
+        return this;
+    }
+
+    public OrganizationInvitation withUrl(String url) {
+        Utils.checkNotNull(url, "url");
+        this.url = JsonNullable.of(url);
+        return this;
+    }
+
+    public OrganizationInvitation withUrl(JsonNullable<String> url) {
+        Utils.checkNotNull(url, "url");
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    public OrganizationInvitation withExpiresAt(long expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = JsonNullable.of(expiresAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of expiration.
+     * 
+     */
+    public OrganizationInvitation withExpiresAt(JsonNullable<Long> expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = expiresAt;
         return this;
     }
 
@@ -362,6 +429,8 @@ public class OrganizationInvitation {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
+            Objects.deepEquals(this.url, other.url) &&
+            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
             Objects.deepEquals(this.createdAt, other.createdAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
@@ -378,6 +447,8 @@ public class OrganizationInvitation {
             status,
             publicMetadata,
             privateMetadata,
+            url,
+            expiresAt,
             createdAt,
             updatedAt);
     }
@@ -394,6 +465,8 @@ public class OrganizationInvitation {
                 "status", status,
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
+                "url", url,
+                "expiresAt", expiresAt,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -414,9 +487,13 @@ public class OrganizationInvitation {
  
         private Optional<String> status = Optional.empty();
  
-        private Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
+ 
+        private JsonNullable<String> url = JsonNullable.undefined();
+ 
+        private JsonNullable<Long> expiresAt = JsonNullable.undefined();
  
         private Optional<Long> createdAt = Optional.empty();
  
@@ -518,27 +595,59 @@ public class OrganizationInvitation {
             return this;
         }
 
-        public Builder publicMetadata(OrganizationInvitationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends OrganizationInvitationPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
 
-        public Builder privateMetadata(OrganizationInvitationPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
         }
 
-        public Builder privateMetadata(Optional<? extends OrganizationInvitationPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
+            return this;
+        }
+
+        public Builder url(String url) {
+            Utils.checkNotNull(url, "url");
+            this.url = JsonNullable.of(url);
+            return this;
+        }
+
+        public Builder url(JsonNullable<String> url) {
+            Utils.checkNotNull(url, "url");
+            this.url = url;
+            return this;
+        }
+
+        /**
+         * Unix timestamp of expiration.
+         * 
+         */
+        public Builder expiresAt(long expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = JsonNullable.of(expiresAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of expiration.
+         * 
+         */
+        public Builder expiresAt(JsonNullable<Long> expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = expiresAt;
             return this;
         }
 
@@ -589,6 +698,8 @@ public class OrganizationInvitation {
                 status,
                 publicMetadata,
                 privateMetadata,
+                url,
+                expiresAt,
                 createdAt,
                 updatedAt);
         }

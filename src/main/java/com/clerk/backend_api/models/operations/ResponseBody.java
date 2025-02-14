@@ -11,10 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -56,7 +59,7 @@ public class ResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("label")
@@ -77,6 +80,13 @@ public class ResponseBody {
     @JsonProperty("token_secret")
     private Optional<String> tokenSecret;
 
+    /**
+     * Unix timestamp of the access token expiration.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_at")
+    private JsonNullable<Long> expiresAt;
+
     @JsonCreator
     public ResponseBody(
             @JsonProperty("object") Optional<String> object,
@@ -84,10 +94,11 @@ public class ResponseBody {
             @JsonProperty("provider_user_id") Optional<String> providerUserId,
             @JsonProperty("token") Optional<String> token,
             @JsonProperty("provider") Optional<String> provider,
-            @JsonProperty("public_metadata") Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("label") JsonNullable<String> label,
             @JsonProperty("scopes") Optional<? extends List<String>> scopes,
-            @JsonProperty("token_secret") Optional<String> tokenSecret) {
+            @JsonProperty("token_secret") Optional<String> tokenSecret,
+            @JsonProperty("expires_at") JsonNullable<Long> expiresAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalAccountId, "externalAccountId");
         Utils.checkNotNull(providerUserId, "providerUserId");
@@ -97,6 +108,7 @@ public class ResponseBody {
         Utils.checkNotNull(label, "label");
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(tokenSecret, "tokenSecret");
+        Utils.checkNotNull(expiresAt, "expiresAt");
         this.object = object;
         this.externalAccountId = externalAccountId;
         this.providerUserId = providerUserId;
@@ -106,10 +118,11 @@ public class ResponseBody {
         this.label = label;
         this.scopes = scopes;
         this.tokenSecret = tokenSecret;
+        this.expiresAt = expiresAt;
     }
     
     public ResponseBody() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -151,8 +164,8 @@ public class ResponseBody {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<GetOAuthAccessTokenPublicMetadata> publicMetadata() {
-        return (Optional<GetOAuthAccessTokenPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @JsonIgnore
@@ -176,6 +189,14 @@ public class ResponseBody {
     @JsonIgnore
     public Optional<String> tokenSecret() {
         return tokenSecret;
+    }
+
+    /**
+     * Unix timestamp of the access token expiration.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresAt() {
+        return expiresAt;
     }
 
     public final static Builder builder() {
@@ -266,13 +287,13 @@ public class ResponseBody {
         return this;
     }
 
-    public ResponseBody withPublicMetadata(GetOAuthAccessTokenPublicMetadata publicMetadata) {
+    public ResponseBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public ResponseBody withPublicMetadata(Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata) {
+    public ResponseBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -327,6 +348,24 @@ public class ResponseBody {
         this.tokenSecret = tokenSecret;
         return this;
     }
+
+    /**
+     * Unix timestamp of the access token expiration.
+     */
+    public ResponseBody withExpiresAt(long expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = JsonNullable.of(expiresAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of the access token expiration.
+     */
+    public ResponseBody withExpiresAt(JsonNullable<Long> expiresAt) {
+        Utils.checkNotNull(expiresAt, "expiresAt");
+        this.expiresAt = expiresAt;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -346,7 +385,8 @@ public class ResponseBody {
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
             Objects.deepEquals(this.label, other.label) &&
             Objects.deepEquals(this.scopes, other.scopes) &&
-            Objects.deepEquals(this.tokenSecret, other.tokenSecret);
+            Objects.deepEquals(this.tokenSecret, other.tokenSecret) &&
+            Objects.deepEquals(this.expiresAt, other.expiresAt);
     }
     
     @Override
@@ -360,7 +400,8 @@ public class ResponseBody {
             publicMetadata,
             label,
             scopes,
-            tokenSecret);
+            tokenSecret,
+            expiresAt);
     }
     
     @Override
@@ -374,7 +415,8 @@ public class ResponseBody {
                 "publicMetadata", publicMetadata,
                 "label", label,
                 "scopes", scopes,
-                "tokenSecret", tokenSecret);
+                "tokenSecret", tokenSecret,
+                "expiresAt", expiresAt);
     }
     
     public final static class Builder {
@@ -389,13 +431,15 @@ public class ResponseBody {
  
         private Optional<String> provider = Optional.empty();
  
-        private Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private JsonNullable<String> label = JsonNullable.undefined();
  
         private Optional<? extends List<String>> scopes = Optional.empty();
  
-        private Optional<String> tokenSecret = Optional.empty();  
+        private Optional<String> tokenSecret = Optional.empty();
+ 
+        private JsonNullable<Long> expiresAt = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -485,13 +529,13 @@ public class ResponseBody {
             return this;
         }
 
-        public Builder publicMetadata(GetOAuthAccessTokenPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends GetOAuthAccessTokenPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -546,6 +590,24 @@ public class ResponseBody {
             this.tokenSecret = tokenSecret;
             return this;
         }
+
+        /**
+         * Unix timestamp of the access token expiration.
+         */
+        public Builder expiresAt(long expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = JsonNullable.of(expiresAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of the access token expiration.
+         */
+        public Builder expiresAt(JsonNullable<Long> expiresAt) {
+            Utils.checkNotNull(expiresAt, "expiresAt");
+            this.expiresAt = expiresAt;
+            return this;
+        }
         
         public ResponseBody build() {
             return new ResponseBody(
@@ -557,7 +619,8 @@ public class ResponseBody {
                 publicMetadata,
                 label,
                 scopes,
-                tokenSecret);
+                tokenSecret,
+                expiresAt);
         }
     }
 }

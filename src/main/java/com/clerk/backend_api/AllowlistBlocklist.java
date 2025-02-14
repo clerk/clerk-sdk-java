@@ -163,7 +163,15 @@ public class AllowlistBlocklist implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -192,12 +200,22 @@ public class AllowlistBlocklist implements
     /**
      * Add identifier to the allow-list
      * Create an identifier allowed to sign up to an instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateAllowlistIdentifierResponse createAllowlistIdentifierDirect() throws Exception {
+        return createAllowlistIdentifier(Optional.empty());
+    }
+    
+    /**
+     * Add identifier to the allow-list
+     * Create an identifier allowed to sign up to an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateAllowlistIdentifierResponse createAllowlistIdentifier(
-            CreateAllowlistIdentifierRequestBody request) throws Exception {
+            Optional<? extends CreateAllowlistIdentifierRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -207,15 +225,12 @@ public class AllowlistBlocklist implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateAllowlistIdentifierRequestBody>() {});
+                new TypeReference<Optional<? extends CreateAllowlistIdentifierRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -306,7 +321,15 @@ public class AllowlistBlocklist implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -335,12 +358,22 @@ public class AllowlistBlocklist implements
     /**
      * Add identifier to the block-list
      * Create an identifier that is blocked from accessing an instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateBlocklistIdentifierResponse createBlocklistIdentifierDirect() throws Exception {
+        return createBlocklistIdentifier(Optional.empty());
+    }
+    
+    /**
+     * Add identifier to the block-list
+     * Create an identifier that is blocked from accessing an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateBlocklistIdentifierResponse createBlocklistIdentifier(
-            CreateBlocklistIdentifierRequestBody request) throws Exception {
+            Optional<? extends CreateBlocklistIdentifierRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -350,15 +383,12 @@ public class AllowlistBlocklist implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateBlocklistIdentifierRequestBody>() {});
+                new TypeReference<Optional<? extends CreateBlocklistIdentifierRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -449,7 +479,15 @@ public class AllowlistBlocklist implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -587,7 +625,15 @@ public class AllowlistBlocklist implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

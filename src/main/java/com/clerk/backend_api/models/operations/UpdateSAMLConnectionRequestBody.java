@@ -71,6 +71,13 @@ public class UpdateSAMLConnectionRequestBody {
     private JsonNullable<String> idpMetadata;
 
     /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("organization_id")
+    private JsonNullable<String> organizationId;
+
+    /**
      * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -121,6 +128,7 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
+            @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("attribute_mapping") JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping,
             @JsonProperty("active") JsonNullable<Boolean> active,
             @JsonProperty("sync_user_attributes") JsonNullable<Boolean> syncUserAttributes,
@@ -134,6 +142,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(idpMetadata, "idpMetadata");
+        Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         Utils.checkNotNull(active, "active");
         Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
@@ -147,6 +156,7 @@ public class UpdateSAMLConnectionRequestBody {
         this.idpCertificate = idpCertificate;
         this.idpMetadataUrl = idpMetadataUrl;
         this.idpMetadata = idpMetadata;
+        this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
         this.active = active;
         this.syncUserAttributes = syncUserAttributes;
@@ -156,7 +166,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
     
     public UpdateSAMLConnectionRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -213,6 +223,14 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
         return idpMetadata;
+    }
+
+    /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    @JsonIgnore
+    public JsonNullable<String> organizationId() {
+        return organizationId;
     }
 
     /**
@@ -395,6 +413,24 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    public UpdateSAMLConnectionRequestBody withOrganizationId(String organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = JsonNullable.of(organizationId);
+        return this;
+    }
+
+    /**
+     * The ID of the organization to which users of this SAML Connection will be added
+     */
+    public UpdateSAMLConnectionRequestBody withOrganizationId(JsonNullable<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
      * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
      */
     public UpdateSAMLConnectionRequestBody withAttributeMapping(UpdateSAMLConnectionAttributeMapping attributeMapping) {
@@ -519,6 +555,7 @@ public class UpdateSAMLConnectionRequestBody {
             Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
             Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
             Objects.deepEquals(this.active, other.active) &&
             Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
@@ -537,6 +574,7 @@ public class UpdateSAMLConnectionRequestBody {
             idpCertificate,
             idpMetadataUrl,
             idpMetadata,
+            organizationId,
             attributeMapping,
             active,
             syncUserAttributes,
@@ -555,6 +593,7 @@ public class UpdateSAMLConnectionRequestBody {
                 "idpCertificate", idpCertificate,
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
+                "organizationId", organizationId,
                 "attributeMapping", attributeMapping,
                 "active", active,
                 "syncUserAttributes", syncUserAttributes,
@@ -578,6 +617,8 @@ public class UpdateSAMLConnectionRequestBody {
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
  
         private JsonNullable<String> idpMetadata = JsonNullable.undefined();
+ 
+        private JsonNullable<String> organizationId = JsonNullable.undefined();
  
         private JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping = JsonNullable.undefined();
  
@@ -722,6 +763,24 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
+         * The ID of the organization to which users of this SAML Connection will be added
+         */
+        public Builder organizationId(String organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = JsonNullable.of(organizationId);
+            return this;
+        }
+
+        /**
+         * The ID of the organization to which users of this SAML Connection will be added
+         */
+        public Builder organizationId(JsonNullable<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        /**
          * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(UpdateSAMLConnectionAttributeMapping attributeMapping) {
@@ -838,6 +897,7 @@ public class UpdateSAMLConnectionRequestBody {
                 idpCertificate,
                 idpMetadataUrl,
                 idpMetadata,
+                organizationId,
                 attributeMapping,
                 active,
                 syncUserAttributes,

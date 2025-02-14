@@ -15,7 +15,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Otp {
@@ -28,32 +28,39 @@ public class Otp {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attempts")
-    private Optional<Long> attempts;
+    private JsonNullable<Long> attempts;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expire_at")
-    private Optional<Long> expireAt;
+    private JsonNullable<Long> expireAt;
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("verified_at_client")
+    private JsonNullable<String> verifiedAtClient;
 
     @JsonCreator
     public Otp(
             @JsonProperty("status") VerificationStatus status,
             @JsonProperty("strategy") Strategy strategy,
-            @JsonProperty("attempts") Optional<Long> attempts,
-            @JsonProperty("expire_at") Optional<Long> expireAt) {
+            @JsonProperty("attempts") JsonNullable<Long> attempts,
+            @JsonProperty("expire_at") JsonNullable<Long> expireAt,
+            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
         this.expireAt = expireAt;
+        this.verifiedAtClient = verifiedAtClient;
     }
     
     public Otp(
             VerificationStatus status,
             Strategy strategy) {
-        this(status, strategy, Optional.empty(), Optional.empty());
+        this(status, strategy, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -67,13 +74,18 @@ public class Otp {
     }
 
     @JsonIgnore
-    public Optional<Long> attempts() {
+    public JsonNullable<Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public Optional<Long> expireAt() {
+    public JsonNullable<Long> expireAt() {
         return expireAt;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> verifiedAtClient() {
+        return verifiedAtClient;
     }
 
     public final static Builder builder() {
@@ -94,11 +106,11 @@ public class Otp {
 
     public Otp withAttempts(long attempts) {
         Utils.checkNotNull(attempts, "attempts");
-        this.attempts = Optional.ofNullable(attempts);
+        this.attempts = JsonNullable.of(attempts);
         return this;
     }
 
-    public Otp withAttempts(Optional<Long> attempts) {
+    public Otp withAttempts(JsonNullable<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
@@ -106,13 +118,25 @@ public class Otp {
 
     public Otp withExpireAt(long expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = Optional.ofNullable(expireAt);
+        this.expireAt = JsonNullable.of(expireAt);
         return this;
     }
 
-    public Otp withExpireAt(Optional<Long> expireAt) {
+    public Otp withExpireAt(JsonNullable<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
+        return this;
+    }
+
+    public Otp withVerifiedAtClient(String verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+        return this;
+    }
+
+    public Otp withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = verifiedAtClient;
         return this;
     }
     
@@ -129,7 +153,8 @@ public class Otp {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.strategy, other.strategy) &&
             Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.expireAt, other.expireAt);
+            Objects.deepEquals(this.expireAt, other.expireAt) &&
+            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
     @Override
@@ -138,7 +163,8 @@ public class Otp {
             status,
             strategy,
             attempts,
-            expireAt);
+            expireAt,
+            verifiedAtClient);
     }
     
     @Override
@@ -147,7 +173,8 @@ public class Otp {
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
-                "expireAt", expireAt);
+                "expireAt", expireAt,
+                "verifiedAtClient", verifiedAtClient);
     }
     
     public final static class Builder {
@@ -156,9 +183,11 @@ public class Otp {
  
         private Strategy strategy;
  
-        private Optional<Long> attempts = Optional.empty();
+        private JsonNullable<Long> attempts = JsonNullable.undefined();
  
-        private Optional<Long> expireAt = Optional.empty();  
+        private JsonNullable<Long> expireAt = JsonNullable.undefined();
+ 
+        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -178,11 +207,11 @@ public class Otp {
 
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
-            this.attempts = Optional.ofNullable(attempts);
+            this.attempts = JsonNullable.of(attempts);
             return this;
         }
 
-        public Builder attempts(Optional<Long> attempts) {
+        public Builder attempts(JsonNullable<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
@@ -190,13 +219,25 @@ public class Otp {
 
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = Optional.ofNullable(expireAt);
+            this.expireAt = JsonNullable.of(expireAt);
             return this;
         }
 
-        public Builder expireAt(Optional<Long> expireAt) {
+        public Builder expireAt(JsonNullable<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
+            return this;
+        }
+
+        public Builder verifiedAtClient(String verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+            return this;
+        }
+
+        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = verifiedAtClient;
             return this;
         }
         
@@ -205,7 +246,8 @@ public class Otp {
                 status,
                 strategy,
                 attempts,
-                expireAt);
+                expireAt,
+                verifiedAtClient);
         }
     }
 }

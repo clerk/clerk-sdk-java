@@ -43,6 +43,14 @@ public class Keys {
     @JsonProperty("e")
     private Optional<String> e;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("x")
+    private Optional<String> x;
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("crv")
+    private Optional<String> crv;
+
     @JsonCreator
     public Keys(
             @JsonProperty("use") Optional<String> use,
@@ -50,23 +58,29 @@ public class Keys {
             @JsonProperty("kid") Optional<String> kid,
             @JsonProperty("alg") Optional<String> alg,
             @JsonProperty("n") Optional<String> n,
-            @JsonProperty("e") Optional<String> e) {
+            @JsonProperty("e") Optional<String> e,
+            @JsonProperty("x") Optional<String> x,
+            @JsonProperty("crv") Optional<String> crv) {
         Utils.checkNotNull(use, "use");
         Utils.checkNotNull(kty, "kty");
         Utils.checkNotNull(kid, "kid");
         Utils.checkNotNull(alg, "alg");
         Utils.checkNotNull(n, "n");
         Utils.checkNotNull(e, "e");
+        Utils.checkNotNull(x, "x");
+        Utils.checkNotNull(crv, "crv");
         this.use = use;
         this.kty = kty;
         this.kid = kid;
         this.alg = alg;
         this.n = n;
         this.e = e;
+        this.x = x;
+        this.crv = crv;
     }
     
     public Keys() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -97,6 +111,16 @@ public class Keys {
     @JsonIgnore
     public Optional<String> e() {
         return e;
+    }
+
+    @JsonIgnore
+    public Optional<String> x() {
+        return x;
+    }
+
+    @JsonIgnore
+    public Optional<String> crv() {
+        return crv;
     }
 
     public final static Builder builder() {
@@ -174,6 +198,30 @@ public class Keys {
         this.e = e;
         return this;
     }
+
+    public Keys withX(String x) {
+        Utils.checkNotNull(x, "x");
+        this.x = Optional.ofNullable(x);
+        return this;
+    }
+
+    public Keys withX(Optional<String> x) {
+        Utils.checkNotNull(x, "x");
+        this.x = x;
+        return this;
+    }
+
+    public Keys withCrv(String crv) {
+        Utils.checkNotNull(crv, "crv");
+        this.crv = Optional.ofNullable(crv);
+        return this;
+    }
+
+    public Keys withCrv(Optional<String> crv) {
+        Utils.checkNotNull(crv, "crv");
+        this.crv = crv;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -190,7 +238,9 @@ public class Keys {
             Objects.deepEquals(this.kid, other.kid) &&
             Objects.deepEquals(this.alg, other.alg) &&
             Objects.deepEquals(this.n, other.n) &&
-            Objects.deepEquals(this.e, other.e);
+            Objects.deepEquals(this.e, other.e) &&
+            Objects.deepEquals(this.x, other.x) &&
+            Objects.deepEquals(this.crv, other.crv);
     }
     
     @Override
@@ -201,7 +251,9 @@ public class Keys {
             kid,
             alg,
             n,
-            e);
+            e,
+            x,
+            crv);
     }
     
     @Override
@@ -212,7 +264,9 @@ public class Keys {
                 "kid", kid,
                 "alg", alg,
                 "n", n,
-                "e", e);
+                "e", e,
+                "x", x,
+                "crv", crv);
     }
     
     public final static class Builder {
@@ -227,7 +281,11 @@ public class Keys {
  
         private Optional<String> n = Optional.empty();
  
-        private Optional<String> e = Optional.empty();  
+        private Optional<String> e = Optional.empty();
+ 
+        private Optional<String> x = Optional.empty();
+ 
+        private Optional<String> crv = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -304,6 +362,30 @@ public class Keys {
             this.e = e;
             return this;
         }
+
+        public Builder x(String x) {
+            Utils.checkNotNull(x, "x");
+            this.x = Optional.ofNullable(x);
+            return this;
+        }
+
+        public Builder x(Optional<String> x) {
+            Utils.checkNotNull(x, "x");
+            this.x = x;
+            return this;
+        }
+
+        public Builder crv(String crv) {
+            Utils.checkNotNull(crv, "crv");
+            this.crv = Optional.ofNullable(crv);
+            return this;
+        }
+
+        public Builder crv(Optional<String> crv) {
+            Utils.checkNotNull(crv, "crv");
+            this.crv = crv;
+            return this;
+        }
         
         public Keys build() {
             return new Keys(
@@ -312,7 +394,9 @@ public class Keys {
                 kid,
                 alg,
                 n,
-                e);
+                e,
+                x,
+                crv);
         }
     }
 }

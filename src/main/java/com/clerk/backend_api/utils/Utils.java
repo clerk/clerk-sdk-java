@@ -819,11 +819,13 @@ public final class Utils {
         };
     }
     
-    private static <T> T rethrow(Throwable e) {
+    static <T> T rethrow(Throwable e) {
         if (e instanceof RuntimeException) {
             throw (RuntimeException) e;
         } else if (e instanceof Error) {
             throw (Error) e;
+        } else if (e instanceof IOException) {
+            throw new UncheckedIOException((IOException) e);
         } else {
            throw new RuntimeException(e);
         }
