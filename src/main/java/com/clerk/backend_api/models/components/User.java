@@ -14,10 +14,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -86,15 +88,15 @@ public class User {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends PublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private JsonNullable<? extends PrivateMetadata> privateMetadata;
+    private JsonNullable<? extends Map<String, Object>> privateMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
-    private Optional<? extends UnsafeMetadata> unsafeMetadata;
+    private Optional<? extends Map<String, Object>> unsafeMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_addresses")
@@ -262,9 +264,9 @@ public class User {
             @JsonProperty("profile_image_url") Optional<String> profileImageUrl,
             @JsonProperty("image_url") Optional<String> imageUrl,
             @JsonProperty("has_image") Optional<Boolean> hasImage,
-            @JsonProperty("public_metadata") Optional<? extends PublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") JsonNullable<? extends PrivateMetadata> privateMetadata,
-            @JsonProperty("unsafe_metadata") Optional<? extends UnsafeMetadata> unsafeMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("unsafe_metadata") Optional<? extends Map<String, Object>> unsafeMetadata,
             @JsonProperty("email_addresses") Optional<? extends List<EmailAddress>> emailAddresses,
             @JsonProperty("phone_numbers") Optional<? extends List<PhoneNumber>> phoneNumbers,
             @JsonProperty("web3_wallets") Optional<? extends List<Web3Wallet>> web3Wallets,
@@ -444,20 +446,20 @@ public class User {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PublicMetadata> publicMetadata() {
-        return (Optional<PublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<PrivateMetadata> privateMetadata() {
-        return (JsonNullable<PrivateMetadata>) privateMetadata;
+    public JsonNullable<Map<String, Object>> privateMetadata() {
+        return (JsonNullable<Map<String, Object>>) privateMetadata;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UnsafeMetadata> unsafeMetadata() {
-        return (Optional<UnsafeMetadata>) unsafeMetadata;
+    public Optional<Map<String, Object>> unsafeMetadata() {
+        return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
     @SuppressWarnings("unchecked")
@@ -806,37 +808,37 @@ public class User {
         return this;
     }
 
-    public User withPublicMetadata(PublicMetadata publicMetadata) {
+    public User withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public User withPublicMetadata(Optional<? extends PublicMetadata> publicMetadata) {
+    public User withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
     }
 
-    public User withPrivateMetadata(PrivateMetadata privateMetadata) {
+    public User withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = JsonNullable.of(privateMetadata);
         return this;
     }
 
-    public User withPrivateMetadata(JsonNullable<? extends PrivateMetadata> privateMetadata) {
+    public User withPrivateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
     }
 
-    public User withUnsafeMetadata(UnsafeMetadata unsafeMetadata) {
+    public User withUnsafeMetadata(Map<String, Object> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
         return this;
     }
 
-    public User withUnsafeMetadata(Optional<? extends UnsafeMetadata> unsafeMetadata) {
+    public User withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
         return this;
@@ -1408,11 +1410,11 @@ public class User {
  
         private Optional<Boolean> hasImage = Optional.empty();
  
-        private Optional<? extends PublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private JsonNullable<? extends PrivateMetadata> privateMetadata = JsonNullable.undefined();
+        private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
  
-        private Optional<? extends UnsafeMetadata> unsafeMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
  
         private Optional<? extends List<EmailAddress>> emailAddresses = Optional.empty();
  
@@ -1626,37 +1628,37 @@ public class User {
             return this;
         }
 
-        public Builder publicMetadata(PublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends PublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
 
-        public Builder privateMetadata(PrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = JsonNullable.of(privateMetadata);
             return this;
         }
 
-        public Builder privateMetadata(JsonNullable<? extends PrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
         }
 
-        public Builder unsafeMetadata(UnsafeMetadata unsafeMetadata) {
+        public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
             return this;
         }
 
-        public Builder unsafeMetadata(Optional<? extends UnsafeMetadata> unsafeMetadata) {
+        public Builder unsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = unsafeMetadata;
             return this;

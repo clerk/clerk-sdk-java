@@ -51,6 +51,14 @@ public class EmailAddress {
     private List<IdentificationLink> linkedTo;
 
     /**
+     * Indicates whether this email address domain matches an active enterprise connection.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("matches_sso_connection")
+    private Optional<Boolean> matchesSsoConnection;
+
+    /**
      * Unix timestamp of creation
      * 
      */
@@ -72,6 +80,7 @@ public class EmailAddress {
             @JsonProperty("reserved") boolean reserved,
             @JsonProperty("verification") Optional<? extends Verification> verification,
             @JsonProperty("linked_to") List<IdentificationLink> linkedTo,
+            @JsonProperty("matches_sso_connection") Optional<Boolean> matchesSsoConnection,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(id, "id");
@@ -80,6 +89,7 @@ public class EmailAddress {
         Utils.checkNotNull(reserved, "reserved");
         Utils.checkNotNull(verification, "verification");
         Utils.checkNotNull(linkedTo, "linkedTo");
+        Utils.checkNotNull(matchesSsoConnection, "matchesSsoConnection");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.id = id;
@@ -88,6 +98,7 @@ public class EmailAddress {
         this.reserved = reserved;
         this.verification = verification;
         this.linkedTo = linkedTo;
+        this.matchesSsoConnection = matchesSsoConnection;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -99,7 +110,7 @@ public class EmailAddress {
             List<IdentificationLink> linkedTo,
             long createdAt,
             long updatedAt) {
-        this(Optional.empty(), object, emailAddress, reserved, Optional.empty(), linkedTo, createdAt, updatedAt);
+        this(Optional.empty(), object, emailAddress, reserved, Optional.empty(), linkedTo, Optional.empty(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -135,6 +146,15 @@ public class EmailAddress {
     @JsonIgnore
     public List<IdentificationLink> linkedTo() {
         return linkedTo;
+    }
+
+    /**
+     * Indicates whether this email address domain matches an active enterprise connection.
+     * 
+     */
+    @JsonIgnore
+    public Optional<Boolean> matchesSsoConnection() {
+        return matchesSsoConnection;
     }
 
     /**
@@ -212,6 +232,26 @@ public class EmailAddress {
     }
 
     /**
+     * Indicates whether this email address domain matches an active enterprise connection.
+     * 
+     */
+    public EmailAddress withMatchesSsoConnection(boolean matchesSsoConnection) {
+        Utils.checkNotNull(matchesSsoConnection, "matchesSsoConnection");
+        this.matchesSsoConnection = Optional.ofNullable(matchesSsoConnection);
+        return this;
+    }
+
+    /**
+     * Indicates whether this email address domain matches an active enterprise connection.
+     * 
+     */
+    public EmailAddress withMatchesSsoConnection(Optional<Boolean> matchesSsoConnection) {
+        Utils.checkNotNull(matchesSsoConnection, "matchesSsoConnection");
+        this.matchesSsoConnection = matchesSsoConnection;
+        return this;
+    }
+
+    /**
      * Unix timestamp of creation
      * 
      */
@@ -247,6 +287,7 @@ public class EmailAddress {
             Objects.deepEquals(this.reserved, other.reserved) &&
             Objects.deepEquals(this.verification, other.verification) &&
             Objects.deepEquals(this.linkedTo, other.linkedTo) &&
+            Objects.deepEquals(this.matchesSsoConnection, other.matchesSsoConnection) &&
             Objects.deepEquals(this.createdAt, other.createdAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
@@ -260,6 +301,7 @@ public class EmailAddress {
             reserved,
             verification,
             linkedTo,
+            matchesSsoConnection,
             createdAt,
             updatedAt);
     }
@@ -273,6 +315,7 @@ public class EmailAddress {
                 "reserved", reserved,
                 "verification", verification,
                 "linkedTo", linkedTo,
+                "matchesSsoConnection", matchesSsoConnection,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -290,6 +333,8 @@ public class EmailAddress {
         private Optional<? extends Verification> verification = Optional.empty();
  
         private List<IdentificationLink> linkedTo;
+ 
+        private Optional<Boolean> matchesSsoConnection = Optional.empty();
  
         private Long createdAt;
  
@@ -352,6 +397,26 @@ public class EmailAddress {
         }
 
         /**
+         * Indicates whether this email address domain matches an active enterprise connection.
+         * 
+         */
+        public Builder matchesSsoConnection(boolean matchesSsoConnection) {
+            Utils.checkNotNull(matchesSsoConnection, "matchesSsoConnection");
+            this.matchesSsoConnection = Optional.ofNullable(matchesSsoConnection);
+            return this;
+        }
+
+        /**
+         * Indicates whether this email address domain matches an active enterprise connection.
+         * 
+         */
+        public Builder matchesSsoConnection(Optional<Boolean> matchesSsoConnection) {
+            Utils.checkNotNull(matchesSsoConnection, "matchesSsoConnection");
+            this.matchesSsoConnection = matchesSsoConnection;
+            return this;
+        }
+
+        /**
          * Unix timestamp of creation
          * 
          */
@@ -379,6 +444,7 @@ public class EmailAddress {
                 reserved,
                 verification,
                 linkedTo,
+                matchesSsoConnection,
                 createdAt,
                 updatedAt);
         }

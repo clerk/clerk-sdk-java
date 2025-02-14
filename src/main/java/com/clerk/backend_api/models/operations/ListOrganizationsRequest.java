@@ -15,6 +15,8 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -50,6 +52,19 @@ public class ListOrganizationsRequest {
     private Optional<String> query;
 
     /**
+     * Returns organizations with the organization ids specified.
+     * Any organization ids not found are ignored.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
+    private Optional<? extends List<String>> organizationId;
+
+    /**
      * Allows to return organizations in a particular order.
      * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
@@ -66,21 +81,24 @@ public class ListOrganizationsRequest {
             Optional<Long> offset,
             Optional<Boolean> includeMembersCount,
             Optional<String> query,
+            Optional<? extends List<String>> organizationId,
             Optional<String> orderBy) {
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(includeMembersCount, "includeMembersCount");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(orderBy, "orderBy");
         this.limit = limit;
         this.offset = offset;
         this.includeMembersCount = includeMembersCount;
         this.query = query;
+        this.organizationId = organizationId;
         this.orderBy = orderBy;
     }
     
     public ListOrganizationsRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -117,6 +135,22 @@ public class ListOrganizationsRequest {
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Returns organizations with the organization ids specified.
+     * Any organization ids not found are ignored.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> organizationId() {
+        return (Optional<List<String>>) organizationId;
     }
 
     /**
@@ -217,6 +251,38 @@ public class ListOrganizationsRequest {
     }
 
     /**
+     * Returns organizations with the organization ids specified.
+     * Any organization ids not found are ignored.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+     */
+    public ListOrganizationsRequest withOrganizationId(List<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = Optional.ofNullable(organizationId);
+        return this;
+    }
+
+    /**
+     * Returns organizations with the organization ids specified.
+     * Any organization ids not found are ignored.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+     */
+    public ListOrganizationsRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
      * Allows to return organizations in a particular order.
      * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
@@ -258,6 +324,7 @@ public class ListOrganizationsRequest {
             Objects.deepEquals(this.offset, other.offset) &&
             Objects.deepEquals(this.includeMembersCount, other.includeMembersCount) &&
             Objects.deepEquals(this.query, other.query) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.orderBy, other.orderBy);
     }
     
@@ -268,6 +335,7 @@ public class ListOrganizationsRequest {
             offset,
             includeMembersCount,
             query,
+            organizationId,
             orderBy);
     }
     
@@ -278,6 +346,7 @@ public class ListOrganizationsRequest {
                 "offset", offset,
                 "includeMembersCount", includeMembersCount,
                 "query", query,
+                "organizationId", organizationId,
                 "orderBy", orderBy);
     }
     
@@ -290,6 +359,8 @@ public class ListOrganizationsRequest {
         private Optional<Boolean> includeMembersCount = Optional.empty();
  
         private Optional<String> query = Optional.empty();
+ 
+        private Optional<? extends List<String>> organizationId = Optional.empty();
  
         private Optional<String> orderBy;  
         
@@ -378,6 +449,38 @@ public class ListOrganizationsRequest {
         }
 
         /**
+         * Returns organizations with the organization ids specified.
+         * Any organization ids not found are ignored.
+         * For each organization id, the `+` and `-` can be
+         * prepended to the id, which denote whether the
+         * respective organization should be included or
+         * excluded from the result set.
+         * Accepts up to 100 organization ids.
+         * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+         */
+        public Builder organizationId(List<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = Optional.ofNullable(organizationId);
+            return this;
+        }
+
+        /**
+         * Returns organizations with the organization ids specified.
+         * Any organization ids not found are ignored.
+         * For each organization id, the `+` and `-` can be
+         * prepended to the id, which denote whether the
+         * respective organization should be included or
+         * excluded from the result set.
+         * Accepts up to 100 organization ids.
+         * Example: ?organization_id=+org_1&amp;organization_id=-org_2
+         */
+        public Builder organizationId(Optional<? extends List<String>> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        /**
          * Allows to return organizations in a particular order.
          * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
          * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
@@ -419,6 +522,7 @@ public class ListOrganizationsRequest {
                 offset,
                 includeMembersCount,
                 query,
+                organizationId,
                 orderBy);
         }
 

@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class VerifyPasswordRequest {
@@ -23,16 +25,21 @@ public class VerifyPasswordRequest {
     private String userId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private VerifyPasswordRequestBody requestBody;
+    private Optional<? extends VerifyPasswordRequestBody> requestBody;
 
     @JsonCreator
     public VerifyPasswordRequest(
             String userId,
-            VerifyPasswordRequestBody requestBody) {
+            Optional<? extends VerifyPasswordRequestBody> requestBody) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.userId = userId;
         this.requestBody = requestBody;
+    }
+    
+    public VerifyPasswordRequest(
+            String userId) {
+        this(userId, Optional.empty());
     }
 
     /**
@@ -43,9 +50,10 @@ public class VerifyPasswordRequest {
         return userId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public VerifyPasswordRequestBody requestBody() {
-        return requestBody;
+    public Optional<VerifyPasswordRequestBody> requestBody() {
+        return (Optional<VerifyPasswordRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -62,6 +70,12 @@ public class VerifyPasswordRequest {
     }
 
     public VerifyPasswordRequest withRequestBody(VerifyPasswordRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public VerifyPasswordRequest withRequestBody(Optional<? extends VerifyPasswordRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -99,7 +113,7 @@ public class VerifyPasswordRequest {
  
         private String userId;
  
-        private VerifyPasswordRequestBody requestBody;  
+        private Optional<? extends VerifyPasswordRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -115,6 +129,12 @@ public class VerifyPasswordRequest {
         }
 
         public Builder requestBody(VerifyPasswordRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends VerifyPasswordRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

@@ -12,9 +12,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,22 +33,23 @@ public class CreateOrganizationRequestBody {
     /**
      * The ID of the User who will become the administrator for the new organization
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_by")
-    private String createdBy;
+    private Optional<String> createdBy;
 
     /**
      * Metadata saved on the organization, accessible only from the Backend API
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     /**
      * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends CreateOrganizationPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * A slug for the new organization.
@@ -74,9 +77,9 @@ public class CreateOrganizationRequestBody {
     @JsonCreator
     public CreateOrganizationRequestBody(
             @JsonProperty("name") String name,
-            @JsonProperty("created_by") String createdBy,
-            @JsonProperty("private_metadata") Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata,
-            @JsonProperty("public_metadata") Optional<? extends CreateOrganizationPublicMetadata> publicMetadata,
+            @JsonProperty("created_by") Optional<String> createdBy,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("slug") Optional<String> slug,
             @JsonProperty("max_allowed_memberships") Optional<Long> maxAllowedMemberships,
             @JsonProperty("created_at") Optional<String> createdAt) {
@@ -97,9 +100,8 @@ public class CreateOrganizationRequestBody {
     }
     
     public CreateOrganizationRequestBody(
-            String name,
-            String createdBy) {
-        this(name, createdBy, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+            String name) {
+        this(name, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -115,7 +117,7 @@ public class CreateOrganizationRequestBody {
      * The ID of the User who will become the administrator for the new organization
      */
     @JsonIgnore
-    public String createdBy() {
+    public Optional<String> createdBy() {
         return createdBy;
     }
 
@@ -124,8 +126,8 @@ public class CreateOrganizationRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateOrganizationPrivateMetadata> privateMetadata() {
-        return (Optional<CreateOrganizationPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     /**
@@ -133,8 +135,8 @@ public class CreateOrganizationRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateOrganizationPublicMetadata> publicMetadata() {
-        return (Optional<CreateOrganizationPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -182,6 +184,15 @@ public class CreateOrganizationRequestBody {
      */
     public CreateOrganizationRequestBody withCreatedBy(String createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
+        this.createdBy = Optional.ofNullable(createdBy);
+        return this;
+    }
+
+    /**
+     * The ID of the User who will become the administrator for the new organization
+     */
+    public CreateOrganizationRequestBody withCreatedBy(Optional<String> createdBy) {
+        Utils.checkNotNull(createdBy, "createdBy");
         this.createdBy = createdBy;
         return this;
     }
@@ -189,7 +200,7 @@ public class CreateOrganizationRequestBody {
     /**
      * Metadata saved on the organization, accessible only from the Backend API
      */
-    public CreateOrganizationRequestBody withPrivateMetadata(CreateOrganizationPrivateMetadata privateMetadata) {
+    public CreateOrganizationRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -198,7 +209,7 @@ public class CreateOrganizationRequestBody {
     /**
      * Metadata saved on the organization, accessible only from the Backend API
      */
-    public CreateOrganizationRequestBody withPrivateMetadata(Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata) {
+    public CreateOrganizationRequestBody withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -207,7 +218,7 @@ public class CreateOrganizationRequestBody {
     /**
      * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
      */
-    public CreateOrganizationRequestBody withPublicMetadata(CreateOrganizationPublicMetadata publicMetadata) {
+    public CreateOrganizationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -216,7 +227,7 @@ public class CreateOrganizationRequestBody {
     /**
      * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
      */
-    public CreateOrganizationRequestBody withPublicMetadata(Optional<? extends CreateOrganizationPublicMetadata> publicMetadata) {
+    public CreateOrganizationRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -327,11 +338,11 @@ public class CreateOrganizationRequestBody {
  
         private String name;
  
-        private String createdBy;
+        private Optional<String> createdBy = Optional.empty();
  
-        private Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
  
-        private Optional<? extends CreateOrganizationPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private Optional<String> slug = Optional.empty();
  
@@ -358,6 +369,15 @@ public class CreateOrganizationRequestBody {
          */
         public Builder createdBy(String createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
+            this.createdBy = Optional.ofNullable(createdBy);
+            return this;
+        }
+
+        /**
+         * The ID of the User who will become the administrator for the new organization
+         */
+        public Builder createdBy(Optional<String> createdBy) {
+            Utils.checkNotNull(createdBy, "createdBy");
             this.createdBy = createdBy;
             return this;
         }
@@ -365,7 +385,7 @@ public class CreateOrganizationRequestBody {
         /**
          * Metadata saved on the organization, accessible only from the Backend API
          */
-        public Builder privateMetadata(CreateOrganizationPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -374,7 +394,7 @@ public class CreateOrganizationRequestBody {
         /**
          * Metadata saved on the organization, accessible only from the Backend API
          */
-        public Builder privateMetadata(Optional<? extends CreateOrganizationPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
@@ -383,7 +403,7 @@ public class CreateOrganizationRequestBody {
         /**
          * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
          */
-        public Builder publicMetadata(CreateOrganizationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -392,7 +412,7 @@ public class CreateOrganizationRequestBody {
         /**
          * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
          */
-        public Builder publicMetadata(Optional<? extends CreateOrganizationPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;

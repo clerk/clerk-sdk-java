@@ -65,6 +65,10 @@ public class SchemasSAMLConnection {
     private String spMetadataUrl;
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("organization_id")
+    private JsonNullable<String> organizationId;
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attribute_mapping")
     private Optional<? extends AttributeMapping> attributeMapping;
 
@@ -120,6 +124,7 @@ public class SchemasSAMLConnection {
             @JsonProperty("acs_url") String acsUrl,
             @JsonProperty("sp_entity_id") String spEntityId,
             @JsonProperty("sp_metadata_url") String spMetadataUrl,
+            @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("attribute_mapping") Optional<? extends AttributeMapping> attributeMapping,
             @JsonProperty("active") boolean active,
             @JsonProperty("provider") String provider,
@@ -142,6 +147,7 @@ public class SchemasSAMLConnection {
         Utils.checkNotNull(acsUrl, "acsUrl");
         Utils.checkNotNull(spEntityId, "spEntityId");
         Utils.checkNotNull(spMetadataUrl, "spMetadataUrl");
+        Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         Utils.checkNotNull(active, "active");
         Utils.checkNotNull(provider, "provider");
@@ -164,6 +170,7 @@ public class SchemasSAMLConnection {
         this.acsUrl = acsUrl;
         this.spEntityId = spEntityId;
         this.spMetadataUrl = spMetadataUrl;
+        this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
         this.active = active;
         this.provider = provider;
@@ -190,7 +197,7 @@ public class SchemasSAMLConnection {
             boolean syncUserAttributes,
             long createdAt,
             long updatedAt) {
-        this(object, id, name, domain, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), acsUrl, spEntityId, spMetadataUrl, Optional.empty(), active, provider, userCount, syncUserAttributes, Optional.empty(), Optional.empty(), Optional.empty(), createdAt, updatedAt);
+        this(object, id, name, domain, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), acsUrl, spEntityId, spMetadataUrl, JsonNullable.undefined(), Optional.empty(), active, provider, userCount, syncUserAttributes, Optional.empty(), Optional.empty(), Optional.empty(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -251,6 +258,11 @@ public class SchemasSAMLConnection {
     @JsonIgnore
     public String spMetadataUrl() {
         return spMetadataUrl;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> organizationId() {
+        return organizationId;
     }
 
     @SuppressWarnings("unchecked")
@@ -418,6 +430,18 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+    public SchemasSAMLConnection withOrganizationId(String organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = JsonNullable.of(organizationId);
+        return this;
+    }
+
+    public SchemasSAMLConnection withOrganizationId(JsonNullable<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
+
     public SchemasSAMLConnection withAttributeMapping(AttributeMapping attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         this.attributeMapping = Optional.ofNullable(attributeMapping);
@@ -532,6 +556,7 @@ public class SchemasSAMLConnection {
             Objects.deepEquals(this.acsUrl, other.acsUrl) &&
             Objects.deepEquals(this.spEntityId, other.spEntityId) &&
             Objects.deepEquals(this.spMetadataUrl, other.spMetadataUrl) &&
+            Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
             Objects.deepEquals(this.active, other.active) &&
             Objects.deepEquals(this.provider, other.provider) &&
@@ -559,6 +584,7 @@ public class SchemasSAMLConnection {
             acsUrl,
             spEntityId,
             spMetadataUrl,
+            organizationId,
             attributeMapping,
             active,
             provider,
@@ -586,6 +612,7 @@ public class SchemasSAMLConnection {
                 "acsUrl", acsUrl,
                 "spEntityId", spEntityId,
                 "spMetadataUrl", spMetadataUrl,
+                "organizationId", organizationId,
                 "attributeMapping", attributeMapping,
                 "active", active,
                 "provider", provider,
@@ -623,6 +650,8 @@ public class SchemasSAMLConnection {
         private String spEntityId;
  
         private String spMetadataUrl;
+ 
+        private JsonNullable<String> organizationId = JsonNullable.undefined();
  
         private Optional<? extends AttributeMapping> attributeMapping = Optional.empty();
  
@@ -750,6 +779,18 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+        public Builder organizationId(String organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = JsonNullable.of(organizationId);
+            return this;
+        }
+
+        public Builder organizationId(JsonNullable<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
+
         public Builder attributeMapping(AttributeMapping attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
             this.attributeMapping = Optional.ofNullable(attributeMapping);
@@ -856,6 +897,7 @@ public class SchemasSAMLConnection {
                 acsUrl,
                 spEntityId,
                 spMetadataUrl,
+                organizationId,
                 attributeMapping,
                 active,
                 provider,

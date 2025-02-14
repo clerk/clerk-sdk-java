@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateAllowlistIdentifierRequestBuilder {
 
-    private CreateAllowlistIdentifierRequestBody request;
+    private Optional<? extends CreateAllowlistIdentifierRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateAllowlistIdentifier sdk;
 
     public CreateAllowlistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallCreateAllowlistIdentifier sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateAllowlistIdentifierRequestBuilder request(CreateAllowlistIdentifierRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateAllowlistIdentifierRequestBuilder request(Optional<? extends CreateAllowlistIdentifierRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

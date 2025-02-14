@@ -11,9 +11,11 @@ Sessions are created when a user successfully goes through the sign in or sign u
 ### Available Operations
 
 * [list](#list) - List all sessions
+* [createSession](#createsession) - Create a new active session
 * [get](#get) - Retrieve a session
 * [revoke](#revoke) - Revoke a session
 * [~~verify~~](#verify) - Verify a session :warning: **Deprecated**
+* [createSessionToken](#createsessiontoken) - Create a session token
 * [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a jwt template
 
 ## list
@@ -71,6 +73,63 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 422             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## createSession
+
+Create a new active session for the provided user ID.
+
+**This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
+we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateSessionRequestBody;
+import com.clerk.backend_api.models.operations.CreateSessionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        CreateSessionRequestBody req = CreateSessionRequestBody.builder()
+                .build();
+
+        CreateSessionResponse res = sdk.sessions().createSession()
+                .request(req)
+                .call();
+
+        if (res.session().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [CreateSessionRequestBody](../../models/operations/CreateSessionRequestBody.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
+
+### Response
+
+**[CreateSessionResponse](../../models/operations/CreateSessionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## get
@@ -233,6 +292,60 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 404, 410        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## createSessionToken
+
+Creates a session JSON Web Token (JWT) based on a session.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBody;
+import com.clerk.backend_api.models.operations.CreateSessionTokenResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        CreateSessionTokenResponse res = sdk.sessions().createSessionToken()
+                .sessionId("<id>")
+                .requestBody(CreateSessionTokenRequestBody.builder()
+                    .build())
+                .call();
+
+        if (res.object().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `sessionId`                                                                                          | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the session                                                                                |
+| `requestBody`                                                                                        | [Optional\<CreateSessionTokenRequestBody>](../../models/operations/CreateSessionTokenRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
+
+### Response
+
+**[CreateSessionTokenResponse](../../models/operations/CreateSessionTokenResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 401, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## createTokenFromTemplate
 
 Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
@@ -244,6 +357,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse;
 import java.lang.Exception;
 
@@ -258,6 +372,8 @@ public class Application {
         CreateSessionTokenFromTemplateResponse res = sdk.sessions().createTokenFromTemplate()
                 .sessionId("<id>")
                 .templateName("<value>")
+                .requestBody(CreateSessionTokenFromTemplateRequestBody.builder()
+                    .build())
                 .call();
 
         if (res.object().isPresent()) {
@@ -269,10 +385,11 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `sessionId`                                                                   | *String*                                                                      | :heavy_check_mark:                                                            | The ID of the session                                                         |
-| `templateName`                                                                | *String*                                                                      | :heavy_check_mark:                                                            | The name of the JWT Template defined in your instance (e.g. `custom_hasura`). |
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `sessionId`                                                                                                                  | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The ID of the session                                                                                                        |
+| `templateName`                                                                                                               | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The name of the JWT Template defined in your instance (e.g. `custom_hasura`).                                                |
+| `requestBody`                                                                                                                | [Optional\<CreateSessionTokenFromTemplateRequestBody>](../../models/operations/CreateSessionTokenFromTemplateRequestBody.md) | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
 
 ### Response
 

@@ -201,7 +201,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -221,7 +229,6 @@ public class Organizations implements
     /**
      * Create an organization
      * Creates a new organization with the given name for an instance.
-     * In order to successfully create an organization you need to provide the ID of the User who will become the organization administrator.
      * You can specify an optional slug for the new organization.
      * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
      * Organization slugs must be unique for the instance.
@@ -240,7 +247,25 @@ public class Organizations implements
     /**
      * Create an organization
      * Creates a new organization with the given name for an instance.
-     * In order to successfully create an organization you need to provide the ID of the User who will become the organization administrator.
+     * You can specify an optional slug for the new organization.
+     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
+     * Organization slugs must be unique for the instance.
+     * You can provide additional metadata for the organization and set any custom attribute you want.
+     * Organizations support private and public metadata.
+     * Private metadata can only be accessed from the Backend API.
+     * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+     * The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateOrganizationResponse createDirect() throws Exception {
+        return create(Optional.empty());
+    }
+    
+    /**
+     * Create an organization
+     * Creates a new organization with the given name for an instance.
      * You can specify an optional slug for the new organization.
      * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
      * Organization slugs must be unique for the instance.
@@ -255,7 +280,7 @@ public class Organizations implements
      * @throws Exception if the API call fails
      */
     public CreateOrganizationResponse create(
-            CreateOrganizationRequestBody request) throws Exception {
+            Optional<? extends CreateOrganizationRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -265,15 +290,12 @@ public class Organizations implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateOrganizationRequestBody>() {});
+                new TypeReference<Optional<? extends CreateOrganizationRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -364,7 +386,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -522,7 +552,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -676,7 +714,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -818,7 +864,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -978,7 +1032,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -1014,13 +1076,28 @@ public class Organizations implements
      * The file size cannot exceed 10MB.
      * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
      * @param organizationId The ID of the organization for which to upload a logo
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UploadOrganizationLogoResponse uploadLogo(
+            String organizationId) throws Exception {
+        return uploadLogo(organizationId, Optional.empty());
+    }
+    
+    /**
+     * Upload a logo for the organization
+     * Set or replace an organization's logo, by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
+     * @param organizationId The ID of the organization for which to upload a logo
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
-            UploadOrganizationLogoRequestBody requestBody) throws Exception {
+            Optional<? extends UploadOrganizationLogoRequestBody> requestBody) throws Exception {
         UploadOrganizationLogoRequest request =
             UploadOrganizationLogoRequest
                 .builder()
@@ -1045,9 +1122,6 @@ public class Organizations implements
                 "requestBody",
                 "multipart",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -1138,7 +1212,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -1274,7 +1356,15 @@ public class Organizations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

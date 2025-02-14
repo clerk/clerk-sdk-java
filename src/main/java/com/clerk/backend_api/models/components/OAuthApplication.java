@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -39,7 +41,14 @@ public class OAuthApplication {
     @JsonProperty("scopes")
     private String scopes;
 
+    @JsonProperty("redirect_uris")
+    private List<String> redirectUris;
+
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     @JsonProperty("callback_url")
+    @Deprecated
     private String callbackUrl;
 
     @JsonProperty("authorize_url")
@@ -50,6 +59,12 @@ public class OAuthApplication {
 
     @JsonProperty("user_info_url")
     private String userInfoUrl;
+
+    @JsonProperty("discovery_url")
+    private String discoveryUrl;
+
+    @JsonProperty("token_introspection_url")
+    private String tokenIntrospectionUrl;
 
     /**
      * Unix timestamp of creation.
@@ -74,10 +89,13 @@ public class OAuthApplication {
             @JsonProperty("client_id") String clientId,
             @JsonProperty("public") boolean public_,
             @JsonProperty("scopes") String scopes,
+            @JsonProperty("redirect_uris") List<String> redirectUris,
             @JsonProperty("callback_url") String callbackUrl,
             @JsonProperty("authorize_url") String authorizeUrl,
             @JsonProperty("token_fetch_url") String tokenFetchUrl,
             @JsonProperty("user_info_url") String userInfoUrl,
+            @JsonProperty("discovery_url") String discoveryUrl,
+            @JsonProperty("token_introspection_url") String tokenIntrospectionUrl,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -87,10 +105,13 @@ public class OAuthApplication {
         Utils.checkNotNull(clientId, "clientId");
         Utils.checkNotNull(public_, "public_");
         Utils.checkNotNull(scopes, "scopes");
+        Utils.checkNotNull(redirectUris, "redirectUris");
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         Utils.checkNotNull(authorizeUrl, "authorizeUrl");
         Utils.checkNotNull(tokenFetchUrl, "tokenFetchUrl");
         Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+        Utils.checkNotNull(discoveryUrl, "discoveryUrl");
+        Utils.checkNotNull(tokenIntrospectionUrl, "tokenIntrospectionUrl");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -100,10 +121,13 @@ public class OAuthApplication {
         this.clientId = clientId;
         this.public_ = public_;
         this.scopes = scopes;
+        this.redirectUris = redirectUris;
         this.callbackUrl = callbackUrl;
         this.authorizeUrl = authorizeUrl;
         this.tokenFetchUrl = tokenFetchUrl;
         this.userInfoUrl = userInfoUrl;
+        this.discoveryUrl = discoveryUrl;
+        this.tokenIntrospectionUrl = tokenIntrospectionUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -144,6 +168,15 @@ public class OAuthApplication {
     }
 
     @JsonIgnore
+    public List<String> redirectUris() {
+        return redirectUris;
+    }
+
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    @JsonIgnore
     public String callbackUrl() {
         return callbackUrl;
     }
@@ -161,6 +194,16 @@ public class OAuthApplication {
     @JsonIgnore
     public String userInfoUrl() {
         return userInfoUrl;
+    }
+
+    @JsonIgnore
+    public String discoveryUrl() {
+        return discoveryUrl;
+    }
+
+    @JsonIgnore
+    public String tokenIntrospectionUrl() {
+        return tokenIntrospectionUrl;
     }
 
     /**
@@ -227,6 +270,16 @@ public class OAuthApplication {
         return this;
     }
 
+    public OAuthApplication withRedirectUris(List<String> redirectUris) {
+        Utils.checkNotNull(redirectUris, "redirectUris");
+        this.redirectUris = redirectUris;
+        return this;
+    }
+
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public OAuthApplication withCallbackUrl(String callbackUrl) {
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         this.callbackUrl = callbackUrl;
@@ -248,6 +301,18 @@ public class OAuthApplication {
     public OAuthApplication withUserInfoUrl(String userInfoUrl) {
         Utils.checkNotNull(userInfoUrl, "userInfoUrl");
         this.userInfoUrl = userInfoUrl;
+        return this;
+    }
+
+    public OAuthApplication withDiscoveryUrl(String discoveryUrl) {
+        Utils.checkNotNull(discoveryUrl, "discoveryUrl");
+        this.discoveryUrl = discoveryUrl;
+        return this;
+    }
+
+    public OAuthApplication withTokenIntrospectionUrl(String tokenIntrospectionUrl) {
+        Utils.checkNotNull(tokenIntrospectionUrl, "tokenIntrospectionUrl");
+        this.tokenIntrospectionUrl = tokenIntrospectionUrl;
         return this;
     }
 
@@ -288,10 +353,13 @@ public class OAuthApplication {
             Objects.deepEquals(this.clientId, other.clientId) &&
             Objects.deepEquals(this.public_, other.public_) &&
             Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.redirectUris, other.redirectUris) &&
             Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
             Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
             Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
             Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
+            Objects.deepEquals(this.discoveryUrl, other.discoveryUrl) &&
+            Objects.deepEquals(this.tokenIntrospectionUrl, other.tokenIntrospectionUrl) &&
             Objects.deepEquals(this.createdAt, other.createdAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt);
     }
@@ -306,10 +374,13 @@ public class OAuthApplication {
             clientId,
             public_,
             scopes,
+            redirectUris,
             callbackUrl,
             authorizeUrl,
             tokenFetchUrl,
             userInfoUrl,
+            discoveryUrl,
+            tokenIntrospectionUrl,
             createdAt,
             updatedAt);
     }
@@ -324,10 +395,13 @@ public class OAuthApplication {
                 "clientId", clientId,
                 "public_", public_,
                 "scopes", scopes,
+                "redirectUris", redirectUris,
                 "callbackUrl", callbackUrl,
                 "authorizeUrl", authorizeUrl,
                 "tokenFetchUrl", tokenFetchUrl,
                 "userInfoUrl", userInfoUrl,
+                "discoveryUrl", discoveryUrl,
+                "tokenIntrospectionUrl", tokenIntrospectionUrl,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -348,6 +422,9 @@ public class OAuthApplication {
  
         private String scopes;
  
+        private List<String> redirectUris;
+ 
+        @Deprecated
         private String callbackUrl;
  
         private String authorizeUrl;
@@ -355,6 +432,10 @@ public class OAuthApplication {
         private String tokenFetchUrl;
  
         private String userInfoUrl;
+ 
+        private String discoveryUrl;
+ 
+        private String tokenIntrospectionUrl;
  
         private Long createdAt;
  
@@ -406,6 +487,16 @@ public class OAuthApplication {
             return this;
         }
 
+        public Builder redirectUris(List<String> redirectUris) {
+            Utils.checkNotNull(redirectUris, "redirectUris");
+            this.redirectUris = redirectUris;
+            return this;
+        }
+
+        /**
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder callbackUrl(String callbackUrl) {
             Utils.checkNotNull(callbackUrl, "callbackUrl");
             this.callbackUrl = callbackUrl;
@@ -427,6 +518,18 @@ public class OAuthApplication {
         public Builder userInfoUrl(String userInfoUrl) {
             Utils.checkNotNull(userInfoUrl, "userInfoUrl");
             this.userInfoUrl = userInfoUrl;
+            return this;
+        }
+
+        public Builder discoveryUrl(String discoveryUrl) {
+            Utils.checkNotNull(discoveryUrl, "discoveryUrl");
+            this.discoveryUrl = discoveryUrl;
+            return this;
+        }
+
+        public Builder tokenIntrospectionUrl(String tokenIntrospectionUrl) {
+            Utils.checkNotNull(tokenIntrospectionUrl, "tokenIntrospectionUrl");
+            this.tokenIntrospectionUrl = tokenIntrospectionUrl;
             return this;
         }
 
@@ -459,10 +562,13 @@ public class OAuthApplication {
                 clientId,
                 public_,
                 scopes,
+                redirectUris,
                 callbackUrl,
                 authorizeUrl,
                 tokenFetchUrl,
                 userInfoUrl,
+                discoveryUrl,
+                tokenIntrospectionUrl,
                 createdAt,
                 updatedAt);
         }

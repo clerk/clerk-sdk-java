@@ -25,7 +25,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("object")
-    private Optional<? extends Object> object;
+    private Optional<? extends CreateSessionTokenFromTemplateObject> object;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("jwt")
@@ -33,7 +33,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
 
     @JsonCreator
     public CreateSessionTokenFromTemplateResponseBody(
-            @JsonProperty("object") Optional<? extends Object> object,
+            @JsonProperty("object") Optional<? extends CreateSessionTokenFromTemplateObject> object,
             @JsonProperty("jwt") Optional<String> jwt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(jwt, "jwt");
@@ -47,8 +47,8 @@ public class CreateSessionTokenFromTemplateResponseBody {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Object> object() {
-        return (Optional<Object>) object;
+    public Optional<CreateSessionTokenFromTemplateObject> object() {
+        return (Optional<CreateSessionTokenFromTemplateObject>) object;
     }
 
     @JsonIgnore
@@ -60,13 +60,13 @@ public class CreateSessionTokenFromTemplateResponseBody {
         return new Builder();
     }
 
-    public CreateSessionTokenFromTemplateResponseBody withObject(Object object) {
+    public CreateSessionTokenFromTemplateResponseBody withObject(CreateSessionTokenFromTemplateObject object) {
         Utils.checkNotNull(object, "object");
         this.object = Optional.ofNullable(object);
         return this;
     }
 
-    public CreateSessionTokenFromTemplateResponseBody withObject(Optional<? extends Object> object) {
+    public CreateSessionTokenFromTemplateResponseBody withObject(Optional<? extends CreateSessionTokenFromTemplateObject> object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -114,7 +114,7 @@ public class CreateSessionTokenFromTemplateResponseBody {
     
     public final static class Builder {
  
-        private Optional<? extends Object> object = Optional.empty();
+        private Optional<? extends CreateSessionTokenFromTemplateObject> object = Optional.empty();
  
         private Optional<String> jwt = Optional.empty();  
         
@@ -122,13 +122,13 @@ public class CreateSessionTokenFromTemplateResponseBody {
           // force use of static builder() method
         }
 
-        public Builder object(Object object) {
+        public Builder object(CreateSessionTokenFromTemplateObject object) {
             Utils.checkNotNull(object, "object");
             this.object = Optional.ofNullable(object);
             return this;
         }
 
-        public Builder object(Optional<? extends Object> object) {
+        public Builder object(Optional<? extends CreateSessionTokenFromTemplateObject> object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;

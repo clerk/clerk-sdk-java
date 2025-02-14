@@ -33,36 +33,50 @@ public class Passkey {
     private Optional<? extends Nonce> nonce;
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("message")
+    private JsonNullable<String> message;
+
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("attempts")
-    private JsonNullable<Long> attempts;
+    private Optional<Long> attempts;
+
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("expire_at")
+    private Optional<Long> expireAt;
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("expire_at")
-    private JsonNullable<Long> expireAt;
+    @JsonProperty("verified_at_client")
+    private JsonNullable<String> verifiedAtClient;
 
     @JsonCreator
     public Passkey(
             @JsonProperty("status") PasskeyVerificationStatus status,
             @JsonProperty("strategy") PasskeyVerificationStrategy strategy,
             @JsonProperty("nonce") Optional<? extends Nonce> nonce,
-            @JsonProperty("attempts") JsonNullable<Long> attempts,
-            @JsonProperty("expire_at") JsonNullable<Long> expireAt) {
+            @JsonProperty("message") JsonNullable<String> message,
+            @JsonProperty("attempts") Optional<Long> attempts,
+            @JsonProperty("expire_at") Optional<Long> expireAt,
+            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(nonce, "nonce");
+        Utils.checkNotNull(message, "message");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.status = status;
         this.strategy = strategy;
         this.nonce = nonce;
+        this.message = message;
         this.attempts = attempts;
         this.expireAt = expireAt;
+        this.verifiedAtClient = verifiedAtClient;
     }
     
     public Passkey(
             PasskeyVerificationStatus status,
             PasskeyVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(status, strategy, Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -82,13 +96,23 @@ public class Passkey {
     }
 
     @JsonIgnore
-    public JsonNullable<Long> attempts() {
+    public JsonNullable<String> message() {
+        return message;
+    }
+
+    @JsonIgnore
+    public Optional<Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public JsonNullable<Long> expireAt() {
+    public Optional<Long> expireAt() {
         return expireAt;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> verifiedAtClient() {
+        return verifiedAtClient;
     }
 
     public final static Builder builder() {
@@ -119,13 +143,25 @@ public class Passkey {
         return this;
     }
 
-    public Passkey withAttempts(long attempts) {
-        Utils.checkNotNull(attempts, "attempts");
-        this.attempts = JsonNullable.of(attempts);
+    public Passkey withMessage(String message) {
+        Utils.checkNotNull(message, "message");
+        this.message = JsonNullable.of(message);
         return this;
     }
 
-    public Passkey withAttempts(JsonNullable<Long> attempts) {
+    public Passkey withMessage(JsonNullable<String> message) {
+        Utils.checkNotNull(message, "message");
+        this.message = message;
+        return this;
+    }
+
+    public Passkey withAttempts(long attempts) {
+        Utils.checkNotNull(attempts, "attempts");
+        this.attempts = Optional.ofNullable(attempts);
+        return this;
+    }
+
+    public Passkey withAttempts(Optional<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
@@ -133,13 +169,25 @@ public class Passkey {
 
     public Passkey withExpireAt(long expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = JsonNullable.of(expireAt);
+        this.expireAt = Optional.ofNullable(expireAt);
         return this;
     }
 
-    public Passkey withExpireAt(JsonNullable<Long> expireAt) {
+    public Passkey withExpireAt(Optional<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
+        return this;
+    }
+
+    public Passkey withVerifiedAtClient(String verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+        return this;
+    }
+
+    public Passkey withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = verifiedAtClient;
         return this;
     }
     
@@ -156,8 +204,10 @@ public class Passkey {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.strategy, other.strategy) &&
             Objects.deepEquals(this.nonce, other.nonce) &&
+            Objects.deepEquals(this.message, other.message) &&
             Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.expireAt, other.expireAt);
+            Objects.deepEquals(this.expireAt, other.expireAt) &&
+            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
     @Override
@@ -166,8 +216,10 @@ public class Passkey {
             status,
             strategy,
             nonce,
+            message,
             attempts,
-            expireAt);
+            expireAt,
+            verifiedAtClient);
     }
     
     @Override
@@ -176,8 +228,10 @@ public class Passkey {
                 "status", status,
                 "strategy", strategy,
                 "nonce", nonce,
+                "message", message,
                 "attempts", attempts,
-                "expireAt", expireAt);
+                "expireAt", expireAt,
+                "verifiedAtClient", verifiedAtClient);
     }
     
     public final static class Builder {
@@ -188,9 +242,13 @@ public class Passkey {
  
         private Optional<? extends Nonce> nonce = Optional.empty();
  
-        private JsonNullable<Long> attempts = JsonNullable.undefined();
+        private JsonNullable<String> message = JsonNullable.undefined();
  
-        private JsonNullable<Long> expireAt = JsonNullable.undefined();  
+        private Optional<Long> attempts = Optional.empty();
+ 
+        private Optional<Long> expireAt = Optional.empty();
+ 
+        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -220,13 +278,25 @@ public class Passkey {
             return this;
         }
 
-        public Builder attempts(long attempts) {
-            Utils.checkNotNull(attempts, "attempts");
-            this.attempts = JsonNullable.of(attempts);
+        public Builder message(String message) {
+            Utils.checkNotNull(message, "message");
+            this.message = JsonNullable.of(message);
             return this;
         }
 
-        public Builder attempts(JsonNullable<Long> attempts) {
+        public Builder message(JsonNullable<String> message) {
+            Utils.checkNotNull(message, "message");
+            this.message = message;
+            return this;
+        }
+
+        public Builder attempts(long attempts) {
+            Utils.checkNotNull(attempts, "attempts");
+            this.attempts = Optional.ofNullable(attempts);
+            return this;
+        }
+
+        public Builder attempts(Optional<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
@@ -234,13 +304,25 @@ public class Passkey {
 
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = JsonNullable.of(expireAt);
+            this.expireAt = Optional.ofNullable(expireAt);
             return this;
         }
 
-        public Builder expireAt(JsonNullable<Long> expireAt) {
+        public Builder expireAt(Optional<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
+            return this;
+        }
+
+        public Builder verifiedAtClient(String verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+            return this;
+        }
+
+        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = verifiedAtClient;
             return this;
         }
         
@@ -249,8 +331,10 @@ public class Passkey {
                 status,
                 strategy,
                 nonce,
+                message,
                 attempts,
-                expireAt);
+                expireAt,
+                verifiedAtClient);
         }
     }
 }

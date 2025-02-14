@@ -8,6 +8,8 @@ import com.clerk.backend_api.models.components.Invitation;
 import com.clerk.backend_api.models.components.InvitationRevoked;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateBulkInvitationsRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateBulkInvitationsResponse;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateInvitationResponse;
@@ -15,6 +17,7 @@ import com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus;
 import com.clerk.backend_api.models.operations.ListInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListInvitationsResponse;
+import com.clerk.backend_api.models.operations.RequestBody;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequest;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
@@ -45,6 +48,7 @@ import java.util.Optional;
 public class Invitations implements
             MethodCallCreateInvitation,
             MethodCallListInvitations,
+            MethodCallCreateBulkInvitations,
             MethodCallRevokeInvitation {
 
     private final SDKConfiguration sdkConfiguration;
@@ -70,12 +74,24 @@ public class Invitations implements
      * Creates a new invitation for the given email address and sends the invitation email.
      * Keep in mind that you cannot create an invitation if there is already one for the given email address.
      * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateInvitationResponse createDirect() throws Exception {
+        return create(Optional.empty());
+    }
+    
+    /**
+     * Create an invitation
+     * Creates a new invitation for the given email address and sends the invitation email.
+     * Keep in mind that you cannot create an invitation if there is already one for the given email address.
+     * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateInvitationResponse create(
-            CreateInvitationRequestBody request) throws Exception {
+            Optional<? extends CreateInvitationRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -85,15 +101,12 @@ public class Invitations implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateInvitationRequestBody>() {});
+                new TypeReference<Optional<? extends CreateInvitationRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -184,7 +197,15 @@ public class Invitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -217,7 +238,7 @@ public class Invitations implements
      * @throws Exception if the API call fails
      */
     public ListInvitationsResponse listDirect() throws Exception {
-        return list(Optional.empty(), Optional.empty(), Optional.empty());
+        return list(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -229,19 +250,22 @@ public class Invitations implements
     Needs to be an integer greater or equal to zero.
     To be used in conjunction with `limit`.
      * @param status Filter invitations based on their status
+     * @param query Filter invitations based on their `email_address` or `id`
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ListInvitationsResponse list(
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends ListInvitationsQueryParamStatus> status) throws Exception {
+            Optional<? extends ListInvitationsQueryParamStatus> status,
+            Optional<String> query) throws Exception {
         ListInvitationsRequest request =
             ListInvitationsRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
                 .status(status)
+                .query(query)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
@@ -330,7 +354,182 @@ public class Invitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Create multiple invitations
+     * Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * @return The call builder
+     */
+    public CreateBulkInvitationsRequestBuilder createBulkInvitations() {
+        return new CreateBulkInvitationsRequestBuilder(this);
+    }
+
+    /**
+     * Create multiple invitations
+     * Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateBulkInvitationsResponse createBulkInvitationsDirect() throws Exception {
+        return createBulkInvitations(Optional.empty());
+    }
+    
+    /**
+     * Create multiple invitations
+     * Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateBulkInvitationsResponse createBulkInvitations(
+            Optional<? extends List<RequestBody>> request) throws Exception {
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
+                "/invitations/bulk");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends List<RequestBody>>>() {});
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "CreateBulkInvitations", 
+                      Optional.of(List.of()), 
+                      _hookSecuritySource),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateBulkInvitations",
+                            Optional.of(List.of()),
+                            _hookSecuritySource),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "CreateBulkInvitations",
+                            Optional.of(List.of()), 
+                            _hookSecuritySource),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateBulkInvitations",
+                            Optional.of(List.of()),
+                            _hookSecuritySource), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        CreateBulkInvitationsResponse.Builder _resBuilder = 
+            CreateBulkInvitationsResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        CreateBulkInvitationsResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                List<Invitation> _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<List<Invitation>>() {});
+                _res.withInvitationList(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "422")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -474,7 +673,15 @@ public class Invitations implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

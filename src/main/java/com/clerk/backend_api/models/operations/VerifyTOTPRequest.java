@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class VerifyTOTPRequest {
@@ -23,16 +25,21 @@ public class VerifyTOTPRequest {
     private String userId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private VerifyTOTPRequestBody requestBody;
+    private Optional<? extends VerifyTOTPRequestBody> requestBody;
 
     @JsonCreator
     public VerifyTOTPRequest(
             String userId,
-            VerifyTOTPRequestBody requestBody) {
+            Optional<? extends VerifyTOTPRequestBody> requestBody) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.userId = userId;
         this.requestBody = requestBody;
+    }
+    
+    public VerifyTOTPRequest(
+            String userId) {
+        this(userId, Optional.empty());
     }
 
     /**
@@ -43,9 +50,10 @@ public class VerifyTOTPRequest {
         return userId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public VerifyTOTPRequestBody requestBody() {
-        return requestBody;
+    public Optional<VerifyTOTPRequestBody> requestBody() {
+        return (Optional<VerifyTOTPRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -62,6 +70,12 @@ public class VerifyTOTPRequest {
     }
 
     public VerifyTOTPRequest withRequestBody(VerifyTOTPRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public VerifyTOTPRequest withRequestBody(Optional<? extends VerifyTOTPRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -99,7 +113,7 @@ public class VerifyTOTPRequest {
  
         private String userId;
  
-        private VerifyTOTPRequestBody requestBody;  
+        private Optional<? extends VerifyTOTPRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -115,6 +129,12 @@ public class VerifyTOTPRequest {
         }
 
         public Builder requestBody(VerifyTOTPRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends VerifyTOTPRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

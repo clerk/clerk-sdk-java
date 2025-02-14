@@ -5,15 +5,21 @@
 package com.clerk.backend_api.models.operations;
 
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
+import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -22,76 +28,79 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class RequestBody {
 
     /**
-     * The email address of the new member that is going to be invited to the organization
+     * The email address the invitation will be sent to
      */
     @JsonProperty("email_address")
     private String emailAddress;
 
     /**
-     * The ID of the user that invites the new member to the organization.
-     * Must be an administrator in the organization.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("inviter_user_id")
-    private JsonNullable<String> inviterUserId;
-
-    /**
-     * The role of the new member in the organization.
-     */
-    @JsonProperty("role")
-    private String role;
-
-    /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * Metadata that will be attached to the newly created invitation.
+     * The value of this property should be a well-formed JSON object.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("private_metadata")
-    private Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata;
-
-    /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
     private Optional<String> redirectUrl;
 
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to true.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("notify")
+    private JsonNullable<Boolean> notify_;
+
+    /**
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("ignore_existing")
+    private JsonNullable<Boolean> ignoreExisting;
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expires_in_days")
+    private JsonNullable<Long> expiresInDays;
+
     @JsonCreator
     public RequestBody(
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("inviter_user_id") JsonNullable<String> inviterUserId,
-            @JsonProperty("role") String role,
-            @JsonProperty("public_metadata") Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata,
-            @JsonProperty("redirect_url") Optional<String> redirectUrl) {
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("redirect_url") Optional<String> redirectUrl,
+            @JsonProperty("notify") JsonNullable<Boolean> notify_,
+            @JsonProperty("ignore_existing") JsonNullable<Boolean> ignoreExisting,
+            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(emailAddress, "emailAddress");
-        Utils.checkNotNull(inviterUserId, "inviterUserId");
-        Utils.checkNotNull(role, "role");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
+        Utils.checkNotNull(notify_, "notify_");
+        Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
         this.emailAddress = emailAddress;
-        this.inviterUserId = inviterUserId;
-        this.role = role;
         this.publicMetadata = publicMetadata;
-        this.privateMetadata = privateMetadata;
         this.redirectUrl = redirectUrl;
+        this.notify_ = notify_;
+        this.ignoreExisting = ignoreExisting;
+        this.expiresInDays = expiresInDays;
     }
     
     public RequestBody(
-            String emailAddress,
-            String role) {
-        this(emailAddress, JsonNullable.undefined(), role, Optional.empty(), Optional.empty(), Optional.empty());
+            String emailAddress) {
+        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
-     * The email address of the new member that is going to be invited to the organization
+     * The email address the invitation will be sent to
      */
     @JsonIgnore
     public String emailAddress() {
@@ -99,46 +108,48 @@ public class RequestBody {
     }
 
     /**
-     * The ID of the user that invites the new member to the organization.
-     * Must be an administrator in the organization.
-     */
-    @JsonIgnore
-    public JsonNullable<String> inviterUserId() {
-        return inviterUserId;
-    }
-
-    /**
-     * The role of the new member in the organization.
-     */
-    @JsonIgnore
-    public String role() {
-        return role;
-    }
-
-    /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * Metadata that will be attached to the newly created invitation.
+     * The value of this property should be a well-formed JSON object.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateOrganizationInvitationBulkPublicMetadata> publicMetadata() {
-        return (Optional<CreateOrganizationInvitationBulkPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata() {
-        return (Optional<CreateOrganizationInvitationBulkPrivateMetadata>) privateMetadata;
-    }
-
-    /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
      */
     @JsonIgnore
     public Optional<String> redirectUrl() {
         return redirectUrl;
+    }
+
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to true.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> notify_() {
+        return notify_;
+    }
+
+    /**
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> ignoreExisting() {
+        return ignoreExisting;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> expiresInDays() {
+        return expiresInDays;
     }
 
     public final static Builder builder() {
@@ -146,7 +157,7 @@ public class RequestBody {
     }
 
     /**
-     * The email address of the new member that is going to be invited to the organization
+     * The email address the invitation will be sent to
      */
     public RequestBody withEmailAddress(String emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -155,72 +166,29 @@ public class RequestBody {
     }
 
     /**
-     * The ID of the user that invites the new member to the organization.
-     * Must be an administrator in the organization.
+     * Metadata that will be attached to the newly created invitation.
+     * The value of this property should be a well-formed JSON object.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
-    public RequestBody withInviterUserId(String inviterUserId) {
-        Utils.checkNotNull(inviterUserId, "inviterUserId");
-        this.inviterUserId = JsonNullable.of(inviterUserId);
-        return this;
-    }
-
-    /**
-     * The ID of the user that invites the new member to the organization.
-     * Must be an administrator in the organization.
-     */
-    public RequestBody withInviterUserId(JsonNullable<String> inviterUserId) {
-        Utils.checkNotNull(inviterUserId, "inviterUserId");
-        this.inviterUserId = inviterUserId;
-        return this;
-    }
-
-    /**
-     * The role of the new member in the organization.
-     */
-    public RequestBody withRole(String role) {
-        Utils.checkNotNull(role, "role");
-        this.role = role;
-        return this;
-    }
-
-    /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-     */
-    public RequestBody withPublicMetadata(CreateOrganizationInvitationBulkPublicMetadata publicMetadata) {
+    public RequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
     /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+     * Metadata that will be attached to the newly created invitation.
+     * The value of this property should be a well-formed JSON object.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
-    public RequestBody withPublicMetadata(Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata) {
+    public RequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
     }
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     */
-    public RequestBody withPrivateMetadata(CreateOrganizationInvitationBulkPrivateMetadata privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = Optional.ofNullable(privateMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     */
-    public RequestBody withPrivateMetadata(Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = privateMetadata;
-        return this;
-    }
-
-    /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
      */
     public RequestBody withRedirectUrl(String redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -229,11 +197,69 @@ public class RequestBody {
     }
 
     /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
      */
     public RequestBody withRedirectUrl(Optional<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         this.redirectUrl = redirectUrl;
+        return this;
+    }
+
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to true.
+     */
+    public RequestBody withNotify(boolean notify_) {
+        Utils.checkNotNull(notify_, "notify_");
+        this.notify_ = JsonNullable.of(notify_);
+        return this;
+    }
+
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to true.
+     */
+    public RequestBody withNotify(JsonNullable<Boolean> notify_) {
+        Utils.checkNotNull(notify_, "notify_");
+        this.notify_ = notify_;
+        return this;
+    }
+
+    /**
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
+     */
+    public RequestBody withIgnoreExisting(boolean ignoreExisting) {
+        Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+        this.ignoreExisting = JsonNullable.of(ignoreExisting);
+        return this;
+    }
+
+    /**
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
+     */
+    public RequestBody withIgnoreExisting(JsonNullable<Boolean> ignoreExisting) {
+        Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+        this.ignoreExisting = ignoreExisting;
+        return this;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     */
+    public RequestBody withExpiresInDays(long expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = JsonNullable.of(expiresInDays);
+        return this;
+    }
+
+    /**
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     */
+    public RequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
+        Utils.checkNotNull(expiresInDays, "expiresInDays");
+        this.expiresInDays = expiresInDays;
         return this;
     }
     
@@ -248,55 +274,55 @@ public class RequestBody {
         RequestBody other = (RequestBody) o;
         return 
             Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.inviterUserId, other.inviterUserId) &&
-            Objects.deepEquals(this.role, other.role) &&
             Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.redirectUrl, other.redirectUrl);
+            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
+            Objects.deepEquals(this.notify_, other.notify_) &&
+            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting) &&
+            Objects.deepEquals(this.expiresInDays, other.expiresInDays);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             emailAddress,
-            inviterUserId,
-            role,
             publicMetadata,
-            privateMetadata,
-            redirectUrl);
+            redirectUrl,
+            notify_,
+            ignoreExisting,
+            expiresInDays);
     }
     
     @Override
     public String toString() {
         return Utils.toString(RequestBody.class,
                 "emailAddress", emailAddress,
-                "inviterUserId", inviterUserId,
-                "role", role,
                 "publicMetadata", publicMetadata,
-                "privateMetadata", privateMetadata,
-                "redirectUrl", redirectUrl);
+                "redirectUrl", redirectUrl,
+                "notify_", notify_,
+                "ignoreExisting", ignoreExisting,
+                "expiresInDays", expiresInDays);
     }
     
     public final static class Builder {
  
         private String emailAddress;
  
-        private JsonNullable<String> inviterUserId = JsonNullable.undefined();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private String role;
+        private Optional<String> redirectUrl = Optional.empty();
  
-        private Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata = Optional.empty();
+        private JsonNullable<Boolean> notify_;
  
-        private Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata = Optional.empty();
+        private JsonNullable<Boolean> ignoreExisting;
  
-        private Optional<String> redirectUrl = Optional.empty();  
+        private JsonNullable<Long> expiresInDays = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * The email address of the new member that is going to be invited to the organization
+         * The email address the invitation will be sent to
          */
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -305,72 +331,29 @@ public class RequestBody {
         }
 
         /**
-         * The ID of the user that invites the new member to the organization.
-         * Must be an administrator in the organization.
+         * Metadata that will be attached to the newly created invitation.
+         * The value of this property should be a well-formed JSON object.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
          */
-        public Builder inviterUserId(String inviterUserId) {
-            Utils.checkNotNull(inviterUserId, "inviterUserId");
-            this.inviterUserId = JsonNullable.of(inviterUserId);
-            return this;
-        }
-
-        /**
-         * The ID of the user that invites the new member to the organization.
-         * Must be an administrator in the organization.
-         */
-        public Builder inviterUserId(JsonNullable<String> inviterUserId) {
-            Utils.checkNotNull(inviterUserId, "inviterUserId");
-            this.inviterUserId = inviterUserId;
-            return this;
-        }
-
-        /**
-         * The role of the new member in the organization.
-         */
-        public Builder role(String role) {
-            Utils.checkNotNull(role, "role");
-            this.role = role;
-            return this;
-        }
-
-        /**
-         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-         */
-        public Builder publicMetadata(CreateOrganizationInvitationBulkPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
         /**
-         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
+         * Metadata that will be attached to the newly created invitation.
+         * The value of this property should be a well-formed JSON object.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
          */
-        public Builder publicMetadata(Optional<? extends CreateOrganizationInvitationBulkPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
 
         /**
-         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-         */
-        public Builder privateMetadata(CreateOrganizationInvitationBulkPrivateMetadata privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = Optional.ofNullable(privateMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-         */
-        public Builder privateMetadata(Optional<? extends CreateOrganizationInvitationBulkPrivateMetadata> privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = privateMetadata;
-            return this;
-        }
-
-        /**
-         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+         * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
          */
         public Builder redirectUrl(String redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -379,23 +362,98 @@ public class RequestBody {
         }
 
         /**
-         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+         * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
          */
         public Builder redirectUrl(Optional<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
             this.redirectUrl = redirectUrl;
             return this;
         }
+
+        /**
+         * Optional flag which denotes whether an email invitation should be sent to the given email address.
+         * Defaults to true.
+         */
+        public Builder notify_(boolean notify_) {
+            Utils.checkNotNull(notify_, "notify_");
+            this.notify_ = JsonNullable.of(notify_);
+            return this;
+        }
+
+        /**
+         * Optional flag which denotes whether an email invitation should be sent to the given email address.
+         * Defaults to true.
+         */
+        public Builder notify_(JsonNullable<Boolean> notify_) {
+            Utils.checkNotNull(notify_, "notify_");
+            this.notify_ = notify_;
+            return this;
+        }
+
+        /**
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
+         */
+        public Builder ignoreExisting(boolean ignoreExisting) {
+            Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+            this.ignoreExisting = JsonNullable.of(ignoreExisting);
+            return this;
+        }
+
+        /**
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
+         */
+        public Builder ignoreExisting(JsonNullable<Boolean> ignoreExisting) {
+            Utils.checkNotNull(ignoreExisting, "ignoreExisting");
+            this.ignoreExisting = ignoreExisting;
+            return this;
+        }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         */
+        public Builder expiresInDays(long expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = JsonNullable.of(expiresInDays);
+            return this;
+        }
+
+        /**
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         */
+        public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
+            Utils.checkNotNull(expiresInDays, "expiresInDays");
+            this.expiresInDays = expiresInDays;
+            return this;
+        }
         
         public RequestBody build() {
-            return new RequestBody(
+            if (notify_ == null) {
+                notify_ = _SINGLETON_VALUE_Notify.value();
+            }
+            if (ignoreExisting == null) {
+                ignoreExisting = _SINGLETON_VALUE_IgnoreExisting.value();
+            }            return new RequestBody(
                 emailAddress,
-                inviterUserId,
-                role,
                 publicMetadata,
-                privateMetadata,
-                redirectUrl);
+                redirectUrl,
+                notify_,
+                ignoreExisting,
+                expiresInDays);
         }
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
+                new LazySingletonValue<>(
+                        "notify",
+                        "true",
+                        new TypeReference<JsonNullable<Boolean>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_IgnoreExisting =
+                new LazySingletonValue<>(
+                        "ignore_existing",
+                        "false",
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }
 

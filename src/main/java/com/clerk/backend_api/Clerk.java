@@ -134,6 +134,8 @@ public class Clerk {
 
     private final TestingTokens testingTokens;
 
+    private final WaitlistEntries waitlistEntries;
+
     /**
      * Various endpoints that do not belong in any particular category.
      */
@@ -296,6 +298,10 @@ public class Clerk {
 
     public TestingTokens testingTokens() {
         return testingTokens;
+    }
+
+    public WaitlistEntries waitlistEntries() {
+        return waitlistEntries;
     }
 
     private final SDKConfiguration sdkConfiguration;
@@ -465,5 +471,6 @@ public class Clerk {
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
+        this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.sdkConfiguration.initialize();
     }}

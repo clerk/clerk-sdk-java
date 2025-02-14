@@ -11,3 +11,5 @@
 | `alg`               | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
 | `n`                 | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
 | `e`                 | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
+| `x`                 | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
+| `crv`               | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |

@@ -4,7 +4,6 @@
 
 package com.clerk.backend_api;
 
-import com.clerk.backend_api.models.components.WellKnownJWKS;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.GetJWKSRequestBuilder;
 import com.clerk.backend_api.models.operations.GetJWKSResponse;
@@ -118,10 +117,10 @@ public class Jwks implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                WellKnownJWKS _out = Utils.mapper().readValue(
+                com.clerk.backend_api.models.components.Jwks _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<WellKnownJWKS>() {});
-                _res.withWellKnownJWKS(Optional.ofNullable(_out));
+                    new TypeReference<com.clerk.backend_api.models.components.Jwks>() {});
+                _res.withJwks(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -131,7 +130,15 @@ public class Jwks implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

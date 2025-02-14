@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class CreateSessionTokenFromTemplateRequest {
@@ -28,14 +30,26 @@ public class CreateSessionTokenFromTemplateRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=template_name")
     private String templateName;
 
+    @SpeakeasyMetadata("request:mediaType=application/json")
+    private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody;
+
     @JsonCreator
     public CreateSessionTokenFromTemplateRequest(
             String sessionId,
-            String templateName) {
+            String templateName,
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) {
         Utils.checkNotNull(sessionId, "sessionId");
         Utils.checkNotNull(templateName, "templateName");
+        Utils.checkNotNull(requestBody, "requestBody");
         this.sessionId = sessionId;
         this.templateName = templateName;
+        this.requestBody = requestBody;
+    }
+    
+    public CreateSessionTokenFromTemplateRequest(
+            String sessionId,
+            String templateName) {
+        this(sessionId, templateName, Optional.empty());
     }
 
     /**
@@ -52,6 +66,12 @@ public class CreateSessionTokenFromTemplateRequest {
     @JsonIgnore
     public String templateName() {
         return templateName;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CreateSessionTokenFromTemplateRequestBody> requestBody() {
+        return (Optional<CreateSessionTokenFromTemplateRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -75,6 +95,18 @@ public class CreateSessionTokenFromTemplateRequest {
         this.templateName = templateName;
         return this;
     }
+
+    public CreateSessionTokenFromTemplateRequest withRequestBody(CreateSessionTokenFromTemplateRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public CreateSessionTokenFromTemplateRequest withRequestBody(Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = requestBody;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -87,28 +119,33 @@ public class CreateSessionTokenFromTemplateRequest {
         CreateSessionTokenFromTemplateRequest other = (CreateSessionTokenFromTemplateRequest) o;
         return 
             Objects.deepEquals(this.sessionId, other.sessionId) &&
-            Objects.deepEquals(this.templateName, other.templateName);
+            Objects.deepEquals(this.templateName, other.templateName) &&
+            Objects.deepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             sessionId,
-            templateName);
+            templateName,
+            requestBody);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateSessionTokenFromTemplateRequest.class,
                 "sessionId", sessionId,
-                "templateName", templateName);
+                "templateName", templateName,
+                "requestBody", requestBody);
     }
     
     public final static class Builder {
  
         private String sessionId;
  
-        private String templateName;  
+        private String templateName;
+ 
+        private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -131,11 +168,24 @@ public class CreateSessionTokenFromTemplateRequest {
             this.templateName = templateName;
             return this;
         }
+
+        public Builder requestBody(CreateSessionTokenFromTemplateRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = requestBody;
+            return this;
+        }
         
         public CreateSessionTokenFromTemplateRequest build() {
             return new CreateSessionTokenFromTemplateRequest(
                 sessionId,
-                templateName);
+                templateName,
+                requestBody);
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class CreateOrganizationInvitationBulkRequestBuilder {
 
     private String organizationId;
-    private List<RequestBody> requestBody;
+    private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
     private final SDKMethodInterfaces.MethodCallCreateOrganizationInvitationBulk sdk;
 
     public CreateOrganizationInvitationBulkRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationInvitationBulk sdk) {
@@ -24,7 +24,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
         return this;
     }
 
-    public CreateOrganizationInvitationBulkRequestBuilder requestBody(List<RequestBody> requestBody) {
+    public CreateOrganizationInvitationBulkRequestBuilder requestBody(List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
