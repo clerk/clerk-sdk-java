@@ -13,8 +13,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -46,14 +48,14 @@ public class OrganizationMembershipOrganization {
     private Optional<Boolean> adminDeleteEnabled;
 
     @JsonProperty("public_metadata")
-    private OrganizationMembershipOrganizationPublicMetadata publicMetadata;
+    private Map<String, Object> publicMetadata;
 
     @JsonProperty("private_metadata")
-    private OrganizationMembershipOrganizationPrivateMetadata privateMetadata;
+    private Map<String, Object> privateMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_by")
-    private Optional<String> createdBy;
+    private JsonNullable<String> createdBy;
 
     /**
      * Unix timestamp of creation.
@@ -78,9 +80,9 @@ public class OrganizationMembershipOrganization {
             @JsonProperty("members_count") JsonNullable<Long> membersCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") Optional<Boolean> adminDeleteEnabled,
-            @JsonProperty("public_metadata") OrganizationMembershipOrganizationPublicMetadata publicMetadata,
-            @JsonProperty("private_metadata") OrganizationMembershipOrganizationPrivateMetadata privateMetadata,
-            @JsonProperty("created_by") Optional<String> createdBy,
+            @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
+            @JsonProperty("private_metadata") Map<String, Object> privateMetadata,
+            @JsonProperty("created_by") JsonNullable<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -90,8 +92,8 @@ public class OrganizationMembershipOrganization {
         Utils.checkNotNull(membersCount, "membersCount");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
+        publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        privateMetadata = Utils.emptyMapIfNull(privateMetadata);
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -115,11 +117,11 @@ public class OrganizationMembershipOrganization {
             String name,
             String slug,
             long maxAllowedMemberships,
-            OrganizationMembershipOrganizationPublicMetadata publicMetadata,
-            OrganizationMembershipOrganizationPrivateMetadata privateMetadata,
+            Map<String, Object> publicMetadata,
+            Map<String, Object> privateMetadata,
             long createdAt,
             long updatedAt) {
-        this(object, id, name, slug, JsonNullable.undefined(), maxAllowedMemberships, Optional.empty(), publicMetadata, privateMetadata, Optional.empty(), createdAt, updatedAt);
+        this(object, id, name, slug, JsonNullable.undefined(), maxAllowedMemberships, Optional.empty(), publicMetadata, privateMetadata, JsonNullable.undefined(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -158,17 +160,17 @@ public class OrganizationMembershipOrganization {
     }
 
     @JsonIgnore
-    public OrganizationMembershipOrganizationPublicMetadata publicMetadata() {
+    public Map<String, Object> publicMetadata() {
         return publicMetadata;
     }
 
     @JsonIgnore
-    public OrganizationMembershipOrganizationPrivateMetadata privateMetadata() {
+    public Map<String, Object> privateMetadata() {
         return privateMetadata;
     }
 
     @JsonIgnore
-    public Optional<String> createdBy() {
+    public JsonNullable<String> createdBy() {
         return createdBy;
     }
 
@@ -248,13 +250,13 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
-    public OrganizationMembershipOrganization withPublicMetadata(OrganizationMembershipOrganizationPublicMetadata publicMetadata) {
+    public OrganizationMembershipOrganization withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
     }
 
-    public OrganizationMembershipOrganization withPrivateMetadata(OrganizationMembershipOrganizationPrivateMetadata privateMetadata) {
+    public OrganizationMembershipOrganization withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -262,11 +264,11 @@ public class OrganizationMembershipOrganization {
 
     public OrganizationMembershipOrganization withCreatedBy(String createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
-        this.createdBy = Optional.ofNullable(createdBy);
+        this.createdBy = JsonNullable.of(createdBy);
         return this;
     }
 
-    public OrganizationMembershipOrganization withCreatedBy(Optional<String> createdBy) {
+    public OrganizationMembershipOrganization withCreatedBy(JsonNullable<String> createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
         this.createdBy = createdBy;
         return this;
@@ -366,11 +368,11 @@ public class OrganizationMembershipOrganization {
  
         private Optional<Boolean> adminDeleteEnabled = Optional.empty();
  
-        private OrganizationMembershipOrganizationPublicMetadata publicMetadata;
+        private Map<String, Object> publicMetadata;
  
-        private OrganizationMembershipOrganizationPrivateMetadata privateMetadata;
+        private Map<String, Object> privateMetadata;
  
-        private Optional<String> createdBy = Optional.empty();
+        private JsonNullable<String> createdBy = JsonNullable.undefined();
  
         private Long createdAt;
  
@@ -434,13 +436,13 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
-        public Builder publicMetadata(OrganizationMembershipOrganizationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
 
-        public Builder privateMetadata(OrganizationMembershipOrganizationPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
@@ -448,11 +450,11 @@ public class OrganizationMembershipOrganization {
 
         public Builder createdBy(String createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
-            this.createdBy = Optional.ofNullable(createdBy);
+            this.createdBy = JsonNullable.of(createdBy);
             return this;
         }
 
-        public Builder createdBy(Optional<String> createdBy) {
+        public Builder createdBy(JsonNullable<String> createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
             this.createdBy = createdBy;
             return this;

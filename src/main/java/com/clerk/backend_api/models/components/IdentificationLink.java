@@ -17,14 +17,14 @@ import java.util.Objects;
 public class IdentificationLink {
 
     @JsonProperty("type")
-    private Type type;
+    private String type;
 
     @JsonProperty("id")
     private String id;
 
     @JsonCreator
     public IdentificationLink(
-            @JsonProperty("type") Type type,
+            @JsonProperty("type") String type,
             @JsonProperty("id") String id) {
         Utils.checkNotNull(type, "type");
         Utils.checkNotNull(id, "id");
@@ -33,7 +33,7 @@ public class IdentificationLink {
     }
 
     @JsonIgnore
-    public Type type() {
+    public String type() {
         return type;
     }
 
@@ -46,7 +46,7 @@ public class IdentificationLink {
         return new Builder();
     }
 
-    public IdentificationLink withType(Type type) {
+    public IdentificationLink withType(String type) {
         Utils.checkNotNull(type, "type");
         this.type = type;
         return this;
@@ -88,7 +88,7 @@ public class IdentificationLink {
     
     public final static class Builder {
  
-        private Type type;
+        private String type;
  
         private String id;  
         
@@ -96,7 +96,7 @@ public class IdentificationLink {
           // force use of static builder() method
         }
 
-        public Builder type(Type type) {
+        public Builder type(String type) {
             Utils.checkNotNull(type, "type");
             this.type = type;
             return this;

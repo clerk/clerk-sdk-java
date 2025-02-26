@@ -5,9 +5,51 @@
 
 ### Available Operations
 
+* [getInstance](#getinstance) - Fetch the current instance
 * [update](#update) - Update instance settings
 * [updateRestrictions](#updaterestrictions) - Update instance restrictions
 * [updateOrganizationSettings](#updateorganizationsettings) - Update instance organization settings
+
+## getInstance
+
+Fetches the current instance
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetInstanceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        GetInstanceResponse res = sdk.instanceSettings().getInstance()
+                .call();
+
+        if (res.instance().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Response
+
+**[GetInstanceResponse](../../models/operations/GetInstanceResponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4XX, 5XX               | \*/\*                  |
 
 ## update
 
@@ -166,5 +208,5 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 400, 402, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

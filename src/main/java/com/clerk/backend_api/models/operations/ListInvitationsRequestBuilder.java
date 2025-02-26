@@ -8,6 +8,7 @@ import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
+import java.lang.String;
 import java.util.Optional;
 
 public class ListInvitationsRequestBuilder {
@@ -21,6 +22,7 @@ public class ListInvitationsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();
+    private Optional<String> query = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListInvitations sdk;
 
     public ListInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListInvitations sdk) {
@@ -62,6 +64,18 @@ public class ListInvitationsRequestBuilder {
         this.status = status;
         return this;
     }
+                
+    public ListInvitationsRequestBuilder query(String query) {
+        Utils.checkNotNull(query, "query");
+        this.query = Optional.of(query);
+        return this;
+    }
+
+    public ListInvitationsRequestBuilder query(Optional<String> query) {
+        Utils.checkNotNull(query, "query");
+        this.query = query;
+        return this;
+    }
 
     public ListInvitationsResponse call() throws Exception {
         if (limit == null) {
@@ -73,7 +87,8 @@ public class ListInvitationsRequestBuilder {
         return sdk.list(
             limit,
             offset,
-            status);
+            status,
+            query);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

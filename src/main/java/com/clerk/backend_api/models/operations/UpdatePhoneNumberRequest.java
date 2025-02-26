@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class UpdatePhoneNumberRequest {
@@ -23,16 +25,21 @@ public class UpdatePhoneNumberRequest {
     private String phoneNumberId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private UpdatePhoneNumberRequestBody requestBody;
+    private Optional<? extends UpdatePhoneNumberRequestBody> requestBody;
 
     @JsonCreator
     public UpdatePhoneNumberRequest(
             String phoneNumberId,
-            UpdatePhoneNumberRequestBody requestBody) {
+            Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(phoneNumberId, "phoneNumberId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.phoneNumberId = phoneNumberId;
         this.requestBody = requestBody;
+    }
+    
+    public UpdatePhoneNumberRequest(
+            String phoneNumberId) {
+        this(phoneNumberId, Optional.empty());
     }
 
     /**
@@ -43,9 +50,10 @@ public class UpdatePhoneNumberRequest {
         return phoneNumberId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public UpdatePhoneNumberRequestBody requestBody() {
-        return requestBody;
+    public Optional<UpdatePhoneNumberRequestBody> requestBody() {
+        return (Optional<UpdatePhoneNumberRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -62,6 +70,12 @@ public class UpdatePhoneNumberRequest {
     }
 
     public UpdatePhoneNumberRequest withRequestBody(UpdatePhoneNumberRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public UpdatePhoneNumberRequest withRequestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -99,7 +113,7 @@ public class UpdatePhoneNumberRequest {
  
         private String phoneNumberId;
  
-        private UpdatePhoneNumberRequestBody requestBody;  
+        private Optional<? extends UpdatePhoneNumberRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -115,6 +129,12 @@ public class UpdatePhoneNumberRequest {
         }
 
         public Builder requestBody(UpdatePhoneNumberRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

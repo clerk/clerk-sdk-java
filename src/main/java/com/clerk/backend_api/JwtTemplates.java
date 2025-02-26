@@ -151,7 +151,15 @@ public class JwtTemplates implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -180,12 +188,22 @@ public class JwtTemplates implements
     /**
      * Create a JWT template
      * Create a new JWT template
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateJWTTemplateResponse createDirect() throws Exception {
+        return create(Optional.empty());
+    }
+    
+    /**
+     * Create a JWT template
+     * Create a new JWT template
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateJWTTemplateResponse create(
-            CreateJWTTemplateRequestBody request) throws Exception {
+            Optional<? extends CreateJWTTemplateRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -195,15 +213,12 @@ public class JwtTemplates implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateJWTTemplateRequestBody>() {});
+                new TypeReference<Optional<? extends CreateJWTTemplateRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -294,7 +309,15 @@ public class JwtTemplates implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -432,7 +455,15 @@ public class JwtTemplates implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -462,13 +493,25 @@ public class JwtTemplates implements
      * Update a JWT template
      * Updates an existing JWT template
      * @param templateId The ID of the JWT template to update
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateJWTTemplateResponse update(
+            String templateId) throws Exception {
+        return update(templateId, Optional.empty());
+    }
+    
+    /**
+     * Update a JWT template
+     * Updates an existing JWT template
+     * @param templateId The ID of the JWT template to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateJWTTemplateResponse update(
             String templateId,
-            UpdateJWTTemplateRequestBody requestBody) throws Exception {
+            Optional<? extends UpdateJWTTemplateRequestBody> requestBody) throws Exception {
         UpdateJWTTemplateRequest request =
             UpdateJWTTemplateRequest
                 .builder()
@@ -493,9 +536,6 @@ public class JwtTemplates implements
                 "requestBody",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -586,7 +626,15 @@ public class JwtTemplates implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -722,7 +770,15 @@ public class JwtTemplates implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

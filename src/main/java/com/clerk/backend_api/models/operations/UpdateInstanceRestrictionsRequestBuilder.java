@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class UpdateInstanceRestrictionsRequestBuilder {
 
-    private UpdateInstanceRestrictionsRequestBody request;
+    private Optional<? extends UpdateInstanceRestrictionsRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateInstanceRestrictions sdk;
 
     public UpdateInstanceRestrictionsRequestBuilder(SDKMethodInterfaces.MethodCallUpdateInstanceRestrictions sdk) {
         this.sdk = sdk;
     }
-
+                
     public UpdateInstanceRestrictionsRequestBuilder request(UpdateInstanceRestrictionsRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public UpdateInstanceRestrictionsRequestBuilder request(Optional<? extends UpdateInstanceRestrictionsRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

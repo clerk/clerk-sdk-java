@@ -12,9 +12,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -55,7 +57,7 @@ public class SAMLAccount {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends SAMLAccountPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
@@ -75,7 +77,7 @@ public class SAMLAccount {
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("provider_user_id") JsonNullable<String> providerUserId,
-            @JsonProperty("public_metadata") Optional<? extends SAMLAccountPublicMetadata> publicMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification,
             @JsonProperty("saml_connection") JsonNullable<? extends SamlConnection> samlConnection) {
         Utils.checkNotNull(id, "id");
@@ -157,8 +159,8 @@ public class SAMLAccount {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SAMLAccountPublicMetadata> publicMetadata() {
-        return (Optional<SAMLAccountPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @SuppressWarnings("unchecked")
@@ -247,13 +249,13 @@ public class SAMLAccount {
         return this;
     }
 
-    public SAMLAccount withPublicMetadata(SAMLAccountPublicMetadata publicMetadata) {
+    public SAMLAccount withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public SAMLAccount withPublicMetadata(Optional<? extends SAMLAccountPublicMetadata> publicMetadata) {
+    public SAMLAccount withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -356,7 +358,7 @@ public class SAMLAccount {
  
         private JsonNullable<String> providerUserId = JsonNullable.undefined();
  
-        private Optional<? extends SAMLAccountPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private Optional<? extends SAMLAccountVerification> verification = Optional.empty();
  
@@ -436,13 +438,13 @@ public class SAMLAccount {
             return this;
         }
 
-        public Builder publicMetadata(SAMLAccountPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends SAMLAccountPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;

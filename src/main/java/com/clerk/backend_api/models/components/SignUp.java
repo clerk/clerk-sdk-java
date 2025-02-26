@@ -13,10 +13,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -85,11 +87,11 @@ public class SignUp {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
-    private Optional<? extends SignUpUnsafeMetadata> unsafeMetadata;
+    private Optional<? extends Map<String, Object>> unsafeMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends SignUpPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonProperty("custom_action")
     private boolean customAction;
@@ -108,6 +110,14 @@ public class SignUp {
 
     @JsonProperty("abandon_at")
     private long abandonAt;
+
+    /**
+     * Unix timestamp at which the user accepted the legal requirements.
+     * 
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("legal_accepted_at")
+    private JsonNullable<Long> legalAcceptedAt;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_account")
@@ -130,13 +140,14 @@ public class SignUp {
             @JsonProperty("password_enabled") boolean passwordEnabled,
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
-            @JsonProperty("unsafe_metadata") Optional<? extends SignUpUnsafeMetadata> unsafeMetadata,
-            @JsonProperty("public_metadata") Optional<? extends SignUpPublicMetadata> publicMetadata,
+            @JsonProperty("unsafe_metadata") Optional<? extends Map<String, Object>> unsafeMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("custom_action") boolean customAction,
             @JsonProperty("external_id") JsonNullable<String> externalId,
             @JsonProperty("created_session_id") JsonNullable<String> createdSessionId,
             @JsonProperty("created_user_id") JsonNullable<String> createdUserId,
             @JsonProperty("abandon_at") long abandonAt,
+            @JsonProperty("legal_accepted_at") JsonNullable<Long> legalAcceptedAt,
             @JsonProperty("external_account") Optional<? extends ExternalAccount> externalAccount) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -160,6 +171,7 @@ public class SignUp {
         Utils.checkNotNull(createdSessionId, "createdSessionId");
         Utils.checkNotNull(createdUserId, "createdUserId");
         Utils.checkNotNull(abandonAt, "abandonAt");
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         Utils.checkNotNull(externalAccount, "externalAccount");
         this.object = object;
         this.id = id;
@@ -183,6 +195,7 @@ public class SignUp {
         this.createdSessionId = createdSessionId;
         this.createdUserId = createdUserId;
         this.abandonAt = abandonAt;
+        this.legalAcceptedAt = legalAcceptedAt;
         this.externalAccount = externalAccount;
     }
     
@@ -193,7 +206,7 @@ public class SignUp {
             boolean passwordEnabled,
             boolean customAction,
             long abandonAt) {
-        this(object, id, status, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), passwordEnabled, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), customAction, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), abandonAt, Optional.empty());
+        this(object, id, status, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), passwordEnabled, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), customAction, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), abandonAt, JsonNullable.undefined(), Optional.empty());
     }
 
     @JsonIgnore
@@ -278,14 +291,14 @@ public class SignUp {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SignUpUnsafeMetadata> unsafeMetadata() {
-        return (Optional<SignUpUnsafeMetadata>) unsafeMetadata;
+    public Optional<Map<String, Object>> unsafeMetadata() {
+        return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SignUpPublicMetadata> publicMetadata() {
-        return (Optional<SignUpPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @JsonIgnore
@@ -311,6 +324,15 @@ public class SignUp {
     @JsonIgnore
     public long abandonAt() {
         return abandonAt;
+    }
+
+    /**
+     * Unix timestamp at which the user accepted the legal requirements.
+     * 
+     */
+    @JsonIgnore
+    public JsonNullable<Long> legalAcceptedAt() {
+        return legalAcceptedAt;
     }
 
     @SuppressWarnings("unchecked")
@@ -479,25 +501,25 @@ public class SignUp {
         return this;
     }
 
-    public SignUp withUnsafeMetadata(SignUpUnsafeMetadata unsafeMetadata) {
+    public SignUp withUnsafeMetadata(Map<String, Object> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
         return this;
     }
 
-    public SignUp withUnsafeMetadata(Optional<? extends SignUpUnsafeMetadata> unsafeMetadata) {
+    public SignUp withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
         return this;
     }
 
-    public SignUp withPublicMetadata(SignUpPublicMetadata publicMetadata) {
+    public SignUp withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public SignUp withPublicMetadata(Optional<? extends SignUpPublicMetadata> publicMetadata) {
+    public SignUp withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -551,6 +573,26 @@ public class SignUp {
         return this;
     }
 
+    /**
+     * Unix timestamp at which the user accepted the legal requirements.
+     * 
+     */
+    public SignUp withLegalAcceptedAt(long legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp at which the user accepted the legal requirements.
+     * 
+     */
+    public SignUp withLegalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+        Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        this.legalAcceptedAt = legalAcceptedAt;
+        return this;
+    }
+
     public SignUp withExternalAccount(ExternalAccount externalAccount) {
         Utils.checkNotNull(externalAccount, "externalAccount");
         this.externalAccount = Optional.ofNullable(externalAccount);
@@ -595,6 +637,7 @@ public class SignUp {
             Objects.deepEquals(this.createdSessionId, other.createdSessionId) &&
             Objects.deepEquals(this.createdUserId, other.createdUserId) &&
             Objects.deepEquals(this.abandonAt, other.abandonAt) &&
+            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
             Objects.deepEquals(this.externalAccount, other.externalAccount);
     }
     
@@ -623,6 +666,7 @@ public class SignUp {
             createdSessionId,
             createdUserId,
             abandonAt,
+            legalAcceptedAt,
             externalAccount);
     }
     
@@ -651,6 +695,7 @@ public class SignUp {
                 "createdSessionId", createdSessionId,
                 "createdUserId", createdUserId,
                 "abandonAt", abandonAt,
+                "legalAcceptedAt", legalAcceptedAt,
                 "externalAccount", externalAccount);
     }
     
@@ -686,9 +731,9 @@ public class SignUp {
  
         private JsonNullable<String> lastName = JsonNullable.undefined();
  
-        private Optional<? extends SignUpUnsafeMetadata> unsafeMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
  
-        private Optional<? extends SignUpPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private Boolean customAction;
  
@@ -699,6 +744,8 @@ public class SignUp {
         private JsonNullable<String> createdUserId = JsonNullable.undefined();
  
         private Long abandonAt;
+ 
+        private JsonNullable<Long> legalAcceptedAt = JsonNullable.undefined();
  
         private Optional<? extends ExternalAccount> externalAccount = Optional.empty();  
         
@@ -862,25 +909,25 @@ public class SignUp {
             return this;
         }
 
-        public Builder unsafeMetadata(SignUpUnsafeMetadata unsafeMetadata) {
+        public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
             return this;
         }
 
-        public Builder unsafeMetadata(Optional<? extends SignUpUnsafeMetadata> unsafeMetadata) {
+        public Builder unsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = unsafeMetadata;
             return this;
         }
 
-        public Builder publicMetadata(SignUpPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends SignUpPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -934,6 +981,26 @@ public class SignUp {
             return this;
         }
 
+        /**
+         * Unix timestamp at which the user accepted the legal requirements.
+         * 
+         */
+        public Builder legalAcceptedAt(long legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp at which the user accepted the legal requirements.
+         * 
+         */
+        public Builder legalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+            Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+            this.legalAcceptedAt = legalAcceptedAt;
+            return this;
+        }
+
         public Builder externalAccount(ExternalAccount externalAccount) {
             Utils.checkNotNull(externalAccount, "externalAccount");
             this.externalAccount = Optional.ofNullable(externalAccount);
@@ -970,6 +1037,7 @@ public class SignUp {
                 createdSessionId,
                 createdUserId,
                 abandonAt,
+                legalAcceptedAt,
                 externalAccount);
         }
     }

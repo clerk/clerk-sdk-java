@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class AddDomainRequestBuilder {
 
-    private AddDomainRequestBody request;
+    private Optional<? extends AddDomainRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallAddDomain sdk;
 
     public AddDomainRequestBuilder(SDKMethodInterfaces.MethodCallAddDomain sdk) {
         this.sdk = sdk;
     }
-
+                
     public AddDomainRequestBuilder request(AddDomainRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public AddDomainRequestBuilder request(Optional<? extends AddDomainRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

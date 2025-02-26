@@ -42,21 +42,30 @@ public class ListInvitationsRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=status")
     private Optional<? extends ListInvitationsQueryParamStatus> status;
 
+    /**
+     * Filter invitations based on their `email_address` or `id`
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
+    private Optional<String> query;
+
     @JsonCreator
     public ListInvitationsRequest(
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends ListInvitationsQueryParamStatus> status) {
+            Optional<? extends ListInvitationsQueryParamStatus> status,
+            Optional<String> query) {
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(status, "status");
+        Utils.checkNotNull(query, "query");
         this.limit = limit;
         this.offset = offset;
         this.status = status;
+        this.query = query;
     }
     
     public ListInvitationsRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -85,6 +94,14 @@ public class ListInvitationsRequest {
     @JsonIgnore
     public Optional<ListInvitationsQueryParamStatus> status() {
         return (Optional<ListInvitationsQueryParamStatus>) status;
+    }
+
+    /**
+     * Filter invitations based on their `email_address` or `id`
+     */
+    @JsonIgnore
+    public Optional<String> query() {
+        return query;
     }
 
     public final static Builder builder() {
@@ -150,6 +167,24 @@ public class ListInvitationsRequest {
         this.status = status;
         return this;
     }
+
+    /**
+     * Filter invitations based on their `email_address` or `id`
+     */
+    public ListInvitationsRequest withQuery(String query) {
+        Utils.checkNotNull(query, "query");
+        this.query = Optional.ofNullable(query);
+        return this;
+    }
+
+    /**
+     * Filter invitations based on their `email_address` or `id`
+     */
+    public ListInvitationsRequest withQuery(Optional<String> query) {
+        Utils.checkNotNull(query, "query");
+        this.query = query;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -163,7 +198,8 @@ public class ListInvitationsRequest {
         return 
             Objects.deepEquals(this.limit, other.limit) &&
             Objects.deepEquals(this.offset, other.offset) &&
-            Objects.deepEquals(this.status, other.status);
+            Objects.deepEquals(this.status, other.status) &&
+            Objects.deepEquals(this.query, other.query);
     }
     
     @Override
@@ -171,7 +207,8 @@ public class ListInvitationsRequest {
         return Objects.hash(
             limit,
             offset,
-            status);
+            status,
+            query);
     }
     
     @Override
@@ -179,7 +216,8 @@ public class ListInvitationsRequest {
         return Utils.toString(ListInvitationsRequest.class,
                 "limit", limit,
                 "offset", offset,
-                "status", status);
+                "status", status,
+                "query", query);
     }
     
     public final static class Builder {
@@ -188,7 +226,9 @@ public class ListInvitationsRequest {
  
         private Optional<Long> offset;
  
-        private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();  
+        private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();
+ 
+        private Optional<String> query = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -253,6 +293,24 @@ public class ListInvitationsRequest {
             this.status = status;
             return this;
         }
+
+        /**
+         * Filter invitations based on their `email_address` or `id`
+         */
+        public Builder query(String query) {
+            Utils.checkNotNull(query, "query");
+            this.query = Optional.ofNullable(query);
+            return this;
+        }
+
+        /**
+         * Filter invitations based on their `email_address` or `id`
+         */
+        public Builder query(Optional<String> query) {
+            Utils.checkNotNull(query, "query");
+            this.query = query;
+            return this;
+        }
         
         public ListInvitationsRequest build() {
             if (limit == null) {
@@ -263,7 +321,8 @@ public class ListInvitationsRequest {
             }            return new ListInvitationsRequest(
                 limit,
                 offset,
-                status);
+                status,
+                query);
         }
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

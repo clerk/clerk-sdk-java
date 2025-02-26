@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Metadata saved on the organization membership that is only visible to your backend.
@@ -34,12 +36,12 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     @JsonCreator
     public UpdateOrganizationMembershipMetadataRequestBody(
-            @JsonProperty("public_metadata") Optional<? extends UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata) {
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.publicMetadata = publicMetadata;
@@ -56,8 +58,8 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata() {
-        return (Optional<UpdateOrganizationMembershipMetadataPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -66,8 +68,8 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata() {
-        return (Optional<UpdateOrganizationMembershipMetadataPrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     public final static Builder builder() {
@@ -78,7 +80,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      * Metadata saved on the organization membership, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateOrganizationMembershipMetadataRequestBody withPublicMetadata(UpdateOrganizationMembershipMetadataPublicMetadata publicMetadata) {
+    public UpdateOrganizationMembershipMetadataRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -88,7 +90,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      * Metadata saved on the organization membership, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateOrganizationMembershipMetadataRequestBody withPublicMetadata(Optional<? extends UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata) {
+    public UpdateOrganizationMembershipMetadataRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -98,7 +100,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      * Metadata saved on the organization membership that is only visible to your backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateOrganizationMembershipMetadataRequestBody withPrivateMetadata(UpdateOrganizationMembershipMetadataPrivateMetadata privateMetadata) {
+    public UpdateOrganizationMembershipMetadataRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -108,7 +110,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
      * Metadata saved on the organization membership that is only visible to your backend.
      * The new object will be merged with the existing value.
      */
-    public UpdateOrganizationMembershipMetadataRequestBody withPrivateMetadata(Optional<? extends UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata) {
+    public UpdateOrganizationMembershipMetadataRequestBody withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -144,9 +146,9 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
     
     public final static class Builder {
  
-        private Optional<? extends UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata = Optional.empty();  
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -156,7 +158,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
          * Metadata saved on the organization membership, that is visible to both your frontend and backend.
          * The new object will be merged with the existing value.
          */
-        public Builder publicMetadata(UpdateOrganizationMembershipMetadataPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -166,7 +168,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
          * Metadata saved on the organization membership, that is visible to both your frontend and backend.
          * The new object will be merged with the existing value.
          */
-        public Builder publicMetadata(Optional<? extends UpdateOrganizationMembershipMetadataPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -176,7 +178,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
          * Metadata saved on the organization membership that is only visible to your backend.
          * The new object will be merged with the existing value.
          */
-        public Builder privateMetadata(UpdateOrganizationMembershipMetadataPrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -186,7 +188,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
          * Metadata saved on the organization membership that is only visible to your backend.
          * The new object will be merged with the existing value.
          */
-        public Builder privateMetadata(Optional<? extends UpdateOrganizationMembershipMetadataPrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;

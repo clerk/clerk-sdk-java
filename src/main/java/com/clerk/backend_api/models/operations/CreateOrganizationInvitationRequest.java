@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class CreateOrganizationInvitationRequest {
@@ -23,16 +25,21 @@ public class CreateOrganizationInvitationRequest {
     private String organizationId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private CreateOrganizationInvitationRequestBody requestBody;
+    private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody;
 
     @JsonCreator
     public CreateOrganizationInvitationRequest(
             String organizationId,
-            CreateOrganizationInvitationRequestBody requestBody) {
+            Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
         this.requestBody = requestBody;
+    }
+    
+    public CreateOrganizationInvitationRequest(
+            String organizationId) {
+        this(organizationId, Optional.empty());
     }
 
     /**
@@ -43,9 +50,10 @@ public class CreateOrganizationInvitationRequest {
         return organizationId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CreateOrganizationInvitationRequestBody requestBody() {
-        return requestBody;
+    public Optional<CreateOrganizationInvitationRequestBody> requestBody() {
+        return (Optional<CreateOrganizationInvitationRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -62,6 +70,12 @@ public class CreateOrganizationInvitationRequest {
     }
 
     public CreateOrganizationInvitationRequest withRequestBody(CreateOrganizationInvitationRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public CreateOrganizationInvitationRequest withRequestBody(Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -99,7 +113,7 @@ public class CreateOrganizationInvitationRequest {
  
         private String organizationId;
  
-        private CreateOrganizationInvitationRequestBody requestBody;  
+        private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -115,6 +129,12 @@ public class CreateOrganizationInvitationRequest {
         }
 
         public Builder requestBody(CreateOrganizationInvitationRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

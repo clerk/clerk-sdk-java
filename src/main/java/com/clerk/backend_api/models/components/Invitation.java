@@ -13,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -37,7 +39,7 @@ public class Invitation {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends InvitationPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("revoked")
@@ -77,7 +79,7 @@ public class Invitation {
             @JsonProperty("object") InvitationObject object,
             @JsonProperty("id") String id,
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("public_metadata") Optional<? extends InvitationPublicMetadata> publicMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("revoked") Optional<Boolean> revoked,
             @JsonProperty("status") InvitationStatus status,
             @JsonProperty("url") JsonNullable<String> url,
@@ -133,8 +135,8 @@ public class Invitation {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<InvitationPublicMetadata> publicMetadata() {
-        return (Optional<InvitationPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     @JsonIgnore
@@ -201,13 +203,13 @@ public class Invitation {
         return this;
     }
 
-    public Invitation withPublicMetadata(InvitationPublicMetadata publicMetadata) {
+    public Invitation withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
 
-    public Invitation withPublicMetadata(Optional<? extends InvitationPublicMetadata> publicMetadata) {
+    public Invitation withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -343,7 +345,7 @@ public class Invitation {
  
         private String emailAddress;
  
-        private Optional<? extends InvitationPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private Optional<Boolean> revoked = Optional.empty();
  
@@ -379,13 +381,13 @@ public class Invitation {
             return this;
         }
 
-        public Builder publicMetadata(InvitationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
         }
 
-        public Builder publicMetadata(Optional<? extends InvitationPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;

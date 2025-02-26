@@ -31,7 +31,7 @@ public class Application {
         GetJWKSResponse res = sdk.jwks().get()
                 .call();
 
-        if (res.wellKnownJWKS().isPresent()) {
+        if (res.jwks().isPresent()) {
             // handle response
         }
     }

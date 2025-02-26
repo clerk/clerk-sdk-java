@@ -24,12 +24,12 @@ public class CreateOrganizationInvitationBulkRequest {
     private String organizationId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private List<RequestBody> requestBody;
+    private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
 
     @JsonCreator
     public CreateOrganizationInvitationBulkRequest(
             String organizationId,
-            List<RequestBody> requestBody) {
+            List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
@@ -45,7 +45,7 @@ public class CreateOrganizationInvitationBulkRequest {
     }
 
     @JsonIgnore
-    public List<RequestBody> requestBody() {
+    public List<CreateOrganizationInvitationBulkRequestBody> requestBody() {
         return requestBody;
     }
 
@@ -62,7 +62,7 @@ public class CreateOrganizationInvitationBulkRequest {
         return this;
     }
 
-    public CreateOrganizationInvitationBulkRequest withRequestBody(List<RequestBody> requestBody) {
+    public CreateOrganizationInvitationBulkRequest withRequestBody(List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -100,7 +100,7 @@ public class CreateOrganizationInvitationBulkRequest {
  
         private String organizationId;
  
-        private List<RequestBody> requestBody;  
+        private List<CreateOrganizationInvitationBulkRequestBody> requestBody;  
         
         private Builder() {
           // force use of static builder() method
@@ -115,7 +115,7 @@ public class CreateOrganizationInvitationBulkRequest {
             return this;
         }
 
-        public Builder requestBody(List<RequestBody> requestBody) {
+        public Builder requestBody(List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

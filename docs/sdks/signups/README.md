@@ -45,10 +45,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `id`                                                                          | *String*                                                                      | :heavy_check_mark:                                                            | The ID of the sign-up to update                                               |
-| `requestBody`                                                                 | [UpdateSignUpRequestBody](../../models/operations/UpdateSignUpRequestBody.md) | :heavy_check_mark:                                                            | N/A                                                                           |
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `id`                                                                                     | *String*                                                                                 | :heavy_check_mark:                                                                       | The ID of the sign-up to update                                                          |
+| `requestBody`                                                                            | [Optional\<UpdateSignUpRequestBody>](../../models/operations/UpdateSignUpRequestBody.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 
 ### Response
 

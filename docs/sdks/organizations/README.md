@@ -77,7 +77,6 @@ public class Application {
 ## create
 
 Creates a new organization with the given name for an instance.
-In order to successfully create an organization you need to provide the ID of the User who will become the organization administrator.
 You can specify an optional slug for the new organization.
 If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
 Organization slugs must be unique for the instance.
@@ -109,7 +108,6 @@ public class Application {
 
         CreateOrganizationRequestBody req = CreateOrganizationRequestBody.builder()
                 .name("<value>")
-                .createdBy("<value>")
                 .build();
 
         CreateOrganizationResponse res = sdk.organizations().create()
@@ -402,10 +400,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                  | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the organization for which to upload a logo                                             |
-| `requestBody`                                                                                     | [UploadOrganizationLogoRequestBody](../../models/operations/UploadOrganizationLogoRequestBody.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `organizationId`                                                                                             | *String*                                                                                                     | :heavy_check_mark:                                                                                           | The ID of the organization for which to upload a logo                                                        |
+| `requestBody`                                                                                                | [Optional\<UploadOrganizationLogoRequestBody>](../../models/operations/UploadOrganizationLogoRequestBody.md) | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |
 
 ### Response
 

@@ -6,11 +6,12 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateSignUpRequestBuilder {
 
     private String id;
-    private UpdateSignUpRequestBody requestBody;
+    private Optional<? extends UpdateSignUpRequestBody> requestBody = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateSignUp sdk;
 
     public UpdateSignUpRequestBuilder(SDKMethodInterfaces.MethodCallUpdateSignUp sdk) {
@@ -22,8 +23,14 @@ public class UpdateSignUpRequestBuilder {
         this.id = id;
         return this;
     }
-
+                
     public UpdateSignUpRequestBuilder requestBody(UpdateSignUpRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public UpdateSignUpRequestBuilder requestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

@@ -15,6 +15,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -34,13 +35,17 @@ public class Web3Signature {
     @JsonProperty("message")
     private JsonNullable<String> message;
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("attempts")
-    private JsonNullable<Long> attempts;
+    private Optional<Long> attempts;
+
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("expire_at")
+    private Optional<Long> expireAt;
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("expire_at")
-    private JsonNullable<Long> expireAt;
+    @JsonProperty("verified_at_client")
+    private JsonNullable<String> verifiedAtClient;
 
     @JsonCreator
     public Web3Signature(
@@ -48,26 +53,29 @@ public class Web3Signature {
             @JsonProperty("strategy") Web3SignatureVerificationStrategy strategy,
             @JsonProperty("nonce") JsonNullable<String> nonce,
             @JsonProperty("message") JsonNullable<String> message,
-            @JsonProperty("attempts") JsonNullable<Long> attempts,
-            @JsonProperty("expire_at") JsonNullable<Long> expireAt) {
+            @JsonProperty("attempts") Optional<Long> attempts,
+            @JsonProperty("expire_at") Optional<Long> expireAt,
+            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(nonce, "nonce");
         Utils.checkNotNull(message, "message");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.status = status;
         this.strategy = strategy;
         this.nonce = nonce;
         this.message = message;
         this.attempts = attempts;
         this.expireAt = expireAt;
+        this.verifiedAtClient = verifiedAtClient;
     }
     
     public Web3Signature(
             Web3SignatureVerificationStatus status,
             Web3SignatureVerificationStrategy strategy) {
-        this(status, strategy, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(status, strategy, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -91,13 +99,18 @@ public class Web3Signature {
     }
 
     @JsonIgnore
-    public JsonNullable<Long> attempts() {
+    public Optional<Long> attempts() {
         return attempts;
     }
 
     @JsonIgnore
-    public JsonNullable<Long> expireAt() {
+    public Optional<Long> expireAt() {
         return expireAt;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> verifiedAtClient() {
+        return verifiedAtClient;
     }
 
     public final static Builder builder() {
@@ -142,11 +155,11 @@ public class Web3Signature {
 
     public Web3Signature withAttempts(long attempts) {
         Utils.checkNotNull(attempts, "attempts");
-        this.attempts = JsonNullable.of(attempts);
+        this.attempts = Optional.ofNullable(attempts);
         return this;
     }
 
-    public Web3Signature withAttempts(JsonNullable<Long> attempts) {
+    public Web3Signature withAttempts(Optional<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
         return this;
@@ -154,13 +167,25 @@ public class Web3Signature {
 
     public Web3Signature withExpireAt(long expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = JsonNullable.of(expireAt);
+        this.expireAt = Optional.ofNullable(expireAt);
         return this;
     }
 
-    public Web3Signature withExpireAt(JsonNullable<Long> expireAt) {
+    public Web3Signature withExpireAt(Optional<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
+        return this;
+    }
+
+    public Web3Signature withVerifiedAtClient(String verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+        return this;
+    }
+
+    public Web3Signature withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = verifiedAtClient;
         return this;
     }
     
@@ -179,7 +204,8 @@ public class Web3Signature {
             Objects.deepEquals(this.nonce, other.nonce) &&
             Objects.deepEquals(this.message, other.message) &&
             Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.expireAt, other.expireAt);
+            Objects.deepEquals(this.expireAt, other.expireAt) &&
+            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
     @Override
@@ -190,7 +216,8 @@ public class Web3Signature {
             nonce,
             message,
             attempts,
-            expireAt);
+            expireAt,
+            verifiedAtClient);
     }
     
     @Override
@@ -201,7 +228,8 @@ public class Web3Signature {
                 "nonce", nonce,
                 "message", message,
                 "attempts", attempts,
-                "expireAt", expireAt);
+                "expireAt", expireAt,
+                "verifiedAtClient", verifiedAtClient);
     }
     
     public final static class Builder {
@@ -214,9 +242,11 @@ public class Web3Signature {
  
         private JsonNullable<String> message = JsonNullable.undefined();
  
-        private JsonNullable<Long> attempts = JsonNullable.undefined();
+        private Optional<Long> attempts = Optional.empty();
  
-        private JsonNullable<Long> expireAt = JsonNullable.undefined();  
+        private Optional<Long> expireAt = Optional.empty();
+ 
+        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -260,11 +290,11 @@ public class Web3Signature {
 
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
-            this.attempts = JsonNullable.of(attempts);
+            this.attempts = Optional.ofNullable(attempts);
             return this;
         }
 
-        public Builder attempts(JsonNullable<Long> attempts) {
+        public Builder attempts(Optional<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
             return this;
@@ -272,13 +302,25 @@ public class Web3Signature {
 
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = JsonNullable.of(expireAt);
+            this.expireAt = Optional.ofNullable(expireAt);
             return this;
         }
 
-        public Builder expireAt(JsonNullable<Long> expireAt) {
+        public Builder expireAt(Optional<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
+            return this;
+        }
+
+        public Builder verifiedAtClient(String verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+            return this;
+        }
+
+        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = verifiedAtClient;
             return this;
         }
         
@@ -289,7 +331,8 @@ public class Web3Signature {
                 nonce,
                 message,
                 attempts,
-                expireAt);
+                expireAt,
+                verifiedAtClient);
         }
     }
 }

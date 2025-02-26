@@ -65,12 +65,29 @@ public class ProxyChecks implements
      * 
      * The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on
      * a different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public VerifyDomainProxyResponse verifyDirect() throws Exception {
+        return verify(Optional.empty());
+    }
+    
+    /**
+     * Verify the proxy configuration for your domain
+     * This endpoint can be used to validate that a proxy-enabled domain is operational.
+     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can reach the Clerk Frontend API.
+     * 
+     * You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that switching to proxy-based
+     * configuration will not lead to downtime for your instance.
+     * 
+     * The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on
+     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public VerifyDomainProxyResponse verify(
-            VerifyDomainProxyRequestBody request) throws Exception {
+            Optional<? extends VerifyDomainProxyRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -80,15 +97,12 @@ public class ProxyChecks implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<VerifyDomainProxyRequestBody>() {});
+                new TypeReference<Optional<? extends VerifyDomainProxyRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -179,7 +193,15 @@ public class ProxyChecks implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

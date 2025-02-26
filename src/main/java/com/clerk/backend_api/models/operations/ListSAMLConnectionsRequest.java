@@ -14,6 +14,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -35,18 +37,33 @@ public class ListSAMLConnectionsRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=offset")
     private Optional<Long> offset;
 
+    /**
+     * Returns SAML connections that have an associated organization ID to the
+     * given organizations.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
+    private Optional<? extends List<String>> organizationId;
+
     @JsonCreator
     public ListSAMLConnectionsRequest(
             Optional<Long> limit,
-            Optional<Long> offset) {
+            Optional<Long> offset,
+            Optional<? extends List<String>> organizationId) {
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
+        Utils.checkNotNull(organizationId, "organizationId");
         this.limit = limit;
         this.offset = offset;
+        this.organizationId = organizationId;
     }
     
     public ListSAMLConnectionsRequest() {
-        this(Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -66,6 +83,21 @@ public class ListSAMLConnectionsRequest {
     @JsonIgnore
     public Optional<Long> offset() {
         return offset;
+    }
+
+    /**
+     * Returns SAML connections that have an associated organization ID to the
+     * given organizations.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> organizationId() {
+        return (Optional<List<String>>) organizationId;
     }
 
     public final static Builder builder() {
@@ -113,6 +145,36 @@ public class ListSAMLConnectionsRequest {
         this.offset = offset;
         return this;
     }
+
+    /**
+     * Returns SAML connections that have an associated organization ID to the
+     * given organizations.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     */
+    public ListSAMLConnectionsRequest withOrganizationId(List<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = Optional.ofNullable(organizationId);
+        return this;
+    }
+
+    /**
+     * Returns SAML connections that have an associated organization ID to the
+     * given organizations.
+     * For each organization id, the `+` and `-` can be
+     * prepended to the id, which denote whether the
+     * respective organization should be included or
+     * excluded from the result set.
+     * Accepts up to 100 organization ids.
+     */
+    public ListSAMLConnectionsRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -125,28 +187,33 @@ public class ListSAMLConnectionsRequest {
         ListSAMLConnectionsRequest other = (ListSAMLConnectionsRequest) o;
         return 
             Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Objects.deepEquals(this.offset, other.offset) &&
+            Objects.deepEquals(this.organizationId, other.organizationId);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             limit,
-            offset);
+            offset,
+            organizationId);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ListSAMLConnectionsRequest.class,
                 "limit", limit,
-                "offset", offset);
+                "offset", offset,
+                "organizationId", organizationId);
     }
     
     public final static class Builder {
  
         private Optional<Long> limit;
  
-        private Optional<Long> offset;  
+        private Optional<Long> offset;
+ 
+        private Optional<? extends List<String>> organizationId = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -193,6 +260,36 @@ public class ListSAMLConnectionsRequest {
             this.offset = offset;
             return this;
         }
+
+        /**
+         * Returns SAML connections that have an associated organization ID to the
+         * given organizations.
+         * For each organization id, the `+` and `-` can be
+         * prepended to the id, which denote whether the
+         * respective organization should be included or
+         * excluded from the result set.
+         * Accepts up to 100 organization ids.
+         */
+        public Builder organizationId(List<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = Optional.ofNullable(organizationId);
+            return this;
+        }
+
+        /**
+         * Returns SAML connections that have an associated organization ID to the
+         * given organizations.
+         * For each organization id, the `+` and `-` can be
+         * prepended to the id, which denote whether the
+         * respective organization should be included or
+         * excluded from the result set.
+         * Accepts up to 100 organization ids.
+         */
+        public Builder organizationId(Optional<? extends List<String>> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
         
         public ListSAMLConnectionsRequest build() {
             if (limit == null) {
@@ -202,7 +299,8 @@ public class ListSAMLConnectionsRequest {
                 offset = _SINGLETON_VALUE_Offset.value();
             }            return new ListSAMLConnectionsRequest(
                 limit,
-                offset);
+                offset,
+                organizationId);
         }
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

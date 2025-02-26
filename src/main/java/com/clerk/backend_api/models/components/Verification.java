@@ -39,9 +39,9 @@ public class Verification {
         return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Admin>(){}));
     }
 
-    public static Verification of(Oauth value) {
+    public static Verification of(FromOAuth value) {
         Utils.checkNotNull(value, "value");
-        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Oauth>(){}));
+        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<FromOAuth>(){}));
     }
     
     /**
@@ -49,7 +49,7 @@ public class Verification {
      * <ul>
      * <li>{@code com.clerk.backend_api.models.components.Otp}</li>
      * <li>{@code com.clerk.backend_api.models.components.Admin}</li>
-     * <li>{@code com.clerk.backend_api.models.components.Oauth}</li>
+     * <li>{@code com.clerk.backend_api.models.components.FromOAuth}</li>
      * </ul>
      * 
      * <p>Use {@code instanceof} to determine what type is returned. For example:
@@ -89,7 +89,7 @@ public class Verification {
 
         public _Deserializer() {
             super(Verification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<Oauth>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<FromOAuth>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<Admin>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<Otp>() {}, JsonShape.DEFAULT));
         }

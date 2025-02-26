@@ -13,10 +13,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateOAuthApplicationRequestBody {
@@ -26,52 +31,85 @@ public class UpdateOAuthApplicationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<String> name;
+    private JsonNullable<String> name;
+
+    /**
+     * An array of redirect URIs of the new OAuth application
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("redirect_uris")
+    private JsonNullable<? extends List<String>> redirectUris;
 
     /**
      * The new callback URL of the OAuth application
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("callback_url")
-    private Optional<String> callbackUrl;
+    @Deprecated
+    private JsonNullable<String> callbackUrl;
 
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
-    private Optional<String> scopes;
+    private JsonNullable<String> scopes;
+
+    /**
+     * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("public")
+    private Optional<Boolean> public_;
 
     @JsonCreator
     public UpdateOAuthApplicationRequestBody(
-            @JsonProperty("name") Optional<String> name,
-            @JsonProperty("callback_url") Optional<String> callbackUrl,
-            @JsonProperty("scopes") Optional<String> scopes) {
+            @JsonProperty("name") JsonNullable<String> name,
+            @JsonProperty("redirect_uris") JsonNullable<? extends List<String>> redirectUris,
+            @JsonProperty("callback_url") JsonNullable<String> callbackUrl,
+            @JsonProperty("scopes") JsonNullable<String> scopes,
+            @JsonProperty("public") Optional<Boolean> public_) {
         Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(redirectUris, "redirectUris");
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         Utils.checkNotNull(scopes, "scopes");
+        Utils.checkNotNull(public_, "public_");
         this.name = name;
+        this.redirectUris = redirectUris;
         this.callbackUrl = callbackUrl;
         this.scopes = scopes;
+        this.public_ = public_;
     }
     
     public UpdateOAuthApplicationRequestBody() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     /**
      * The new name of the OAuth application
      */
     @JsonIgnore
-    public Optional<String> name() {
+    public JsonNullable<String> name() {
         return name;
     }
 
     /**
-     * The new callback URL of the OAuth application
+     * An array of redirect URIs of the new OAuth application
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<String> callbackUrl() {
+    public JsonNullable<List<String>> redirectUris() {
+        return (JsonNullable<List<String>>) redirectUris;
+    }
+
+    /**
+     * The new callback URL of the OAuth application
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    @JsonIgnore
+    public JsonNullable<String> callbackUrl() {
         return callbackUrl;
     }
 
@@ -79,8 +117,16 @@ public class UpdateOAuthApplicationRequestBody {
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
     @JsonIgnore
-    public Optional<String> scopes() {
+    public JsonNullable<String> scopes() {
         return scopes;
+    }
+
+    /**
+     * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+     */
+    @JsonIgnore
+    public Optional<Boolean> public_() {
+        return public_;
     }
 
     public final static Builder builder() {
@@ -92,32 +138,54 @@ public class UpdateOAuthApplicationRequestBody {
      */
     public UpdateOAuthApplicationRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
-        this.name = Optional.ofNullable(name);
+        this.name = JsonNullable.of(name);
         return this;
     }
 
     /**
      * The new name of the OAuth application
      */
-    public UpdateOAuthApplicationRequestBody withName(Optional<String> name) {
+    public UpdateOAuthApplicationRequestBody withName(JsonNullable<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
     }
 
     /**
-     * The new callback URL of the OAuth application
+     * An array of redirect URIs of the new OAuth application
      */
-    public UpdateOAuthApplicationRequestBody withCallbackUrl(String callbackUrl) {
-        Utils.checkNotNull(callbackUrl, "callbackUrl");
-        this.callbackUrl = Optional.ofNullable(callbackUrl);
+    public UpdateOAuthApplicationRequestBody withRedirectUris(List<String> redirectUris) {
+        Utils.checkNotNull(redirectUris, "redirectUris");
+        this.redirectUris = JsonNullable.of(redirectUris);
+        return this;
+    }
+
+    /**
+     * An array of redirect URIs of the new OAuth application
+     */
+    public UpdateOAuthApplicationRequestBody withRedirectUris(JsonNullable<? extends List<String>> redirectUris) {
+        Utils.checkNotNull(redirectUris, "redirectUris");
+        this.redirectUris = redirectUris;
         return this;
     }
 
     /**
      * The new callback URL of the OAuth application
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
-    public UpdateOAuthApplicationRequestBody withCallbackUrl(Optional<String> callbackUrl) {
+    @Deprecated
+    public UpdateOAuthApplicationRequestBody withCallbackUrl(String callbackUrl) {
+        Utils.checkNotNull(callbackUrl, "callbackUrl");
+        this.callbackUrl = JsonNullable.of(callbackUrl);
+        return this;
+    }
+
+    /**
+     * The new callback URL of the OAuth application
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public UpdateOAuthApplicationRequestBody withCallbackUrl(JsonNullable<String> callbackUrl) {
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         this.callbackUrl = callbackUrl;
         return this;
@@ -128,16 +196,34 @@ public class UpdateOAuthApplicationRequestBody {
      */
     public UpdateOAuthApplicationRequestBody withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
-        this.scopes = Optional.ofNullable(scopes);
+        this.scopes = JsonNullable.of(scopes);
         return this;
     }
 
     /**
      * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
      */
-    public UpdateOAuthApplicationRequestBody withScopes(Optional<String> scopes) {
+    public UpdateOAuthApplicationRequestBody withScopes(JsonNullable<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
+        return this;
+    }
+
+    /**
+     * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+     */
+    public UpdateOAuthApplicationRequestBody withPublic(boolean public_) {
+        Utils.checkNotNull(public_, "public_");
+        this.public_ = Optional.ofNullable(public_);
+        return this;
+    }
+
+    /**
+     * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+     */
+    public UpdateOAuthApplicationRequestBody withPublic(Optional<Boolean> public_) {
+        Utils.checkNotNull(public_, "public_");
+        this.public_ = public_;
         return this;
     }
     
@@ -152,33 +238,44 @@ public class UpdateOAuthApplicationRequestBody {
         UpdateOAuthApplicationRequestBody other = (UpdateOAuthApplicationRequestBody) o;
         return 
             Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.redirectUris, other.redirectUris) &&
             Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            Objects.deepEquals(this.scopes, other.scopes);
+            Objects.deepEquals(this.scopes, other.scopes) &&
+            Objects.deepEquals(this.public_, other.public_);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             name,
+            redirectUris,
             callbackUrl,
-            scopes);
+            scopes,
+            public_);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateOAuthApplicationRequestBody.class,
                 "name", name,
+                "redirectUris", redirectUris,
                 "callbackUrl", callbackUrl,
-                "scopes", scopes);
+                "scopes", scopes,
+                "public_", public_);
     }
     
     public final static class Builder {
  
-        private Optional<String> name = Optional.empty();
+        private JsonNullable<String> name = JsonNullable.undefined();
  
-        private Optional<String> callbackUrl = Optional.empty();
+        private JsonNullable<? extends List<String>> redirectUris = JsonNullable.undefined();
  
-        private Optional<String> scopes;  
+        @Deprecated
+        private JsonNullable<String> callbackUrl = JsonNullable.undefined();
+ 
+        private JsonNullable<String> scopes;
+ 
+        private Optional<Boolean> public_ = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -189,32 +286,54 @@ public class UpdateOAuthApplicationRequestBody {
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
-            this.name = Optional.ofNullable(name);
+            this.name = JsonNullable.of(name);
             return this;
         }
 
         /**
          * The new name of the OAuth application
          */
-        public Builder name(Optional<String> name) {
+        public Builder name(JsonNullable<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
 
         /**
-         * The new callback URL of the OAuth application
+         * An array of redirect URIs of the new OAuth application
          */
-        public Builder callbackUrl(String callbackUrl) {
-            Utils.checkNotNull(callbackUrl, "callbackUrl");
-            this.callbackUrl = Optional.ofNullable(callbackUrl);
+        public Builder redirectUris(List<String> redirectUris) {
+            Utils.checkNotNull(redirectUris, "redirectUris");
+            this.redirectUris = JsonNullable.of(redirectUris);
+            return this;
+        }
+
+        /**
+         * An array of redirect URIs of the new OAuth application
+         */
+        public Builder redirectUris(JsonNullable<? extends List<String>> redirectUris) {
+            Utils.checkNotNull(redirectUris, "redirectUris");
+            this.redirectUris = redirectUris;
             return this;
         }
 
         /**
          * The new callback URL of the OAuth application
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
-        public Builder callbackUrl(Optional<String> callbackUrl) {
+        @Deprecated
+        public Builder callbackUrl(String callbackUrl) {
+            Utils.checkNotNull(callbackUrl, "callbackUrl");
+            this.callbackUrl = JsonNullable.of(callbackUrl);
+            return this;
+        }
+
+        /**
+         * The new callback URL of the OAuth application
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
+        public Builder callbackUrl(JsonNullable<String> callbackUrl) {
             Utils.checkNotNull(callbackUrl, "callbackUrl");
             this.callbackUrl = callbackUrl;
             return this;
@@ -225,16 +344,34 @@ public class UpdateOAuthApplicationRequestBody {
          */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
-            this.scopes = Optional.ofNullable(scopes);
+            this.scopes = JsonNullable.of(scopes);
             return this;
         }
 
         /**
          * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
          */
-        public Builder scopes(Optional<String> scopes) {
+        public Builder scopes(JsonNullable<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
+            return this;
+        }
+
+        /**
+         * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+         */
+        public Builder public_(boolean public_) {
+            Utils.checkNotNull(public_, "public_");
+            this.public_ = Optional.ofNullable(public_);
+            return this;
+        }
+
+        /**
+         * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
+         */
+        public Builder public_(Optional<Boolean> public_) {
+            Utils.checkNotNull(public_, "public_");
+            this.public_ = public_;
             return this;
         }
         
@@ -243,15 +380,17 @@ public class UpdateOAuthApplicationRequestBody {
                 scopes = _SINGLETON_VALUE_Scopes.value();
             }            return new UpdateOAuthApplicationRequestBody(
                 name,
+                redirectUris,
                 callbackUrl,
-                scopes);
+                scopes,
+                public_);
         }
 
-        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Scopes =
+        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_Scopes =
                 new LazySingletonValue<>(
                         "scopes",
                         "\"profile email\"",
-                        new TypeReference<Optional<String>>() {});
+                        new TypeReference<JsonNullable<String>>() {});
     }
 }
 

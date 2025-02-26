@@ -35,7 +35,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -69,7 +69,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 404, 422, 500        | application/json          |
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## create
@@ -127,10 +128,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization for which to send the invitation                                                   |
-| `requestBody`                                                                                                 | [CreateOrganizationInvitationRequestBody](../../models/operations/CreateOrganizationInvitationRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
+| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `organizationId`                                                                                                         | *String*                                                                                                                 | :heavy_check_mark:                                                                                                       | The ID of the organization for which to send the invitation                                                              |
+| `requestBody`                                                                                                            | [Optional\<CreateOrganizationInvitationRequestBody>](../../models/operations/CreateOrganizationInvitationRequestBody.md) | :heavy_minus_sign:                                                                                                       | N/A                                                                                                                      |
 
 ### Response
 
@@ -229,7 +230,6 @@ package hello.world;
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse;
-import com.clerk.backend_api.models.operations.RequestBody;
 import java.lang.Exception;
 import java.util.List;
 
@@ -244,10 +244,7 @@ public class Application {
         CreateOrganizationInvitationBulkResponse res = sdk.organizationInvitations().bulkCreate()
                 .organizationId("<id>")
                 .requestBody(List.of(
-                    RequestBody.builder()
-                        .emailAddress("Queen25@gmail.com")
-                        .role("<value>")
-                        .build()))
+                ))
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -259,10 +256,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `organizationId`                                             | *String*                                                     | :heavy_check_mark:                                           | The organization ID.                                         |
-| `requestBody`                                                | List\<[RequestBody](../../models/operations/RequestBody.md)> | :heavy_check_mark:                                           | N/A                                                          |
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                                             | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The organization ID.                                                                                                         |
+| `requestBody`                                                                                                                | List\<[CreateOrganizationInvitationBulkRequestBody](../../models/operations/CreateOrganizationInvitationBulkRequestBody.md)> | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
 
 ### Response
 

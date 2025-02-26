@@ -79,7 +79,7 @@ public class SamlConnections implements
      * @throws Exception if the API call fails
      */
     public ListSAMLConnectionsResponse listDirect() throws Exception {
-        return list(Optional.empty(), Optional.empty());
+        return list(Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -92,17 +92,26 @@ public class SamlConnections implements
      * @param offset Skip the first `offset` results when paginating.
     Needs to be an integer greater or equal to zero.
     To be used in conjunction with `limit`.
+     * @param organizationId Returns SAML connections that have an associated organization ID to the
+    given organizations.
+    For each organization id, the `+` and `-` can be
+    prepended to the id, which denote whether the
+    respective organization should be included or
+    excluded from the result set.
+    Accepts up to 100 organization ids.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ListSAMLConnectionsResponse list(
             Optional<Long> limit,
-            Optional<Long> offset) throws Exception {
+            Optional<Long> offset,
+            Optional<? extends List<String>> organizationId) throws Exception {
         ListSAMLConnectionsRequest request =
             ListSAMLConnectionsRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
+                .organizationId(organizationId)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
@@ -205,7 +214,15 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -234,12 +251,22 @@ public class SamlConnections implements
     /**
      * Create a SAML Connection
      * Create a new SAML Connection.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSAMLConnectionResponse createDirect() throws Exception {
+        return create(Optional.empty());
+    }
+    
+    /**
+     * Create a SAML Connection
+     * Create a new SAML Connection.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public CreateSAMLConnectionResponse create(
-            CreateSAMLConnectionRequestBody request) throws Exception {
+            Optional<? extends CreateSAMLConnectionRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -249,15 +276,12 @@ public class SamlConnections implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<CreateSAMLConnectionRequestBody>() {});
+                new TypeReference<Optional<? extends CreateSAMLConnectionRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -278,7 +302,7 @@ public class SamlConnections implements
         HttpResponse<InputStream> _httpRes;
         try {
             _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422", "4XX", "5XX")) {
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
@@ -334,7 +358,7 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "422")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "403", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -348,7 +372,15 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -486,7 +518,15 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -640,7 +680,15 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -778,7 +826,15 @@ public class SamlConnections implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

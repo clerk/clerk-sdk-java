@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class UpdateSignUpRequest {
@@ -23,16 +25,21 @@ public class UpdateSignUpRequest {
     private String id;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private UpdateSignUpRequestBody requestBody;
+    private Optional<? extends UpdateSignUpRequestBody> requestBody;
 
     @JsonCreator
     public UpdateSignUpRequest(
             String id,
-            UpdateSignUpRequestBody requestBody) {
+            Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(requestBody, "requestBody");
         this.id = id;
         this.requestBody = requestBody;
+    }
+    
+    public UpdateSignUpRequest(
+            String id) {
+        this(id, Optional.empty());
     }
 
     /**
@@ -43,9 +50,10 @@ public class UpdateSignUpRequest {
         return id;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public UpdateSignUpRequestBody requestBody() {
-        return requestBody;
+    public Optional<UpdateSignUpRequestBody> requestBody() {
+        return (Optional<UpdateSignUpRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -62,6 +70,12 @@ public class UpdateSignUpRequest {
     }
 
     public UpdateSignUpRequest withRequestBody(UpdateSignUpRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public UpdateSignUpRequest withRequestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -99,7 +113,7 @@ public class UpdateSignUpRequest {
  
         private String id;
  
-        private UpdateSignUpRequestBody requestBody;  
+        private Optional<? extends UpdateSignUpRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -115,6 +129,12 @@ public class UpdateSignUpRequest {
         }
 
         public Builder requestBody(UpdateSignUpRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

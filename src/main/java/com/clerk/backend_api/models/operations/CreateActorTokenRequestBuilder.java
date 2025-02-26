@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateActorTokenRequestBuilder {
 
-    private CreateActorTokenRequestBody request;
+    private Optional<? extends CreateActorTokenRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateActorToken sdk;
 
     public CreateActorTokenRequestBuilder(SDKMethodInterfaces.MethodCallCreateActorToken sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateActorTokenRequestBuilder request(CreateActorTokenRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateActorTokenRequestBuilder request(Optional<? extends CreateActorTokenRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

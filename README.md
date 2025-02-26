@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:1.5.0'
+implementation 'com.clerk:backend-api:1.6.0'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
@@ -240,6 +240,7 @@ If the request is correctly authenticated, the token's claims are made available
 
 ### [instanceSettings()](docs/sdks/instancesettings/README.md)
 
+* [getInstance](docs/sdks/instancesettings/README.md#getinstance) - Fetch the current instance
 * [update](docs/sdks/instancesettings/README.md#update) - Update instance settings
 * [updateRestrictions](docs/sdks/instancesettings/README.md#updaterestrictions) - Update instance restrictions
 * [updateOrganizationSettings](docs/sdks/instancesettings/README.md#updateorganizationsettings) - Update instance organization settings
@@ -248,6 +249,7 @@ If the request is correctly authenticated, the token's claims are made available
 
 * [create](docs/sdks/invitations/README.md#create) - Create an invitation
 * [list](docs/sdks/invitations/README.md#list) - List all invitations
+* [createBulkInvitations](docs/sdks/invitations/README.md#createbulkinvitations) - Create multiple invitations
 * [revoke](docs/sdks/invitations/README.md#revoke) - Revokes an invitation
 
 ### [jwks()](docs/sdks/jwks/README.md)
@@ -347,9 +349,11 @@ If the request is correctly authenticated, the token's claims are made available
 ### [sessions()](docs/sdks/sessions/README.md)
 
 * [list](docs/sdks/sessions/README.md#list) - List all sessions
+* [createSession](docs/sdks/sessions/README.md#createsession) - Create a new active session
 * [get](docs/sdks/sessions/README.md#get) - Retrieve a session
 * [revoke](docs/sdks/sessions/README.md#revoke) - Revoke a session
 * [~~verify~~](docs/sdks/sessions/README.md#verify) - Verify a session :warning: **Deprecated**
+* [createSessionToken](docs/sdks/sessions/README.md#createsessiontoken) - Create a session token
 * [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a jwt template
 
 ### [signInTokens()](docs/sdks/signintokens/README.md)
@@ -393,9 +397,13 @@ If the request is correctly authenticated, the token's claims are made available
 * [deleteBackupCodes](docs/sdks/users/README.md#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](docs/sdks/users/README.md#deletepasskey) - Delete a user passkey
 * [deleteWeb3Wallet](docs/sdks/users/README.md#deleteweb3wallet) - Delete a user web3 wallet
-* [createTOTP](docs/sdks/users/README.md#createtotp) - Create a TOTP for a user
 * [deleteTotp](docs/sdks/users/README.md#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](docs/sdks/users/README.md#deleteexternalaccount) - Delete External Account
+
+### [waitlistEntries()](docs/sdks/waitlistentries/README.md)
+
+* [listWaitlistEntries](docs/sdks/waitlistentries/README.md#listwaitlistentries) - List all waitlist entries
+* [createWaitlistEntry](docs/sdks/waitlistentries/README.md#createwaitlistentry) - Create a waitlist entry
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
@@ -457,7 +465,7 @@ public class Application {
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
+The default server can be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 

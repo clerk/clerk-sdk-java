@@ -39,9 +39,13 @@ public class Saml {
     @JsonProperty("expire_at")
     private long expireAt;
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("attempts")
-    private JsonNullable<Long> attempts;
+    private Optional<Long> attempts;
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("verified_at_client")
+    private JsonNullable<String> verifiedAtClient;
 
     @JsonCreator
     public Saml(
@@ -50,26 +54,29 @@ public class Saml {
             @JsonProperty("external_verification_redirect_url") Optional<String> externalVerificationRedirectUrl,
             @JsonProperty("error") JsonNullable<? extends VerificationError> error,
             @JsonProperty("expire_at") long expireAt,
-            @JsonProperty("attempts") JsonNullable<Long> attempts) {
+            @JsonProperty("attempts") Optional<Long> attempts,
+            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
         Utils.checkNotNull(error, "error");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(attempts, "attempts");
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.status = status;
         this.strategy = strategy;
         this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
         this.error = error;
         this.expireAt = expireAt;
         this.attempts = attempts;
+        this.verifiedAtClient = verifiedAtClient;
     }
     
     public Saml(
             SAMLVerificationStatus status,
             SAMLVerificationStrategy strategy,
             long expireAt) {
-        this(status, strategy, Optional.empty(), JsonNullable.undefined(), expireAt, JsonNullable.undefined());
+        this(status, strategy, Optional.empty(), JsonNullable.undefined(), expireAt, Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -99,8 +106,13 @@ public class Saml {
     }
 
     @JsonIgnore
-    public JsonNullable<Long> attempts() {
+    public Optional<Long> attempts() {
         return attempts;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> verifiedAtClient() {
+        return verifiedAtClient;
     }
 
     public final static Builder builder() {
@@ -151,13 +163,25 @@ public class Saml {
 
     public Saml withAttempts(long attempts) {
         Utils.checkNotNull(attempts, "attempts");
-        this.attempts = JsonNullable.of(attempts);
+        this.attempts = Optional.ofNullable(attempts);
         return this;
     }
 
-    public Saml withAttempts(JsonNullable<Long> attempts) {
+    public Saml withAttempts(Optional<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
+        return this;
+    }
+
+    public Saml withVerifiedAtClient(String verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+        return this;
+    }
+
+    public Saml withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.verifiedAtClient = verifiedAtClient;
         return this;
     }
     
@@ -176,7 +200,8 @@ public class Saml {
             Objects.deepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
             Objects.deepEquals(this.error, other.error) &&
             Objects.deepEquals(this.expireAt, other.expireAt) &&
-            Objects.deepEquals(this.attempts, other.attempts);
+            Objects.deepEquals(this.attempts, other.attempts) &&
+            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
     @Override
@@ -187,7 +212,8 @@ public class Saml {
             externalVerificationRedirectUrl,
             error,
             expireAt,
-            attempts);
+            attempts,
+            verifiedAtClient);
     }
     
     @Override
@@ -198,7 +224,8 @@ public class Saml {
                 "externalVerificationRedirectUrl", externalVerificationRedirectUrl,
                 "error", error,
                 "expireAt", expireAt,
-                "attempts", attempts);
+                "attempts", attempts,
+                "verifiedAtClient", verifiedAtClient);
     }
     
     public final static class Builder {
@@ -213,7 +240,9 @@ public class Saml {
  
         private Long expireAt;
  
-        private JsonNullable<Long> attempts = JsonNullable.undefined();  
+        private Optional<Long> attempts = Optional.empty();
+ 
+        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -263,13 +292,25 @@ public class Saml {
 
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
-            this.attempts = JsonNullable.of(attempts);
+            this.attempts = Optional.ofNullable(attempts);
             return this;
         }
 
-        public Builder attempts(JsonNullable<Long> attempts) {
+        public Builder attempts(Optional<Long> attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = attempts;
+            return this;
+        }
+
+        public Builder verifiedAtClient(String verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+            return this;
+        }
+
+        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
+            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+            this.verifiedAtClient = verifiedAtClient;
             return this;
         }
         
@@ -280,7 +321,8 @@ public class Saml {
                 externalVerificationRedirectUrl,
                 error,
                 expireAt,
-                attempts);
+                attempts,
+                verifiedAtClient);
         }
     }
 }

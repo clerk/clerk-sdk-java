@@ -30,7 +30,6 @@ The user object represents a user that has successfully signed up to your applic
 * [deleteBackupCodes](#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](#deletepasskey) - Delete a user passkey
 * [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
-* [createTOTP](#createtotp) - Create a TOTP for a user
 * [deleteTotp](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
 
@@ -59,7 +58,11 @@ public class Application {
             .build();
 
         GetUserListRequest req = GetUserListRequest.builder()
+                .lastActiveAtBefore(1700690400000L)
+                .lastActiveAtAfter(1700690400000L)
                 .lastActiveAtSince(1700690400000L)
+                .createdAtBefore(1730160000000L)
+                .createdAtAfter(1730160000000L)
                 .build();
 
         GetUserListResponse res = sdk.users().list()
@@ -719,10 +722,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `userId`                                                                                  | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the user whose metadata will be updated and merged                              |
-| `requestBody`                                                                             | [UpdateUserMetadataRequestBody](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                             | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the user whose metadata will be updated and merged                                         |
+| `requestBody`                                                                                        | [Optional\<UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
 
 ### Response
 
@@ -785,7 +788,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## getOrganizationMemberships
@@ -939,10 +942,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `userId`                                                                          | *String*                                                                          | :heavy_check_mark:                                                                | The ID of the user for whom to verify the password                                |
-| `requestBody`                                                                     | [VerifyPasswordRequestBody](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_check_mark:                                                                | N/A                                                                               |
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `userId`                                                                                     | *String*                                                                                     | :heavy_check_mark:                                                                           | The ID of the user for whom to verify the password                                           |
+| `requestBody`                                                                                | [Optional\<VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 
 ### Response
 
@@ -997,10 +1000,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `userId`                                                                  | *String*                                                                  | :heavy_check_mark:                                                        | The ID of the user for whom to verify the TOTP                            |
-| `requestBody`                                                             | [VerifyTOTPRequestBody](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_check_mark:                                                        | N/A                                                                       |
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `userId`                                                                             | *String*                                                                             | :heavy_check_mark:                                                                   | The ID of the user for whom to verify the TOTP                                       |
+| `requestBody`                                                                        | [Optional\<VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                   | N/A                                                                                  |
 
 ### Response
 
@@ -1029,7 +1032,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1060,7 +1063,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteBackupCodes
@@ -1079,7 +1083,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1110,7 +1114,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deletePasskey
@@ -1129,7 +1134,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1162,7 +1167,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403, 404, 500             | application/json          |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteWeb3Wallet
@@ -1181,7 +1187,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1214,58 +1220,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 500        | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
-
-## createTOTP
-
-Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
-
-
-### Example Usage
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateUserTOTPResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ClerkErrors, Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-            .build();
-
-        CreateUserTOTPResponse res = sdk.users().createTOTP()
-                .userId("<id>")
-                .call();
-
-        if (res.totp().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                              | Type                                                   | Required                                               | Description                                            |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `userId`                                               | *String*                                               | :heavy_check_mark:                                     | The ID of the user for whom the TOTP is being created. |
-
-### Response
-
-**[CreateUserTOTPResponse](../../models/operations/CreateUserTOTPResponse.md)**
-
-### Errors
-
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403, 404, 500             | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteTotp
@@ -1284,7 +1240,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1315,7 +1271,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteExternalAccount
@@ -1334,7 +1291,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1367,5 +1324,6 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 500        | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

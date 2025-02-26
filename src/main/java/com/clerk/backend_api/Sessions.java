@@ -7,10 +7,19 @@ package com.clerk.backend_api;
 import com.clerk.backend_api.models.components.Session;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.CreateSessionRequestBody;
+import com.clerk.backend_api.models.operations.CreateSessionRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateSessionResponse;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequest;
+import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponseBody;
+import com.clerk.backend_api.models.operations.CreateSessionTokenRequest;
+import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBody;
+import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateSessionTokenResponse;
+import com.clerk.backend_api.models.operations.CreateSessionTokenResponseBody;
 import com.clerk.backend_api.models.operations.GetSessionListRequest;
 import com.clerk.backend_api.models.operations.GetSessionListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetSessionListResponse;
@@ -52,9 +61,11 @@ import java.util.Optional;
  */
 public class Sessions implements
             MethodCallGetSessionList,
+            MethodCallCreateSession,
             MethodCallGetSession,
             MethodCallRevokeSession,
             MethodCallVerifySession,
+            MethodCallCreateSessionToken,
             MethodCallCreateSessionTokenFromTemplate {
 
     private final SDKConfiguration sdkConfiguration;
@@ -188,7 +199,182 @@ public class Sessions implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Create a new active session
+     * Create a new active session for the provided user ID.
+     * 
+     * **This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * @return The call builder
+     */
+    public CreateSessionRequestBuilder createSession() {
+        return new CreateSessionRequestBuilder(this);
+    }
+
+    /**
+     * Create a new active session
+     * Create a new active session for the provided user ID.
+     * 
+     * **This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSessionResponse createSessionDirect() throws Exception {
+        return createSession(Optional.empty());
+    }
+    
+    /**
+     * Create a new active session
+     * Create a new active session for the provided user ID.
+     * 
+     * **This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSessionResponse createSession(
+            Optional<? extends CreateSessionRequestBody> request) throws Exception {
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
+                "/sessions");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Optional<? extends CreateSessionRequestBody>>() {});
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
+                _convertedRequest, 
+                "request",
+                "json",
+                false);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "createSession", 
+                      Optional.of(List.of()), 
+                      _hookSecuritySource),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "createSession",
+                            Optional.of(List.of()),
+                            _hookSecuritySource),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "createSession",
+                            Optional.of(List.of()), 
+                            _hookSecuritySource),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "createSession",
+                            Optional.of(List.of()),
+                            _hookSecuritySource), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        CreateSessionResponse.Builder _resBuilder = 
+            CreateSessionResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        CreateSessionResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                Session _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<Session>() {});
+                _res.withSession(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "422")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -326,7 +512,15 @@ public class Sessions implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -466,7 +660,15 @@ public class Sessions implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -644,7 +846,186 @@ public class Sessions implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Create a session token
+     * Creates a session JSON Web Token (JWT) based on a session.
+     * @return The call builder
+     */
+    public CreateSessionTokenRequestBuilder createSessionToken() {
+        return new CreateSessionTokenRequestBuilder(this);
+    }
+
+    /**
+     * Create a session token
+     * Creates a session JSON Web Token (JWT) based on a session.
+     * @param sessionId The ID of the session
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSessionTokenResponse createSessionToken(
+            String sessionId) throws Exception {
+        return createSessionToken(sessionId, Optional.empty());
+    }
+    
+    /**
+     * Create a session token
+     * Creates a session JSON Web Token (JWT) based on a session.
+     * @param sessionId The ID of the session
+     * @param requestBody
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSessionTokenResponse createSessionToken(
+            String sessionId,
+            Optional<? extends CreateSessionTokenRequestBody> requestBody) throws Exception {
+        CreateSessionTokenRequest request =
+            CreateSessionTokenRequest
+                .builder()
+                .sessionId(sessionId)
+                .requestBody(requestBody)
+                .build();
+        
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                CreateSessionTokenRequest.class,
+                _baseUrl,
+                "/sessions/{session_id}/tokens",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "CreateSessionToken", 
+                      Optional.of(List.of()), 
+                      _hookSecuritySource),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "404", "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateSessionToken",
+                            Optional.of(List.of()),
+                            _hookSecuritySource),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "CreateSessionToken",
+                            Optional.of(List.of()), 
+                            _hookSecuritySource),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "CreateSessionToken",
+                            Optional.of(List.of()),
+                            _hookSecuritySource), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        CreateSessionTokenResponse.Builder _resBuilder = 
+            CreateSessionTokenResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        CreateSessionTokenResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                CreateSessionTokenResponseBody _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<CreateSessionTokenResponseBody>() {});
+                _res.withObject(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "404")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ClerkErrors _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ClerkErrors>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -681,11 +1062,28 @@ public class Sessions implements
     public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
             String sessionId,
             String templateName) throws Exception {
+        return createTokenFromTemplate(sessionId, templateName, Optional.empty());
+    }
+    
+    /**
+     * Create a session token from a jwt template
+     * Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
+     * @param sessionId The ID of the session
+     * @param templateName The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * @param requestBody
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
+            String sessionId,
+            String templateName,
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) throws Exception {
         CreateSessionTokenFromTemplateRequest request =
             CreateSessionTokenFromTemplateRequest
                 .builder()
                 .sessionId(sessionId)
                 .templateName(templateName)
+                .requestBody(requestBody)
                 .build();
         
         String _baseUrl = this.sdkConfiguration.serverUrl;
@@ -696,6 +1094,16 @@ public class Sessions implements
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "POST");
+        Object _convertedRequest = Utils.convertToShape(
+                request, 
+                JsonShape.DEFAULT,
+                new TypeReference<Object>() {});
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
+                _convertedRequest, 
+                "requestBody",
+                "json",
+                false);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
@@ -785,7 +1193,15 @@ public class Sessions implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

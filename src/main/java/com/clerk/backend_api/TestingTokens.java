@@ -36,7 +36,7 @@ public class TestingTokens implements
 
     /**
      * Retrieve a new testing token
-     * Retrieve a new testing token. Only available for development instances.
+     * Retrieve a new testing token.
      * @return The call builder
      */
     public CreateTestingTokenRequestBuilder create() {
@@ -45,7 +45,7 @@ public class TestingTokens implements
 
     /**
      * Retrieve a new testing token
-     * Retrieve a new testing token. Only available for development instances.
+     * Retrieve a new testing token.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -75,7 +75,7 @@ public class TestingTokens implements
         HttpResponse<InputStream> _httpRes;
         try {
             _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
@@ -131,7 +131,15 @@ public class TestingTokens implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

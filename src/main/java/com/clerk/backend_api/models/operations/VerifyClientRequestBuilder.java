@@ -5,17 +5,24 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class VerifyClientRequestBuilder {
 
-    private VerifyClientRequestBody request;
+    private Optional<? extends VerifyClientRequestBody> request = Optional.empty();
     private final SDKMethodInterfaces.MethodCallVerifyClient sdk;
 
     public VerifyClientRequestBuilder(SDKMethodInterfaces.MethodCallVerifyClient sdk) {
         this.sdk = sdk;
     }
-
+                
     public VerifyClientRequestBuilder request(VerifyClientRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public VerifyClientRequestBuilder request(Optional<? extends VerifyClientRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;

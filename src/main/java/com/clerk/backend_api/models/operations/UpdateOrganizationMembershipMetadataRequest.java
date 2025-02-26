@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class UpdateOrganizationMembershipMetadataRequest {
@@ -29,19 +31,25 @@ public class UpdateOrganizationMembershipMetadataRequest {
     private String userId;
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private UpdateOrganizationMembershipMetadataRequestBody requestBody;
+    private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody;
 
     @JsonCreator
     public UpdateOrganizationMembershipMetadataRequest(
             String organizationId,
             String userId,
-            UpdateOrganizationMembershipMetadataRequestBody requestBody) {
+            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(requestBody, "requestBody");
         this.organizationId = organizationId;
         this.userId = userId;
         this.requestBody = requestBody;
+    }
+    
+    public UpdateOrganizationMembershipMetadataRequest(
+            String organizationId,
+            String userId) {
+        this(organizationId, userId, Optional.empty());
     }
 
     /**
@@ -60,9 +68,10 @@ public class UpdateOrganizationMembershipMetadataRequest {
         return userId;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public UpdateOrganizationMembershipMetadataRequestBody requestBody() {
-        return requestBody;
+    public Optional<UpdateOrganizationMembershipMetadataRequestBody> requestBody() {
+        return (Optional<UpdateOrganizationMembershipMetadataRequestBody>) requestBody;
     }
 
     public final static Builder builder() {
@@ -88,6 +97,12 @@ public class UpdateOrganizationMembershipMetadataRequest {
     }
 
     public UpdateOrganizationMembershipMetadataRequest withRequestBody(UpdateOrganizationMembershipMetadataRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+    public UpdateOrganizationMembershipMetadataRequest withRequestBody(Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
@@ -130,7 +145,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
  
         private String userId;
  
-        private UpdateOrganizationMembershipMetadataRequestBody requestBody;  
+        private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -155,6 +170,12 @@ public class UpdateOrganizationMembershipMetadataRequest {
         }
 
         public Builder requestBody(UpdateOrganizationMembershipMetadataRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;

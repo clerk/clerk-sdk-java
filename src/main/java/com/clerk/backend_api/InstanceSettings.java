@@ -4,10 +4,13 @@
 
 package com.clerk.backend_api;
 
+import com.clerk.backend_api.models.components.Instance;
 import com.clerk.backend_api.models.components.InstanceRestrictions;
 import com.clerk.backend_api.models.components.OrganizationSettings;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
+import com.clerk.backend_api.models.operations.GetInstanceRequestBuilder;
+import com.clerk.backend_api.models.operations.GetInstanceResponse;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder;
@@ -37,6 +40,7 @@ import java.util.List;
 import java.util.Optional; 
 
 public class InstanceSettings implements
+            MethodCallGetInstance,
             MethodCallUpdateInstance,
             MethodCallUpdateInstanceRestrictions,
             MethodCallUpdateInstanceOrganizationSettings {
@@ -46,6 +50,128 @@ public class InstanceSettings implements
     InstanceSettings(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
+
+    /**
+     * Fetch the current instance
+     * Fetches the current instance
+     * @return The call builder
+     */
+    public GetInstanceRequestBuilder getInstance() {
+        return new GetInstanceRequestBuilder(this);
+    }
+
+    /**
+     * Fetch the current instance
+     * Fetches the current instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetInstanceResponse getInstanceDirect() throws Exception {
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
+                "/instance");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HttpRequest _r = 
+            sdkConfiguration.hooks()
+               .beforeRequest(
+                  new BeforeRequestContextImpl(
+                      "GetInstance", 
+                      Optional.of(List.of()), 
+                      _hookSecuritySource),
+                  _req.build());
+        HttpResponse<InputStream> _httpRes;
+        try {
+            _httpRes = _client.send(_r);
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetInstance",
+                            Optional.of(List.of()),
+                            _hookSecuritySource),
+                        Optional.of(_httpRes),
+                        Optional.empty());
+            } else {
+                _httpRes = sdkConfiguration.hooks()
+                    .afterSuccess(
+                        new AfterSuccessContextImpl(
+                            "GetInstance",
+                            Optional.of(List.of()), 
+                            _hookSecuritySource),
+                         _httpRes);
+            }
+        } catch (Exception _e) {
+            _httpRes = sdkConfiguration.hooks()
+                    .afterError(
+                        new AfterErrorContextImpl(
+                            "GetInstance",
+                            Optional.of(List.of()),
+                            _hookSecuritySource), 
+                        Optional.empty(),
+                        Optional.of(_e));
+        }
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        GetInstanceResponse.Builder _resBuilder = 
+            GetInstanceResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        GetInstanceResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                Instance _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<Instance>() {});
+                _res.withInstance(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
 
 
     /**
@@ -60,12 +186,22 @@ public class InstanceSettings implements
     /**
      * Update instance settings
      * Updates the settings of an instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateInstanceResponse updateDirect() throws Exception {
+        return update(Optional.empty());
+    }
+    
+    /**
+     * Update instance settings
+     * Updates the settings of an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceResponse update(
-            UpdateInstanceRequestBody request) throws Exception {
+            Optional<? extends UpdateInstanceRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -75,15 +211,12 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<UpdateInstanceRequestBody>() {});
+                new TypeReference<Optional<? extends UpdateInstanceRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -163,7 +296,15 @@ public class InstanceSettings implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -192,12 +333,22 @@ public class InstanceSettings implements
     /**
      * Update instance restrictions
      * Updates the restriction settings of an instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() throws Exception {
+        return updateRestrictions(Optional.empty());
+    }
+    
+    /**
+     * Update instance restrictions
+     * Updates the restriction settings of an instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceRestrictionsResponse updateRestrictions(
-            UpdateInstanceRestrictionsRequestBody request) throws Exception {
+            Optional<? extends UpdateInstanceRestrictionsRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -207,15 +358,12 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<UpdateInstanceRestrictionsRequestBody>() {});
+                new TypeReference<Optional<? extends UpdateInstanceRestrictionsRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -306,7 +454,15 @@ public class InstanceSettings implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -335,12 +491,22 @@ public class InstanceSettings implements
     /**
      * Update instance organization settings
      * Updates the organization settings of the instance
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() throws Exception {
+        return updateOrganizationSettings(Optional.empty());
+    }
+    
+    /**
+     * Update instance organization settings
+     * Updates the organization settings of the instance
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            UpdateInstanceOrganizationSettingsRequestBody request) throws Exception {
+            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) throws Exception {
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 _baseUrl,
@@ -350,15 +516,12 @@ public class InstanceSettings implements
         Object _convertedRequest = Utils.convertToShape(
                 request, 
                 JsonShape.DEFAULT,
-                new TypeReference<UpdateInstanceOrganizationSettingsRequestBody>() {});
+                new TypeReference<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>>() {});
         SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, 
                 "request",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -379,7 +542,7 @@ public class InstanceSettings implements
         HttpResponse<InputStream> _httpRes;
         try {
             _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422", "4XX", "5XX")) {
+            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "404", "422", "4XX", "5XX")) {
                 _httpRes = sdkConfiguration.hooks()
                     .afterError(
                         new AfterErrorContextImpl(
@@ -435,7 +598,7 @@ public class InstanceSettings implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "402", "404", "422")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "402", "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -449,7 +612,15 @@ public class InstanceSettings implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

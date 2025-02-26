@@ -13,10 +13,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -154,14 +156,14 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends PublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Metadata saved on the user, that is only visible to your Backend API
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Optional<? extends PrivateMetadata> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
     /**
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
@@ -169,7 +171,7 @@ public class CreateUserRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
-    private Optional<? extends UnsafeMetadata> unsafeMetadata;
+    private Optional<? extends Map<String, Object>> unsafeMetadata;
 
     /**
      * If enabled, user can delete themselves via FAPI.
@@ -233,9 +235,9 @@ public class CreateUserRequestBody {
             @JsonProperty("skip_password_requirement") Optional<Boolean> skipPasswordRequirement,
             @JsonProperty("totp_secret") Optional<String> totpSecret,
             @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
-            @JsonProperty("public_metadata") Optional<? extends PublicMetadata> publicMetadata,
-            @JsonProperty("private_metadata") Optional<? extends PrivateMetadata> privateMetadata,
-            @JsonProperty("unsafe_metadata") Optional<? extends UnsafeMetadata> unsafeMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
+            @JsonProperty("unsafe_metadata") Optional<? extends Map<String, Object>> unsafeMetadata,
             @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
             @JsonProperty("legal_accepted_at") JsonNullable<String> legalAcceptedAt,
             @JsonProperty("skip_legal_checks") JsonNullable<Boolean> skipLegalChecks,
@@ -442,8 +444,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PublicMetadata> publicMetadata() {
-        return (Optional<PublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -451,8 +453,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PrivateMetadata> privateMetadata() {
-        return (Optional<PrivateMetadata>) privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     /**
@@ -461,8 +463,8 @@ public class CreateUserRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UnsafeMetadata> unsafeMetadata() {
-        return (Optional<UnsafeMetadata>) unsafeMetadata;
+    public Optional<Map<String, Object>> unsafeMetadata() {
+        return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
     /**
@@ -830,7 +832,7 @@ public class CreateUserRequestBody {
     /**
      * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
      */
-    public CreateUserRequestBody withPublicMetadata(PublicMetadata publicMetadata) {
+    public CreateUserRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -839,7 +841,7 @@ public class CreateUserRequestBody {
     /**
      * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
      */
-    public CreateUserRequestBody withPublicMetadata(Optional<? extends PublicMetadata> publicMetadata) {
+    public CreateUserRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -848,7 +850,7 @@ public class CreateUserRequestBody {
     /**
      * Metadata saved on the user, that is only visible to your Backend API
      */
-    public CreateUserRequestBody withPrivateMetadata(PrivateMetadata privateMetadata) {
+    public CreateUserRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
@@ -857,7 +859,7 @@ public class CreateUserRequestBody {
     /**
      * Metadata saved on the user, that is only visible to your Backend API
      */
-    public CreateUserRequestBody withPrivateMetadata(Optional<? extends PrivateMetadata> privateMetadata) {
+    public CreateUserRequestBody withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
@@ -867,7 +869,7 @@ public class CreateUserRequestBody {
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
      * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
      */
-    public CreateUserRequestBody withUnsafeMetadata(UnsafeMetadata unsafeMetadata) {
+    public CreateUserRequestBody withUnsafeMetadata(Map<String, Object> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
         return this;
@@ -877,7 +879,7 @@ public class CreateUserRequestBody {
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
      * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
      */
-    public CreateUserRequestBody withUnsafeMetadata(Optional<? extends UnsafeMetadata> unsafeMetadata) {
+    public CreateUserRequestBody withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
         return this;
@@ -1120,11 +1122,11 @@ public class CreateUserRequestBody {
  
         private Optional<? extends List<String>> backupCodes = Optional.empty();
  
-        private Optional<? extends PublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
-        private Optional<? extends PrivateMetadata> privateMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
  
-        private Optional<? extends UnsafeMetadata> unsafeMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
  
         private JsonNullable<Boolean> deleteSelfEnabled = JsonNullable.undefined();
  
@@ -1451,7 +1453,7 @@ public class CreateUserRequestBody {
         /**
          * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
          */
-        public Builder publicMetadata(PublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -1460,7 +1462,7 @@ public class CreateUserRequestBody {
         /**
          * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
          */
-        public Builder publicMetadata(Optional<? extends PublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -1469,7 +1471,7 @@ public class CreateUserRequestBody {
         /**
          * Metadata saved on the user, that is only visible to your Backend API
          */
-        public Builder privateMetadata(PrivateMetadata privateMetadata) {
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = Optional.ofNullable(privateMetadata);
             return this;
@@ -1478,7 +1480,7 @@ public class CreateUserRequestBody {
         /**
          * Metadata saved on the user, that is only visible to your Backend API
          */
-        public Builder privateMetadata(Optional<? extends PrivateMetadata> privateMetadata) {
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
@@ -1488,7 +1490,7 @@ public class CreateUserRequestBody {
          * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
          * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
          */
-        public Builder unsafeMetadata(UnsafeMetadata unsafeMetadata) {
+        public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
             return this;
@@ -1498,7 +1500,7 @@ public class CreateUserRequestBody {
          * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
          * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
          */
-        public Builder unsafeMetadata(Optional<? extends UnsafeMetadata> unsafeMetadata) {
+        public Builder unsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = unsafeMetadata;
             return this;

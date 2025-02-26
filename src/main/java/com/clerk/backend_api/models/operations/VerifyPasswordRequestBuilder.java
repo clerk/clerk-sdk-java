@@ -6,11 +6,12 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class VerifyPasswordRequestBuilder {
 
     private String userId;
-    private VerifyPasswordRequestBody requestBody;
+    private Optional<? extends VerifyPasswordRequestBody> requestBody = Optional.empty();
     private final SDKMethodInterfaces.MethodCallVerifyPassword sdk;
 
     public VerifyPasswordRequestBuilder(SDKMethodInterfaces.MethodCallVerifyPassword sdk) {
@@ -22,8 +23,14 @@ public class VerifyPasswordRequestBuilder {
         this.userId = userId;
         return this;
     }
-
+                
     public VerifyPasswordRequestBuilder requestBody(VerifyPasswordRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public VerifyPasswordRequestBuilder requestBody(Optional<? extends VerifyPasswordRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;

@@ -11,6 +11,8 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -99,12 +101,75 @@ public class GetUserListRequest {
     private Optional<String> query;
 
     /**
-     * Returns users that had session activity since the given date, with day precision.
-     * Providing a value with higher precision than day will result in an error.
+     * Returns users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address_query")
+    private Optional<String> emailAddressQuery;
+
+    /**
+     * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=phone_number_query")
+    private Optional<String> phoneNumberQuery;
+
+    /**
+     * Returns users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=username_query")
+    private Optional<String> usernameQuery;
+
+    /**
+     * Returns users with names that match the given query, via case-insensitive partial match.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=name_query")
+    private Optional<String> nameQuery;
+
+    /**
+     * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=banned")
+    private Optional<Boolean> banned;
+
+    /**
+     * Returns users whose last session activity was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_active_at_before")
+    private Optional<Long> lastActiveAtBefore;
+
+    /**
+     * Returns users whose last session activity was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_active_at_after")
+    private Optional<Long> lastActiveAtAfter;
+
+    /**
+     * Returns users that had session activity since the given date.
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Deprecated in favor of `last_active_at_after`.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_active_at_since")
+    @Deprecated
     private Optional<Long> lastActiveAtSince;
+
+    /**
+     * Returns users who have been created before the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=created_at_before")
+    private Optional<Long> createdAtBefore;
+
+    /**
+     * Returns users who have been created after the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=created_at_after")
+    private Optional<Long> createdAtAfter;
 
     /**
      * Applies a limit to the number of results returned.
@@ -142,7 +207,16 @@ public class GetUserListRequest {
             Optional<? extends List<String>> userId,
             Optional<? extends List<String>> organizationId,
             Optional<String> query,
+            Optional<String> emailAddressQuery,
+            Optional<String> phoneNumberQuery,
+            Optional<String> usernameQuery,
+            Optional<String> nameQuery,
+            Optional<Boolean> banned,
+            Optional<Long> lastActiveAtBefore,
+            Optional<Long> lastActiveAtAfter,
             Optional<Long> lastActiveAtSince,
+            Optional<Long> createdAtBefore,
+            Optional<Long> createdAtAfter,
             Optional<Long> limit,
             Optional<Long> offset,
             Optional<String> orderBy) {
@@ -154,7 +228,16 @@ public class GetUserListRequest {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        Utils.checkNotNull(nameQuery, "nameQuery");
+        Utils.checkNotNull(banned, "banned");
+        Utils.checkNotNull(lastActiveAtBefore, "lastActiveAtBefore");
+        Utils.checkNotNull(lastActiveAtAfter, "lastActiveAtAfter");
         Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
+        Utils.checkNotNull(createdAtBefore, "createdAtBefore");
+        Utils.checkNotNull(createdAtAfter, "createdAtAfter");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(orderBy, "orderBy");
@@ -166,14 +249,23 @@ public class GetUserListRequest {
         this.userId = userId;
         this.organizationId = organizationId;
         this.query = query;
+        this.emailAddressQuery = emailAddressQuery;
+        this.phoneNumberQuery = phoneNumberQuery;
+        this.usernameQuery = usernameQuery;
+        this.nameQuery = nameQuery;
+        this.banned = banned;
+        this.lastActiveAtBefore = lastActiveAtBefore;
+        this.lastActiveAtAfter = lastActiveAtAfter;
         this.lastActiveAtSince = lastActiveAtSince;
+        this.createdAtBefore = createdAtBefore;
+        this.createdAtAfter = createdAtAfter;
         this.limit = limit;
         this.offset = offset;
         this.orderBy = orderBy;
     }
     
     public GetUserListRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -276,13 +368,94 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users that had session activity since the given date, with day precision.
-     * Providing a value with higher precision than day will result in an error.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Returns users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
      */
+    @JsonIgnore
+    public Optional<String> emailAddressQuery() {
+        return emailAddressQuery;
+    }
+
+    /**
+     * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+     */
+    @JsonIgnore
+    public Optional<String> phoneNumberQuery() {
+        return phoneNumberQuery;
+    }
+
+    /**
+     * Returns users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+     */
+    @JsonIgnore
+    public Optional<String> usernameQuery() {
+        return usernameQuery;
+    }
+
+    /**
+     * Returns users with names that match the given query, via case-insensitive partial match.
+     */
+    @JsonIgnore
+    public Optional<String> nameQuery() {
+        return nameQuery;
+    }
+
+    /**
+     * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    @JsonIgnore
+    public Optional<Boolean> banned() {
+        return banned;
+    }
+
+    /**
+     * Returns users whose last session activity was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+     */
+    @JsonIgnore
+    public Optional<Long> lastActiveAtBefore() {
+        return lastActiveAtBefore;
+    }
+
+    /**
+     * Returns users whose last session activity was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+     */
+    @JsonIgnore
+    public Optional<Long> lastActiveAtAfter() {
+        return lastActiveAtAfter;
+    }
+
+    /**
+     * Returns users that had session activity since the given date.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Deprecated in favor of `last_active_at_after`.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @JsonIgnore
     public Optional<Long> lastActiveAtSince() {
         return lastActiveAtSince;
+    }
+
+    /**
+     * Returns users who have been created before the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+     */
+    @JsonIgnore
+    public Optional<Long> createdAtBefore() {
+        return createdAtBefore;
+    }
+
+    /**
+     * Returns users who have been created after the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+     */
+    @JsonIgnore
+    public Optional<Long> createdAtAfter() {
+        return createdAtAfter;
     }
 
     /**
@@ -522,10 +695,148 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users that had session activity since the given date, with day precision.
-     * Providing a value with higher precision than day will result in an error.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Returns users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
      */
+    public GetUserListRequest withEmailAddressQuery(String emailAddressQuery) {
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        this.emailAddressQuery = Optional.ofNullable(emailAddressQuery);
+        return this;
+    }
+
+    /**
+     * Returns users with emails that match the given query, via case-insensitive partial match.
+     * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
+     */
+    public GetUserListRequest withEmailAddressQuery(Optional<String> emailAddressQuery) {
+        Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+        this.emailAddressQuery = emailAddressQuery;
+        return this;
+    }
+
+    /**
+     * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+     */
+    public GetUserListRequest withPhoneNumberQuery(String phoneNumberQuery) {
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        this.phoneNumberQuery = Optional.ofNullable(phoneNumberQuery);
+        return this;
+    }
+
+    /**
+     * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+     * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+     */
+    public GetUserListRequest withPhoneNumberQuery(Optional<String> phoneNumberQuery) {
+        Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+        this.phoneNumberQuery = phoneNumberQuery;
+        return this;
+    }
+
+    /**
+     * Returns users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+     */
+    public GetUserListRequest withUsernameQuery(String usernameQuery) {
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        this.usernameQuery = Optional.ofNullable(usernameQuery);
+        return this;
+    }
+
+    /**
+     * Returns users with usernames that match the given query, via case-insensitive partial match.
+     * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+     */
+    public GetUserListRequest withUsernameQuery(Optional<String> usernameQuery) {
+        Utils.checkNotNull(usernameQuery, "usernameQuery");
+        this.usernameQuery = usernameQuery;
+        return this;
+    }
+
+    /**
+     * Returns users with names that match the given query, via case-insensitive partial match.
+     */
+    public GetUserListRequest withNameQuery(String nameQuery) {
+        Utils.checkNotNull(nameQuery, "nameQuery");
+        this.nameQuery = Optional.ofNullable(nameQuery);
+        return this;
+    }
+
+    /**
+     * Returns users with names that match the given query, via case-insensitive partial match.
+     */
+    public GetUserListRequest withNameQuery(Optional<String> nameQuery) {
+        Utils.checkNotNull(nameQuery, "nameQuery");
+        this.nameQuery = nameQuery;
+        return this;
+    }
+
+    /**
+     * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    public GetUserListRequest withBanned(boolean banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = Optional.ofNullable(banned);
+        return this;
+    }
+
+    /**
+     * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+     */
+    public GetUserListRequest withBanned(Optional<Boolean> banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = banned;
+        return this;
+    }
+
+    /**
+     * Returns users whose last session activity was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+     */
+    public GetUserListRequest withLastActiveAtBefore(long lastActiveAtBefore) {
+        Utils.checkNotNull(lastActiveAtBefore, "lastActiveAtBefore");
+        this.lastActiveAtBefore = Optional.ofNullable(lastActiveAtBefore);
+        return this;
+    }
+
+    /**
+     * Returns users whose last session activity was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+     */
+    public GetUserListRequest withLastActiveAtBefore(Optional<Long> lastActiveAtBefore) {
+        Utils.checkNotNull(lastActiveAtBefore, "lastActiveAtBefore");
+        this.lastActiveAtBefore = lastActiveAtBefore;
+        return this;
+    }
+
+    /**
+     * Returns users whose last session activity was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+     */
+    public GetUserListRequest withLastActiveAtAfter(long lastActiveAtAfter) {
+        Utils.checkNotNull(lastActiveAtAfter, "lastActiveAtAfter");
+        this.lastActiveAtAfter = Optional.ofNullable(lastActiveAtAfter);
+        return this;
+    }
+
+    /**
+     * Returns users whose last session activity was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+     */
+    public GetUserListRequest withLastActiveAtAfter(Optional<Long> lastActiveAtAfter) {
+        Utils.checkNotNull(lastActiveAtAfter, "lastActiveAtAfter");
+        this.lastActiveAtAfter = lastActiveAtAfter;
+        return this;
+    }
+
+    /**
+     * Returns users that had session activity since the given date.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Deprecated in favor of `last_active_at_after`.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public GetUserListRequest withLastActiveAtSince(long lastActiveAtSince) {
         Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
         this.lastActiveAtSince = Optional.ofNullable(lastActiveAtSince);
@@ -533,13 +844,55 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users that had session activity since the given date, with day precision.
-     * Providing a value with higher precision than day will result in an error.
+     * Returns users that had session activity since the given date.
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Deprecated in favor of `last_active_at_after`.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public GetUserListRequest withLastActiveAtSince(Optional<Long> lastActiveAtSince) {
         Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
         this.lastActiveAtSince = lastActiveAtSince;
+        return this;
+    }
+
+    /**
+     * Returns users who have been created before the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+     */
+    public GetUserListRequest withCreatedAtBefore(long createdAtBefore) {
+        Utils.checkNotNull(createdAtBefore, "createdAtBefore");
+        this.createdAtBefore = Optional.ofNullable(createdAtBefore);
+        return this;
+    }
+
+    /**
+     * Returns users who have been created before the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+     */
+    public GetUserListRequest withCreatedAtBefore(Optional<Long> createdAtBefore) {
+        Utils.checkNotNull(createdAtBefore, "createdAtBefore");
+        this.createdAtBefore = createdAtBefore;
+        return this;
+    }
+
+    /**
+     * Returns users who have been created after the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+     */
+    public GetUserListRequest withCreatedAtAfter(long createdAtAfter) {
+        Utils.checkNotNull(createdAtAfter, "createdAtAfter");
+        this.createdAtAfter = Optional.ofNullable(createdAtAfter);
+        return this;
+    }
+
+    /**
+     * Returns users who have been created after the given date (with millisecond precision).
+     * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+     */
+    public GetUserListRequest withCreatedAtAfter(Optional<Long> createdAtAfter) {
+        Utils.checkNotNull(createdAtAfter, "createdAtAfter");
+        this.createdAtAfter = createdAtAfter;
         return this;
     }
 
@@ -631,7 +984,16 @@ public class GetUserListRequest {
             Objects.deepEquals(this.userId, other.userId) &&
             Objects.deepEquals(this.organizationId, other.organizationId) &&
             Objects.deepEquals(this.query, other.query) &&
+            Objects.deepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
+            Objects.deepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
+            Objects.deepEquals(this.usernameQuery, other.usernameQuery) &&
+            Objects.deepEquals(this.nameQuery, other.nameQuery) &&
+            Objects.deepEquals(this.banned, other.banned) &&
+            Objects.deepEquals(this.lastActiveAtBefore, other.lastActiveAtBefore) &&
+            Objects.deepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
             Objects.deepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
+            Objects.deepEquals(this.createdAtBefore, other.createdAtBefore) &&
+            Objects.deepEquals(this.createdAtAfter, other.createdAtAfter) &&
             Objects.deepEquals(this.limit, other.limit) &&
             Objects.deepEquals(this.offset, other.offset) &&
             Objects.deepEquals(this.orderBy, other.orderBy);
@@ -648,7 +1010,16 @@ public class GetUserListRequest {
             userId,
             organizationId,
             query,
+            emailAddressQuery,
+            phoneNumberQuery,
+            usernameQuery,
+            nameQuery,
+            banned,
+            lastActiveAtBefore,
+            lastActiveAtAfter,
             lastActiveAtSince,
+            createdAtBefore,
+            createdAtAfter,
             limit,
             offset,
             orderBy);
@@ -665,7 +1036,16 @@ public class GetUserListRequest {
                 "userId", userId,
                 "organizationId", organizationId,
                 "query", query,
+                "emailAddressQuery", emailAddressQuery,
+                "phoneNumberQuery", phoneNumberQuery,
+                "usernameQuery", usernameQuery,
+                "nameQuery", nameQuery,
+                "banned", banned,
+                "lastActiveAtBefore", lastActiveAtBefore,
+                "lastActiveAtAfter", lastActiveAtAfter,
                 "lastActiveAtSince", lastActiveAtSince,
+                "createdAtBefore", createdAtBefore,
+                "createdAtAfter", createdAtAfter,
                 "limit", limit,
                 "offset", offset,
                 "orderBy", orderBy);
@@ -689,7 +1069,26 @@ public class GetUserListRequest {
  
         private Optional<String> query = Optional.empty();
  
+        private Optional<String> emailAddressQuery = Optional.empty();
+ 
+        private Optional<String> phoneNumberQuery = Optional.empty();
+ 
+        private Optional<String> usernameQuery = Optional.empty();
+ 
+        private Optional<String> nameQuery = Optional.empty();
+ 
+        private Optional<Boolean> banned = Optional.empty();
+ 
+        private Optional<Long> lastActiveAtBefore = Optional.empty();
+ 
+        private Optional<Long> lastActiveAtAfter = Optional.empty();
+ 
+        @Deprecated
         private Optional<Long> lastActiveAtSince = Optional.empty();
+ 
+        private Optional<Long> createdAtBefore = Optional.empty();
+ 
+        private Optional<Long> createdAtAfter = Optional.empty();
  
         private Optional<Long> limit;
  
@@ -902,10 +1301,148 @@ public class GetUserListRequest {
         }
 
         /**
-         * Returns users that had session activity since the given date, with day precision.
-         * Providing a value with higher precision than day will result in an error.
-         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Returns users with emails that match the given query, via case-insensitive partial match.
+         * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
          */
+        public Builder emailAddressQuery(String emailAddressQuery) {
+            Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+            this.emailAddressQuery = Optional.ofNullable(emailAddressQuery);
+            return this;
+        }
+
+        /**
+         * Returns users with emails that match the given query, via case-insensitive partial match.
+         * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
+         */
+        public Builder emailAddressQuery(Optional<String> emailAddressQuery) {
+            Utils.checkNotNull(emailAddressQuery, "emailAddressQuery");
+            this.emailAddressQuery = emailAddressQuery;
+            return this;
+        }
+
+        /**
+         * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+         * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+         */
+        public Builder phoneNumberQuery(String phoneNumberQuery) {
+            Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+            this.phoneNumberQuery = Optional.ofNullable(phoneNumberQuery);
+            return this;
+        }
+
+        /**
+         * Returns users with phone numbers that match the given query, via case-insensitive partial match.
+         * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`.
+         */
+        public Builder phoneNumberQuery(Optional<String> phoneNumberQuery) {
+            Utils.checkNotNull(phoneNumberQuery, "phoneNumberQuery");
+            this.phoneNumberQuery = phoneNumberQuery;
+            return this;
+        }
+
+        /**
+         * Returns users with usernames that match the given query, via case-insensitive partial match.
+         * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+         */
+        public Builder usernameQuery(String usernameQuery) {
+            Utils.checkNotNull(usernameQuery, "usernameQuery");
+            this.usernameQuery = Optional.ofNullable(usernameQuery);
+            return this;
+        }
+
+        /**
+         * Returns users with usernames that match the given query, via case-insensitive partial match.
+         * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
+         */
+        public Builder usernameQuery(Optional<String> usernameQuery) {
+            Utils.checkNotNull(usernameQuery, "usernameQuery");
+            this.usernameQuery = usernameQuery;
+            return this;
+        }
+
+        /**
+         * Returns users with names that match the given query, via case-insensitive partial match.
+         */
+        public Builder nameQuery(String nameQuery) {
+            Utils.checkNotNull(nameQuery, "nameQuery");
+            this.nameQuery = Optional.ofNullable(nameQuery);
+            return this;
+        }
+
+        /**
+         * Returns users with names that match the given query, via case-insensitive partial match.
+         */
+        public Builder nameQuery(Optional<String> nameQuery) {
+            Utils.checkNotNull(nameQuery, "nameQuery");
+            this.nameQuery = nameQuery;
+            return this;
+        }
+
+        /**
+         * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+         */
+        public Builder banned(boolean banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = Optional.ofNullable(banned);
+            return this;
+        }
+
+        /**
+         * Returns users which are either banned (`banned=true`) or not banned (`banned=false`).
+         */
+        public Builder banned(Optional<Boolean> banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = banned;
+            return this;
+        }
+
+        /**
+         * Returns users whose last session activity was before the given date (with millisecond precision).
+         * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+         */
+        public Builder lastActiveAtBefore(long lastActiveAtBefore) {
+            Utils.checkNotNull(lastActiveAtBefore, "lastActiveAtBefore");
+            this.lastActiveAtBefore = Optional.ofNullable(lastActiveAtBefore);
+            return this;
+        }
+
+        /**
+         * Returns users whose last session activity was before the given date (with millisecond precision).
+         * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
+         */
+        public Builder lastActiveAtBefore(Optional<Long> lastActiveAtBefore) {
+            Utils.checkNotNull(lastActiveAtBefore, "lastActiveAtBefore");
+            this.lastActiveAtBefore = lastActiveAtBefore;
+            return this;
+        }
+
+        /**
+         * Returns users whose last session activity was after the given date (with millisecond precision).
+         * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+         */
+        public Builder lastActiveAtAfter(long lastActiveAtAfter) {
+            Utils.checkNotNull(lastActiveAtAfter, "lastActiveAtAfter");
+            this.lastActiveAtAfter = Optional.ofNullable(lastActiveAtAfter);
+            return this;
+        }
+
+        /**
+         * Returns users whose last session activity was after the given date (with millisecond precision).
+         * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
+         */
+        public Builder lastActiveAtAfter(Optional<Long> lastActiveAtAfter) {
+            Utils.checkNotNull(lastActiveAtAfter, "lastActiveAtAfter");
+            this.lastActiveAtAfter = lastActiveAtAfter;
+            return this;
+        }
+
+        /**
+         * Returns users that had session activity since the given date.
+         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Deprecated in favor of `last_active_at_after`.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder lastActiveAtSince(long lastActiveAtSince) {
             Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
             this.lastActiveAtSince = Optional.ofNullable(lastActiveAtSince);
@@ -913,13 +1450,55 @@ public class GetUserListRequest {
         }
 
         /**
-         * Returns users that had session activity since the given date, with day precision.
-         * Providing a value with higher precision than day will result in an error.
+         * Returns users that had session activity since the given date.
          * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Deprecated in favor of `last_active_at_after`.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder lastActiveAtSince(Optional<Long> lastActiveAtSince) {
             Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
             this.lastActiveAtSince = lastActiveAtSince;
+            return this;
+        }
+
+        /**
+         * Returns users who have been created before the given date (with millisecond precision).
+         * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+         */
+        public Builder createdAtBefore(long createdAtBefore) {
+            Utils.checkNotNull(createdAtBefore, "createdAtBefore");
+            this.createdAtBefore = Optional.ofNullable(createdAtBefore);
+            return this;
+        }
+
+        /**
+         * Returns users who have been created before the given date (with millisecond precision).
+         * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
+         */
+        public Builder createdAtBefore(Optional<Long> createdAtBefore) {
+            Utils.checkNotNull(createdAtBefore, "createdAtBefore");
+            this.createdAtBefore = createdAtBefore;
+            return this;
+        }
+
+        /**
+         * Returns users who have been created after the given date (with millisecond precision).
+         * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+         */
+        public Builder createdAtAfter(long createdAtAfter) {
+            Utils.checkNotNull(createdAtAfter, "createdAtAfter");
+            this.createdAtAfter = Optional.ofNullable(createdAtAfter);
+            return this;
+        }
+
+        /**
+         * Returns users who have been created after the given date (with millisecond precision).
+         * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
+         */
+        public Builder createdAtAfter(Optional<Long> createdAtAfter) {
+            Utils.checkNotNull(createdAtAfter, "createdAtAfter");
+            this.createdAtAfter = createdAtAfter;
             return this;
         }
 
@@ -1011,7 +1590,16 @@ public class GetUserListRequest {
                 userId,
                 organizationId,
                 query,
+                emailAddressQuery,
+                phoneNumberQuery,
+                usernameQuery,
+                nameQuery,
+                banned,
+                lastActiveAtBefore,
+                lastActiveAtAfter,
                 lastActiveAtSince,
+                createdAtBefore,
+                createdAtAfter,
                 limit,
                 offset,
                 orderBy);

@@ -6,11 +6,13 @@ package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class CreateSessionTokenFromTemplateRequestBuilder {
 
     private String sessionId;
     private String templateName;
+    private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateSessionTokenFromTemplate sdk;
 
     public CreateSessionTokenFromTemplateRequestBuilder(SDKMethodInterfaces.MethodCallCreateSessionTokenFromTemplate sdk) {
@@ -28,11 +30,24 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
         this.templateName = templateName;
         return this;
     }
+                
+    public CreateSessionTokenFromTemplateRequestBuilder requestBody(CreateSessionTokenFromTemplateRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public CreateSessionTokenFromTemplateRequestBuilder requestBody(Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = requestBody;
+        return this;
+    }
 
     public CreateSessionTokenFromTemplateResponse call() throws Exception {
 
         return sdk.createTokenFromTemplate(
             sessionId,
-            templateName);
+            templateName,
+            requestBody);
     }
 }

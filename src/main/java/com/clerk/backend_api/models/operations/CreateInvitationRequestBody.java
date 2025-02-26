@@ -15,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -41,7 +43,7 @@ public class CreateInvitationRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends CreateInvitationPublicMetadata> publicMetadata;
+    private Optional<? extends Map<String, Object>> publicMetadata;
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
@@ -53,7 +55,7 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
-     * Defaults to true.
+     * Defaults to `true`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("notify")
@@ -67,37 +69,48 @@ public class CreateInvitationRequestBody {
     private JsonNullable<Boolean> ignoreExisting;
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_days")
     private JsonNullable<Long> expiresInDays;
 
+    /**
+     * The slug of the email template to use for the invitation email.
+     * If not provided, the "invitation" template will be used.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("template_slug")
+    private JsonNullable<? extends TemplateSlug> templateSlug;
+
     @JsonCreator
     public CreateInvitationRequestBody(
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("public_metadata") Optional<? extends CreateInvitationPublicMetadata> publicMetadata,
+            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("redirect_url") Optional<String> redirectUrl,
             @JsonProperty("notify") JsonNullable<Boolean> notify_,
             @JsonProperty("ignore_existing") JsonNullable<Boolean> ignoreExisting,
-            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays) {
+            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays,
+            @JsonProperty("template_slug") JsonNullable<? extends TemplateSlug> templateSlug) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         Utils.checkNotNull(notify_, "notify_");
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
         Utils.checkNotNull(expiresInDays, "expiresInDays");
+        Utils.checkNotNull(templateSlug, "templateSlug");
         this.emailAddress = emailAddress;
         this.publicMetadata = publicMetadata;
         this.redirectUrl = redirectUrl;
         this.notify_ = notify_;
         this.ignoreExisting = ignoreExisting;
         this.expiresInDays = expiresInDays;
+        this.templateSlug = templateSlug;
     }
     
     public CreateInvitationRequestBody(
             String emailAddress) {
-        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -115,8 +128,8 @@ public class CreateInvitationRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CreateInvitationPublicMetadata> publicMetadata() {
-        return (Optional<CreateInvitationPublicMetadata>) publicMetadata;
+    public Optional<Map<String, Object>> publicMetadata() {
+        return (Optional<Map<String, Object>>) publicMetadata;
     }
 
     /**
@@ -130,7 +143,7 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
-     * Defaults to true.
+     * Defaults to `true`.
      */
     @JsonIgnore
     public JsonNullable<Boolean> notify_() {
@@ -146,11 +159,21 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInDays() {
         return expiresInDays;
+    }
+
+    /**
+     * The slug of the email template to use for the invitation email.
+     * If not provided, the "invitation" template will be used.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<TemplateSlug> templateSlug() {
+        return (JsonNullable<TemplateSlug>) templateSlug;
     }
 
     public final static Builder builder() {
@@ -171,7 +194,7 @@ public class CreateInvitationRequestBody {
      * The value of this property should be a well-formed JSON object.
      * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
-    public CreateInvitationRequestBody withPublicMetadata(CreateInvitationPublicMetadata publicMetadata) {
+    public CreateInvitationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
@@ -182,7 +205,7 @@ public class CreateInvitationRequestBody {
      * The value of this property should be a well-formed JSON object.
      * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
      */
-    public CreateInvitationRequestBody withPublicMetadata(Optional<? extends CreateInvitationPublicMetadata> publicMetadata) {
+    public CreateInvitationRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -210,7 +233,7 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
-     * Defaults to true.
+     * Defaults to `true`.
      */
     public CreateInvitationRequestBody withNotify(boolean notify_) {
         Utils.checkNotNull(notify_, "notify_");
@@ -220,7 +243,7 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional flag which denotes whether an email invitation should be sent to the given email address.
-     * Defaults to true.
+     * Defaults to `true`.
      */
     public CreateInvitationRequestBody withNotify(JsonNullable<Boolean> notify_) {
         Utils.checkNotNull(notify_, "notify_");
@@ -247,7 +270,7 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
      */
     public CreateInvitationRequestBody withExpiresInDays(long expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -256,11 +279,31 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation does not expire.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
      */
     public CreateInvitationRequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
         this.expiresInDays = expiresInDays;
+        return this;
+    }
+
+    /**
+     * The slug of the email template to use for the invitation email.
+     * If not provided, the "invitation" template will be used.
+     */
+    public CreateInvitationRequestBody withTemplateSlug(TemplateSlug templateSlug) {
+        Utils.checkNotNull(templateSlug, "templateSlug");
+        this.templateSlug = JsonNullable.of(templateSlug);
+        return this;
+    }
+
+    /**
+     * The slug of the email template to use for the invitation email.
+     * If not provided, the "invitation" template will be used.
+     */
+    public CreateInvitationRequestBody withTemplateSlug(JsonNullable<? extends TemplateSlug> templateSlug) {
+        Utils.checkNotNull(templateSlug, "templateSlug");
+        this.templateSlug = templateSlug;
         return this;
     }
     
@@ -279,7 +322,8 @@ public class CreateInvitationRequestBody {
             Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
             Objects.deepEquals(this.notify_, other.notify_) &&
             Objects.deepEquals(this.ignoreExisting, other.ignoreExisting) &&
-            Objects.deepEquals(this.expiresInDays, other.expiresInDays);
+            Objects.deepEquals(this.expiresInDays, other.expiresInDays) &&
+            Objects.deepEquals(this.templateSlug, other.templateSlug);
     }
     
     @Override
@@ -290,7 +334,8 @@ public class CreateInvitationRequestBody {
             redirectUrl,
             notify_,
             ignoreExisting,
-            expiresInDays);
+            expiresInDays,
+            templateSlug);
     }
     
     @Override
@@ -301,14 +346,15 @@ public class CreateInvitationRequestBody {
                 "redirectUrl", redirectUrl,
                 "notify_", notify_,
                 "ignoreExisting", ignoreExisting,
-                "expiresInDays", expiresInDays);
+                "expiresInDays", expiresInDays,
+                "templateSlug", templateSlug);
     }
     
     public final static class Builder {
  
         private String emailAddress;
  
-        private Optional<? extends CreateInvitationPublicMetadata> publicMetadata = Optional.empty();
+        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
  
         private Optional<String> redirectUrl = Optional.empty();
  
@@ -316,7 +362,9 @@ public class CreateInvitationRequestBody {
  
         private JsonNullable<Boolean> ignoreExisting;
  
-        private JsonNullable<Long> expiresInDays = JsonNullable.undefined();  
+        private JsonNullable<Long> expiresInDays = JsonNullable.undefined();
+ 
+        private JsonNullable<? extends TemplateSlug> templateSlug = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
@@ -336,7 +384,7 @@ public class CreateInvitationRequestBody {
          * The value of this property should be a well-formed JSON object.
          * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
          */
-        public Builder publicMetadata(CreateInvitationPublicMetadata publicMetadata) {
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
             return this;
@@ -347,7 +395,7 @@ public class CreateInvitationRequestBody {
          * The value of this property should be a well-formed JSON object.
          * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
          */
-        public Builder publicMetadata(Optional<? extends CreateInvitationPublicMetadata> publicMetadata) {
+        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -375,7 +423,7 @@ public class CreateInvitationRequestBody {
 
         /**
          * Optional flag which denotes whether an email invitation should be sent to the given email address.
-         * Defaults to true.
+         * Defaults to `true`.
          */
         public Builder notify_(boolean notify_) {
             Utils.checkNotNull(notify_, "notify_");
@@ -385,7 +433,7 @@ public class CreateInvitationRequestBody {
 
         /**
          * Optional flag which denotes whether an email invitation should be sent to the given email address.
-         * Defaults to true.
+         * Defaults to `true`.
          */
         public Builder notify_(JsonNullable<Boolean> notify_) {
             Utils.checkNotNull(notify_, "notify_");
@@ -412,7 +460,7 @@ public class CreateInvitationRequestBody {
         }
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation does not expire.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
          */
         public Builder expiresInDays(long expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -421,11 +469,31 @@ public class CreateInvitationRequestBody {
         }
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation does not expire.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
          */
         public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
             this.expiresInDays = expiresInDays;
+            return this;
+        }
+
+        /**
+         * The slug of the email template to use for the invitation email.
+         * If not provided, the "invitation" template will be used.
+         */
+        public Builder templateSlug(TemplateSlug templateSlug) {
+            Utils.checkNotNull(templateSlug, "templateSlug");
+            this.templateSlug = JsonNullable.of(templateSlug);
+            return this;
+        }
+
+        /**
+         * The slug of the email template to use for the invitation email.
+         * If not provided, the "invitation" template will be used.
+         */
+        public Builder templateSlug(JsonNullable<? extends TemplateSlug> templateSlug) {
+            Utils.checkNotNull(templateSlug, "templateSlug");
+            this.templateSlug = templateSlug;
             return this;
         }
         
@@ -441,7 +509,8 @@ public class CreateInvitationRequestBody {
                 redirectUrl,
                 notify_,
                 ignoreExisting,
-                expiresInDays);
+                expiresInDays,
+                templateSlug);
         }
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =

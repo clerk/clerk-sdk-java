@@ -7,13 +7,15 @@ generation:
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 java:
-  version: 1.5.0
+  version: 1.6.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api

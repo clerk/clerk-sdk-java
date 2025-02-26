@@ -5,7 +5,7 @@
 package com.clerk.backend_api.models.operations;
 
 
-import com.clerk.backend_api.models.components.WellKnownJWKS;
+import com.clerk.backend_api.models.components.Jwks;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,22 +40,22 @@ public class GetJWKSResponse implements Response {
     /**
      * Get the JSON Web Key Set
      */
-    private Optional<? extends WellKnownJWKS> wellKnownJWKS;
+    private Optional<? extends Jwks> jwks;
 
     @JsonCreator
     public GetJWKSResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends WellKnownJWKS> wellKnownJWKS) {
+            Optional<? extends Jwks> jwks) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
+        Utils.checkNotNull(jwks, "jwks");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.wellKnownJWKS = wellKnownJWKS;
+        this.jwks = jwks;
     }
     
     public GetJWKSResponse(
@@ -94,8 +94,8 @@ public class GetJWKSResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<WellKnownJWKS> wellKnownJWKS() {
-        return (Optional<WellKnownJWKS>) wellKnownJWKS;
+    public Optional<Jwks> jwks() {
+        return (Optional<Jwks>) jwks;
     }
 
     public final static Builder builder() {
@@ -132,18 +132,18 @@ public class GetJWKSResponse implements Response {
     /**
      * Get the JSON Web Key Set
      */
-    public GetJWKSResponse withWellKnownJWKS(WellKnownJWKS wellKnownJWKS) {
-        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
-        this.wellKnownJWKS = Optional.ofNullable(wellKnownJWKS);
+    public GetJWKSResponse withJwks(Jwks jwks) {
+        Utils.checkNotNull(jwks, "jwks");
+        this.jwks = Optional.ofNullable(jwks);
         return this;
     }
 
     /**
      * Get the JSON Web Key Set
      */
-    public GetJWKSResponse withWellKnownJWKS(Optional<? extends WellKnownJWKS> wellKnownJWKS) {
-        Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
-        this.wellKnownJWKS = wellKnownJWKS;
+    public GetJWKSResponse withJwks(Optional<? extends Jwks> jwks) {
+        Utils.checkNotNull(jwks, "jwks");
+        this.jwks = jwks;
         return this;
     }
     
@@ -160,7 +160,7 @@ public class GetJWKSResponse implements Response {
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
             Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.wellKnownJWKS, other.wellKnownJWKS);
+            Objects.deepEquals(this.jwks, other.jwks);
     }
     
     @Override
@@ -169,7 +169,7 @@ public class GetJWKSResponse implements Response {
             contentType,
             statusCode,
             rawResponse,
-            wellKnownJWKS);
+            jwks);
     }
     
     @Override
@@ -178,7 +178,7 @@ public class GetJWKSResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "wellKnownJWKS", wellKnownJWKS);
+                "jwks", jwks);
     }
     
     public final static class Builder {
@@ -189,7 +189,7 @@ public class GetJWKSResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends WellKnownJWKS> wellKnownJWKS = Optional.empty();  
+        private Optional<? extends Jwks> jwks = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -225,18 +225,18 @@ public class GetJWKSResponse implements Response {
         /**
          * Get the JSON Web Key Set
          */
-        public Builder wellKnownJWKS(WellKnownJWKS wellKnownJWKS) {
-            Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
-            this.wellKnownJWKS = Optional.ofNullable(wellKnownJWKS);
+        public Builder jwks(Jwks jwks) {
+            Utils.checkNotNull(jwks, "jwks");
+            this.jwks = Optional.ofNullable(jwks);
             return this;
         }
 
         /**
          * Get the JSON Web Key Set
          */
-        public Builder wellKnownJWKS(Optional<? extends WellKnownJWKS> wellKnownJWKS) {
-            Utils.checkNotNull(wellKnownJWKS, "wellKnownJWKS");
-            this.wellKnownJWKS = wellKnownJWKS;
+        public Builder jwks(Optional<? extends Jwks> jwks) {
+            Utils.checkNotNull(jwks, "jwks");
+            this.jwks = jwks;
             return this;
         }
         
@@ -245,7 +245,7 @@ public class GetJWKSResponse implements Response {
                 contentType,
                 statusCode,
                 rawResponse,
-                wellKnownJWKS);
+                jwks);
         }
     }
 }

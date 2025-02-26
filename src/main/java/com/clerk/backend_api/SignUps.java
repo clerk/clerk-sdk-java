@@ -53,13 +53,25 @@ public class SignUps implements
      * Update a sign-up
      * Update the sign-up with the given ID
      * @param id The ID of the sign-up to update
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateSignUpResponse update(
+            String id) throws Exception {
+        return update(id, Optional.empty());
+    }
+    
+    /**
+     * Update a sign-up
+     * Update the sign-up with the given ID
+     * @param id The ID of the sign-up to update
      * @param requestBody
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateSignUpResponse update(
             String id,
-            UpdateSignUpRequestBody requestBody) throws Exception {
+            Optional<? extends UpdateSignUpRequestBody> requestBody) throws Exception {
         UpdateSignUpRequest request =
             UpdateSignUpRequest
                 .builder()
@@ -84,9 +96,6 @@ public class SignUps implements
                 "requestBody",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -177,7 +186,15 @@ public class SignUps implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
