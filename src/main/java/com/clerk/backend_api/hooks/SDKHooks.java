@@ -23,7 +23,7 @@ public final class SDKHooks {
         // https://www.speakeasyapi.dev/docs/additional-features/sdk-hooks
 
         ClerkBeforeRequestHook clerkBeforeRequestHook = new ClerkBeforeRequestHook();
-        hooks.registerBeforeRequestHook(clerkBeforeRequestHook);
+        hooks.registerBeforeRequest(clerkBeforeRequestHook);
     }
     
 }

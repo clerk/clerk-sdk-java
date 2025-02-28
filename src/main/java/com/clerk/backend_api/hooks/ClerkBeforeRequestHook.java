@@ -1,6 +1,6 @@
 package com.clerk.backend_api.hooks;
 
-import com.clerk.backend_api.utils.Utils.Helpers;
+import com.clerk.backend_api.utils.Helpers;
 import com.clerk.backend_api.utils.Hook.BeforeRequest;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContext;
 
@@ -22,3 +22,4 @@ final class ClerkBeforeRequestHook implements BeforeRequest {
         return b.build();
     }
 }
+
