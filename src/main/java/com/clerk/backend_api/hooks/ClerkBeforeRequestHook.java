@@ -1,39 +1,24 @@
 package com.clerk.backend_api.hooks;
 
+import com.clerk.backend_api.utils.Helpers;
+import com.clerk.backend_api.utils.Hook.BeforeRequest;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContext;
-import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
-import com.clerk.backend_api.SecuritySource;
-import org.junit.jupiter.api.Test;
 
-import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Optional;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+final class ClerkBeforeRequestHook implements BeforeRequest {
+    @Override
+    public HttpRequest beforeRequest(BeforeRequestContext context, HttpRequest request) throws Exception {
+        // modify the request object before it is sent, such as adding headers or query parameters
+        // or throw an error to stop the request from being sent
 
-class ClerkBeforeRequestHookTest {
+        // Note that HttpRequest is immutable. With JDK 16 and later you can use
+        // `HttpRequest.newBuilder(HttpRequest, BiPredicate<String, String>)` to copy the request
+        // and modify it (the predicate is for filtering headers). If that method is not
+        // available then use `Helpers.copy` in the generated `utils` package.
 
-    @Test
-    void testBeforeRequestAddsHeader() throws Exception {
-        // Arrange
-        ClerkBeforeRequestHook hook = new ClerkBeforeRequestHook();
-
-        // Instantiate BeforeRequestContext using its implementation
-        BeforeRequestContext context = new BeforeRequestContextImpl(
-            "test-operation-id", // Provide a mock operation ID
-            Optional.empty(), // No OAuth scopes needed
-            Optional.empty() // No SecuritySource needed
-        );
-
-        HttpRequest originalRequest = HttpRequest.newBuilder()
-                .uri(new URI("http://example.com"))
-                .build();
-
-        // Act
-        HttpRequest modifiedRequest = hook.beforeRequest(context, originalRequest);
-
-        // Assert
-        assertEquals("2024-10-01", modifiedRequest.headers().firstValue("Clerk-API-Version").orElse(null));
+        HttpRequest.Builder b = Helpers.copy(request);
+        b.header("Clerk-API-Version", "2024-10-01");
+        return b.build();
     }
 }
