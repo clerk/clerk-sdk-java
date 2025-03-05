@@ -38,7 +38,6 @@ public class SdkInfo {
                 if (input != null) {
                     Properties properties = new Properties();
                     properties.load(input);
-                    System.out.println("Loaded properties: " + properties);
                     return Optional.of(new SdkInfo(
                             properties.getProperty("version"),
                             properties.getProperty("artifactId"),

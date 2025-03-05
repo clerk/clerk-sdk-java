@@ -10,6 +10,16 @@ package com.clerk.backend_api.hooks;
 // consequence any customization of this class will be preserved.
 //
 
+import com.clerk.backend_api.hooks.telemetry.TelemetryAfterErrorHook;
+import com.clerk.backend_api.hooks.telemetry.TelemetryAfterSuccessHook;
+import com.clerk.backend_api.hooks.telemetry.TelemetryBeforeRequestHook;
+import com.clerk.backend_api.hooks.telemetry.TelemetryCollector;
+import com.clerk.backend_api.utils.Hooks;
+import io.jsonwebtoken.lang.Objects;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public final class SDKHooks {
 
     private SDKHooks() {
@@ -24,6 +34,24 @@ public final class SDKHooks {
 
         ClerkBeforeRequestHook clerkBeforeRequestHook = new ClerkBeforeRequestHook();
         hooks.registerBeforeRequest(clerkBeforeRequestHook);
+
+        configureTelemetry(hooks);
     }
-    
+
+    private static void configureTelemetry(Hooks hooks) {
+        if (Objects.nullSafeEquals(System.getenv("CLERK_TELEMETRY_DISABLED"), "1")) {
+            return;
+        }
+
+        List<TelemetryCollector> collectors = new ArrayList<>(2);
+        collectors.add(TelemetryCollector.live());
+        if (Objects.nullSafeEquals("CLERK_TELEMETRY_DEBUG", "1")) {
+            collectors.add(new TelemetryCollector.DebugCollector());
+        }
+
+        hooks.registerBeforeRequest(new TelemetryBeforeRequestHook(collectors));
+        hooks.registerAfterSuccess(new TelemetryAfterSuccessHook(collectors));
+        hooks.registerAfterError(new TelemetryAfterErrorHook(collectors));
+    }
+
 }
