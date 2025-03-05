@@ -70,7 +70,7 @@ class TelemetryEventTest {
         Map<String, String> additionalPayload = Map.of("key1", "value1");
         float samplingRate = 0.75f;
 
-        TestSecuritySource securitySource = new TestSecuritySource(sk);
+        SecuritySource securitySource = getSecuritySource(sk);
         Hook.HookContext context = new TestHookContext(operationId, securitySource);
 
         // Act
@@ -88,6 +88,10 @@ class TelemetryEventTest {
         assertEquals(samplingRate, event.samplingRate, "Sampling rate should match");
         assertEquals("testOperation", event.payload.get("method"), "Operation ID should be in payload");
         assertEquals("value1", event.payload.get("key1"), "Additional payload should be included");
+    }
+
+    private static SecuritySource getSecuritySource(String sk) {
+        return new SecuritySource.DefaultSecuritySource(new Security(Optional.of(sk)));
     }
 
     @Test
@@ -124,7 +128,7 @@ class TelemetryEventTest {
         Map<String, String> emptyPayload = Map.of();
         float samplingRate = 0.1f;
 
-        TestSecuritySource securitySource = new TestSecuritySource(sk);
+        SecuritySource securitySource = getSecuritySource(sk);
         Hook.HookContext context = new TestHookContext(operationId, securitySource);
 
         // Act
@@ -149,7 +153,7 @@ class TelemetryEventTest {
         Map<String, String> overridingPayload = Map.of("method", "overridden-method");
         float samplingRate = 0.5f;
 
-        TestSecuritySource securitySource = new TestSecuritySource(sk);
+        SecuritySource securitySource = getSecuritySource(sk);
         Hook.HookContext context = new TestHookContext(operationId, securitySource);
 
         // Act
@@ -188,19 +192,6 @@ class TelemetryEventTest {
         @Override
         public Optional<SecuritySource> securitySource() {
             return Optional.ofNullable(securitySource);
-        }
-    }
-
-    private static class TestSecuritySource implements SecuritySource {
-        private final String token;
-
-        public TestSecuritySource(String token) {
-            this.token = token;
-        }
-
-        @Override
-        public Security getSecurity() {
-            return new Security(Optional.of(token));
         }
     }
 
