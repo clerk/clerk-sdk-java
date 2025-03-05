@@ -11,7 +11,8 @@ import java.util.Optional;
 
 public class TelemetryAfterErrorHook implements Hook.AfterError {
 
-    private final List<TelemetryCollector> collectors;
+    // visible for testing
+    public final List<TelemetryCollector> collectors;
 
     public TelemetryAfterErrorHook(List<TelemetryCollector> collectors) {
         this.collectors = collectors;

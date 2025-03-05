@@ -9,7 +9,8 @@ import java.util.Map;
 
 public class TelemetryAfterSuccessHook implements Hook.AfterSuccess {
 
-    private final List<TelemetryCollector> collectors;
+    // visible for testing
+    public final List<TelemetryCollector> collectors;
 
     public TelemetryAfterSuccessHook(List<TelemetryCollector> collectors) {
         this.collectors = collectors;

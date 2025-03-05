@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class TelemetryBeforeRequestHook implements Hook.BeforeRequest {
 
-    private final List<TelemetryCollector> collectors;
+    // only visible so we can test
+    public final List<TelemetryCollector> collectors;
 
     public TelemetryBeforeRequestHook(List<TelemetryCollector> collectors) {
         this.collectors = collectors;
