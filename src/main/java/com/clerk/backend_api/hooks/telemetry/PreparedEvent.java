@@ -1,5 +1,6 @@
 package com.clerk.backend_api.hooks.telemetry;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class PreparedEvent {
@@ -8,9 +9,9 @@ public class PreparedEvent {
     public final String sdk;
     public final String sdkv;
     public final String sk;
-    public final TreeMap<String, String> payload;
+    public final Map<String, String> payload;
 
-    public PreparedEvent(String event, String it, String sdk, String sdkv, String sk, TreeMap<String, String> payload) {
+    public PreparedEvent(String event, String it, String sdk, String sdkv, String sk, Map<String, String> payload) {
         this.event = event;
         this.it = it;
         this.sdk = sdk;
