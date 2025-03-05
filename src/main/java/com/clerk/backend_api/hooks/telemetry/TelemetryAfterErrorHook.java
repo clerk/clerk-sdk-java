@@ -41,7 +41,8 @@ public class TelemetryAfterErrorHook implements Hook.AfterError {
         } else if (error.isPresent()) {
            throw error.get();
         } else {
-            throw new IllegalArgumentException("afterError called with no response or error");
+            // should not happen since one of response or error should be present
+            throw new IllegalStateException("afterError called with no response or error");
         }
     }
 }

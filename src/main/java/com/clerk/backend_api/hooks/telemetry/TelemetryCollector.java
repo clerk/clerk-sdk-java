@@ -121,8 +121,7 @@ public interface TelemetryCollector {
 
                     String eventJson = serializeToJson(prepareEvent(event));
                     try (OutputStream os = connection.getOutputStream()) {
-                        byte[] input = eventJson.getBytes(StandardCharsets.UTF_8);
-                        os.write(input, 0, input.length);
+                        IOUtils.write(eventJson, os, StandardCharsets.UTF_8);
                     }
 
                     // Strictly we don't have to read the response, but if we don't and the server is trying to respond
