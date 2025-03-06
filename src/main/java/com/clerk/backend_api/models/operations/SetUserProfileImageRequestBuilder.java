@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class SetUserProfileImageRequestBuilder {
 
     private String userId;
     private SetUserProfileImageRequestBody requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallSetUserProfileImage sdk;
 
     public SetUserProfileImageRequestBuilder(SDKMethodInterfaces.MethodCallSetUserProfileImage sdk) {
@@ -28,11 +32,26 @@ public class SetUserProfileImageRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public SetUserProfileImageRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public SetUserProfileImageRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public SetUserProfileImageResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.setProfileImage(
             userId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

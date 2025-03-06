@@ -34,6 +34,7 @@ public class Application {
             .build();
 
         CreateSignInTokenRequestBody req = CreateSignInTokenRequestBody.builder()
+                .userId("<id>")
                 .build();
 
         CreateSignInTokenResponse res = sdk.signInTokens().create()

@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateSAMLConnectionRequestBuilder {
 
-    private CreateSAMLConnectionRequestBody request;
+    private Optional<? extends CreateSAMLConnectionRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateSAMLConnection sdk;
 
     public CreateSAMLConnectionRequestBuilder(SDKMethodInterfaces.MethodCallCreateSAMLConnection sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateSAMLConnectionRequestBuilder request(CreateSAMLConnectionRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateSAMLConnectionRequestBuilder request(Optional<? extends CreateSAMLConnectionRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public CreateSAMLConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateSAMLConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateSAMLConnectionResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.create(
-            request);
+            request,
+            options);
     }
 }

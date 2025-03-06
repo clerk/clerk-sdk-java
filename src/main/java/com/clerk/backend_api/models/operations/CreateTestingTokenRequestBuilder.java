@@ -4,17 +4,37 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateTestingTokenRequestBuilder {
 
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateTestingToken sdk;
 
     public CreateTestingTokenRequestBuilder(SDKMethodInterfaces.MethodCallCreateTestingToken sdk) {
         this.sdk = sdk;
     }
+                
+    public CreateTestingTokenRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateTestingTokenRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateTestingTokenResponse call() throws Exception {
-
-        return sdk.createDirect();
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.create(
+            options);
     }
 }

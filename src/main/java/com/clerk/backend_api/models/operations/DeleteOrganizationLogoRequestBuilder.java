@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteOrganizationLogoRequestBuilder {
 
     private String organizationId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteOrganizationLogo sdk;
 
     public DeleteOrganizationLogoRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOrganizationLogo sdk) {
@@ -21,10 +25,25 @@ public class DeleteOrganizationLogoRequestBuilder {
         this.organizationId = organizationId;
         return this;
     }
+                
+    public DeleteOrganizationLogoRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteOrganizationLogoRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteOrganizationLogoResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.deleteLogo(
-            organizationId);
+            organizationId,
+            options);
     }
 }

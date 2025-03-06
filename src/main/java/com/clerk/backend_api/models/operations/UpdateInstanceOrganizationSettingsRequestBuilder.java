@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class UpdateInstanceOrganizationSettingsRequestBuilder {
 
-    private UpdateInstanceOrganizationSettingsRequestBody request;
+    private Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateInstanceOrganizationSettings sdk;
 
     public UpdateInstanceOrganizationSettingsRequestBuilder(SDKMethodInterfaces.MethodCallUpdateInstanceOrganizationSettings sdk) {
         this.sdk = sdk;
     }
-
+                
     public UpdateInstanceOrganizationSettingsRequestBuilder request(UpdateInstanceOrganizationSettingsRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public UpdateInstanceOrganizationSettingsRequestBuilder request(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public UpdateInstanceOrganizationSettingsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdateInstanceOrganizationSettingsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdateInstanceOrganizationSettingsResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.updateOrganizationSettings(
-            request);
+            request,
+            options);
     }
 }

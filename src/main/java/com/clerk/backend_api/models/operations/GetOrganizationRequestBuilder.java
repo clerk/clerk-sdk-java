@@ -4,6 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.Boolean;
 import java.lang.String;
@@ -13,6 +15,8 @@ public class GetOrganizationRequestBuilder {
 
     private String organizationId;
     private Optional<Boolean> includeMembersCount = Optional.empty();
+    private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetOrganization sdk;
 
     public GetOrganizationRequestBuilder(SDKMethodInterfaces.MethodCallGetOrganization sdk) {
@@ -36,11 +40,39 @@ public class GetOrganizationRequestBuilder {
         this.includeMembersCount = includeMembersCount;
         return this;
     }
+                
+    public GetOrganizationRequestBuilder includeMissingMemberWithElevatedPermissions(boolean includeMissingMemberWithElevatedPermissions) {
+        Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
+        this.includeMissingMemberWithElevatedPermissions = Optional.of(includeMissingMemberWithElevatedPermissions);
+        return this;
+    }
+
+    public GetOrganizationRequestBuilder includeMissingMemberWithElevatedPermissions(Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
+        Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
+        this.includeMissingMemberWithElevatedPermissions = includeMissingMemberWithElevatedPermissions;
+        return this;
+    }
+                
+    public GetOrganizationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetOrganizationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetOrganizationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             organizationId,
-            includeMembersCount);
+            includeMembersCount,
+            includeMissingMemberWithElevatedPermissions,
+            options);
     }
 }

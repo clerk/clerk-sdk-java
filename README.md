@@ -11,14 +11,12 @@ The Clerk Java library provides convenient access to the Clerk REST API from fro
 <!-- Start Summary [summary] -->
 ## Summary
 
-Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend
-servers.
+Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend servers.
 
 ### Versions
 
 When the API changes in a way that isn't compatible with older versions, a new version is released.
-Each version is identified by its release date, e.g. `2021-02-05`. For more information, please see [Clerk API Versions](https://clerk.com/docs/backend-requests/versioning/overview).
-
+Each version is identified by its release date, e.g. `2024-10-01`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
 
 Please see https://clerk.com/docs for more information.
 
@@ -33,6 +31,7 @@ More information about the API can be found at https://clerk.com/docs
   * [Authentication](#authentication)
   * [Request Authentication](#request-authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
 * [Development](#development)
@@ -52,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:1.5.0'
+implementation 'com.clerk:backend-api:2.0.0'
 ```
 
 Maven:
@@ -60,7 +59,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>1.5.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -88,25 +87,25 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetEmailAddressResponse res = sdk.emailAddresses().get()
-                .emailAddressId("<id>")
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
                 .call();
 
-        if (res.emailAddress().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```
@@ -128,6 +127,7 @@ To authenticate with the API the `bearerAuth` parameter must be set when initial
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -139,9 +139,11 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
-                .frontendApi("<value>")
-                .publishableKey("<value>")
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
                 .call();
 
         // handle response
@@ -185,26 +187,22 @@ If the request is correctly authenticated, the token's claims are made available
 * [create](docs/sdks/actortokens/README.md#create) - Create actor token
 * [revoke](docs/sdks/actortokens/README.md#revoke) - Revoke actor token
 
-### [allowlistBlocklist()](docs/sdks/allowlistblocklist/README.md)
-
-* [listAllowlistIdentifiers](docs/sdks/allowlistblocklist/README.md#listallowlistidentifiers) - List all identifiers on the allow-list
-* [createAllowlistIdentifier](docs/sdks/allowlistblocklist/README.md#createallowlistidentifier) - Add identifier to the allow-list
-* [createBlocklistIdentifier](docs/sdks/allowlistblocklist/README.md#createblocklistidentifier) - Add identifier to the block-list
-* [deleteBlocklistIdentifier](docs/sdks/allowlistblocklist/README.md#deleteblocklistidentifier) - Delete identifier from block-list
-
 ### [allowlistIdentifiers()](docs/sdks/allowlistidentifiers/README.md)
 
+* [list](docs/sdks/allowlistidentifiers/README.md#list) - List all identifiers on the allow-list
+* [create](docs/sdks/allowlistidentifiers/README.md#create) - Add identifier to the allow-list
 * [delete](docs/sdks/allowlistidentifiers/README.md#delete) - Delete identifier from allow-list
 
 ### [betaFeatures()](docs/sdks/betafeatures/README.md)
 
 * [updateInstanceSettings](docs/sdks/betafeatures/README.md#updateinstancesettings) - Update instance settings
-* [~~updateDomain~~](docs/sdks/betafeatures/README.md#updatedomain) - Update production instance domain :warning: **Deprecated**
-* [changeProductionInstanceDomain](docs/sdks/betafeatures/README.md#changeproductioninstancedomain) - Update production instance domain
+* [~~updateProductionInstanceDomain~~](docs/sdks/betafeatures/README.md#updateproductioninstancedomain) - Update production instance domain :warning: **Deprecated**
 
 ### [blocklistIdentifiers()](docs/sdks/blocklistidentifiers/README.md)
 
 * [list](docs/sdks/blocklistidentifiers/README.md#list) - List all identifiers on the block-list
+* [create](docs/sdks/blocklistidentifiers/README.md#create) - Add identifier to the block-list
+* [delete](docs/sdks/blocklistidentifiers/README.md#delete) - Delete identifier from block-list
 
 
 ### [clients()](docs/sdks/clients/README.md)
@@ -234,25 +232,28 @@ If the request is correctly authenticated, the token's claims are made available
 ### [~~emailSMSTemplates()~~](docs/sdks/emailsmstemplates/README.md)
 
 * [~~list~~](docs/sdks/emailsmstemplates/README.md#list) - List all templates :warning: **Deprecated**
-* [~~revert~~](docs/sdks/emailsmstemplates/README.md#revert) - Revert a template :warning: **Deprecated**
 * [~~get~~](docs/sdks/emailsmstemplates/README.md#get) - Retrieve a template :warning: **Deprecated**
+* [~~revert~~](docs/sdks/emailsmstemplates/README.md#revert) - Revert a template :warning: **Deprecated**
 * [~~toggleTemplateDelivery~~](docs/sdks/emailsmstemplates/README.md#toggletemplatedelivery) - Toggle the delivery by Clerk for a template of a given type and slug :warning: **Deprecated**
 
 ### [instanceSettings()](docs/sdks/instancesettings/README.md)
 
+* [get](docs/sdks/instancesettings/README.md#get) - Fetch the current instance
 * [update](docs/sdks/instancesettings/README.md#update) - Update instance settings
 * [updateRestrictions](docs/sdks/instancesettings/README.md#updaterestrictions) - Update instance restrictions
+* [changeDomain](docs/sdks/instancesettings/README.md#changedomain) - Update production instance domain
 * [updateOrganizationSettings](docs/sdks/instancesettings/README.md#updateorganizationsettings) - Update instance organization settings
 
 ### [invitations()](docs/sdks/invitations/README.md)
 
 * [create](docs/sdks/invitations/README.md#create) - Create an invitation
 * [list](docs/sdks/invitations/README.md#list) - List all invitations
+* [bulkCreate](docs/sdks/invitations/README.md#bulkcreate) - Create multiple invitations
 * [revoke](docs/sdks/invitations/README.md#revoke) - Revokes an invitation
 
 ### [jwks()](docs/sdks/jwks/README.md)
 
-* [get](docs/sdks/jwks/README.md#get) - Retrieve the JSON Web Key Set of the instance
+* [getJWKS](docs/sdks/jwks/README.md#getjwks) - Retrieve the JSON Web Key Set of the instance
 
 ### [jwtTemplates()](docs/sdks/jwttemplates/README.md)
 
@@ -264,7 +265,7 @@ If the request is correctly authenticated, the token's claims are made available
 
 ### [miscellaneous()](docs/sdks/miscellaneous/README.md)
 
-* [getInterstitial](docs/sdks/miscellaneous/README.md#getinterstitial) - Returns the markup for the interstitial page
+* [getPublicInterstitial](docs/sdks/miscellaneous/README.md#getpublicinterstitial) - Returns the markup for the interstitial page
 
 ### [oauthApplications()](docs/sdks/oauthapplications/README.md)
 
@@ -275,14 +276,11 @@ If the request is correctly authenticated, the token's claims are made available
 * [delete](docs/sdks/oauthapplications/README.md#delete) - Delete an OAuth application
 * [rotateSecret](docs/sdks/oauthapplications/README.md#rotatesecret) - Rotate the client secret of the given OAuth application
 
-### [organizationDomain()](docs/sdks/organizationdomain/README.md)
-
-* [update](docs/sdks/organizationdomain/README.md#update) - Update an organization domain.
-
 ### [organizationDomains()](docs/sdks/organizationdomains/README.md)
 
 * [create](docs/sdks/organizationdomains/README.md#create) - Create a new organization domain.
 * [list](docs/sdks/organizationdomains/README.md#list) - Get a list of all domains of an organization.
+* [update](docs/sdks/organizationdomains/README.md#update) - Update an organization domain.
 * [delete](docs/sdks/organizationdomains/README.md#delete) - Remove a domain from an organization.
 
 ### [organizationInvitations()](docs/sdks/organizationinvitations/README.md)
@@ -302,7 +300,6 @@ If the request is correctly authenticated, the token's claims are made available
 * [update](docs/sdks/organizationmemberships/README.md#update) - Update an organization membership
 * [delete](docs/sdks/organizationmemberships/README.md#delete) - Remove a member from an organization
 * [updateMetadata](docs/sdks/organizationmemberships/README.md#updatemetadata) - Merge and update organization membership metadata
-* [getAll](docs/sdks/organizationmemberships/README.md#getall) - Get a list of all organization memberships within an instance.
 
 ### [organizations()](docs/sdks/organizations/README.md)
 
@@ -326,15 +323,12 @@ If the request is correctly authenticated, the token's claims are made available
 
 * [verify](docs/sdks/proxychecks/README.md#verify) - Verify the proxy configuration for your domain
 
-### [redirectUrls()](docs/sdks/clerkredirecturls/README.md)
-
-* [create](docs/sdks/clerkredirecturls/README.md#create) - Create a redirect URL
-* [get](docs/sdks/clerkredirecturls/README.md#get) - Retrieve a redirect URL
-* [delete](docs/sdks/clerkredirecturls/README.md#delete) - Delete a redirect URL
-
-### [redirectURLs()](docs/sdks/redirecturls/README.md)
+### [redirectUrls()](docs/sdks/redirecturls/README.md)
 
 * [list](docs/sdks/redirecturls/README.md#list) - List all redirect URLs
+* [create](docs/sdks/redirecturls/README.md#create) - Create a redirect URL
+* [get](docs/sdks/redirecturls/README.md#get) - Retrieve a redirect URL
+* [delete](docs/sdks/redirecturls/README.md#delete) - Delete a redirect URL
 
 ### [samlConnections()](docs/sdks/samlconnections/README.md)
 
@@ -347,9 +341,11 @@ If the request is correctly authenticated, the token's claims are made available
 ### [sessions()](docs/sdks/sessions/README.md)
 
 * [list](docs/sdks/sessions/README.md#list) - List all sessions
+* [create](docs/sdks/sessions/README.md#create) - Create a new active session
 * [get](docs/sdks/sessions/README.md#get) - Retrieve a session
 * [revoke](docs/sdks/sessions/README.md#revoke) - Revoke a session
 * [~~verify~~](docs/sdks/sessions/README.md#verify) - Verify a session :warning: **Deprecated**
+* [createToken](docs/sdks/sessions/README.md#createtoken) - Create a session token
 * [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a jwt template
 
 ### [signInTokens()](docs/sdks/signintokens/README.md)
@@ -359,6 +355,7 @@ If the request is correctly authenticated, the token's claims are made available
 
 ### [signUps()](docs/sdks/signups/README.md)
 
+* [get](docs/sdks/signups/README.md#get) - Retrieve a sign-up by ID
 * [update](docs/sdks/signups/README.md#update) - Update a sign-up
 
 ### [~~templates()~~](docs/sdks/templates/README.md)
@@ -388,14 +385,19 @@ If the request is correctly authenticated, the token's claims are made available
 * [getOrganizationMemberships](docs/sdks/users/README.md#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](docs/sdks/users/README.md#getorganizationinvitations) - Retrieve all invitations for a user
 * [verifyPassword](docs/sdks/users/README.md#verifypassword) - Verify the password of a user
-* [verifyTOTP](docs/sdks/users/README.md#verifytotp) - Verify a TOTP or backup code for a user
-* [disableMFA](docs/sdks/users/README.md#disablemfa) - Disable a user's MFA methods
+* [verifyTotp](docs/sdks/users/README.md#verifytotp) - Verify a TOTP or backup code for a user
+* [disableMfa](docs/sdks/users/README.md#disablemfa) - Disable a user's MFA methods
 * [deleteBackupCodes](docs/sdks/users/README.md#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](docs/sdks/users/README.md#deletepasskey) - Delete a user passkey
 * [deleteWeb3Wallet](docs/sdks/users/README.md#deleteweb3wallet) - Delete a user web3 wallet
-* [createTOTP](docs/sdks/users/README.md#createtotp) - Create a TOTP for a user
-* [deleteTotp](docs/sdks/users/README.md#deletetotp) - Delete all the user's TOTPs
+* [deleteTOTP](docs/sdks/users/README.md#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](docs/sdks/users/README.md#deleteexternalaccount) - Delete External Account
+* [getInstanceOrganizationMemberships](docs/sdks/users/README.md#getinstanceorganizationmemberships) - Get a list of all organization memberships within an instance.
+
+### [waitlistEntries()](docs/sdks/waitlistentries/README.md)
+
+* [list](docs/sdks/waitlistentries/README.md#list) - List all waitlist entries
+* [create](docs/sdks/waitlistentries/README.md#create) - Create a waitlist entry
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
@@ -405,6 +407,94 @@ If the request is correctly authenticated, the token's claims are made available
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, you can provide a `RetryConfig` object through the `retryConfig` builder method:
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import com.clerk.backend_api.utils.BackoffStrategy;
+import com.clerk.backend_api.utils.RetryConfig;
+import java.lang.Exception;
+import java.util.concurrent.TimeUnit;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+            .build();
+
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
+                .retryConfig(RetryConfig.builder()
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
+                .call();
+
+        // handle response
+    }
+}
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a configuration at SDK initialization:
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import com.clerk.backend_api.utils.BackoffStrategy;
+import com.clerk.backend_api.utils.RetryConfig;
+import java.lang.Exception;
+import java.util.concurrent.TimeUnit;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .retryConfig(RetryConfig.builder()
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
+            .build();
+
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
+                .call();
+
+        // handle response
+    }
+}
+```
+<!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -438,6 +528,7 @@ public class Application {
             .build();
 
         VerifyClientRequestBody req = VerifyClientRequestBody.builder()
+                .token("<value>")
                 .build();
 
         VerifyClientResponse res = sdk.clients().verify()
@@ -457,11 +548,12 @@ public class Application {
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
+The default server can be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -473,9 +565,11 @@ public class Application {
                 .serverURL("https://api.clerk.com/v1")
             .build();
 
-        GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
-                .frontendApi("<value>")
-                .publishableKey("<value>")
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
                 .call();
 
         // handle response

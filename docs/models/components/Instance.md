@@ -1,0 +1,13 @@
+# Instance
+
+Success
+
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           | Example                                                                               |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `object`                                                                              | [InstanceObject](../../models/components/InstanceObject.md)                           | :heavy_check_mark:                                                                    | String representing the object's type. Objects of the same type share the same value. |                                                                                       |
+| `id`                                                                                  | *String*                                                                              | :heavy_check_mark:                                                                    | N/A                                                                                   |                                                                                       |
+| `environmentType`                                                                     | *String*                                                                              | :heavy_check_mark:                                                                    | N/A                                                                                   | development                                                                           |
+| `allowedOrigins`                                                                      | List\<*String*>                                                                       | :heavy_check_mark:                                                                    | N/A                                                                                   | [<br/>"http://localhost:3000",<br/>"https://some-domain"<br/>]                        |

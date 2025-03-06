@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class CreateOrganizationInvitationRequestBuilder {
 
     private String organizationId;
-    private CreateOrganizationInvitationRequestBody requestBody;
+    private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateOrganizationInvitation sdk;
 
     public CreateOrganizationInvitationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationInvitation sdk) {
@@ -22,17 +26,38 @@ public class CreateOrganizationInvitationRequestBuilder {
         this.organizationId = organizationId;
         return this;
     }
-
+                
     public CreateOrganizationInvitationRequestBuilder requestBody(CreateOrganizationInvitationRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public CreateOrganizationInvitationRequestBuilder requestBody(Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
+                
+    public CreateOrganizationInvitationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateOrganizationInvitationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateOrganizationInvitationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.create(
             organizationId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

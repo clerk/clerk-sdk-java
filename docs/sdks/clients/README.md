@@ -3,9 +3,6 @@
 
 ## Overview
 
-The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
-<https://clerk.com/docs/reference/clerkjs/client>
-
 ### Available Operations
 
 * [~~list~~](#list) - List all clients :warning: **Deprecated**
@@ -39,6 +36,7 @@ public class Application {
             .build();
 
         GetClientListResponse res = sdk.clients().list()
+                .paginated(false)
                 .limit(10L)
                 .offset(0L)
                 .call();
@@ -54,6 +52,7 @@ public class Application {
 
 | Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `paginated`                                                                                                                               | *Optional\<Boolean>*                                                                                                                      | :heavy_minus_sign:                                                                                                                        | Whether to paginate the results.<br/>If true, the results will be paginated.<br/>If false, the results will not be paginated.             |
 | `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
 | `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
@@ -92,6 +91,7 @@ public class Application {
             .build();
 
         VerifyClientRequestBody req = VerifyClientRequestBody.builder()
+                .token("<value>")
                 .build();
 
         VerifyClientResponse res = sdk.clients().verify()

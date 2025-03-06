@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateBlocklistIdentifierRequestBuilder {
 
-    private CreateBlocklistIdentifierRequestBody request;
+    private Optional<? extends CreateBlocklistIdentifierRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk;
 
     public CreateBlocklistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateBlocklistIdentifierRequestBuilder request(CreateBlocklistIdentifierRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateBlocklistIdentifierRequestBuilder request(Optional<? extends CreateBlocklistIdentifierRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public CreateBlocklistIdentifierRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateBlocklistIdentifierRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateBlocklistIdentifierResponse call() throws Exception {
-
-        return sdk.createBlocklistIdentifier(
-            request);
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.create(
+            request,
+            options);
     }
 }

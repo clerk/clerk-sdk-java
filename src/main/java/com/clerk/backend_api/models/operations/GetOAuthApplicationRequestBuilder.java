@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class GetOAuthApplicationRequestBuilder {
 
     private String oauthApplicationId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetOAuthApplication sdk;
 
     public GetOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallGetOAuthApplication sdk) {
@@ -21,10 +25,25 @@ public class GetOAuthApplicationRequestBuilder {
         this.oauthApplicationId = oauthApplicationId;
         return this;
     }
+                
+    public GetOAuthApplicationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetOAuthApplicationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetOAuthApplicationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            oauthApplicationId);
+            oauthApplicationId,
+            options);
     }
 }

@@ -34,6 +34,8 @@ public class Application {
             .build();
 
         CreateEmailAddressRequestBody req = CreateEmailAddressRequestBody.builder()
+                .userId("<id>")
+                .emailAddress("Loyal79@yahoo.com")
                 .build();
 
         CreateEmailAddressResponse res = sdk.emailAddresses().create()
@@ -202,10 +204,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `emailAddressId`                                                                          | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the email address to update                                                     |
-| `requestBody`                                                                             | [UpdateEmailAddressRequestBody](../../models/operations/UpdateEmailAddressRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `emailAddressId`                                                                                     | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the email address to update                                                                |
+| `requestBody`                                                                                        | [Optional\<UpdateEmailAddressRequestBody>](../../models/operations/UpdateEmailAddressRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
 
 ### Response
 

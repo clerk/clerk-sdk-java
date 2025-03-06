@@ -1,8 +1,10 @@
 # VerifyClientRequestBody
 
+Parameters.
+
 
 ## Fields
 
 | Field                                    | Type                                     | Required                                 | Description                              |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `token`                                  | *Optional\<String>*                      | :heavy_minus_sign:                       | A JWT that represents the active client. |
+| `token`                                  | *String*                                 | :heavy_check_mark:                       | A JWT that represents the active client. |

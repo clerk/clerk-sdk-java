@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class GetOrganizationInvitationRequestBuilder {
 
     private String organizationId;
     private String invitationId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetOrganizationInvitation sdk;
 
     public GetOrganizationInvitationRequestBuilder(SDKMethodInterfaces.MethodCallGetOrganizationInvitation sdk) {
@@ -28,11 +32,26 @@ public class GetOrganizationInvitationRequestBuilder {
         this.invitationId = invitationId;
         return this;
     }
+                
+    public GetOrganizationInvitationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetOrganizationInvitationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetOrganizationInvitationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             organizationId,
-            invitationId);
+            invitationId,
+            options);
     }
 }

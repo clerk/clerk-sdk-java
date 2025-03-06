@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateJWTTemplateRequestBuilder {
 
     private String templateId;
-    private UpdateJWTTemplateRequestBody requestBody;
+    private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk;
 
     public UpdateJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk) {
@@ -22,17 +26,38 @@ public class UpdateJWTTemplateRequestBuilder {
         this.templateId = templateId;
         return this;
     }
-
+                
     public UpdateJWTTemplateRequestBuilder requestBody(UpdateJWTTemplateRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public UpdateJWTTemplateRequestBuilder requestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpdateJWTTemplateRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdateJWTTemplateRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdateJWTTemplateResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.update(
             templateId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

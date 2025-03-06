@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class CreateOrganizationDomainRequestBuilder {
 
     private String organizationId;
     private CreateOrganizationDomainRequestBody requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateOrganizationDomain sdk;
 
     public CreateOrganizationDomainRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationDomain sdk) {
@@ -28,11 +32,26 @@ public class CreateOrganizationDomainRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public CreateOrganizationDomainRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateOrganizationDomainRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateOrganizationDomainResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.create(
             organizationId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

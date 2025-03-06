@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteSAMLConnectionRequestBuilder {
 
     private String samlConnectionId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteSAMLConnection sdk;
 
     public DeleteSAMLConnectionRequestBuilder(SDKMethodInterfaces.MethodCallDeleteSAMLConnection sdk) {
@@ -21,10 +25,25 @@ public class DeleteSAMLConnectionRequestBuilder {
         this.samlConnectionId = samlConnectionId;
         return this;
     }
+                
+    public DeleteSAMLConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteSAMLConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteSAMLConnectionResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.delete(
-            samlConnectionId);
+            samlConnectionId,
+            options);
     }
 }

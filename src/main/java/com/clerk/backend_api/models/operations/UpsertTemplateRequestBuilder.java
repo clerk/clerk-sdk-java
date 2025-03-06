@@ -4,6 +4,8 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
 import java.util.Optional;
@@ -13,6 +15,7 @@ public class UpsertTemplateRequestBuilder {
     private UpsertTemplatePathParamTemplateType templateType;
     private String slug;
     private Optional<? extends UpsertTemplateRequestBody> requestBody = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpsertTemplate sdk;
 
     public UpsertTemplateRequestBuilder(SDKMethodInterfaces.MethodCallUpsertTemplate sdk) {
@@ -42,12 +45,27 @@ public class UpsertTemplateRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpsertTemplateRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpsertTemplateRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpsertTemplateResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.upsert(
             templateType,
             slug,
-            requestBody);
+            requestBody,
+            options);
     }
 }

@@ -4,14 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateOrganizationMembershipRequestBuilder {
 
     private String organizationId;
     private String userId;
     private UpdateOrganizationMembershipRequestBody requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateOrganizationMembership sdk;
 
     public UpdateOrganizationMembershipRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOrganizationMembership sdk) {
@@ -35,12 +39,27 @@ public class UpdateOrganizationMembershipRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpdateOrganizationMembershipRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdateOrganizationMembershipRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdateOrganizationMembershipResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.update(
             organizationId,
             userId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

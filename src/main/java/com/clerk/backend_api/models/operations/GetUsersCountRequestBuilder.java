@@ -4,11 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class GetUsersCountRequestBuilder {
 
     private GetUsersCountRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetUsersCount sdk;
 
     public GetUsersCountRequestBuilder(SDKMethodInterfaces.MethodCallGetUsersCount sdk) {
@@ -20,10 +24,25 @@ public class GetUsersCountRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetUsersCountRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetUsersCountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetUsersCountResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.count(
-            request);
+            request,
+            options);
     }
 }

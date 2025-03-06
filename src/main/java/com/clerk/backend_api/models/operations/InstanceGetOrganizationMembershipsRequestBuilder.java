@@ -5,6 +5,8 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
@@ -13,6 +15,7 @@ import java.util.Optional;
 
 public class InstanceGetOrganizationMembershipsRequestBuilder {
 
+    private Optional<String> orderBy = Optional.empty();
     private Optional<Long> limit = Utils.readDefaultOrConstValue(
                             "limit",
                             "10",
@@ -21,11 +24,23 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
-    private Optional<String> orderBy = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallInstanceGetOrganizationMemberships sdk;
 
     public InstanceGetOrganizationMembershipsRequestBuilder(SDKMethodInterfaces.MethodCallInstanceGetOrganizationMemberships sdk) {
         this.sdk = sdk;
+    }
+                
+    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(String orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = Optional.of(orderBy);
+        return this;
+    }
+
+    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(Optional<String> orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = orderBy;
+        return this;
     }
                 
     public InstanceGetOrganizationMembershipsRequestBuilder limit(long limit) {
@@ -52,15 +67,15 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
         return this;
     }
                 
-    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(String orderBy) {
-        Utils.checkNotNull(orderBy, "orderBy");
-        this.orderBy = Optional.of(orderBy);
+    public InstanceGetOrganizationMembershipsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public InstanceGetOrganizationMembershipsRequestBuilder orderBy(Optional<String> orderBy) {
-        Utils.checkNotNull(orderBy, "orderBy");
-        this.orderBy = orderBy;
+    public InstanceGetOrganizationMembershipsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
@@ -70,11 +85,14 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }
-        return sdk.getAll(
+        }        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.getInstanceOrganizationMemberships(
+            orderBy,
             limit,
             offset,
-            orderBy);
+            options);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

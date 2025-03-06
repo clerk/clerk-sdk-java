@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteExternalAccountRequestBuilder {
 
     private String userId;
     private String externalAccountId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteExternalAccount sdk;
 
     public DeleteExternalAccountRequestBuilder(SDKMethodInterfaces.MethodCallDeleteExternalAccount sdk) {
@@ -28,11 +32,26 @@ public class DeleteExternalAccountRequestBuilder {
         this.externalAccountId = externalAccountId;
         return this;
     }
+                
+    public DeleteExternalAccountRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteExternalAccountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteExternalAccountResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.deleteExternalAccount(
             userId,
-            externalAccountId);
+            externalAccountId,
+            options);
     }
 }

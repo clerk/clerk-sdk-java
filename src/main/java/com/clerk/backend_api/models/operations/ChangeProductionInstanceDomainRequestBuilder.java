@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class ChangeProductionInstanceDomainRequestBuilder {
 
-    private ChangeProductionInstanceDomainRequestBody request;
+    private Optional<? extends ChangeProductionInstanceDomainRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallChangeProductionInstanceDomain sdk;
 
     public ChangeProductionInstanceDomainRequestBuilder(SDKMethodInterfaces.MethodCallChangeProductionInstanceDomain sdk) {
         this.sdk = sdk;
     }
-
+                
     public ChangeProductionInstanceDomainRequestBuilder request(ChangeProductionInstanceDomainRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public ChangeProductionInstanceDomainRequestBuilder request(Optional<? extends ChangeProductionInstanceDomainRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public ChangeProductionInstanceDomainRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public ChangeProductionInstanceDomainRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public ChangeProductionInstanceDomainResponse call() throws Exception {
-
-        return sdk.changeProductionInstanceDomain(
-            request);
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.changeDomain(
+            request,
+            options);
     }
 }

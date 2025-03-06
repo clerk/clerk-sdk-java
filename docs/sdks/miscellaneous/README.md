@@ -3,13 +3,11 @@
 
 ## Overview
 
-Various endpoints that do not belong in any particular category.
-
 ### Available Operations
 
-* [getInterstitial](#getinterstitial) - Returns the markup for the interstitial page
+* [getPublicInterstitial](#getpublicinterstitial) - Returns the markup for the interstitial page
 
-## getInterstitial
+## getPublicInterstitial
 
 The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
 It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
@@ -20,6 +18,7 @@ It is used by Clerk SDKs when the user's authentication state cannot be immediat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -30,9 +29,11 @@ public class Application {
         Clerk sdk = Clerk.builder()
             .build();
 
-        GetPublicInterstitialResponse res = sdk.miscellaneous().getInterstitial()
-                .frontendApi("<value>")
-                .publishableKey("<value>")
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
                 .call();
 
         // handle response
@@ -42,10 +43,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                             | Type                                  | Required                              | Description                           |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `frontendApi`                         | *Optional\<String>*                   | :heavy_minus_sign:                    | The Frontend API key of your instance |
-| `publishableKey`                      | *Optional\<String>*                   | :heavy_minus_sign:                    | The publishable key of your instance  |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetPublicInterstitialRequest](../../models/operations/GetPublicInterstitialRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 

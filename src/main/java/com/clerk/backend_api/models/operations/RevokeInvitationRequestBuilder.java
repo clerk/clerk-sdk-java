@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class RevokeInvitationRequestBuilder {
 
     private String invitationId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallRevokeInvitation sdk;
 
     public RevokeInvitationRequestBuilder(SDKMethodInterfaces.MethodCallRevokeInvitation sdk) {
@@ -21,10 +25,25 @@ public class RevokeInvitationRequestBuilder {
         this.invitationId = invitationId;
         return this;
     }
+                
+    public RevokeInvitationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public RevokeInvitationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public RevokeInvitationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.revoke(
-            invitationId);
+            invitationId,
+            options);
     }
 }

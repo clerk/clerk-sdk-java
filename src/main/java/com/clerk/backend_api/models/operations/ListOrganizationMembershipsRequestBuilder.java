@@ -4,96 +4,45 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.lang.Long;
-import java.lang.String;
 import java.util.Optional;
 
 public class ListOrganizationMembershipsRequestBuilder {
 
-    private String organizationId;
-    private Optional<Long> limit = Utils.readDefaultOrConstValue(
-                            "limit",
-                            "10",
-                            new TypeReference<Optional<Long>>() {});
-    private Optional<Long> offset = Utils.readDefaultOrConstValue(
-                            "offset",
-                            "0",
-                            new TypeReference<Optional<Long>>() {});
-    private Optional<String> orderBy = Optional.empty();
+    private ListOrganizationMembershipsRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListOrganizationMemberships sdk;
 
     public ListOrganizationMembershipsRequestBuilder(SDKMethodInterfaces.MethodCallListOrganizationMemberships sdk) {
         this.sdk = sdk;
     }
 
-    public ListOrganizationMembershipsRequestBuilder organizationId(String organizationId) {
-        Utils.checkNotNull(organizationId, "organizationId");
-        this.organizationId = organizationId;
+    public ListOrganizationMembershipsRequestBuilder request(ListOrganizationMembershipsRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
         return this;
     }
                 
-    public ListOrganizationMembershipsRequestBuilder limit(long limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = Optional.of(limit);
+    public ListOrganizationMembershipsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListOrganizationMembershipsRequestBuilder limit(Optional<Long> limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = limit;
-        return this;
-    }
-                
-    public ListOrganizationMembershipsRequestBuilder offset(long offset) {
-        Utils.checkNotNull(offset, "offset");
-        this.offset = Optional.of(offset);
-        return this;
-    }
-
-    public ListOrganizationMembershipsRequestBuilder offset(Optional<Long> offset) {
-        Utils.checkNotNull(offset, "offset");
-        this.offset = offset;
-        return this;
-    }
-                
-    public ListOrganizationMembershipsRequestBuilder orderBy(String orderBy) {
-        Utils.checkNotNull(orderBy, "orderBy");
-        this.orderBy = Optional.of(orderBy);
-        return this;
-    }
-
-    public ListOrganizationMembershipsRequestBuilder orderBy(Optional<String> orderBy) {
-        Utils.checkNotNull(orderBy, "orderBy");
-        this.orderBy = orderBy;
+    public ListOrganizationMembershipsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
     public ListOrganizationMembershipsResponse call() throws Exception {
-        if (limit == null) {
-            limit = _SINGLETON_VALUE_Limit.value();
-        }
-        if (offset == null) {
-            offset = _SINGLETON_VALUE_Offset.value();
-        }
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
-            organizationId,
-            limit,
-            offset,
-            orderBy);
+            request,
+            options);
     }
-
-    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
-            new LazySingletonValue<>(
-                    "limit",
-                    "10",
-                    new TypeReference<Optional<Long>>() {});
-
-    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
-            new LazySingletonValue<>(
-                    "offset",
-                    "0",
-                    new TypeReference<Optional<Long>>() {});
 }
