@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateEmailAddressRequestBuilder {
 
-    private CreateEmailAddressRequestBody request;
+    private Optional<? extends CreateEmailAddressRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateEmailAddress sdk;
 
     public CreateEmailAddressRequestBuilder(SDKMethodInterfaces.MethodCallCreateEmailAddress sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateEmailAddressRequestBuilder request(CreateEmailAddressRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateEmailAddressRequestBuilder request(Optional<? extends CreateEmailAddressRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public CreateEmailAddressRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateEmailAddressRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateEmailAddressResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.create(
-            request);
+            request,
+            options);
     }
 }

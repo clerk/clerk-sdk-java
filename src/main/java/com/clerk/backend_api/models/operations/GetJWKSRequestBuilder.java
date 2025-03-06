@@ -4,17 +4,37 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class GetJWKSRequestBuilder {
 
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetJWKS sdk;
 
     public GetJWKSRequestBuilder(SDKMethodInterfaces.MethodCallGetJWKS sdk) {
         this.sdk = sdk;
     }
+                
+    public GetJWKSRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetJWKSRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetJWKSResponse call() throws Exception {
-
-        return sdk.getDirect();
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.getJWKS(
+            options);
     }
 }

@@ -14,14 +14,12 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend
- * servers.
+ * Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend servers.
  * 
  * ### Versions
  * 
  * When the API changes in a way that isn't compatible with older versions, a new version is released.
- * Each version is identified by its release date, e.g. `2021-02-05`. For more information, please see [Clerk API Versions](https://clerk.com/docs/backend-requests/versioning/overview).
- * 
+ * Each version is identified by its release date, e.g. `2024-10-01`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
  * 
  * Please see https://clerk.com/docs for more information.
  * https://clerk.com/docs
@@ -36,29 +34,16 @@ public class Clerk {
         "https://api.clerk.com/v1",
     };
 
-    /**
-     * Various endpoints that do not belong in any particular category.
-     */
     private final Miscellaneous miscellaneous;
 
     private final Jwks jwks;
 
-    /**
-     * The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
-     * https://clerk.com/docs/reference/clerkjs/client
-     */
     private final Clients clients;
 
     private final EmailAddresses emailAddresses;
 
     private final PhoneNumbers phoneNumbers;
 
-    /**
-     * The Session object is an abstraction over an HTTP session.
-     * It models the period of information exchange between a user and the server.
-     * Sessions are created when a user successfully goes through the sign in or sign up flows.
-     * https://clerk.com/docs/reference/clerkjs/session
-     */
     private final Sessions sessions;
 
     private final EmailSMSTemplates emailSMSTemplates;
@@ -67,21 +52,11 @@ public class Clerk {
 
     private final Templates templates;
 
-    /**
-     * The user object represents a user that has successfully signed up to your application.
-     * https://clerk.com/docs/reference/clerkjs/user
-     */
     private final Users users;
 
-    /**
-     * Invitations allow you to invite someone to sign up to your application, via email.
-     * https://clerk.com/docs/authentication/invitations
-     */
     private final Invitations invitations;
 
     private final OrganizationInvitations organizationInvitations;
-
-    private final AllowlistBlocklist allowlistBlocklist;
 
     private final AllowlistIdentifiers allowlistIdentifiers;
 
@@ -91,38 +66,23 @@ public class Clerk {
 
     private final ActorTokens actorTokens;
 
-    /**
-     * Domains represent each instance's URLs and DNS setup.
-     */
     private final Domains domains;
 
     private final InstanceSettings instanceSettings;
 
-    /**
-     * You can configure webhooks to be notified about various events that happen on your instance.
-     * https://clerk.com/docs/integration/webhooks
-     */
     private final Webhooks webhooks;
 
     private final JwtTemplates jwtTemplates;
 
-    /**
-     * Organizations are used to group members under a common entity and provide shared access to resources.
-     * https://clerk.com/docs/organizations/overview
-     */
     private final Organizations organizations;
 
     private final OrganizationMemberships organizationMemberships;
 
     private final OrganizationDomains organizationDomains;
 
-    private final OrganizationDomain organizationDomain;
-
     private final ProxyChecks proxyChecks;
 
-    private final RedirectURLs redirectURLs;
-
-    private final ClerkRedirectUrls redirectUrls;
+    private final RedirectUrls redirectUrls;
 
     private final SignInTokens signInTokens;
 
@@ -134,9 +94,8 @@ public class Clerk {
 
     private final TestingTokens testingTokens;
 
-    /**
-     * Various endpoints that do not belong in any particular category.
-     */
+    private final WaitlistEntries waitlistEntries;
+
     public Miscellaneous miscellaneous() {
         return miscellaneous;
     }
@@ -145,10 +104,6 @@ public class Clerk {
         return jwks;
     }
 
-    /**
-     * The Client object tracks sessions, as well as the state of any sign in and sign up attempts, for a given device.
-     * https://clerk.com/docs/reference/clerkjs/client
-     */
     public Clients clients() {
         return clients;
     }
@@ -161,12 +116,6 @@ public class Clerk {
         return phoneNumbers;
     }
 
-    /**
-     * The Session object is an abstraction over an HTTP session.
-     * It models the period of information exchange between a user and the server.
-     * Sessions are created when a user successfully goes through the sign in or sign up flows.
-     * https://clerk.com/docs/reference/clerkjs/session
-     */
     public Sessions sessions() {
         return sessions;
     }
@@ -183,28 +132,16 @@ public class Clerk {
         return templates;
     }
 
-    /**
-     * The user object represents a user that has successfully signed up to your application.
-     * https://clerk.com/docs/reference/clerkjs/user
-     */
     public Users users() {
         return users;
     }
 
-    /**
-     * Invitations allow you to invite someone to sign up to your application, via email.
-     * https://clerk.com/docs/authentication/invitations
-     */
     public Invitations invitations() {
         return invitations;
     }
 
     public OrganizationInvitations organizationInvitations() {
         return organizationInvitations;
-    }
-
-    public AllowlistBlocklist allowlistBlocklist() {
-        return allowlistBlocklist;
     }
 
     public AllowlistIdentifiers allowlistIdentifiers() {
@@ -223,9 +160,6 @@ public class Clerk {
         return actorTokens;
     }
 
-    /**
-     * Domains represent each instance's URLs and DNS setup.
-     */
     public Domains domains() {
         return domains;
     }
@@ -234,10 +168,6 @@ public class Clerk {
         return instanceSettings;
     }
 
-    /**
-     * You can configure webhooks to be notified about various events that happen on your instance.
-     * https://clerk.com/docs/integration/webhooks
-     */
     public Webhooks webhooks() {
         return webhooks;
     }
@@ -246,10 +176,6 @@ public class Clerk {
         return jwtTemplates;
     }
 
-    /**
-     * Organizations are used to group members under a common entity and provide shared access to resources.
-     * https://clerk.com/docs/organizations/overview
-     */
     public Organizations organizations() {
         return organizations;
     }
@@ -262,19 +188,11 @@ public class Clerk {
         return organizationDomains;
     }
 
-    public OrganizationDomain organizationDomain() {
-        return organizationDomain;
-    }
-
     public ProxyChecks proxyChecks() {
         return proxyChecks;
     }
 
-    public RedirectURLs redirectURLs() {
-        return redirectURLs;
-    }
-
-    public ClerkRedirectUrls redirectUrls() {
+    public RedirectUrls redirectUrls() {
         return redirectUrls;
     }
 
@@ -296,6 +214,10 @@ public class Clerk {
 
     public TestingTokens testingTokens() {
         return testingTokens;
+    }
+
+    public WaitlistEntries waitlistEntries() {
+        return waitlistEntries;
     }
 
     private final SDKConfiguration sdkConfiguration;
@@ -444,7 +366,6 @@ public class Clerk {
         this.users = new Users(sdkConfiguration);
         this.invitations = new Invitations(sdkConfiguration);
         this.organizationInvitations = new OrganizationInvitations(sdkConfiguration);
-        this.allowlistBlocklist = new AllowlistBlocklist(sdkConfiguration);
         this.allowlistIdentifiers = new AllowlistIdentifiers(sdkConfiguration);
         this.blocklistIdentifiers = new BlocklistIdentifiers(sdkConfiguration);
         this.betaFeatures = new BetaFeatures(sdkConfiguration);
@@ -456,14 +377,13 @@ public class Clerk {
         this.organizations = new Organizations(sdkConfiguration);
         this.organizationMemberships = new OrganizationMemberships(sdkConfiguration);
         this.organizationDomains = new OrganizationDomains(sdkConfiguration);
-        this.organizationDomain = new OrganizationDomain(sdkConfiguration);
         this.proxyChecks = new ProxyChecks(sdkConfiguration);
-        this.redirectURLs = new RedirectURLs(sdkConfiguration);
-        this.redirectUrls = new ClerkRedirectUrls(sdkConfiguration);
+        this.redirectUrls = new RedirectUrls(sdkConfiguration);
         this.signInTokens = new SignInTokens(sdkConfiguration);
         this.signUps = new SignUps(sdkConfiguration);
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
+        this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.sdkConfiguration.initialize();
     }}

@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class MergeOrganizationMetadataRequestBuilder {
 
     private String organizationId;
     private MergeOrganizationMetadataRequestBody requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallMergeOrganizationMetadata sdk;
 
     public MergeOrganizationMetadataRequestBuilder(SDKMethodInterfaces.MethodCallMergeOrganizationMetadata sdk) {
@@ -28,11 +32,26 @@ public class MergeOrganizationMetadataRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public MergeOrganizationMetadataRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public MergeOrganizationMetadataRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public MergeOrganizationMetadataResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.mergeMetadata(
             organizationId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

@@ -4,87 +4,45 @@
 
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.lang.Long;
 import java.util.Optional;
 
 public class ListInvitationsRequestBuilder {
 
-    private Optional<Long> limit = Utils.readDefaultOrConstValue(
-                            "limit",
-                            "10",
-                            new TypeReference<Optional<Long>>() {});
-    private Optional<Long> offset = Utils.readDefaultOrConstValue(
-                            "offset",
-                            "0",
-                            new TypeReference<Optional<Long>>() {});
-    private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();
+    private ListInvitationsRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListInvitations sdk;
 
     public ListInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListInvitations sdk) {
         this.sdk = sdk;
     }
-                
-    public ListInvitationsRequestBuilder limit(long limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = Optional.of(limit);
-        return this;
-    }
 
-    public ListInvitationsRequestBuilder limit(Optional<Long> limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = limit;
+    public ListInvitationsRequestBuilder request(ListInvitationsRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
         return this;
     }
                 
-    public ListInvitationsRequestBuilder offset(long offset) {
-        Utils.checkNotNull(offset, "offset");
-        this.offset = Optional.of(offset);
+    public ListInvitationsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListInvitationsRequestBuilder offset(Optional<Long> offset) {
-        Utils.checkNotNull(offset, "offset");
-        this.offset = offset;
-        return this;
-    }
-                
-    public ListInvitationsRequestBuilder status(ListInvitationsQueryParamStatus status) {
-        Utils.checkNotNull(status, "status");
-        this.status = Optional.of(status);
-        return this;
-    }
-
-    public ListInvitationsRequestBuilder status(Optional<? extends ListInvitationsQueryParamStatus> status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
+    public ListInvitationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
     public ListInvitationsResponse call() throws Exception {
-        if (limit == null) {
-            limit = _SINGLETON_VALUE_Limit.value();
-        }
-        if (offset == null) {
-            offset = _SINGLETON_VALUE_Offset.value();
-        }
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
-            limit,
-            offset,
-            status);
+            request,
+            options);
     }
-
-    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
-            new LazySingletonValue<>(
-                    "limit",
-                    "10",
-                    new TypeReference<Optional<Long>>() {});
-
-    private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Offset =
-            new LazySingletonValue<>(
-                    "offset",
-                    "0",
-                    new TypeReference<Optional<Long>>() {});
 }

@@ -10,7 +10,6 @@
 * [update](#update) - Update an organization membership
 * [delete](#delete) - Remove a member from an organization
 * [updateMetadata](#updatemetadata) - Merge and update organization membership metadata
-* [getAll](#getall) - Get a list of all organization memberships within an instance.
 
 ## create
 
@@ -84,6 +83,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse;
 import java.lang.Exception;
 
@@ -95,11 +95,16 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        ListOrganizationMembershipsResponse res = sdk.organizationMemberships().list()
+        ListOrganizationMembershipsRequest req = ListOrganizationMembershipsRequest.builder()
                 .organizationId("<id>")
-                .limit(10L)
-                .offset(0L)
-                .orderBy("<value>")
+                .lastActiveAtBefore(1700690400000L)
+                .lastActiveAtAfter(1700690400000L)
+                .createdAtBefore(1730160000000L)
+                .createdAtAfter(1730160000000L)
+                .build();
+
+        ListOrganizationMembershipsResponse res = sdk.organizationMemberships().list()
+                .request(req)
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
@@ -111,12 +116,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                           | Type                                                                                                                                                                                                                                | Required                                                                                                                                                                                                                            | Description                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                                                                                                                    | *String*                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                  | The organization ID.                                                                                                                                                                                                                |
-| `limit`                                                                                                                                                                                                                             | *Optional\<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                  | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                               |
-| `offset`                                                                                                                                                                                                                            | *Optional\<Long>*                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                  | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                   |
-| `orderBy`                                                                                                                                                                                                                           | *Optional\<String>*                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                  | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order." |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `request`                                                                                           | [ListOrganizationMembershipsRequest](../../models/operations/ListOrganizationMembershipsRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
@@ -183,7 +185,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 404, 422                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
@@ -235,7 +237,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/ClerkErrors | 401, 404                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## updateMetadata
@@ -279,11 +281,11 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                     | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                              | *String*                                                                                                                      | :heavy_check_mark:                                                                                                            | The ID of the organization the membership belongs to                                                                          |
-| `userId`                                                                                                                      | *String*                                                                                                                      | :heavy_check_mark:                                                                                                            | The ID of the user that this membership belongs to                                                                            |
-| `requestBody`                                                                                                                 | [UpdateOrganizationMembershipMetadataRequestBody](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |
+| Parameter                                                                                                                                | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                                                         | *String*                                                                                                                                 | :heavy_check_mark:                                                                                                                       | The ID of the organization the membership belongs to                                                                                     |
+| `userId`                                                                                                                                 | *String*                                                                                                                                 | :heavy_check_mark:                                                                                                                       | The ID of the user that this membership belongs to                                                                                       |
+| `requestBody`                                                                                                                            | [Optional\<UpdateOrganizationMembershipMetadataRequestBody>](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |
 
 ### Response
 
@@ -294,58 +296,4 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 404, 422             | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
-
-## getAll
-
-Retrieves all organization user memberships for the given instance.
-
-### Example Usage
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ClerkErrors, Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-            .build();
-
-        InstanceGetOrganizationMembershipsResponse res = sdk.organizationMemberships().getAll()
-                .limit(10L)
-                .offset(0L)
-                .orderBy("<value>")
-                .call();
-
-        if (res.organizationMemberships().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                            | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                              |
-| `offset`                                                                                                                                                                                                                           | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                  |
-| `orderBy`                                                                                                                                                                                                                          | *Optional\<String>*                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                 | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order. |
-
-### Response
-
-**[InstanceGetOrganizationMembershipsResponse](../../models/operations/InstanceGetOrganizationMembershipsResponse.md)**
-
-### Errors
-
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 422, 500        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

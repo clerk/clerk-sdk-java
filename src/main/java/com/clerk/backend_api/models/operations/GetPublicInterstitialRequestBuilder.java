@@ -4,48 +4,45 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.String;
 import java.util.Optional;
 
 public class GetPublicInterstitialRequestBuilder {
 
-    private Optional<String> frontendApi = Optional.empty();
-    private Optional<String> publishableKey = Optional.empty();
+    private GetPublicInterstitialRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetPublicInterstitial sdk;
 
     public GetPublicInterstitialRequestBuilder(SDKMethodInterfaces.MethodCallGetPublicInterstitial sdk) {
         this.sdk = sdk;
     }
-                
-    public GetPublicInterstitialRequestBuilder frontendApi(String frontendApi) {
-        Utils.checkNotNull(frontendApi, "frontendApi");
-        this.frontendApi = Optional.of(frontendApi);
-        return this;
-    }
 
-    public GetPublicInterstitialRequestBuilder frontendApi(Optional<String> frontendApi) {
-        Utils.checkNotNull(frontendApi, "frontendApi");
-        this.frontendApi = frontendApi;
+    public GetPublicInterstitialRequestBuilder request(GetPublicInterstitialRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
         return this;
     }
                 
-    public GetPublicInterstitialRequestBuilder publishableKey(String publishableKey) {
-        Utils.checkNotNull(publishableKey, "publishableKey");
-        this.publishableKey = Optional.of(publishableKey);
+    public GetPublicInterstitialRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetPublicInterstitialRequestBuilder publishableKey(Optional<String> publishableKey) {
-        Utils.checkNotNull(publishableKey, "publishableKey");
-        this.publishableKey = publishableKey;
+    public GetPublicInterstitialRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
     public GetPublicInterstitialResponse call() throws Exception {
-
-        return sdk.getInterstitial(
-            frontendApi,
-            publishableKey);
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.getPublicInterstitial(
+            request,
+            options);
     }
 }

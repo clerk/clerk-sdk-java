@@ -14,9 +14,6 @@ import com.clerk.backend_api.models.operations.CreateOrganizationMembershipRespo
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequest;
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteOrganizationMembershipResponse;
-import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequest;
-import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequestBuilder;
-import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListOrganizationMembershipsResponse;
@@ -29,32 +26,38 @@ import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipReque
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse;
+import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.Retries.NonRetryableException;
+import com.clerk.backend_api.utils.Retries;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.SerializedBody;
 import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.Long;
 import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional; 
+import java.util.Optional;
+import java.util.concurrent.TimeUnit; 
 
 public class OrganizationMemberships implements
             MethodCallCreateOrganizationMembership,
             MethodCallListOrganizationMemberships,
             MethodCallUpdateOrganizationMembership,
             MethodCallDeleteOrganizationMembership,
-            MethodCallUpdateOrganizationMembershipMetadata,
-            MethodCallInstanceGetOrganizationMemberships {
+            MethodCallUpdateOrganizationMembershipMetadata {
 
     private final SDKConfiguration sdkConfiguration;
 
@@ -93,6 +96,31 @@ public class OrganizationMemberships implements
     public CreateOrganizationMembershipResponse create(
             String organizationId,
             CreateOrganizationMembershipRequestBody requestBody) throws Exception {
+        return create(organizationId, requestBody, Optional.empty());
+    }
+    
+    /**
+     * Create a new organization membership
+     * Adds a user as a member to the given organization.
+     * Only users in the same instance as the organization can be added as members.
+     * 
+     * This organization will be the user's [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a
+     * different organization as active before then.
+     * @param organizationId The ID of the organization where the new membership will be created
+     * @param requestBody
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public CreateOrganizationMembershipResponse create(
+            String organizationId,
+            CreateOrganizationMembershipRequestBody requestBody,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         CreateOrganizationMembershipRequest request =
             CreateOrganizationMembershipRequest
                 .builder()
@@ -129,45 +157,62 @@ public class OrganizationMemberships implements
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "CreateOrganizationMembership", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "403", "404", "422", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "CreateOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "CreateOrganizationMembership",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "CreateOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "CreateOrganizationMembership", 
+                                Optional.of(List.of()), 
+                                _hookSecuritySource),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "CreateOrganizationMembership",
+                                 Optional.of(List.of()),
+                                 _hookSecuritySource), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "CreateOrganizationMembership", 
+                         Optional.of(List.of()), 
+                         _hookSecuritySource),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -210,7 +255,15 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -239,44 +292,30 @@ public class OrganizationMemberships implements
     /**
      * Get a list of all members of an organization
      * Retrieves all user memberships for the given organization
-     * @param organizationId The organization ID.
+     * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ListOrganizationMembershipsResponse list(
-            String organizationId) throws Exception {
-        return list(organizationId, Optional.empty(), Optional.empty(), Optional.empty());
+            ListOrganizationMembershipsRequest request) throws Exception {
+        return list(request, Optional.empty());
     }
     
     /**
      * Get a list of all members of an organization
      * Retrieves all user memberships for the given organization
-     * @param organizationId The organization ID.
-     * @param limit Applies a limit to the number of results returned.
-    Can be used for paginating the results together with `offset`.
-     * @param offset Skip the first `offset` results when paginating.
-    Needs to be an integer greater or equal to zero.
-    To be used in conjunction with `limit`.
-     * @param orderBy Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-    By prepending one of those values with + or -,
-    we can choose to sort in ascending (ASC) or descending (DESC) order."
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ListOrganizationMembershipsResponse list(
-            String organizationId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<String> orderBy) throws Exception {
-        ListOrganizationMembershipsRequest request =
-            ListOrganizationMembershipsRequest
-                .builder()
-                .organizationId(organizationId)
-                .limit(limit)
-                .offset(offset)
-                .orderBy(orderBy)
-                .build();
-        
+            ListOrganizationMembershipsRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
                 ListOrganizationMembershipsRequest.class,
@@ -298,45 +337,62 @@ public class OrganizationMemberships implements
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "ListOrganizationMemberships", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "422", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "ListOrganizationMemberships",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "ListOrganizationMemberships",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "ListOrganizationMemberships",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "ListOrganizationMemberships", 
+                                Optional.of(List.of()), 
+                                _hookSecuritySource),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "ListOrganizationMemberships",
+                                 Optional.of(List.of()),
+                                 _hookSecuritySource), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "ListOrganizationMemberships", 
+                         Optional.of(List.of()), 
+                         _hookSecuritySource),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -379,7 +435,15 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -418,6 +482,28 @@ public class OrganizationMemberships implements
             String organizationId,
             String userId,
             UpdateOrganizationMembershipRequestBody requestBody) throws Exception {
+        return update(organizationId, userId, requestBody, Optional.empty());
+    }
+    
+    /**
+     * Update an organization membership
+     * Updates the properties of an existing organization membership
+     * @param organizationId The ID of the organization the membership belongs to
+     * @param userId The ID of the user that this membership belongs to
+     * @param requestBody
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateOrganizationMembershipResponse update(
+            String organizationId,
+            String userId,
+            UpdateOrganizationMembershipRequestBody requestBody,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         UpdateOrganizationMembershipRequest request =
             UpdateOrganizationMembershipRequest
                 .builder()
@@ -455,45 +541,62 @@ public class OrganizationMemberships implements
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "UpdateOrganizationMembership", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "UpdateOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "UpdateOrganizationMembership",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "UpdateOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "UpdateOrganizationMembership", 
+                                Optional.of(List.of()), 
+                                _hookSecuritySource),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "UpdateOrganizationMembership",
+                                 Optional.of(List.of()),
+                                 _hookSecuritySource), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "UpdateOrganizationMembership", 
+                         Optional.of(List.of()), 
+                         _hookSecuritySource),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -522,7 +625,7 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "404", "422")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -536,7 +639,15 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -573,6 +684,26 @@ public class OrganizationMemberships implements
     public DeleteOrganizationMembershipResponse delete(
             String organizationId,
             String userId) throws Exception {
+        return delete(organizationId, userId, Optional.empty());
+    }
+    
+    /**
+     * Remove a member from an organization
+     * Removes the given membership from the organization
+     * @param organizationId The ID of the organization the membership belongs to
+     * @param userId The ID of the user that this membership belongs to
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteOrganizationMembershipResponse delete(
+            String organizationId,
+            String userId,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         DeleteOrganizationMembershipRequest request =
             DeleteOrganizationMembershipRequest
                 .builder()
@@ -596,45 +727,62 @@ public class OrganizationMemberships implements
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "DeleteOrganizationMembership", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "DeleteOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "DeleteOrganizationMembership",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "DeleteOrganizationMembership",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "DeleteOrganizationMembership", 
+                                Optional.of(List.of()), 
+                                _hookSecuritySource),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "DeleteOrganizationMembership",
+                                 Optional.of(List.of()),
+                                 _hookSecuritySource), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "DeleteOrganizationMembership", 
+                         Optional.of(List.of()), 
+                         _hookSecuritySource),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -663,7 +811,7 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "404")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "404")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ClerkErrors _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -677,7 +825,15 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -712,14 +868,36 @@ public class OrganizationMemberships implements
      * You can remove metadata keys at any level by setting their value to `null`.
      * @param organizationId The ID of the organization the membership belongs to
      * @param userId The ID of the user that this membership belongs to
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UpdateOrganizationMembershipMetadataResponse updateMetadata(
+            String organizationId,
+            String userId) throws Exception {
+        return updateMetadata(organizationId, userId, Optional.empty(), Optional.empty());
+    }
+    
+    /**
+     * Merge and update organization membership metadata
+     * Update an organization membership's metadata attributes by merging existing values with the provided parameters.
+     * Metadata values will be updated via a deep merge. Deep means that any nested JSON objects will be merged as well.
+     * You can remove metadata keys at any level by setting their value to `null`.
+     * @param organizationId The ID of the organization the membership belongs to
+     * @param userId The ID of the user that this membership belongs to
      * @param requestBody
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationMembershipMetadataResponse updateMetadata(
             String organizationId,
             String userId,
-            UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception {
+            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         UpdateOrganizationMembershipMetadataRequest request =
             UpdateOrganizationMembershipMetadataRequest
                 .builder()
@@ -745,9 +923,6 @@ public class OrganizationMemberships implements
                 "requestBody",
                 "json",
                 false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
@@ -757,45 +932,62 @@ public class OrganizationMemberships implements
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "UpdateOrganizationMembershipMetadata", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "UpdateOrganizationMembershipMetadata",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "UpdateOrganizationMembershipMetadata",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "UpdateOrganizationMembershipMetadata",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "UpdateOrganizationMembershipMetadata", 
+                                Optional.of(List.of()), 
+                                _hookSecuritySource),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "UpdateOrganizationMembershipMetadata",
+                                 Optional.of(List.of()),
+                                 _hookSecuritySource), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "UpdateOrganizationMembershipMetadata", 
+                         Optional.of(List.of()), 
+                         _hookSecuritySource),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -838,7 +1030,7 @@ public class OrganizationMemberships implements
                     Utils.extractByteArrayFromBody(_httpRes));
             }
         }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 
@@ -846,161 +1038,7 @@ public class OrganizationMemberships implements
                     "API error occurred", 
                     Utils.extractByteArrayFromBody(_httpRes));
         }
-        throw new SDKError(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
-    }
-
-
-
-    /**
-     * Get a list of all organization memberships within an instance.
-     * Retrieves all organization user memberships for the given instance.
-     * @return The call builder
-     */
-    public InstanceGetOrganizationMembershipsRequestBuilder getAll() {
-        return new InstanceGetOrganizationMembershipsRequestBuilder(this);
-    }
-
-    /**
-     * Get a list of all organization memberships within an instance.
-     * Retrieves all organization user memberships for the given instance.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public InstanceGetOrganizationMembershipsResponse getAllDirect() throws Exception {
-        return getAll(Optional.empty(), Optional.empty(), Optional.empty());
-    }
-    
-    /**
-     * Get a list of all organization memberships within an instance.
-     * Retrieves all organization user memberships for the given instance.
-     * @param limit Applies a limit to the number of results returned.
-    Can be used for paginating the results together with `offset`.
-     * @param offset Skip the first `offset` results when paginating.
-    Needs to be an integer greater or equal to zero.
-    To be used in conjunction with `limit`.
-     * @param orderBy Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-    By prepending one of those values with + or -,
-    we can choose to sort in ascending (ASC) or descending (DESC) order.
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     */
-    public InstanceGetOrganizationMembershipsResponse getAll(
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<String> orderBy) throws Exception {
-        InstanceGetOrganizationMembershipsRequest request =
-            InstanceGetOrganizationMembershipsRequest
-                .builder()
-                .limit(limit)
-                .offset(offset)
-                .orderBy(orderBy)
-                .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl;
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/organization_memberships");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                InstanceGetOrganizationMembershipsRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "InstanceGetOrganizationMemberships", 
-                      Optional.of(List.of()), 
-                      _hookSecuritySource),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "InstanceGetOrganizationMemberships",
-                            Optional.of(List.of()),
-                            _hookSecuritySource),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "InstanceGetOrganizationMemberships",
-                            Optional.of(List.of()), 
-                            _hookSecuritySource),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "InstanceGetOrganizationMemberships",
-                            Optional.of(List.of()),
-                            _hookSecuritySource), 
-                        Optional.empty(),
-                        Optional.of(_e));
-        }
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        InstanceGetOrganizationMembershipsResponse.Builder _resBuilder = 
-            InstanceGetOrganizationMembershipsResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        InstanceGetOrganizationMembershipsResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                com.clerk.backend_api.models.components.OrganizationMemberships _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<com.clerk.backend_api.models.components.OrganizationMemberships>() {});
-                _res.withOrganizationMemberships(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new SDKError(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "422", "500")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                ClerkErrors _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<ClerkErrors>() {});
-                throw _out;
-            } else {
-                throw new SDKError(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
             // no content 
             throw new SDKError(
                     _httpRes, 

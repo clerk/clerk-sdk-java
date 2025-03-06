@@ -4,11 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class GetUserListRequestBuilder {
 
     private GetUserListRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetUserList sdk;
 
     public GetUserListRequestBuilder(SDKMethodInterfaces.MethodCallGetUserList sdk) {
@@ -20,10 +24,25 @@ public class GetUserListRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetUserListRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetUserListRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetUserListResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
-            request);
+            request,
+            options);
     }
 }

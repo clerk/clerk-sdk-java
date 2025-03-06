@@ -3,13 +3,11 @@
 
 ## Overview
 
-Invitations allow you to invite someone to sign up to your application, via email.
-<https://clerk.com/docs/authentication/invitations>
-
 ### Available Operations
 
 * [create](#create) - Create an invitation
 * [list](#list) - List all invitations
+* [bulkCreate](#bulkcreate) - Create multiple invitations
 * [revoke](#revoke) - Revokes an invitation
 
 ## create
@@ -79,7 +77,7 @@ Returns all non-revoked invitations for your application, sorted by creation dat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.ListInvitationsQueryParamStatus;
+import com.clerk.backend_api.models.operations.ListInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInvitationsResponse;
 import java.lang.Exception;
 
@@ -91,10 +89,11 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
+        ListInvitationsRequest req = ListInvitationsRequest.builder()
+                .build();
+
         ListInvitationsResponse res = sdk.invitations().list()
-                .limit(10L)
-                .offset(0L)
-                .status(ListInvitationsQueryParamStatus.EXPIRED)
+                .request(req)
                 .call();
 
         if (res.invitationList().isPresent()) {
@@ -106,11 +105,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
-| `status`                                                                                                                                  | [Optional\<ListInvitationsQueryParamStatus>](../../models/operations/ListInvitationsQueryParamStatus.md)                                  | :heavy_minus_sign:                                                                                                                        | Filter invitations based on their status                                                                                                  |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [ListInvitationsRequest](../../models/operations/ListInvitationsRequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
 
 ### Response
 
@@ -121,6 +118,66 @@ public class Application {
 | Error Type             | Status Code            | Content Type           |
 | ---------------------- | ---------------------- | ---------------------- |
 | models/errors/SDKError | 4XX, 5XX               | \*/\*                  |
+
+## bulkCreate
+
+Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
+invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
+of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
+note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateBulkInvitationsResponse;
+import com.clerk.backend_api.models.operations.RequestBody;
+import java.lang.Exception;
+import java.util.List;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        List<RequestBody> req = List.of(
+                RequestBody.builder()
+                    .emailAddress("Queen25@gmail.com")
+                    .build());
+
+        CreateBulkInvitationsResponse res = sdk.invitations().bulkCreate()
+                .request(req)
+                .call();
+
+        if (res.invitationList().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                  | Type                                       | Required                                   | Description                                |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| `request`                                  | [List<RequestBody>](../../models//.md)     | :heavy_check_mark:                         | The request object to use for the request. |
+
+### Response
+
+**[CreateBulkInvitationsResponse](../../models/operations/CreateBulkInvitationsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke
 

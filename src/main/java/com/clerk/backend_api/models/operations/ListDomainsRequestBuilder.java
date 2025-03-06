@@ -4,17 +4,37 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class ListDomainsRequestBuilder {
 
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListDomains sdk;
 
     public ListDomainsRequestBuilder(SDKMethodInterfaces.MethodCallListDomains sdk) {
         this.sdk = sdk;
     }
+                
+    public ListDomainsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public ListDomainsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public ListDomainsResponse call() throws Exception {
-
-        return sdk.listDirect();
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.list(
+            options);
     }
 }

@@ -5,6 +5,8 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
@@ -23,6 +25,7 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<? extends QueryParamStatus> status = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUsersGetOrganizationInvitations sdk;
 
     public UsersGetOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallUsersGetOrganizationInvitations sdk) {
@@ -70,6 +73,18 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         this.status = status;
         return this;
     }
+                
+    public UsersGetOrganizationInvitationsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UsersGetOrganizationInvitationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UsersGetOrganizationInvitationsResponse call() throws Exception {
         if (limit == null) {
@@ -77,12 +92,15 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }
+        }        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getOrganizationInvitations(
             userId,
             limit,
             offset,
-            status);
+            status,
+            options);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

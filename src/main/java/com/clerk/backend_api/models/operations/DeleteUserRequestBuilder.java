@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteUserRequestBuilder {
 
     private String userId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteUser sdk;
 
     public DeleteUserRequestBuilder(SDKMethodInterfaces.MethodCallDeleteUser sdk) {
@@ -21,10 +25,25 @@ public class DeleteUserRequestBuilder {
         this.userId = userId;
         return this;
     }
+                
+    public DeleteUserRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteUserRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteUserResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.delete(
-            userId);
+            userId,
+            options);
     }
 }

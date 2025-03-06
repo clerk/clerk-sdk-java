@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class GetClientRequestBuilder {
 
     private String clientId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetClient sdk;
 
     public GetClientRequestBuilder(SDKMethodInterfaces.MethodCallGetClient sdk) {
@@ -21,10 +25,25 @@ public class GetClientRequestBuilder {
         this.clientId = clientId;
         return this;
     }
+                
+    public GetClientRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetClientRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetClientResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            clientId);
+            clientId,
+            options);
     }
 }

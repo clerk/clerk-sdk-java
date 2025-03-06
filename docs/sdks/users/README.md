@@ -3,9 +3,6 @@
 
 ## Overview
 
-The user object represents a user that has successfully signed up to your application.
-<https://clerk.com/docs/reference/clerkjs/user>
-
 ### Available Operations
 
 * [list](#list) - List all users
@@ -25,14 +22,14 @@ The user object represents a user that has successfully signed up to your applic
 * [getOrganizationMemberships](#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](#getorganizationinvitations) - Retrieve all invitations for a user
 * [verifyPassword](#verifypassword) - Verify the password of a user
-* [verifyTOTP](#verifytotp) - Verify a TOTP or backup code for a user
-* [disableMFA](#disablemfa) - Disable a user's MFA methods
+* [verifyTotp](#verifytotp) - Verify a TOTP or backup code for a user
+* [disableMfa](#disablemfa) - Disable a user's MFA methods
 * [deleteBackupCodes](#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](#deletepasskey) - Delete a user passkey
 * [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
-* [createTOTP](#createtotp) - Create a TOTP for a user
-* [deleteTotp](#deletetotp) - Delete all the user's TOTPs
+* [deleteTOTP](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
+* [getInstanceOrganizationMemberships](#getinstanceorganizationmemberships) - Get a list of all organization memberships within an instance.
 
 ## list
 
@@ -59,7 +56,11 @@ public class Application {
             .build();
 
         GetUserListRequest req = GetUserListRequest.builder()
+                .lastActiveAtBefore(1700690400000L)
+                .lastActiveAtAfter(1700690400000L)
                 .lastActiveAtSince(1700690400000L)
+                .createdAtBefore(1730160000000L)
+                .createdAtAfter(1730160000000L)
                 .build();
 
         GetUserListResponse res = sdk.users().list()
@@ -174,6 +175,11 @@ public class Application {
             .build();
 
         GetUsersCountRequest req = GetUsersCountRequest.builder()
+                .lastActiveAtBefore(1700690400000L)
+                .lastActiveAtAfter(1700690400000L)
+                .lastActiveAtSince(1700690400000L)
+                .createdAtBefore(1730160000000L)
+                .createdAtAfter(1730160000000L)
                 .build();
 
         GetUsersCountResponse res = sdk.users().count()
@@ -719,10 +725,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `userId`                                                                                  | *String*                                                                                  | :heavy_check_mark:                                                                        | The ID of the user whose metadata will be updated and merged                              |
-| `requestBody`                                                                             | [UpdateUserMetadataRequestBody](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                             | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the user whose metadata will be updated and merged                                         |
+| `requestBody`                                                                                        | [Optional\<UpdateUserMetadataRequestBody>](../../models/operations/UpdateUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
 
 ### Response
 
@@ -747,6 +753,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse;
 import java.lang.Exception;
 
@@ -758,9 +765,13 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetOAuthAccessTokenResponse res = sdk.users().getOAuthAccessToken()
+        GetOAuthAccessTokenRequest req = GetOAuthAccessTokenRequest.builder()
                 .userId("<id>")
                 .provider("<value>")
+                .build();
+
+        GetOAuthAccessTokenResponse res = sdk.users().getOAuthAccessToken()
+                .request(req)
                 .call();
 
         if (res.responseBodies().isPresent()) {
@@ -772,10 +783,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| `userId`                                                        | *String*                                                        | :heavy_check_mark:                                              | The ID of the user for which to retrieve the OAuth access token |
-| `provider`                                                      | *String*                                                        | :heavy_check_mark:                                              | The ID of the OAuth provider (e.g. `oauth_google`)              |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [GetOAuthAccessTokenRequest](../../models/operations/GetOAuthAccessTokenRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
@@ -785,7 +795,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## getOrganizationMemberships
@@ -926,7 +936,7 @@ public class Application {
         VerifyPasswordResponse res = sdk.users().verifyPassword()
                 .userId("<id>")
                 .requestBody(VerifyPasswordRequestBody.builder()
-                    .password("fSBhIihdxMPlTHN")
+                    .password("1fwgbLjqCRGKsWc")
                     .build())
                 .call();
 
@@ -939,10 +949,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `userId`                                                                          | *String*                                                                          | :heavy_check_mark:                                                                | The ID of the user for whom to verify the password                                |
-| `requestBody`                                                                     | [VerifyPasswordRequestBody](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_check_mark:                                                                | N/A                                                                               |
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `userId`                                                                                     | *String*                                                                                     | :heavy_check_mark:                                                                           | The ID of the user for whom to verify the password                                           |
+| `requestBody`                                                                                | [Optional\<VerifyPasswordRequestBody>](../../models/operations/VerifyPasswordRequestBody.md) | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 
 ### Response
 
@@ -955,7 +965,7 @@ public class Application {
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## verifyTOTP
+## verifyTotp
 
 Verify that the provided TOTP or backup code is valid for the user.
 Verifying a backup code will result it in being consumed (i.e. it will
@@ -981,7 +991,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        VerifyTOTPResponse res = sdk.users().verifyTOTP()
+        VerifyTOTPResponse res = sdk.users().verifyTotp()
                 .userId("<id>")
                 .requestBody(VerifyTOTPRequestBody.builder()
                     .code("<value>")
@@ -997,10 +1007,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `userId`                                                                  | *String*                                                                  | :heavy_check_mark:                                                        | The ID of the user for whom to verify the TOTP                            |
-| `requestBody`                                                             | [VerifyTOTPRequestBody](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_check_mark:                                                        | N/A                                                                       |
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `userId`                                                                             | *String*                                                                             | :heavy_check_mark:                                                                   | The ID of the user for whom to verify the TOTP                                       |
+| `requestBody`                                                                        | [Optional\<VerifyTOTPRequestBody>](../../models/operations/VerifyTOTPRequestBody.md) | :heavy_minus_sign:                                                                   | N/A                                                                                  |
 
 ### Response
 
@@ -1013,7 +1023,7 @@ public class Application {
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## disableMFA
+## disableMfa
 
 Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at once.
 
@@ -1029,13 +1039,13 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        DisableMFAResponse res = sdk.users().disableMFA()
+        DisableMFAResponse res = sdk.users().disableMfa()
                 .userId("<id>")
                 .call();
 
@@ -1060,7 +1070,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteBackupCodes
@@ -1079,7 +1090,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1110,7 +1121,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deletePasskey
@@ -1129,7 +1141,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1162,7 +1174,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403, 404, 500             | application/json          |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteWeb3Wallet
@@ -1181,7 +1194,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1214,61 +1227,11 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 500        | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## createTOTP
-
-Creates a TOTP (Time-based One-Time Password) for a given user, returning both the TOTP secret and the URI.
-
-
-### Example Usage
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateUserTOTPResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ClerkErrors, Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-            .build();
-
-        CreateUserTOTPResponse res = sdk.users().createTOTP()
-                .userId("<id>")
-                .call();
-
-        if (res.totp().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                              | Type                                                   | Required                                               | Description                                            |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `userId`                                               | *String*                                               | :heavy_check_mark:                                     | The ID of the user for whom the TOTP is being created. |
-
-### Response
-
-**[CreateUserTOTPResponse](../../models/operations/CreateUserTOTPResponse.md)**
-
-### Errors
-
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403, 404, 500             | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
-
-## deleteTotp
+## deleteTOTP
 
 Deletes all of the user's TOTPs.
 
@@ -1284,13 +1247,13 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        DeleteTOTPResponse res = sdk.users().deleteTotp()
+        DeleteTOTPResponse res = sdk.users().deleteTOTP()
                 .userId("<id>")
                 .call();
 
@@ -1315,7 +1278,8 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 500                  | application/json          |
+| models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## deleteExternalAccount
@@ -1334,7 +1298,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
@@ -1367,5 +1331,61 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 500        | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getInstanceOrganizationMemberships
+
+Retrieves all organization user memberships for the given instance.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        InstanceGetOrganizationMembershipsResponse res = sdk.users().getInstanceOrganizationMemberships()
+                .orderBy("<value>")
+                .limit(10L)
+                .offset(0L)
+                .call();
+
+        if (res.organizationMemberships().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `orderBy`                                                                                                                                                                                                                          | *Optional\<String>*                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                 | Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.<br/>By prepending one of those values with + or -,<br/>we can choose to sort in ascending (ASC) or descending (DESC) order. |
+| `limit`                                                                                                                                                                                                                            | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                                                                                                              |
+| `offset`                                                                                                                                                                                                                           | *Optional\<Long>*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                 | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`.                                                                                  |
+
+### Response
+
+**[InstanceGetOrganizationMembershipsResponse](../../models/operations/InstanceGetOrganizationMembershipsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 422             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

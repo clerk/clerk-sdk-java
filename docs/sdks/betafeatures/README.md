@@ -6,8 +6,7 @@
 ### Available Operations
 
 * [updateInstanceSettings](#updateinstancesettings) - Update instance settings
-* [~~updateDomain~~](#updatedomain) - Update production instance domain :warning: **Deprecated**
-* [changeProductionInstanceDomain](#changeproductioninstancedomain) - Update production instance domain
+* [~~updateProductionInstanceDomain~~](#updateproductioninstancedomain) - Update production instance domain :warning: **Deprecated**
 
 ## updateInstanceSettings
 
@@ -63,7 +62,7 @@ public class Application {
 | models/errors/ClerkErrors | 402, 422                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## ~~updateDomain~~
+## ~~updateProductionInstanceDomain~~
 
 Change the domain of a production instance.
 
@@ -95,7 +94,7 @@ public class Application {
         UpdateProductionInstanceDomainRequestBody req = UpdateProductionInstanceDomainRequestBody.builder()
                 .build();
 
-        UpdateProductionInstanceDomainResponse res = sdk.betaFeatures().updateDomain()
+        UpdateProductionInstanceDomainResponse res = sdk.betaFeatures().updateProductionInstanceDomain()
                 .request(req)
                 .call();
 
@@ -113,62 +112,6 @@ public class Application {
 ### Response
 
 **[UpdateProductionInstanceDomainResponse](../../models/operations/UpdateProductionInstanceDomainResponse.md)**
-
-### Errors
-
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 422                  | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
-
-## changeProductionInstanceDomain
-
-Change the domain of a production instance.
-
-Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
-
-WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
-
-### Example Usage
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
-import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ClerkErrors, Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
-            .build();
-
-        ChangeProductionInstanceDomainRequestBody req = ChangeProductionInstanceDomainRequestBody.builder()
-                .build();
-
-        ChangeProductionInstanceDomainResponse res = sdk.betaFeatures().changeProductionInstanceDomain()
-                .request(req)
-                .call();
-
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                         | [ChangeProductionInstanceDomainRequestBody](../../models/operations/ChangeProductionInstanceDomainRequestBody.md) | :heavy_check_mark:                                                                                                | The request object to use for the request.                                                                        |
-
-### Response
-
-**[ChangeProductionInstanceDomainResponse](../../models/operations/ChangeProductionInstanceDomainResponse.md)**
 
 ### Errors
 

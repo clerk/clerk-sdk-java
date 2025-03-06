@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateOAuthApplicationRequestBuilder {
 
     private String oauthApplicationId;
     private UpdateOAuthApplicationRequestBody requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateOAuthApplication sdk;
 
     public UpdateOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOAuthApplication sdk) {
@@ -28,11 +32,26 @@ public class UpdateOAuthApplicationRequestBuilder {
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpdateOAuthApplicationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdateOAuthApplicationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdateOAuthApplicationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.update(
             oauthApplicationId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

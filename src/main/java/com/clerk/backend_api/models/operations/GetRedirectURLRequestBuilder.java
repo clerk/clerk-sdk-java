@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class GetRedirectURLRequestBuilder {
 
     private String id;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetRedirectURL sdk;
 
     public GetRedirectURLRequestBuilder(SDKMethodInterfaces.MethodCallGetRedirectURL sdk) {
@@ -21,10 +25,25 @@ public class GetRedirectURLRequestBuilder {
         this.id = id;
         return this;
     }
+                
+    public GetRedirectURLRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetRedirectURLRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetRedirectURLResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            id);
+            id,
+            options);
     }
 }

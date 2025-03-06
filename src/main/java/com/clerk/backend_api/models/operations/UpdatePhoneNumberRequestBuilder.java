@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdatePhoneNumberRequestBuilder {
 
     private String phoneNumberId;
-    private UpdatePhoneNumberRequestBody requestBody;
+    private Optional<? extends UpdatePhoneNumberRequestBody> requestBody = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdatePhoneNumber sdk;
 
     public UpdatePhoneNumberRequestBuilder(SDKMethodInterfaces.MethodCallUpdatePhoneNumber sdk) {
@@ -22,17 +26,38 @@ public class UpdatePhoneNumberRequestBuilder {
         this.phoneNumberId = phoneNumberId;
         return this;
     }
-
+                
     public UpdatePhoneNumberRequestBuilder requestBody(UpdatePhoneNumberRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public UpdatePhoneNumberRequestBuilder requestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpdatePhoneNumberRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdatePhoneNumberRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdatePhoneNumberResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.update(
             phoneNumberId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

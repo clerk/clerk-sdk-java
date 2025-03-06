@@ -36,6 +36,7 @@ public class Application {
         CreateActorTokenRequestBody req = CreateActorTokenRequestBody.builder()
                 .userId("<id>")
                 .actor(Actor.builder()
+                    .sub("user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb")
                     .build())
                 .build();
 

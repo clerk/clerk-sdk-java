@@ -24,6 +24,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListSAMLConnectionsRequest;
 import com.clerk.backend_api.models.operations.ListSAMLConnectionsResponse;
 import java.lang.Exception;
 
@@ -35,9 +36,11 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
+        ListSAMLConnectionsRequest req = ListSAMLConnectionsRequest.builder()
+                .build();
+
         ListSAMLConnectionsResponse res = sdk.samlConnections().list()
-                .limit(10L)
-                .offset(0L)
+                .request(req)
                 .call();
 
         if (res.samlConnections().isPresent()) {
@@ -49,10 +52,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [ListSAMLConnectionsRequest](../../models/operations/ListSAMLConnectionsRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
@@ -120,7 +122,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 403, 422             | application/json          |
+| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## get

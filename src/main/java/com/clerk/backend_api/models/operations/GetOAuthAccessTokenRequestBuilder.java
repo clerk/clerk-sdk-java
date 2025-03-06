@@ -4,35 +4,45 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.String;
+import java.util.Optional;
 
 public class GetOAuthAccessTokenRequestBuilder {
 
-    private String userId;
-    private String provider;
+    private GetOAuthAccessTokenRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetOAuthAccessToken sdk;
 
     public GetOAuthAccessTokenRequestBuilder(SDKMethodInterfaces.MethodCallGetOAuthAccessToken sdk) {
         this.sdk = sdk;
     }
 
-    public GetOAuthAccessTokenRequestBuilder userId(String userId) {
-        Utils.checkNotNull(userId, "userId");
-        this.userId = userId;
+    public GetOAuthAccessTokenRequestBuilder request(GetOAuthAccessTokenRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
+        return this;
+    }
+                
+    public GetOAuthAccessTokenRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetOAuthAccessTokenRequestBuilder provider(String provider) {
-        Utils.checkNotNull(provider, "provider");
-        this.provider = provider;
+    public GetOAuthAccessTokenRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
     public GetOAuthAccessTokenResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getOAuthAccessToken(
-            userId,
-            provider);
+            request,
+            options);
     }
 }

@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateOAuthApplicationRequestBuilder {
 
-    private CreateOAuthApplicationRequestBody request;
+    private Optional<? extends CreateOAuthApplicationRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateOAuthApplication sdk;
 
     public CreateOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOAuthApplication sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateOAuthApplicationRequestBuilder request(CreateOAuthApplicationRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateOAuthApplicationRequestBuilder request(Optional<? extends CreateOAuthApplicationRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public CreateOAuthApplicationRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateOAuthApplicationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateOAuthApplicationResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.create(
-            request);
+            request,
+            options);
     }
 }

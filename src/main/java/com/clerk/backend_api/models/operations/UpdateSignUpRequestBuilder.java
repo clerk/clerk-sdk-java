@@ -4,13 +4,17 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class UpdateSignUpRequestBuilder {
 
     private String id;
-    private UpdateSignUpRequestBody requestBody;
+    private Optional<? extends UpdateSignUpRequestBody> requestBody = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallUpdateSignUp sdk;
 
     public UpdateSignUpRequestBuilder(SDKMethodInterfaces.MethodCallUpdateSignUp sdk) {
@@ -22,17 +26,38 @@ public class UpdateSignUpRequestBuilder {
         this.id = id;
         return this;
     }
-
+                
     public UpdateSignUpRequestBuilder requestBody(UpdateSignUpRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public UpdateSignUpRequestBuilder requestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
+                
+    public UpdateSignUpRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public UpdateSignUpRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public UpdateSignUpResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.update(
             id,
-            requestBody);
+            requestBody,
+            options);
     }
 }

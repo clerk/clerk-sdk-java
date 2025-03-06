@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeletePhoneNumberRequestBuilder {
 
     private String phoneNumberId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeletePhoneNumber sdk;
 
     public DeletePhoneNumberRequestBuilder(SDKMethodInterfaces.MethodCallDeletePhoneNumber sdk) {
@@ -21,10 +25,25 @@ public class DeletePhoneNumberRequestBuilder {
         this.phoneNumberId = phoneNumberId;
         return this;
     }
+                
+    public DeletePhoneNumberRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeletePhoneNumberRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeletePhoneNumberResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.delete(
-            phoneNumberId);
+            phoneNumberId,
+            options);
     }
 }

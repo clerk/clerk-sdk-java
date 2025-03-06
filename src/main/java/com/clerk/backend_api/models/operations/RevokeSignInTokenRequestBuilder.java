@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class RevokeSignInTokenRequestBuilder {
 
     private String signInTokenId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallRevokeSignInToken sdk;
 
     public RevokeSignInTokenRequestBuilder(SDKMethodInterfaces.MethodCallRevokeSignInToken sdk) {
@@ -21,10 +25,25 @@ public class RevokeSignInTokenRequestBuilder {
         this.signInTokenId = signInTokenId;
         return this;
     }
+                
+    public RevokeSignInTokenRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public RevokeSignInTokenRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public RevokeSignInTokenResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.revoke(
-            signInTokenId);
+            signInTokenId,
+            options);
     }
 }

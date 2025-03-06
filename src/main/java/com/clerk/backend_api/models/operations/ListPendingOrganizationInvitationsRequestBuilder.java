@@ -5,6 +5,8 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
@@ -22,6 +24,7 @@ public class ListPendingOrganizationInvitationsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListPendingOrganizationInvitations sdk;
 
     public ListPendingOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListPendingOrganizationInvitations sdk) {
@@ -57,6 +60,18 @@ public class ListPendingOrganizationInvitationsRequestBuilder {
         this.offset = offset;
         return this;
     }
+                
+    public ListPendingOrganizationInvitationsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public ListPendingOrganizationInvitationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public ListPendingOrganizationInvitationsResponse call() throws Exception {
         if (limit == null) {
@@ -64,11 +79,14 @@ public class ListPendingOrganizationInvitationsRequestBuilder {
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }
+        }        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.listPending(
             organizationId,
             limit,
-            offset);
+            offset,
+            options);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

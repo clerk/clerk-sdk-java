@@ -3,25 +3,25 @@
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetEmailAddressResponse res = sdk.emailAddresses().get()
-                .emailAddressId("<id>")
+        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
+                .build();
+
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+                .request(req)
                 .call();
 
-        if (res.emailAddress().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```

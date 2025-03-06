@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class CreateAllowlistIdentifierRequestBuilder {
 
-    private CreateAllowlistIdentifierRequestBody request;
+    private Optional<? extends CreateAllowlistIdentifierRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateAllowlistIdentifier sdk;
 
     public CreateAllowlistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallCreateAllowlistIdentifier sdk) {
         this.sdk = sdk;
     }
-
+                
     public CreateAllowlistIdentifierRequestBuilder request(CreateAllowlistIdentifierRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public CreateAllowlistIdentifierRequestBuilder request(Optional<? extends CreateAllowlistIdentifierRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public CreateAllowlistIdentifierRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateAllowlistIdentifierRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateAllowlistIdentifierResponse call() throws Exception {
-
-        return sdk.createAllowlistIdentifier(
-            request);
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.create(
+            request,
+            options);
     }
 }

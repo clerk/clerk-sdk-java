@@ -94,8 +94,6 @@ public class Application {
 
         CreateOAuthApplicationRequestBody req = CreateOAuthApplicationRequestBody.builder()
                 .name("<value>")
-                .callbackUrl("https://probable-heating.com/")
-                .scopes("profile email public_metadata")
                 .build();
 
         CreateOAuthApplicationResponse res = sdk.oauthApplications().create()
@@ -202,7 +200,6 @@ public class Application {
         UpdateOAuthApplicationResponse res = sdk.oauthApplications().update()
                 .oauthApplicationId("<id>")
                 .requestBody(UpdateOAuthApplicationRequestBody.builder()
-                    .scopes("profile email public_metadata private_metadata")
                     .build())
                 .call();
 
@@ -228,7 +225,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 403, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete

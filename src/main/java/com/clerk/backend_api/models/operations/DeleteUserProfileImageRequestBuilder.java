@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteUserProfileImageRequestBuilder {
 
     private String userId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteUserProfileImage sdk;
 
     public DeleteUserProfileImageRequestBuilder(SDKMethodInterfaces.MethodCallDeleteUserProfileImage sdk) {
@@ -21,10 +25,25 @@ public class DeleteUserProfileImageRequestBuilder {
         this.userId = userId;
         return this;
     }
+                
+    public DeleteUserProfileImageRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteUserProfileImageRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteUserProfileImageResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.deleteProfileImage(
-            userId);
+            userId,
+            options);
     }
 }

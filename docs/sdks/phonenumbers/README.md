@@ -34,6 +34,8 @@ public class Application {
             .build();
 
         CreatePhoneNumberRequestBody req = CreatePhoneNumberRequestBody.builder()
+                .userId("<id>")
+                .phoneNumber("741.279.0107 x857")
                 .build();
 
         CreatePhoneNumberResponse res = sdk.phoneNumbers().create()
@@ -202,10 +204,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `phoneNumberId`                                                                         | *String*                                                                                | :heavy_check_mark:                                                                      | The ID of the phone number to update                                                    |
-| `requestBody`                                                                           | [UpdatePhoneNumberRequestBody](../../models/operations/UpdatePhoneNumberRequestBody.md) | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `phoneNumberId`                                                                                    | *String*                                                                                           | :heavy_check_mark:                                                                                 | The ID of the phone number to update                                                               |
+| `requestBody`                                                                                      | [Optional\<UpdatePhoneNumberRequestBody>](../../models/operations/UpdatePhoneNumberRequestBody.md) | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
 
 ### Response
 

@@ -4,12 +4,16 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.util.Optional;
 
 public class DeleteAllowlistIdentifierRequestBuilder {
 
     private String identifierId;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteAllowlistIdentifier sdk;
 
     public DeleteAllowlistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallDeleteAllowlistIdentifier sdk) {
@@ -21,10 +25,25 @@ public class DeleteAllowlistIdentifierRequestBuilder {
         this.identifierId = identifierId;
         return this;
     }
+                
+    public DeleteAllowlistIdentifierRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteAllowlistIdentifierRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteAllowlistIdentifierResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.delete(
-            identifierId);
+            identifierId,
+            options);
     }
 }

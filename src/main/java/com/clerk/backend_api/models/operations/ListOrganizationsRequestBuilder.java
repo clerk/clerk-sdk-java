@@ -4,11 +4,15 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class ListOrganizationsRequestBuilder {
 
     private ListOrganizationsRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListOrganizations sdk;
 
     public ListOrganizationsRequestBuilder(SDKMethodInterfaces.MethodCallListOrganizations sdk) {
@@ -20,10 +24,25 @@ public class ListOrganizationsRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public ListOrganizationsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public ListOrganizationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public ListOrganizationsResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
-            request);
+            request,
+            options);
     }
 }

@@ -5,6 +5,8 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class ListOrganizationInvitationsRequestBuilder {
 
     private String organizationId;
+    private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status = Optional.empty();
     private Optional<Long> limit = Utils.readDefaultOrConstValue(
                             "limit",
                             "10",
@@ -22,7 +25,7 @@ public class ListOrganizationInvitationsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
-    private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallListOrganizationInvitations sdk;
 
     public ListOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListOrganizationInvitations sdk) {
@@ -32,6 +35,18 @@ public class ListOrganizationInvitationsRequestBuilder {
     public ListOrganizationInvitationsRequestBuilder organizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
+        return this;
+    }
+                
+    public ListOrganizationInvitationsRequestBuilder status(ListOrganizationInvitationsQueryParamStatus status) {
+        Utils.checkNotNull(status, "status");
+        this.status = Optional.of(status);
+        return this;
+    }
+
+    public ListOrganizationInvitationsRequestBuilder status(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
         return this;
     }
                 
@@ -59,15 +74,15 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
                 
-    public ListOrganizationInvitationsRequestBuilder status(ListOrganizationInvitationsQueryParamStatus status) {
-        Utils.checkNotNull(status, "status");
-        this.status = Optional.of(status);
+    public ListOrganizationInvitationsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListOrganizationInvitationsRequestBuilder status(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
+    public ListOrganizationInvitationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
         return this;
     }
 
@@ -77,12 +92,15 @@ public class ListOrganizationInvitationsRequestBuilder {
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }
+        }        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
             organizationId,
+            status,
             limit,
             offset,
-            status);
+            options);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

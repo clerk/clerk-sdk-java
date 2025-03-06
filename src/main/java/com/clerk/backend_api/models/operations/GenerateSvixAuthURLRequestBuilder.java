@@ -4,17 +4,37 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class GenerateSvixAuthURLRequestBuilder {
 
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGenerateSvixAuthURL sdk;
 
     public GenerateSvixAuthURLRequestBuilder(SDKMethodInterfaces.MethodCallGenerateSvixAuthURL sdk) {
         this.sdk = sdk;
     }
+                
+    public GenerateSvixAuthURLRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GenerateSvixAuthURLRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GenerateSvixAuthURLResponse call() throws Exception {
-
-        return sdk.generateSvixAuthURLDirect();
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.generateSvixAuthURL(
+            options);
     }
 }

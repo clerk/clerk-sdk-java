@@ -4,26 +4,51 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class VerifyClientRequestBuilder {
 
-    private VerifyClientRequestBody request;
+    private Optional<? extends VerifyClientRequestBody> request = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallVerifyClient sdk;
 
     public VerifyClientRequestBuilder(SDKMethodInterfaces.MethodCallVerifyClient sdk) {
         this.sdk = sdk;
     }
-
+                
     public VerifyClientRequestBuilder request(VerifyClientRequestBody request) {
+        Utils.checkNotNull(request, "request");
+        this.request = Optional.of(request);
+        return this;
+    }
+
+    public VerifyClientRequestBuilder request(Optional<? extends VerifyClientRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public VerifyClientRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public VerifyClientRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public VerifyClientResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.verify(
-            request);
+            request,
+            options);
     }
 }

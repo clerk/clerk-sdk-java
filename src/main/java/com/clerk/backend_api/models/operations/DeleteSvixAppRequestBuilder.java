@@ -4,17 +4,37 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.Utils;
+import java.util.Optional;
 
 public class DeleteSvixAppRequestBuilder {
 
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallDeleteSvixApp sdk;
 
     public DeleteSvixAppRequestBuilder(SDKMethodInterfaces.MethodCallDeleteSvixApp sdk) {
         this.sdk = sdk;
     }
+                
+    public DeleteSvixAppRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public DeleteSvixAppRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public DeleteSvixAppResponse call() throws Exception {
-
-        return sdk.deleteSvixAppDirect();
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
+        return sdk.deleteSvixApp(
+            options);
     }
 }

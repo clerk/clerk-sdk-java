@@ -4,14 +4,18 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
 import java.util.List;
+import java.util.Optional;
 
 public class CreateOrganizationInvitationBulkRequestBuilder {
 
     private String organizationId;
-    private List<RequestBody> requestBody;
+    private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallCreateOrganizationInvitationBulk sdk;
 
     public CreateOrganizationInvitationBulkRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationInvitationBulk sdk) {
@@ -24,16 +28,31 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
         return this;
     }
 
-    public CreateOrganizationInvitationBulkRequestBuilder requestBody(List<RequestBody> requestBody) {
+    public CreateOrganizationInvitationBulkRequestBuilder requestBody(List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
+                
+    public CreateOrganizationInvitationBulkRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public CreateOrganizationInvitationBulkRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public CreateOrganizationInvitationBulkResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.bulkCreate(
             organizationId,
-            requestBody);
+            requestBody,
+            options);
     }
 }

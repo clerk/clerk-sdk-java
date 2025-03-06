@@ -5,13 +5,17 @@
 package com.clerk.backend_api.models.operations;
 
 import com.clerk.backend_api.utils.LazySingletonValue;
+import com.clerk.backend_api.utils.Options;
+import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.util.Optional;
 
 public class GetClientListRequestBuilder {
 
+    private Optional<Boolean> paginated = Optional.empty();
     private Optional<Long> limit = Utils.readDefaultOrConstValue(
                             "limit",
                             "10",
@@ -20,10 +24,23 @@ public class GetClientListRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetClientList sdk;
 
     public GetClientListRequestBuilder(SDKMethodInterfaces.MethodCallGetClientList sdk) {
         this.sdk = sdk;
+    }
+                
+    public GetClientListRequestBuilder paginated(boolean paginated) {
+        Utils.checkNotNull(paginated, "paginated");
+        this.paginated = Optional.of(paginated);
+        return this;
+    }
+
+    public GetClientListRequestBuilder paginated(Optional<Boolean> paginated) {
+        Utils.checkNotNull(paginated, "paginated");
+        this.paginated = paginated;
+        return this;
     }
                 
     public GetClientListRequestBuilder limit(long limit) {
@@ -49,6 +66,18 @@ public class GetClientListRequestBuilder {
         this.offset = offset;
         return this;
     }
+                
+    public GetClientListRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetClientListRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetClientListResponse call() throws Exception {
         if (limit == null) {
@@ -56,10 +85,14 @@ public class GetClientListRequestBuilder {
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }
+        }        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.list(
+            paginated,
             limit,
-            offset);
+            offset,
+            options);
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

@@ -4,6 +4,7 @@
 
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Long;
@@ -15,135 +16,175 @@ public class SDKMethodInterfaces {
 
 
     public interface MethodCallGetPublicInterstitial {
-        GetPublicInterstitialResponse getInterstitial(
-            Optional<String> frontendApi,
-            Optional<String> publishableKey) throws Exception;
+        GetPublicInterstitialResponse getPublicInterstitial(
+            GetPublicInterstitialRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetJWKS {
-        GetJWKSResponse getDirect() throws Exception;
+        GetJWKSResponse getJWKS(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetClientList {
         GetClientListResponse list(
+            Optional<Boolean> paginated,
             Optional<Long> limit,
-            Optional<Long> offset) throws Exception;
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallVerifyClient {
         VerifyClientResponse verify(
-            VerifyClientRequestBody request) throws Exception;
+            Optional<? extends VerifyClientRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetClient {
         GetClientResponse get(
-            String clientId) throws Exception;
+            String clientId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateEmailAddress {
         CreateEmailAddressResponse create(
-            CreateEmailAddressRequestBody request) throws Exception;
+            Optional<? extends CreateEmailAddressRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetEmailAddress {
         GetEmailAddressResponse get(
-            String emailAddressId) throws Exception;
+            String emailAddressId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteEmailAddress {
         DeleteEmailAddressResponse delete(
-            String emailAddressId) throws Exception;
+            String emailAddressId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateEmailAddress {
         UpdateEmailAddressResponse update(
             String emailAddressId,
-            UpdateEmailAddressRequestBody requestBody) throws Exception;
+            Optional<? extends UpdateEmailAddressRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreatePhoneNumber {
         CreatePhoneNumberResponse create(
-            CreatePhoneNumberRequestBody request) throws Exception;
+            Optional<? extends CreatePhoneNumberRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetPhoneNumber {
         GetPhoneNumberResponse get(
-            String phoneNumberId) throws Exception;
+            String phoneNumberId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeletePhoneNumber {
         DeletePhoneNumberResponse delete(
-            String phoneNumberId) throws Exception;
+            String phoneNumberId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdatePhoneNumber {
         UpdatePhoneNumberResponse update(
             String phoneNumberId,
-            UpdatePhoneNumberRequestBody requestBody) throws Exception;
+            Optional<? extends UpdatePhoneNumberRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSessionList {
         GetSessionListResponse list(
-            GetSessionListRequest request) throws Exception;
+            GetSessionListRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateSession {
+        CreateSessionResponse create(
+            Optional<? extends CreateSessionRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSession {
         GetSessionResponse get(
-            String sessionId) throws Exception;
+            String sessionId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRevokeSession {
         RevokeSessionResponse revoke(
-            String sessionId) throws Exception;
+            String sessionId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallVerifySession {
         VerifySessionResponse verify(
             String sessionId,
-            Optional<? extends VerifySessionRequestBody> requestBody) throws Exception;
+            Optional<? extends VerifySessionRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateSessionToken {
+        CreateSessionTokenResponse createToken(
+            String sessionId,
+            Optional<? extends CreateSessionTokenRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSessionTokenFromTemplate {
         CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
             String sessionId,
-            String templateName) throws Exception;
+            String templateName,
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetTemplateList {
         GetTemplateListResponse list(
-            TemplateType templateType) throws Exception;
-    }
-
-
-    public interface MethodCallRevertTemplate {
-        RevertTemplateResponse revert(
-            RevertTemplatePathParamTemplateType templateType,
-            String slug) throws Exception;
+            TemplateType templateType,
+            Optional<Boolean> paginated,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetTemplate {
         GetTemplateResponse get(
             PathParamTemplateType templateType,
-            String slug) throws Exception;
+            String slug,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallRevertTemplate {
+        RevertTemplateResponse revert(
+            RevertTemplatePathParamTemplateType templateType,
+            String slug,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -151,7 +192,8 @@ public class SDKMethodInterfaces {
         ToggleTemplateDeliveryResponse toggleTemplateDelivery(
             ToggleTemplateDeliveryPathParamTemplateType templateType,
             String slug,
-            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) throws Exception;
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -159,7 +201,8 @@ public class SDKMethodInterfaces {
         UpsertTemplateResponse upsert(
             UpsertTemplatePathParamTemplateType templateType,
             String slug,
-            Optional<? extends UpsertTemplateRequestBody> requestBody) throws Exception;
+            Optional<? extends UpsertTemplateRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -167,95 +210,109 @@ public class SDKMethodInterfaces {
         PreviewTemplateResponse preview(
             String templateType,
             String slug,
-            Optional<? extends PreviewTemplateRequestBody> requestBody) throws Exception;
+            Optional<? extends PreviewTemplateRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetUserList {
         GetUserListResponse list(
-            GetUserListRequest request) throws Exception;
+            GetUserListRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateUser {
         CreateUserResponse create(
-            CreateUserRequestBody request) throws Exception;
+            CreateUserRequestBody request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetUsersCount {
         GetUsersCountResponse count(
-            GetUsersCountRequest request) throws Exception;
+            GetUsersCountRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetUser {
         GetUserResponse get(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateUser {
         UpdateUserResponse update(
             String userId,
-            UpdateUserRequestBody requestBody) throws Exception;
+            UpdateUserRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteUser {
         DeleteUserResponse delete(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallBanUser {
         BanUserResponse ban(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnbanUser {
         UnbanUserResponse unban(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallLockUser {
         LockUserResponse lock(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnlockUser {
         UnlockUserResponse unlock(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallSetUserProfileImage {
         SetUserProfileImageResponse setProfileImage(
             String userId,
-            SetUserProfileImageRequestBody requestBody) throws Exception;
+            SetUserProfileImageRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteUserProfileImage {
         DeleteUserProfileImageResponse deleteProfileImage(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateUserMetadata {
         UpdateUserMetadataResponse updateMetadata(
             String userId,
-            UpdateUserMetadataRequestBody requestBody) throws Exception;
+            Optional<? extends UpdateUserMetadataRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOAuthAccessToken {
         GetOAuthAccessTokenResponse getOAuthAccessToken(
-            String userId,
-            String provider) throws Exception;
+            GetOAuthAccessTokenRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -263,7 +320,8 @@ public class SDKMethodInterfaces {
         UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId,
             Optional<Long> limit,
-            Optional<Long> offset) throws Exception;
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -272,115 +330,139 @@ public class SDKMethodInterfaces {
             String userId,
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends QueryParamStatus> status) throws Exception;
+            Optional<? extends QueryParamStatus> status,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallVerifyPassword {
         VerifyPasswordResponse verifyPassword(
             String userId,
-            VerifyPasswordRequestBody requestBody) throws Exception;
+            Optional<? extends VerifyPasswordRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallVerifyTOTP {
-        VerifyTOTPResponse verifyTOTP(
+        VerifyTOTPResponse verifyTotp(
             String userId,
-            VerifyTOTPRequestBody requestBody) throws Exception;
+            Optional<? extends VerifyTOTPRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDisableMFA {
-        DisableMFAResponse disableMFA(
-            String userId) throws Exception;
+        DisableMFAResponse disableMfa(
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteBackupCode {
         DeleteBackupCodeResponse deleteBackupCodes(
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUserPasskeyDelete {
         UserPasskeyDeleteResponse deletePasskey(
             String userId,
-            String passkeyIdentificationId) throws Exception;
+            String passkeyIdentificationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUserWeb3WalletDelete {
         UserWeb3WalletDeleteResponse deleteWeb3Wallet(
             String userId,
-            String web3WalletIdentificationId) throws Exception;
-    }
-
-
-    public interface MethodCallCreateUserTOTP {
-        CreateUserTOTPResponse createTOTP(
-            String userId) throws Exception;
+            String web3WalletIdentificationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteTOTP {
-        DeleteTOTPResponse deleteTotp(
-            String userId) throws Exception;
+        DeleteTOTPResponse deleteTOTP(
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteExternalAccount {
         DeleteExternalAccountResponse deleteExternalAccount(
             String userId,
-            String externalAccountId) throws Exception;
+            String externalAccountId,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallInstanceGetOrganizationMemberships {
+        InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMemberships(
+            Optional<String> orderBy,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateInvitation {
         CreateInvitationResponse create(
-            CreateInvitationRequestBody request) throws Exception;
+            Optional<? extends CreateInvitationRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListInvitations {
         ListInvitationsResponse list(
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<? extends ListInvitationsQueryParamStatus> status) throws Exception;
+            ListInvitationsRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateBulkInvitations {
+        CreateBulkInvitationsResponse bulkCreate(
+            Optional<? extends List<RequestBody>> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRevokeInvitation {
         RevokeInvitationResponse revoke(
-            String invitationId) throws Exception;
+            String invitationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListInstanceOrganizationInvitations {
         ListInstanceOrganizationInvitationsResponse getAll(
-            ListInstanceOrganizationInvitationsRequest request) throws Exception;
+            ListInstanceOrganizationInvitationsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationInvitation {
         CreateOrganizationInvitationResponse create(
             String organizationId,
-            CreateOrganizationInvitationRequestBody requestBody) throws Exception;
+            Optional<? extends CreateOrganizationInvitationRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationInvitations {
         ListOrganizationInvitationsResponse list(
             String organizationId,
+            Optional<? extends ListOrganizationInvitationsQueryParamStatus> status,
             Optional<Long> limit,
             Optional<Long> offset,
-            Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) throws Exception;
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationInvitationBulk {
         CreateOrganizationInvitationBulkResponse bulkCreate(
             String organizationId,
-            List<RequestBody> requestBody) throws Exception;
+            List<CreateOrganizationInvitationBulkRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -388,14 +470,16 @@ public class SDKMethodInterfaces {
         ListPendingOrganizationInvitationsResponse listPending(
             String organizationId,
             Optional<Long> limit,
-            Optional<Long> offset) throws Exception;
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOrganizationInvitation {
         GetOrganizationInvitationResponse get(
             String organizationId,
-            String invitationId) throws Exception;
+            String invitationId,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -403,226 +487,273 @@ public class SDKMethodInterfaces {
         RevokeOrganizationInvitationResponse revoke(
             String organizationId,
             String invitationId,
-            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) throws Exception;
+            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListAllowlistIdentifiers {
-        ListAllowlistIdentifiersResponse listAllowlistIdentifiersDirect() throws Exception;
+        ListAllowlistIdentifiersResponse list(
+            Optional<Boolean> paginated,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateAllowlistIdentifier {
-        CreateAllowlistIdentifierResponse createAllowlistIdentifier(
-            CreateAllowlistIdentifierRequestBody request) throws Exception;
-    }
-
-
-    public interface MethodCallCreateBlocklistIdentifier {
-        CreateBlocklistIdentifierResponse createBlocklistIdentifier(
-            CreateBlocklistIdentifierRequestBody request) throws Exception;
-    }
-
-
-    public interface MethodCallDeleteBlocklistIdentifier {
-        DeleteBlocklistIdentifierResponse deleteBlocklistIdentifier(
-            String identifierId) throws Exception;
+        CreateAllowlistIdentifierResponse create(
+            Optional<? extends CreateAllowlistIdentifierRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteAllowlistIdentifier {
         DeleteAllowlistIdentifierResponse delete(
-            String identifierId) throws Exception;
+            String identifierId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListBlocklistIdentifiers {
-        ListBlocklistIdentifiersResponse listDirect() throws Exception;
+        ListBlocklistIdentifiersResponse list(
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateBlocklistIdentifier {
+        CreateBlocklistIdentifierResponse create(
+            Optional<? extends CreateBlocklistIdentifierRequestBody> request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallDeleteBlocklistIdentifier {
+        DeleteBlocklistIdentifierResponse delete(
+            String identifierId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceAuthConfig {
         UpdateInstanceAuthConfigResponse updateInstanceSettings(
-            UpdateInstanceAuthConfigRequestBody request) throws Exception;
+            Optional<? extends UpdateInstanceAuthConfigRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateProductionInstanceDomain {
-        UpdateProductionInstanceDomainResponse updateDomain(
-            Optional<? extends UpdateProductionInstanceDomainRequestBody> request) throws Exception;
-    }
-
-
-    public interface MethodCallChangeProductionInstanceDomain {
-        ChangeProductionInstanceDomainResponse changeProductionInstanceDomain(
-            ChangeProductionInstanceDomainRequestBody request) throws Exception;
+        UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(
+            Optional<? extends UpdateProductionInstanceDomainRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateActorToken {
         CreateActorTokenResponse create(
-            CreateActorTokenRequestBody request) throws Exception;
+            Optional<? extends CreateActorTokenRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRevokeActorToken {
         RevokeActorTokenResponse revoke(
-            String actorTokenId) throws Exception;
+            String actorTokenId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListDomains {
-        ListDomainsResponse listDirect() throws Exception;
+        ListDomainsResponse list(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallAddDomain {
         AddDomainResponse add(
-            AddDomainRequestBody request) throws Exception;
+            Optional<? extends AddDomainRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteDomain {
         DeleteDomainResponse delete(
-            String domainId) throws Exception;
+            String domainId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateDomain {
         UpdateDomainResponse update(
             String domainId,
-            UpdateDomainRequestBody requestBody) throws Exception;
+            UpdateDomainRequestBody requestBody,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetInstance {
+        GetInstanceResponse get(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstance {
         UpdateInstanceResponse update(
-            UpdateInstanceRequestBody request) throws Exception;
+            Optional<? extends UpdateInstanceRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceRestrictions {
         UpdateInstanceRestrictionsResponse updateRestrictions(
-            UpdateInstanceRestrictionsRequestBody request) throws Exception;
+            Optional<? extends UpdateInstanceRestrictionsRequestBody> request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallChangeProductionInstanceDomain {
+        ChangeProductionInstanceDomainResponse changeDomain(
+            Optional<? extends ChangeProductionInstanceDomainRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateInstanceOrganizationSettings {
         UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            UpdateInstanceOrganizationSettingsRequestBody request) throws Exception;
+            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSvixApp {
-        CreateSvixAppResponse createSvixAppDirect() throws Exception;
+        CreateSvixAppResponse createSvixApp(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteSvixApp {
-        DeleteSvixAppResponse deleteSvixAppDirect() throws Exception;
+        DeleteSvixAppResponse deleteSvixApp(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGenerateSvixAuthURL {
-        GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception;
+        GenerateSvixAuthURLResponse generateSvixAuthURL(
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListJWTTemplates {
-        ListJWTTemplatesResponse listDirect() throws Exception;
+        ListJWTTemplatesResponse list(
+            Optional<Boolean> paginated,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateJWTTemplate {
         CreateJWTTemplateResponse create(
-            CreateJWTTemplateRequestBody request) throws Exception;
+            Optional<? extends CreateJWTTemplateRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetJWTTemplate {
         GetJWTTemplateResponse get(
-            String templateId) throws Exception;
+            String templateId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateJWTTemplate {
         UpdateJWTTemplateResponse update(
             String templateId,
-            UpdateJWTTemplateRequestBody requestBody) throws Exception;
+            Optional<? extends UpdateJWTTemplateRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteJWTTemplate {
         DeleteJWTTemplateResponse delete(
-            String templateId) throws Exception;
+            String templateId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListOrganizations {
         ListOrganizationsResponse list(
-            ListOrganizationsRequest request) throws Exception;
+            ListOrganizationsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganization {
         CreateOrganizationResponse create(
-            CreateOrganizationRequestBody request) throws Exception;
+            Optional<? extends CreateOrganizationRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOrganization {
         GetOrganizationResponse get(
             String organizationId,
-            Optional<Boolean> includeMembersCount) throws Exception;
+            Optional<Boolean> includeMembersCount,
+            Optional<Boolean> includeMissingMemberWithElevatedPermissions,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateOrganization {
         UpdateOrganizationResponse update(
             String organizationId,
-            UpdateOrganizationRequestBody requestBody) throws Exception;
+            UpdateOrganizationRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganization {
         DeleteOrganizationResponse delete(
-            String organizationId) throws Exception;
+            String organizationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallMergeOrganizationMetadata {
         MergeOrganizationMetadataResponse mergeMetadata(
             String organizationId,
-            MergeOrganizationMetadataRequestBody requestBody) throws Exception;
+            MergeOrganizationMetadataRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUploadOrganizationLogo {
         UploadOrganizationLogoResponse uploadLogo(
             String organizationId,
-            UploadOrganizationLogoRequestBody requestBody) throws Exception;
+            Optional<? extends UploadOrganizationLogoRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganizationLogo {
         DeleteOrganizationLogoResponse deleteLogo(
-            String organizationId) throws Exception;
+            String organizationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationMembership {
         CreateOrganizationMembershipResponse create(
             String organizationId,
-            CreateOrganizationMembershipRequestBody requestBody) throws Exception;
+            CreateOrganizationMembershipRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationMemberships {
         ListOrganizationMembershipsResponse list(
-            String organizationId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<String> orderBy) throws Exception;
+            ListOrganizationMembershipsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -630,14 +761,16 @@ public class SDKMethodInterfaces {
         UpdateOrganizationMembershipResponse update(
             String organizationId,
             String userId,
-            UpdateOrganizationMembershipRequestBody requestBody) throws Exception;
+            UpdateOrganizationMembershipRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteOrganizationMembership {
         DeleteOrganizationMembershipResponse delete(
             String organizationId,
-            String userId) throws Exception;
+            String userId,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -645,35 +778,23 @@ public class SDKMethodInterfaces {
         UpdateOrganizationMembershipMetadataResponse updateMetadata(
             String organizationId,
             String userId,
-            UpdateOrganizationMembershipMetadataRequestBody requestBody) throws Exception;
-    }
-
-
-    public interface MethodCallInstanceGetOrganizationMemberships {
-        InstanceGetOrganizationMembershipsResponse getAll(
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<String> orderBy) throws Exception;
+            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOrganizationDomain {
         CreateOrganizationDomainResponse create(
             String organizationId,
-            CreateOrganizationDomainRequestBody requestBody) throws Exception;
+            CreateOrganizationDomainRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListOrganizationDomains {
         ListOrganizationDomainsResponse list(
-            ListOrganizationDomainsRequest request) throws Exception;
-    }
-
-
-    public interface MethodCallDeleteOrganizationDomain {
-        DeleteOrganizationDomainResponse delete(
-            String organizationId,
-            String domainId) throws Exception;
+            ListOrganizationDomainsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -681,130 +802,182 @@ public class SDKMethodInterfaces {
         UpdateOrganizationDomainResponse update(
             String organizationId,
             String domainId,
-            UpdateOrganizationDomainRequestBody requestBody) throws Exception;
+            UpdateOrganizationDomainRequestBody requestBody,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallDeleteOrganizationDomain {
+        DeleteOrganizationDomainResponse delete(
+            String organizationId,
+            String domainId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallVerifyDomainProxy {
         VerifyDomainProxyResponse verify(
-            VerifyDomainProxyRequestBody request) throws Exception;
+            Optional<? extends VerifyDomainProxyRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListRedirectURLs {
-        ListRedirectURLsResponse listDirect() throws Exception;
+        ListRedirectURLsResponse list(
+            Optional<Boolean> paginated,
+            Optional<Long> limit,
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateRedirectURL {
         CreateRedirectURLResponse create(
-            CreateRedirectURLRequestBody request) throws Exception;
+            Optional<? extends CreateRedirectURLRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetRedirectURL {
         GetRedirectURLResponse get(
-            String id) throws Exception;
+            String id,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteRedirectURL {
         DeleteRedirectURLResponse delete(
-            String id) throws Exception;
+            String id,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSignInToken {
         CreateSignInTokenResponse create(
-            CreateSignInTokenRequestBody request) throws Exception;
+            Optional<? extends CreateSignInTokenRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRevokeSignInToken {
         RevokeSignInTokenResponse revoke(
-            String signInTokenId) throws Exception;
+            String signInTokenId,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetSignUp {
+        GetSignUpResponse get(
+            String id,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateSignUp {
         UpdateSignUpResponse update(
             String id,
-            UpdateSignUpRequestBody requestBody) throws Exception;
+            Optional<? extends UpdateSignUpRequestBody> requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListOAuthApplications {
         ListOAuthApplicationsResponse list(
             Optional<Long> limit,
-            Optional<Long> offset) throws Exception;
+            Optional<Long> offset,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateOAuthApplication {
         CreateOAuthApplicationResponse create(
-            CreateOAuthApplicationRequestBody request) throws Exception;
+            Optional<? extends CreateOAuthApplicationRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOAuthApplication {
         GetOAuthApplicationResponse get(
-            String oauthApplicationId) throws Exception;
+            String oauthApplicationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateOAuthApplication {
         UpdateOAuthApplicationResponse update(
             String oauthApplicationId,
-            UpdateOAuthApplicationRequestBody requestBody) throws Exception;
+            UpdateOAuthApplicationRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteOAuthApplication {
         DeleteOAuthApplicationResponse delete(
-            String oauthApplicationId) throws Exception;
+            String oauthApplicationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRotateOAuthApplicationSecret {
         RotateOAuthApplicationSecretResponse rotateSecret(
-            String oauthApplicationId) throws Exception;
+            String oauthApplicationId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSAMLConnections {
         ListSAMLConnectionsResponse list(
-            Optional<Long> limit,
-            Optional<Long> offset) throws Exception;
+            ListSAMLConnectionsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSAMLConnection {
         CreateSAMLConnectionResponse create(
-            CreateSAMLConnectionRequestBody request) throws Exception;
+            Optional<? extends CreateSAMLConnectionRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSAMLConnection {
         GetSAMLConnectionResponse get(
-            String samlConnectionId) throws Exception;
+            String samlConnectionId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateSAMLConnection {
         UpdateSAMLConnectionResponse update(
             String samlConnectionId,
-            UpdateSAMLConnectionRequestBody requestBody) throws Exception;
+            UpdateSAMLConnectionRequestBody requestBody,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteSAMLConnection {
         DeleteSAMLConnectionResponse delete(
-            String samlConnectionId) throws Exception;
+            String samlConnectionId,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateTestingToken {
-        CreateTestingTokenResponse createDirect() throws Exception;
+        CreateTestingTokenResponse create(
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallListWaitlistEntries {
+        ListWaitlistEntriesResponse list(
+            ListWaitlistEntriesRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateWaitlistEntry {
+        CreateWaitlistEntryResponse create(
+            Optional<? extends CreateWaitlistEntryRequestBody> request,
+            Optional<Options> options) throws Exception;
     }
 
 

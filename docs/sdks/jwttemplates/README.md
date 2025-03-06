@@ -33,6 +33,9 @@ public class Application {
             .build();
 
         ListJWTTemplatesResponse res = sdk.jwtTemplates().list()
+                .paginated(false)
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.jwtTemplateList().isPresent()) {
@@ -41,6 +44,14 @@ public class Application {
     }
 }
 ```
+
+### Parameters
+
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `paginated`                                                                                                                               | *Optional\<Boolean>*                                                                                                                      | :heavy_minus_sign:                                                                                                                        | Whether to paginate the results.<br/>If true, the results will be paginated.<br/>If false, the results will not be paginated.             |
+| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
 
 ### Response
 
@@ -63,6 +74,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.Claims;
 import com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody;
 import com.clerk.backend_api.models.operations.CreateJWTTemplateResponse;
 import java.lang.Exception;
@@ -76,6 +88,9 @@ public class Application {
             .build();
 
         CreateJWTTemplateRequestBody req = CreateJWTTemplateRequestBody.builder()
+                .name("<value>")
+                .claims(Claims.builder()
+                    .build())
                 .build();
 
         CreateJWTTemplateResponse res = sdk.jwtTemplates().create()
@@ -167,6 +182,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateClaims;
 import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody;
 import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
 import java.lang.Exception;
@@ -182,6 +198,9 @@ public class Application {
         UpdateJWTTemplateResponse res = sdk.jwtTemplates().update()
                 .templateId("<id>")
                 .requestBody(UpdateJWTTemplateRequestBody.builder()
+                    .name("<value>")
+                    .claims(UpdateJWTTemplateClaims.builder()
+                        .build())
                     .build())
                 .call();
 
@@ -194,10 +213,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `templateId`                                                                            | *String*                                                                                | :heavy_check_mark:                                                                      | The ID of the JWT template to update                                                    |
-| `requestBody`                                                                           | [UpdateJWTTemplateRequestBody](../../models/operations/UpdateJWTTemplateRequestBody.md) | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `templateId`                                                                                       | *String*                                                                                           | :heavy_check_mark:                                                                                 | The ID of the JWT template to update                                                               |
+| `requestBody`                                                                                      | [Optional\<UpdateJWTTemplateRequestBody>](../../models/operations/UpdateJWTTemplateRequestBody.md) | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
 
 ### Response
 
