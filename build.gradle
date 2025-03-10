@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 group = "com.clerk"
-version = "2.0.0"
+version = "2.0.1"
 
 sourcesJar {
     archiveBaseName = "backend-api"
@@ -101,7 +101,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.clerk'
             artifactId = 'backend-api'
-            version = '2.0.0'
+            version = '2.0.1'
 
             from components.java
 

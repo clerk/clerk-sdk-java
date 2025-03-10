@@ -1,0 +1,16 @@
+# JWKSSymmetricKey
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `kid`                                                                 | *String*                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `alg`                                                                 | *String*                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `use`                                                                 | *String*                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `kty`                                                                 | [JWKSSymmetricKeyKty](../../models/components/JWKSSymmetricKeyKty.md) | :heavy_check_mark:                                                    | N/A                                                                   |
+| `k`                                                                   | *String*                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `x5c`                                                                 | List\<*String*>                                                       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `x5t`                                                                 | *Optional\<String>*                                                   | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `x5tNumberS256`                                                       | *Optional\<String>*                                                   | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `x5u`                                                                 | *Optional\<String>*                                                   | :heavy_minus_sign:                                                    | N/A                                                                   |
