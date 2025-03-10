@@ -29,19 +29,26 @@ public class ClerkErrors extends RuntimeException {
     @JsonProperty("meta")
     private Optional<? extends Meta> meta;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("clerk_trace_id")
+    private Optional<String> clerkTraceId;
+
     @JsonCreator
     public ClerkErrors(
             @JsonProperty("errors") List<ClerkError> errors,
-            @JsonProperty("meta") Optional<? extends Meta> meta) {
+            @JsonProperty("meta") Optional<? extends Meta> meta,
+            @JsonProperty("clerk_trace_id") Optional<String> clerkTraceId) {
         Utils.checkNotNull(errors, "errors");
         Utils.checkNotNull(meta, "meta");
+        Utils.checkNotNull(clerkTraceId, "clerkTraceId");
         this.errors = errors;
         this.meta = meta;
+        this.clerkTraceId = clerkTraceId;
     }
     
     public ClerkErrors(
             List<ClerkError> errors) {
-        this(errors, Optional.empty());
+        this(errors, Optional.empty(), Optional.empty());
     }
 
     public List<ClerkError> errors(){
@@ -51,6 +58,10 @@ public class ClerkErrors extends RuntimeException {
     @SuppressWarnings("unchecked")
     public Optional<Meta> meta(){
         return (Optional<Meta>) meta;
+    }
+
+    public Optional<String> clerkTraceId(){
+        return clerkTraceId;
     }
     
     public final static Builder builder() {
@@ -75,6 +86,18 @@ public class ClerkErrors extends RuntimeException {
         return this;
     }
 
+    public ClerkErrors withClerkTraceId(String clerkTraceId) {
+        Utils.checkNotNull(clerkTraceId, "clerkTraceId");
+        this.clerkTraceId = Optional.ofNullable(clerkTraceId);
+        return this;
+    }
+    
+    public ClerkErrors withClerkTraceId(Optional<String> clerkTraceId) {
+        Utils.checkNotNull(clerkTraceId, "clerkTraceId");
+        this.clerkTraceId = clerkTraceId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -86,21 +109,24 @@ public class ClerkErrors extends RuntimeException {
         ClerkErrors other = (ClerkErrors) o;
         return
             Objects.deepEquals(this.errors, other.errors) &&
-            Objects.deepEquals(this.meta, other.meta);
+            Objects.deepEquals(this.meta, other.meta) &&
+            Objects.deepEquals(this.clerkTraceId, other.clerkTraceId);
     }
 
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
             errors,
-            meta);
+            meta,
+            clerkTraceId);
     }
 
     @Override
     public String toString() {
         return Utils.toString(ClerkErrors.class,
                 "errors", errors,
-                "meta", meta);
+                "meta", meta,
+                "clerkTraceId", clerkTraceId);
     }
 
     public final static class Builder {
@@ -108,6 +134,8 @@ public class ClerkErrors extends RuntimeException {
         private List<ClerkError> errors;
 
         private Optional<? extends Meta> meta = Optional.empty();
+
+        private Optional<String> clerkTraceId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -131,10 +159,23 @@ public class ClerkErrors extends RuntimeException {
             return this;
         }
 
+        public Builder clerkTraceId(String clerkTraceId) {
+            Utils.checkNotNull(clerkTraceId, "clerkTraceId");
+            this.clerkTraceId = Optional.ofNullable(clerkTraceId);
+            return this;
+        }
+        
+        public Builder clerkTraceId(Optional<String> clerkTraceId) {
+            Utils.checkNotNull(clerkTraceId, "clerkTraceId");
+            this.clerkTraceId = clerkTraceId;
+            return this;
+        }
+
         public ClerkErrors build() {
             return new ClerkErrors(
                 errors,
-                meta);
+                meta,
+                clerkTraceId);
         }
     }
 }

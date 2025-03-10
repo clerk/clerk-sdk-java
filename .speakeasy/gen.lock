@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 58ad91ea5b9a84daf1a110600dd55581
+  docChecksum: 8dc4f235b361071c56f787e85baa0d15
   docVersion: "2024-10-01"
-  speakeasyVersion: 1.510.0
-  generationVersion: 2.541.0
-  releaseVersion: 2.0.0
-  configChecksum: 2640abea70db75803640cd2a68d20b38
+  speakeasyVersion: 1.513.4
+  generationVersion: 2.545.4
+  releaseVersion: 2.0.1
+  configChecksum: 570699983319a99d148bb5710293c8e1
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -54,6 +54,7 @@ generatedFiles:
   - docs/models/components/ClerkError.md
   - docs/models/components/ClerkErrorErrorMeta.md
   - docs/models/components/Client.md
+  - docs/models/components/Crv.md
   - docs/models/components/DeletedObject.md
   - docs/models/components/Domain.md
   - docs/models/components/DomainObject.md
@@ -83,10 +84,25 @@ generatedFiles:
   - docs/models/components/InvitationRevokedObject.md
   - docs/models/components/InvitationRevokedStatus.md
   - docs/models/components/InvitationStatus.md
+  - docs/models/components/JWKSEcdsaPrivateKey.md
+  - docs/models/components/JWKSEcdsaPrivateKeyKty.md
+  - docs/models/components/JWKSEcdsaPublicKey.md
+  - docs/models/components/JWKSEcdsaPublicKeyKty.md
+  - docs/models/components/JWKSEd25519PrivateKey.md
+  - docs/models/components/JWKSEd25519PrivateKeyCrv.md
+  - docs/models/components/JWKSEd25519PrivateKeyKty.md
+  - docs/models/components/JWKSEd25519PublicKey.md
+  - docs/models/components/JWKSRsaPrivateKey.md
+  - docs/models/components/JWKSRsaPrivateKeyKty.md
+  - docs/models/components/JWKSRsaPublicKey.md
+  - docs/models/components/JWKSRsaPublicKeyKty.md
+  - docs/models/components/JWKSSymmetricKey.md
+  - docs/models/components/JWKSSymmetricKeyKty.md
   - docs/models/components/JWTTemplate.md
   - docs/models/components/JWTTemplateObject.md
   - docs/models/components/Jwks.md
   - docs/models/components/Keys.md
+  - docs/models/components/Kty.md
   - docs/models/components/Meta.md
   - docs/models/components/NextAction.md
   - docs/models/components/Nonce.md
@@ -607,6 +623,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/ClerkError.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorMeta.java
   - src/main/java/com/clerk/backend_api/models/components/Client.java
+  - src/main/java/com/clerk/backend_api/models/components/Crv.java
   - src/main/java/com/clerk/backend_api/models/components/DeletedObject.java
   - src/main/java/com/clerk/backend_api/models/components/Domain.java
   - src/main/java/com/clerk/backend_api/models/components/DomainObject.java
@@ -636,10 +653,25 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/InvitationRevokedObject.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationRevokedStatus.java
   - src/main/java/com/clerk/backend_api/models/components/InvitationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEcdsaPrivateKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEcdsaPrivateKeyKty.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEcdsaPublicKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEcdsaPublicKeyKty.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEd25519PrivateKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEd25519PrivateKeyCrv.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEd25519PrivateKeyKty.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSEd25519PublicKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSRsaPrivateKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSRsaPrivateKeyKty.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSRsaPublicKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSRsaPublicKeyKty.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSSymmetricKey.java
+  - src/main/java/com/clerk/backend_api/models/components/JWKSSymmetricKeyKty.java
   - src/main/java/com/clerk/backend_api/models/components/JWTTemplate.java
   - src/main/java/com/clerk/backend_api/models/components/JWTTemplateObject.java
   - src/main/java/com/clerk/backend_api/models/components/Jwks.java
   - src/main/java/com/clerk/backend_api/models/components/Keys.java
+  - src/main/java/com/clerk/backend_api/models/components/Kty.java
   - src/main/java/com/clerk/backend_api/models/components/Meta.java
   - src/main/java/com/clerk/backend_api/models/components/NextAction.java
   - src/main/java/com/clerk/backend_api/models/components/Nonce.java
@@ -1282,7 +1314,7 @@ examples:
     speakeasy-default-create-email-address:
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Loyal79@yahoo.com", "reserved": true, "verification": {"status": "unverified", "strategy": "reset_password_email_code", "attempts": 816588, "expire_at": 586220}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 957409, "updated_at": 357021}
+          application/json: {"object": "email_address", "email_address": "Loyal79@yahoo.com", "reserved": true, "verification": {"status": "unverified", "strategy": "reset_password_email_code", "expire_at": 586220, "attempts": 816588}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 957409, "updated_at": 357021}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetEmailAddress:
@@ -1312,7 +1344,7 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Lavern48@hotmail.com", "reserved": true, "verification": {"status": "verified", "strategy": "ticket", "attempts": 311507, "expire_at": 249440}, "linked_to": [], "created_at": 789275, "updated_at": 889838}
+          application/json: {"object": "email_address", "email_address": "Lavern48@hotmail.com", "reserved": true, "verification": {"status": "verified", "strategy": "ticket", "expire_at": 249440, "attempts": 311507}, "linked_to": [], "created_at": 789275, "updated_at": 889838}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreatePhoneNumber:
