@@ -1,12 +1,11 @@
 package com.clerk.backend_api.helpers.jwks;
 
-import io.jsonwebtoken.Claims;
 import java.net.HttpCookie;
-import java.net.http.HttpHeaders;
-import java.net.http.HttpRequest;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import io.jsonwebtoken.Claims;
 
 /**
  * AuthenticateRequest - Helper methods to authenticate requests.
@@ -33,9 +32,9 @@ public final class AuthenticateRequest {
      *         WARNING: authenticateRequest is applicable in the context of Backend
      *         APIs only.
      */
-    public static final RequestState authenticateRequest(HttpRequest request, AuthenticateRequestOptions options) {
+    public static final RequestState authenticateRequest(Map<String, List<String>> requestHeaders, AuthenticateRequestOptions options) {
 
-        String sessionToken = getSessionToken(request);
+        String sessionToken = getSessionToken(requestHeaders);
         if (sessionToken == null) {
             return RequestState.signedOut(AuthErrorReason.SESSION_TOKEN_MISSING);
         }
@@ -75,20 +74,21 @@ public final class AuthenticateRequest {
      * @param request The HTTP request
      * @return The session token, if present
      */
-    private static String getSessionToken(HttpRequest request) {
-        HttpHeaders headers = request.headers();
+    private static String getSessionToken(Map<String, List<String>> requestHeaders) {
 
-        Optional<String> bearerToken = headers.firstValue("Authorization");
-        if (bearerToken.isPresent()) {
-            return bearerToken.get().replace("Bearer ", "");
+        List<String> authHeaders = requestHeaders.get("Authorization");
+        if (authHeaders != null && !authHeaders.isEmpty()) {
+            String bearerToken = authHeaders.get(0);
+            return bearerToken.replace("Bearer ", "");
         }
 
-        Optional<String> cookieHeader = headers.firstValue("cookie");
-        if (cookieHeader.isPresent()) {
-            String cookieHeaderValue = cookieHeader.get();
+
+        List<String> cookieHeaders = requestHeaders.get("cookie");
+        if (cookieHeaders != null && !cookieHeaders.isEmpty()) {
+            String cookieHeaderValue = cookieHeaders.get(0);
             List<HttpCookie> cookies = HttpCookie.parse(cookieHeaderValue);
             for (HttpCookie cookie : cookies) {
-                if (SESSION_COOKIE_NAME.equals(cookie.getName())) {
+                if (cookie.getName().startsWith(SESSION_COOKIE_NAME)) {
                     return cookie.getValue();
                 }
             }
