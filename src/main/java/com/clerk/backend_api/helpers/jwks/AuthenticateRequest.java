@@ -1,6 +1,7 @@
 package com.clerk.backend_api.helpers.jwks;
 
 import java.net.HttpCookie;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -76,14 +77,15 @@ public final class AuthenticateRequest {
      */
     private static String getSessionToken(Map<String, List<String>> requestHeaders) {
 
-        List<String> authHeaders = requestHeaders.get("Authorization");
+        Map<String, List<String>> lowerCaseHeaders = requestHeaders.entrySet().stream()
+                .collect(HashMap::new, (m, e) -> m.put(e.getKey().toLowerCase(), e.getValue()), HashMap::putAll);
+        List<String> authHeaders = lowerCaseHeaders.get("authorization");
         if (authHeaders != null && !authHeaders.isEmpty()) {
             String bearerToken = authHeaders.get(0);
             return bearerToken.replace("Bearer ", "");
         }
 
-
-        List<String> cookieHeaders = requestHeaders.get("cookie");
+        List<String> cookieHeaders = lowerCaseHeaders.get("cookie");
         if (cookieHeaders != null && !cookieHeaders.isEmpty()) {
             String cookieHeaderValue = cookieHeaders.get(0);
             List<HttpCookie> cookies = HttpCookie.parse(cookieHeaderValue);
