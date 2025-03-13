@@ -82,7 +82,7 @@ public class AuthenticateRequestTest {
                 .GET() //
                 .build(); //
 
-        RequestState state = AuthenticateRequest.authenticateRequest(request, arOptions);
+        RequestState state = AuthenticateRequest.authenticateRequest(request.headers().map(), arOptions);
         assertTrue(state.isSignedOut());
         assertEquals(AuthErrorReason.SESSION_TOKEN_MISSING, state.reason().get());
         assertTrue(state.token().isEmpty());
@@ -106,7 +106,7 @@ public class AuthenticateRequestTest {
                 .GET() //
                 .build(); //
 
-        RequestState state = AuthenticateRequest.authenticateRequest(request, arOptions);
+        RequestState state = AuthenticateRequest.authenticateRequest(request.headers().map(), arOptions);
         assertRequestState(state, token);
     }
 
@@ -128,7 +128,7 @@ public class AuthenticateRequestTest {
                 .GET() //
                 .build(); //
 
-        RequestState state = AuthenticateRequest.authenticateRequest(request, arOptions);
+        RequestState state = AuthenticateRequest.authenticateRequest(request.headers().map(), arOptions);
         assertRequestState(state, token);
     }
 
@@ -150,7 +150,7 @@ public class AuthenticateRequestTest {
                 .GET() //
                 .build(); //
 
-        RequestState state = AuthenticateRequest.authenticateRequest(request, arOptions);
+        RequestState state = AuthenticateRequest.authenticateRequest(request.headers().map(), arOptions);
         assertRequestState(state, token);
     }
 
@@ -171,7 +171,7 @@ public class AuthenticateRequestTest {
                 .GET() //
                 .build(); //
 
-        RequestState state = AuthenticateRequest.authenticateRequest(request, arOptions);
+        RequestState state = AuthenticateRequest.authenticateRequest(request.headers().map(), arOptions);
         assertTrue(state.isSignedOut());
         assertEquals(AuthErrorReason.SECRET_KEY_MISSING, state.reason().get());
         assertTrue(state.token().isEmpty());
