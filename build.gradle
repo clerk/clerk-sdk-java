@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 sourcesJar {
-    archiveBaseName = "${groupId}"
+    archiveBaseName = "${artifactId}"
 }
 
 javadocJar {
@@ -100,7 +100,7 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.clerk"
             artifactId = "backend-api"
-            version = "2.1.2"
+            version = "2.1.3"
 
             from components.java
 
