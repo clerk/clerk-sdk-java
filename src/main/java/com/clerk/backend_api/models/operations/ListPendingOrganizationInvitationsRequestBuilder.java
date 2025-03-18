@@ -9,6 +9,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;

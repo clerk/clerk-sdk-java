@@ -219,3 +219,13 @@ Based on:
 - [java v2.0.2] .
 ### Releases
 - [Maven Central v2.0.2] https://central.sonatype.com/artifact/com.clerk/backend-api/2.0.2 - .
+
+## 2025-03-18 17:04:11
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.519.1 (2.552.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v2.1.0] .
+### Releases
+- [Maven Central v2.1.0] https://central.sonatype.com/artifact/com.clerk/backend-api/2.1.0 - .
