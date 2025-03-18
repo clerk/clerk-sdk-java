@@ -5,7 +5,10 @@
 package com.clerk.backend_api.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -15,6 +18,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
@@ -39,6 +43,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.function.BiPredicate;
 import java.util.regex.Matcher;
@@ -1035,11 +1040,53 @@ public final class Utils {
         }
     }
     
-    private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
+    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
-    public static String bytesToLowerCaseHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
+    public static byte[] readBytes(String filename) {
+        return readBytes(new File(filename));
+    }
+    
+    public static byte[] readBytes(File file) {
+        try {
+            return readBytesAndClose(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+    
+    public static byte[] readBytesAndClose(InputStream in) {
+        try {
+            return readBytes(in);
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
+    }
+
+    public static byte[] readBytes(InputStream in) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        byte[] buffer = new byte[8192];
+        int n;
+        try {
+            while ((n = in.read(buffer))!= -1) {
+                bytes.write(buffer, 0, n);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return bytes.toByteArray();
+    }
+    
+    public static String toHex(byte[] bytes) {
+        return toHex(bytes, bytes.length);
+    }
+    
+    private static String toHex(byte[] bytes, int length) {
+        char[] hexChars = new char[length * 2];
+        for (int j = 0; j < length; j++) {
             int v = bytes[j] & 0xFF;
             hexChars[j * 2] = HEX_ARRAY[v >>> 4];
             hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
@@ -1198,10 +1245,128 @@ public final class Utils {
             MessageDigest md = MessageDigest.getInstance("MD5");
             String input = Arrays.stream(items).collect(Collectors.joining(":"));
             byte[] bytes = md.digest(input.getBytes(StandardCharsets.UTF_8));
-            return Utils.bytesToLowerCaseHex(bytes);
+            return Utils.toHex(bytes).toLowerCase(Locale.ENGLISH);
         } catch (NoSuchAlgorithmException e) {
             // not expected, MD5 always available
             throw new RuntimeException(e);
         }
+    }
+    
+    // internal API
+    public static HTTPClient createTestHTTPClient(String testName) {
+        return createTestHTTPClient(new SpeakeasyHTTPClient(), testName);
+    }
+    
+    // internal API
+    public static HTTPClient createTestHTTPClient(SpeakeasyHTTPClient client, String testName) {
+        return new TestHTTPClient(client, testName, randomLetters(16));
+    }
+
+    private static final class TestHTTPClient implements HTTPClient {
+
+        private final HTTPClient client;
+        private final String testName;
+        private final String testInstanceId;
+        
+        TestHTTPClient(HTTPClient client, String testName, String testInstanceId) {
+            checkNotNull(client, "client");
+            checkNotNull(testName, "name");
+            checkNotNull(testInstanceId, "instanceId");
+            this.client = client;
+            this.testName = testName;
+            this.testInstanceId = testInstanceId;
+        }
+
+        @Override
+        public HttpResponse<InputStream> send(HttpRequest request)
+                throws IOException, InterruptedException, URISyntaxException {
+            HttpRequest r = Utils.copy(request) //
+              .header("x-speakeasy-test-name", testName) //
+              .header("x-speakeasy-test-instance-id", testInstanceId) //
+              .build();
+            return client.send(r);
+        }
+    }
+    
+    private static final Random RANDOM = new Random();
+    
+    private static String randomLetters(int length) {
+        return RANDOM.ints(length).mapToObj(x -> (char) (Math.abs(x) % 26 + 'a') + "").collect(Collectors.joining());
+    }
+
+    /**
+     * Internal use. Returns the system property with {@code key = "env." + name}
+     * and if doesn't exist returns the value of the environment variable with the
+     * given name of if it doesn't exist returns {@code defaultValue}.
+     * 
+     * @param name         variable name
+     * @param defaultValue default value if system property and environment variable
+     *                     don't exist
+     * @return system property with name prepended with ".env" or environment
+     *         variable of given name or default value
+     */
+    public static String environmentVariable(String name, String defaultValue) {
+        String value = System.getProperty("env." + name);
+        if (value != null) {
+            return value;
+        }
+        value = System.getenv(name);
+        if (value != null) {
+            return value;
+        } else {
+            return defaultValue;
+        }
+    }
+
+    // internal use    
+    public static <T> Optional<T> toOptional(JsonNullable<T> a) {
+        if (a.isPresent() && a.get() != null) {
+            return Optional.of(a.get());
+        } else {
+            return Optional.empty();
+        }
+    }
+    
+    // internal use
+    public static String sortJSONObjectKeys(String json, String... fields) {
+        var fieldList = List.of(fields);
+        var m = new ObjectMapper();
+        try {
+            JsonNode tree = m.readTree(json);
+            if (!tree.isObject()) {
+                return json;
+            } else if (fieldList.isEmpty()) {
+                return m.writeValueAsString(sortKeys(m, tree));
+            } else {
+                var node = (ObjectNode) tree;
+                var list = toList(node.fields());
+                list.stream() //
+                        .filter(entry -> fieldList.contains(entry.getKey())) //
+                        .forEach(entry -> node.set(entry.getKey(), sortKeys(m, entry.getValue())));
+                return m.writeValueAsString(node);
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static JsonNode sortKeys(ObjectMapper m, JsonNode node) {
+        if (!node.isObject()) {
+            return node;
+        } else {
+            var list = toList(node.fields());
+            list.sort((a, b) -> a.getKey().compareTo(b.getKey()));
+            var map = new LinkedHashMap<String, JsonNode>();
+            list.forEach(x -> map.put(x.getKey(), x.getValue()));
+            return new ObjectNode(m.getNodeFactory(), map);
+        }
+    }
+
+    private static <T> List<T> toList(Iterator<T> it) {
+        var list = new ArrayList<T>();
+        while (it.hasNext()) {
+            list.add(it.next());
+        }
+        return list;
     }
 }

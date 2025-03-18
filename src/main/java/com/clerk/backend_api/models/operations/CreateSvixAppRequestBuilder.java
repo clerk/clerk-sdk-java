@@ -7,6 +7,7 @@ package com.clerk.backend_api.models.operations;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateSvixAppRequestBuilder {
