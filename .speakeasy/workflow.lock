@@ -1,4 +1,4 @@
-speakeasyVersion: 1.519.1
+speakeasyVersion: 1.520.0
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
@@ -14,8 +14,6 @@ targets:
         sourceNamespace: clerk-java-sdk
         sourceRevisionDigest: sha256:5874ce61b77611a5d54be31d24554f519ee100fabe03763cccebf04f946c4cc6
         sourceBlobDigest: sha256:2b71237f436348d2cd0068137c6eeefa1a61edb8dcba32820d3e6842b48b8c19
-        codeSamplesNamespace: clerk-java-sdk-code-samples
-        codeSamplesRevisionDigest: sha256:00ba8a702f09d177ab16085c031c8d1e2f82d9ca26426b77a19269fc27180729
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
