@@ -136,6 +136,10 @@ public final class Security {
                     case "bearer":
                         request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
                         break;
+                    case "custom":
+                        // customers are expected to consume the security object and transform requests 
+                        // in their own BeforeRequest hook.
+                        break;
                     default:
                         throw new RuntimeException("Unsupported http security scheme subtype: " + schemeMetadata.subtype);
                 }

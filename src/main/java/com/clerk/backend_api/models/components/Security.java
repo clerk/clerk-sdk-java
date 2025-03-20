@@ -4,6 +4,7 @@
 
 
 package com.clerk.backend_api.models.components;
+import com.clerk.backend_api.utils.HasSecurity;
 import com.clerk.backend_api.utils.SpeakeasyMetadata;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +14,7 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Security {
+public class Security implements HasSecurity {
 
     @SpeakeasyMetadata("security:scheme=true,type=http,subtype=bearer,name=Authorization")
     private Optional<String> bearerAuth;
