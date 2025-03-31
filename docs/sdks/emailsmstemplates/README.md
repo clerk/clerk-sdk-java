@@ -195,9 +195,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType;
-import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody;
-import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {

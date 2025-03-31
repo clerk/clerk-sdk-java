@@ -74,9 +74,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.Claims;
-import com.clerk.backend_api.models.operations.CreateJWTTemplateRequestBody;
-import com.clerk.backend_api.models.operations.CreateJWTTemplateResponse;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
@@ -182,9 +180,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateJWTTemplateClaims;
-import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody;
-import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
