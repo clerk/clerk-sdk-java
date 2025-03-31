@@ -28,3 +28,25 @@ tasks.named('test', Test) {
         events "passed"
     }
 }
+
+tasks.register('generatePomProperties') {
+
+    def propertiesFile = layout.buildDirectory.file("resources/main/META-INF/maven/com.clerk/backend-api/pom.properties").get().asFile
+    outputs.file(propertiesFile)
+
+    doLast {
+
+        def props = new Properties()
+        props.put("groupId", project.group)
+        props.put("version", project.version)
+
+        def jarTask = tasks.named("jar").get()
+        props.put("artifactId", jarTask.archiveBaseName.get())
+
+
+        propertiesFile.parentFile.mkdirs()
+        propertiesFile.withWriter { props.store(it, null) }
+    }
+}
+
+processResources.dependsOn generatePomProperties
