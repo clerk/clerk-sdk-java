@@ -78,9 +78,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateSAMLConnectionRequestBody;
-import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
-import com.clerk.backend_api.models.operations.Provider;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {

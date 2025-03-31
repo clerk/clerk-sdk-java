@@ -8,6 +8,7 @@
 * [list](#list) - List all sessions
 * [create](#create) - Create a new active session
 * [get](#get) - Retrieve a session
+* [refresh](#refresh) - Refresh a session
 * [revoke](#revoke) - Revoke a session
 * [~~verify~~](#verify) - Verify a session :warning: **Deprecated**
 * [createToken](#createtoken) - Create a session token
@@ -176,6 +177,64 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## refresh
+
+Refreshes a session by creating a new session token. A 401 is returned when there
+are validation errors, which signals the SDKs to fallback to the handshake flow.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RefreshSessionRequestBody;
+import com.clerk.backend_api.models.operations.RefreshSessionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+            .build();
+
+        RefreshSessionResponse res = sdk.sessions().refresh()
+                .sessionId("<id>")
+                .requestBody(RefreshSessionRequestBody.builder()
+                    .expiredToken("<value>")
+                    .refreshToken("<value>")
+                    .requestOrigin("<value>")
+                    .build())
+                .call();
+
+        if (res.sessionRefresh().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `sessionId`                                                                                  | *String*                                                                                     | :heavy_check_mark:                                                                           | The ID of the session                                                                        |
+| `requestBody`                                                                                | [Optional\<RefreshSessionRequestBody>](../../models/operations/RefreshSessionRequestBody.md) | :heavy_minus_sign:                                                                           | Refresh session parameters                                                                   |
+
+### Response
+
+**[RefreshSessionResponse](../../models/operations/RefreshSessionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke

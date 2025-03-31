@@ -366,9 +366,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UploadOrganizationLogoFile;
-import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody;
-import com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
 import java.nio.charset.StandardCharsets;
 
