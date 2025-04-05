@@ -698,7 +698,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody;
 import com.clerk.backend_api.models.operations.UpdateUserMetadataResponse;
 import java.lang.Exception;
 
@@ -712,8 +711,6 @@ public class Application {
 
         UpdateUserMetadataResponse res = sdk.users().updateMetadata()
                 .userId("<id>")
-                .requestBody(UpdateUserMetadataRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.user().isPresent()) {
@@ -774,7 +771,7 @@ public class Application {
                 .request(req)
                 .call();
 
-        if (res.responseBodies().isPresent()) {
+        if (res.oAuthAccessToken().isPresent()) {
             // handle response
         }
     }
@@ -822,8 +819,6 @@ public class Application {
 
         UsersGetOrganizationMembershipsResponse res = sdk.users().getOrganizationMemberships()
                 .userId("<id>")
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
@@ -863,7 +858,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.QueryParamStatus;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsResponse;
 import java.lang.Exception;
 
@@ -877,9 +871,6 @@ public class Application {
 
         UsersGetOrganizationInvitationsResponse res = sdk.users().getOrganizationInvitations()
                 .userId("<id>")
-                .limit(10L)
-                .offset(0L)
-                .status(QueryParamStatus.PENDING)
                 .call();
 
         if (res.organizationInvitationsWithPublicOrganizationData().isPresent()) {
@@ -921,7 +912,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyPasswordRequestBody;
 import com.clerk.backend_api.models.operations.VerifyPasswordResponse;
 import java.lang.Exception;
 
@@ -935,9 +925,6 @@ public class Application {
 
         VerifyPasswordResponse res = sdk.users().verifyPassword()
                 .userId("<id>")
-                .requestBody(VerifyPasswordRequestBody.builder()
-                    .password("1fwgbLjqCRGKsWc")
-                    .build())
                 .call();
 
         if (res.object().isPresent()) {
@@ -979,7 +966,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyTOTPRequestBody;
 import com.clerk.backend_api.models.operations.VerifyTOTPResponse;
 import java.lang.Exception;
 
@@ -993,9 +979,6 @@ public class Application {
 
         VerifyTOTPResponse res = sdk.users().verifyTotp()
                 .userId("<id>")
-                .requestBody(VerifyTOTPRequestBody.builder()
-                    .code("<value>")
-                    .build())
                 .call();
 
         if (res.object().isPresent()) {
@@ -1358,9 +1341,6 @@ public class Application {
             .build();
 
         InstanceGetOrganizationMembershipsResponse res = sdk.users().getInstanceOrganizationMemberships()
-                .orderBy("<value>")
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.organizationMemberships().isPresent()) {

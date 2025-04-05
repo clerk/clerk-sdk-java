@@ -191,7 +191,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.RefreshSessionRequestBody;
 import com.clerk.backend_api.models.operations.RefreshSessionResponse;
 import java.lang.Exception;
 
@@ -205,11 +204,6 @@ public class Application {
 
         RefreshSessionResponse res = sdk.sessions().refresh()
                 .sessionId("<id>")
-                .requestBody(RefreshSessionRequestBody.builder()
-                    .expiredToken("<value>")
-                    .refreshToken("<value>")
-                    .requestOrigin("<value>")
-                    .build())
                 .call();
 
         if (res.sessionRefresh().isPresent()) {
@@ -304,7 +298,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifySessionRequestBody;
 import com.clerk.backend_api.models.operations.VerifySessionResponse;
 import java.lang.Exception;
 
@@ -318,8 +311,6 @@ public class Application {
 
         VerifySessionResponse res = sdk.sessions().verify()
                 .sessionId("<id>")
-                .requestBody(VerifySessionRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.session().isPresent()) {
@@ -358,7 +349,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenResponse;
 import java.lang.Exception;
 
@@ -372,8 +362,6 @@ public class Application {
 
         CreateSessionTokenResponse res = sdk.sessions().createToken()
                 .sessionId("<id>")
-                .requestBody(CreateSessionTokenRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.object().isPresent()) {
@@ -412,7 +400,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenFromTemplateResponse;
 import java.lang.Exception;
 
@@ -427,8 +414,6 @@ public class Application {
         CreateSessionTokenFromTemplateResponse res = sdk.sessions().createTokenFromTemplate()
                 .sessionId("<id>")
                 .templateName("<value>")
-                .requestBody(CreateSessionTokenFromTemplateRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.object().isPresent()) {

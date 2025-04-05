@@ -856,4 +856,14 @@ public class SDKMethodInterfaces {
             Optional<? extends CreateWaitlistEntryRequestBody> request,
             Optional<Options> options) throws Exception;
     }
+
+    public interface MethodCallCreateAccountlessApplication {
+        CreateAccountlessApplicationResponse create(
+            Optional<Options> options) throws Exception;
+    }
+
+    public interface MethodCallCompleteAccountlessApplication {
+        CompleteAccountlessApplicationResponse complete(
+            Optional<Options> options) throws Exception;
+    }
 }
