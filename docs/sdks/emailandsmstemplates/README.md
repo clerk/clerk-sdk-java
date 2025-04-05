@@ -20,7 +20,8 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.UpsertTemplatePathParamTemplateType;
+import com.clerk.backend_api.models.operations.UpsertTemplateResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -34,8 +35,6 @@ public class Application {
         UpsertTemplateResponse res = sdk.emailAndSmsTemplates().upsert()
                 .templateType(UpsertTemplatePathParamTemplateType.SMS)
                 .slug("<value>")
-                .requestBody(UpsertTemplateRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.template().isPresent()) {

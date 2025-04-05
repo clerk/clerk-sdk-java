@@ -177,7 +177,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody;
 import com.clerk.backend_api.models.operations.UpdateEmailAddressResponse;
 import java.lang.Exception;
 
@@ -191,8 +190,6 @@ public class Application {
 
         UpdateEmailAddressResponse res = sdk.emailAddresses().update()
                 .emailAddressId("<id>")
-                .requestBody(UpdateEmailAddressRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.emailAddress().isPresent()) {

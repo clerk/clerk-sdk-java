@@ -51,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:2.3.1'
+implementation 'com.clerk:backend-api:2.3.2'
 ```
 
 Maven:
@@ -59,7 +59,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>2.3.1</version>
+    <version>2.3.2</version>
 </dependency>
 ```
 
@@ -235,6 +235,11 @@ If the request is correctly authenticated, the token's claims are made available
 * [~~get~~](docs/sdks/emailsmstemplates/README.md#get) - Retrieve a template :warning: **Deprecated**
 * [~~revert~~](docs/sdks/emailsmstemplates/README.md#revert) - Revert a template :warning: **Deprecated**
 * [~~toggleTemplateDelivery~~](docs/sdks/emailsmstemplates/README.md#toggletemplatedelivery) - Toggle the delivery by Clerk for a template of a given type and slug :warning: **Deprecated**
+
+### [experimentalAccountlessApplications()](docs/sdks/experimentalaccountlessapplications/README.md)
+
+* [create](docs/sdks/experimentalaccountlessapplications/README.md#create) - Create an accountless application [EXPERIMENTAL]
+* [complete](docs/sdks/experimentalaccountlessapplications/README.md#complete) - Complete an accountless application [EXPERIMENTAL]
 
 ### [instanceSettings()](docs/sdks/instancesettings/README.md)
 

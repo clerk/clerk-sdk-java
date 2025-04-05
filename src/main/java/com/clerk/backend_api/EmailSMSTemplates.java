@@ -53,8 +53,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
- 
-
 public class EmailSMSTemplates implements
             MethodCallGetTemplateList,
             MethodCallGetTemplate,
