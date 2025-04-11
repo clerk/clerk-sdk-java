@@ -159,8 +159,6 @@ public class Application {
 
         GetOrganizationResponse res = sdk.organizations().get()
                 .organizationId("<id>")
-                .includeMembersCount(false)
-                .includeMissingMemberWithElevatedPermissions(false)
                 .call();
 
         if (res.organization().isPresent()) {
@@ -366,9 +364,8 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse;
 import java.lang.Exception;
-import java.nio.charset.StandardCharsets;
 
 public class Application {
 
@@ -380,12 +377,6 @@ public class Application {
 
         UploadOrganizationLogoResponse res = sdk.organizations().uploadLogo()
                 .organizationId("<id>")
-                .requestBody(UploadOrganizationLogoRequestBody.builder()
-                    .file(UploadOrganizationLogoFile.builder()
-                        .fileName("example.file")
-                        .content("0x0DDEE4e6Ea".getBytes(StandardCharsets.UTF_8))
-                        .build())
-                    .build())
                 .call();
 
         if (res.organizationWithLogo().isPresent()) {
