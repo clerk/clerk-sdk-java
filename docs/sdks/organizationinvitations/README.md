@@ -99,7 +99,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateOrganizationInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationResponse;
 import java.lang.Exception;
 
@@ -113,10 +112,6 @@ public class Application {
 
         CreateOrganizationInvitationResponse res = sdk.organizationInvitations().create()
                 .organizationId("<id>")
-                .requestBody(CreateOrganizationInvitationRequestBody.builder()
-                    .emailAddress("Loyal79@yahoo.com")
-                    .role("<value>")
-                    .build())
                 .call();
 
         if (res.organizationInvitation().isPresent()) {
@@ -160,7 +155,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse;
 import java.lang.Exception;
 
@@ -174,9 +168,6 @@ public class Application {
 
         ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
                 .organizationId("<id>")
-                .status(ListOrganizationInvitationsQueryParamStatus.REVOKED)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -243,8 +234,7 @@ public class Application {
 
         CreateOrganizationInvitationBulkResponse res = sdk.organizationInvitations().bulkCreate()
                 .organizationId("<id>")
-                .requestBody(List.of(
-                ))
+                .requestBody(List.of())
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -303,8 +293,6 @@ public class Application {
 
         ListPendingOrganizationInvitationsResponse res = sdk.organizationInvitations().listPending()
                 .organizationId("<id>")
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -400,7 +388,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse;
 import java.lang.Exception;
 
@@ -415,8 +402,6 @@ public class Application {
         RevokeOrganizationInvitationResponse res = sdk.organizationInvitations().revoke()
                 .organizationId("<id>")
                 .invitationId("<id>")
-                .requestBody(RevokeOrganizationInvitationRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.organizationInvitation().isPresent()) {
