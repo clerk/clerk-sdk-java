@@ -20,7 +20,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.PreviewTemplateRequestBody;
 import com.clerk.backend_api.models.operations.PreviewTemplateResponse;
 import java.lang.Exception;
 
@@ -35,8 +34,6 @@ public class Application {
         PreviewTemplateResponse res = sdk.templates().preview()
                 .templateType("<value>")
                 .slug("<value>")
-                .requestBody(PreviewTemplateRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.object().isPresent()) {
