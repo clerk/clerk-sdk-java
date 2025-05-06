@@ -32,9 +32,6 @@ public class Application {
             .build();
 
         ListRedirectURLsResponse res = sdk.redirectUrls().list()
-                .paginated(false)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.redirectURLList().isPresent()) {

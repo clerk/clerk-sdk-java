@@ -7,8 +7,14 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Security {
@@ -185,6 +191,58 @@ public final class Security {
                 + Base64.getEncoder()
                      .encodeToString(String.format("%s:%s", username, password)
                      .getBytes(StandardCharsets.UTF_8)));
+    }
+    
+    public static Optional<Object> findComplexObjectWithNonEmptyAnnotatedField(Object object, String... regexes) {
+        if (object == null || object instanceof String) {
+            return Optional.empty();
+        }
+        Deque<Object> stack = new LinkedList<>();
+        // be defensive about circular references (not expected)
+        Set<Object> processed = new HashSet<>();
+        stack.push(object);
+        processed.add(object);
+        while (!stack.isEmpty()) {
+            Object o = stack.pop();
+            Field[] fields = o.getClass().getDeclaredFields();
+            List<Field> annotatedFields = Arrays.stream(fields) //
+                    .filter(f -> {
+                        SpeakeasyMetadata[] anns = f.getDeclaredAnnotationsByType(SpeakeasyMetadata.class);
+                        return anns != null && anns.length > 0;
+                    }) //
+                    .collect(Collectors.toList());
+            for (Field f : annotatedFields) {
+                SpeakeasyMetadata[] anns = f.getDeclaredAnnotationsByType(SpeakeasyMetadata.class);
+                Object value = getUnwrappedFieldValue(o, f);
+                if (value != null && !(value instanceof String)) {
+                    // we are looking for a complex object (so can't be a String)
+                    boolean regexMatches = Arrays //
+                            .stream(regexes) //
+                            .allMatch(regex -> matches(anns, regex));
+                    if (regexMatches) {
+                        return Optional.of(value);
+                    } else if (!processed.contains(value)) {
+                        stack.push(value);
+                        processed.add(value);
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private static Object getUnwrappedFieldValue(Object o, Field f) {
+        try {
+            f.setAccessible(true);
+            Object value = f.get(o);
+            if (value != null && value instanceof Optional) {
+                return ((Optional<?>) value).orElse(null);
+            } else {
+                return value;
+            }
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     public static Stream<Field> findFieldsWhereMetadataContainsRegexes(Object o, String... regexes) {

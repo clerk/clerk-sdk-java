@@ -3,6 +3,7 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.models.components.OAuthAccessToken;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,24 +36,24 @@ public class GetOAuthAccessTokenResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * The OAuth access token of the user, if any.
+     * Success
      */
-    private Optional<? extends List<ResponseBody>> responseBodies;
+    private Optional<? extends List<OAuthAccessToken>> oAuthAccessToken;
 
     @JsonCreator
     public GetOAuthAccessTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<ResponseBody>> responseBodies) {
+            Optional<? extends List<OAuthAccessToken>> oAuthAccessToken) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(responseBodies, "responseBodies");
+        Utils.checkNotNull(oAuthAccessToken, "oAuthAccessToken");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.responseBodies = responseBodies;
+        this.oAuthAccessToken = oAuthAccessToken;
     }
     
     public GetOAuthAccessTokenResponse(
@@ -87,12 +88,12 @@ public class GetOAuthAccessTokenResponse implements Response {
     }
 
     /**
-     * The OAuth access token of the user, if any.
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<ResponseBody>> responseBodies() {
-        return (Optional<List<ResponseBody>>) responseBodies;
+    public Optional<List<OAuthAccessToken>> oAuthAccessToken() {
+        return (Optional<List<OAuthAccessToken>>) oAuthAccessToken;
     }
 
     public final static Builder builder() {
@@ -127,20 +128,20 @@ public class GetOAuthAccessTokenResponse implements Response {
     }
 
     /**
-     * The OAuth access token of the user, if any.
+     * Success
      */
-    public GetOAuthAccessTokenResponse withResponseBodies(List<ResponseBody> responseBodies) {
-        Utils.checkNotNull(responseBodies, "responseBodies");
-        this.responseBodies = Optional.ofNullable(responseBodies);
+    public GetOAuthAccessTokenResponse withOAuthAccessToken(List<OAuthAccessToken> oAuthAccessToken) {
+        Utils.checkNotNull(oAuthAccessToken, "oAuthAccessToken");
+        this.oAuthAccessToken = Optional.ofNullable(oAuthAccessToken);
         return this;
     }
 
     /**
-     * The OAuth access token of the user, if any.
+     * Success
      */
-    public GetOAuthAccessTokenResponse withResponseBodies(Optional<? extends List<ResponseBody>> responseBodies) {
-        Utils.checkNotNull(responseBodies, "responseBodies");
-        this.responseBodies = responseBodies;
+    public GetOAuthAccessTokenResponse withOAuthAccessToken(Optional<? extends List<OAuthAccessToken>> oAuthAccessToken) {
+        Utils.checkNotNull(oAuthAccessToken, "oAuthAccessToken");
+        this.oAuthAccessToken = oAuthAccessToken;
         return this;
     }
 
@@ -158,7 +159,7 @@ public class GetOAuthAccessTokenResponse implements Response {
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
             Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.responseBodies, other.responseBodies);
+            Objects.deepEquals(this.oAuthAccessToken, other.oAuthAccessToken);
     }
     
     @Override
@@ -167,7 +168,7 @@ public class GetOAuthAccessTokenResponse implements Response {
             contentType,
             statusCode,
             rawResponse,
-            responseBodies);
+            oAuthAccessToken);
     }
     
     @Override
@@ -176,7 +177,7 @@ public class GetOAuthAccessTokenResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "responseBodies", responseBodies);
+                "oAuthAccessToken", oAuthAccessToken);
     }
     
     public final static class Builder {
@@ -187,7 +188,7 @@ public class GetOAuthAccessTokenResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends List<ResponseBody>> responseBodies = Optional.empty();
+        private Optional<? extends List<OAuthAccessToken>> oAuthAccessToken = Optional.empty();
         
         private Builder() {
           // force use of static builder() method
@@ -221,20 +222,20 @@ public class GetOAuthAccessTokenResponse implements Response {
         }
 
         /**
-         * The OAuth access token of the user, if any.
+         * Success
          */
-        public Builder responseBodies(List<ResponseBody> responseBodies) {
-            Utils.checkNotNull(responseBodies, "responseBodies");
-            this.responseBodies = Optional.ofNullable(responseBodies);
+        public Builder oAuthAccessToken(List<OAuthAccessToken> oAuthAccessToken) {
+            Utils.checkNotNull(oAuthAccessToken, "oAuthAccessToken");
+            this.oAuthAccessToken = Optional.ofNullable(oAuthAccessToken);
             return this;
         }
 
         /**
-         * The OAuth access token of the user, if any.
+         * Success
          */
-        public Builder responseBodies(Optional<? extends List<ResponseBody>> responseBodies) {
-            Utils.checkNotNull(responseBodies, "responseBodies");
-            this.responseBodies = responseBodies;
+        public Builder oAuthAccessToken(Optional<? extends List<OAuthAccessToken>> oAuthAccessToken) {
+            Utils.checkNotNull(oAuthAccessToken, "oAuthAccessToken");
+            this.oAuthAccessToken = oAuthAccessToken;
             return this;
         }
         
@@ -243,7 +244,7 @@ public class GetOAuthAccessTokenResponse implements Response {
                 contentType,
                 statusCode,
                 rawResponse,
-                responseBodies);
+                oAuthAccessToken);
         }
     }
 }

@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-
-
 /**
  * Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend servers.
  * 
@@ -97,6 +95,8 @@ public class Clerk {
     private final TestingTokens testingTokens;
 
     private final WaitlistEntries waitlistEntries;
+
+    private final ExperimentalAccountlessApplications experimentalAccountlessApplications;
 
     public Miscellaneous miscellaneous() {
         return miscellaneous;
@@ -220,6 +220,10 @@ public class Clerk {
 
     public WaitlistEntries waitlistEntries() {
         return waitlistEntries;
+    }
+
+    public ExperimentalAccountlessApplications experimentalAccountlessApplications() {
+        return experimentalAccountlessApplications;
     }
 
     private final SDKConfiguration sdkConfiguration;
@@ -390,5 +394,7 @@ public class Clerk {
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
+        this.experimentalAccountlessApplications = new ExperimentalAccountlessApplications(sdkConfiguration);
         this.sdkConfiguration.initialize();
-    }}
+    }
+}

@@ -38,9 +38,6 @@ public class Application {
 
         GetTemplateListResponse res = sdk.emailSMSTemplates().list()
                 .templateType(TemplateType.SMS)
-                .paginated(false)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.templateList().isPresent()) {
@@ -195,7 +192,8 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryPathParamTemplateType;
+import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -209,8 +207,6 @@ public class Application {
         ToggleTemplateDeliveryResponse res = sdk.emailSMSTemplates().toggleTemplateDelivery()
                 .templateType(ToggleTemplateDeliveryPathParamTemplateType.SMS)
                 .slug("<value>")
-                .requestBody(ToggleTemplateDeliveryRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.template().isPresent()) {

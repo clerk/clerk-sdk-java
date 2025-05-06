@@ -36,9 +36,6 @@ public class Application {
             .build();
 
         GetClientListResponse res = sdk.clients().list()
-                .paginated(false)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.clientList().isPresent()) {

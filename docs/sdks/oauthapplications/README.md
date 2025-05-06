@@ -38,8 +38,6 @@ public class Application {
             .build();
 
         ListOAuthApplicationsResponse res = sdk.oauthApplications().list()
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.oAuthApplications().isPresent()) {
