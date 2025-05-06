@@ -69,7 +69,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateSignUpRequestBody;
 import com.clerk.backend_api.models.operations.UpdateSignUpResponse;
 import java.lang.Exception;
 
@@ -83,8 +82,6 @@ public class Application {
 
         UpdateSignUpResponse res = sdk.signUps().update()
                 .id("<id>")
-                .requestBody(UpdateSignUpRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.signUp().isPresent()) {

@@ -4,6 +4,7 @@
 package com.clerk.backend_api;
 
 import com.clerk.backend_api.models.components.DeletedObject;
+import com.clerk.backend_api.models.components.OAuthAccessToken;
 import com.clerk.backend_api.models.components.OrganizationInvitationsWithPublicOrganizationData;
 import com.clerk.backend_api.models.components.OrganizationMemberships;
 import com.clerk.backend_api.models.components.TotalCount;
@@ -56,7 +57,6 @@ import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
 import com.clerk.backend_api.models.operations.QueryParamStatus;
-import com.clerk.backend_api.models.operations.ResponseBody;
 import com.clerk.backend_api.models.operations.SDKMethodInterfaces.*;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequest;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody;
@@ -124,8 +124,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
- 
 
 public class Users implements
             MethodCallGetUserList,
@@ -2897,10 +2895,10 @@ public class Users implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                List<ResponseBody> _out = Utils.mapper().readValue(
+                List<OAuthAccessToken> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<List<ResponseBody>>() {});
-                _res.withResponseBodies(Optional.ofNullable(_out));
+                    new TypeReference<List<OAuthAccessToken>>() {});
+                _res.withOAuthAccessToken(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(

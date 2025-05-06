@@ -33,9 +33,6 @@ public class Application {
             .build();
 
         ListJWTTemplatesResponse res = sdk.jwtTemplates().list()
-                .paginated(false)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.jwtTemplateList().isPresent()) {
@@ -180,7 +177,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -193,11 +190,6 @@ public class Application {
 
         UpdateJWTTemplateResponse res = sdk.jwtTemplates().update()
                 .templateId("<id>")
-                .requestBody(UpdateJWTTemplateRequestBody.builder()
-                    .name("<value>")
-                    .claims(UpdateJWTTemplateClaims.builder()
-                        .build())
-                    .build())
                 .call();
 
         if (res.jwtTemplate().isPresent()) {

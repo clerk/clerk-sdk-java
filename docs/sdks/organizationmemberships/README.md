@@ -253,7 +253,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipMetadataResponse;
 import java.lang.Exception;
 
@@ -268,8 +267,6 @@ public class Application {
         UpdateOrganizationMembershipMetadataResponse res = sdk.organizationMemberships().updateMetadata()
                 .organizationId("<id>")
                 .userId("<id>")
-                .requestBody(UpdateOrganizationMembershipMetadataRequestBody.builder()
-                    .build())
                 .call();
 
         if (res.organizationMembership().isPresent()) {

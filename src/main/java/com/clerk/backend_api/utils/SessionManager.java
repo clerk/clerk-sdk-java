@@ -158,8 +158,8 @@ public final class SessionManager<T extends SessionManager.HasSessionKey> {
             if (!t.tokenType.orElse("").equals("Bearer")) {
                 throw new AuthException("Expected 'Bearer' token type but was '" + t.tokenType.orElse("") + "'");
             }
-            final Optional<OffsetDateTime> expiresAt = t.expiresInMs
-                    .map(x -> OffsetDateTime.now().plus(x, ChronoUnit.MILLIS));
+            final Optional<OffsetDateTime> expiresAt = t.expiresInSeconds
+                    .map(x -> OffsetDateTime.now().plus(x, ChronoUnit.SECONDS));
             return new Session<T>(credentials, t.accessToken, scopes, expiresAt);
         } catch (IOException | IllegalArgumentException | IllegalAccessException | InterruptedException | URISyntaxException e) {
             throw new RuntimeException(e);
@@ -175,7 +175,7 @@ public final class SessionManager<T extends SessionManager.HasSessionKey> {
         Optional<String> tokenType;
 
         @JsonProperty("expires_in")
-        Optional<Long> expiresInMs;
+        Optional<Long> expiresInSeconds;;
 
     }
 
