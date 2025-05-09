@@ -67,7 +67,7 @@ public final class AuthenticateRequest {
             Claims claims = VerifyToken.verifyToken(sessionToken, verifyTokenOptions);
             Map<String, Object> updatedClaimsMap = new HashMap<>(claims);
 
-            if ("2".equals(claims.get("v"))) {
+            if ("2".equals(String.valueOf(claims.get("v")))) {
                 Object orgObject = claims.get("o");
                 if (orgObject instanceof Map) {
                     @SuppressWarnings("unchecked")
@@ -125,6 +125,9 @@ public final class AuthenticateRequest {
     @SuppressWarnings("unchecked")
     private static List<String> computedOrgPermissions(Claims claims) {
         String featuresStr = (String) claims.get("fea");
+        if (featuresStr == null) {
+            return new ArrayList<>();
+        }
         String permissionsStr = (String) ((Map<String, Object>) claims.get("o")).get("per");
         String mappingsStr = (String) ((Map<String, Object>) claims.get("o")).get("fpm");
 
