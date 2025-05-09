@@ -1,12 +1,13 @@
 package com.clerk.backend_api.helpers.jwks;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.impl.DefaultClaims;
 import java.net.HttpCookie;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import io.jsonwebtoken.Claims;
 
 /**
  * AuthenticateRequest - Helper methods to authenticate requests.
@@ -62,7 +63,27 @@ public final class AuthenticateRequest {
 
         try {
             Claims claims = VerifyToken.verifyToken(sessionToken, verifyTokenOptions);
-            return RequestState.signedIn(sessionToken, claims);
+            Map<String, Object> updatedClaimsMap = new HashMap<>(claims);
+
+            if ("2".equals(String.valueOf(claims.get("v")))) {
+                Object orgObject = claims.get("o");
+                if (orgObject instanceof Map) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> orgClaims = (Map<String, Object>) orgObject;
+
+                    updatedClaimsMap.put("org_id", orgClaims.get("id"));
+                    updatedClaimsMap.put("org_slug", orgClaims.get("slg"));
+                    updatedClaimsMap.put("org_roles", orgClaims.get("rol"));
+
+                    List<String> orgPermissions = computeOrgPermissions(claims);
+                    if (!orgPermissions.isEmpty()) {
+                        updatedClaimsMap.put("org_permissions", orgPermissions);
+                    }
+                }
+            }
+
+            Claims updatedClaims = new DefaultClaims(updatedClaimsMap);
+            return RequestState.signedIn(sessionToken, updatedClaims);
         } catch (TokenVerificationException e) {
             return RequestState.signedOut(e.reason());
         }
@@ -98,4 +119,43 @@ public final class AuthenticateRequest {
 
         return null;
     }
+
+    @SuppressWarnings("unchecked")
+    private static List<String> computeOrgPermissions(Claims claims) {
+        String featuresStr = (String) claims.get("fea");
+        if (featuresStr == null) {
+            return new ArrayList<>();
+        }
+        String permissionsStr = (String) ((Map<String, Object>) claims.get("o")).get("per");
+        String mappingsStr = (String) ((Map<String, Object>) claims.get("o")).get("fpm");
+
+        String[] features = featuresStr.split(",");
+        String[] permissions = permissionsStr.split(",");
+        String[] mappings = mappingsStr.split(",");
+
+        List<String> orgPermissions = new ArrayList<>();
+
+        for (int idx = 0; idx < mappings.length; idx++) {
+            String mapping = mappings[idx];
+            String[] featureParts = features[idx].split(":");
+            if (featureParts.length != 2) continue;
+
+            String scope = featureParts[0];
+            String feature = featureParts[1];
+
+            if (!scope.contains("o")) continue;
+
+            String binary = Integer.toBinaryString(Integer.parseInt(mapping)).replaceAll("^0+", "");
+            String reversedBinary = new StringBuilder(binary).reverse().toString();
+
+            for (int i = 0; i < reversedBinary.length(); i++) {
+                if (reversedBinary.charAt(i) == '1' && i < permissions.length) {
+                    orgPermissions.add("org:" + feature + ":" + permissions[i]);
+                }
+            }
+        }
+
+        return orgPermissions;
+    }
+
 }
