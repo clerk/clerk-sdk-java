@@ -75,7 +75,7 @@ public final class AuthenticateRequest {
                     updatedClaimsMap.put("org_slug", orgClaims.get("slg"));
                     updatedClaimsMap.put("org_roles", orgClaims.get("rol"));
 
-                    List<String> orgPermissions = computedOrgPermissions(claims);
+                    List<String> orgPermissions = computeOrgPermissions(claims);
                     if (!orgPermissions.isEmpty()) {
                         updatedClaimsMap.put("org_permissions", orgPermissions);
                     }
@@ -121,7 +121,7 @@ public final class AuthenticateRequest {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<String> computedOrgPermissions(Claims claims) {
+    private static List<String> computeOrgPermissions(Claims claims) {
         String featuresStr = (String) claims.get("fea");
         if (featuresStr == null) {
             return new ArrayList<>();
