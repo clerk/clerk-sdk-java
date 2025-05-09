@@ -1368,20 +1368,32 @@ public final class Utils {
         }
         return list;
     }
-    
-    public static <T> T valueOrNull(T value) {
-        return value;
+
+    public static <T> T valueOrElse(T value, T valueIfNotPresent) {
+        return value != null ? value : valueIfNotPresent;
+    }
+        
+    public static <T> T valueOrElse(Optional<T> value, T valueIfNotPresent) {
+        return value.orElse(valueIfNotPresent);
     }
     
-    public static <T> T valueOrNull(Optional<T> value) {
-        return value.orElse(null);
-    }
-    
-    public static <T> T valueOrNull(JsonNullable<T> value) {
+    public static <T> T valueOrElse(JsonNullable<T> value, T valueIfNotPresent) {
         if (value.isPresent()) {
             return value.get();
         } else {
-            return null;
+            return valueIfNotPresent;
         }
+    }
+    
+    public static <T> T valueOrNull(T value) {
+        return valueOrElse(value, null);
+    }
+    
+    public static <T> T valueOrNull(Optional<T> value) {
+        return valueOrElse(value, null);
+    }
+    
+    public static <T> T valueOrNull(JsonNullable<T> value) {
+        return valueOrElse(value, null);
     }
 }

@@ -103,7 +103,7 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.clerk"
             artifactId = "backend-api"
-            version = "2.3.0"
+            version = "2.4.0"
 
             from components.java
 

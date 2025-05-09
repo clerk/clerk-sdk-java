@@ -5,8 +5,6 @@ package com.clerk.backend_api;
 
 import com.clerk.backend_api.utils.HasSecurity;
 
-
-
 public interface SecuritySource {
 
     HasSecurity getSecurity();

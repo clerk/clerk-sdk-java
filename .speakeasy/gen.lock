@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 662be939df6caa6e3433d8c6d41c8719
+  docChecksum: b684ca32bc26235fae342e8e91c51f56
   docVersion: "2024-10-01"
-  speakeasyVersion: 1.526.0
-  generationVersion: 2.563.0
-  releaseVersion: 2.3.0
-  configChecksum: d1893cb04e138a392272f8b1e66d5c2e
+  speakeasyVersion: 1.542.3
+  generationVersion: 2.597.9
+  releaseVersion: 2.4.0
+  configChecksum: c4f45121365eef47d63927cf7c32e270
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,8 +14,9 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.36.0
+    core: 3.37.1
     deprecations: 2.81.1
+    examples: 2.81.5
     flattening: 2.81.1
     globalSecurity: 2.82.8
     globalSecurityCallbacks: 0.1.0
@@ -32,6 +33,8 @@ generatedFiles:
   - .gitattributes
   - USAGE.md
   - build.gradle
+  - docs/models/components/AccountlessApplication.md
+  - docs/models/components/AccountlessApplicationObject.md
   - docs/models/components/Actor.md
   - docs/models/components/ActorToken.md
   - docs/models/components/ActorTokenActor.md
@@ -101,6 +104,8 @@ generatedFiles:
   - docs/models/components/Meta.md
   - docs/models/components/NextAction.md
   - docs/models/components/Nonce.md
+  - docs/models/components/OAuthAccessToken.md
+  - docs/models/components/OAuthAccessTokenObject.md
   - docs/models/components/OAuthApplication.md
   - docs/models/components/OAuthApplicationObject.md
   - docs/models/components/OAuthApplicationWithSecret.md
@@ -230,6 +235,8 @@ generatedFiles:
   - docs/models/operations/ChangeProductionInstanceDomainResponse.md
   - docs/models/operations/Claims.md
   - docs/models/operations/CodeType.md
+  - docs/models/operations/CompleteAccountlessApplicationResponse.md
+  - docs/models/operations/CreateAccountlessApplicationResponse.md
   - docs/models/operations/CreateActorTokenRequestBody.md
   - docs/models/operations/CreateActorTokenResponse.md
   - docs/models/operations/CreateAllowlistIdentifierRequestBody.md
@@ -423,7 +430,6 @@ generatedFiles:
   - docs/models/operations/RefreshSessionRequestBody.md
   - docs/models/operations/RefreshSessionResponse.md
   - docs/models/operations/RequestBody.md
-  - docs/models/operations/ResponseBody.md
   - docs/models/operations/RevertTemplatePathParamTemplateType.md
   - docs/models/operations/RevertTemplateRequest.md
   - docs/models/operations/RevertTemplateResponse.md
@@ -546,6 +552,7 @@ generatedFiles:
   - docs/sdks/emailaddresses/README.md
   - docs/sdks/emailandsmstemplates/README.md
   - docs/sdks/emailsmstemplates/README.md
+  - docs/sdks/experimentalaccountlessapplications/README.md
   - docs/sdks/instancesettings/README.md
   - docs/sdks/invitations/README.md
   - docs/sdks/jwks/README.md
@@ -584,6 +591,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/EmailAddresses.java
   - src/main/java/com/clerk/backend_api/EmailAndSmsTemplates.java
   - src/main/java/com/clerk/backend_api/EmailSMSTemplates.java
+  - src/main/java/com/clerk/backend_api/ExperimentalAccountlessApplications.java
   - src/main/java/com/clerk/backend_api/InstanceSettings.java
   - src/main/java/com/clerk/backend_api/Invitations.java
   - src/main/java/com/clerk/backend_api/Jwks.java
@@ -608,6 +616,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/Users.java
   - src/main/java/com/clerk/backend_api/WaitlistEntries.java
   - src/main/java/com/clerk/backend_api/Webhooks.java
+  - src/main/java/com/clerk/backend_api/models/components/AccountlessApplication.java
+  - src/main/java/com/clerk/backend_api/models/components/AccountlessApplicationObject.java
   - src/main/java/com/clerk/backend_api/models/components/Actor.java
   - src/main/java/com/clerk/backend_api/models/components/ActorToken.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenActor.java
@@ -677,6 +687,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Meta.java
   - src/main/java/com/clerk/backend_api/models/components/NextAction.java
   - src/main/java/com/clerk/backend_api/models/components/Nonce.java
+  - src/main/java/com/clerk/backend_api/models/components/OAuthAccessToken.java
+  - src/main/java/com/clerk/backend_api/models/components/OAuthAccessTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplication.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationObject.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationWithSecret.java
@@ -811,6 +823,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/Claims.java
   - src/main/java/com/clerk/backend_api/models/operations/CodeType.java
+  - src/main/java/com/clerk/backend_api/models/operations/CompleteAccountlessApplicationRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CompleteAccountlessApplicationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateAccountlessApplicationRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateAccountlessApplicationResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenResponse.java
@@ -1091,7 +1107,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/ResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplatePathParamTemplateType.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequestBuilder.java
@@ -1248,6 +1263,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/BackoffStrategy.java
   - src/main/java/com/clerk/backend_api/utils/BigDecimalString.java
   - src/main/java/com/clerk/backend_api/utils/BigIntegerString.java
+  - src/main/java/com/clerk/backend_api/utils/Constants.java
   - src/main/java/com/clerk/backend_api/utils/Deserializers.java
   - src/main/java/com/clerk/backend_api/utils/EventStream.java
   - src/main/java/com/clerk/backend_api/utils/EventStreamLineReader.java
@@ -1329,7 +1345,7 @@ examples:
     speakeasy-default-create-email-address:
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Loyal79@yahoo.com", "reserved": true, "verification": {"status": "unverified", "strategy": "reset_password_email_code", "expire_at": 586220, "attempts": 816588}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 957409, "updated_at": 357021}
+          application/json: {"object": "email_address", "email_address": "Loyal79@yahoo.com", "reserved": true, "verification": {"status": "unverified", "strategy": "reset_password_email_code", "attempts": 816588, "expire_at": 586220}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 957409, "updated_at": 357021}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetEmailAddress:
@@ -1359,7 +1375,7 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Lavern48@hotmail.com", "reserved": true, "verification": {"status": "verified", "strategy": "ticket", "expire_at": 249440, "attempts": 311507}, "linked_to": [], "created_at": 789275, "updated_at": 889838}
+          application/json: {"object": "email_address", "email_address": "Lavern48@hotmail.com", "reserved": true, "verification": {"status": "verified", "strategy": "ticket", "attempts": 311507, "expire_at": 249440}, "linked_to": [], "created_at": 789275, "updated_at": 889838}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreatePhoneNumber:
@@ -1427,6 +1443,16 @@ examples:
           application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 558834, "expire_at": 544221, "abandon_at": 521235, "updated_at": 969961, "created_at": 458049}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  RefreshSession:
+    speakeasy-default-refresh-session:
+      parameters:
+        path:
+          session_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "cookies", "cookies": ["<value>", "<value>", "<value>"]}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevokeSession:
     speakeasy-default-revoke-session:
       parameters:
@@ -1691,9 +1717,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{}]
+          application/json: [{"object": "oauth_access_token", "external_account_id": "<id>", "provider_user_id": "<id>", "token": "<value>", "expires_at": 701535, "provider": "<value>", "public_metadata": {"key": "<value>"}, "label": "<value>"}]
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UsersGetOrganizationMemberships:
     speakeasy-default-users-get-organization-memberships:
       parameters:
@@ -2567,15 +2593,19 @@ examples:
           application/json: {"object": "waitlist_entry", "id": "<id>", "email_address": "Loyal79@yahoo.com", "status": "pending", "created_at": 86, "updated_at": 169727, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Pearl_McGlynn@gmail.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 17759, "updated_at": 230313}}
         "400":
           application/json: {"errors": []}
-  RefreshSession:
-    speakeasy-default-refresh-session:
-      parameters:
-        path:
-          session_id: "<id>"
+  CreateAccountlessApplication:
+    speakeasy-default-create-accountless-application:
       responses:
         "200":
-          application/json: {"object": "cookies", "cookies": ["<value>", "<value>", "<value>"]}
-        "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
-examplesVersion: 1.0.0
+          application/json: {"object": "accountless_application", "publishable_key": "<value>"}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  CompleteAccountlessApplication:
+    speakeasy-default-complete-accountless-application:
+      responses:
+        "200":
+          application/json: {"object": "accountless_application", "publishable_key": "<value>"}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+examplesVersion: 1.0.1
 generatedTests: {}

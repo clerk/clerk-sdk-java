@@ -19,6 +19,7 @@ class ClerkBeforeRequestHookTest {
 
         // Instantiate BeforeRequestContext using its implementation
         BeforeRequestContext context = new BeforeRequestContextImpl(
+            "http://example.com", // Provide a mock Base URL
             "test-operation-id", // Provide a mock operation ID
             Optional.empty(), // No OAuth scopes needed
             Optional.empty() // No SecuritySource needed

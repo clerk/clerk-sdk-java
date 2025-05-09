@@ -32,9 +32,6 @@ public class Application {
             .build();
 
         ListAllowlistIdentifiersResponse res = sdk.allowlistIdentifiers().list()
-                .paginated(false)
-                .limit(10L)
-                .offset(0L)
                 .call();
 
         if (res.allowlistIdentifierList().isPresent()) {
