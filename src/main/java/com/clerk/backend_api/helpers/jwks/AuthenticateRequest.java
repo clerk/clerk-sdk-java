@@ -1,15 +1,13 @@
 package com.clerk.backend_api.helpers.jwks;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.impl.DefaultClaims;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
-import io.jsonwebtoken.Claims;
 
 /**
  * AuthenticateRequest - Helper methods to authenticate requests.
@@ -71,11 +69,11 @@ public final class AuthenticateRequest {
                 Object orgObject = claims.get("o");
                 if (orgObject instanceof Map) {
                     @SuppressWarnings("unchecked")
-                    Map<String, Object> claimsMap = (Map<String, Object>) orgObject;
+                    Map<String, Object> orgClaims = (Map<String, Object>) orgObject;
 
-                    updatedClaimsMap.put("org_id", claimsMap.get("id"));
-                    updatedClaimsMap.put("org_slug", claimsMap.get("slg"));
-                    updatedClaimsMap.put("org_roles", claimsMap.get("rol"));
+                    updatedClaimsMap.put("org_id", orgClaims.get("id"));
+                    updatedClaimsMap.put("org_slug", orgClaims.get("slg"));
+                    updatedClaimsMap.put("org_roles", orgClaims.get("rol"));
 
                     List<String> orgPermissions = computedOrgPermissions(claims);
                     if (!orgPermissions.isEmpty()) {

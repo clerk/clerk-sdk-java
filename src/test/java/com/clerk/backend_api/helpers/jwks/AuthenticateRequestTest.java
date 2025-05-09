@@ -12,6 +12,7 @@ import org.mockito.MockedStatic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -144,6 +145,35 @@ public class AuthenticateRequestTest {
             List<String> permissions = (List<String>) resultClaims.get("org_permissions");
             assertNotNull(permissions);
             assertTrue(permissions.contains("org:billing:read"));
+        }
+    }
+
+    @Test
+    void testAuthenticateWithSecretKey_ValidClaims_NoFeatureSet() {
+        Map<String, List<String>> headers = Map.of("Authorization", List.of("Bearer " + TOKEN));
+
+        Map<String, Object> org = new HashMap<>();
+        org.put("id", "org_abc");
+        org.put("slg", "slug-abc");
+        org.put("rol", List.of("editor"));
+        Claims claims = buildClaimsWithOrg(org, null, null, null);
+
+        try (MockedStatic<VerifyToken> mocked = mockStatic(VerifyToken.class)) {
+            mocked.when(() -> VerifyToken.verifyToken(eq(TOKEN), any()))
+                .thenReturn(claims);
+
+            RequestState result = AuthenticateRequest.authenticateRequest(headers, createOptionsWithSecret());
+
+            assertTrue(result.isSignedIn());
+            Claims resultClaims = result.claims().get();
+
+            assertEquals("org_abc", resultClaims.get("org_id"));
+            assertEquals("slug-abc", resultClaims.get("org_slug"));
+            assertEquals(ISSUER, resultClaims.getIssuer());
+            assertTrue(resultClaims.getAudience().contains(AUDIENCE));
+
+            List<String> permissions = (List<String>) resultClaims.get("org_permissions");
+            assertNull(permissions);
         }
     }
 
