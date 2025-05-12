@@ -125,7 +125,7 @@ public class AuthenticateRequestTest {
         Map<String, Object> org = new HashMap<>();
         org.put("id", "org_001");
         org.put("slg", "org-slug");
-        org.put("rol", List.of("admin"));
+        org.put("rol", "admin");
         Claims claims = buildClaimsWithOrg(org, "o:billing,o:invoices", "3,1", "read,write");
 
         try (MockedStatic<VerifyToken> mocked = mockStatic(VerifyToken.class)) {
@@ -139,6 +139,7 @@ public class AuthenticateRequestTest {
 
             assertEquals("org_001", resultClaims.get("org_id"));
             assertEquals("org-slug", resultClaims.get("org_slug"));
+            assertEquals("admin", resultClaims.get("org_role"));
             assertEquals(ISSUER, resultClaims.getIssuer());
             assertTrue(resultClaims.getAudience().contains(AUDIENCE));
 
@@ -155,7 +156,7 @@ public class AuthenticateRequestTest {
         Map<String, Object> org = new HashMap<>();
         org.put("id", "org_abc");
         org.put("slg", "slug-abc");
-        org.put("rol", List.of("editor"));
+        org.put("rol", "editor");
         Claims claims = buildClaimsWithOrg(org, null, null, null);
 
         try (MockedStatic<VerifyToken> mocked = mockStatic(VerifyToken.class)) {
@@ -169,6 +170,7 @@ public class AuthenticateRequestTest {
 
             assertEquals("org_abc", resultClaims.get("org_id"));
             assertEquals("slug-abc", resultClaims.get("org_slug"));
+            assertEquals("editor", resultClaims.get("org_role"));
             assertEquals(ISSUER, resultClaims.getIssuer());
             assertTrue(resultClaims.getAudience().contains(AUDIENCE));
 
@@ -184,7 +186,7 @@ public class AuthenticateRequestTest {
         Map<String, Object> org = new HashMap<>();
         org.put("id", "org_abc");
         org.put("slg", "slug-abc");
-        org.put("rol", List.of("editor"));
+        org.put("rol", "editor");
         Claims claims = buildClaimsWithOrg(org, "o:settings", "1", "view,delete");
 
         try (MockedStatic<VerifyToken> mocked = mockStatic(VerifyToken.class)) {
@@ -198,6 +200,7 @@ public class AuthenticateRequestTest {
 
             assertEquals("org_abc", resultClaims.get("org_id"));
             assertEquals("slug-abc", resultClaims.get("org_slug"));
+            assertEquals("editor", resultClaims.get("org_role"));
             assertEquals(ISSUER, resultClaims.getIssuer());
             assertTrue(resultClaims.getAudience().contains(AUDIENCE));
 
