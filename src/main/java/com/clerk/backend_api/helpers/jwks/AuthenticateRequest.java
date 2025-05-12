@@ -73,7 +73,7 @@ public final class AuthenticateRequest {
 
                     updatedClaimsMap.put("org_id", orgClaims.get("id"));
                     updatedClaimsMap.put("org_slug", orgClaims.get("slg"));
-                    updatedClaimsMap.put("org_roles", orgClaims.get("rol"));
+                    updatedClaimsMap.put("org_role", orgClaims.get("rol"));
 
                     List<String> orgPermissions = computeOrgPermissions(claims);
                     if (!orgPermissions.isEmpty()) {
