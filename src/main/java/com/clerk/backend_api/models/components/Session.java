@@ -13,6 +13,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -75,6 +76,10 @@ public class Session {
     @JsonProperty("created_at")
     private long createdAt;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tasks")
+    private JsonNullable<? extends List<SessionTask>> tasks;
+
     @JsonCreator
     public Session(
             @JsonProperty("object") SessionObject object,
@@ -89,7 +94,8 @@ public class Session {
             @JsonProperty("expire_at") long expireAt,
             @JsonProperty("abandon_at") long abandonAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("created_at") long createdAt) {
+            @JsonProperty("created_at") long createdAt,
+            @JsonProperty("tasks") JsonNullable<? extends List<SessionTask>> tasks) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(userId, "userId");
@@ -103,6 +109,7 @@ public class Session {
         Utils.checkNotNull(abandonAt, "abandonAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(createdAt, "createdAt");
+        Utils.checkNotNull(tasks, "tasks");
         this.object = object;
         this.id = id;
         this.userId = userId;
@@ -116,6 +123,7 @@ public class Session {
         this.abandonAt = abandonAt;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.tasks = tasks;
     }
     
     public Session(
@@ -129,7 +137,7 @@ public class Session {
             long abandonAt,
             long updatedAt,
             long createdAt) {
-        this(object, id, userId, clientId, JsonNullable.undefined(), status, JsonNullable.undefined(), lastActiveAt, JsonNullable.undefined(), expireAt, abandonAt, updatedAt, createdAt);
+        this(object, id, userId, clientId, JsonNullable.undefined(), status, JsonNullable.undefined(), lastActiveAt, JsonNullable.undefined(), expireAt, abandonAt, updatedAt, createdAt, JsonNullable.undefined());
     }
 
     /**
@@ -212,6 +220,12 @@ public class Session {
     @JsonIgnore
     public long createdAt() {
         return createdAt;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<SessionTask>> tasks() {
+        return (JsonNullable<List<SessionTask>>) tasks;
     }
 
     public final static Builder builder() {
@@ -329,6 +343,18 @@ public class Session {
         return this;
     }
 
+    public Session withTasks(List<SessionTask> tasks) {
+        Utils.checkNotNull(tasks, "tasks");
+        this.tasks = JsonNullable.of(tasks);
+        return this;
+    }
+
+    public Session withTasks(JsonNullable<? extends List<SessionTask>> tasks) {
+        Utils.checkNotNull(tasks, "tasks");
+        this.tasks = tasks;
+        return this;
+    }
+
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -352,7 +378,8 @@ public class Session {
             Objects.deepEquals(this.expireAt, other.expireAt) &&
             Objects.deepEquals(this.abandonAt, other.abandonAt) &&
             Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Objects.deepEquals(this.createdAt, other.createdAt) &&
+            Objects.deepEquals(this.tasks, other.tasks);
     }
     
     @Override
@@ -370,7 +397,8 @@ public class Session {
             expireAt,
             abandonAt,
             updatedAt,
-            createdAt);
+            createdAt,
+            tasks);
     }
     
     @Override
@@ -388,7 +416,8 @@ public class Session {
                 "expireAt", expireAt,
                 "abandonAt", abandonAt,
                 "updatedAt", updatedAt,
-                "createdAt", createdAt);
+                "createdAt", createdAt,
+                "tasks", tasks);
     }
     
     public final static class Builder {
@@ -418,6 +447,8 @@ public class Session {
         private Long updatedAt;
  
         private Long createdAt;
+ 
+        private JsonNullable<? extends List<SessionTask>> tasks = JsonNullable.undefined();
         
         private Builder() {
           // force use of static builder() method
@@ -533,6 +564,18 @@ public class Session {
             this.createdAt = createdAt;
             return this;
         }
+
+        public Builder tasks(List<SessionTask> tasks) {
+            Utils.checkNotNull(tasks, "tasks");
+            this.tasks = JsonNullable.of(tasks);
+            return this;
+        }
+
+        public Builder tasks(JsonNullable<? extends List<SessionTask>> tasks) {
+            Utils.checkNotNull(tasks, "tasks");
+            this.tasks = tasks;
+            return this;
+        }
         
         public Session build() {
             return new Session(
@@ -548,7 +591,8 @@ public class Session {
                 expireAt,
                 abandonAt,
                 updatedAt,
-                createdAt);
+                createdAt,
+                tasks);
         }
     }
 }

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: b684ca32bc26235fae342e8e91c51f56
-  docVersion: "2024-10-01"
-  speakeasyVersion: 1.542.3
-  generationVersion: 2.597.9
-  releaseVersion: 2.4.0
-  configChecksum: c4f45121365eef47d63927cf7c32e270
+  docChecksum: 8eca1f8d4d1026b09957be1b73537220
+  docVersion: "2025-03-12"
+  speakeasyVersion: 1.555.2
+  generationVersion: 2.620.2
+  releaseVersion: 3.0.0
+  configChecksum: 05410b60af639662b511bfa5ca5d19d1
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,20 +14,19 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.37.1
+    core: 3.37.3
     deprecations: 2.81.1
-    examples: 2.81.5
     flattening: 2.81.1
     globalSecurity: 2.82.8
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
-    globalServerURLs: 2.82.1
+    globalServerURLs: 2.82.2
     groups: 2.81.2
     nameOverrides: 2.81.3
     nullables: 0.1.0
     openEnums: 0.2.0
     retries: 0.1.1
-    sdkHooks: 1.0.0
+    sdkHooks: 1.1.0
     unions: 0.0.6
 generatedFiles:
   - .gitattributes
@@ -175,6 +174,7 @@ generatedFiles:
   - docs/models/components/SessionActivityResponse.md
   - docs/models/components/SessionObject.md
   - docs/models/components/SessionRefresh.md
+  - docs/models/components/SessionTask.md
   - docs/models/components/SignInToken.md
   - docs/models/components/SignInTokenObject.md
   - docs/models/components/SignInTokenStatus.md
@@ -758,6 +758,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/SessionActivityResponse.java
   - src/main/java/com/clerk/backend_api/models/components/SessionObject.java
   - src/main/java/com/clerk/backend_api/models/components/SessionRefresh.java
+  - src/main/java/com/clerk/backend_api/models/components/SessionTask.java
   - src/main/java/com/clerk/backend_api/models/components/SignInToken.java
   - src/main/java/com/clerk/backend_api/models/components/SignInTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/SignInTokenStatus.java
@@ -1321,16 +1322,16 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "client", "id": "<id>", "session_ids": ["<value>", "<value>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "revoked", "last_active_at": 229716, "expire_at": 152837, "abandon_at": 635532, "updated_at": 639387, "created_at": 17577}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "abandoned", "last_active_at": 86140, "expire_at": 68504, "abandon_at": 687960, "updated_at": 509883, "created_at": 633911}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 7468, "created_at": 54607}, {"object": "client", "id": "<id>", "session_ids": ["<value>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "active", "last_active_at": 931165, "expire_at": 567445, "abandon_at": 876407, "updated_at": 490078, "created_at": 51681}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 322596, "created_at": 860596}, {"object": "client", "id": "<id>", "session_ids": [], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "ended", "last_active_at": 913465, "expire_at": 173090, "abandon_at": 75058, "updated_at": 897069, "created_at": 135572}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 425334, "expire_at": 432930, "abandon_at": 480616, "updated_at": 103421, "created_at": 523875}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "abandoned", "last_active_at": 410206, "expire_at": 863466, "abandon_at": 307390, "updated_at": 392057, "created_at": 113486}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 181118, "created_at": 913851}]
+          application/json: [{"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>"], "sessions": [], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 377143, "created_at": 427844}]
         "400":
           application/json: {"errors": []}
   VerifyClient:
     speakeasy-default-verify-client:
       responses:
         "200":
-          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value>", "<value>", "<value>"], "sessions": [], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 187097, "created_at": 227138}
+          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>", "<value 3>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "active", "last_active_at": 198607, "expire_at": 14645, "abandon_at": 359496, "updated_at": 743022, "created_at": 640186}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 20380, "created_at": 519313}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   GetClient:
     speakeasy-default-get-client:
       parameters:
@@ -1338,14 +1339,14 @@ examples:
           client_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value>", "<value>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 521235, "expire_at": 969961, "abandon_at": 458049, "updated_at": 450824, "created_at": 262795}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "revoked", "last_active_at": 937146, "expire_at": 438142, "abandon_at": 801373, "updated_at": 78888, "created_at": 219956}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 313464, "created_at": 94589}
+          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 713614, "expire_at": 138624, "abandon_at": 385833, "updated_at": 271462, "created_at": 817511}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 244694, "created_at": 238487}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreateEmailAddress:
     speakeasy-default-create-email-address:
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Loyal79@yahoo.com", "reserved": true, "verification": {"status": "unverified", "strategy": "reset_password_email_code", "attempts": 816588, "expire_at": 586220}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 957409, "updated_at": 357021}
+          application/json: {"object": "email_address", "email_address": "Roel13@gmail.com", "reserved": false, "verification": {"status": "failed", "strategy": "reset_password_email_code", "attempts": 547810, "expire_at": 571954}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 280841, "updated_at": 587179}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetEmailAddress:
@@ -1355,9 +1356,9 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Keeley_Lebsack@hotmail.com", "reserved": true, "verification": {"status": "expired", "strategy": "email_code", "attempts": 801373, "expire_at": 78888}, "linked_to": [], "created_at": 313464, "updated_at": 94589}
+          application/json: {"object": "email_address", "email_address": "Melba.Williamson51@hotmail.com", "reserved": true, "verification": {"status": "expired", "strategy": "ticket", "attempts": null, "expire_at": 837342}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 214421, "updated_at": 624411}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteEmailAddress:
     speakeasy-default-delete-email-address:
       parameters:
@@ -1367,7 +1368,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateEmailAddress:
     speakeasy-default-update-email-address:
       parameters:
@@ -1375,16 +1376,16 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Lavern48@hotmail.com", "reserved": true, "verification": {"status": "verified", "strategy": "ticket", "attempts": 311507, "expire_at": 249440}, "linked_to": [], "created_at": 789275, "updated_at": 889838}
+          application/json: {"object": "email_address", "email_address": "Joshuah.Mosciski@hotmail.com", "reserved": false, "verification": {"status": "verified", "strategy": "admin", "attempts": 508602, "expire_at": 409526}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 338322, "updated_at": 674983}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreatePhoneNumber:
     speakeasy-default-create-phone-number:
       responses:
         "200":
-          application/json: {"object": "phone_number", "phone_number": "741.279.0107 x857", "reserved": false, "verification": {"status": "verified", "strategy": "phone_code", "attempts": 230313, "expire_at": 211337}, "linked_to": [], "created_at": 322997, "updated_at": 185693}
+          application/json: {"object": "phone_number", "phone_number": "511.674.7460 x4280", "reserved": true, "verification": {"status": "verified", "strategy": "admin", "attempts": 67241, "expire_at": 144129}, "linked_to": [], "created_at": 5508, "updated_at": 972544}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetPhoneNumber:
     speakeasy-default-get-phone-number:
       parameters:
@@ -1392,7 +1393,7 @@ examples:
           phone_number_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "phone_number", "phone_number": "655.944.2294 x8023", "reserved": true, "verification": {"status": "verified", "strategy": "admin", "attempts": 805876, "expire_at": 380699}, "linked_to": [{"type": "<value>", "id": "<id>"}, {"type": "<value>", "id": "<id>"}], "created_at": 608535, "updated_at": 550965}
+          application/json: {"object": "phone_number", "phone_number": "929.431.0980 x615", "reserved": false, "verification": {"status": "verified", "strategy": "admin", "attempts": 864960, "expire_at": 228084}, "linked_to": [], "created_at": 776807, "updated_at": 608980}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeletePhoneNumber:
@@ -1404,7 +1405,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdatePhoneNumber:
     speakeasy-default-update-phone-number:
       parameters:
@@ -1412,9 +1413,9 @@ examples:
           phone_number_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "phone_number", "phone_number": "(639) 749-0843 x21783", "reserved": true, "verification": {"status": "verified", "strategy": "admin", "attempts": 693508, "expire_at": 404265}, "linked_to": [], "created_at": 756247, "updated_at": 810877}
+          application/json: {"object": "phone_number", "phone_number": "1-914-590-0106 x202", "reserved": false, "verification": null, "linked_to": [], "created_at": 695269, "updated_at": 775165}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   GetSessionList:
     speakeasy-default-get-session-list:
       parameters:
@@ -1423,16 +1424,16 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 678317, "expire_at": 177706, "abandon_at": 229716, "updated_at": 152837, "created_at": 635532}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 17577, "expire_at": 718303, "abandon_at": 86140, "updated_at": 68504, "created_at": 687960}, {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 633911, "expire_at": 7468, "abandon_at": 54607, "updated_at": 367745, "created_at": 485729}]
+          application/json: [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "ended", "last_active_at": 809096, "expire_at": 897224, "abandon_at": 402741, "updated_at": 826606, "created_at": 171981}]
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   createSession:
     speakeasy-default-create-session:
       responses:
         "200":
-          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 638424, "expire_at": 417458, "abandon_at": 134365, "updated_at": 69025, "created_at": 796474}
+          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "pending", "last_active_at": 524380, "expire_at": 871041, "abandon_at": 403926, "updated_at": 469380, "created_at": 70138}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetSession:
     speakeasy-default-get-session:
       parameters:
@@ -1440,7 +1441,7 @@ examples:
           session_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 558834, "expire_at": 544221, "abandon_at": 521235, "updated_at": 969961, "created_at": 458049}
+          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "ended", "last_active_at": 571881, "expire_at": 549808, "abandon_at": 197709, "updated_at": 329629, "created_at": 771871}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RefreshSession:
@@ -1450,9 +1451,9 @@ examples:
           session_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "cookies", "cookies": ["<value>", "<value>", "<value>"]}
+          application/json: {"object": "cookies", "cookies": ["<value 1>", "<value 2>", "<value 3>"]}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevokeSession:
     speakeasy-default-revoke-session:
       parameters:
@@ -1460,9 +1461,9 @@ examples:
           session_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "replaced", "last_active_at": 32810, "expire_at": 124611, "abandon_at": 182898, "updated_at": 968343, "created_at": 551462}
+          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "replaced", "last_active_at": 547133, "expire_at": 183893, "abandon_at": 563460, "updated_at": 957863, "created_at": 406222}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   VerifySession:
     speakeasy-default-verify-session:
       parameters:
@@ -1470,7 +1471,7 @@ examples:
           session_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "abandoned", "last_active_at": 189595, "expire_at": 187097, "abandon_at": 227138, "updated_at": 756755, "created_at": 394054}
+          application/json: {"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "expired", "last_active_at": 559689, "expire_at": 354461, "abandon_at": 553932, "updated_at": 621838, "created_at": 63048}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateSessionToken:
@@ -1493,20 +1494,20 @@ examples:
         "200":
           application/json: {}
         "401":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetTemplateList:
     speakeasy-default-get-template-list:
       parameters:
         path:
-          template_type: "sms"
+          template_type: "email"
         query:
           limit: 10
           offset: 0
       responses:
         "200":
-          application/json: [{}, {}]
+          application/json: [{}]
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetTemplate:
     speakeasy-default-get-template:
       parameters:
@@ -1517,7 +1518,7 @@ examples:
         "200":
           application/json: {}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevertTemplate:
     speakeasy-default-revert-template:
       parameters:
@@ -1528,7 +1529,7 @@ examples:
         "200":
           application/json: {}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ToggleTemplateDelivery:
     speakeasy-default-toggle-template-delivery:
       parameters:
@@ -1539,18 +1540,18 @@ examples:
         "200":
           application/json: {}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpsertTemplate:
     speakeasy-default-upsert-template:
       parameters:
         path:
-          template_type: "sms"
+          template_type: "email"
           slug: "<value>"
       responses:
         "200":
           application/json: {}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   PreviewTemplate:
     speakeasy-default-preview-template:
       parameters:
@@ -1576,9 +1577,9 @@ examples:
           order_by: "-created_at"
       responses:
         "200":
-          application/json: [{"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}, {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}, {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+          application/json: [{"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreateUser:
     speakeasy-default-create-user:
       requestBody:
@@ -1599,7 +1600,7 @@ examples:
           created_at_after: 1730160000000
       responses:
         "200":
-          application/json: {"object": "total_count", "total_count": 264166}
+          application/json: {"object": "total_count", "total_count": 415862}
         "422":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetUser:
@@ -1611,7 +1612,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUser:
     speakeasy-default-update-user:
       parameters:
@@ -1623,7 +1624,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteUser:
     speakeasy-default-delete-user:
       parameters:
@@ -1631,9 +1632,9 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   BanUser:
     speakeasy-default-ban-user:
       parameters:
@@ -1643,7 +1644,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UnbanUser:
     speakeasy-default-unban-user:
       parameters:
@@ -1653,7 +1654,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   LockUser:
     speakeasy-default-lock-user:
       parameters:
@@ -1673,7 +1674,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   SetUserProfileImage:
     speakeasy-default-set-user-profile-image:
       parameters:
@@ -1685,7 +1686,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteUserProfileImage:
     speakeasy-default-delete-user-profile-image:
       parameters:
@@ -1695,7 +1696,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "404":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUserMetadata:
     speakeasy-default-update-user-metadata:
       parameters:
@@ -1705,7 +1706,7 @@ examples:
         "200":
           application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   GetOAuthAccessToken:
     speakeasy-default-get-O-auth-access-token:
       parameters:
@@ -1717,9 +1718,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "oauth_access_token", "external_account_id": "<id>", "provider_user_id": "<id>", "token": "<value>", "expires_at": 701535, "provider": "<value>", "public_metadata": {"key": "<value>"}, "label": "<value>"}]
+          application/json: [{"object": "oauth_access_token", "external_account_id": "<id>", "provider_user_id": "<id>", "token": "<value>", "expires_at": 695473, "provider": "<value>", "public_metadata": {}, "label": "<value>"}]
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UsersGetOrganizationMemberships:
     speakeasy-default-users-get-organization-memberships:
       parameters:
@@ -1730,9 +1731,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>"], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 607840, "admin_delete_enabled": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 806899, "updated_at": 927368}, "created_at": 215937, "updated_at": 24169}], "total_count": 365919}
+          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 581854, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 812498, "updated_at": 308028}, "created_at": 750402, "updated_at": 55284}], "total_count": 866456}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UsersGetOrganizationInvitations:
     speakeasy-default-users-get-organization-invitations:
       parameters:
@@ -1743,9 +1744,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Earline.Torphy72@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://hungry-middle.com/", "expires_at": 800337, "created_at": 613383, "updated_at": 653624}], "total_count": 985977}
+          application/json: {"data": [], "total_count": 42521}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   VerifyPassword:
     speakeasy-default-verify-password:
       parameters:
@@ -1765,7 +1766,7 @@ examples:
         "200":
           application/json: {}
         "500":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DisableMFA:
     speakeasy-default-disable-MFA:
       parameters:
@@ -1775,9 +1776,9 @@ examples:
         "200":
           application/json: {}
         "404":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
         "500":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteBackupCode:
     speakeasy-default-delete-backup-code:
       parameters:
@@ -1789,7 +1790,7 @@ examples:
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
         "500":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UserPasskeyDelete:
     speakeasy-default-user-passkey-delete:
       parameters:
@@ -1798,11 +1799,11 @@ examples:
           passkey_identification_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": true}
+          application/json: {"object": "<value>", "deleted": false}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
         "500":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UserWeb3WalletDelete:
     speakeasy-default-user-web3-wallet-delete:
       parameters:
@@ -1813,7 +1814,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
         "500":
           application/json: {"errors": []}
   DeleteTOTP:
@@ -1836,11 +1837,11 @@ examples:
           external_account_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
         "500":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   InstanceGetOrganizationMemberships:
     speakeasy-default-instance-get-organization-memberships:
       parameters:
@@ -1849,18 +1850,18 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>", "<value>"], "public_metadata": {"key": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 635866, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {}, "created_at": 501889, "updated_at": 965535}, "created_at": 799300, "updated_at": 820213}, {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 294748, "admin_delete_enabled": true, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 66373, "updated_at": 712011}, "created_at": 473009, "updated_at": 237643}, {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>"], "public_metadata": {"key": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 406231, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>"}, "created_at": 568864, "updated_at": 111287}, "created_at": 772776, "updated_at": 142565}], "total_count": 676524}
+          application/json: {"data": [], "total_count": 414346}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
         "500":
           application/json: {"errors": []}
   CreateInvitation:
     speakeasy-default-create-invitation:
       responses:
         "200":
-          application/json: {"object": "invitation", "id": "<id>", "email_address": "Loyal79@yahoo.com", "public_metadata": {}, "revoked": false, "status": "pending", "created_at": 169727, "updated_at": 89964}
+          application/json: {"object": "invitation", "id": "<id>", "email_address": "Lavada7@hotmail.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 521834, "updated_at": 746554}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListInvitations:
     speakeasy-default-list-invitations:
       parameters:
@@ -1869,14 +1870,14 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "invitation", "id": "<id>", "email_address": "Marie.Fay@yahoo.com", "public_metadata": {}, "revoked": false, "status": "pending", "created_at": 718303, "updated_at": 86140}, {"object": "invitation", "id": "<id>", "email_address": "Martin.Nader@gmail.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 73227, "updated_at": 931165}, {"object": "invitation", "id": "<id>", "email_address": "Selina.Bechtelar86@yahoo.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": false, "status": "pending", "created_at": 424367, "updated_at": 913465}]
+          application/json: [{"object": "invitation", "id": "<id>", "email_address": "Quincy.Heaney66@yahoo.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 782939, "updated_at": 262381}]
   CreateBulkInvitations:
     speakeasy-default-create-bulk-invitations:
       responses:
         "200":
-          application/json: [{"object": "invitation", "id": "<id>", "email_address": "Tony91@hotmail.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": false, "status": "pending", "created_at": 638790, "updated_at": 397401}]
+          application/json: [{"object": "invitation", "id": "<id>", "email_address": "Katlyn77@yahoo.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": false, "status": "pending", "created_at": 353641, "updated_at": 258416}]
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevokeInvitation:
     speakeasy-default-revoke-invitation:
       parameters:
@@ -1884,9 +1885,9 @@ examples:
           invitation_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "invitation", "id": "<id>", "email_address": "Alexane55@hotmail.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": true, "status": "revoked", "created_at": 58977, "updated_at": 519292}
+          application/json: {"object": "invitation", "id": "<id>", "email_address": "Sylvan.Connelly60@yahoo.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": true, "status": "revoked", "created_at": 181374, "updated_at": 505620}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListInstanceOrganizationInvitations:
     speakeasy-default-list-instance-organization-invitations:
       parameters:
@@ -1896,11 +1897,11 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Lavinia.Armstrong62@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "url": "https://critical-daddy.org", "expires_at": 177843, "created_at": 485966, "updated_at": 254768}], "total_count": 626900}
+          application/json: {"data": [], "total_count": 24455}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
         "500":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreateOrganizationInvitation:
     speakeasy-default-create-organization-invitation:
       parameters:
@@ -1908,7 +1909,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Loyal79@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": "https://brisk-seafood.net/", "expires_at": 586220, "created_at": 752438, "updated_at": 957409}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Paige_Runte@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": null, "expires_at": 54824, "created_at": 152560, "updated_at": 458990}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListOrganizationInvitations:
@@ -1921,7 +1922,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Marie.Fay@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": "https://breakable-bathrobe.net", "expires_at": 509883, "created_at": 633911, "updated_at": 7468}, {"object": "organization_invitation", "id": "<id>", "email_address": "Fredy56@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://glorious-strategy.com/", "expires_at": 897196, "created_at": 424367, "updated_at": 913465}, {"object": "organization_invitation", "id": "<id>", "email_address": "Aracely.Collins@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://moist-sprinkles.info/", "expires_at": 863466, "created_at": 307390, "updated_at": 392057}], "total_count": 113486}
+          application/json: {"data": [], "total_count": 922464}
         "400":
           application/json: {"errors": []}
   CreateOrganizationInvitationBulk:
@@ -1930,10 +1931,10 @@ examples:
         path:
           organization_id: "<id>"
       requestBody:
-        application/json: []
+        application/json: [{"email_address": "Jeffrey.Skiles27@hotmail.com", "role": "<value>"}]
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Uriah96@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": "https://angelic-muscat.com/", "expires_at": 872291, "created_at": 792231, "updated_at": 862483}, {"object": "organization_invitation", "id": "<id>", "email_address": "Ellsworth_Kulas77@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "url": "https://majestic-minion.net", "expires_at": 337155, "created_at": 213941, "updated_at": 709942}, {"object": "organization_invitation", "id": "<id>", "email_address": "Moriah.Kemmer@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": "https://pale-casement.com", "expires_at": 167531, "created_at": 894498, "updated_at": 568216}], "total_count": 225647}
+          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Elfrieda26@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://webbed-cheese.net", "expires_at": 448093, "created_at": 418732, "updated_at": 613756}], "total_count": 624986}
         "400":
           application/json: {"errors": []}
   ListPendingOrganizationInvitations:
@@ -1946,7 +1947,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [], "total_count": 847073}
+          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Isabell71@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": "https://oblong-developmental.name", "expires_at": 275664, "created_at": 686578, "updated_at": 100588}], "total_count": 561428}
         "400":
           application/json: {"errors": []}
   GetOrganizationInvitation:
@@ -1957,9 +1958,9 @@ examples:
           invitation_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Keeley_Lebsack@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://warm-hundred.net/", "expires_at": 78888, "created_at": 219956, "updated_at": 313464}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Afton_Kessler@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": null, "expires_at": 671934, "created_at": 431642, "updated_at": 688044}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevokeOrganizationInvitation:
     speakeasy-default-revoke-organization-invitation:
       parameters:
@@ -1968,9 +1969,9 @@ examples:
           invitation_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Alexane55@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "url": "https://miserable-membership.net/", "expires_at": 323448, "created_at": 273971, "updated_at": 708761}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Gordon.Kautzer71@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": "https://electric-antelope.net", "expires_at": 460138, "created_at": 30676, "updated_at": 995864}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListAllowlistIdentifiers:
     speakeasy-default-list-allowlist-identifiers:
       parameters:
@@ -1979,9 +1980,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{}, {}, {}]
+          application/json: [{}]
         "401":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateAllowlistIdentifier:
     speakeasy-default-create-allowlist-identifier:
       responses:
@@ -1998,21 +1999,21 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   ListBlocklistIdentifiers:
     speakeasy-default-list-blocklist-identifiers:
       responses:
         "200":
-          application/json: {"data": [{}, {}, {}], "total_count": 547272}
+          application/json: {"data": [{}], "total_count": 156881}
         "401":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateBlocklistIdentifier:
     speakeasy-default-create-blocklist-identifier:
       responses:
         "200":
           application/json: {}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteBlocklistIdentifier:
     speakeasy-default-delete-blocklist-identifier:
       parameters:
@@ -2020,28 +2021,28 @@ examples:
           identifier_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateInstanceAuthConfig:
     speakeasy-default-update-instance-auth-config:
       responses:
         "200":
           application/json: {}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateProductionInstanceDomain:
     speakeasy-default-update-production-instance-domain:
       responses:
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreateActorToken:
     speakeasy-default-create-actor-token:
       requestBody:
         application/json: {"user_id": "<id>", "actor": {"sub": "user_2OEpKhcCN1Lat9NQ0G6puh7q5Rb"}, "expires_in_seconds": 3600, "session_max_duration_in_seconds": 1800}
       responses:
         "200":
-          application/json: {"object": "actor_token", "id": "<id>", "status": "accepted", "user_id": "<id>", "actor": {}, "created_at": 638424, "updated_at": 417458}
+          application/json: {"object": "actor_token", "id": "<id>", "status": "revoked", "user_id": "<id>", "actor": {}, "created_at": 793837, "updated_at": 769905}
         "400":
           application/json: {"errors": []}
   RevokeActorToken:
@@ -2051,21 +2052,21 @@ examples:
           actor_token_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "actor_token", "id": "<id>", "status": "revoked", "user_id": "<id>", "actor": {}, "created_at": 32810, "updated_at": 124611}
+          application/json: {"object": "actor_token", "id": "<id>", "status": "pending", "user_id": "<id>", "actor": {}, "created_at": 594378, "updated_at": 346437}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListDomains:
     speakeasy-default-list-domains:
       responses:
         "200":
-          application/json: {"data": [{"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://definite-deer.com", "development_origin": "<value>"}, {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://agile-publicity.com", "development_origin": "<value>"}, {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": true, "frontend_api_url": "https://memorable-overcoat.com", "development_origin": "<value>"}], "total_count": 54607}
+          application/json: {"data": [{"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://stained-festival.com", "development_origin": "<value>"}], "total_count": 859498}
   AddDomain:
     speakeasy-default-add-domain:
       responses:
         "200":
-          application/json: {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://super-validity.name", "development_origin": "<value>"}
+          application/json: {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://excited-puppet.biz/", "development_origin": "<value>"}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteDomain:
     speakeasy-default-delete-domain:
       parameters:
@@ -2075,7 +2076,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateDomain:
     speakeasy-default-update-domain:
       parameters:
@@ -2085,7 +2086,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://grown-worth.name", "development_origin": "<value>"}
+          application/json: {"object": "domain", "id": "<id>", "name": "<value>", "is_satellite": false, "frontend_api_url": "https://harmful-someplace.info", "development_origin": "<value>"}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetInstance:
@@ -2097,43 +2098,43 @@ examples:
     speakeasy-default-update-instance:
       responses:
         "422":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateInstanceRestrictions:
     speakeasy-default-update-instance-restrictions:
       responses:
         "200":
-          application/json: {"object": "instance_restrictions", "allowlist": true, "blocklist": true, "block_email_subaddresses": false, "block_disposable_email_domains": true, "ignore_dots_for_gmail_addresses": true}
+          application/json: {"object": "instance_restrictions", "allowlist": false, "blocklist": true, "block_email_subaddresses": false, "block_disposable_email_domains": false, "ignore_dots_for_gmail_addresses": false}
         "402":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ChangeProductionInstanceDomain:
     speakeasy-default-change-production-instance-domain:
       responses:
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateInstanceOrganizationSettings:
     speakeasy-default-update-instance-organization-settings:
       responses:
         "200":
-          application/json: {"object": "organization_settings", "enabled": false, "max_allowed_memberships": 58305, "max_allowed_roles": 239621, "max_allowed_permissions": 948067, "creator_role": "<value>", "admin_delete_enabled": true, "domains_enabled": false, "domains_enrollment_modes": ["automatic_suggestion", "manual_invitation"], "domains_default_role": "<value>"}
+          application/json: {"object": "organization_settings", "enabled": false, "max_allowed_memberships": 304202, "max_allowed_roles": 718249, "max_allowed_permissions": 113135, "creator_role": "<value>", "admin_delete_enabled": false, "domains_enabled": false, "domains_enrollment_modes": ["manual_invitation"], "domains_default_role": "<value>"}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateSvixApp:
     speakeasy-default-create-svix-app:
       responses:
         "200":
-          application/json: {"svix_url": "https://motionless-tentacle.org"}
+          application/json: {"svix_url": "https://unhealthy-scarification.net"}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteSvixApp:
     speakeasy-default-delete-svix-app:
       responses:
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GenerateSvixAuthURL:
     speakeasy-default-generate-svix-auth-URL:
       responses:
         "200":
-          application/json: {"svix_url": "https://self-reliant-reboot.com"}
+          application/json: {"svix_url": "https://similar-brace.name"}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListJWTTemplates:
@@ -2144,14 +2145,14 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 547272, "allowed_clock_skew": 678317, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 229716, "updated_at": 152837}, {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 635532, "allowed_clock_skew": 639387, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 718303, "updated_at": 86140}, {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 68504, "allowed_clock_skew": 687960, "custom_signing_key": false, "signing_algorithm": "<value>", "created_at": 633911, "updated_at": 7468}]
+          application/json: [{"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 421166, "allowed_clock_skew": 187245, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 186597, "updated_at": 273865}]
   CreateJWTTemplate:
     speakeasy-default-create-JWT-template:
       responses:
         "200":
-          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 486589, "allowed_clock_skew": 638424, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 134365, "updated_at": 69025}
+          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 718726, "allowed_clock_skew": 789757, "custom_signing_key": false, "signing_algorithm": "<value>", "created_at": 889979, "updated_at": 191547}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   GetJWTTemplate:
     speakeasy-default-get-JWT-template:
       parameters:
@@ -2159,9 +2160,9 @@ examples:
           template_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 700347, "allowed_clock_skew": 558834, "custom_signing_key": false, "signing_algorithm": "<value>", "created_at": 521235, "updated_at": 969961}
+          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 972767, "allowed_clock_skew": 776755, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 966702, "updated_at": 85967}
         "404":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateJWTTemplate:
     speakeasy-default-update-JWT-template:
       parameters:
@@ -2169,9 +2170,9 @@ examples:
           template_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 857478, "allowed_clock_skew": 597129, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 991464, "updated_at": 627690}
+          application/json: {"object": "jwt_template", "id": "<id>", "name": "<value>", "claims": {}, "lifetime": 558459, "allowed_clock_skew": 6224, "custom_signing_key": true, "signing_algorithm": "<value>", "created_at": 25827, "updated_at": 898189}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteJWTTemplate:
     speakeasy-default-delete-JWT-template:
       parameters:
@@ -2179,9 +2180,9 @@ examples:
           template_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   ListOrganizations:
     speakeasy-default-list-organizations:
       parameters:
@@ -2191,25 +2192,24 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 547272, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {}, "created_at": 152837, "updated_at": 635532}, {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 639387, "admin_delete_enabled": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {}, "created_at": 68504, "updated_at": 687960}, {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 509883, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {}, "created_at": 367745, "updated_at": 485729}], "total_count": 73227}
+          application/json: {"data": [], "total_count": 465183}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateOrganization:
     speakeasy-default-create-organization:
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 486589, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {}, "created_at": 69025, "updated_at": 796474}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 657363, "admin_delete_enabled": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {}, "created_at": 412546, "updated_at": 69166}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetOrganization:
     speakeasy-default-get-organization:
       parameters:
         path:
           organization_id: "<id>"
-        query: {}
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 700347, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 969961, "updated_at": 458049}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 540119, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 800209, "updated_at": 766916}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateOrganization:
@@ -2221,9 +2221,9 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 857478, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 627690, "updated_at": 488852}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 914329, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 593189, "updated_at": 320640}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganization:
     speakeasy-default-delete-organization:
       parameters:
@@ -2233,7 +2233,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "404":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   MergeOrganizationMetadata:
     speakeasy-default-merge-organization-metadata:
       parameters:
@@ -2243,9 +2243,9 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 897387, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {}, "created_at": 413751, "updated_at": 574784}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 612631, "admin_delete_enabled": true, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 31208, "updated_at": 304356}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UploadOrganizationLogo:
     speakeasy-default-upload-organization-logo:
       parameters:
@@ -2253,9 +2253,9 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 23224, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 909136, "updated_at": 206636, "image_url": "https://friendly-toaster.info", "has_image": true}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 888250, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>"}, "created_at": 194096, "updated_at": 963859, "image_url": "https://forsaken-final.biz/", "has_image": true}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganizationLogo:
     speakeasy-default-delete-organization-logo:
       parameters:
@@ -2263,9 +2263,9 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 882224, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>"}, "created_at": 569486, "updated_at": 370947}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 746322, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 538227, "updated_at": 158169}
         "404":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateOrganizationMembership:
     speakeasy-default-create-organization-membership:
       parameters:
@@ -2275,9 +2275,9 @@ examples:
         application/json: {"user_id": "<id>", "role": "<value>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>"], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 417458, "admin_delete_enabled": true, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 951062, "updated_at": 86}, "created_at": 169727, "updated_at": 89964}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 597684, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 712057, "updated_at": 812074}, "created_at": 985491, "updated_at": 439014}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   ListOrganizationMemberships:
     "":
       parameters:
@@ -2292,9 +2292,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>"], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 177706, "admin_delete_enabled": true, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 639387, "updated_at": 17577}, "created_at": 718303, "updated_at": 86140}, {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 509883, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {}, "created_at": 367745, "updated_at": 485729}, "created_at": 73227, "updated_at": 931165}, {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>"], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 490078, "admin_delete_enabled": true, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 18278, "updated_at": 897196}, "created_at": 424367, "updated_at": 913465}], "total_count": 173090}
+          application/json: {"data": [], "total_count": 367427}
         "401":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateOrganizationMembership:
     speakeasy-default-update-organization-membership:
       parameters:
@@ -2305,7 +2305,7 @@ examples:
         application/json: {"role": "<value>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>", "<value>"], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 344620, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {"key": "<value>"}, "created_at": 984008, "updated_at": 54062}, "created_at": 896501, "updated_at": 446863}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 771224, "admin_delete_enabled": true, "public_metadata": {}, "private_metadata": {"key": "<value>"}, "created_at": 441428, "updated_at": 257589}, "created_at": 257425, "updated_at": 184693}
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganizationMembership:
@@ -2316,9 +2316,9 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>"], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 386564, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 108105, "updated_at": 673978}, "created_at": 635816, "updated_at": 2184}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 893711, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 205163, "updated_at": 49267}, "created_at": 397831, "updated_at": 521300}
         "401":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateOrganizationMembershipMetadata:
     speakeasy-default-update-organization-membership-metadata:
       parameters:
@@ -2327,7 +2327,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value>", "<value>"], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 86760, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {}, "created_at": 661662, "updated_at": 801120}, "created_at": 600782, "updated_at": 57214}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 1788, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 102522, "updated_at": 630787}, "created_at": 879249, "updated_at": 896790}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateOrganizationDomain:
@@ -2339,7 +2339,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_invitation", "affiliation_email_address": "<value>", "verification": {"status": "verified", "strategy": "<value>", "attempts": 417458, "expire_at": 134365}, "total_pending_invitations": 69025, "total_pending_suggestions": 796474, "created_at": 951062, "updated_at": 86}
+          application/json: {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_invitation", "affiliation_email_address": "<value>", "verification": {"status": "unverified", "strategy": "<value>", "attempts": 17365, "expire_at": 459803}, "total_pending_invitations": 497473, "total_pending_suggestions": 817071, "created_at": 687770, "updated_at": 595975}
         "400":
           application/json: {"errors": []}
   ListOrganizationDomains:
@@ -2352,9 +2352,9 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_invitation", "affiliation_email_address": "<value>", "verification": {"status": "verified", "strategy": "<value>", "attempts": 177706, "expire_at": 229716}, "total_pending_invitations": 152837, "total_pending_suggestions": 635532, "created_at": 639387, "updated_at": 17577}, {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_suggestion", "affiliation_email_address": "<value>", "verification": {"status": "unverified", "strategy": "<value>", "attempts": 68504, "expire_at": 687960}, "total_pending_invitations": 509883, "total_pending_suggestions": 633911, "created_at": 7468, "updated_at": 54607}, {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_invitation", "affiliation_email_address": "<value>", "verification": {"status": "unverified", "strategy": "<value>", "attempts": 73227, "expire_at": 931165}, "total_pending_invitations": 567445, "total_pending_suggestions": 876407, "created_at": 490078, "updated_at": 51681}], "total_count": 322596}
+          application/json: {"data": [{"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_invitation", "affiliation_email_address": "<value>", "verification": {"status": "unverified", "strategy": "<value>", "attempts": 853407, "expire_at": 43873}, "total_pending_invitations": 731471, "total_pending_suggestions": 283600, "created_at": 290489, "updated_at": 163254}], "total_count": 284403}
         "401":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateOrganizationDomain:
     speakeasy-default-update-organization-domain:
       parameters:
@@ -2365,9 +2365,9 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "automatic_suggestion", "affiliation_email_address": "<value>", "verification": {"status": "verified", "strategy": "<value>", "attempts": 344620, "expire_at": 991464}, "total_pending_invitations": 627690, "total_pending_suggestions": 488852, "created_at": 984008, "updated_at": 54062}
+          application/json: {"object": "organization_domain", "id": "<id>", "organization_id": "<id>", "name": "<value>", "enrollment_mode": "manual_invitation", "affiliation_email_address": "<value>", "verification": {"status": "verified", "strategy": "<value>", "attempts": 254888, "expire_at": 663325}, "total_pending_invitations": 77212, "total_pending_suggestions": 63286, "created_at": 582286, "updated_at": 510914}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteOrganizationDomain:
     speakeasy-default-delete-organization-domain:
       parameters:
@@ -2376,14 +2376,14 @@ examples:
           domain_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   VerifyDomainProxy:
     speakeasy-default-verify-domain-proxy:
       responses:
         "200":
-          application/json: {"object": "proxy_check", "id": "<id>", "domain_id": "<id>", "last_run_at": 788892, "proxy_url": "https://deserted-deduction.net/", "successful": true, "created_at": 259923, "updated_at": 68427}
+          application/json: {"object": "proxy_check", "id": "<id>", "domain_id": "<id>", "last_run_at": 488454, "proxy_url": "https://sparkling-fog.org/", "successful": true, "created_at": 599506, "updated_at": 184182}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListRedirectURLs:
@@ -2394,14 +2394,14 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "redirect_url", "id": "<id>", "url": "https://remorseful-concentration.biz", "created_at": 152837, "updated_at": 635532}, {"object": "redirect_url", "id": "<id>", "url": "https://agile-publicity.com", "created_at": 68504, "updated_at": 687960}, {"object": "redirect_url", "id": "<id>", "url": "https://pricey-accountability.com", "created_at": 367745, "updated_at": 485729}]
+          application/json: [{"object": "redirect_url", "id": "<id>", "url": "https://rural-allegation.biz/", "created_at": 445370, "updated_at": 59940}]
   CreateRedirectURL:
     speakeasy-default-create-redirect-URL:
       responses:
         "200":
-          application/json: {"object": "redirect_url", "id": "<id>", "url": "https://probable-heating.com/", "created_at": 69025, "updated_at": 796474}
+          application/json: {"object": "redirect_url", "id": "<id>", "url": "https://dramatic-dependency.org/", "created_at": 507153, "updated_at": 71052}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetRedirectURL:
     speakeasy-default-get-redirect-URL:
       parameters:
@@ -2409,9 +2409,9 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "redirect_url", "id": "<id>", "url": "https://normal-making.name", "created_at": 969961, "updated_at": 458049}
+          application/json: {"object": "redirect_url", "id": "<id>", "url": "https://zany-settler.com/", "created_at": 413902, "updated_at": 450852}
         "404":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteRedirectURL:
     speakeasy-default-delete-redirect-URL:
       parameters:
@@ -2419,14 +2419,14 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "404":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   CreateSignInToken:
     speakeasy-default-create-sign-in-token:
       responses:
         "200":
-          application/json: {"object": "sign_in_token", "id": "<id>", "status": "accepted", "user_id": "<id>", "created_at": 638424, "updated_at": 417458}
+          application/json: {"object": "sign_in_token", "id": "<id>", "status": "pending", "user_id": "<id>", "created_at": 682178, "updated_at": 757356}
         "404":
           application/json: {"errors": []}
   RevokeSignInToken:
@@ -2436,9 +2436,9 @@ examples:
           sign_in_token_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "sign_in_token", "id": "<id>", "status": "revoked", "user_id": "<id>", "created_at": 32810, "updated_at": 124611}
+          application/json: {"object": "sign_in_token", "id": "<id>", "status": "revoked", "user_id": "<id>", "created_at": 255637, "updated_at": 271647}
         "400":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetSignUp:
     speakeasy-default-get-sign-up:
       parameters:
@@ -2446,9 +2446,9 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "abandoned", "required_fields": ["<value>", "<value>"], "optional_fields": ["<value>", "<value>"], "missing_fields": ["<value>", "<value>"], "unverified_fields": ["<value>", "<value>", "<value>"], "verifications": {"email_address": {}, "phone_number": {}, "web3_wallet": {}, "external_account": {}}, "username": "Jade.Gislason", "email_address": "Arielle55@hotmail.com", "phone_number": "1-765-431-2727 x779", "web3_wallet": "<value>", "password_enabled": true, "first_name": "Alexandrine", "last_name": "Kilback-Kassulke", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "abandoned", "required_fields": [], "optional_fields": ["<value 1>"], "missing_fields": [], "unverified_fields": ["<value 1>", "<value 2>", "<value 3>"], "verifications": {"email_address": {}, "phone_number": null, "web3_wallet": null, "external_account": {}}, "username": "Jaquelin56", "email_address": "Kacey.Gusikowski@gmail.com", "phone_number": "1-926-581-3039 x878", "web3_wallet": null, "password_enabled": true, "first_name": "Reinhold", "last_name": "Douglas", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateSignUp:
     speakeasy-default-update-sign-up:
       parameters:
@@ -2456,9 +2456,9 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "abandoned", "required_fields": ["<value>", "<value>"], "optional_fields": ["<value>"], "missing_fields": ["<value>", "<value>", "<value>"], "unverified_fields": ["<value>", "<value>"], "verifications": {"email_address": {}, "phone_number": {}, "web3_wallet": {}, "external_account": {}}, "username": "Jeffry.Becker-Treutel31", "email_address": "Patience77@gmail.com", "phone_number": "1-278-551-2388 x875", "web3_wallet": "<value>", "password_enabled": true, "first_name": "Kathleen", "last_name": "Larkin", "custom_action": false, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "complete", "required_fields": ["<value 1>", "<value 2>", "<value 3>"], "optional_fields": ["<value 1>", "<value 2>", "<value 3>"], "missing_fields": [], "unverified_fields": [], "verifications": {"email_address": {}, "phone_number": {}, "web3_wallet": {}, "external_account": {}}, "username": "Aaliyah56", "email_address": "Colton_Emard@hotmail.com", "phone_number": "977-410-3580 x316", "web3_wallet": "<value>", "password_enabled": false, "first_name": "Mireille", "last_name": "Herman", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListOAuthApplications:
     speakeasy-default-list-O-auth-applications:
       parameters:
@@ -2467,7 +2467,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": false, "scopes": "<value>", "redirect_uris": ["<value>", "<value>"], "callback_url": "https://energetic-circumference.name/", "authorize_url": "https://agile-publicity.com", "token_fetch_url": "https://roasted-language.name/", "user_info_url": "https://awful-fund.info/", "discovery_url": "https://victorious-merit.org/", "token_introspection_url": "https://average-fedora.org/", "created_at": 18278, "updated_at": 897196}, {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value>", "<value>", "<value>"], "callback_url": "https://blue-technologist.com/", "authorize_url": "https://instructive-hospitalization.info/", "token_fetch_url": "https://moist-sprinkles.info/", "user_info_url": "https://funny-grandson.com", "discovery_url": "https://unwilling-almighty.name/", "token_introspection_url": "https://urban-blossom.net", "created_at": 567701, "updated_at": 838930}, {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": false, "scopes": "<value>", "redirect_uris": ["<value>", "<value>", "<value>"], "callback_url": "https://dark-bench.org/", "authorize_url": "https://coordinated-phrase.biz", "token_fetch_url": "https://necessary-basket.com", "user_info_url": "https://yellowish-representation.biz/", "discovery_url": "https://bustling-plastic.info/", "token_introspection_url": "https://stunning-vanadyl.net/", "created_at": 505778, "updated_at": 948614}], "total_count": 900109}
+          application/json: {"data": [], "total_count": 823338}
         "400":
           application/json: {"errors": []}
   CreateOAuthApplication:
@@ -2476,9 +2476,9 @@ examples:
         application/json: {"name": "<value>", "scopes": "profile email public_metadata"}
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value>", "<value>"], "callback_url": "https://concerned-battle.net/", "authorize_url": "https://abandoned-comestible.com", "token_fetch_url": "https://substantial-morbidity.net", "user_info_url": "https://harmful-disposer.com", "discovery_url": "https://each-barracks.biz/", "token_introspection_url": "https://blind-breastplate.name/", "created_at": 339236, "updated_at": 36521}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://tedious-giant.info/", "authorize_url": "https://colorful-collectivization.biz/", "token_fetch_url": "https://glossy-dead.com", "user_info_url": "https://key-fraudster.biz", "discovery_url": "https://enchanting-legislature.net/", "token_introspection_url": "https://good-duster.info/", "created_at": 31938, "updated_at": 764933}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetOAuthApplication:
     speakeasy-default-get-O-auth-application:
       parameters:
@@ -2486,9 +2486,9 @@ examples:
           oauth_application_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": false, "scopes": "<value>", "redirect_uris": ["<value>", "<value>"], "callback_url": "https://misguided-violin.info", "authorize_url": "https://fatal-custom.org/", "token_fetch_url": "https://stiff-bidet.biz/", "user_info_url": "https://burdensome-marketplace.net/", "discovery_url": "https://similar-nucleotidase.name/", "token_introspection_url": "https://glossy-concentration.biz/", "created_at": 780262, "updated_at": 284041}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://yummy-marimba.info", "authorize_url": "https://eminent-warming.com", "token_fetch_url": "https://annual-halt.info/", "user_info_url": "https://complicated-freight.org/", "discovery_url": "https://weird-hyena.org", "token_introspection_url": "https://trivial-cinder.net", "created_at": 172236, "updated_at": 876106}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateOAuthApplication:
     speakeasy-default-update-O-auth-application:
       parameters:
@@ -2498,9 +2498,9 @@ examples:
         application/json: {"scopes": "profile email public_metadata private_metadata"}
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": false, "scopes": "<value>", "redirect_uris": ["<value>", "<value>"], "callback_url": "https://yearly-order.info/", "authorize_url": "https://awful-technician.info", "token_fetch_url": "https://extra-large-chapel.net/", "user_info_url": "https://front-injunction.net", "discovery_url": "https://impressionable-almighty.net", "token_introspection_url": "https://joyful-knight.com", "created_at": 232374, "updated_at": 352933}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": [], "callback_url": "https://unsightly-flame.net/", "authorize_url": "https://slow-premeditation.biz/", "token_fetch_url": "https://miserly-sarong.net", "user_info_url": "https://hasty-account.info/", "discovery_url": "https://french-cross-contamination.biz", "token_introspection_url": "https://spherical-advertisement.org", "created_at": 558167, "updated_at": 560809}
         "400":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   DeleteOAuthApplication:
     speakeasy-default-delete-O-auth-application:
       parameters:
@@ -2508,9 +2508,9 @@ examples:
           oauth_application_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "<value>", "deleted": false}
+          application/json: {"object": "<value>", "deleted": true}
         "403":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   RotateOAuthApplicationSecret:
     speakeasy-default-rotate-O-auth-application-secret:
       parameters:
@@ -2518,7 +2518,7 @@ examples:
           oauth_application_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": false, "scopes": "<value>", "redirect_uris": [], "callback_url": "https://vibrant-concentration.org", "authorize_url": "https://right-hippodrome.net", "token_fetch_url": "https://dismal-casement.org/", "user_info_url": "https://monthly-mantua.name/", "discovery_url": "https://sunny-passport.com", "token_introspection_url": "https://subtle-cornet.com", "created_at": 740726, "updated_at": 589500}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>", "<value 2>", "<value 3>"], "callback_url": "https://separate-makeover.biz/", "authorize_url": "https://ill-fated-sonar.com/", "token_fetch_url": "https://unique-fibre.biz/", "user_info_url": "https://eminent-scarification.biz/", "discovery_url": "https://miserly-sundae.com", "token_introspection_url": "https://grim-retrospectivity.biz/", "created_at": 812387, "updated_at": 994111}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListSAMLConnections:
@@ -2529,16 +2529,16 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "neglected-plastic.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://crooked-overload.name/", "idp_certificate": "<value>", "acs_url": "https://secret-bob.com/", "sp_entity_id": "<id>", "sp_metadata_url": "https://memorable-overcoat.com", "active": true, "provider": "<value>", "user_count": 367745, "sync_user_attributes": true, "created_at": 73227, "updated_at": 931165}, {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "odd-sustenance.info", "idp_entity_id": "<id>", "idp_sso_url": "https://glorious-strategy.com/", "idp_certificate": "<value>", "acs_url": "https://insistent-tinderbox.biz", "sp_entity_id": "<id>", "sp_metadata_url": "https://unpleasant-chairperson.info/", "active": true, "provider": "<value>", "user_count": 432930, "sync_user_attributes": true, "created_at": 103421, "updated_at": 523875}, {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "tempting-handle.org", "idp_entity_id": "<id>", "idp_sso_url": "https://imaginative-cap.biz/", "idp_certificate": "<value>", "acs_url": "https://animated-ostrich.org", "sp_entity_id": "<id>", "sp_metadata_url": "https://bowed-poppy.name", "active": false, "provider": "<value>", "user_count": 816637, "sync_user_attributes": false, "created_at": 81309, "updated_at": 164965}], "total_count": 73973}
+          application/json: {"data": [], "total_count": 664472}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateSAMLConnection:
     speakeasy-default-create-SAML-connection:
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "low-packaging.info", "idp_entity_id": "<id>", "idp_sso_url": "https://black-and-white-secrecy.org/", "idp_certificate": "<value>", "acs_url": "https://deafening-bonnet.net/", "sp_entity_id": "<id>", "sp_metadata_url": "https://outrageous-resolve.org", "active": true, "provider": "<value>", "user_count": 259629, "sync_user_attributes": true, "created_at": 230313, "updated_at": 211337}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "untried-mortise.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://sleepy-onset.com", "idp_certificate": "<value>", "acs_url": "https://electric-department.net/", "sp_entity_id": "<id>", "sp_metadata_url": "https://ambitious-handover.name", "active": false, "provider": "<value>", "user_count": 392413, "sync_user_attributes": false, "created_at": 660655, "updated_at": 853312}
         "402":
-          application/json: {"errors": []}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetSAMLConnection:
     speakeasy-default-get-SAML-connection:
       parameters:
@@ -2546,9 +2546,9 @@ examples:
           saml_connection_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "rural-mathematics.name", "idp_entity_id": "<id>", "idp_sso_url": "https://willing-impostor.info", "idp_certificate": "<value>", "acs_url": "https://earnest-tuber.info/", "sp_entity_id": "<id>", "sp_metadata_url": "https://boiling-dash.biz", "active": true, "provider": "<value>", "user_count": 552582, "sync_user_attributes": false, "created_at": 380699, "updated_at": 746585}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "blushing-hawk.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://dazzling-numeric.biz/", "idp_certificate": "<value>", "acs_url": "https://hollow-harp.name/", "sp_entity_id": "<id>", "sp_metadata_url": "https://unconscious-pine.net/", "active": false, "provider": "<value>", "user_count": 583235, "sync_user_attributes": false, "created_at": 223312, "updated_at": 905550}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": []}
   UpdateSAMLConnection:
     speakeasy-default-update-SAML-connection:
       parameters:
@@ -2558,7 +2558,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "tinted-nectarine.info", "idp_entity_id": "<id>", "idp_sso_url": "https://powerless-juggernaut.org", "idp_certificate": "<value>", "acs_url": "https://unlucky-hydrolyze.biz/", "sp_entity_id": "<id>", "sp_metadata_url": "https://cool-scout.org/", "active": true, "provider": "<value>", "user_count": 464385, "sync_user_attributes": false, "created_at": 693508, "updated_at": 404265}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "inborn-turret.net", "idp_entity_id": "<id>", "idp_sso_url": "https://breakable-tuxedo.com/", "idp_certificate": "<value>", "acs_url": "https://informal-hydrolyze.biz/", "sp_entity_id": "<id>", "sp_metadata_url": "https://peaceful-electronics.com/", "active": true, "provider": "<value>", "user_count": 981924, "sync_user_attributes": true, "created_at": 423360, "updated_at": 825888}
         "402":
           application/json: {"errors": []}
   DeleteSAMLConnection:
@@ -2570,7 +2570,7 @@ examples:
         "200":
           application/json: {"object": "<value>", "deleted": false}
         "402":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateTestingToken:
     speakeasy-default-create-testing-token:
       responses:
@@ -2585,12 +2585,12 @@ examples:
           order_by: "-created_at"
       responses:
         "200":
-          application/json: {"data": [{"object": "waitlist_entry", "id": "<id>", "email_address": "Marie.Fay@yahoo.com", "status": "pending", "created_at": 17577, "updated_at": 718303, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Annetta_Langosh0@gmail.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 485729, "updated_at": 73227}}, {"object": "waitlist_entry", "id": "<id>", "email_address": "Kenyatta32@hotmail.com", "status": "pending", "created_at": 18278, "updated_at": 897196, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Tate_Blanda@yahoo.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 432930, "updated_at": 480616}}, {"object": "waitlist_entry", "id": "<id>", "email_address": "Jude_Jenkins@gmail.com", "status": "pending", "created_at": 113486, "updated_at": 181118, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Alexie8@hotmail.com", "public_metadata": {"key": "<value>", "key1": "<value>"}, "revoked": false, "status": "pending", "created_at": 838930, "updated_at": 816637}}], "total_count": 996014}
+          application/json: {"data": [], "total_count": 721908}
   CreateWaitlistEntry:
     speakeasy-default-create-waitlist-entry:
       responses:
         "200":
-          application/json: {"object": "waitlist_entry", "id": "<id>", "email_address": "Loyal79@yahoo.com", "status": "pending", "created_at": 86, "updated_at": 169727, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Pearl_McGlynn@gmail.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 17759, "updated_at": 230313}}
+          application/json: {"object": "waitlist_entry", "id": "<id>", "email_address": "Victoria21@gmail.com", "status": "pending", "created_at": 759136, "updated_at": 305720, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Jason92@gmail.com", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "revoked": false, "status": "pending", "created_at": 83041, "updated_at": 303551}}
         "400":
           application/json: {"errors": []}
   CreateAccountlessApplication:
@@ -2606,6 +2606,6 @@ examples:
         "200":
           application/json: {"object": "accountless_application", "publishable_key": "<value>"}
         "500":
-          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}, {"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
-examplesVersion: 1.0.1
+          application/json: {"errors": []}
+examplesVersion: 1.0.2
 generatedTests: {}

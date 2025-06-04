@@ -168,6 +168,8 @@ public class Application {
 
         ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
                 .organizationId("<id>")
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -220,6 +222,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationInvitationBulkResponse;
 import java.lang.Exception;
 import java.util.List;
@@ -234,7 +237,11 @@ public class Application {
 
         CreateOrganizationInvitationBulkResponse res = sdk.organizationInvitations().bulkCreate()
                 .organizationId("<id>")
-                .requestBody(List.of())
+                .requestBody(List.of(
+                    CreateOrganizationInvitationBulkRequestBody.builder()
+                        .emailAddress("Jeffrey.Skiles27@hotmail.com")
+                        .role("<value>")
+                        .build()))
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -293,6 +300,8 @@ public class Application {
 
         ListPendingOrganizationInvitationsResponse res = sdk.organizationInvitations().listPending()
                 .organizationId("<id>")
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.organizationInvitations().isPresent()) {

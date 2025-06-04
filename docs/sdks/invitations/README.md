@@ -23,7 +23,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateInvitationResponse;
 import java.lang.Exception;
 
@@ -35,12 +34,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateInvitationRequestBody req = CreateInvitationRequestBody.builder()
-                .emailAddress("Loyal79@yahoo.com")
-                .build();
-
         CreateInvitationResponse res = sdk.invitations().create()
-                .request(req)
                 .call();
 
         if (res.invitation().isPresent()) {
@@ -134,9 +128,7 @@ package hello.world;
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateBulkInvitationsResponse;
-import com.clerk.backend_api.models.operations.RequestBody;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
@@ -146,13 +138,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        List<RequestBody> req = List.of(
-                RequestBody.builder()
-                    .emailAddress("Queen25@gmail.com")
-                    .build());
-
         CreateBulkInvitationsResponse res = sdk.invitations().bulkCreate()
-                .request(req)
                 .call();
 
         if (res.invitationList().isPresent()) {

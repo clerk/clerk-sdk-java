@@ -21,7 +21,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody;
 import com.clerk.backend_api.models.operations.CreatePhoneNumberResponse;
 import java.lang.Exception;
 
@@ -33,13 +32,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreatePhoneNumberRequestBody req = CreatePhoneNumberRequestBody.builder()
-                .userId("<id>")
-                .phoneNumber("741.279.0107 x857")
-                .build();
-
         CreatePhoneNumberResponse res = sdk.phoneNumbers().create()
-                .request(req)
                 .call();
 
         if (res.phoneNumber().isPresent()) {

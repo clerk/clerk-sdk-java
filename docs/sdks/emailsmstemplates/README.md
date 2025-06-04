@@ -37,7 +37,9 @@ public class Application {
             .build();
 
         GetTemplateListResponse res = sdk.emailSMSTemplates().list()
-                .templateType(TemplateType.SMS)
+                .templateType(TemplateType.EMAIL)
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.templateList().isPresent()) {

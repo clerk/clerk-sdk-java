@@ -74,7 +74,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBody;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryResponse;
 import java.lang.Exception;
 
@@ -86,12 +85,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateWaitlistEntryRequestBody req = CreateWaitlistEntryRequestBody.builder()
-                .emailAddress("Loyal79@yahoo.com")
-                .build();
-
         CreateWaitlistEntryResponse res = sdk.waitlistEntries().create()
-                .request(req)
                 .call();
 
         if (res.waitlistEntry().isPresent()) {

@@ -132,7 +132,7 @@ public class OauthApplications implements
                 .offset(offset)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/oauth_applications");
@@ -147,16 +147,16 @@ public class OauthApplications implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -177,6 +177,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListOAuthApplications", 
                                 Optional.of(List.of()), 
@@ -191,6 +192,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListOAuthApplications",
                                  Optional.of(List.of()),
@@ -205,7 +207,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "ListOAuthApplications", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -323,7 +326,7 @@ public class OauthApplications implements
         if (options.isPresent()) {
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/oauth_applications");
@@ -343,16 +346,16 @@ public class OauthApplications implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -373,6 +376,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOAuthApplication", 
                                 Optional.of(List.of()), 
@@ -387,6 +391,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOAuthApplication",
                                  Optional.of(List.of()),
@@ -401,7 +406,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "CreateOAuthApplication", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -521,7 +527,7 @@ public class OauthApplications implements
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 GetOAuthApplicationRequest.class,
                 _baseUrl,
@@ -533,16 +539,16 @@ public class OauthApplications implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -563,6 +569,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetOAuthApplication", 
                                 Optional.of(List.of()), 
@@ -577,6 +584,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetOAuthApplication",
                                  Optional.of(List.of()),
@@ -591,7 +599,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "GetOAuthApplication", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -716,7 +725,7 @@ public class OauthApplications implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 UpdateOAuthApplicationRequest.class,
                 _baseUrl,
@@ -741,16 +750,16 @@ public class OauthApplications implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -771,6 +780,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "UpdateOAuthApplication", 
                                 Optional.of(List.of()), 
@@ -785,6 +795,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "UpdateOAuthApplication",
                                  Optional.of(List.of()),
@@ -799,7 +810,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "UpdateOAuthApplication", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -922,7 +934,7 @@ public class OauthApplications implements
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 DeleteOAuthApplicationRequest.class,
                 _baseUrl,
@@ -934,16 +946,16 @@ public class OauthApplications implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -964,6 +976,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "DeleteOAuthApplication", 
                                 Optional.of(List.of()), 
@@ -978,6 +991,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "DeleteOAuthApplication",
                                  Optional.of(List.of()),
@@ -992,7 +1006,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "DeleteOAuthApplication", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1115,7 +1130,7 @@ public class OauthApplications implements
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 RotateOAuthApplicationSecretRequest.class,
                 _baseUrl,
@@ -1127,16 +1142,16 @@ public class OauthApplications implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1157,6 +1172,7 @@ public class OauthApplications implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RotateOAuthApplicationSecret", 
                                 Optional.of(List.of()), 
@@ -1171,6 +1187,7 @@ public class OauthApplications implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RotateOAuthApplicationSecret",
                                  Optional.of(List.of()),
@@ -1185,7 +1202,8 @@ public class OauthApplications implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "RotateOAuthApplicationSecret", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),

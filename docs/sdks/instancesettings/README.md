@@ -63,7 +63,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateInstanceRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceResponse;
 import java.lang.Exception;
 
@@ -75,11 +74,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        UpdateInstanceRequestBody req = UpdateInstanceRequestBody.builder()
-                .build();
-
         UpdateInstanceResponse res = sdk.instanceSettings().update()
-                .request(req)
                 .call();
 
         // handle response
@@ -115,7 +110,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
 import java.lang.Exception;
 
@@ -127,11 +121,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        UpdateInstanceRestrictionsRequestBody req = UpdateInstanceRestrictionsRequestBody.builder()
-                .build();
-
         UpdateInstanceRestrictionsResponse res = sdk.instanceSettings().updateRestrictions()
-                .request(req)
                 .call();
 
         if (res.instanceRestrictions().isPresent()) {
@@ -173,7 +163,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
 import java.lang.Exception;
 
@@ -185,11 +174,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        ChangeProductionInstanceDomainRequestBody req = ChangeProductionInstanceDomainRequestBody.builder()
-                .build();
-
         ChangeProductionInstanceDomainResponse res = sdk.instanceSettings().changeDomain()
-                .request(req)
                 .call();
 
         // handle response
@@ -225,7 +210,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse;
 import java.lang.Exception;
 
@@ -237,11 +221,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        UpdateInstanceOrganizationSettingsRequestBody req = UpdateInstanceOrganizationSettingsRequestBody.builder()
-                .build();
-
         UpdateInstanceOrganizationSettingsResponse res = sdk.instanceSettings().updateOrganizationSettings()
-                .request(req)
                 .call();
 
         if (res.organizationSettings().isPresent()) {

@@ -36,6 +36,8 @@ public class Application {
             .build();
 
         GetClientListResponse res = sdk.clients().list()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.clientList().isPresent()) {
@@ -75,7 +77,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyClientRequestBody;
 import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import java.lang.Exception;
 
@@ -87,12 +88,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        VerifyClientRequestBody req = VerifyClientRequestBody.builder()
-                .token("<value>")
-                .build();
-
         VerifyClientResponse res = sdk.clients().verify()
-                .request(req)
                 .call();
 
         if (res.client().isPresent()) {

@@ -21,7 +21,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateSignInTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateSignInTokenResponse;
 import java.lang.Exception;
 
@@ -33,12 +32,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateSignInTokenRequestBody req = CreateSignInTokenRequestBody.builder()
-                .userId("<id>")
-                .build();
-
         CreateSignInTokenResponse res = sdk.signInTokens().create()
-                .request(req)
                 .call();
 
         if (res.signInToken().isPresent()) {

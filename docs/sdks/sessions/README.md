@@ -85,7 +85,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateSessionRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionResponse;
 import java.lang.Exception;
 
@@ -97,12 +96,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateSessionRequestBody req = CreateSessionRequestBody.builder()
-                .userId("<id>")
-                .build();
-
         CreateSessionResponse res = sdk.sessions().create()
-                .request(req)
                 .call();
 
         if (res.session().isPresent()) {

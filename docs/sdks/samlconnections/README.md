@@ -78,7 +78,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -89,14 +89,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateSAMLConnectionRequestBody req = CreateSAMLConnectionRequestBody.builder()
-                .name("<value>")
-                .domain("low-packaging.info")
-                .provider(Provider.SAML_CUSTOM)
-                .build();
-
         CreateSAMLConnectionResponse res = sdk.samlConnections().create()
-                .request(req)
                 .call();
 
         if (res.schemasSAMLConnection().isPresent()) {

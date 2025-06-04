@@ -133,7 +133,7 @@ public class Sessions implements
         if (options.isPresent()) {
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/sessions");
@@ -148,16 +148,16 @@ public class Sessions implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -178,6 +178,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetSessionList", 
                                 Optional.of(List.of()), 
@@ -192,6 +193,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetSessionList",
                                  Optional.of(List.of()),
@@ -206,7 +208,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "GetSessionList", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -327,7 +330,7 @@ public class Sessions implements
         if (options.isPresent()) {
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/sessions");
@@ -347,16 +350,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -377,6 +380,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "createSession", 
                                 Optional.of(List.of()), 
@@ -391,6 +395,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "createSession",
                                  Optional.of(List.of()),
@@ -405,7 +410,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "createSession", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -525,7 +531,7 @@ public class Sessions implements
                 .sessionId(sessionId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 GetSessionRequest.class,
                 _baseUrl,
@@ -537,16 +543,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -567,6 +573,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetSession", 
                                 Optional.of(List.of()), 
@@ -581,6 +588,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetSession",
                                  Optional.of(List.of()),
@@ -595,7 +603,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "GetSession", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -721,7 +730,7 @@ public class Sessions implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 RefreshSessionRequest.class,
                 _baseUrl,
@@ -743,16 +752,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -773,6 +782,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RefreshSession", 
                                 Optional.of(List.of()), 
@@ -787,6 +797,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RefreshSession",
                                  Optional.of(List.of()),
@@ -801,7 +812,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "RefreshSession", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -924,7 +936,7 @@ public class Sessions implements
                 .sessionId(sessionId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 RevokeSessionRequest.class,
                 _baseUrl,
@@ -936,16 +948,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -966,6 +978,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RevokeSession", 
                                 Optional.of(List.of()), 
@@ -980,6 +993,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RevokeSession",
                                  Optional.of(List.of()),
@@ -994,7 +1008,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "RevokeSession", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1132,7 +1147,7 @@ public class Sessions implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 VerifySessionRequest.class,
                 _baseUrl,
@@ -1154,16 +1169,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1184,6 +1199,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "VerifySession", 
                                 Optional.of(List.of()), 
@@ -1198,6 +1214,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "VerifySession",
                                  Optional.of(List.of()),
@@ -1212,7 +1229,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "VerifySession", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1335,7 +1353,7 @@ public class Sessions implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 CreateSessionTokenRequest.class,
                 _baseUrl,
@@ -1357,16 +1375,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1387,6 +1405,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateSessionToken", 
                                 Optional.of(List.of()), 
@@ -1401,6 +1420,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateSessionToken",
                                  Optional.of(List.of()),
@@ -1415,7 +1435,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "CreateSessionToken", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1543,7 +1564,7 @@ public class Sessions implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 CreateSessionTokenFromTemplateRequest.class,
                 _baseUrl,
@@ -1565,16 +1586,16 @@ public class Sessions implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1595,6 +1616,7 @@ public class Sessions implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateSessionTokenFromTemplate", 
                                 Optional.of(List.of()), 
@@ -1609,6 +1631,7 @@ public class Sessions implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateSessionTokenFromTemplate",
                                  Optional.of(List.of()),
@@ -1623,7 +1646,8 @@ public class Sessions implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "CreateSessionTokenFromTemplate", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),

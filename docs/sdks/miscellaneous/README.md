@@ -18,7 +18,6 @@ It is used by Clerk SDKs when the user's authentication state cannot be immediat
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -29,11 +28,7 @@ public class Application {
         Clerk sdk = Clerk.builder()
             .build();
 
-        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
-                .build();
-
         GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
-                .request(req)
                 .call();
 
         // handle response

@@ -134,7 +134,7 @@ public class OrganizationInvitations implements
         if (options.isPresent()) {
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 _baseUrl,
                 "/organization_invitations");
@@ -149,16 +149,16 @@ public class OrganizationInvitations implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -179,6 +179,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListInstanceOrganizationInvitations", 
                                 Optional.of(List.of()), 
@@ -193,6 +194,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListInstanceOrganizationInvitations",
                                  Optional.of(List.of()),
@@ -207,7 +209,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "ListInstanceOrganizationInvitations", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -389,7 +392,7 @@ public class OrganizationInvitations implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 CreateOrganizationInvitationRequest.class,
                 _baseUrl,
@@ -411,16 +414,16 @@ public class OrganizationInvitations implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -441,6 +444,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOrganizationInvitation", 
                                 Optional.of(List.of()), 
@@ -455,6 +459,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOrganizationInvitation",
                                  Optional.of(List.of()),
@@ -469,7 +474,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "CreateOrganizationInvitation", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -616,7 +622,7 @@ public class OrganizationInvitations implements
                 .offset(offset)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 ListOrganizationInvitationsRequest.class,
                 _baseUrl,
@@ -633,16 +639,16 @@ public class OrganizationInvitations implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -663,6 +669,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListOrganizationInvitations", 
                                 Optional.of(List.of()), 
@@ -677,6 +684,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListOrganizationInvitations",
                                  Optional.of(List.of()),
@@ -691,7 +699,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "ListOrganizationInvitations", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -852,7 +861,7 @@ public class OrganizationInvitations implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 CreateOrganizationInvitationBulkRequest.class,
                 _baseUrl,
@@ -877,16 +886,16 @@ public class OrganizationInvitations implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -907,6 +916,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOrganizationInvitationBulk", 
                                 Optional.of(List.of()), 
@@ -921,6 +931,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "CreateOrganizationInvitationBulk",
                                  Optional.of(List.of()),
@@ -935,7 +946,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "CreateOrganizationInvitationBulk", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1085,7 +1097,7 @@ public class OrganizationInvitations implements
                 .offset(offset)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 ListPendingOrganizationInvitationsRequest.class,
                 _baseUrl,
@@ -1102,16 +1114,16 @@ public class OrganizationInvitations implements
                 request, 
                 null));
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1132,6 +1144,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListPendingOrganizationInvitations", 
                                 Optional.of(List.of()), 
@@ -1146,6 +1159,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "ListPendingOrganizationInvitations",
                                  Optional.of(List.of()),
@@ -1160,7 +1174,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "ListPendingOrganizationInvitations", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1285,7 +1300,7 @@ public class OrganizationInvitations implements
                 .invitationId(invitationId)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 GetOrganizationInvitationRequest.class,
                 _baseUrl,
@@ -1297,16 +1312,16 @@ public class OrganizationInvitations implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1327,6 +1342,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetOrganizationInvitation", 
                                 Optional.of(List.of()), 
@@ -1341,6 +1357,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "GetOrganizationInvitation",
                                  Optional.of(List.of()),
@@ -1355,7 +1372,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "GetOrganizationInvitation", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),
@@ -1495,7 +1513,7 @@ public class OrganizationInvitations implements
                 .requestBody(requestBody)
                 .build();
         
-        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _baseUrl = this.sdkConfiguration.serverUrl();
         String _url = Utils.generateURL(
                 RevokeOrganizationInvitationRequest.class,
                 _baseUrl,
@@ -1517,16 +1535,16 @@ public class OrganizationInvitations implements
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
         
-        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
+        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
         Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource.getSecurity());
-        HTTPClient _client = this.sdkConfiguration.defaultClient;
+                this.sdkConfiguration.securitySource().getSecurity());
+        HTTPClient _client = this.sdkConfiguration.client();
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
             _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig().get();
         } else {
             _retryConfig = RetryConfig.builder()
                 .backoff(BackoffStrategy.builder()
@@ -1547,6 +1565,7 @@ public class OrganizationInvitations implements
                     _r = sdkConfiguration.hooks()
                         .beforeRequest(
                             new BeforeRequestContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RevokeOrganizationInvitation", 
                                 Optional.of(List.of()), 
@@ -1561,6 +1580,7 @@ public class OrganizationInvitations implements
                     return sdkConfiguration.hooks()
                         .afterError(
                             new AfterErrorContextImpl(
+                                this.sdkConfiguration,
                                 _baseUrl,
                                 "RevokeOrganizationInvitation",
                                  Optional.of(List.of()),
@@ -1575,7 +1595,8 @@ public class OrganizationInvitations implements
         HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
                  .afterSuccess(
                      new AfterSuccessContextImpl(
-                          _baseUrl,
+                         this.sdkConfiguration,
+                         _baseUrl,
                          "RevokeOrganizationInvitation", 
                          Optional.of(List.of()), 
                          _hookSecuritySource),

@@ -19,7 +19,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse;
 import java.lang.Exception;
 
@@ -31,11 +30,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        UpdateInstanceAuthConfigRequestBody req = UpdateInstanceAuthConfigRequestBody.builder()
-                .build();
-
         UpdateInstanceAuthConfigResponse res = sdk.betaFeatures().updateInstanceSettings()
-                .request(req)
                 .call();
 
         if (res.instanceSettings().isPresent()) {
@@ -79,7 +74,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse;
 import java.lang.Exception;
 
@@ -91,11 +85,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        UpdateProductionInstanceDomainRequestBody req = UpdateProductionInstanceDomainRequestBody.builder()
-                .build();
-
         UpdateProductionInstanceDomainResponse res = sdk.betaFeatures().updateProductionInstanceDomain()
-                .request(req)
                 .call();
 
         // handle response
