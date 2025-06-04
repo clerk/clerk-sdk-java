@@ -33,6 +33,8 @@ public class Application {
             .build();
 
         ListJWTTemplatesResponse res = sdk.jwtTemplates().list()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.jwtTemplateList().isPresent()) {
@@ -71,7 +73,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.*;
+import com.clerk.backend_api.models.operations.CreateJWTTemplateResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -82,14 +84,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateJWTTemplateRequestBody req = CreateJWTTemplateRequestBody.builder()
-                .name("<value>")
-                .claims(Claims.builder()
-                    .build())
-                .build();
-
         CreateJWTTemplateResponse res = sdk.jwtTemplates().create()
-                .request(req)
                 .call();
 
         if (res.jwtTemplate().isPresent()) {

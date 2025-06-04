@@ -16,7 +16,7 @@ Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend s
 ### Versions
 
 When the API changes in a way that isn't compatible with older versions, a new version is released.
-Each version is identified by its release date, e.g. `2024-10-01`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
+Each version is identified by its release date, e.g. `2025-03-12`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
 
 Please see https://clerk.com/docs for more information.
 
@@ -35,7 +35,6 @@ More information about the API can be found at https://clerk.com/docs
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
 * [Development](#development)
-  * [Maturity](#maturity)
   * [Contributions](#contributions)
 
 <!-- End Table of Contents [toc] -->
@@ -51,7 +50,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:2.4.0'
+implementation 'com.clerk:backend-api:3.0.0'
 ```
 
 Maven:
@@ -59,7 +58,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>2.4.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -110,25 +109,20 @@ Another option is to set the System property `-Djdk.httpclient.HttpClient.log=al
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
+import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, Exception {
+    public static void main(String[] args) throws Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetEmailAddressResponse res = sdk.emailAddresses().get()
-                .emailAddressId("<id>")
+        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
                 .call();
 
-        if (res.emailAddress().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```
@@ -150,7 +144,6 @@ To authenticate with the API the `bearerAuth` parameter must be set when initial
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -162,11 +155,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
-                .build();
-
         GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
-                .request(req)
                 .call();
 
         // handle response
@@ -447,7 +436,6 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -461,11 +449,7 @@ public class Application {
         Clerk sdk = Clerk.builder()
             .build();
 
-        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
-                .build();
-
         GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
-                .request(req)
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
                         .initialInterval(1L, TimeUnit.MILLISECONDS)
@@ -488,7 +472,6 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -512,11 +495,7 @@ public class Application {
                     .build())
             .build();
 
-        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
-                .build();
-
         GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
-                .request(req)
                 .call();
 
         // handle response
@@ -544,7 +523,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyClientRequestBody;
 import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import java.lang.Exception;
 
@@ -556,12 +534,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        VerifyClientRequestBody req = VerifyClientRequestBody.builder()
-                .token("<value>")
-                .build();
-
         VerifyClientResponse res = sdk.clients().verify()
-                .request(req)
                 .call();
 
         if (res.client().isPresent()) {
@@ -582,7 +555,6 @@ The default server can be overridden globally using the `.serverURL(String serve
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import java.lang.Exception;
 
@@ -594,11 +566,7 @@ public class Application {
                 .serverURL("https://api.clerk.com/v1")
             .build();
 
-        GetPublicInterstitialRequest req = GetPublicInterstitialRequest.builder()
-                .build();
-
         GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
-                .request(req)
                 .call();
 
         // handle response

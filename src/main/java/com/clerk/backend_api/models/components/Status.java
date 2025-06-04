@@ -15,7 +15,8 @@ public enum Status {
     EXPIRED("expired"),
     REMOVED("removed"),
     ABANDONED("abandoned"),
-    REPLACED("replaced");
+    REPLACED("replaced"),
+    PENDING("pending");
 
     @JsonValue
     private final String value;

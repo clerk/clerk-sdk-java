@@ -33,7 +33,7 @@ public class Application {
             .build();
 
         UpsertTemplateResponse res = sdk.emailAndSmsTemplates().upsert()
-                .templateType(UpsertTemplatePathParamTemplateType.SMS)
+                .templateType(UpsertTemplatePathParamTemplateType.EMAIL)
                 .slug("<value>")
                 .call();
 

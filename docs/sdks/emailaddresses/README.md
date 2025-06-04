@@ -21,7 +21,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody;
 import com.clerk.backend_api.models.operations.CreateEmailAddressResponse;
 import java.lang.Exception;
 
@@ -33,13 +32,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateEmailAddressRequestBody req = CreateEmailAddressRequestBody.builder()
-                .userId("<id>")
-                .emailAddress("Loyal79@yahoo.com")
-                .build();
-
         CreateEmailAddressResponse res = sdk.emailAddresses().create()
-                .request(req)
                 .call();
 
         if (res.emailAddress().isPresent()) {

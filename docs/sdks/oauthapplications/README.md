@@ -38,6 +38,8 @@ public class Application {
             .build();
 
         ListOAuthApplicationsResponse res = sdk.oauthApplications().list()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.oAuthApplications().isPresent()) {
@@ -92,6 +94,7 @@ public class Application {
 
         CreateOAuthApplicationRequestBody req = CreateOAuthApplicationRequestBody.builder()
                 .name("<value>")
+                .scopes("profile email public_metadata")
                 .build();
 
         CreateOAuthApplicationResponse res = sdk.oauthApplications().create()
@@ -198,6 +201,7 @@ public class Application {
         UpdateOAuthApplicationResponse res = sdk.oauthApplications().update()
                 .oauthApplicationId("<id>")
                 .requestBody(UpdateOAuthApplicationRequestBody.builder()
+                    .scopes("profile email public_metadata private_metadata")
                     .build())
                 .call();
 

@@ -91,7 +91,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateOrganizationRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationResponse;
 import java.lang.Exception;
 
@@ -103,12 +102,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateOrganizationRequestBody req = CreateOrganizationRequestBody.builder()
-                .name("<value>")
-                .build();
-
         CreateOrganizationResponse res = sdk.organizations().create()
-                .request(req)
                 .call();
 
         if (res.organization().isPresent()) {

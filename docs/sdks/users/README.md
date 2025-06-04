@@ -819,6 +819,8 @@ public class Application {
 
         UsersGetOrganizationMembershipsResponse res = sdk.users().getOrganizationMemberships()
                 .userId("<id>")
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
@@ -871,6 +873,8 @@ public class Application {
 
         UsersGetOrganizationInvitationsResponse res = sdk.users().getOrganizationInvitations()
                 .userId("<id>")
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.organizationInvitationsWithPublicOrganizationData().isPresent()) {
@@ -1341,6 +1345,8 @@ public class Application {
             .build();
 
         InstanceGetOrganizationMembershipsResponse res = sdk.users().getInstanceOrganizationMemberships()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.organizationMemberships().isPresent()) {

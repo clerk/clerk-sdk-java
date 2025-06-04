@@ -63,7 +63,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateBlocklistIdentifierRequestBody;
 import com.clerk.backend_api.models.operations.CreateBlocklistIdentifierResponse;
 import java.lang.Exception;
 
@@ -75,12 +74,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateBlocklistIdentifierRequestBody req = CreateBlocklistIdentifierRequestBody.builder()
-                .identifier("<value>")
-                .build();
-
         CreateBlocklistIdentifierResponse res = sdk.blocklistIdentifiers().create()
-                .request(req)
                 .call();
 
         if (res.blocklistIdentifier().isPresent()) {

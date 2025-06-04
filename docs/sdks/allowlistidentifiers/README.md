@@ -32,6 +32,8 @@ public class Application {
             .build();
 
         ListAllowlistIdentifiersResponse res = sdk.allowlistIdentifiers().list()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.allowlistIdentifierList().isPresent()) {
@@ -71,7 +73,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateAllowlistIdentifierRequestBody;
 import com.clerk.backend_api.models.operations.CreateAllowlistIdentifierResponse;
 import java.lang.Exception;
 
@@ -83,12 +84,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateAllowlistIdentifierRequestBody req = CreateAllowlistIdentifierRequestBody.builder()
-                .identifier("<value>")
-                .build();
-
         CreateAllowlistIdentifierResponse res = sdk.allowlistIdentifiers().create()
-                .request(req)
                 .call();
 
         if (res.allowlistIdentifier().isPresent()) {

@@ -32,6 +32,8 @@ public class Application {
             .build();
 
         ListRedirectURLsResponse res = sdk.redirectUrls().list()
+                .limit(10L)
+                .offset(0L)
                 .call();
 
         if (res.redirectURLList().isPresent()) {
@@ -70,7 +72,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.CreateRedirectURLRequestBody;
 import com.clerk.backend_api.models.operations.CreateRedirectURLResponse;
 import java.lang.Exception;
 
@@ -82,12 +83,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        CreateRedirectURLRequestBody req = CreateRedirectURLRequestBody.builder()
-                .url("https://probable-heating.com/")
-                .build();
-
         CreateRedirectURLResponse res = sdk.redirectUrls().create()
-                .request(req)
                 .call();
 
         if (res.redirectURL().isPresent()) {

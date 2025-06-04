@@ -67,7 +67,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.AddDomainRequestBody;
 import com.clerk.backend_api.models.operations.AddDomainResponse;
 import java.lang.Exception;
 
@@ -79,13 +78,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        AddDomainRequestBody req = AddDomainRequestBody.builder()
-                .name("<value>")
-                .isSatellite(false)
-                .build();
-
         AddDomainResponse res = sdk.domains().add()
-                .request(req)
                 .call();
 
         if (res.domain().isPresent()) {

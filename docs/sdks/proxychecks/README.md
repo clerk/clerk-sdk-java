@@ -25,7 +25,6 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyResponse;
 import java.lang.Exception;
 
@@ -37,11 +36,7 @@ public class Application {
                 .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
             .build();
 
-        VerifyDomainProxyRequestBody req = VerifyDomainProxyRequestBody.builder()
-                .build();
-
         VerifyDomainProxyResponse res = sdk.proxyChecks().verify()
-                .request(req)
                 .call();
 
         if (res.proxyCheck().isPresent()) {
