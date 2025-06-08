@@ -17,10 +17,17 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 public class MachineTokenVerifier implements TokenVerifier {
 
-    private final static String MACHINE_TOKEN_VERIFICATION_URL = "/oauth_applications/access_tokens/verify";
-    private final static ObjectMapper objectMapper = new ObjectMapper();
+    private final static String MACHINE_TOKEN_VERIFICATION_URL = "/m2m_tokens/verify";
+    private final static ObjectMapper objectMapper;
+
+    static {
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
     @Override
     public TokenVerificationResponse<MachineAuthVerificationData> verify(String token, VerifyTokenOptions options)
@@ -34,7 +41,7 @@ public class MachineTokenVerifier implements TokenVerifier {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(options.apiUrl() + MACHINE_TOKEN_VERIFICATION_URL))
             .header("Content-Type", "application/json")
-            .header("Authorization", "Bearer " + options.secretKey())
+            .header("Authorization", "Bearer " + options.secretKey().get())
             .timeout(Duration.ofSeconds(30))
             .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
             .build();

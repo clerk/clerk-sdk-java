@@ -23,7 +23,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-class MachineTokenVerifierTest {
+class MachineTokenVerifierTests {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -44,7 +44,8 @@ class MachineTokenVerifierTest {
 
             MachineTokenVerifier verifier = new MachineTokenVerifier();
 
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             TokenVerificationResponse<MachineAuthVerificationData> result = verifier.verify(token, options);
 
@@ -82,7 +83,8 @@ class MachineTokenVerifierTest {
             staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
 
             MachineTokenVerifier verifier = new MachineTokenVerifier();
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             assertThrows(TokenVerificationException.class, () -> verifier.verify("mt_token", options));
         }
@@ -103,7 +105,8 @@ class MachineTokenVerifierTest {
 
             MachineTokenVerifier verifier = new MachineTokenVerifier();
 
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             TokenVerificationException ex = assertThrows(TokenVerificationException.class,
                 () -> verifier.verify("mt_token", options));

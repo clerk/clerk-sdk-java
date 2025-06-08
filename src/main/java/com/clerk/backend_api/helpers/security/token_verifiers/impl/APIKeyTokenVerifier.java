@@ -17,10 +17,17 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 public class APIKeyTokenVerifier implements TokenVerifier {
 
     private final static String API_KEY_TOKEN_VERIFICATION_URL = "/api_keys/verify";
-    private final static ObjectMapper objectMapper = new ObjectMapper();
+    private final static ObjectMapper objectMapper;
+
+    static {
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
     @Override
     public TokenVerificationResponse<MachineAuthVerificationData> verify(String token, VerifyTokenOptions options)
@@ -34,7 +41,7 @@ public class APIKeyTokenVerifier implements TokenVerifier {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(options.apiUrl() + API_KEY_TOKEN_VERIFICATION_URL))
             .header("Content-Type", "application/json")
-            .header("Authorization", "Bearer " + options.secretKey())
+            .header("Authorization", "Bearer " + options.secretKey().get())
             .timeout(Duration.ofSeconds(30))
             .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
             .build();

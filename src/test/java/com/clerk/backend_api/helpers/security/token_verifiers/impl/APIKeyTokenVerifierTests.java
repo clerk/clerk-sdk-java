@@ -43,8 +43,8 @@ public class APIKeyTokenVerifierTests {
             staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
 
             APIKeyTokenVerifier verifier = new APIKeyTokenVerifier();
-
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             TokenVerificationResponse<MachineAuthVerificationData> result = verifier.verify(token, options);
 
@@ -82,8 +82,8 @@ public class APIKeyTokenVerifierTests {
             staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
 
             APIKeyTokenVerifier verifier = new APIKeyTokenVerifier();
-
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             assertThrows(TokenVerificationException.class, () -> verifier.verify("ak_token", options));
         }
@@ -103,8 +103,8 @@ public class APIKeyTokenVerifierTests {
             staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
 
             APIKeyTokenVerifier verifier = new APIKeyTokenVerifier();
-
-            VerifyTokenOptions options = new VerifyTokenOptions.Builder().build();
+            VerifyTokenOptions options =VerifyTokenOptions.secretKey("test_key")
+                .build();
 
             TokenVerificationException ex = assertThrows(TokenVerificationException.class,
                 () -> verifier.verify("ak_token", options));
