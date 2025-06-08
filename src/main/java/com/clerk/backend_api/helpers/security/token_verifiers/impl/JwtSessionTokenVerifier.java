@@ -1,5 +1,20 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.token_verifiers.impl;
 
+import com.clerk.backend_api.helpers.security.models.TokenVerificationErrorReason;
+import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
+import com.clerk.backend_api.helpers.security.models.TokenVerificationResponse;
+import com.clerk.backend_api.helpers.security.models.VerifyTokenOptions;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.JwtParserBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.PrematureJwtException;
+import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.impl.security.ConstantKeyLocator;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
@@ -10,29 +25,14 @@ import java.security.Key;
 import java.security.KeyFactory;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.JwtParserBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.PrematureJwtException;
-import io.jsonwebtoken.impl.security.ConstantKeyLocator;
-
-/**
- * VerifyToken - Helper methods for verifying JSON Web Tokens (JWT).
- */
-public final class VerifyToken {
-
-    private VerifyToken() {
-        // prevent instantiation (this is a utility class)
-    }
+public class JwtSessionTokenVerifier {
 
     /**
      * Verifies a Clerk-generated token signature. Networkless if the options.jwtKey
@@ -48,21 +48,24 @@ public final class VerifyToken {
      *                causing exception if present should not be considered part of
      *                the public API (subject to change).
      */
-    public static Claims verifyToken(String token, VerifyTokenOptions options) throws TokenVerificationException {
+    public static TokenVerificationResponse<Claims> verify(String token, VerifyTokenOptions options) throws TokenVerificationException {
 
         Key key;
         if (options.jwtKey().isPresent()) {
             key = getLocalJwtKey(options.jwtKey().get());
-        } else {
+        } else if (options.secretKey().isPresent()) {
             key = getRemoteJwtKey(token, options);
+        }
+        else {
+            throw new TokenVerificationException(TokenVerificationErrorReason.SECRET_KEY_MISSING);
         }
 
         JwtParserBuilder builder = Jwts //
-                .parser() //
-                .clockSkewSeconds(options.clockSkewInMs() / 1000) //
-                .keyLocator(new ConstantKeyLocator(key, null));
+            .parser() //
+            .clockSkewSeconds(options.clockSkewInMs() / 1000) //
+            .keyLocator(new ConstantKeyLocator(key, null));
 
-        options.audience().ifPresent(a -> builder.requireAudience(a));
+        options.audience().ifPresent(builder::requireAudience);
 
         JwtParser parser = builder.build();
 
@@ -98,7 +101,67 @@ public final class VerifyToken {
             throw new TokenVerificationException(TokenVerificationErrorReason.TOKEN_IAT_IN_THE_FUTURE);
         }
 
-        return payload;
+        Claims claims = payload;
+        Map<String, Object> updatedClaimsMap = new HashMap<>(claims);
+
+        if ("2".equals(String.valueOf(claims.get("v")))) {
+            Object orgObject = claims.get("o");
+            if (orgObject instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> orgClaims = (Map<String, Object>) orgObject;
+
+                updatedClaimsMap.put("org_id", orgClaims.get("id"));
+                updatedClaimsMap.put("org_slug", orgClaims.get("slg"));
+                updatedClaimsMap.put("org_role", orgClaims.get("rol"));
+
+                List<String> orgPermissions = computeOrgPermissions(claims);
+                if (!orgPermissions.isEmpty()) {
+                    updatedClaimsMap.put("org_permissions", orgPermissions);
+                }
+            }
+        }
+
+        Claims updatedClaims = new DefaultClaims(updatedClaimsMap);
+
+        return new TokenVerificationResponse<>(updatedClaims);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<String> computeOrgPermissions(Claims claims) {
+        String featuresStr = (String) claims.get("fea");
+        if (featuresStr == null) {
+            return new ArrayList<>();
+        }
+        String permissionsStr = (String) ((Map<String, Object>) claims.get("o")).get("per");
+        String mappingsStr = (String) ((Map<String, Object>) claims.get("o")).get("fpm");
+
+        String[] features = featuresStr.split(",");
+        String[] permissions = permissionsStr.split(",");
+        String[] mappings = mappingsStr.split(",");
+
+        List<String> orgPermissions = new ArrayList<>();
+
+        for (int idx = 0; idx < mappings.length; idx++) {
+            String mapping = mappings[idx];
+            String[] featureParts = features[idx].split(":");
+            if (featureParts.length != 2) continue;
+
+            String scope = featureParts[0];
+            String feature = featureParts[1];
+
+            if (!scope.contains("o")) continue;
+
+            String binary = Integer.toBinaryString(Integer.parseInt(mapping)).replaceAll("^0+", "");
+            String reversedBinary = new StringBuilder(binary).reverse().toString();
+
+            for (int i = 0; i < reversedBinary.length(); i++) {
+                if (reversedBinary.charAt(i) == '1' && i < permissions.length) {
+                    orgPermissions.add("org:" + feature + ":" + permissions[i]);
+                }
+            }
+        }
+
+        return orgPermissions;
     }
 
     /**
@@ -112,8 +175,8 @@ public final class VerifyToken {
     private static Key getLocalJwtKey(String jwtKey) throws TokenVerificationException {
 
         String pemContent = jwtKey.replace("-----BEGIN PUBLIC KEY-----", "")
-                .replace("-----END PUBLIC KEY-----", "")
-                .replaceAll("\\s", "");
+            .replace("-----END PUBLIC KEY-----", "")
+            .replaceAll("\\s", "");
 
         try {
             byte[] decodedKey = Base64.getDecoder().decode(pemContent);
@@ -137,7 +200,7 @@ public final class VerifyToken {
      * @return The RSA public key.
      * @throws TokenVerificationException if the public key could not be resolved.
      */
-    private static final Key getRemoteJwtKey(String token, VerifyTokenOptions options) throws TokenVerificationException {
+    private static Key getRemoteJwtKey(String token, VerifyTokenOptions options) throws TokenVerificationException {
 
         String kid = parseKid(token);
 
@@ -165,7 +228,7 @@ public final class VerifyToken {
      * @return The key identifier (kid).
      * @throws TokenVerificationException if the kid cannot be parsed.
      */
-    private static final String parseKid(String token) throws TokenVerificationException {
+    private static String parseKid(String token) throws TokenVerificationException {
 
         // https://github.com/jwtk/jjwt/discussions/923
         // parseClaimsJwt() is deprecated since version 0.12.0 and
@@ -197,7 +260,7 @@ public final class VerifyToken {
      * @return The JWKS keys array as a JSON node.
      * @throws TokenVerificationException if the JWKS cannot be fetched.
      */
-    private static final JsonNode fetchJwks(VerifyTokenOptions options) throws TokenVerificationException {
+    private static JsonNode fetchJwks(VerifyTokenOptions options) throws TokenVerificationException {
 
         if (options.secretKey().isEmpty()) {
             throw new TokenVerificationException(TokenVerificationErrorReason.SECRET_KEY_MISSING);
@@ -208,10 +271,10 @@ public final class VerifyToken {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(jwksUrl))
-                .header("Accept", "application/json")
-                .header("Authorization", bearerAuth)
-                .build();
+            .uri(URI.create(jwksUrl))
+            .header("Accept", "application/json")
+            .header("Authorization", bearerAuth)
+            .build();
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

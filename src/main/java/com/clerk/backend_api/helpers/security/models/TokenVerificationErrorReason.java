@@ -1,4 +1,4 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 /**
  * TokenVerificationErrorReason - The reason for token verification failure.
@@ -43,12 +43,15 @@ public enum TokenVerificationErrorReason implements ErrorReason {
             "Token signature is invalid and could not be verified."),
     SECRET_KEY_MISSING(
             "secret-key-missing",
-            "Missing Clerk Secret Key. Go to https://dashboard.clerk.com and get your key for your instance.");
+            "Missing Clerk Secret Key. Go to https://dashboard.clerk.com and get your key for your instance."),
+    FAILED_TO_PROCESS_RESPONSE(
+            "failed-to-process-response",
+            "Failed to process the response from Clerk Backend API. ");
 
     private final String id;
     private final String message;
 
-    private TokenVerificationErrorReason(String id, String message) {
+    TokenVerificationErrorReason(String id, String message) {
         this.id = id;
         this.message = message;
     }

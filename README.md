@@ -170,17 +170,17 @@ Use the [authenticateRequest](https://github.com/clerk/clerk-sdk-java/blob/main/
 
 ```java
 import java.net.http.HttpRequest;
-import com.clerk.backend_api.helpers.jwks.AuthenticateRequest;
-import com.clerk.backend_api.helpers.jwks.AuthenticateRequestOptions;
-import com.clerk.backend_api.helpers.jwks.RequestState;
+import com.clerk.backend_api.helpers.security.AuthenticateRequest;
+import com.clerk.backend_api.helpers.security.models.AuthenticateRequestOptions;
+import com.clerk.backend_api.helpers.security.models.RequestState;
 
 public class UserAuthentication {
 
     public static boolean isSignedIn(HttpRequest request) {
         RequestState requestState = AuthenticateRequest.authenticateRequest(request, AuthenticateRequestOptions
-                .secretKey(System.getenv("CLERK_SECRET_KEY"))
-                .authorizedParty("https://example.com")
-                .build());
+            .secretKey(System.getenv("CLERK_SECRET_KEY"))
+            .authorizedParty("https://example.com")
+            .build());
         return requestState.isSignedIn();
     }
 ```

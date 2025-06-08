@@ -1,4 +1,4 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 import io.jsonwebtoken.Claims;
 import java.util.Optional;
@@ -13,18 +13,17 @@ public final class RequestState {
     private final Optional<AuthErrorReason> authErrorReason;
     private final Optional<TokenVerificationErrorReason> tokenVerificationErrorReason;
     private final Optional<String> token;
-    private final Optional<Claims> claims;
+    private final Optional<TokenVerificationResponse<?>> tokenVerificationResponse;
 
     public RequestState(AuthStatus status,
                         Optional<AuthErrorReason> authErrorReason,
                         Optional<TokenVerificationErrorReason> tokenVerificationErrorReason,
                         Optional<String> token,
-                        Optional<Claims> claims) {
+                        Optional<TokenVerificationResponse<?>> tokenVerificationResponse) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(authErrorReason, "authErrorReason");
         Utils.checkNotNull(tokenVerificationErrorReason, "tokenVerificationErrorReason");
         Utils.checkNotNull(token, "token");
-        Utils.checkNotNull(claims, "claims");
 
         if (authErrorReason.isPresent() && tokenVerificationErrorReason.isPresent()) {
             throw new IllegalArgumentException("Only one of authErrorReason or tokenVerificationErrorReason should be provided.");
@@ -34,15 +33,24 @@ public final class RequestState {
         this.authErrorReason = authErrorReason;
         this.tokenVerificationErrorReason = tokenVerificationErrorReason;
         this.token = token;
-        this.claims = claims;
+        this.tokenVerificationResponse = tokenVerificationResponse;
     }
 
-    public static RequestState signedIn(String token, Claims claims) {
+//    public static RequestState signedIn(String token, Claims claims) {
+//        return new RequestState(AuthStatus.SIGNED_IN,
+//                                Optional.empty(),
+//                                Optional.empty(),
+//                                Optional.of(token),
+//                                Optional.of(claims),
+//                                Optional.of(new TokenVerificationResponse<>(claims)));
+//    }
+
+    public static RequestState signedIn(String token, TokenVerificationResponse<?> tokenVerificationResponse) {
         return new RequestState(AuthStatus.SIGNED_IN,
                                 Optional.empty(),
                                 Optional.empty(),
                                 Optional.of(token),
-                                Optional.of(claims));
+                                Optional.of(tokenVerificationResponse));
     }
 
     public static RequestState signedOut(AuthErrorReason reason) {
@@ -50,7 +58,7 @@ public final class RequestState {
                                 Optional.of(reason),
                                 Optional.empty(),
                                 Optional.empty(),
-                                Optional.empty());
+            Optional.empty());
     }
 
     public static RequestState signedOut(TokenVerificationErrorReason reason) {
@@ -58,7 +66,7 @@ public final class RequestState {
                                 Optional.empty(),
                                 Optional.of(reason),
                                 Optional.empty(),
-                                Optional.empty());
+            Optional.empty());
     }
 
     public AuthStatus status() {
@@ -90,6 +98,15 @@ public final class RequestState {
     }
 
     public Optional<Claims> claims() {
-        return claims;
+
+        if (tokenVerificationResponse.isPresent()) {
+            TokenVerificationResponse<?> response = tokenVerificationResponse.get();
+            if (response.payload() instanceof Claims) {
+                return Optional.of((Claims) response.payload());
+            }
+        }
+        return Optional.empty();
     }
+
+    public Optional<TokenVerificationResponse<?>> tokenVerificationResponse() {return tokenVerificationResponse;}
 }

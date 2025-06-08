@@ -1,4 +1,4 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 /**
  * TokenVerificationException - Exception thrown when token verification fails.

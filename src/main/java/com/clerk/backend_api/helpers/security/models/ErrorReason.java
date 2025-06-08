@@ -1,4 +1,4 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 /**
  * ErrorReason - Interface implemented by AuthErrorReason and TokenVerificationErrorReason.
