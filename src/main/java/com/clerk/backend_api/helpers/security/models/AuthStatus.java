@@ -1,4 +1,4 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 /**
  * AuthStatus - The request authentication status.
@@ -9,7 +9,7 @@ public enum AuthStatus {
 
     private final String value;
 
-    private AuthStatus(String value) {
+    AuthStatus(String value) {
         this.value = value;
     }
 

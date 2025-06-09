@@ -1,12 +1,14 @@
-package com.clerk.backend_api.helpers.jwks;
+package com.clerk.backend_api.helpers.security.models;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.clerk.backend_api.utils.Utils;
+import java.util.stream.Collectors;
 
 /**
  * AuthenticateRequestOptions - Options to configure AuthenticateRequest.
@@ -20,6 +22,7 @@ public final class AuthenticateRequestOptions {
     private final Optional<String> audience;
     private final Set<String> authorizedParties;
     private final long clockSkewInMs;
+    private final List<String> acceptsToken;
 
     /**
      * Options to configure AuthenticateRequest.
@@ -41,7 +44,9 @@ public final class AuthenticateRequestOptions {
             Optional<String> jwtKey,
             Optional<String> audience,
             Set<String> authorizedParties,
-            Optional<Long> clockSkewInMs) {
+            Optional<Long> clockSkewInMs,
+            Optional<List<String>> acceptsToken
+        ) {
 
         Utils.checkNotNull(secretKey, "secretKey");
         Utils.checkNotNull(jwtKey, "jwtKey");
@@ -54,6 +59,9 @@ public final class AuthenticateRequestOptions {
         this.audience = audience;
         this.authorizedParties = authorizedParties;
         this.clockSkewInMs = clockSkewInMs.orElse(DEFAULT_CLOCK_SKEW_MS);
+        this.acceptsToken = acceptsToken.orElse(TokenType.getAllTypes().stream().map(TokenType::getType).collect(
+            Collectors.toList())
+        );
     }
 
     public Optional<String> secretKey() {
@@ -76,6 +84,10 @@ public final class AuthenticateRequestOptions {
         return clockSkewInMs;
     }
 
+    public List<String> acceptsToken() {
+        return acceptsToken;
+    }
+
     public static Builder secretKey(String secretKey) {
         return Builder.withSecretKey(secretKey);
     }
@@ -84,12 +96,18 @@ public final class AuthenticateRequestOptions {
         return Builder.withJwtKey(jwtKey);
     }
 
+    public static Builder acceptsToken(List<String> acceptsToken) {
+        Utils.checkNotNull(acceptsToken, "acceptsToken");
+        return new Builder().acceptsTokens(acceptsToken);
+    }
+
     public static final class Builder {
 
         private Optional<String> secretKey = Optional.empty();
         private Optional<String> jwtKey = Optional.empty();
         private Optional<String> audience = Optional.empty();
         private Set<String> authorizedParties = new HashSet<>();
+        private Optional<List<String>> acceptsToken = Optional.empty();
         private long clockSkewInMs = DEFAULT_CLOCK_SKEW_MS;
 
         private Builder() {}
@@ -144,15 +162,18 @@ public final class AuthenticateRequestOptions {
             return clockSkew(DEFAULT_CLOCK_SKEW_MS, TimeUnit.MILLISECONDS);
         }
 
-
-
+        public Builder acceptsTokens(List<String> acceptsToken) {
+            Utils.checkNotNull(acceptsToken, "acceptsToken");
+            this.acceptsToken = Optional.of(acceptsToken);
+            return this;
+        }
 
         public AuthenticateRequestOptions build() {
             return new AuthenticateRequestOptions(secretKey,
                     jwtKey,
                     audience,
                     authorizedParties,
-                    Optional.of(clockSkewInMs));
+                    Optional.of(clockSkewInMs),acceptsToken);
         }
     }
 }
