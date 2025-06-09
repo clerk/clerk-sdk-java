@@ -17,10 +17,11 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 java:
-  version: 3.0.2
+  version: 3.0.3
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
+  baseErrorName: ClerkError
   clientServerStatusCodesAsErrors: true
   companyEmail: info@mycompany.com
   companyName: My Company
