@@ -187,6 +187,28 @@ public class UserAuthentication {
 
 If the request is correctly authenticated, the token's claims are made available in `requestState.claims()`. Otherwise the reason for the token verification failure is given by `requestState.reason()`.
 
+### Machine Authentication
+
+The SDK also supports machine-to-machine authentication through machine tokens. To authenticate machine requests, specify the accepted token types when building the authentication options:
+
+```java
+import java.net.http.HttpRequest;
+import com.clerk.backend_api.helpers.security.AuthenticateRequest;
+import com.clerk.backend_api.helpers.security.models.AuthenticateRequestOptions;
+import com.clerk.backend_api.helpers.security.models.RequestState;
+import java.util.Arrays;
+
+public class MachineAuthentication {
+
+    public static boolean isAuthenticated(HttpRequest request) {
+        RequestState requestState = AuthenticateRequest.authenticateRequest(request, AuthenticateRequestOptions
+            .secretKey(System.getenv("CLERK_SECRET_KEY"))
+            .acceptsTokens(Arrays.asList("machine_token"))
+            .build());
+        return requestState.isSignedIn();
+    }
+}
+```
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
