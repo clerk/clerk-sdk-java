@@ -203,7 +203,7 @@ public class MachineAuthentication {
     public static boolean isAuthenticated(HttpRequest request) {
         RequestState requestState = AuthenticateRequest.authenticateRequest(request, AuthenticateRequestOptions
             .secretKey(System.getenv("CLERK_SECRET_KEY"))
-            .acceptsTokens(Arrays.asList("machine_token"))
+            .acceptsTokens(Arrays.asList("oauth_token"))
             .build());
         return requestState.isSignedIn();
     }
