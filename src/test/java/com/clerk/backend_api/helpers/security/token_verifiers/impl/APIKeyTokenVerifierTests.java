@@ -57,7 +57,7 @@ public class APIKeyTokenVerifierTests {
             assertEquals("sub_123", payload.getSubject());
             assertEquals(Arrays.asList("read", "write"), payload.getScopes());
             assertNotNull(payload.getClaims());
-            assertEquals(Arrays.asList("org:read", "org:write"), payload.getClaims().getPermissions());
+            assertEquals(Arrays.asList("org:read", "org:write"), payload.getClaims().get("permissions"));
             assertEquals(Long.valueOf(1625158800L), payload.getCreatedAt());
             assertEquals(Long.valueOf(1625162400L), payload.getUpdatedAt());
             assertEquals(Long.valueOf(1725162400L), payload.getExpiration());

@@ -2,7 +2,7 @@ package com.clerk.backend_api.helpers.security.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 public class MachineAuthVerificationData {
 
@@ -11,6 +11,9 @@ public class MachineAuthVerificationData {
 
     @JsonProperty("id")
     private String id;
+
+    @JsonProperty("client_id")
+    private String clientId;
 
     @JsonProperty("type")
     private String type;
@@ -25,7 +28,7 @@ public class MachineAuthVerificationData {
     private List<String> scopes;
 
     @JsonProperty("claims")
-    private Claims claims;
+    private Map<String, Object> claims;
 
     @JsonProperty("created_at")
     private Long createdAt;
@@ -48,45 +51,29 @@ public class MachineAuthVerificationData {
     @JsonProperty("created_by")
     private String createdBy;
 
-    // Nested class for claims
-    public static class Claims {
-        @JsonProperty("permissions")
-        private List<String> permissions;
-
-        // Default constructor
-        public Claims() {}
-
-        // Getters and setters
-        public List<String> getPermissions() {
-            return permissions;
-        }
-
-        public void setPermissions(List<String> permissions) {
-            this.permissions = permissions;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Claims claims = (Claims) o;
-            return Objects.equals(permissions, claims.permissions);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(permissions);
-        }
-
-        @Override
-        public String toString() {
-            return "Claims{" +
-                "permissions=" + permissions +
-                '}';
-        }
-    }
-
     public MachineAuthVerificationData() {}
+
+    public MachineAuthVerificationData(String object, String id, String clientId, String type, String name,
+        String subject,
+        List<String> scopes, Map<String, Object> claims, Long createdAt, Long updatedAt, Long expiration,
+        Boolean revoked,
+        String revocationReason, Boolean expired, String createdBy) {
+        this.object = object;
+        this.id = id;
+        this.clientId = clientId;
+        this.type = type;
+        this.name = name;
+        this.subject = subject;
+        this.scopes = scopes;
+        this.claims = claims;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.expiration = expiration;
+        this.revoked = revoked;
+        this.revocationReason = revocationReason;
+        this.expired = expired;
+        this.createdBy = createdBy;
+    }
 
     public String getObject() {
         return object;
@@ -136,11 +123,11 @@ public class MachineAuthVerificationData {
         this.scopes = scopes;
     }
 
-    public Claims getClaims() {
+    public Map<String, Object> getClaims() {
         return claims;
     }
 
-    public void setClaims(Claims claims) {
+    public void setClaims(Map<String, Object> claims) {
         this.claims = claims;
     }
 
@@ -198,6 +185,14 @@ public class MachineAuthVerificationData {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     @Override
