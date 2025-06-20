@@ -3,8 +3,8 @@ package com.clerk.backend_api.helpers.security.models;
 import java.util.List;
 
 public class SessionAuthObjectV2 implements AuthObject {
-    private long exp;
-    private long iat;
+    private Long exp;
+    private Long iat;
     private String iss;
     private String sid;
     private String sub;
@@ -12,12 +12,12 @@ public class SessionAuthObjectV2 implements AuthObject {
     private String jti;
     private String role;
     private List<Integer> fva;
-    private long nbf;
+    private Long nbf;
     private String email;
     private String azp;
 
-    public SessionAuthObjectV2(long exp, long iat, String iss, String sid, String sub, int v, String jti, String role,
-        List<Integer> fva, long nbf, String email, String azp) {
+    public SessionAuthObjectV2(Long exp, Long iat, String iss, String sid, String sub, Integer v, String jti, String role,
+        List<Integer> fva, Long nbf, String email, String azp) {
         this.exp = exp;
         this.iat = iat;
         this.iss = iss;
