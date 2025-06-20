@@ -127,8 +127,8 @@ public final class RequestState {
                 Integer version = (Integer) payload.getOrDefault("v", null);
                 if (version != null && version == 2) {
                     return new SessionAuthObjectV2(
-                        (Integer) payload.getOrDefault("exp", null),
-                        (Integer) payload.getOrDefault("iat", null),
+                        (Long) payload.getOrDefault("exp", null),
+                        (Long) payload.getOrDefault("iat", null),
                         (String) payload.getOrDefault("iss", null),
                         (String) payload.getOrDefault("sid", null),
                         (String) payload.getOrDefault("sub", null),
@@ -136,7 +136,7 @@ public final class RequestState {
                         (String) payload.getOrDefault("jti", null),
                         (String) payload.getOrDefault("role", null),
                         (List<Integer>) payload.getOrDefault("fva", null),
-                        (Integer) payload.getOrDefault("nbf", null),
+                        (Long) payload.getOrDefault("nbf", null),
                         (String) payload.getOrDefault("email", null),
                         (String) payload.getOrDefault("azp", null)
                     );

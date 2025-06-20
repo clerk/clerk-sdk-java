@@ -3,8 +3,8 @@ package com.clerk.backend_api.helpers.security.models;
 import java.util.List;
 
 public class SessionAuthObjectV2 implements AuthObject {
-    private int exp;
-    private int iat;
+    private long exp;
+    private long iat;
     private String iss;
     private String sid;
     private String sub;
@@ -12,12 +12,12 @@ public class SessionAuthObjectV2 implements AuthObject {
     private String jti;
     private String role;
     private List<Integer> fva;
-    private Integer nbf;
+    private long nbf;
     private String email;
     private String azp;
 
-    public SessionAuthObjectV2(int exp, int iat, String iss, String sid, String sub, int v, String jti, String role,
-        List<Integer> fva, Integer nbf, String email, String azp) {
+    public SessionAuthObjectV2(long exp, long iat, String iss, String sid, String sub, int v, String jti, String role,
+        List<Integer> fva, long nbf, String email, String azp) {
         this.exp = exp;
         this.iat = iat;
         this.iss = iss;
@@ -32,11 +32,11 @@ public class SessionAuthObjectV2 implements AuthObject {
         this.azp = azp;
     }
 
-    public int getExp() {
+    public long getExp() {
         return exp;
     }
 
-    public int getIat() {
+    public long getIat() {
         return iat;
     }
 
@@ -68,7 +68,7 @@ public class SessionAuthObjectV2 implements AuthObject {
         return fva;
     }
 
-    public Integer getNbf() {
+    public long getNbf() {
         return nbf;
     }
 
