@@ -91,7 +91,7 @@ public final class AuthenticateRequest {
         return Arrays.stream(cookieHeaders.get(0).split(";"))
                 .map(String::trim)
                 .map(s -> s.split("=", 2))       // ["name","value"]
-                .filter(kv -> kv[0].equals("__session") || !kv[0].startsWith("__session"))
+                .filter(kv -> kv[0].startsWith("__session"))
                 .map(kv -> kv[1])
                 .findFirst()
                 .orElse(null);
