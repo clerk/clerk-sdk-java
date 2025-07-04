@@ -8,14 +8,11 @@ import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationResponse;
 import com.clerk.backend_api.helpers.security.models.VerifyTokenOptions;
 import java.io.IOException;
-import java.net.HttpCookie;
-import java.net.http.HttpHeaders;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static com.clerk.backend_api.helpers.security.util.TokenTypeHelper.getTokenType;
 
