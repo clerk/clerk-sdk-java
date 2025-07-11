@@ -17,12 +17,11 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateUserRequestBody {
 
+public class CreateUserRequestBody {
     /**
      * The ID of the user as used in your external systems or your previous authentication solution.
      * Must be unique across your instance.
@@ -287,7 +286,14 @@ public class CreateUserRequestBody {
     }
     
     public CreateUserRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -510,9 +516,10 @@ public class CreateUserRequestBody {
         return createdAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user as used in your external systems or your previous authentication solution.
@@ -581,6 +588,7 @@ public class CreateUserRequestBody {
         return this;
     }
 
+
     /**
      * Email addresses to add to the user.
      * Must be unique across your instance.
@@ -603,6 +611,7 @@ public class CreateUserRequestBody {
         return this;
     }
 
+
     /**
      * Phone numbers to add to the user.
      * Must be unique across your instance.
@@ -624,6 +633,7 @@ public class CreateUserRequestBody {
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
     }
+
 
     /**
      * Web3 wallets to add to the user.
@@ -713,6 +723,7 @@ public class CreateUserRequestBody {
         this.passwordHasher = Optional.ofNullable(passwordHasher);
         return this;
     }
+
 
     /**
      * The hashing algorithm that was used to generate the password digest.
@@ -810,6 +821,7 @@ public class CreateUserRequestBody {
         return this;
     }
 
+
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
@@ -829,6 +841,7 @@ public class CreateUserRequestBody {
         return this;
     }
 
+
     /**
      * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
      */
@@ -846,6 +859,7 @@ public class CreateUserRequestBody {
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
     }
+
 
     /**
      * Metadata saved on the user, that is only visible to your Backend API
@@ -865,6 +879,7 @@ public class CreateUserRequestBody {
         this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
         return this;
     }
+
 
     /**
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
@@ -986,7 +1001,6 @@ public class CreateUserRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -997,57 +1011,42 @@ public class CreateUserRequestBody {
         }
         CreateUserRequestBody other = (CreateUserRequestBody) o;
         return 
-            Objects.deepEquals(this.externalId, other.externalId) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.password, other.password) &&
-            Objects.deepEquals(this.passwordDigest, other.passwordDigest) &&
-            Objects.deepEquals(this.passwordHasher, other.passwordHasher) &&
-            Objects.deepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
-            Objects.deepEquals(this.skipPasswordRequirement, other.skipPasswordRequirement) &&
-            Objects.deepEquals(this.totpSecret, other.totpSecret) &&
-            Objects.deepEquals(this.backupCodes, other.backupCodes) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
-            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
-            Objects.deepEquals(this.skipLegalChecks, other.skipLegalChecks) &&
-            Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
-            Objects.deepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.password, other.password) &&
+            Utils.enhancedDeepEquals(this.passwordDigest, other.passwordDigest) &&
+            Utils.enhancedDeepEquals(this.passwordHasher, other.passwordHasher) &&
+            Utils.enhancedDeepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
+            Utils.enhancedDeepEquals(this.skipPasswordRequirement, other.skipPasswordRequirement) &&
+            Utils.enhancedDeepEquals(this.totpSecret, other.totpSecret) &&
+            Utils.enhancedDeepEquals(this.backupCodes, other.backupCodes) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Utils.enhancedDeepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
+            Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Utils.enhancedDeepEquals(this.skipLegalChecks, other.skipLegalChecks) &&
+            Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
+            Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            externalId,
-            firstName,
-            lastName,
-            emailAddress,
-            phoneNumber,
-            web3Wallet,
-            username,
-            password,
-            passwordDigest,
-            passwordHasher,
-            skipPasswordChecks,
-            skipPasswordRequirement,
-            totpSecret,
-            backupCodes,
-            publicMetadata,
-            privateMetadata,
-            unsafeMetadata,
-            deleteSelfEnabled,
-            legalAcceptedAt,
-            skipLegalChecks,
-            createOrganizationEnabled,
-            createOrganizationsLimit,
-            createdAt);
+        return Utils.enhancedHash(
+            externalId, firstName, lastName,
+            emailAddress, phoneNumber, web3Wallet,
+            username, password, passwordDigest,
+            passwordHasher, skipPasswordChecks, skipPasswordRequirement,
+            totpSecret, backupCodes, publicMetadata,
+            privateMetadata, unsafeMetadata, deleteSelfEnabled,
+            legalAcceptedAt, skipLegalChecks, createOrganizationEnabled,
+            createOrganizationsLimit, createdAt);
     }
     
     @Override
@@ -1077,58 +1076,60 @@ public class CreateUserRequestBody {
                 "createOrganizationsLimit", createOrganizationsLimit,
                 "createdAt", createdAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> externalId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> firstName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> lastName = JsonNullable.undefined();
- 
+
         private Optional<? extends List<String>> emailAddress = Optional.empty();
- 
+
         private Optional<? extends List<String>> phoneNumber = Optional.empty();
- 
+
         private Optional<? extends List<String>> web3Wallet = Optional.empty();
- 
+
         private JsonNullable<String> username = JsonNullable.undefined();
- 
+
         private JsonNullable<String> password = JsonNullable.undefined();
- 
+
         private JsonNullable<String> passwordDigest = JsonNullable.undefined();
- 
+
         private Optional<String> passwordHasher = Optional.empty();
- 
+
         private JsonNullable<Boolean> skipPasswordChecks = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> skipPasswordRequirement = JsonNullable.undefined();
- 
+
         private JsonNullable<String> totpSecret = JsonNullable.undefined();
- 
+
         private Optional<? extends List<String>> backupCodes = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
- 
+
         private JsonNullable<Boolean> deleteSelfEnabled = JsonNullable.undefined();
- 
+
         private JsonNullable<String> legalAcceptedAt = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> skipLegalChecks = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> createOrganizationEnabled = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
- 
+
         private JsonNullable<String> createdAt = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user as used in your external systems or your previous authentication solution.
@@ -1150,6 +1151,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * The first name to assign to the user
          */
@@ -1168,6 +1170,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * The last name to assign to the user
          */
@@ -1185,6 +1188,7 @@ public class CreateUserRequestBody {
             this.lastName = lastName;
             return this;
         }
+
 
         /**
          * Email addresses to add to the user.
@@ -1208,6 +1212,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * Phone numbers to add to the user.
          * Must be unique across your instance.
@@ -1229,6 +1234,7 @@ public class CreateUserRequestBody {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         /**
          * Web3 wallets to add to the user.
@@ -1252,6 +1258,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * The username to give to the user.
          * It must be unique across your instance.
@@ -1272,6 +1279,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * The plaintext password to give the user.
          * Must be at least 8 characters long, and can not be in any list of hacked passwords.
@@ -1291,6 +1299,7 @@ public class CreateUserRequestBody {
             this.password = password;
             return this;
         }
+
 
         /**
          * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
@@ -1313,6 +1322,7 @@ public class CreateUserRequestBody {
             this.passwordDigest = passwordDigest;
             return this;
         }
+
 
         /**
          * The hashing algorithm that was used to generate the password digest.
@@ -1346,6 +1356,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * When set to `true` all password checks are skipped.
          * It is recommended to use this method only when migrating plaintext passwords to Clerk.
@@ -1368,6 +1379,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
          * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
@@ -1389,6 +1401,7 @@ public class CreateUserRequestBody {
             this.skipPasswordRequirement = skipPasswordRequirement;
             return this;
         }
+
 
         /**
          * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
@@ -1416,6 +1429,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
@@ -1436,6 +1450,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
          */
@@ -1454,6 +1469,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the user, that is only visible to your Backend API
          */
@@ -1471,6 +1487,7 @@ public class CreateUserRequestBody {
             this.privateMetadata = privateMetadata;
             return this;
         }
+
 
         /**
          * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
@@ -1492,6 +1509,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * If enabled, user can delete themselves via FAPI.
          */
@@ -1510,6 +1528,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
@@ -1527,6 +1546,7 @@ public class CreateUserRequestBody {
             this.legalAcceptedAt = legalAcceptedAt;
             return this;
         }
+
 
         /**
          * When set to `true` all legal checks are skipped.
@@ -1548,6 +1568,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * If enabled, user can create organizations via FAPI.
          */
@@ -1565,6 +1586,7 @@ public class CreateUserRequestBody {
             this.createOrganizationEnabled = createOrganizationEnabled;
             return this;
         }
+
 
         /**
          * The maximum number of organizations the user can create. 0 means unlimited.
@@ -1584,6 +1606,7 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
         /**
          * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
@@ -1601,32 +1624,19 @@ public class CreateUserRequestBody {
             this.createdAt = createdAt;
             return this;
         }
-        
+
         public CreateUserRequestBody build() {
+
             return new CreateUserRequestBody(
-                externalId,
-                firstName,
-                lastName,
-                emailAddress,
-                phoneNumber,
-                web3Wallet,
-                username,
-                password,
-                passwordDigest,
-                passwordHasher,
-                skipPasswordChecks,
-                skipPasswordRequirement,
-                totpSecret,
-                backupCodes,
-                publicMetadata,
-                privateMetadata,
-                unsafeMetadata,
-                deleteSelfEnabled,
-                legalAcceptedAt,
-                skipLegalChecks,
-                createOrganizationEnabled,
-                createOrganizationsLimit,
-                createdAt);
+                externalId, firstName, lastName,
+                emailAddress, phoneNumber, web3Wallet,
+                username, password, passwordDigest,
+                passwordHasher, skipPasswordChecks, skipPasswordRequirement,
+                totpSecret, backupCodes, publicMetadata,
+                privateMetadata, unsafeMetadata, deleteSelfEnabled,
+                legalAcceptedAt, skipLegalChecks, createOrganizationEnabled,
+                createOrganizationsLimit, createdAt);
         }
+
     }
 }

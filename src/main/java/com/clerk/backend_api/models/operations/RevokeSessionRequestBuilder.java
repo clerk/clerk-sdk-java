@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevokeSessionOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class RevokeSessionRequestBuilder {
 
     private String sessionId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevokeSession sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevokeSessionRequestBuilder(SDKMethodInterfaces.MethodCallRevokeSession sdk) {
-        this.sdk = sdk;
+    public RevokeSessionRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevokeSessionRequestBuilder sessionId(String sessionId) {
@@ -38,12 +42,25 @@ public class RevokeSessionRequestBuilder {
         return this;
     }
 
+
+    private RevokeSessionRequest buildRequest() {
+
+        RevokeSessionRequest request = new RevokeSessionRequest(sessionId);
+
+        return request;
+    }
+
     public RevokeSessionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revoke(
-            sessionId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
+              = new RevokeSessionOperation(
+                sdkConfiguration,
+                options);
+        RevokeSessionRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateSessionTokenRequestBody {
 
+public class CreateSessionTokenRequestBody {
     /**
      * Use this parameter to override the default session token lifetime.
      */
@@ -43,9 +42,10 @@ public class CreateSessionTokenRequestBody {
         return expiresInSeconds;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Use this parameter to override the default session token lifetime.
@@ -65,7 +65,6 @@ public class CreateSessionTokenRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -76,12 +75,12 @@ public class CreateSessionTokenRequestBody {
         }
         CreateSessionTokenRequestBody other = (CreateSessionTokenRequestBody) o;
         return 
-            Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds);
+            Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             expiresInSeconds);
     }
     
@@ -90,14 +89,16 @@ public class CreateSessionTokenRequestBody {
         return Utils.toString(CreateSessionTokenRequestBody.class,
                 "expiresInSeconds", expiresInSeconds);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Double> expiresInSeconds = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Use this parameter to override the default session token lifetime.
@@ -116,10 +117,12 @@ public class CreateSessionTokenRequestBody {
             this.expiresInSeconds = expiresInSeconds;
             return this;
         }
-        
+
         public CreateSessionTokenRequestBody build() {
+
             return new CreateSessionTokenRequestBody(
                 expiresInSeconds);
         }
+
     }
 }

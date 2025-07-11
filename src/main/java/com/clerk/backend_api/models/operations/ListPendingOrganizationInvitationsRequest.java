@@ -12,11 +12,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListPendingOrganizationInvitationsRequest {
 
+public class ListPendingOrganizationInvitationsRequest {
     /**
      * The organization ID.
      */
@@ -83,9 +82,10 @@ public class ListPendingOrganizationInvitationsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -105,6 +105,7 @@ public class ListPendingOrganizationInvitationsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -127,6 +128,7 @@ public class ListPendingOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -138,7 +140,6 @@ public class ListPendingOrganizationInvitationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -149,17 +150,15 @@ public class ListPendingOrganizationInvitationsRequest {
         }
         ListPendingOrganizationInvitationsRequest other = (ListPendingOrganizationInvitationsRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            organizationId, limit, offset);
     }
     
     @Override
@@ -169,18 +168,20 @@ public class ListPendingOrganizationInvitationsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -190,6 +191,7 @@ public class ListPendingOrganizationInvitationsRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -210,6 +212,7 @@ public class ListPendingOrganizationInvitationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -232,7 +235,7 @@ public class ListPendingOrganizationInvitationsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListPendingOrganizationInvitationsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -240,11 +243,11 @@ public class ListPendingOrganizationInvitationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListPendingOrganizationInvitationsRequest(
-                organizationId,
-                limit,
-                offset);
+                organizationId, limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

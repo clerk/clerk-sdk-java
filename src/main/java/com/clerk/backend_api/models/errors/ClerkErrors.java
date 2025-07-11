@@ -15,7 +15,6 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -29,6 +28,7 @@ public class ClerkErrors extends RuntimeException {
     @JsonProperty("errors")
     private List<ClerkError> errors;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("meta")
     private Optional<? extends Meta> meta;
@@ -37,6 +37,7 @@ public class ClerkErrors extends RuntimeException {
     public ClerkErrors(
             @JsonProperty("errors") List<ClerkError> errors,
             @JsonProperty("meta") Optional<? extends Meta> meta) {
+        super("API error occurred");
         Utils.checkNotNull(errors, "errors");
         Utils.checkNotNull(meta, "meta");
         this.errors = errors;
@@ -59,9 +60,10 @@ public class ClerkErrors extends RuntimeException {
         return (Optional<Meta>) meta;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public ClerkErrors withErrors(List<ClerkError> errors) {
         Utils.checkNotNull(errors, "errors");
@@ -75,13 +77,13 @@ public class ClerkErrors extends RuntimeException {
         return this;
     }
 
+
     public ClerkErrors withMeta(Optional<? extends Meta> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = meta;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -92,15 +94,14 @@ public class ClerkErrors extends RuntimeException {
         }
         ClerkErrors other = (ClerkErrors) o;
         return 
-            Objects.deepEquals(this.errors, other.errors) &&
-            Objects.deepEquals(this.meta, other.meta);
+            Utils.enhancedDeepEquals(this.errors, other.errors) &&
+            Utils.enhancedDeepEquals(this.meta, other.meta);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            errors,
-            meta);
+        return Utils.enhancedHash(
+            errors, meta);
     }
     
     @Override
@@ -109,22 +110,25 @@ public class ClerkErrors extends RuntimeException {
                 "errors", errors,
                 "meta", meta);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private List<ClerkError> errors;
- 
+
         private Optional<? extends Meta> meta = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder errors(List<ClerkError> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
         }
+
 
         public Builder meta(Meta meta) {
             Utils.checkNotNull(meta, "meta");
@@ -137,12 +141,13 @@ public class ClerkErrors extends RuntimeException {
             this.meta = meta;
             return this;
         }
-        
+
         public ClerkErrors build() {
+
             return new ClerkErrors(
-                errors,
-                meta);
+                errors, meta);
         }
+
     }
 }
 

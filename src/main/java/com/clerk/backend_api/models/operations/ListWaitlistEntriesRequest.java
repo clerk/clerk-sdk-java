@@ -13,11 +13,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListWaitlistEntriesRequest {
 
+public class ListWaitlistEntriesRequest {
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -76,7 +75,8 @@ public class ListWaitlistEntriesRequest {
     }
     
     public ListWaitlistEntriesRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -128,9 +128,10 @@ public class ListWaitlistEntriesRequest {
         return orderBy;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -141,6 +142,7 @@ public class ListWaitlistEntriesRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -163,6 +165,7 @@ public class ListWaitlistEntriesRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -183,6 +186,7 @@ public class ListWaitlistEntriesRequest {
         return this;
     }
 
+
     /**
      * Filter waitlist entries by `email_address` or `id`
      */
@@ -200,6 +204,7 @@ public class ListWaitlistEntriesRequest {
         this.status = Optional.ofNullable(status);
         return this;
     }
+
 
     /**
      * Filter waitlist entries by their status
@@ -224,6 +229,7 @@ public class ListWaitlistEntriesRequest {
         return this;
     }
 
+
     /**
      * Specify the order of results. Supported values are:
      * - `created_at`
@@ -238,7 +244,6 @@ public class ListWaitlistEntriesRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -249,21 +254,18 @@ public class ListWaitlistEntriesRequest {
         }
         ListWaitlistEntriesRequest other = (ListWaitlistEntriesRequest) o;
         return 
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.orderBy, other.orderBy);
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            limit,
-            offset,
-            query,
-            status,
-            orderBy);
+        return Utils.enhancedHash(
+            limit, offset, query,
+            status, orderBy);
     }
     
     @Override
@@ -275,22 +277,24 @@ public class ListWaitlistEntriesRequest {
                 "status", status,
                 "orderBy", orderBy);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<? extends ListWaitlistEntriesQueryParamStatus> status = Optional.empty();
- 
+
         private Optional<String> orderBy;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -311,6 +315,7 @@ public class ListWaitlistEntriesRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -334,6 +339,7 @@ public class ListWaitlistEntriesRequest {
             return this;
         }
 
+
         /**
          * Filter waitlist entries by `email_address` or `id`
          */
@@ -352,6 +358,7 @@ public class ListWaitlistEntriesRequest {
             return this;
         }
 
+
         /**
          * Filter waitlist entries by their status
          */
@@ -369,6 +376,7 @@ public class ListWaitlistEntriesRequest {
             this.status = status;
             return this;
         }
+
 
         /**
          * Specify the order of results. Supported values are:
@@ -397,7 +405,7 @@ public class ListWaitlistEntriesRequest {
             this.orderBy = orderBy;
             return this;
         }
-        
+
         public ListWaitlistEntriesRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -408,13 +416,12 @@ public class ListWaitlistEntriesRequest {
             if (orderBy == null) {
                 orderBy = _SINGLETON_VALUE_OrderBy.value();
             }
+
             return new ListWaitlistEntriesRequest(
-                limit,
-                offset,
-                query,
-                status,
-                orderBy);
+                limit, offset, query,
+                status, orderBy);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

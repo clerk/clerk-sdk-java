@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateSignInTokenOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateSignInTokenRequestBuilder {
 
     private Optional<? extends CreateSignInTokenRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateSignInToken sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateSignInTokenRequestBuilder(SDKMethodInterfaces.MethodCallCreateSignInToken sdk) {
-        this.sdk = sdk;
+    public CreateSignInTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateSignInTokenRequestBuilder request(CreateSignInTokenRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateSignInTokenRequestBuilder {
 
     public CreateSignInTokenResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateSignInTokenRequestBody>, CreateSignInTokenResponse> operation
+              = new CreateSignInTokenOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -13,11 +13,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOrganizationInvitationsRequest {
 
+public class ListOrganizationInvitationsRequest {
     /**
      * The organization ID.
      */
@@ -63,7 +62,8 @@ public class ListOrganizationInvitationsRequest {
     
     public ListOrganizationInvitationsRequest(
             String organizationId) {
-        this(organizationId, Optional.empty(), Optional.empty(), Optional.empty());
+        this(organizationId, Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -102,9 +102,10 @@ public class ListOrganizationInvitationsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -124,6 +125,7 @@ public class ListOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Filter organization invitations based on their status
      */
@@ -142,6 +144,7 @@ public class ListOrganizationInvitationsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -164,6 +167,7 @@ public class ListOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -175,7 +179,6 @@ public class ListOrganizationInvitationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -186,18 +189,16 @@ public class ListOrganizationInvitationsRequest {
         }
         ListOrganizationInvitationsRequest other = (ListOrganizationInvitationsRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            status,
-            limit,
+        return Utils.enhancedHash(
+            organizationId, status, limit,
             offset);
     }
     
@@ -209,20 +210,22 @@ public class ListOrganizationInvitationsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -232,6 +235,7 @@ public class ListOrganizationInvitationsRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Filter organization invitations based on their status
@@ -250,6 +254,7 @@ public class ListOrganizationInvitationsRequest {
             this.status = status;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -270,6 +275,7 @@ public class ListOrganizationInvitationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -292,7 +298,7 @@ public class ListOrganizationInvitationsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListOrganizationInvitationsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -300,12 +306,12 @@ public class ListOrganizationInvitationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListOrganizationInvitationsRequest(
-                organizationId,
-                status,
-                limit,
+                organizationId, status, limit,
                 offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

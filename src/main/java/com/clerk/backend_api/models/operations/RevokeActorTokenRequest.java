@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class RevokeActorTokenRequest {
-
     /**
      * The ID of the actor token to be revoked.
      */
@@ -34,9 +33,10 @@ public class RevokeActorTokenRequest {
         return actorTokenId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the actor token to be revoked.
@@ -47,7 +47,6 @@ public class RevokeActorTokenRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class RevokeActorTokenRequest {
         }
         RevokeActorTokenRequest other = (RevokeActorTokenRequest) o;
         return 
-            Objects.deepEquals(this.actorTokenId, other.actorTokenId);
+            Utils.enhancedDeepEquals(this.actorTokenId, other.actorTokenId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             actorTokenId);
     }
     
@@ -72,14 +71,16 @@ public class RevokeActorTokenRequest {
         return Utils.toString(RevokeActorTokenRequest.class,
                 "actorTokenId", actorTokenId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String actorTokenId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the actor token to be revoked.
@@ -89,10 +90,12 @@ public class RevokeActorTokenRequest {
             this.actorTokenId = actorTokenId;
             return this;
         }
-        
+
         public RevokeActorTokenRequest build() {
+
             return new RevokeActorTokenRequest(
                 actorTokenId);
         }
+
     }
 }

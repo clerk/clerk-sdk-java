@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class PreviewTemplateRequest {
 
+public class PreviewTemplateRequest {
     /**
      * The type of template to preview
      */
@@ -77,9 +76,10 @@ public class PreviewTemplateRequest {
         return (Optional<PreviewTemplateRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of template to preview
@@ -108,6 +108,7 @@ public class PreviewTemplateRequest {
         return this;
     }
 
+
     /**
      * Required parameters
      */
@@ -117,7 +118,6 @@ public class PreviewTemplateRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -128,17 +128,15 @@ public class PreviewTemplateRequest {
         }
         PreviewTemplateRequest other = (PreviewTemplateRequest) o;
         return 
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateType,
-            slug,
-            requestBody);
+        return Utils.enhancedHash(
+            templateType, slug, requestBody);
     }
     
     @Override
@@ -148,18 +146,20 @@ public class PreviewTemplateRequest {
                 "slug", slug,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String templateType;
- 
+
         private String slug;
- 
+
         private Optional<? extends PreviewTemplateRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of template to preview
@@ -170,6 +170,7 @@ public class PreviewTemplateRequest {
             return this;
         }
 
+
         /**
          * The slug of the template to preview
          */
@@ -178,6 +179,7 @@ public class PreviewTemplateRequest {
             this.slug = slug;
             return this;
         }
+
 
         /**
          * Required parameters
@@ -196,12 +198,12 @@ public class PreviewTemplateRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public PreviewTemplateRequest build() {
+
             return new PreviewTemplateRequest(
-                templateType,
-                slug,
-                requestBody);
+                templateType, slug, requestBody);
         }
+
     }
 }

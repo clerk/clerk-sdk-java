@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteOrganizationDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class DeleteOrganizationDomainRequestBuilder {
     private String organizationId;
     private String domainId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteOrganizationDomain sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteOrganizationDomainRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOrganizationDomain sdk) {
-        this.sdk = sdk;
+    public DeleteOrganizationDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteOrganizationDomainRequestBuilder organizationId(String organizationId) {
@@ -45,13 +49,26 @@ public class DeleteOrganizationDomainRequestBuilder {
         return this;
     }
 
+
+    private DeleteOrganizationDomainRequest buildRequest() {
+
+        DeleteOrganizationDomainRequest request = new DeleteOrganizationDomainRequest(organizationId,
+            domainId);
+
+        return request;
+    }
+
     public DeleteOrganizationDomainResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            organizationId,
-            domainId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
+              = new DeleteOrganizationDomainOperation(
+                sdkConfiguration,
+                options);
+        DeleteOrganizationDomainRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

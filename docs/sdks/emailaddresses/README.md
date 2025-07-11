@@ -29,7 +29,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         CreateEmailAddressResponse res = sdk.emailAddresses().create()
@@ -78,7 +78,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetEmailAddressResponse res = sdk.emailAddresses().get()
@@ -128,7 +128,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         DeleteEmailAddressResponse res = sdk.emailAddresses().delete()
@@ -178,7 +178,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         UpdateEmailAddressResponse res = sdk.emailAddresses().update()

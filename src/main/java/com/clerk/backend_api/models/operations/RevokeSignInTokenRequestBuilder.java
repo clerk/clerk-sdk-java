@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevokeSignInTokenOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class RevokeSignInTokenRequestBuilder {
 
     private String signInTokenId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevokeSignInToken sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevokeSignInTokenRequestBuilder(SDKMethodInterfaces.MethodCallRevokeSignInToken sdk) {
-        this.sdk = sdk;
+    public RevokeSignInTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevokeSignInTokenRequestBuilder signInTokenId(String signInTokenId) {
@@ -38,12 +42,25 @@ public class RevokeSignInTokenRequestBuilder {
         return this;
     }
 
+
+    private RevokeSignInTokenRequest buildRequest() {
+
+        RevokeSignInTokenRequest request = new RevokeSignInTokenRequest(signInTokenId);
+
+        return request;
+    }
+
     public RevokeSignInTokenResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revoke(
-            signInTokenId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevokeSignInTokenRequest, RevokeSignInTokenResponse> operation
+              = new RevokeSignInTokenOperation(
+                sdkConfiguration,
+                options);
+        RevokeSignInTokenRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

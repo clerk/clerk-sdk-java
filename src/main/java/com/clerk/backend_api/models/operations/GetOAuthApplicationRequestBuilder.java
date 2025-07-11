@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetOAuthApplicationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetOAuthApplicationRequestBuilder {
 
     private String oauthApplicationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetOAuthApplication sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallGetOAuthApplication sdk) {
-        this.sdk = sdk;
+    public GetOAuthApplicationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
@@ -38,12 +42,25 @@ public class GetOAuthApplicationRequestBuilder {
         return this;
     }
 
+
+    private GetOAuthApplicationRequest buildRequest() {
+
+        GetOAuthApplicationRequest request = new GetOAuthApplicationRequest(oauthApplicationId);
+
+        return request;
+    }
+
     public GetOAuthApplicationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            oauthApplicationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetOAuthApplicationRequest, GetOAuthApplicationResponse> operation
+              = new GetOAuthApplicationOperation(
+                sdkConfiguration,
+                options);
+        GetOAuthApplicationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

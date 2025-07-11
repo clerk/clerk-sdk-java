@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.VerifyPasswordOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class VerifyPasswordRequestBuilder {
     private String userId;
     private Optional<? extends VerifyPasswordRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallVerifyPassword sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public VerifyPasswordRequestBuilder(SDKMethodInterfaces.MethodCallVerifyPassword sdk) {
-        this.sdk = sdk;
+    public VerifyPasswordRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public VerifyPasswordRequestBuilder userId(String userId) {
@@ -51,13 +55,26 @@ public class VerifyPasswordRequestBuilder {
         return this;
     }
 
+
+    private VerifyPasswordRequest buildRequest() {
+
+        VerifyPasswordRequest request = new VerifyPasswordRequest(userId,
+            requestBody);
+
+        return request;
+    }
+
     public VerifyPasswordResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.verifyPassword(
-            userId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
+              = new VerifyPasswordOperation(
+                sdkConfiguration,
+                options);
+        VerifyPasswordRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

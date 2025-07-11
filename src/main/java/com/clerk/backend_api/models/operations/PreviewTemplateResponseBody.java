@@ -7,7 +7,6 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * PreviewTemplateResponseBody
@@ -15,18 +14,15 @@ import java.util.Objects;
  * <p>OK
  */
 public class PreviewTemplateResponseBody {
-
     @JsonCreator
     public PreviewTemplateResponseBody() {
-        
-        
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
 
-    
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -40,7 +36,7 @@ public class PreviewTemplateResponseBody {
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             );
     }
     
@@ -48,16 +44,19 @@ public class PreviewTemplateResponseBody {
     public String toString() {
         return Utils.toString(PreviewTemplateResponseBody.class);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
-        
+
         private Builder() {
           // force use of static builder() method
         }
-        
+
         public PreviewTemplateResponseBody build() {
+
             return new PreviewTemplateResponseBody(
                 );
         }
+
     }
 }

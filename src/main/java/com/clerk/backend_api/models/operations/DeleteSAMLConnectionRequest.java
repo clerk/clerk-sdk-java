@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteSAMLConnectionRequest {
-
     /**
      * The ID of the SAML Connection to delete
      */
@@ -34,9 +33,10 @@ public class DeleteSAMLConnectionRequest {
         return samlConnectionId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the SAML Connection to delete
@@ -47,7 +47,6 @@ public class DeleteSAMLConnectionRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteSAMLConnectionRequest {
         }
         DeleteSAMLConnectionRequest other = (DeleteSAMLConnectionRequest) o;
         return 
-            Objects.deepEquals(this.samlConnectionId, other.samlConnectionId);
+            Utils.enhancedDeepEquals(this.samlConnectionId, other.samlConnectionId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             samlConnectionId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteSAMLConnectionRequest {
         return Utils.toString(DeleteSAMLConnectionRequest.class,
                 "samlConnectionId", samlConnectionId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String samlConnectionId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the SAML Connection to delete
@@ -89,10 +90,12 @@ public class DeleteSAMLConnectionRequest {
             this.samlConnectionId = samlConnectionId;
             return this;
         }
-        
+
         public DeleteSAMLConnectionRequest build() {
+
             return new DeleteSAMLConnectionRequest(
                 samlConnectionId);
         }
+
     }
 }

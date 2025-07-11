@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateProductionInstanceDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class UpdateProductionInstanceDomainRequestBuilder {
 
     private Optional<? extends UpdateProductionInstanceDomainRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateProductionInstanceDomain sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateProductionInstanceDomainRequestBuilder(SDKMethodInterfaces.MethodCallUpdateProductionInstanceDomain sdk) {
-        this.sdk = sdk;
+    public UpdateProductionInstanceDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public UpdateProductionInstanceDomainRequestBuilder request(UpdateProductionInstanceDomainRequestBody request) {
@@ -45,10 +49,14 @@ public class UpdateProductionInstanceDomainRequestBuilder {
 
     public UpdateProductionInstanceDomainResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.updateProductionInstanceDomain(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
+              = new UpdateProductionInstanceDomainOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

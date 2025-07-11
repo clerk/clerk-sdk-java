@@ -18,8 +18,8 @@ import java.lang.SuppressWarnings;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class SignUpVerification {
 
@@ -27,9 +27,11 @@ public class SignUpVerification {
     @JsonProperty("next_action")
     private Optional<? extends NextAction> nextAction;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("supported_strategies")
     private Optional<? extends List<String>> supportedStrategies;
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties;
@@ -66,15 +68,17 @@ public class SignUpVerification {
         return additionalProperties;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SignUpVerification withNextAction(NextAction nextAction) {
         Utils.checkNotNull(nextAction, "nextAction");
         this.nextAction = Optional.ofNullable(nextAction);
         return this;
     }
+
 
     public SignUpVerification withNextAction(Optional<? extends NextAction> nextAction) {
         Utils.checkNotNull(nextAction, "nextAction");
@@ -88,6 +92,7 @@ public class SignUpVerification {
         return this;
     }
 
+
     public SignUpVerification withSupportedStrategies(Optional<? extends List<String>> supportedStrategies) {
         Utils.checkNotNull(supportedStrategies, "supportedStrategies");
         this.supportedStrategies = supportedStrategies;
@@ -100,15 +105,13 @@ public class SignUpVerification {
         Utils.checkNotNull(key, "key");
         additionalProperties.put(key, value); 
         return this;
-    }    
-
+    }
     public SignUpVerification withAdditionalProperties(Map<String, Object> additionalProperties) {
         Utils.checkNotNull(additionalProperties, "additionalProperties");
         this.additionalProperties = additionalProperties;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -119,17 +122,15 @@ public class SignUpVerification {
         }
         SignUpVerification other = (SignUpVerification) o;
         return 
-            Objects.deepEquals(this.nextAction, other.nextAction) &&
-            Objects.deepEquals(this.supportedStrategies, other.supportedStrategies) &&
-            Objects.deepEquals(this.additionalProperties, other.additionalProperties);
+            Utils.enhancedDeepEquals(this.nextAction, other.nextAction) &&
+            Utils.enhancedDeepEquals(this.supportedStrategies, other.supportedStrategies) &&
+            Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            nextAction,
-            supportedStrategies,
-            additionalProperties);
+        return Utils.enhancedHash(
+            nextAction, supportedStrategies, additionalProperties);
     }
     
     @Override
@@ -139,18 +140,20 @@ public class SignUpVerification {
                 "supportedStrategies", supportedStrategies,
                 "additionalProperties", additionalProperties);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends NextAction> nextAction = Optional.empty();
- 
+
         private Optional<? extends List<String>> supportedStrategies = Optional.empty();
- 
+
         private Map<String, Object> additionalProperties = new HashMap<>();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder nextAction(NextAction nextAction) {
             Utils.checkNotNull(nextAction, "nextAction");
@@ -163,6 +166,7 @@ public class SignUpVerification {
             this.nextAction = nextAction;
             return this;
         }
+
 
         public Builder supportedStrategies(List<String> supportedStrategies) {
             Utils.checkNotNull(supportedStrategies, "supportedStrategies");
@@ -191,12 +195,13 @@ public class SignUpVerification {
             this.additionalProperties = additionalProperties;
             return this;
         }
-        
+
         public SignUpVerification build() {
+
             return new SignUpVerification(
-                nextAction,
-                supportedStrategies)
+                nextAction, supportedStrategies)
                 .withAdditionalProperties(additionalProperties);
         }
+
     }
 }

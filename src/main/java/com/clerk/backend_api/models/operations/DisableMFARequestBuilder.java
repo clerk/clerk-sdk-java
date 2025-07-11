@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DisableMFAOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DisableMFARequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDisableMFA sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DisableMFARequestBuilder(SDKMethodInterfaces.MethodCallDisableMFA sdk) {
-        this.sdk = sdk;
+    public DisableMFARequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DisableMFARequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class DisableMFARequestBuilder {
         return this;
     }
 
+
+    private DisableMFARequest buildRequest() {
+
+        DisableMFARequest request = new DisableMFARequest(userId);
+
+        return request;
+    }
+
     public DisableMFAResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.disableMfa(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DisableMFARequest, DisableMFAResponse> operation
+              = new DisableMFAOperation(
+                sdkConfiguration,
+                options);
+        DisableMFARequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

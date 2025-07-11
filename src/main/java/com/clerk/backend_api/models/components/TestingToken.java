@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * TestingToken
@@ -68,9 +67,10 @@ public class TestingToken {
         return expiresAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public TestingToken withObject(TestingTokenObject object) {
         Utils.checkNotNull(object, "object");
@@ -96,7 +96,6 @@ public class TestingToken {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -107,17 +106,15 @@ public class TestingToken {
         }
         TestingToken other = (TestingToken) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.token, other.token) &&
-            Objects.deepEquals(this.expiresAt, other.expiresAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.token, other.token) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            token,
-            expiresAt);
+        return Utils.enhancedHash(
+            object, token, expiresAt);
     }
     
     @Override
@@ -127,24 +124,27 @@ public class TestingToken {
                 "token", token,
                 "expiresAt", expiresAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private TestingTokenObject object;
- 
+
         private String token;
- 
+
         private Long expiresAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(TestingTokenObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
         }
+
 
         /**
          * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
@@ -155,6 +155,7 @@ public class TestingToken {
             return this;
         }
 
+
         /**
          * Unix timestamp of the token's expiration time.
          */
@@ -163,12 +164,12 @@ public class TestingToken {
             this.expiresAt = expiresAt;
             return this;
         }
-        
+
         public TestingToken build() {
+
             return new TestingToken(
-                object,
-                token,
-                expiresAt);
+                object, token, expiresAt);
         }
+
     }
 }

@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetOrganizationRequest {
 
+public class GetOrganizationRequest {
     /**
      * The ID or slug of the organization
      */
@@ -75,9 +74,10 @@ public class GetOrganizationRequest {
         return includeMissingMemberWithElevatedPermissions;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID or slug of the organization
@@ -97,6 +97,7 @@ public class GetOrganizationRequest {
         return this;
     }
 
+
     /**
      * Flag to denote whether or not the organization's members count should be included in the response.
      */
@@ -115,6 +116,7 @@ public class GetOrganizationRequest {
         return this;
     }
 
+
     /**
      * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
      */
@@ -124,7 +126,6 @@ public class GetOrganizationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -135,17 +136,15 @@ public class GetOrganizationRequest {
         }
         GetOrganizationRequest other = (GetOrganizationRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.includeMembersCount, other.includeMembersCount) &&
-            Objects.deepEquals(this.includeMissingMemberWithElevatedPermissions, other.includeMissingMemberWithElevatedPermissions);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.includeMembersCount, other.includeMembersCount) &&
+            Utils.enhancedDeepEquals(this.includeMissingMemberWithElevatedPermissions, other.includeMissingMemberWithElevatedPermissions);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            includeMembersCount,
-            includeMissingMemberWithElevatedPermissions);
+        return Utils.enhancedHash(
+            organizationId, includeMembersCount, includeMissingMemberWithElevatedPermissions);
     }
     
     @Override
@@ -155,18 +154,20 @@ public class GetOrganizationRequest {
                 "includeMembersCount", includeMembersCount,
                 "includeMissingMemberWithElevatedPermissions", includeMissingMemberWithElevatedPermissions);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<Boolean> includeMembersCount = Optional.empty();
- 
+
         private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID or slug of the organization
@@ -176,6 +177,7 @@ public class GetOrganizationRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Flag to denote whether or not the organization's members count should be included in the response.
@@ -195,6 +197,7 @@ public class GetOrganizationRequest {
             return this;
         }
 
+
         /**
          * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
          */
@@ -212,12 +215,12 @@ public class GetOrganizationRequest {
             this.includeMissingMemberWithElevatedPermissions = includeMissingMemberWithElevatedPermissions;
             return this;
         }
-        
+
         public GetOrganizationRequest build() {
+
             return new GetOrganizationRequest(
-                organizationId,
-                includeMembersCount,
-                includeMissingMemberWithElevatedPermissions);
+                organizationId, includeMembersCount, includeMissingMemberWithElevatedPermissions);
         }
+
     }
 }

@@ -9,12 +9,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UploadOrganizationLogoFile {
 
     @SpeakeasyMetadata("multipartForm:name=fileName")
     private String fileName;
+
 
     @SpeakeasyMetadata("multipartForm:content")
     private byte[] content;
@@ -39,9 +40,10 @@ public class UploadOrganizationLogoFile {
         return content;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public UploadOrganizationLogoFile withFileName(String fileName) {
         Utils.checkNotNull(fileName, "fileName");
@@ -55,7 +57,6 @@ public class UploadOrganizationLogoFile {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -66,15 +67,14 @@ public class UploadOrganizationLogoFile {
         }
         UploadOrganizationLogoFile other = (UploadOrganizationLogoFile) o;
         return 
-            Objects.deepEquals(this.fileName, other.fileName) &&
-            Objects.deepEquals(this.content, other.content);
+            Utils.enhancedDeepEquals(this.fileName, other.fileName) &&
+            Utils.enhancedDeepEquals(this.content, other.content);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            fileName,
-            content);
+        return Utils.enhancedHash(
+            fileName, content);
     }
     
     @Override
@@ -83,16 +83,18 @@ public class UploadOrganizationLogoFile {
                 "fileName", fileName,
                 "content", content);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String fileName;
- 
+
         private byte[] content;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder fileName(String fileName) {
             Utils.checkNotNull(fileName, "fileName");
@@ -100,16 +102,18 @@ public class UploadOrganizationLogoFile {
             return this;
         }
 
+
         public Builder content(byte[] content) {
             Utils.checkNotNull(content, "content");
             this.content = content;
             return this;
         }
-        
+
         public UploadOrganizationLogoFile build() {
+
             return new UploadOrganizationLogoFile(
-                fileName,
-                content);
+                fileName, content);
         }
+
     }
 }

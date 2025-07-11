@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOrganizationMembershipsRequest {
 
+public class ListOrganizationMembershipsRequest {
     /**
      * The organization ID.
      */
@@ -215,7 +214,13 @@ public class ListOrganizationMembershipsRequest {
     
     public ListOrganizationMembershipsRequest(
             String organizationId) {
-        this(organizationId, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(organizationId, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -395,9 +400,10 @@ public class ListOrganizationMembershipsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -417,6 +423,7 @@ public class ListOrganizationMembershipsRequest {
         this.orderBy = Optional.ofNullable(orderBy);
         return this;
     }
+
 
     /**
      * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -439,6 +446,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with the user ids specified. For each user id, the `+` and `-` can be
      * prepended to the id, which denote whether the respective user id should be included or
@@ -459,6 +467,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
      */
@@ -476,6 +485,7 @@ public class ListOrganizationMembershipsRequest {
         this.phoneNumber = Optional.ofNullable(phoneNumber);
         return this;
     }
+
 
     /**
      * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
@@ -496,6 +506,7 @@ public class ListOrganizationMembershipsRequest {
         this.username = Optional.ofNullable(username);
         return this;
     }
+
 
     /**
      * Returns users with the specified usernames.
@@ -519,6 +530,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
@@ -539,6 +551,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with the specified roles. Accepts up to 100 roles. Any roles not found are ignored.
      */
@@ -558,6 +571,7 @@ public class ListOrganizationMembershipsRequest {
         this.query = Optional.ofNullable(query);
         return this;
     }
+
 
     /**
      * Returns users that match the given query.
@@ -580,6 +594,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with emails that match the given query, via case-insensitive partial match.
      * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
@@ -599,6 +614,7 @@ public class ListOrganizationMembershipsRequest {
         this.phoneNumberQuery = Optional.ofNullable(phoneNumberQuery);
         return this;
     }
+
 
     /**
      * Returns users with phone numbers that match the given query, via case-insensitive partial match.
@@ -620,6 +636,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with usernames that match the given query, via case-insensitive partial match.
      * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
@@ -639,6 +656,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users with names that match the given query, via case-insensitive partial match.
      */
@@ -657,6 +675,7 @@ public class ListOrganizationMembershipsRequest {
         this.lastActiveAtBefore = Optional.ofNullable(lastActiveAtBefore);
         return this;
     }
+
 
     /**
      * Returns users whose last session activity was before the given date (with millisecond precision).
@@ -678,6 +697,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users whose last session activity was after the given date (with millisecond precision).
      * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
@@ -697,6 +717,7 @@ public class ListOrganizationMembershipsRequest {
         this.createdAtBefore = Optional.ofNullable(createdAtBefore);
         return this;
     }
+
 
     /**
      * Returns users who have been created before the given date (with millisecond precision).
@@ -718,6 +739,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Returns users who have been created after the given date (with millisecond precision).
      * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
@@ -737,6 +759,7 @@ public class ListOrganizationMembershipsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -759,6 +782,7 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -770,7 +794,6 @@ public class ListOrganizationMembershipsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -781,48 +804,36 @@ public class ListOrganizationMembershipsRequest {
         }
         ListOrganizationMembershipsRequest other = (ListOrganizationMembershipsRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.orderBy, other.orderBy) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.role, other.role) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
-            Objects.deepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
-            Objects.deepEquals(this.usernameQuery, other.usernameQuery) &&
-            Objects.deepEquals(this.nameQuery, other.nameQuery) &&
-            Objects.deepEquals(this.lastActiveAtBefore, other.lastActiveAtBefore) &&
-            Objects.deepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
-            Objects.deepEquals(this.createdAtBefore, other.createdAtBefore) &&
-            Objects.deepEquals(this.createdAtAfter, other.createdAtAfter) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.role, other.role) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
+            Utils.enhancedDeepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
+            Utils.enhancedDeepEquals(this.usernameQuery, other.usernameQuery) &&
+            Utils.enhancedDeepEquals(this.nameQuery, other.nameQuery) &&
+            Utils.enhancedDeepEquals(this.lastActiveAtBefore, other.lastActiveAtBefore) &&
+            Utils.enhancedDeepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
+            Utils.enhancedDeepEquals(this.createdAtBefore, other.createdAtBefore) &&
+            Utils.enhancedDeepEquals(this.createdAtAfter, other.createdAtAfter) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            orderBy,
-            userId,
-            emailAddress,
-            phoneNumber,
-            username,
-            web3Wallet,
-            role,
-            query,
-            emailAddressQuery,
-            phoneNumberQuery,
-            usernameQuery,
-            nameQuery,
-            lastActiveAtBefore,
-            lastActiveAtAfter,
-            createdAtBefore,
-            createdAtAfter,
-            limit,
+        return Utils.enhancedHash(
+            organizationId, orderBy, userId,
+            emailAddress, phoneNumber, username,
+            web3Wallet, role, query,
+            emailAddressQuery, phoneNumberQuery, usernameQuery,
+            nameQuery, lastActiveAtBefore, lastActiveAtAfter,
+            createdAtBefore, createdAtAfter, limit,
             offset);
     }
     
@@ -849,50 +860,52 @@ public class ListOrganizationMembershipsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<String> orderBy = Optional.empty();
- 
+
         private Optional<? extends List<String>> userId = Optional.empty();
- 
+
         private Optional<? extends List<String>> emailAddress = Optional.empty();
- 
+
         private Optional<? extends List<String>> phoneNumber = Optional.empty();
- 
+
         private Optional<? extends List<String>> username = Optional.empty();
- 
+
         private Optional<? extends List<String>> web3Wallet = Optional.empty();
- 
+
         private Optional<? extends List<String>> role = Optional.empty();
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<String> emailAddressQuery = Optional.empty();
- 
+
         private Optional<String> phoneNumberQuery = Optional.empty();
- 
+
         private Optional<String> usernameQuery = Optional.empty();
- 
+
         private Optional<String> nameQuery = Optional.empty();
- 
+
         private Optional<Long> lastActiveAtBefore = Optional.empty();
- 
+
         private Optional<Long> lastActiveAtAfter = Optional.empty();
- 
+
         private Optional<Long> createdAtBefore = Optional.empty();
- 
+
         private Optional<Long> createdAtAfter = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -902,6 +915,7 @@ public class ListOrganizationMembershipsRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -922,6 +936,7 @@ public class ListOrganizationMembershipsRequest {
             this.orderBy = orderBy;
             return this;
         }
+
 
         /**
          * Returns users with the user ids specified. For each user id, the `+` and `-` can be
@@ -945,6 +960,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
          */
@@ -963,6 +979,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
          */
@@ -980,6 +997,7 @@ public class ListOrganizationMembershipsRequest {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         /**
          * Returns users with the specified usernames.
@@ -1003,6 +1021,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
@@ -1025,6 +1044,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with the specified roles. Accepts up to 100 roles. Any roles not found are ignored.
          */
@@ -1042,6 +1062,7 @@ public class ListOrganizationMembershipsRequest {
             this.role = role;
             return this;
         }
+
 
         /**
          * Returns users that match the given query.
@@ -1065,6 +1086,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with emails that match the given query, via case-insensitive partial match.
          * For example, `email_address_query=ello` will match a user with the email `HELLO@example.com`.
@@ -1084,6 +1106,7 @@ public class ListOrganizationMembershipsRequest {
             this.emailAddressQuery = emailAddressQuery;
             return this;
         }
+
 
         /**
          * Returns users with phone numbers that match the given query, via case-insensitive partial match.
@@ -1105,6 +1128,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with usernames that match the given query, via case-insensitive partial match.
          * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`.
@@ -1125,6 +1149,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users with names that match the given query, via case-insensitive partial match.
          */
@@ -1142,6 +1167,7 @@ public class ListOrganizationMembershipsRequest {
             this.nameQuery = nameQuery;
             return this;
         }
+
 
         /**
          * Returns users whose last session activity was before the given date (with millisecond precision).
@@ -1163,6 +1189,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users whose last session activity was after the given date (with millisecond precision).
          * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
@@ -1182,6 +1209,7 @@ public class ListOrganizationMembershipsRequest {
             this.lastActiveAtAfter = lastActiveAtAfter;
             return this;
         }
+
 
         /**
          * Returns users who have been created before the given date (with millisecond precision).
@@ -1203,6 +1231,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Returns users who have been created after the given date (with millisecond precision).
          * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
@@ -1223,6 +1252,7 @@ public class ListOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -1242,6 +1272,7 @@ public class ListOrganizationMembershipsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -1264,7 +1295,7 @@ public class ListOrganizationMembershipsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListOrganizationMembershipsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -1272,27 +1303,17 @@ public class ListOrganizationMembershipsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListOrganizationMembershipsRequest(
-                organizationId,
-                orderBy,
-                userId,
-                emailAddress,
-                phoneNumber,
-                username,
-                web3Wallet,
-                role,
-                query,
-                emailAddressQuery,
-                phoneNumberQuery,
-                usernameQuery,
-                nameQuery,
-                lastActiveAtBefore,
-                lastActiveAtAfter,
-                createdAtBefore,
-                createdAtAfter,
-                limit,
+                organizationId, orderBy, userId,
+                emailAddress, phoneNumber, username,
+                web3Wallet, role, query,
+                emailAddressQuery, phoneNumberQuery, usernameQuery,
+                nameQuery, lastActiveAtBefore, lastActiveAtAfter,
+                createdAtBefore, createdAtAfter, limit,
                 offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

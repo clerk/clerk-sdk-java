@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateEmailAddressRequestBody {
 
+public class CreateEmailAddressRequestBody {
     /**
      * The ID representing the user
      */
@@ -63,7 +62,8 @@ public class CreateEmailAddressRequestBody {
     public CreateEmailAddressRequestBody(
             String userId,
             String emailAddress) {
-        this(userId, emailAddress, JsonNullable.undefined(), JsonNullable.undefined());
+        this(userId, emailAddress, JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -99,9 +99,10 @@ public class CreateEmailAddressRequestBody {
         return primary;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID representing the user
@@ -159,7 +160,6 @@ public class CreateEmailAddressRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -170,18 +170,16 @@ public class CreateEmailAddressRequestBody {
         }
         CreateEmailAddressRequestBody other = (CreateEmailAddressRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.primary, other.primary);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.primary, other.primary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            emailAddress,
-            verified,
+        return Utils.enhancedHash(
+            userId, emailAddress, verified,
             primary);
     }
     
@@ -193,20 +191,22 @@ public class CreateEmailAddressRequestBody {
                 "verified", verified,
                 "primary", primary);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String emailAddress;
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> primary = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID representing the user
@@ -217,6 +217,7 @@ public class CreateEmailAddressRequestBody {
             return this;
         }
 
+
         /**
          * The new email address. Must adhere to the RFC 5322 specification for email address format.
          */
@@ -225,6 +226,7 @@ public class CreateEmailAddressRequestBody {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         /**
          * When created, the email address will be marked as verified.
@@ -243,6 +245,7 @@ public class CreateEmailAddressRequestBody {
             this.verified = verified;
             return this;
         }
+
 
         /**
          * Create this email address as the primary email address for the user.
@@ -263,13 +266,13 @@ public class CreateEmailAddressRequestBody {
             this.primary = primary;
             return this;
         }
-        
+
         public CreateEmailAddressRequestBody build() {
+
             return new CreateEmailAddressRequestBody(
-                userId,
-                emailAddress,
-                verified,
+                userId, emailAddress, verified,
                 primary);
         }
+
     }
 }

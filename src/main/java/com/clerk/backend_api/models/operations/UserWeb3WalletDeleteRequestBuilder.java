@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UserWeb3WalletDeleteOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UserWeb3WalletDeleteRequestBuilder {
     private String userId;
     private String web3WalletIdentificationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUserWeb3WalletDelete sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UserWeb3WalletDeleteRequestBuilder(SDKMethodInterfaces.MethodCallUserWeb3WalletDelete sdk) {
-        this.sdk = sdk;
+    public UserWeb3WalletDeleteRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UserWeb3WalletDeleteRequestBuilder userId(String userId) {
@@ -45,13 +49,26 @@ public class UserWeb3WalletDeleteRequestBuilder {
         return this;
     }
 
+
+    private UserWeb3WalletDeleteRequest buildRequest() {
+
+        UserWeb3WalletDeleteRequest request = new UserWeb3WalletDeleteRequest(userId,
+            web3WalletIdentificationId);
+
+        return request;
+    }
+
     public UserWeb3WalletDeleteResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteWeb3Wallet(
-            userId,
-            web3WalletIdentificationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation
+              = new UserWeb3WalletDeleteOperation(
+                sdkConfiguration,
+                options);
+        UserWeb3WalletDeleteRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

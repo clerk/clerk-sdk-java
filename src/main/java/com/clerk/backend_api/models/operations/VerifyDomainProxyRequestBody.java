@@ -11,11 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class VerifyDomainProxyRequestBody {
 
+public class VerifyDomainProxyRequestBody {
     /**
      * The ID of the domain that will be updated.
      */
@@ -60,9 +59,10 @@ public class VerifyDomainProxyRequestBody {
         return proxyUrl;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the domain that will be updated.
@@ -72,6 +72,7 @@ public class VerifyDomainProxyRequestBody {
         this.domainId = Optional.ofNullable(domainId);
         return this;
     }
+
 
     /**
      * The ID of the domain that will be updated.
@@ -91,6 +92,7 @@ public class VerifyDomainProxyRequestBody {
         return this;
     }
 
+
     /**
      * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
      */
@@ -100,7 +102,6 @@ public class VerifyDomainProxyRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -111,15 +112,14 @@ public class VerifyDomainProxyRequestBody {
         }
         VerifyDomainProxyRequestBody other = (VerifyDomainProxyRequestBody) o;
         return 
-            Objects.deepEquals(this.domainId, other.domainId) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Utils.enhancedDeepEquals(this.domainId, other.domainId) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            domainId,
-            proxyUrl);
+        return Utils.enhancedHash(
+            domainId, proxyUrl);
     }
     
     @Override
@@ -128,16 +128,18 @@ public class VerifyDomainProxyRequestBody {
                 "domainId", domainId,
                 "proxyUrl", proxyUrl);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> domainId = Optional.empty();
- 
+
         private Optional<String> proxyUrl = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the domain that will be updated.
@@ -157,6 +159,7 @@ public class VerifyDomainProxyRequestBody {
             return this;
         }
 
+
         /**
          * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
          */
@@ -174,11 +177,12 @@ public class VerifyDomainProxyRequestBody {
             this.proxyUrl = proxyUrl;
             return this;
         }
-        
+
         public VerifyDomainProxyRequestBody build() {
+
             return new VerifyDomainProxyRequestBody(
-                domainId,
-                proxyUrl);
+                domainId, proxyUrl);
         }
+
     }
 }

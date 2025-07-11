@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UpdateOrganizationDomainRequest {
-
     /**
      * The ID of the organization the domain belongs to
      */
@@ -24,6 +23,7 @@ public class UpdateOrganizationDomainRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=domain_id")
     private String domainId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private UpdateOrganizationDomainRequestBody requestBody;
@@ -62,9 +62,10 @@ public class UpdateOrganizationDomainRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization the domain belongs to
@@ -90,7 +91,6 @@ public class UpdateOrganizationDomainRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -101,17 +101,15 @@ public class UpdateOrganizationDomainRequest {
         }
         UpdateOrganizationDomainRequest other = (UpdateOrganizationDomainRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.domainId, other.domainId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.domainId, other.domainId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            domainId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, domainId, requestBody);
     }
     
     @Override
@@ -121,18 +119,20 @@ public class UpdateOrganizationDomainRequest {
                 "domainId", domainId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String domainId;
- 
+
         private UpdateOrganizationDomainRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization the domain belongs to
@@ -143,6 +143,7 @@ public class UpdateOrganizationDomainRequest {
             return this;
         }
 
+
         /**
          * The ID of the domain
          */
@@ -152,17 +153,18 @@ public class UpdateOrganizationDomainRequest {
             return this;
         }
 
+
         public Builder requestBody(UpdateOrganizationDomainRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateOrganizationDomainRequest build() {
+
             return new UpdateOrganizationDomainRequest(
-                organizationId,
-                domainId,
-                requestBody);
+                organizationId, domainId, requestBody);
         }
+
     }
 }

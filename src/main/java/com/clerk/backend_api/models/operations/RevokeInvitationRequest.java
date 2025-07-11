@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class RevokeInvitationRequest {
-
     /**
      * The ID of the invitation to be revoked
      */
@@ -34,9 +33,10 @@ public class RevokeInvitationRequest {
         return invitationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the invitation to be revoked
@@ -47,7 +47,6 @@ public class RevokeInvitationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class RevokeInvitationRequest {
         }
         RevokeInvitationRequest other = (RevokeInvitationRequest) o;
         return 
-            Objects.deepEquals(this.invitationId, other.invitationId);
+            Utils.enhancedDeepEquals(this.invitationId, other.invitationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             invitationId);
     }
     
@@ -72,14 +71,16 @@ public class RevokeInvitationRequest {
         return Utils.toString(RevokeInvitationRequest.class,
                 "invitationId", invitationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String invitationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the invitation to be revoked
@@ -89,10 +90,12 @@ public class RevokeInvitationRequest {
             this.invitationId = invitationId;
             return this;
         }
-        
+
         public RevokeInvitationRequest build() {
+
             return new RevokeInvitationRequest(
                 invitationId);
         }
+
     }
 }

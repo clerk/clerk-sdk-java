@@ -14,7 +14,7 @@ public enum SAMLVerificationStrategy {
     @JsonValue
     private final String value;
 
-    private SAMLVerificationStrategy(String value) {
+    SAMLVerificationStrategy(String value) {
         this.value = value;
     }
     

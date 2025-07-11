@@ -16,7 +16,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,12 +34,15 @@ public class OrganizationMembership {
     @JsonProperty("object")
     private OrganizationMembershipObject object;
 
+
     @JsonProperty("role")
     private String role;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("role_name")
     private Optional<String> roleName;
+
 
     @JsonProperty("permissions")
     private List<String> permissions;
@@ -57,6 +59,7 @@ public class OrganizationMembership {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
     private Optional<? extends Map<String, Object>> privateMetadata;
+
 
     @JsonProperty("organization")
     private OrganizationMembershipOrganization organization;
@@ -99,6 +102,7 @@ public class OrganizationMembership {
         Utils.checkNotNull(roleName, "roleName");
         Utils.checkNotNull(permissions, "permissions");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(organization, "organization");
         Utils.checkNotNull(publicUserData, "publicUserData");
@@ -126,7 +130,10 @@ public class OrganizationMembership {
             OrganizationMembershipOrganization organization,
             long createdAt,
             long updatedAt) {
-        this(id, object, role, Optional.empty(), permissions, publicMetadata, Optional.empty(), organization, Optional.empty(), createdAt, updatedAt);
+        this(id, object, role,
+            Optional.empty(), permissions, publicMetadata,
+            Optional.empty(), organization, Optional.empty(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -204,9 +211,10 @@ public class OrganizationMembership {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OrganizationMembership withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -234,6 +242,7 @@ public class OrganizationMembership {
         this.roleName = Optional.ofNullable(roleName);
         return this;
     }
+
 
     public OrganizationMembership withRoleName(Optional<String> roleName) {
         Utils.checkNotNull(roleName, "roleName");
@@ -265,6 +274,7 @@ public class OrganizationMembership {
         return this;
     }
 
+
     /**
      * Metadata saved on the organization membership, accessible only from the Backend API
      */
@@ -288,6 +298,7 @@ public class OrganizationMembership {
         this.publicUserData = Optional.ofNullable(publicUserData);
         return this;
     }
+
 
     /**
      * An organization membership with public user data populated
@@ -316,7 +327,6 @@ public class OrganizationMembership {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -327,33 +337,26 @@ public class OrganizationMembership {
         }
         OrganizationMembership other = (OrganizationMembership) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.role, other.role) &&
-            Objects.deepEquals(this.roleName, other.roleName) &&
-            Objects.deepEquals(this.permissions, other.permissions) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.organization, other.organization) &&
-            Objects.deepEquals(this.publicUserData, other.publicUserData) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.role, other.role) &&
+            Utils.enhancedDeepEquals(this.roleName, other.roleName) &&
+            Utils.enhancedDeepEquals(this.permissions, other.permissions) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.organization, other.organization) &&
+            Utils.enhancedDeepEquals(this.publicUserData, other.publicUserData) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            role,
-            roleName,
-            permissions,
-            publicMetadata,
-            privateMetadata,
-            organization,
-            publicUserData,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            id, object, role,
+            roleName, permissions, publicMetadata,
+            privateMetadata, organization, publicUserData,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -371,40 +374,43 @@ public class OrganizationMembership {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private OrganizationMembershipObject object;
- 
+
         private String role;
- 
+
         private Optional<String> roleName = Optional.empty();
- 
+
         private List<String> permissions;
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
- 
+
         private OrganizationMembershipOrganization organization;
- 
+
         private Optional<? extends OrganizationMembershipPublicUserData> publicUserData = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -415,11 +421,13 @@ public class OrganizationMembership {
             return this;
         }
 
+
         public Builder role(String role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
             return this;
         }
+
 
         public Builder roleName(String roleName) {
             Utils.checkNotNull(roleName, "roleName");
@@ -433,11 +441,13 @@ public class OrganizationMembership {
             return this;
         }
 
+
         public Builder permissions(List<String> permissions) {
             Utils.checkNotNull(permissions, "permissions");
             this.permissions = permissions;
             return this;
         }
+
 
         /**
          * Metadata saved on the organization membership, accessible from both Frontend and Backend APIs
@@ -447,6 +457,7 @@ public class OrganizationMembership {
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         /**
          * Metadata saved on the organization membership, accessible only from the Backend API
@@ -466,11 +477,13 @@ public class OrganizationMembership {
             return this;
         }
 
+
         public Builder organization(OrganizationMembershipOrganization organization) {
             Utils.checkNotNull(organization, "organization");
             this.organization = organization;
             return this;
         }
+
 
         /**
          * An organization membership with public user data populated
@@ -490,6 +503,7 @@ public class OrganizationMembership {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -499,6 +513,7 @@ public class OrganizationMembership {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -507,20 +522,15 @@ public class OrganizationMembership {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public OrganizationMembership build() {
+
             return new OrganizationMembership(
-                id,
-                object,
-                role,
-                roleName,
-                permissions,
-                publicMetadata,
-                privateMetadata,
-                organization,
-                publicUserData,
-                createdAt,
-                updatedAt);
+                id, object, role,
+                roleName, permissions, publicMetadata,
+                privateMetadata, organization, publicUserData,
+                createdAt, updatedAt);
         }
+
     }
 }

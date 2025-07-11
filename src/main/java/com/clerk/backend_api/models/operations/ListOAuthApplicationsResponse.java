@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOAuthApplicationsResponse implements Response {
 
+public class ListOAuthApplicationsResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -59,7 +58,8 @@ public class ListOAuthApplicationsResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -95,9 +95,10 @@ public class ListOAuthApplicationsResponse implements Response {
         return (Optional<OAuthApplications>) oAuthApplications;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -135,6 +136,7 @@ public class ListOAuthApplicationsResponse implements Response {
         return this;
     }
 
+
     /**
      * A list of OAuth applications
      */
@@ -144,7 +146,6 @@ public class ListOAuthApplicationsResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -155,18 +156,16 @@ public class ListOAuthApplicationsResponse implements Response {
         }
         ListOAuthApplicationsResponse other = (ListOAuthApplicationsResponse) o;
         return 
-            Objects.deepEquals(this.contentType, other.contentType) &&
-            Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.oAuthApplications, other.oAuthApplications);
+            Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
+            Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
+            Utils.enhancedDeepEquals(this.oAuthApplications, other.oAuthApplications);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            contentType,
-            statusCode,
-            rawResponse,
+        return Utils.enhancedHash(
+            contentType, statusCode, rawResponse,
             oAuthApplications);
     }
     
@@ -178,20 +177,22 @@ public class ListOAuthApplicationsResponse implements Response {
                 "rawResponse", rawResponse,
                 "oAuthApplications", oAuthApplications);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends OAuthApplications> oAuthApplications = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -202,6 +203,7 @@ public class ListOAuthApplicationsResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -211,6 +213,7 @@ public class ListOAuthApplicationsResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -219,6 +222,7 @@ public class ListOAuthApplicationsResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * A list of OAuth applications
@@ -237,13 +241,13 @@ public class ListOAuthApplicationsResponse implements Response {
             this.oAuthApplications = oAuthApplications;
             return this;
         }
-        
+
         public ListOAuthApplicationsResponse build() {
+
             return new ListOAuthApplicationsResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 oAuthApplications);
         }
+
     }
 }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -21,7 +20,6 @@ import java.util.Optional;
  * <p>Verification details for the domain
  */
 public class OrganizationDomainVerification {
-
     /**
      * Status of the verification. It can be `unverified` or `verified`
      */
@@ -67,7 +65,8 @@ public class OrganizationDomainVerification {
     public OrganizationDomainVerification(
             OrganizationDomainStatus status,
             String strategy) {
-        this(status, strategy, Optional.empty(), Optional.empty());
+        this(status, strategy, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -102,9 +101,10 @@ public class OrganizationDomainVerification {
         return expireAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Status of the verification. It can be `unverified` or `verified`
@@ -133,6 +133,7 @@ public class OrganizationDomainVerification {
         return this;
     }
 
+
     /**
      * How many attempts have been made to verify the domain
      */
@@ -151,6 +152,7 @@ public class OrganizationDomainVerification {
         return this;
     }
 
+
     /**
      * Unix timestamp of when the verification will expire
      */
@@ -160,7 +162,6 @@ public class OrganizationDomainVerification {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -171,18 +172,16 @@ public class OrganizationDomainVerification {
         }
         OrganizationDomainVerification other = (OrganizationDomainVerification) o;
         return 
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.strategy, other.strategy) &&
-            Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.expireAt, other.expireAt);
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
+            Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
+            Utils.enhancedDeepEquals(this.expireAt, other.expireAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            status,
-            strategy,
-            attempts,
+        return Utils.enhancedHash(
+            status, strategy, attempts,
             expireAt);
     }
     
@@ -194,20 +193,22 @@ public class OrganizationDomainVerification {
                 "attempts", attempts,
                 "expireAt", expireAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OrganizationDomainStatus status;
- 
+
         private String strategy;
- 
+
         private Optional<Long> attempts = Optional.empty();
- 
+
         private Optional<Long> expireAt = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Status of the verification. It can be `unverified` or `verified`
@@ -218,6 +219,7 @@ public class OrganizationDomainVerification {
             return this;
         }
 
+
         /**
          * Name of the strategy used to verify the domain
          */
@@ -226,6 +228,7 @@ public class OrganizationDomainVerification {
             this.strategy = strategy;
             return this;
         }
+
 
         /**
          * How many attempts have been made to verify the domain
@@ -245,6 +248,7 @@ public class OrganizationDomainVerification {
             return this;
         }
 
+
         /**
          * Unix timestamp of when the verification will expire
          */
@@ -262,13 +266,13 @@ public class OrganizationDomainVerification {
             this.expireAt = expireAt;
             return this;
         }
-        
+
         public OrganizationDomainVerification build() {
+
             return new OrganizationDomainVerification(
-                status,
-                strategy,
-                attempts,
+                status, strategy, attempts,
                 expireAt);
         }
+
     }
 }

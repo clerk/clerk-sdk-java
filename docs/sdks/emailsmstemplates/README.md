@@ -33,7 +33,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetTemplateListResponse res = sdk.emailSMSTemplates().list()
@@ -91,7 +91,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetTemplateResponse res = sdk.emailSMSTemplates().get()
@@ -146,7 +146,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         RevertTemplateResponse res = sdk.emailSMSTemplates().revert()
@@ -203,7 +203,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         ToggleTemplateDeliveryResponse res = sdk.emailSMSTemplates().toggleTemplateDelivery()

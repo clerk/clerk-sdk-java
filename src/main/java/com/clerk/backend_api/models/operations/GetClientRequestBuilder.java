@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetClientOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetClientRequestBuilder {
 
     private String clientId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetClient sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetClientRequestBuilder(SDKMethodInterfaces.MethodCallGetClient sdk) {
-        this.sdk = sdk;
+    public GetClientRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetClientRequestBuilder clientId(String clientId) {
@@ -38,12 +42,25 @@ public class GetClientRequestBuilder {
         return this;
     }
 
+
+    private GetClientRequest buildRequest() {
+
+        GetClientRequest request = new GetClientRequest(clientId);
+
+        return request;
+    }
+
     public GetClientResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            clientId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetClientRequest, GetClientResponse> operation
+              = new GetClientOperation(
+                sdkConfiguration,
+                options);
+        GetClientRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

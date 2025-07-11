@@ -14,7 +14,7 @@ public enum OAuthApplicationWithSecretObject {
     @JsonValue
     private final String value;
 
-    private OAuthApplicationWithSecretObject(String value) {
+    OAuthApplicationWithSecretObject(String value) {
         this.value = value;
     }
     

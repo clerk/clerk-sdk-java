@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UploadOrganizationLogoOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UploadOrganizationLogoRequestBuilder {
     private String organizationId;
     private Optional<? extends UploadOrganizationLogoRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUploadOrganizationLogo sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UploadOrganizationLogoRequestBuilder(SDKMethodInterfaces.MethodCallUploadOrganizationLogo sdk) {
-        this.sdk = sdk;
+    public UploadOrganizationLogoRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UploadOrganizationLogoRequestBuilder organizationId(String organizationId) {
@@ -51,13 +55,26 @@ public class UploadOrganizationLogoRequestBuilder {
         return this;
     }
 
+
+    private UploadOrganizationLogoRequest buildRequest() {
+
+        UploadOrganizationLogoRequest request = new UploadOrganizationLogoRequest(organizationId,
+            requestBody);
+
+        return request;
+    }
+
     public UploadOrganizationLogoResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.uploadLogo(
-            organizationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UploadOrganizationLogoRequest, UploadOrganizationLogoResponse> operation
+              = new UploadOrganizationLogoOperation(
+                sdkConfiguration,
+                options);
+        UploadOrganizationLogoRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

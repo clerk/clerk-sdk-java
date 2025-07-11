@@ -13,11 +13,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListInstanceOrganizationInvitationsRequest {
 
+public class ListInstanceOrganizationInvitationsRequest {
     /**
      * Allows to return organization invitations in a particular order.
      * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
@@ -76,7 +75,8 @@ public class ListInstanceOrganizationInvitationsRequest {
     }
     
     public ListInstanceOrganizationInvitationsRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -128,9 +128,10 @@ public class ListInstanceOrganizationInvitationsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Allows to return organization invitations in a particular order.
@@ -145,6 +146,7 @@ public class ListInstanceOrganizationInvitationsRequest {
         this.orderBy = Optional.ofNullable(orderBy);
         return this;
     }
+
 
     /**
      * Allows to return organization invitations in a particular order.
@@ -169,6 +171,7 @@ public class ListInstanceOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Filter organization invitations based on their status
      */
@@ -186,6 +189,7 @@ public class ListInstanceOrganizationInvitationsRequest {
         this.query = Optional.ofNullable(query);
         return this;
     }
+
 
     /**
      * Filter organization invitations based on their `email_address`
@@ -205,6 +209,7 @@ public class ListInstanceOrganizationInvitationsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -227,6 +232,7 @@ public class ListInstanceOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -238,7 +244,6 @@ public class ListInstanceOrganizationInvitationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -249,21 +254,18 @@ public class ListInstanceOrganizationInvitationsRequest {
         }
         ListInstanceOrganizationInvitationsRequest other = (ListInstanceOrganizationInvitationsRequest) o;
         return 
-            Objects.deepEquals(this.orderBy, other.orderBy) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            orderBy,
-            status,
-            query,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            orderBy, status, query,
+            limit, offset);
     }
     
     @Override
@@ -275,22 +277,24 @@ public class ListInstanceOrganizationInvitationsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> orderBy;
- 
+
         private Optional<? extends ListInstanceOrganizationInvitationsQueryParamStatus> status = Optional.empty();
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Allows to return organization invitations in a particular order.
@@ -320,6 +324,7 @@ public class ListInstanceOrganizationInvitationsRequest {
             return this;
         }
 
+
         /**
          * Filter organization invitations based on their status
          */
@@ -338,6 +343,7 @@ public class ListInstanceOrganizationInvitationsRequest {
             return this;
         }
 
+
         /**
          * Filter organization invitations based on their `email_address`
          */
@@ -355,6 +361,7 @@ public class ListInstanceOrganizationInvitationsRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -375,6 +382,7 @@ public class ListInstanceOrganizationInvitationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -397,7 +405,7 @@ public class ListInstanceOrganizationInvitationsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListInstanceOrganizationInvitationsRequest build() {
             if (orderBy == null) {
                 orderBy = _SINGLETON_VALUE_OrderBy.value();
@@ -408,13 +416,12 @@ public class ListInstanceOrganizationInvitationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListInstanceOrganizationInvitationsRequest(
-                orderBy,
-                status,
-                query,
-                limit,
-                offset);
+                orderBy, status, query,
+                limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
                 new LazySingletonValue<>(

@@ -19,7 +19,7 @@ public enum Web3WalletObject {
     @JsonValue
     private final String value;
 
-    private Web3WalletObject(String value) {
+    Web3WalletObject(String value) {
         this.value = value;
     }
     

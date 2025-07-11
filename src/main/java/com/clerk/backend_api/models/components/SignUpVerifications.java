@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class SignUpVerifications {
 
@@ -21,13 +21,16 @@ public class SignUpVerifications {
     @JsonProperty("email_address")
     private Optional<? extends SignUpVerification> emailAddress;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("phone_number")
     private Optional<? extends SignUpVerification> phoneNumber;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("web3_wallet")
     private Optional<? extends SignUpVerification> web3Wallet;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("external_account")
@@ -50,7 +53,8 @@ public class SignUpVerifications {
     }
     
     public SignUpVerifications() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @SuppressWarnings("unchecked")
@@ -77,15 +81,17 @@ public class SignUpVerifications {
         return (Optional<ExternalAccount>) externalAccount;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SignUpVerifications withEmailAddress(SignUpVerification emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
     }
+
 
     public SignUpVerifications withEmailAddress(Optional<? extends SignUpVerification> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -99,6 +105,7 @@ public class SignUpVerifications {
         return this;
     }
 
+
     public SignUpVerifications withPhoneNumber(Optional<? extends SignUpVerification> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
@@ -110,6 +117,7 @@ public class SignUpVerifications {
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
     }
+
 
     public SignUpVerifications withWeb3Wallet(Optional<? extends SignUpVerification> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -123,13 +131,13 @@ public class SignUpVerifications {
         return this;
     }
 
+
     public SignUpVerifications withExternalAccount(Optional<? extends ExternalAccount> externalAccount) {
         Utils.checkNotNull(externalAccount, "externalAccount");
         this.externalAccount = externalAccount;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -140,18 +148,16 @@ public class SignUpVerifications {
         }
         SignUpVerifications other = (SignUpVerifications) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.externalAccount, other.externalAccount);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.externalAccount, other.externalAccount);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            phoneNumber,
-            web3Wallet,
+        return Utils.enhancedHash(
+            emailAddress, phoneNumber, web3Wallet,
             externalAccount);
     }
     
@@ -163,20 +169,22 @@ public class SignUpVerifications {
                 "web3Wallet", web3Wallet,
                 "externalAccount", externalAccount);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends SignUpVerification> emailAddress = Optional.empty();
- 
+
         private Optional<? extends SignUpVerification> phoneNumber = Optional.empty();
- 
+
         private Optional<? extends SignUpVerification> web3Wallet = Optional.empty();
- 
+
         private Optional<? extends ExternalAccount> externalAccount = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder emailAddress(SignUpVerification emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -190,6 +198,7 @@ public class SignUpVerifications {
             return this;
         }
 
+
         public Builder phoneNumber(SignUpVerification phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = Optional.ofNullable(phoneNumber);
@@ -201,6 +210,7 @@ public class SignUpVerifications {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         public Builder web3Wallet(SignUpVerification web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -214,6 +224,7 @@ public class SignUpVerifications {
             return this;
         }
 
+
         public Builder externalAccount(ExternalAccount externalAccount) {
             Utils.checkNotNull(externalAccount, "externalAccount");
             this.externalAccount = Optional.ofNullable(externalAccount);
@@ -225,13 +236,13 @@ public class SignUpVerifications {
             this.externalAccount = externalAccount;
             return this;
         }
-        
+
         public SignUpVerifications build() {
+
             return new SignUpVerifications(
-                emailAddress,
-                phoneNumber,
-                web3Wallet,
+                emailAddress, phoneNumber, web3Wallet,
                 externalAccount);
         }
+
     }
 }

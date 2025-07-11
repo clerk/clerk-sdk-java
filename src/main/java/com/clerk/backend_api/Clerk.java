@@ -6,6 +6,7 @@ package com.clerk.backend_api;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.Hook.SdkInitData;
 import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
 import java.util.Map;
@@ -31,202 +32,267 @@ public class Clerk {
      * SERVERS contains the list of server urls available to the SDK.
      */
     public static final String[] SERVERS = {
+
         "https://api.clerk.com/v1",
     };
 
+
     private final Miscellaneous miscellaneous;
+
 
     private final Jwks jwks;
 
+
     private final Clients clients;
+
 
     private final EmailAddresses emailAddresses;
 
+
     private final PhoneNumbers phoneNumbers;
+
 
     private final Sessions sessions;
 
+
     private final EmailSMSTemplates emailSMSTemplates;
+
 
     private final EmailAndSmsTemplates emailAndSmsTemplates;
 
+
     private final Templates templates;
+
 
     private final Users users;
 
+
     private final Invitations invitations;
+
 
     private final OrganizationInvitations organizationInvitations;
 
+
     private final AllowlistIdentifiers allowlistIdentifiers;
+
 
     private final BlocklistIdentifiers blocklistIdentifiers;
 
+
     private final BetaFeatures betaFeatures;
+
 
     private final ActorTokens actorTokens;
 
+
     private final Domains domains;
+
 
     private final InstanceSettings instanceSettings;
 
+
     private final Webhooks webhooks;
+
 
     private final JwtTemplates jwtTemplates;
 
+
     private final Organizations organizations;
+
 
     private final OrganizationMemberships organizationMemberships;
 
+
     private final OrganizationDomains organizationDomains;
+
 
     private final ProxyChecks proxyChecks;
 
+
     private final RedirectUrls redirectUrls;
+
 
     private final SignInTokens signInTokens;
 
+
     private final SignUps signUps;
+
 
     private final OauthApplications oauthApplications;
 
+
     private final SamlConnections samlConnections;
+
 
     private final TestingTokens testingTokens;
 
+
     private final WaitlistEntries waitlistEntries;
 
+
     private final ExperimentalAccountlessApplications experimentalAccountlessApplications;
+
 
     public Miscellaneous miscellaneous() {
         return miscellaneous;
     }
 
+
     public Jwks jwks() {
         return jwks;
     }
+
 
     public Clients clients() {
         return clients;
     }
 
+
     public EmailAddresses emailAddresses() {
         return emailAddresses;
     }
+
 
     public PhoneNumbers phoneNumbers() {
         return phoneNumbers;
     }
 
+
     public Sessions sessions() {
         return sessions;
     }
+
 
     public EmailSMSTemplates emailSMSTemplates() {
         return emailSMSTemplates;
     }
 
+
     public EmailAndSmsTemplates emailAndSmsTemplates() {
         return emailAndSmsTemplates;
     }
+
 
     public Templates templates() {
         return templates;
     }
 
+
     public Users users() {
         return users;
     }
+
 
     public Invitations invitations() {
         return invitations;
     }
 
+
     public OrganizationInvitations organizationInvitations() {
         return organizationInvitations;
     }
+
 
     public AllowlistIdentifiers allowlistIdentifiers() {
         return allowlistIdentifiers;
     }
 
+
     public BlocklistIdentifiers blocklistIdentifiers() {
         return blocklistIdentifiers;
     }
+
 
     public BetaFeatures betaFeatures() {
         return betaFeatures;
     }
 
+
     public ActorTokens actorTokens() {
         return actorTokens;
     }
+
 
     public Domains domains() {
         return domains;
     }
 
+
     public InstanceSettings instanceSettings() {
         return instanceSettings;
     }
+
 
     public Webhooks webhooks() {
         return webhooks;
     }
 
+
     public JwtTemplates jwtTemplates() {
         return jwtTemplates;
     }
+
 
     public Organizations organizations() {
         return organizations;
     }
 
+
     public OrganizationMemberships organizationMemberships() {
         return organizationMemberships;
     }
+
 
     public OrganizationDomains organizationDomains() {
         return organizationDomains;
     }
 
+
     public ProxyChecks proxyChecks() {
         return proxyChecks;
     }
+
 
     public RedirectUrls redirectUrls() {
         return redirectUrls;
     }
 
+
     public SignInTokens signInTokens() {
         return signInTokens;
     }
+
 
     public SignUps signUps() {
         return signUps;
     }
 
+
     public OauthApplications oauthApplications() {
         return oauthApplications;
     }
+
 
     public SamlConnections samlConnections() {
         return samlConnections;
     }
 
+
     public TestingTokens testingTokens() {
         return testingTokens;
     }
+
 
     public WaitlistEntries waitlistEntries() {
         return waitlistEntries;
     }
 
+
     public ExperimentalAccountlessApplications experimentalAccountlessApplications() {
         return experimentalAccountlessApplications;
     }
 
-    private SDKConfiguration sdkConfiguration;
+    private final SDKConfiguration sdkConfiguration;
 
     /**
      * The Builder class allows the configuration of a new instance of the SDK.
@@ -321,6 +387,23 @@ public class Clerk {
             this.sdkConfiguration.setRetryConfig(Optional.of(retryConfig));
             return this;
         }
+
+        /**
+         * Enables debug logging for HTTP requests and responses, including JSON body content.
+         * <p>
+         * Convenience method that calls {@link HTTPClient#enableDebugLogging(boolean)}.
+         * {@link SpeakeasyHTTPClient} honors this setting. If you are using a custom HTTP client,
+         * it is up to the custom client to honor this setting.
+         * </p>
+         *
+         * @param enabled Whether to enable debug logging.
+         * @return The builder instance.
+         */
+        public Builder enableHTTPDebugLogging(boolean enabled) {
+            this.sdkConfiguration.client().enableDebugLogging(enabled);
+            return this;
+        }
+
         // Visible for testing, may be accessed via reflection in tests
         Builder _hooks(com.clerk.backend_api.utils.Hooks hooks) {
             sdkConfiguration.setHooks(hooks);  
@@ -392,8 +475,10 @@ public class Clerk {
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.experimentalAccountlessApplications = new ExperimentalAccountlessApplications(sdkConfiguration);
-        
-        SdkInitData data = this.sdkConfiguration.hooks().sdkInit(new SdkInitData(this.sdkConfiguration.resolvedServerUrl(), this.sdkConfiguration.client()));
+        SdkInitData data = this.sdkConfiguration.hooks().sdkInit(
+                new SdkInitData(
+                        this.sdkConfiguration.resolvedServerUrl(), 
+                        this.sdkConfiguration.client()));
         this.sdkConfiguration.setServerUrl(data.baseUrl());
         this.sdkConfiguration.setClient(data.client());
     }

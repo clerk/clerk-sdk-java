@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteAllowlistIdentifierOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteAllowlistIdentifierRequestBuilder {
 
     private String identifierId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteAllowlistIdentifier sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteAllowlistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallDeleteAllowlistIdentifier sdk) {
-        this.sdk = sdk;
+    public DeleteAllowlistIdentifierRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteAllowlistIdentifierRequestBuilder identifierId(String identifierId) {
@@ -38,12 +42,25 @@ public class DeleteAllowlistIdentifierRequestBuilder {
         return this;
     }
 
+
+    private DeleteAllowlistIdentifierRequest buildRequest() {
+
+        DeleteAllowlistIdentifierRequest request = new DeleteAllowlistIdentifierRequest(identifierId);
+
+        return request;
+    }
+
     public DeleteAllowlistIdentifierResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            identifierId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteAllowlistIdentifierRequest, DeleteAllowlistIdentifierResponse> operation
+              = new DeleteAllowlistIdentifierOperation(
+                sdkConfiguration,
+                options);
+        DeleteAllowlistIdentifierRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

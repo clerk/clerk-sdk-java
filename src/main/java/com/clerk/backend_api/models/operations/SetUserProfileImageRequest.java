@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class SetUserProfileImageRequest {
-
     /**
      * The ID of the user to update the profile image for
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
+
 
     @SpeakeasyMetadata("request:mediaType=multipart/form-data")
     private SetUserProfileImageRequestBody requestBody;
@@ -45,9 +45,10 @@ public class SetUserProfileImageRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user to update the profile image for
@@ -64,7 +65,6 @@ public class SetUserProfileImageRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -75,15 +75,14 @@ public class SetUserProfileImageRequest {
         }
         SetUserProfileImageRequest other = (SetUserProfileImageRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            requestBody);
+        return Utils.enhancedHash(
+            userId, requestBody);
     }
     
     @Override
@@ -92,16 +91,18 @@ public class SetUserProfileImageRequest {
                 "userId", userId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private SetUserProfileImageRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user to update the profile image for
@@ -112,16 +113,18 @@ public class SetUserProfileImageRequest {
             return this;
         }
 
+
         public Builder requestBody(SetUserProfileImageRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public SetUserProfileImageRequest build() {
+
             return new SetUserProfileImageRequest(
-                userId,
-                requestBody);
+                userId, requestBody);
         }
+
     }
 }

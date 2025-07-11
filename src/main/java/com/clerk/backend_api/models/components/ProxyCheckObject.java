@@ -14,7 +14,7 @@ public enum ProxyCheckObject {
     @JsonValue
     private final String value;
 
-    private ProxyCheckObject(String value) {
+    ProxyCheckObject(String value) {
         this.value = value;
     }
     

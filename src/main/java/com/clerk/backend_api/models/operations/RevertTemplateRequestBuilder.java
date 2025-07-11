@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevertTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class RevertTemplateRequestBuilder {
     private RevertTemplatePathParamTemplateType templateType;
     private String slug;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevertTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevertTemplateRequestBuilder(SDKMethodInterfaces.MethodCallRevertTemplate sdk) {
-        this.sdk = sdk;
+    public RevertTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevertTemplateRequestBuilder templateType(RevertTemplatePathParamTemplateType templateType) {
@@ -45,13 +49,26 @@ public class RevertTemplateRequestBuilder {
         return this;
     }
 
+
+    private RevertTemplateRequest buildRequest() {
+
+        RevertTemplateRequest request = new RevertTemplateRequest(templateType,
+            slug);
+
+        return request;
+    }
+
     public RevertTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revert(
-            templateType,
-            slug,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevertTemplateRequest, RevertTemplateResponse> operation
+              = new RevertTemplateOperation(
+                sdkConfiguration,
+                options);
+        RevertTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -14,39 +14,46 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class Session {
 
+public class Session {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private SessionObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("user_id")
     private String userId;
 
+
     @JsonProperty("client_id")
     private String clientId;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("actor")
     private JsonNullable<? extends Actor> actor;
 
+
     @JsonProperty("status")
     private Status status;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_active_organization_id")
     private JsonNullable<String> lastActiveOrganizationId;
 
+
     @JsonProperty("last_active_at")
     private long lastActiveAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("latest_activity")
@@ -75,6 +82,7 @@ public class Session {
      */
     @JsonProperty("created_at")
     private long createdAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("tasks")
@@ -137,7 +145,11 @@ public class Session {
             long abandonAt,
             long updatedAt,
             long createdAt) {
-        this(object, id, userId, clientId, JsonNullable.undefined(), status, JsonNullable.undefined(), lastActiveAt, JsonNullable.undefined(), expireAt, abandonAt, updatedAt, createdAt, JsonNullable.undefined());
+        this(object, id, userId,
+            clientId, JsonNullable.undefined(), status,
+            JsonNullable.undefined(), lastActiveAt, JsonNullable.undefined(),
+            expireAt, abandonAt, updatedAt,
+            createdAt, JsonNullable.undefined());
     }
 
     /**
@@ -228,9 +240,10 @@ public class Session {
         return (JsonNullable<List<SessionTask>>) tasks;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -355,7 +368,6 @@ public class Session {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -366,39 +378,30 @@ public class Session {
         }
         Session other = (Session) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.clientId, other.clientId) &&
-            Objects.deepEquals(this.actor, other.actor) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.lastActiveOrganizationId, other.lastActiveOrganizationId) &&
-            Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
-            Objects.deepEquals(this.latestActivity, other.latestActivity) &&
-            Objects.deepEquals(this.expireAt, other.expireAt) &&
-            Objects.deepEquals(this.abandonAt, other.abandonAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.tasks, other.tasks);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.actor, other.actor) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.lastActiveOrganizationId, other.lastActiveOrganizationId) &&
+            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Utils.enhancedDeepEquals(this.latestActivity, other.latestActivity) &&
+            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
+            Utils.enhancedDeepEquals(this.abandonAt, other.abandonAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.tasks, other.tasks);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            userId,
-            clientId,
-            actor,
-            status,
-            lastActiveOrganizationId,
-            lastActiveAt,
-            latestActivity,
-            expireAt,
-            abandonAt,
-            updatedAt,
-            createdAt,
-            tasks);
+        return Utils.enhancedHash(
+            object, id, userId,
+            clientId, actor, status,
+            lastActiveOrganizationId, lastActiveAt, latestActivity,
+            expireAt, abandonAt, updatedAt,
+            createdAt, tasks);
     }
     
     @Override
@@ -419,40 +422,42 @@ public class Session {
                 "createdAt", createdAt,
                 "tasks", tasks);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private SessionObject object;
- 
+
         private String id;
- 
+
         private String userId;
- 
+
         private String clientId;
- 
+
         private JsonNullable<? extends Actor> actor = JsonNullable.undefined();
- 
+
         private Status status;
- 
+
         private JsonNullable<String> lastActiveOrganizationId = JsonNullable.undefined();
- 
+
         private Long lastActiveAt;
- 
+
         private JsonNullable<? extends SessionActivityResponse> latestActivity = JsonNullable.undefined();
- 
+
         private Long expireAt;
- 
+
         private Long abandonAt;
- 
+
         private Long updatedAt;
- 
+
         private Long createdAt;
- 
+
         private JsonNullable<? extends List<SessionTask>> tasks = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -463,11 +468,13 @@ public class Session {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -475,11 +482,13 @@ public class Session {
             return this;
         }
 
+
         public Builder clientId(String clientId) {
             Utils.checkNotNull(clientId, "clientId");
             this.clientId = clientId;
             return this;
         }
+
 
         public Builder actor(Actor actor) {
             Utils.checkNotNull(actor, "actor");
@@ -493,11 +502,13 @@ public class Session {
             return this;
         }
 
+
         public Builder status(Status status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
+
 
         public Builder lastActiveOrganizationId(String lastActiveOrganizationId) {
             Utils.checkNotNull(lastActiveOrganizationId, "lastActiveOrganizationId");
@@ -511,11 +522,13 @@ public class Session {
             return this;
         }
 
+
         public Builder lastActiveAt(long lastActiveAt) {
             Utils.checkNotNull(lastActiveAt, "lastActiveAt");
             this.lastActiveAt = lastActiveAt;
             return this;
         }
+
 
         public Builder latestActivity(SessionActivityResponse latestActivity) {
             Utils.checkNotNull(latestActivity, "latestActivity");
@@ -529,6 +542,7 @@ public class Session {
             return this;
         }
 
+
         /**
          * Unix timestamp of expiration.
          */
@@ -537,6 +551,7 @@ public class Session {
             this.expireAt = expireAt;
             return this;
         }
+
 
         /**
          * Unix timestamp of abandonment.
@@ -547,6 +562,7 @@ public class Session {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -556,6 +572,7 @@ public class Session {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -564,6 +581,7 @@ public class Session {
             this.createdAt = createdAt;
             return this;
         }
+
 
         public Builder tasks(List<SessionTask> tasks) {
             Utils.checkNotNull(tasks, "tasks");
@@ -576,23 +594,16 @@ public class Session {
             this.tasks = tasks;
             return this;
         }
-        
+
         public Session build() {
+
             return new Session(
-                object,
-                id,
-                userId,
-                clientId,
-                actor,
-                status,
-                lastActiveOrganizationId,
-                lastActiveAt,
-                latestActivity,
-                expireAt,
-                abandonAt,
-                updatedAt,
-                createdAt,
-                tasks);
+                object, id, userId,
+                clientId, actor, status,
+                lastActiveOrganizationId, lastActiveAt, latestActivity,
+                expireAt, abandonAt, updatedAt,
+                createdAt, tasks);
         }
+
     }
 }

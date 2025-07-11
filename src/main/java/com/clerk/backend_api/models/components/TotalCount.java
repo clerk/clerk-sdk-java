@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * TotalCount
@@ -18,12 +17,12 @@ import java.util.Objects;
  * <p>Success
  */
 public class TotalCount {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private TotalCountObject object;
+
 
     @JsonProperty("total_count")
     private long totalCount;
@@ -51,9 +50,10 @@ public class TotalCount {
         return totalCount;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -70,7 +70,6 @@ public class TotalCount {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -81,15 +80,14 @@ public class TotalCount {
         }
         TotalCount other = (TotalCount) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.totalCount, other.totalCount);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            totalCount);
+        return Utils.enhancedHash(
+            object, totalCount);
     }
     
     @Override
@@ -98,16 +96,18 @@ public class TotalCount {
                 "object", object,
                 "totalCount", totalCount);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private TotalCountObject object;
- 
+
         private Long totalCount;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -118,16 +118,18 @@ public class TotalCount {
             return this;
         }
 
+
         public Builder totalCount(long totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");
             this.totalCount = totalCount;
             return this;
         }
-        
+
         public TotalCount build() {
+
             return new TotalCount(
-                object,
-                totalCount);
+                object, totalCount);
         }
+
     }
 }

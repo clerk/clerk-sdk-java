@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateOrganizationMembershipOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class CreateOrganizationMembershipRequestBuilder {
     private String organizationId;
     private CreateOrganizationMembershipRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateOrganizationMembership sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateOrganizationMembershipRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationMembership sdk) {
-        this.sdk = sdk;
+    public CreateOrganizationMembershipRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public CreateOrganizationMembershipRequestBuilder organizationId(String organizationId) {
@@ -45,13 +49,26 @@ public class CreateOrganizationMembershipRequestBuilder {
         return this;
     }
 
+
+    private CreateOrganizationMembershipRequest buildRequest() {
+
+        CreateOrganizationMembershipRequest request = new CreateOrganizationMembershipRequest(organizationId,
+            requestBody);
+
+        return request;
+    }
+
     public CreateOrganizationMembershipResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            organizationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<CreateOrganizationMembershipRequest, CreateOrganizationMembershipResponse> operation
+              = new CreateOrganizationMembershipOperation(
+                sdkConfiguration,
+                options);
+        CreateOrganizationMembershipRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

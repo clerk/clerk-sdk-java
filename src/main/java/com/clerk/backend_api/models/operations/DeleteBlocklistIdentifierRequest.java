@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteBlocklistIdentifierRequest {
-
     /**
      * The ID of the identifier to delete from the block-list
      */
@@ -34,9 +33,10 @@ public class DeleteBlocklistIdentifierRequest {
         return identifierId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the identifier to delete from the block-list
@@ -47,7 +47,6 @@ public class DeleteBlocklistIdentifierRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteBlocklistIdentifierRequest {
         }
         DeleteBlocklistIdentifierRequest other = (DeleteBlocklistIdentifierRequest) o;
         return 
-            Objects.deepEquals(this.identifierId, other.identifierId);
+            Utils.enhancedDeepEquals(this.identifierId, other.identifierId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             identifierId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteBlocklistIdentifierRequest {
         return Utils.toString(DeleteBlocklistIdentifierRequest.class,
                 "identifierId", identifierId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String identifierId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the identifier to delete from the block-list
@@ -89,10 +90,12 @@ public class DeleteBlocklistIdentifierRequest {
             this.identifierId = identifierId;
             return this;
         }
-        
+
         public DeleteBlocklistIdentifierRequest build() {
+
             return new DeleteBlocklistIdentifierRequest(
                 identifierId);
         }
+
     }
 }

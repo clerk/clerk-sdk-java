@@ -20,7 +20,7 @@ public enum CreateBulkInvitationsTemplateSlug {
     @JsonValue
     private final String value;
 
-    private CreateBulkInvitationsTemplateSlug(String value) {
+    CreateBulkInvitationsTemplateSlug(String value) {
         this.value = value;
     }
     

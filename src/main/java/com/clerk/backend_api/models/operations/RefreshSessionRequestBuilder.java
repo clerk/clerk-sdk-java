@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RefreshSessionOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class RefreshSessionRequestBuilder {
     private String sessionId;
     private Optional<? extends RefreshSessionRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRefreshSession sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RefreshSessionRequestBuilder(SDKMethodInterfaces.MethodCallRefreshSession sdk) {
-        this.sdk = sdk;
+    public RefreshSessionRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RefreshSessionRequestBuilder sessionId(String sessionId) {
@@ -51,13 +55,26 @@ public class RefreshSessionRequestBuilder {
         return this;
     }
 
+
+    private RefreshSessionRequest buildRequest() {
+
+        RefreshSessionRequest request = new RefreshSessionRequest(sessionId,
+            requestBody);
+
+        return request;
+    }
+
     public RefreshSessionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.refresh(
-            sessionId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
+              = new RefreshSessionOperation(
+                sdkConfiguration,
+                options);
+        RefreshSessionRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

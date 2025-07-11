@@ -12,11 +12,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOAuthApplicationsRequest {
 
+public class ListOAuthApplicationsRequest {
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -65,9 +64,10 @@ public class ListOAuthApplicationsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -78,6 +78,7 @@ public class ListOAuthApplicationsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -100,6 +101,7 @@ public class ListOAuthApplicationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -111,7 +113,6 @@ public class ListOAuthApplicationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -122,15 +123,14 @@ public class ListOAuthApplicationsRequest {
         }
         ListOAuthApplicationsRequest other = (ListOAuthApplicationsRequest) o;
         return 
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            limit, offset);
     }
     
     @Override
@@ -139,16 +139,18 @@ public class ListOAuthApplicationsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -169,6 +171,7 @@ public class ListOAuthApplicationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -191,7 +194,7 @@ public class ListOAuthApplicationsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListOAuthApplicationsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -199,10 +202,11 @@ public class ListOAuthApplicationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListOAuthApplicationsRequest(
-                limit,
-                offset);
+                limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

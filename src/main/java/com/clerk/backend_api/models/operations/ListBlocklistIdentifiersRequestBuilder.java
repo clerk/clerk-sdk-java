@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListBlocklistIdentifiersOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -12,10 +16,10 @@ import java.util.Optional;
 public class ListBlocklistIdentifiersRequestBuilder {
 
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListBlocklistIdentifiers sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListBlocklistIdentifiersRequestBuilder(SDKMethodInterfaces.MethodCallListBlocklistIdentifiers sdk) {
-        this.sdk = sdk;
+    public ListBlocklistIdentifiersRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public ListBlocklistIdentifiersRequestBuilder retryConfig(RetryConfig retryConfig) {
@@ -32,9 +36,14 @@ public class ListBlocklistIdentifiersRequestBuilder {
 
     public ListBlocklistIdentifiersResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestlessOperation<ListBlocklistIdentifiersResponse> operation
+            = new ListBlocklistIdentifiersOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest());
     }
 }

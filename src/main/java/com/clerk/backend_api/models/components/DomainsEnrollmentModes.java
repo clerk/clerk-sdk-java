@@ -16,7 +16,7 @@ public enum DomainsEnrollmentModes {
     @JsonValue
     private final String value;
 
-    private DomainsEnrollmentModes(String value) {
+    DomainsEnrollmentModes(String value) {
         this.value = value;
     }
     

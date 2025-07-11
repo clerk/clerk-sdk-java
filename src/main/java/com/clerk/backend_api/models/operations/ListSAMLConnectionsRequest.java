@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListSAMLConnectionsRequest {
 
+public class ListSAMLConnectionsRequest {
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -80,7 +79,8 @@ public class ListSAMLConnectionsRequest {
     }
     
     public ListSAMLConnectionsRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -135,9 +135,10 @@ public class ListSAMLConnectionsRequest {
         return (Optional<List<String>>) organizationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -148,6 +149,7 @@ public class ListSAMLConnectionsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -170,6 +172,7 @@ public class ListSAMLConnectionsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -190,6 +193,7 @@ public class ListSAMLConnectionsRequest {
         return this;
     }
 
+
     /**
      * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
      */
@@ -209,6 +213,7 @@ public class ListSAMLConnectionsRequest {
         this.orderBy = Optional.ofNullable(orderBy);
         return this;
     }
+
 
     /**
      * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -236,6 +241,7 @@ public class ListSAMLConnectionsRequest {
         return this;
     }
 
+
     /**
      * Returns SAML connections that have an associated organization ID to the
      * given organizations.
@@ -251,7 +257,6 @@ public class ListSAMLConnectionsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -262,21 +267,18 @@ public class ListSAMLConnectionsRequest {
         }
         ListSAMLConnectionsRequest other = (ListSAMLConnectionsRequest) o;
         return 
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.orderBy, other.orderBy) &&
-            Objects.deepEquals(this.organizationId, other.organizationId);
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            limit,
-            offset,
-            query,
-            orderBy,
-            organizationId);
+        return Utils.enhancedHash(
+            limit, offset, query,
+            orderBy, organizationId);
     }
     
     @Override
@@ -288,22 +290,24 @@ public class ListSAMLConnectionsRequest {
                 "orderBy", orderBy,
                 "organizationId", organizationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<String> orderBy = Optional.empty();
- 
+
         private Optional<? extends List<String>> organizationId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -324,6 +328,7 @@ public class ListSAMLConnectionsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -347,6 +352,7 @@ public class ListSAMLConnectionsRequest {
             return this;
         }
 
+
         /**
          * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
          */
@@ -364,6 +370,7 @@ public class ListSAMLConnectionsRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -386,6 +393,7 @@ public class ListSAMLConnectionsRequest {
             this.orderBy = orderBy;
             return this;
         }
+
 
         /**
          * Returns SAML connections that have an associated organization ID to the
@@ -416,7 +424,7 @@ public class ListSAMLConnectionsRequest {
             this.organizationId = organizationId;
             return this;
         }
-        
+
         public ListSAMLConnectionsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -424,13 +432,12 @@ public class ListSAMLConnectionsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListSAMLConnectionsRequest(
-                limit,
-                offset,
-                query,
-                orderBy,
-                organizationId);
+                limit, offset, query,
+                orderBy, organizationId);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

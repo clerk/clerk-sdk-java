@@ -12,11 +12,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOrganizationDomainsRequest {
 
+public class ListOrganizationDomainsRequest {
     /**
      * The organization ID.
      */
@@ -71,7 +70,8 @@ public class ListOrganizationDomainsRequest {
     
     public ListOrganizationDomainsRequest(
             String organizationId) {
-        this(organizationId, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(organizationId, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -117,9 +117,10 @@ public class ListOrganizationDomainsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -139,6 +140,7 @@ public class ListOrganizationDomainsRequest {
         return this;
     }
 
+
     /**
      * Filter domains by their verification status. `true` or `false`
      */
@@ -156,6 +158,7 @@ public class ListOrganizationDomainsRequest {
         this.enrollmentMode = Optional.ofNullable(enrollmentMode);
         return this;
     }
+
 
     /**
      * Filter domains by their enrollment mode
@@ -175,6 +178,7 @@ public class ListOrganizationDomainsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -197,6 +201,7 @@ public class ListOrganizationDomainsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -208,7 +213,6 @@ public class ListOrganizationDomainsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -219,21 +223,18 @@ public class ListOrganizationDomainsRequest {
         }
         ListOrganizationDomainsRequest other = (ListOrganizationDomainsRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.enrollmentMode, other.enrollmentMode) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            verified,
-            enrollmentMode,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            organizationId, verified, enrollmentMode,
+            limit, offset);
     }
     
     @Override
@@ -245,22 +246,24 @@ public class ListOrganizationDomainsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<String> verified = Optional.empty();
- 
+
         private Optional<String> enrollmentMode = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -270,6 +273,7 @@ public class ListOrganizationDomainsRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Filter domains by their verification status. `true` or `false`
@@ -289,6 +293,7 @@ public class ListOrganizationDomainsRequest {
             return this;
         }
 
+
         /**
          * Filter domains by their enrollment mode
          */
@@ -306,6 +311,7 @@ public class ListOrganizationDomainsRequest {
             this.enrollmentMode = enrollmentMode;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -326,6 +332,7 @@ public class ListOrganizationDomainsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -348,7 +355,7 @@ public class ListOrganizationDomainsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListOrganizationDomainsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -356,13 +363,12 @@ public class ListOrganizationDomainsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListOrganizationDomainsRequest(
-                organizationId,
-                verified,
-                enrollmentMode,
-                limit,
-                offset);
+                organizationId, verified, enrollmentMode,
+                limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

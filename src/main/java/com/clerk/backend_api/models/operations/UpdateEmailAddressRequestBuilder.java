@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateEmailAddressOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateEmailAddressRequestBuilder {
     private String emailAddressId;
     private Optional<? extends UpdateEmailAddressRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateEmailAddress sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateEmailAddressRequestBuilder(SDKMethodInterfaces.MethodCallUpdateEmailAddress sdk) {
-        this.sdk = sdk;
+    public UpdateEmailAddressRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateEmailAddressRequestBuilder emailAddressId(String emailAddressId) {
@@ -51,13 +55,26 @@ public class UpdateEmailAddressRequestBuilder {
         return this;
     }
 
+
+    private UpdateEmailAddressRequest buildRequest() {
+
+        UpdateEmailAddressRequest request = new UpdateEmailAddressRequest(emailAddressId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateEmailAddressResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            emailAddressId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateEmailAddressRequest, UpdateEmailAddressResponse> operation
+              = new UpdateEmailAddressOperation(
+                sdkConfiguration,
+                options);
+        UpdateEmailAddressRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

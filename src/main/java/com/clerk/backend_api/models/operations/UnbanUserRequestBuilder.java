@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UnbanUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class UnbanUserRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUnbanUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UnbanUserRequestBuilder(SDKMethodInterfaces.MethodCallUnbanUser sdk) {
-        this.sdk = sdk;
+    public UnbanUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UnbanUserRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class UnbanUserRequestBuilder {
         return this;
     }
 
+
+    private UnbanUserRequest buildRequest() {
+
+        UnbanUserRequest request = new UnbanUserRequest(userId);
+
+        return request;
+    }
+
     public UnbanUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.unban(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
+              = new UnbanUserOperation(
+                sdkConfiguration,
+                options);
+        UnbanUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

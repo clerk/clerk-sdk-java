@@ -15,7 +15,7 @@ public enum FromOAuthVerificationStatus {
     @JsonValue
     private final String value;
 
-    private FromOAuthVerificationStatus(String value) {
+    FromOAuthVerificationStatus(String value) {
         this.value = value;
     }
     

@@ -20,7 +20,7 @@ public enum UpsertTemplatePathParamTemplateType {
     @JsonValue
     private final String value;
 
-    private UpsertTemplatePathParamTemplateType(String value) {
+    UpsertTemplatePathParamTemplateType(String value) {
         this.value = value;
     }
     

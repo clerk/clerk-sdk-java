@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class Keys {
 
@@ -20,29 +20,36 @@ public class Keys {
     @JsonProperty("use")
     private Optional<String> use;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("kty")
     private Optional<String> kty;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("kid")
     private Optional<String> kid;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("alg")
     private Optional<String> alg;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("n")
     private Optional<String> n;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("e")
     private Optional<String> e;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("x")
     private Optional<String> x;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("crv")
@@ -77,7 +84,9 @@ public class Keys {
     }
     
     public Keys() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -120,15 +129,17 @@ public class Keys {
         return crv;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Keys withUse(String use) {
         Utils.checkNotNull(use, "use");
         this.use = Optional.ofNullable(use);
         return this;
     }
+
 
     public Keys withUse(Optional<String> use) {
         Utils.checkNotNull(use, "use");
@@ -142,6 +153,7 @@ public class Keys {
         return this;
     }
 
+
     public Keys withKty(Optional<String> kty) {
         Utils.checkNotNull(kty, "kty");
         this.kty = kty;
@@ -153,6 +165,7 @@ public class Keys {
         this.kid = Optional.ofNullable(kid);
         return this;
     }
+
 
     public Keys withKid(Optional<String> kid) {
         Utils.checkNotNull(kid, "kid");
@@ -166,6 +179,7 @@ public class Keys {
         return this;
     }
 
+
     public Keys withAlg(Optional<String> alg) {
         Utils.checkNotNull(alg, "alg");
         this.alg = alg;
@@ -177,6 +191,7 @@ public class Keys {
         this.n = Optional.ofNullable(n);
         return this;
     }
+
 
     public Keys withN(Optional<String> n) {
         Utils.checkNotNull(n, "n");
@@ -190,6 +205,7 @@ public class Keys {
         return this;
     }
 
+
     public Keys withE(Optional<String> e) {
         Utils.checkNotNull(e, "e");
         this.e = e;
@@ -201,6 +217,7 @@ public class Keys {
         this.x = Optional.ofNullable(x);
         return this;
     }
+
 
     public Keys withX(Optional<String> x) {
         Utils.checkNotNull(x, "x");
@@ -214,13 +231,13 @@ public class Keys {
         return this;
     }
 
+
     public Keys withCrv(Optional<String> crv) {
         Utils.checkNotNull(crv, "crv");
         this.crv = crv;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -231,27 +248,22 @@ public class Keys {
         }
         Keys other = (Keys) o;
         return 
-            Objects.deepEquals(this.use, other.use) &&
-            Objects.deepEquals(this.kty, other.kty) &&
-            Objects.deepEquals(this.kid, other.kid) &&
-            Objects.deepEquals(this.alg, other.alg) &&
-            Objects.deepEquals(this.n, other.n) &&
-            Objects.deepEquals(this.e, other.e) &&
-            Objects.deepEquals(this.x, other.x) &&
-            Objects.deepEquals(this.crv, other.crv);
+            Utils.enhancedDeepEquals(this.use, other.use) &&
+            Utils.enhancedDeepEquals(this.kty, other.kty) &&
+            Utils.enhancedDeepEquals(this.kid, other.kid) &&
+            Utils.enhancedDeepEquals(this.alg, other.alg) &&
+            Utils.enhancedDeepEquals(this.n, other.n) &&
+            Utils.enhancedDeepEquals(this.e, other.e) &&
+            Utils.enhancedDeepEquals(this.x, other.x) &&
+            Utils.enhancedDeepEquals(this.crv, other.crv);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            use,
-            kty,
-            kid,
-            alg,
-            n,
-            e,
-            x,
-            crv);
+        return Utils.enhancedHash(
+            use, kty, kid,
+            alg, n, e,
+            x, crv);
     }
     
     @Override
@@ -266,28 +278,30 @@ public class Keys {
                 "x", x,
                 "crv", crv);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> use = Optional.empty();
- 
+
         private Optional<String> kty = Optional.empty();
- 
+
         private Optional<String> kid = Optional.empty();
- 
+
         private Optional<String> alg = Optional.empty();
- 
+
         private Optional<String> n = Optional.empty();
- 
+
         private Optional<String> e = Optional.empty();
- 
+
         private Optional<String> x = Optional.empty();
- 
+
         private Optional<String> crv = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder use(String use) {
             Utils.checkNotNull(use, "use");
@@ -301,6 +315,7 @@ public class Keys {
             return this;
         }
 
+
         public Builder kty(String kty) {
             Utils.checkNotNull(kty, "kty");
             this.kty = Optional.ofNullable(kty);
@@ -312,6 +327,7 @@ public class Keys {
             this.kty = kty;
             return this;
         }
+
 
         public Builder kid(String kid) {
             Utils.checkNotNull(kid, "kid");
@@ -325,6 +341,7 @@ public class Keys {
             return this;
         }
 
+
         public Builder alg(String alg) {
             Utils.checkNotNull(alg, "alg");
             this.alg = Optional.ofNullable(alg);
@@ -336,6 +353,7 @@ public class Keys {
             this.alg = alg;
             return this;
         }
+
 
         public Builder n(String n) {
             Utils.checkNotNull(n, "n");
@@ -349,6 +367,7 @@ public class Keys {
             return this;
         }
 
+
         public Builder e(String e) {
             Utils.checkNotNull(e, "e");
             this.e = Optional.ofNullable(e);
@@ -360,6 +379,7 @@ public class Keys {
             this.e = e;
             return this;
         }
+
 
         public Builder x(String x) {
             Utils.checkNotNull(x, "x");
@@ -373,6 +393,7 @@ public class Keys {
             return this;
         }
 
+
         public Builder crv(String crv) {
             Utils.checkNotNull(crv, "crv");
             this.crv = Optional.ofNullable(crv);
@@ -384,17 +405,14 @@ public class Keys {
             this.crv = crv;
             return this;
         }
-        
+
         public Keys build() {
+
             return new Keys(
-                use,
-                kty,
-                kid,
-                alg,
-                n,
-                e,
-                x,
-                crv);
+                use, kty, kid,
+                alg, n, e,
+                x, crv);
         }
+
     }
 }

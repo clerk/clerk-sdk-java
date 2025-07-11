@@ -14,7 +14,7 @@ public enum WaitlistEntryObject {
     @JsonValue
     private final String value;
 
-    private WaitlistEntryObject(String value) {
+    WaitlistEntryObject(String value) {
         this.value = value;
     }
     

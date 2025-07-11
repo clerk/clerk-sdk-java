@@ -12,12 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpsertTemplateRequestBody {
 
+public class UpsertTemplateRequestBody {
     /**
      * The user-friendly name of the template
      */
@@ -98,7 +97,9 @@ public class UpsertTemplateRequestBody {
     }
     
     public UpsertTemplateRequestBody() {
-        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -162,9 +163,10 @@ public class UpsertTemplateRequestBody {
         return replyToEmailName;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The user-friendly name of the template
@@ -174,6 +176,7 @@ public class UpsertTemplateRequestBody {
         this.name = Optional.ofNullable(name);
         return this;
     }
+
 
     /**
      * The user-friendly name of the template
@@ -231,6 +234,7 @@ public class UpsertTemplateRequestBody {
         return this;
     }
 
+
     /**
      * The template body before variable interpolation
      */
@@ -269,6 +273,7 @@ public class UpsertTemplateRequestBody {
         return this;
     }
 
+
     /**
      * The local part of the From email address that will be used for emails.
      * For example, in the address 'hello@example.com', the local part is 'hello'.
@@ -291,6 +296,7 @@ public class UpsertTemplateRequestBody {
         return this;
     }
 
+
     /**
      * The local part of the Reply To email address that will be used for emails.
      * For example, in the address 'hello@example.com', the local part is 'hello'.
@@ -302,7 +308,6 @@ public class UpsertTemplateRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -313,24 +318,20 @@ public class UpsertTemplateRequestBody {
         }
         UpsertTemplateRequestBody other = (UpsertTemplateRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.subject, other.subject) &&
-            Objects.deepEquals(this.markup, other.markup) &&
-            Objects.deepEquals(this.body, other.body) &&
-            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
-            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.subject, other.subject) &&
+            Utils.enhancedDeepEquals(this.markup, other.markup) &&
+            Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
+            Utils.enhancedDeepEquals(this.fromEmailName, other.fromEmailName) &&
+            Utils.enhancedDeepEquals(this.replyToEmailName, other.replyToEmailName);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            subject,
-            markup,
-            body,
-            deliveredByClerk,
-            fromEmailName,
+        return Utils.enhancedHash(
+            name, subject, markup,
+            body, deliveredByClerk, fromEmailName,
             replyToEmailName);
     }
     
@@ -345,26 +346,28 @@ public class UpsertTemplateRequestBody {
                 "fromEmailName", fromEmailName,
                 "replyToEmailName", replyToEmailName);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> name = Optional.empty();
- 
+
         private JsonNullable<String> subject = JsonNullable.undefined();
- 
+
         private JsonNullable<String> markup = JsonNullable.undefined();
- 
+
         private Optional<String> body = Optional.empty();
- 
+
         private JsonNullable<Boolean> deliveredByClerk = JsonNullable.undefined();
- 
+
         private Optional<String> fromEmailName = Optional.empty();
- 
+
         private Optional<String> replyToEmailName = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The user-friendly name of the template
@@ -383,6 +386,7 @@ public class UpsertTemplateRequestBody {
             this.name = name;
             return this;
         }
+
 
         /**
          * The email subject.
@@ -404,6 +408,7 @@ public class UpsertTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The editor markup used to generate the body of the template
          */
@@ -421,6 +426,7 @@ public class UpsertTemplateRequestBody {
             this.markup = markup;
             return this;
         }
+
 
         /**
          * The template body before variable interpolation
@@ -440,6 +446,7 @@ public class UpsertTemplateRequestBody {
             return this;
         }
 
+
         /**
          * Whether Clerk should deliver emails or SMS messages based on the current template
          */
@@ -457,6 +464,7 @@ public class UpsertTemplateRequestBody {
             this.deliveredByClerk = deliveredByClerk;
             return this;
         }
+
 
         /**
          * The local part of the From email address that will be used for emails.
@@ -480,6 +488,7 @@ public class UpsertTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The local part of the Reply To email address that will be used for emails.
          * For example, in the address 'hello@example.com', the local part is 'hello'.
@@ -501,16 +510,14 @@ public class UpsertTemplateRequestBody {
             this.replyToEmailName = replyToEmailName;
             return this;
         }
-        
+
         public UpsertTemplateRequestBody build() {
+
             return new UpsertTemplateRequestBody(
-                name,
-                subject,
-                markup,
-                body,
-                deliveredByClerk,
-                fromEmailName,
+                name, subject, markup,
+                body, deliveredByClerk, fromEmailName,
                 replyToEmailName);
         }
+
     }
 }

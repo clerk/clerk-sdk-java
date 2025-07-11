@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListOrganizationMembershipsOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class ListOrganizationMembershipsRequestBuilder {
 
     private ListOrganizationMembershipsRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListOrganizationMemberships sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListOrganizationMembershipsRequestBuilder(SDKMethodInterfaces.MethodCallListOrganizationMemberships sdk) {
-        this.sdk = sdk;
+    public ListOrganizationMembershipsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ListOrganizationMembershipsRequestBuilder request(ListOrganizationMembershipsRequest request) {
@@ -39,10 +43,14 @@ public class ListOrganizationMembershipsRequestBuilder {
 
     public ListOrganizationMembershipsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListOrganizationMembershipsRequest, ListOrganizationMembershipsResponse> operation
+              = new ListOrganizationMembershipsOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

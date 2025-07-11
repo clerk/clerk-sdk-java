@@ -12,11 +12,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class InstanceGetOrganizationMembershipsRequest {
 
+public class InstanceGetOrganizationMembershipsRequest {
     /**
      * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
      * By prepending one of those values with + or -,
@@ -86,9 +85,10 @@ public class InstanceGetOrganizationMembershipsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -100,6 +100,7 @@ public class InstanceGetOrganizationMembershipsRequest {
         this.orderBy = Optional.ofNullable(orderBy);
         return this;
     }
+
 
     /**
      * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -122,6 +123,7 @@ public class InstanceGetOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -143,6 +145,7 @@ public class InstanceGetOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -154,7 +157,6 @@ public class InstanceGetOrganizationMembershipsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -165,17 +167,15 @@ public class InstanceGetOrganizationMembershipsRequest {
         }
         InstanceGetOrganizationMembershipsRequest other = (InstanceGetOrganizationMembershipsRequest) o;
         return 
-            Objects.deepEquals(this.orderBy, other.orderBy) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            orderBy,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            orderBy, limit, offset);
     }
     
     @Override
@@ -185,18 +185,20 @@ public class InstanceGetOrganizationMembershipsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> orderBy = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
@@ -220,6 +222,7 @@ public class InstanceGetOrganizationMembershipsRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -239,6 +242,7 @@ public class InstanceGetOrganizationMembershipsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -261,7 +265,7 @@ public class InstanceGetOrganizationMembershipsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public InstanceGetOrganizationMembershipsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -269,11 +273,11 @@ public class InstanceGetOrganizationMembershipsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new InstanceGetOrganizationMembershipsRequest(
-                orderBy,
-                limit,
-                offset);
+                orderBy, limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

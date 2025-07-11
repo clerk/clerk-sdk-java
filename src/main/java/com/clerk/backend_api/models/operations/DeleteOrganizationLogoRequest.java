@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteOrganizationLogoRequest {
-
     /**
      * The ID of the organization for which the logo will be deleted.
      */
@@ -34,9 +33,10 @@ public class DeleteOrganizationLogoRequest {
         return organizationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization for which the logo will be deleted.
@@ -47,7 +47,6 @@ public class DeleteOrganizationLogoRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteOrganizationLogoRequest {
         }
         DeleteOrganizationLogoRequest other = (DeleteOrganizationLogoRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             organizationId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteOrganizationLogoRequest {
         return Utils.toString(DeleteOrganizationLogoRequest.class,
                 "organizationId", organizationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization for which the logo will be deleted.
@@ -89,10 +90,12 @@ public class DeleteOrganizationLogoRequest {
             this.organizationId = organizationId;
             return this;
         }
-        
+
         public DeleteOrganizationLogoRequest build() {
+
             return new DeleteOrganizationLogoRequest(
                 organizationId);
         }
+
     }
 }

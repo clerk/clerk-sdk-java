@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetSAMLConnectionRequest {
-
     /**
      * The ID of the SAML Connection
      */
@@ -34,9 +33,10 @@ public class GetSAMLConnectionRequest {
         return samlConnectionId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the SAML Connection
@@ -47,7 +47,6 @@ public class GetSAMLConnectionRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetSAMLConnectionRequest {
         }
         GetSAMLConnectionRequest other = (GetSAMLConnectionRequest) o;
         return 
-            Objects.deepEquals(this.samlConnectionId, other.samlConnectionId);
+            Utils.enhancedDeepEquals(this.samlConnectionId, other.samlConnectionId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             samlConnectionId);
     }
     
@@ -72,14 +71,16 @@ public class GetSAMLConnectionRequest {
         return Utils.toString(GetSAMLConnectionRequest.class,
                 "samlConnectionId", samlConnectionId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String samlConnectionId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the SAML Connection
@@ -89,10 +90,12 @@ public class GetSAMLConnectionRequest {
             this.samlConnectionId = samlConnectionId;
             return this;
         }
-        
+
         public GetSAMLConnectionRequest build() {
+
             return new GetSAMLConnectionRequest(
                 samlConnectionId);
         }
+
     }
 }

@@ -3,10 +3,10 @@ id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
   docChecksum: 8eca1f8d4d1026b09957be1b73537220
   docVersion: "2025-03-12"
-  speakeasyVersion: 1.557.1
-  generationVersion: 2.623.2
-  releaseVersion: 3.0.3
-  configChecksum: cedc6b16701dceb8f59f6c9bfccf77c0
+  speakeasyVersion: 1.581.0
+  generationVersion: 2.656.5
+  releaseVersion: 3.1.0
+  configChecksum: 67c70049af75d143e71f90ab3ad1a076
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,10 +14,10 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.37.4
+    core: 3.44.0
     deprecations: 2.81.1
     flattening: 2.81.1
-    globalSecurity: 2.82.8
+    globalSecurity: 2.83.0
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
@@ -1131,7 +1131,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/SDKMethodInterfaces.java
   - src/main/java/com/clerk/backend_api/models/operations/SetUserProfileImageRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/SetUserProfileImageRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/SetUserProfileImageRequestBuilder.java
@@ -1261,16 +1260,152 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponseBody.java
+  - src/main/java/com/clerk/backend_api/operations/AddDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/BanUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ChangeProductionInstanceDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CompleteAccountlessApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateAccountlessApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateActorTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateAllowlistIdentifierOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateBlocklistIdentifierOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateBulkInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateEmailAddressOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateInvitationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateJWTTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOAuthApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationBulkOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationMembershipOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreatePhoneNumberOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateRedirectURLOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSAMLConnectionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSessionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSessionTokenFromTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSessionTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSignInTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSvixAppOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateTestingTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateWaitlistEntryOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteAllowlistIdentifierOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteBackupCodeOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteBlocklistIdentifierOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteEmailAddressOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteExternalAccountOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteJWTTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOAuthApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationLogoOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationMembershipOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeletePhoneNumberOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteRedirectURLOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteSAMLConnectionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteSvixAppOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteTOTPOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteUserProfileImageOperation.java
+  - src/main/java/com/clerk/backend_api/operations/DisableMFAOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GenerateSvixAuthURLOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetClientListOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetClientOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetEmailAddressOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetInstanceOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetJWKSOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetJWTTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetOAuthAccessTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetOAuthApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationInvitationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetPhoneNumberOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetPublicInterstitialOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetRedirectURLOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetSAMLConnectionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetSessionListOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetSessionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetSignUpOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetTemplateListOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetUserListOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/GetUsersCountOperation.java
+  - src/main/java/com/clerk/backend_api/operations/InstanceGetOrganizationMembershipsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListAllowlistIdentifiersOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListBlocklistIdentifiersOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListDomainsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListInstanceOrganizationInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListJWTTemplatesOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListOAuthApplicationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationDomainsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationMembershipsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListPendingOrganizationInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListRedirectURLsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListSAMLConnectionsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ListWaitlistEntriesOperation.java
+  - src/main/java/com/clerk/backend_api/operations/LockUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/MergeOrganizationMetadataOperation.java
+  - src/main/java/com/clerk/backend_api/operations/Operations.java
+  - src/main/java/com/clerk/backend_api/operations/PreviewTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RefreshSessionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevertTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeActorTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeInvitationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeOrganizationInvitationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeSessionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeSignInTokenOperation.java
+  - src/main/java/com/clerk/backend_api/operations/RotateOAuthApplicationSecretOperation.java
+  - src/main/java/com/clerk/backend_api/operations/SetUserProfileImageOperation.java
+  - src/main/java/com/clerk/backend_api/operations/ToggleTemplateDeliveryOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UnbanUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UnlockUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateEmailAddressOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceAuthConfigOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceOrganizationSettingsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceRestrictionsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateJWTTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOAuthApplicationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipMetadataOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdatePhoneNumberOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateProductionInstanceDomainOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateSAMLConnectionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateSignUpOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateUserMetadataOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateUserOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UploadOrganizationLogoOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UpsertTemplateOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UserPasskeyDeleteOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UserWeb3WalletDeleteOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationInvitationsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationMembershipsOperation.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyClientOperation.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyDomainProxyOperation.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyPasswordOperation.java
+  - src/main/java/com/clerk/backend_api/operations/VerifySessionOperation.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyTOTPOperation.java
   - src/main/java/com/clerk/backend_api/utils/BackoffStrategy.java
   - src/main/java/com/clerk/backend_api/utils/BigDecimalString.java
   - src/main/java/com/clerk/backend_api/utils/BigIntegerString.java
   - src/main/java/com/clerk/backend_api/utils/Constants.java
+  - src/main/java/com/clerk/backend_api/utils/CopiableInputStream.java
   - src/main/java/com/clerk/backend_api/utils/Deserializers.java
   - src/main/java/com/clerk/backend_api/utils/EventStream.java
   - src/main/java/com/clerk/backend_api/utils/EventStreamLineReader.java
   - src/main/java/com/clerk/backend_api/utils/EventStreamMessage.java
   - src/main/java/com/clerk/backend_api/utils/EventStreamReader.java
+  - src/main/java/com/clerk/backend_api/utils/Exceptions.java
   - src/main/java/com/clerk/backend_api/utils/FormMetadata.java
+  - src/main/java/com/clerk/backend_api/utils/Globals.java
   - src/main/java/com/clerk/backend_api/utils/HTTPClient.java
   - src/main/java/com/clerk/backend_api/utils/HTTPRequest.java
   - src/main/java/com/clerk/backend_api/utils/HasSecurity.java
@@ -1580,6 +1715,21 @@ examples:
           application/json: [{"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
           application/json: {"errors": []}
+    speakeasy-default-get-user-list:
+      parameters:
+        query:
+          last_active_at_before: 1700690400000
+          last_active_at_after: 1700690400000
+          created_at_before: 1730160000000
+          created_at_after: 1730160000000
+          limit: 10
+          offset: 0
+          order_by: "-created_at"
+      responses:
+        "200":
+          application/json: [{"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+        "400":
+          application/json: {"errors": []}
   CreateUser:
     speakeasy-default-create-user:
       requestBody:
@@ -1596,6 +1746,18 @@ examples:
           last_active_at_before: 1700690400000
           last_active_at_after: 1700690400000
           last_active_at_since: 1700690400000
+          created_at_before: 1730160000000
+          created_at_after: 1730160000000
+      responses:
+        "200":
+          application/json: {"object": "total_count", "total_count": 415862}
+        "422":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+    speakeasy-default-get-users-count:
+      parameters:
+        query:
+          last_active_at_before: 1700690400000
+          last_active_at_after: 1700690400000
           created_at_before: 1730160000000
           created_at_after: 1730160000000
       responses:
@@ -2280,6 +2442,22 @@ examples:
           application/json: {"errors": []}
   ListOrganizationMemberships:
     "":
+      parameters:
+        path:
+          organization_id: "<id>"
+        query:
+          last_active_at_before: 1700690400000
+          last_active_at_after: 1700690400000
+          created_at_before: 1730160000000
+          created_at_after: 1730160000000
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [], "total_count": 367427}
+        "401":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+    speakeasy-default-list-organization-memberships:
       parameters:
         path:
           organization_id: "<id>"

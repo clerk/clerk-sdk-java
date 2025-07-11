@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateEmailAddressRequestBody {
 
+public class UpdateEmailAddressRequestBody {
     /**
      * The email address will be marked as verified.
      */
@@ -61,9 +60,10 @@ public class UpdateEmailAddressRequestBody {
         return primary;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email address will be marked as verified.
@@ -101,7 +101,6 @@ public class UpdateEmailAddressRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -112,15 +111,14 @@ public class UpdateEmailAddressRequestBody {
         }
         UpdateEmailAddressRequestBody other = (UpdateEmailAddressRequestBody) o;
         return 
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.primary, other.primary);
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.primary, other.primary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            verified,
-            primary);
+        return Utils.enhancedHash(
+            verified, primary);
     }
     
     @Override
@@ -129,16 +127,18 @@ public class UpdateEmailAddressRequestBody {
                 "verified", verified,
                 "primary", primary);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> primary = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email address will be marked as verified.
@@ -158,6 +158,7 @@ public class UpdateEmailAddressRequestBody {
             return this;
         }
 
+
         /**
          * Set this email address as the primary email address for the user.
          */
@@ -175,11 +176,12 @@ public class UpdateEmailAddressRequestBody {
             this.primary = primary;
             return this;
         }
-        
+
         public UpdateEmailAddressRequestBody build() {
+
             return new UpdateEmailAddressRequestBody(
-                verified,
-                primary);
+                verified, primary);
         }
+
     }
 }

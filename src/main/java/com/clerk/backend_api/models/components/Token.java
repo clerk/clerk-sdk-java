@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class Token {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -51,9 +50,10 @@ public class Token {
         return jwt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -73,7 +73,6 @@ public class Token {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class Token {
         }
         Token other = (Token) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.jwt, other.jwt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.jwt, other.jwt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            jwt);
+        return Utils.enhancedHash(
+            object, jwt);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class Token {
                 "object", object,
                 "jwt", jwt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private TokenObject object;
- 
+
         private String jwt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -121,6 +121,7 @@ public class Token {
             return this;
         }
 
+
         /**
          * String representing the encoded jwt value.
          */
@@ -129,11 +130,12 @@ public class Token {
             this.jwt = jwt;
             return this;
         }
-        
+
         public Token build() {
+
             return new Token(
-                object,
-                jwt);
+                object, jwt);
         }
+
     }
 }

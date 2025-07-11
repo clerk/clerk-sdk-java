@@ -14,7 +14,7 @@ public enum InvitationRevokedStatus {
     @JsonValue
     private final String value;
 
-    private InvitationRevokedStatus(String value) {
+    InvitationRevokedStatus(String value) {
         this.value = value;
     }
     

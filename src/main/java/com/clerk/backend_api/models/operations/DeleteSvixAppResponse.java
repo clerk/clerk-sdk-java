@@ -12,10 +12,9 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.net.http.HttpResponse;
-import java.util.Objects;
+
 
 public class DeleteSvixAppResponse implements Response {
-
     /**
      * HTTP response content type for this operation
      */
@@ -68,9 +67,10 @@ public class DeleteSvixAppResponse implements Response {
         return rawResponse;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -99,7 +99,6 @@ public class DeleteSvixAppResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -110,17 +109,15 @@ public class DeleteSvixAppResponse implements Response {
         }
         DeleteSvixAppResponse other = (DeleteSvixAppResponse) o;
         return 
-            Objects.deepEquals(this.contentType, other.contentType) &&
-            Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse);
+            Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
+            Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            contentType,
-            statusCode,
-            rawResponse);
+        return Utils.enhancedHash(
+            contentType, statusCode, rawResponse);
     }
     
     @Override
@@ -130,18 +127,20 @@ public class DeleteSvixAppResponse implements Response {
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -152,6 +151,7 @@ public class DeleteSvixAppResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -161,6 +161,7 @@ public class DeleteSvixAppResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -169,12 +170,12 @@ public class DeleteSvixAppResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
-        
+
         public DeleteSvixAppResponse build() {
+
             return new DeleteSvixAppResponse(
-                contentType,
-                statusCode,
-                rawResponse);
+                contentType, statusCode, rawResponse);
         }
+
     }
 }

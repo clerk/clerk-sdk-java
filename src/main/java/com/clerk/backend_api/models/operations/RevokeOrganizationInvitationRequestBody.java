@@ -11,11 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class RevokeOrganizationInvitationRequestBody {
 
+public class RevokeOrganizationInvitationRequestBody {
     /**
      * The ID of the user that revokes the invitation.
      * Must be an administrator in the organization.
@@ -44,9 +43,10 @@ public class RevokeOrganizationInvitationRequestBody {
         return requestingUserId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that revokes the invitation.
@@ -68,7 +68,6 @@ public class RevokeOrganizationInvitationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -79,12 +78,12 @@ public class RevokeOrganizationInvitationRequestBody {
         }
         RevokeOrganizationInvitationRequestBody other = (RevokeOrganizationInvitationRequestBody) o;
         return 
-            Objects.deepEquals(this.requestingUserId, other.requestingUserId);
+            Utils.enhancedDeepEquals(this.requestingUserId, other.requestingUserId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             requestingUserId);
     }
     
@@ -93,14 +92,16 @@ public class RevokeOrganizationInvitationRequestBody {
         return Utils.toString(RevokeOrganizationInvitationRequestBody.class,
                 "requestingUserId", requestingUserId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> requestingUserId = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that revokes the invitation.
@@ -121,10 +122,12 @@ public class RevokeOrganizationInvitationRequestBody {
             this.requestingUserId = requestingUserId;
             return this;
         }
-        
+
         public RevokeOrganizationInvitationRequestBody build() {
+
             return new RevokeOrganizationInvitationRequestBody(
                 requestingUserId);
         }
+
     }
 }

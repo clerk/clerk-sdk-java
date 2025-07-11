@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UserWeb3WalletDeleteRequest {
-
     /**
      * The ID of the user that owns the web3 wallet
      */
@@ -51,9 +50,10 @@ public class UserWeb3WalletDeleteRequest {
         return web3WalletIdentificationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that owns the web3 wallet
@@ -73,7 +73,6 @@ public class UserWeb3WalletDeleteRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class UserWeb3WalletDeleteRequest {
         }
         UserWeb3WalletDeleteRequest other = (UserWeb3WalletDeleteRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.web3WalletIdentificationId, other.web3WalletIdentificationId);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.web3WalletIdentificationId, other.web3WalletIdentificationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            web3WalletIdentificationId);
+        return Utils.enhancedHash(
+            userId, web3WalletIdentificationId);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class UserWeb3WalletDeleteRequest {
                 "userId", userId,
                 "web3WalletIdentificationId", web3WalletIdentificationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String web3WalletIdentificationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that owns the web3 wallet
@@ -121,6 +121,7 @@ public class UserWeb3WalletDeleteRequest {
             return this;
         }
 
+
         /**
          * The ID of the web3 wallet identity to be deleted
          */
@@ -129,11 +130,12 @@ public class UserWeb3WalletDeleteRequest {
             this.web3WalletIdentificationId = web3WalletIdentificationId;
             return this;
         }
-        
+
         public UserWeb3WalletDeleteRequest build() {
+
             return new UserWeb3WalletDeleteRequest(
-                userId,
-                web3WalletIdentificationId);
+                userId, web3WalletIdentificationId);
         }
+
     }
 }

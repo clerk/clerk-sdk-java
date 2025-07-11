@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateJWTTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateJWTTemplateRequestBuilder {
     private String templateId;
     private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallUpdateJWTTemplate sdk) {
-        this.sdk = sdk;
+    public UpdateJWTTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateJWTTemplateRequestBuilder templateId(String templateId) {
@@ -51,13 +55,26 @@ public class UpdateJWTTemplateRequestBuilder {
         return this;
     }
 
+
+    private UpdateJWTTemplateRequest buildRequest() {
+
+        UpdateJWTTemplateRequest request = new UpdateJWTTemplateRequest(templateId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateJWTTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            templateId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateJWTTemplateRequest, UpdateJWTTemplateResponse> operation
+              = new UpdateJWTTemplateOperation(
+                sdkConfiguration,
+                options);
+        UpdateJWTTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class GetTemplateRequestBuilder {
     private PathParamTemplateType templateType;
     private String slug;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetTemplateRequestBuilder(SDKMethodInterfaces.MethodCallGetTemplate sdk) {
-        this.sdk = sdk;
+    public GetTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetTemplateRequestBuilder templateType(PathParamTemplateType templateType) {
@@ -45,13 +49,26 @@ public class GetTemplateRequestBuilder {
         return this;
     }
 
+
+    private GetTemplateRequest buildRequest() {
+
+        GetTemplateRequest request = new GetTemplateRequest(templateType,
+            slug);
+
+        return request;
+    }
+
     public GetTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            templateType,
-            slug,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetTemplateRequest, GetTemplateResponse> operation
+              = new GetTemplateOperation(
+                sdkConfiguration,
+                options);
+        GetTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

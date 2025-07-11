@@ -12,12 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateOrganizationDomainRequestBody {
 
+public class CreateOrganizationDomainRequestBody {
     /**
      * The name of the new domain
      */
@@ -80,9 +79,10 @@ public class CreateOrganizationDomainRequestBody {
         return verified;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name of the new domain
@@ -92,6 +92,7 @@ public class CreateOrganizationDomainRequestBody {
         this.name = Optional.ofNullable(name);
         return this;
     }
+
 
     /**
      * The name of the new domain
@@ -110,6 +111,7 @@ public class CreateOrganizationDomainRequestBody {
         this.enrollmentMode = Optional.ofNullable(enrollmentMode);
         return this;
     }
+
 
     /**
      * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
@@ -138,7 +140,6 @@ public class CreateOrganizationDomainRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -149,17 +150,15 @@ public class CreateOrganizationDomainRequestBody {
         }
         CreateOrganizationDomainRequestBody other = (CreateOrganizationDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.enrollmentMode, other.enrollmentMode) &&
-            Objects.deepEquals(this.verified, other.verified);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
+            Utils.enhancedDeepEquals(this.verified, other.verified);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            enrollmentMode,
-            verified);
+        return Utils.enhancedHash(
+            name, enrollmentMode, verified);
     }
     
     @Override
@@ -169,18 +168,20 @@ public class CreateOrganizationDomainRequestBody {
                 "enrollmentMode", enrollmentMode,
                 "verified", verified);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> name = Optional.empty();
- 
+
         private Optional<String> enrollmentMode = Optional.empty();
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name of the new domain
@@ -200,6 +201,7 @@ public class CreateOrganizationDomainRequestBody {
             return this;
         }
 
+
         /**
          * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
          */
@@ -218,6 +220,7 @@ public class CreateOrganizationDomainRequestBody {
             return this;
         }
 
+
         /**
          * The status of domain's verification. Defaults to true
          */
@@ -235,12 +238,12 @@ public class CreateOrganizationDomainRequestBody {
             this.verified = verified;
             return this;
         }
-        
+
         public CreateOrganizationDomainRequestBody build() {
+
             return new CreateOrganizationDomainRequestBody(
-                name,
-                enrollmentMode,
-                verified);
+                name, enrollmentMode, verified);
         }
+
     }
 }

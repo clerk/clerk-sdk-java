@@ -14,7 +14,7 @@ public enum RedirectURLObject {
     @JsonValue
     private final String value;
 
-    private RedirectURLObject(String value) {
+    RedirectURLObject(String value) {
         this.value = value;
     }
     

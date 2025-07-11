@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class RevokeOrganizationInvitationRequest {
 
+public class RevokeOrganizationInvitationRequest {
     /**
      * The organization ID.
      */
@@ -26,6 +25,7 @@ public class RevokeOrganizationInvitationRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=invitation_id")
     private String invitationId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody;
@@ -71,9 +71,10 @@ public class RevokeOrganizationInvitationRequest {
         return (Optional<RevokeOrganizationInvitationRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -99,13 +100,13 @@ public class RevokeOrganizationInvitationRequest {
         return this;
     }
 
+
     public RevokeOrganizationInvitationRequest withRequestBody(Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,17 +117,15 @@ public class RevokeOrganizationInvitationRequest {
         }
         RevokeOrganizationInvitationRequest other = (RevokeOrganizationInvitationRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.invitationId, other.invitationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.invitationId, other.invitationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            invitationId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, invitationId, requestBody);
     }
     
     @Override
@@ -136,18 +135,20 @@ public class RevokeOrganizationInvitationRequest {
                 "invitationId", invitationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String invitationId;
- 
+
         private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -158,6 +159,7 @@ public class RevokeOrganizationInvitationRequest {
             return this;
         }
 
+
         /**
          * The organization invitation ID.
          */
@@ -166,6 +168,7 @@ public class RevokeOrganizationInvitationRequest {
             this.invitationId = invitationId;
             return this;
         }
+
 
         public Builder requestBody(RevokeOrganizationInvitationRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -178,12 +181,12 @@ public class RevokeOrganizationInvitationRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public RevokeOrganizationInvitationRequest build() {
+
             return new RevokeOrganizationInvitationRequest(
-                organizationId,
-                invitationId,
-                requestBody);
+                organizationId, invitationId, requestBody);
         }
+
     }
 }

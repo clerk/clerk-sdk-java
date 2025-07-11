@@ -13,7 +13,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -22,7 +21,6 @@ import java.util.Optional;
  * <p>Success
  */
 public class AllowlistIdentifier {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -30,9 +28,11 @@ public class AllowlistIdentifier {
     @JsonProperty("object")
     private Optional<? extends AllowlistIdentifierObject> object;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
     private Optional<String> id;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("invitation_id")
@@ -45,9 +45,11 @@ public class AllowlistIdentifier {
     @JsonProperty("identifier")
     private Optional<String> identifier;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier_type")
     private Optional<? extends IdentifierType> identifierType;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
@@ -96,7 +98,9 @@ public class AllowlistIdentifier {
     }
     
     public AllowlistIdentifier() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -153,9 +157,10 @@ public class AllowlistIdentifier {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -165,6 +170,7 @@ public class AllowlistIdentifier {
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -181,6 +187,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
+
     public AllowlistIdentifier withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
@@ -192,6 +199,7 @@ public class AllowlistIdentifier {
         this.invitationId = Optional.ofNullable(invitationId);
         return this;
     }
+
 
     public AllowlistIdentifier withInvitationId(Optional<String> invitationId) {
         Utils.checkNotNull(invitationId, "invitationId");
@@ -208,6 +216,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
+
     /**
      * An email address or a phone number.
      */
@@ -223,6 +232,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
+
     public AllowlistIdentifier withIdentifierType(Optional<? extends IdentifierType> identifierType) {
         Utils.checkNotNull(identifierType, "identifierType");
         this.identifierType = identifierType;
@@ -234,6 +244,7 @@ public class AllowlistIdentifier {
         this.instanceId = Optional.ofNullable(instanceId);
         return this;
     }
+
 
     public AllowlistIdentifier withInstanceId(Optional<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -249,6 +260,7 @@ public class AllowlistIdentifier {
         this.createdAt = Optional.ofNullable(createdAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of creation
@@ -268,6 +280,7 @@ public class AllowlistIdentifier {
         return this;
     }
 
+
     /**
      * Unix timestamp of last update.
      */
@@ -277,7 +290,6 @@ public class AllowlistIdentifier {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -288,27 +300,22 @@ public class AllowlistIdentifier {
         }
         AllowlistIdentifier other = (AllowlistIdentifier) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.invitationId, other.invitationId) &&
-            Objects.deepEquals(this.identifier, other.identifier) &&
-            Objects.deepEquals(this.identifierType, other.identifierType) &&
-            Objects.deepEquals(this.instanceId, other.instanceId) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.invitationId, other.invitationId) &&
+            Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
+            Utils.enhancedDeepEquals(this.identifierType, other.identifierType) &&
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            invitationId,
-            identifier,
-            identifierType,
-            instanceId,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, invitationId,
+            identifier, identifierType, instanceId,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -323,28 +330,30 @@ public class AllowlistIdentifier {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends AllowlistIdentifierObject> object = Optional.empty();
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> invitationId = Optional.empty();
- 
+
         private Optional<String> identifier = Optional.empty();
- 
+
         private Optional<? extends IdentifierType> identifierType = Optional.empty();
- 
+
         private Optional<String> instanceId = Optional.empty();
- 
+
         private Optional<Long> createdAt = Optional.empty();
- 
+
         private Optional<Long> updatedAt = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -364,6 +373,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = Optional.ofNullable(id);
@@ -376,6 +386,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
+
         public Builder invitationId(String invitationId) {
             Utils.checkNotNull(invitationId, "invitationId");
             this.invitationId = Optional.ofNullable(invitationId);
@@ -387,6 +398,7 @@ public class AllowlistIdentifier {
             this.invitationId = invitationId;
             return this;
         }
+
 
         /**
          * An email address or a phone number.
@@ -406,6 +418,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
+
         public Builder identifierType(IdentifierType identifierType) {
             Utils.checkNotNull(identifierType, "identifierType");
             this.identifierType = Optional.ofNullable(identifierType);
@@ -418,6 +431,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
+
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
             this.instanceId = Optional.ofNullable(instanceId);
@@ -429,6 +443,7 @@ public class AllowlistIdentifier {
             this.instanceId = instanceId;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation
@@ -448,6 +463,7 @@ public class AllowlistIdentifier {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -465,17 +481,14 @@ public class AllowlistIdentifier {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public AllowlistIdentifier build() {
+
             return new AllowlistIdentifier(
-                object,
-                id,
-                invitationId,
-                identifier,
-                identifierType,
-                instanceId,
-                createdAt,
-                updatedAt);
+                object, id, invitationId,
+                identifier, identifierType, instanceId,
+                createdAt, updatedAt);
         }
+
     }
 }

@@ -28,7 +28,7 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         ListRedirectURLsResponse res = sdk.redirectUrls().list()
@@ -80,7 +80,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         CreateRedirectURLResponse res = sdk.redirectUrls().create()
@@ -129,7 +129,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetRedirectURLResponse res = sdk.redirectUrls().get()
@@ -179,7 +179,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         DeleteRedirectURLResponse res = sdk.redirectUrls().delete()

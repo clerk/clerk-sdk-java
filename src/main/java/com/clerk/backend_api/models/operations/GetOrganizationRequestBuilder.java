@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetOrganizationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -17,10 +21,10 @@ public class GetOrganizationRequestBuilder {
     private Optional<Boolean> includeMembersCount = Optional.empty();
     private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetOrganization sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetOrganizationRequestBuilder(SDKMethodInterfaces.MethodCallGetOrganization sdk) {
-        this.sdk = sdk;
+    public GetOrganizationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetOrganizationRequestBuilder organizationId(String organizationId) {
@@ -65,14 +69,27 @@ public class GetOrganizationRequestBuilder {
         return this;
     }
 
+
+    private GetOrganizationRequest buildRequest() {
+
+        GetOrganizationRequest request = new GetOrganizationRequest(organizationId,
+            includeMembersCount,
+            includeMissingMemberWithElevatedPermissions);
+
+        return request;
+    }
+
     public GetOrganizationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            organizationId,
-            includeMembersCount,
-            includeMissingMemberWithElevatedPermissions,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetOrganizationRequest, GetOrganizationResponse> operation
+              = new GetOrganizationOperation(
+                sdkConfiguration,
+                options);
+        GetOrganizationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

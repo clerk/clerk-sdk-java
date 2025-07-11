@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateProductionInstanceDomainRequestBody {
 
+public class UpdateProductionInstanceDomainRequestBody {
     /**
      * The new home URL of the production instance e.g. https://www.example.com
      */
@@ -61,9 +60,10 @@ public class UpdateProductionInstanceDomainRequestBody {
         return isSecondary;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The new home URL of the production instance e.g. https://www.example.com
@@ -73,6 +73,7 @@ public class UpdateProductionInstanceDomainRequestBody {
         this.homeUrl = Optional.ofNullable(homeUrl);
         return this;
     }
+
 
     /**
      * The new home URL of the production instance e.g. https://www.example.com
@@ -92,6 +93,7 @@ public class UpdateProductionInstanceDomainRequestBody {
         return this;
     }
 
+
     /**
      * Whether the domain is a secondary app.
      */
@@ -101,7 +103,6 @@ public class UpdateProductionInstanceDomainRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -112,15 +113,14 @@ public class UpdateProductionInstanceDomainRequestBody {
         }
         UpdateProductionInstanceDomainRequestBody other = (UpdateProductionInstanceDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.homeUrl, other.homeUrl) &&
-            Objects.deepEquals(this.isSecondary, other.isSecondary);
+            Utils.enhancedDeepEquals(this.homeUrl, other.homeUrl) &&
+            Utils.enhancedDeepEquals(this.isSecondary, other.isSecondary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            homeUrl,
-            isSecondary);
+        return Utils.enhancedHash(
+            homeUrl, isSecondary);
     }
     
     @Override
@@ -129,16 +129,18 @@ public class UpdateProductionInstanceDomainRequestBody {
                 "homeUrl", homeUrl,
                 "isSecondary", isSecondary);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> homeUrl = Optional.empty();
- 
+
         private Optional<Boolean> isSecondary = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The new home URL of the production instance e.g. https://www.example.com
@@ -158,6 +160,7 @@ public class UpdateProductionInstanceDomainRequestBody {
             return this;
         }
 
+
         /**
          * Whether the domain is a secondary app.
          */
@@ -175,11 +178,12 @@ public class UpdateProductionInstanceDomainRequestBody {
             this.isSecondary = isSecondary;
             return this;
         }
-        
+
         public UpdateProductionInstanceDomainRequestBody build() {
+
             return new UpdateProductionInstanceDomainRequestBody(
-                homeUrl,
-                isSecondary);
+                homeUrl, isSecondary);
         }
+
     }
 }

@@ -9,18 +9,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class SAMLConnectionAttributeMapping {
 
     @JsonProperty("user_id")
     private String userId;
 
+
     @JsonProperty("email_address")
     private String emailAddress;
 
+
     @JsonProperty("first_name")
     private String firstName;
+
 
     @JsonProperty("last_name")
     private String lastName;
@@ -61,9 +64,10 @@ public class SAMLConnectionAttributeMapping {
         return lastName;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SAMLConnectionAttributeMapping withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -89,7 +93,6 @@ public class SAMLConnectionAttributeMapping {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -100,18 +103,16 @@ public class SAMLConnectionAttributeMapping {
         }
         SAMLConnectionAttributeMapping other = (SAMLConnectionAttributeMapping) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            emailAddress,
-            firstName,
+        return Utils.enhancedHash(
+            userId, emailAddress, firstName,
             lastName);
     }
     
@@ -123,20 +124,22 @@ public class SAMLConnectionAttributeMapping {
                 "firstName", firstName,
                 "lastName", lastName);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String emailAddress;
- 
+
         private String firstName;
- 
+
         private String lastName;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -144,11 +147,13 @@ public class SAMLConnectionAttributeMapping {
             return this;
         }
 
+
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -156,18 +161,19 @@ public class SAMLConnectionAttributeMapping {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
         }
-        
+
         public SAMLConnectionAttributeMapping build() {
+
             return new SAMLConnectionAttributeMapping(
-                userId,
-                emailAddress,
-                firstName,
+                userId, emailAddress, firstName,
                 lastName);
         }
+
     }
 }

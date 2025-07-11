@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateDomainRequestBuilder {
     private String domainId;
     private UpdateDomainRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateDomain sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateDomainRequestBuilder(SDKMethodInterfaces.MethodCallUpdateDomain sdk) {
-        this.sdk = sdk;
+    public UpdateDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateDomainRequestBuilder domainId(String domainId) {
@@ -45,13 +49,26 @@ public class UpdateDomainRequestBuilder {
         return this;
     }
 
+
+    private UpdateDomainRequest buildRequest() {
+
+        UpdateDomainRequest request = new UpdateDomainRequest(domainId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateDomainResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            domainId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateDomainRequest, UpdateDomainResponse> operation
+              = new UpdateDomainOperation(
+                sdkConfiguration,
+                options);
+        UpdateDomainRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -11,7 +11,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * OrganizationInvitationsWithPublicOrganizationData
@@ -52,9 +51,10 @@ public class OrganizationInvitationsWithPublicOrganizationData {
         return totalCount;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OrganizationInvitationsWithPublicOrganizationData withData(List<OrganizationInvitationWithPublicOrganizationData> data) {
         Utils.checkNotNull(data, "data");
@@ -71,7 +71,6 @@ public class OrganizationInvitationsWithPublicOrganizationData {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -82,15 +81,14 @@ public class OrganizationInvitationsWithPublicOrganizationData {
         }
         OrganizationInvitationsWithPublicOrganizationData other = (OrganizationInvitationsWithPublicOrganizationData) o;
         return 
-            Objects.deepEquals(this.data, other.data) &&
-            Objects.deepEquals(this.totalCount, other.totalCount);
+            Utils.enhancedDeepEquals(this.data, other.data) &&
+            Utils.enhancedDeepEquals(this.totalCount, other.totalCount);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            data,
-            totalCount);
+        return Utils.enhancedHash(
+            data, totalCount);
     }
     
     @Override
@@ -99,22 +97,25 @@ public class OrganizationInvitationsWithPublicOrganizationData {
                 "data", data,
                 "totalCount", totalCount);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private List<OrganizationInvitationWithPublicOrganizationData> data;
- 
+
         private Long totalCount;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder data(List<OrganizationInvitationWithPublicOrganizationData> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;
         }
+
 
         /**
          * Total number of organization invitations
@@ -124,11 +125,12 @@ public class OrganizationInvitationsWithPublicOrganizationData {
             this.totalCount = totalCount;
             return this;
         }
-        
+
         public OrganizationInvitationsWithPublicOrganizationData build() {
+
             return new OrganizationInvitationsWithPublicOrganizationData(
-                data,
-                totalCount);
+                data, totalCount);
         }
+
     }
 }

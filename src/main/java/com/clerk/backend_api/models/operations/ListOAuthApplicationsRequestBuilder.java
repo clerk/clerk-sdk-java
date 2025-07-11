@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListOAuthApplicationsOperation;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -23,10 +27,10 @@ public class ListOAuthApplicationsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListOAuthApplications sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListOAuthApplicationsRequestBuilder(SDKMethodInterfaces.MethodCallListOAuthApplications sdk) {
-        this.sdk = sdk;
+    public ListOAuthApplicationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public ListOAuthApplicationsRequestBuilder limit(long limit) {
@@ -65,19 +69,33 @@ public class ListOAuthApplicationsRequestBuilder {
         return this;
     }
 
-    public ListOAuthApplicationsResponse call() throws Exception {
+
+    private ListOAuthApplicationsRequest buildRequest() {
         if (limit == null) {
             limit = _SINGLETON_VALUE_Limit.value();
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            limit,
-            offset,
-            options);
+        }
+
+        ListOAuthApplicationsRequest request = new ListOAuthApplicationsRequest(limit,
+            offset);
+
+        return request;
+    }
+
+    public ListOAuthApplicationsResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListOAuthApplicationsRequest, ListOAuthApplicationsResponse> operation
+              = new ListOAuthApplicationsOperation(
+                sdkConfiguration,
+                options);
+        ListOAuthApplicationsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

@@ -19,7 +19,7 @@ public enum SchemasPasskeyObject {
     @JsonValue
     private final String value;
 
-    private SchemasPasskeyObject(String value) {
+    SchemasPasskeyObject(String value) {
         this.value = value;
     }
     

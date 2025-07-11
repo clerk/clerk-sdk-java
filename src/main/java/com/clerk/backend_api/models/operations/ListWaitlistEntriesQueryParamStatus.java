@@ -22,7 +22,7 @@ public enum ListWaitlistEntriesQueryParamStatus {
     @JsonValue
     private final String value;
 
-    private ListWaitlistEntriesQueryParamStatus(String value) {
+    ListWaitlistEntriesQueryParamStatus(String value) {
         this.value = value;
     }
     

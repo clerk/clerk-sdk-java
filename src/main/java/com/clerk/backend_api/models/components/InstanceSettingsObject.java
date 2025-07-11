@@ -19,7 +19,7 @@ public enum InstanceSettingsObject {
     @JsonValue
     private final String value;
 
-    private InstanceSettingsObject(String value) {
+    InstanceSettingsObject(String value) {
         this.value = value;
     }
     

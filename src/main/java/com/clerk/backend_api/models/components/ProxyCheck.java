@@ -13,7 +13,6 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,8 +25,10 @@ public class ProxyCheck {
     @JsonProperty("object")
     private ProxyCheckObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("domain_id")
     private String domainId;
@@ -39,8 +40,10 @@ public class ProxyCheck {
     @JsonProperty("last_run_at")
     private Optional<Long> lastRunAt;
 
+
     @JsonProperty("proxy_url")
     private String proxyUrl;
+
 
     @JsonProperty("successful")
     private boolean successful;
@@ -93,7 +96,9 @@ public class ProxyCheck {
             boolean successful,
             long createdAt,
             long updatedAt) {
-        this(object, id, domainId, Optional.empty(), proxyUrl, successful, createdAt, updatedAt);
+        this(object, id, domainId,
+            Optional.empty(), proxyUrl, successful,
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -145,9 +150,10 @@ public class ProxyCheck {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public ProxyCheck withObject(ProxyCheckObject object) {
         Utils.checkNotNull(object, "object");
@@ -175,6 +181,7 @@ public class ProxyCheck {
         this.lastRunAt = Optional.ofNullable(lastRunAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of last run.
@@ -215,7 +222,6 @@ public class ProxyCheck {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -226,27 +232,22 @@ public class ProxyCheck {
         }
         ProxyCheck other = (ProxyCheck) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.domainId, other.domainId) &&
-            Objects.deepEquals(this.lastRunAt, other.lastRunAt) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            Objects.deepEquals(this.successful, other.successful) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.domainId, other.domainId) &&
+            Utils.enhancedDeepEquals(this.lastRunAt, other.lastRunAt) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl) &&
+            Utils.enhancedDeepEquals(this.successful, other.successful) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            domainId,
-            lastRunAt,
-            proxyUrl,
-            successful,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, domainId,
+            lastRunAt, proxyUrl, successful,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -261,28 +262,30 @@ public class ProxyCheck {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private ProxyCheckObject object;
- 
+
         private String id;
- 
+
         private String domainId;
- 
+
         private Optional<Long> lastRunAt = Optional.empty();
- 
+
         private String proxyUrl;
- 
+
         private Boolean successful;
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(ProxyCheckObject object) {
             Utils.checkNotNull(object, "object");
@@ -290,17 +293,20 @@ public class ProxyCheck {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
 
+
         public Builder domainId(String domainId) {
             Utils.checkNotNull(domainId, "domainId");
             this.domainId = domainId;
             return this;
         }
+
 
         /**
          * Unix timestamp of last run.
@@ -320,17 +326,20 @@ public class ProxyCheck {
             return this;
         }
 
+
         public Builder proxyUrl(String proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = proxyUrl;
             return this;
         }
 
+
         public Builder successful(boolean successful) {
             Utils.checkNotNull(successful, "successful");
             this.successful = successful;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation.
@@ -341,6 +350,7 @@ public class ProxyCheck {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -349,17 +359,14 @@ public class ProxyCheck {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public ProxyCheck build() {
+
             return new ProxyCheck(
-                object,
-                id,
-                domainId,
-                lastRunAt,
-                proxyUrl,
-                successful,
-                createdAt,
-                updatedAt);
+                object, id, domainId,
+                lastRunAt, proxyUrl, successful,
+                createdAt, updatedAt);
         }
+
     }
 }

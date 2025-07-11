@@ -13,11 +13,10 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetOAuthAccessTokenRequest {
 
+public class GetOAuthAccessTokenRequest {
     /**
      * The ID of the user for which to retrieve the OAuth access token
      */
@@ -75,7 +74,8 @@ public class GetOAuthAccessTokenRequest {
     public GetOAuthAccessTokenRequest(
             String userId,
             String provider) {
-        this(userId, provider, Optional.empty(), Optional.empty(), Optional.empty());
+        this(userId, provider, Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -123,9 +123,10 @@ public class GetOAuthAccessTokenRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user for which to retrieve the OAuth access token
@@ -156,6 +157,7 @@ public class GetOAuthAccessTokenRequest {
         return this;
     }
 
+
     /**
      * Whether to paginate the results.
      * If true, the results will be paginated.
@@ -176,6 +178,7 @@ public class GetOAuthAccessTokenRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -198,6 +201,7 @@ public class GetOAuthAccessTokenRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -209,7 +213,6 @@ public class GetOAuthAccessTokenRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -220,21 +223,18 @@ public class GetOAuthAccessTokenRequest {
         }
         GetOAuthAccessTokenRequest other = (GetOAuthAccessTokenRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.paginated, other.paginated) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.paginated, other.paginated) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            provider,
-            paginated,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            userId, provider, paginated,
+            limit, offset);
     }
     
     @Override
@@ -246,22 +246,24 @@ public class GetOAuthAccessTokenRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String provider;
- 
+
         private Optional<Boolean> paginated = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user for which to retrieve the OAuth access token
@@ -272,6 +274,7 @@ public class GetOAuthAccessTokenRequest {
             return this;
         }
 
+
         /**
          * The ID of the OAuth provider (e.g. `oauth_google`)
          */
@@ -280,6 +283,7 @@ public class GetOAuthAccessTokenRequest {
             this.provider = provider;
             return this;
         }
+
 
         /**
          * Whether to paginate the results.
@@ -303,6 +307,7 @@ public class GetOAuthAccessTokenRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -322,6 +327,7 @@ public class GetOAuthAccessTokenRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -344,7 +350,7 @@ public class GetOAuthAccessTokenRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public GetOAuthAccessTokenRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -352,13 +358,12 @@ public class GetOAuthAccessTokenRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new GetOAuthAccessTokenRequest(
-                userId,
-                provider,
-                paginated,
-                limit,
-                offset);
+                userId, provider, paginated,
+                limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

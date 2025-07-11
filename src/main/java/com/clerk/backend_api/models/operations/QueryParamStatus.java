@@ -21,7 +21,7 @@ public enum QueryParamStatus {
     @JsonValue
     private final String value;
 
-    private QueryParamStatus(String value) {
+    QueryParamStatus(String value) {
         this.value = value;
     }
     

@@ -29,7 +29,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         CreatePhoneNumberResponse res = sdk.phoneNumbers().create()
@@ -78,7 +78,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetPhoneNumberResponse res = sdk.phoneNumbers().get()
@@ -128,7 +128,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         DeletePhoneNumberResponse res = sdk.phoneNumbers().delete()
@@ -178,7 +178,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         UpdatePhoneNumberResponse res = sdk.phoneNumbers().update()

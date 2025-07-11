@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class VerifyTOTPRequestBody {
-
     /**
      * The TOTP or backup code to verify
      */
@@ -34,9 +33,10 @@ public class VerifyTOTPRequestBody {
         return code;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The TOTP or backup code to verify
@@ -47,7 +47,6 @@ public class VerifyTOTPRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class VerifyTOTPRequestBody {
         }
         VerifyTOTPRequestBody other = (VerifyTOTPRequestBody) o;
         return 
-            Objects.deepEquals(this.code, other.code);
+            Utils.enhancedDeepEquals(this.code, other.code);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             code);
     }
     
@@ -72,14 +71,16 @@ public class VerifyTOTPRequestBody {
         return Utils.toString(VerifyTOTPRequestBody.class,
                 "code", code);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String code;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The TOTP or backup code to verify
@@ -89,10 +90,12 @@ public class VerifyTOTPRequestBody {
             this.code = code;
             return this;
         }
-        
+
         public VerifyTOTPRequestBody build() {
+
             return new VerifyTOTPRequestBody(
                 code);
         }
+
     }
 }

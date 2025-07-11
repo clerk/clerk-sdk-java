@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateSessionTokenFromTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
     private String templateName;
     private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateSessionTokenFromTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateSessionTokenFromTemplateRequestBuilder(SDKMethodInterfaces.MethodCallCreateSessionTokenFromTemplate sdk) {
-        this.sdk = sdk;
+    public CreateSessionTokenFromTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public CreateSessionTokenFromTemplateRequestBuilder sessionId(String sessionId) {
@@ -58,14 +62,27 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
         return this;
     }
 
+
+    private CreateSessionTokenFromTemplateRequest buildRequest() {
+
+        CreateSessionTokenFromTemplateRequest request = new CreateSessionTokenFromTemplateRequest(sessionId,
+            templateName,
+            requestBody);
+
+        return request;
+    }
+
     public CreateSessionTokenFromTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.createTokenFromTemplate(
-            sessionId,
-            templateName,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
+              = new CreateSessionTokenFromTemplateOperation(
+                sdkConfiguration,
+                options);
+        CreateSessionTokenFromTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

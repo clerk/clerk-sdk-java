@@ -14,7 +14,7 @@ public enum SignUpObject {
     @JsonValue
     private final String value;
 
-    private SignUpObject(String value) {
+    SignUpObject(String value) {
         this.value = value;
     }
     

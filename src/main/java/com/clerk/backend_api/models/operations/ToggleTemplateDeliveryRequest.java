@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ToggleTemplateDeliveryRequest {
 
+public class ToggleTemplateDeliveryRequest {
     /**
      * The type of template to toggle delivery for
      */
@@ -26,6 +25,7 @@ public class ToggleTemplateDeliveryRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=slug")
     private String slug;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody;
@@ -71,9 +71,10 @@ public class ToggleTemplateDeliveryRequest {
         return (Optional<ToggleTemplateDeliveryRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of template to toggle delivery for
@@ -99,13 +100,13 @@ public class ToggleTemplateDeliveryRequest {
         return this;
     }
 
+
     public ToggleTemplateDeliveryRequest withRequestBody(Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,17 +117,15 @@ public class ToggleTemplateDeliveryRequest {
         }
         ToggleTemplateDeliveryRequest other = (ToggleTemplateDeliveryRequest) o;
         return 
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateType,
-            slug,
-            requestBody);
+        return Utils.enhancedHash(
+            templateType, slug, requestBody);
     }
     
     @Override
@@ -136,18 +135,20 @@ public class ToggleTemplateDeliveryRequest {
                 "slug", slug,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private ToggleTemplateDeliveryPathParamTemplateType templateType;
- 
+
         private String slug;
- 
+
         private Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of template to toggle delivery for
@@ -158,6 +159,7 @@ public class ToggleTemplateDeliveryRequest {
             return this;
         }
 
+
         /**
          * The slug of the template for which to toggle delivery
          */
@@ -166,6 +168,7 @@ public class ToggleTemplateDeliveryRequest {
             this.slug = slug;
             return this;
         }
+
 
         public Builder requestBody(ToggleTemplateDeliveryRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -178,12 +181,12 @@ public class ToggleTemplateDeliveryRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public ToggleTemplateDeliveryRequest build() {
+
             return new ToggleTemplateDeliveryRequest(
-                templateType,
-                slug,
-                requestBody);
+                templateType, slug, requestBody);
         }
+
     }
 }

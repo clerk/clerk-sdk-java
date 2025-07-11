@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteOAuthApplicationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteOAuthApplicationRequestBuilder {
 
     private String oauthApplicationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteOAuthApplication sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOAuthApplication sdk) {
-        this.sdk = sdk;
+    public DeleteOAuthApplicationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
@@ -38,12 +42,25 @@ public class DeleteOAuthApplicationRequestBuilder {
         return this;
     }
 
+
+    private DeleteOAuthApplicationRequest buildRequest() {
+
+        DeleteOAuthApplicationRequest request = new DeleteOAuthApplicationRequest(oauthApplicationId);
+
+        return request;
+    }
+
     public DeleteOAuthApplicationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            oauthApplicationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteOAuthApplicationRequest, DeleteOAuthApplicationResponse> operation
+              = new DeleteOAuthApplicationOperation(
+                sdkConfiguration,
+                options);
+        DeleteOAuthApplicationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -12,11 +12,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UsersGetOrganizationMembershipsRequest {
 
+public class UsersGetOrganizationMembershipsRequest {
     /**
      * The ID of the user whose organization memberships we want to retrieve
      */
@@ -83,9 +82,10 @@ public class UsersGetOrganizationMembershipsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user whose organization memberships we want to retrieve
@@ -105,6 +105,7 @@ public class UsersGetOrganizationMembershipsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -127,6 +128,7 @@ public class UsersGetOrganizationMembershipsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -138,7 +140,6 @@ public class UsersGetOrganizationMembershipsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -149,17 +150,15 @@ public class UsersGetOrganizationMembershipsRequest {
         }
         UsersGetOrganizationMembershipsRequest other = (UsersGetOrganizationMembershipsRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            userId, limit, offset);
     }
     
     @Override
@@ -169,18 +168,20 @@ public class UsersGetOrganizationMembershipsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user whose organization memberships we want to retrieve
@@ -190,6 +191,7 @@ public class UsersGetOrganizationMembershipsRequest {
             this.userId = userId;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -210,6 +212,7 @@ public class UsersGetOrganizationMembershipsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -232,7 +235,7 @@ public class UsersGetOrganizationMembershipsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public UsersGetOrganizationMembershipsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -240,11 +243,11 @@ public class UsersGetOrganizationMembershipsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new UsersGetOrganizationMembershipsRequest(
-                userId,
-                limit,
-                offset);
+                userId, limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

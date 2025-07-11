@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteBackupCodeOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteBackupCodeRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteBackupCode sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteBackupCodeRequestBuilder(SDKMethodInterfaces.MethodCallDeleteBackupCode sdk) {
-        this.sdk = sdk;
+    public DeleteBackupCodeRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteBackupCodeRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class DeleteBackupCodeRequestBuilder {
         return this;
     }
 
+
+    private DeleteBackupCodeRequest buildRequest() {
+
+        DeleteBackupCodeRequest request = new DeleteBackupCodeRequest(userId);
+
+        return request;
+    }
+
     public DeleteBackupCodeResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteBackupCodes(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
+              = new DeleteBackupCodeOperation(
+                sdkConfiguration,
+                options);
+        DeleteBackupCodeRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

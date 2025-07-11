@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.MergeOrganizationMetadataOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class MergeOrganizationMetadataRequestBuilder {
     private String organizationId;
     private MergeOrganizationMetadataRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallMergeOrganizationMetadata sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public MergeOrganizationMetadataRequestBuilder(SDKMethodInterfaces.MethodCallMergeOrganizationMetadata sdk) {
-        this.sdk = sdk;
+    public MergeOrganizationMetadataRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public MergeOrganizationMetadataRequestBuilder organizationId(String organizationId) {
@@ -45,13 +49,26 @@ public class MergeOrganizationMetadataRequestBuilder {
         return this;
     }
 
+
+    private MergeOrganizationMetadataRequest buildRequest() {
+
+        MergeOrganizationMetadataRequest request = new MergeOrganizationMetadataRequest(organizationId,
+            requestBody);
+
+        return request;
+    }
+
     public MergeOrganizationMetadataResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.mergeMetadata(
-            organizationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
+              = new MergeOrganizationMetadataOperation(
+                sdkConfiguration,
+                options);
+        MergeOrganizationMetadataRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

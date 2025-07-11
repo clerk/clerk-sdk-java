@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteDomainRequestBuilder {
 
     private String domainId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteDomain sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteDomainRequestBuilder(SDKMethodInterfaces.MethodCallDeleteDomain sdk) {
-        this.sdk = sdk;
+    public DeleteDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteDomainRequestBuilder domainId(String domainId) {
@@ -38,12 +42,25 @@ public class DeleteDomainRequestBuilder {
         return this;
     }
 
+
+    private DeleteDomainRequest buildRequest() {
+
+        DeleteDomainRequest request = new DeleteDomainRequest(domainId);
+
+        return request;
+    }
+
     public DeleteDomainResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            domainId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
+              = new DeleteDomainOperation(
+                sdkConfiguration,
+                options);
+        DeleteDomainRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

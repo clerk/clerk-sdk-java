@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UserPasskeyDeleteRequest {
-
     /**
      * The ID of the user that owns the passkey identity
      */
@@ -51,9 +50,10 @@ public class UserPasskeyDeleteRequest {
         return passkeyIdentificationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that owns the passkey identity
@@ -73,7 +73,6 @@ public class UserPasskeyDeleteRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class UserPasskeyDeleteRequest {
         }
         UserPasskeyDeleteRequest other = (UserPasskeyDeleteRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.passkeyIdentificationId, other.passkeyIdentificationId);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.passkeyIdentificationId, other.passkeyIdentificationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            passkeyIdentificationId);
+        return Utils.enhancedHash(
+            userId, passkeyIdentificationId);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class UserPasskeyDeleteRequest {
                 "userId", userId,
                 "passkeyIdentificationId", passkeyIdentificationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String passkeyIdentificationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that owns the passkey identity
@@ -121,6 +121,7 @@ public class UserPasskeyDeleteRequest {
             return this;
         }
 
+
         /**
          * The ID of the passkey identity to be deleted
          */
@@ -129,11 +130,12 @@ public class UserPasskeyDeleteRequest {
             this.passkeyIdentificationId = passkeyIdentificationId;
             return this;
         }
-        
+
         public UserPasskeyDeleteRequest build() {
+
             return new UserPasskeyDeleteRequest(
-                userId,
-                passkeyIdentificationId);
+                userId, passkeyIdentificationId);
         }
+
     }
 }

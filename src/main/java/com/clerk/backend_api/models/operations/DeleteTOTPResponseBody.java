@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,9 +40,10 @@ public class DeleteTOTPResponseBody {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public DeleteTOTPResponseBody withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -51,13 +51,13 @@ public class DeleteTOTPResponseBody {
         return this;
     }
 
+
     public DeleteTOTPResponseBody withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -68,12 +68,12 @@ public class DeleteTOTPResponseBody {
         }
         DeleteTOTPResponseBody other = (DeleteTOTPResponseBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -82,14 +82,16 @@ public class DeleteTOTPResponseBody {
         return Utils.toString(DeleteTOTPResponseBody.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> userId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -102,10 +104,12 @@ public class DeleteTOTPResponseBody {
             this.userId = userId;
             return this;
         }
-        
+
         public DeleteTOTPResponseBody build() {
+
             return new DeleteTOTPResponseBody(
                 userId);
         }
+
     }
 }

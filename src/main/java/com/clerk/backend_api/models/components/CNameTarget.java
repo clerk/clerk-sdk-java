@@ -10,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class CNameTarget {
 
     @JsonProperty("host")
     private String host;
+
 
     @JsonProperty("value")
     private String value;
@@ -57,9 +58,10 @@ public class CNameTarget {
         return required;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public CNameTarget withHost(String host) {
         Utils.checkNotNull(host, "host");
@@ -82,7 +84,6 @@ public class CNameTarget {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -93,17 +94,15 @@ public class CNameTarget {
         }
         CNameTarget other = (CNameTarget) o;
         return 
-            Objects.deepEquals(this.host, other.host) &&
-            Objects.deepEquals(this.value, other.value) &&
-            Objects.deepEquals(this.required, other.required);
+            Utils.enhancedDeepEquals(this.host, other.host) &&
+            Utils.enhancedDeepEquals(this.value, other.value) &&
+            Utils.enhancedDeepEquals(this.required, other.required);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            host,
-            value,
-            required);
+        return Utils.enhancedHash(
+            host, value, required);
     }
     
     @Override
@@ -113,18 +112,20 @@ public class CNameTarget {
                 "value", value,
                 "required", required);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String host;
- 
+
         private String value;
- 
+
         private Boolean required;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder host(String host) {
             Utils.checkNotNull(host, "host");
@@ -132,11 +133,13 @@ public class CNameTarget {
             return this;
         }
 
+
         public Builder value(String value) {
             Utils.checkNotNull(value, "value");
             this.value = value;
             return this;
         }
+
 
         /**
          * Denotes whether this CNAME target is required to be set in order for the domain to be considered deployed.
@@ -146,12 +149,12 @@ public class CNameTarget {
             this.required = required;
             return this;
         }
-        
+
         public CNameTarget build() {
+
             return new CNameTarget(
-                host,
-                value,
-                required);
+                host, value, required);
         }
+
     }
 }

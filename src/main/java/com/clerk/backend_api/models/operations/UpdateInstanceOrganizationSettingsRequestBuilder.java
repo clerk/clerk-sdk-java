@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettingsOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class UpdateInstanceOrganizationSettingsRequestBuilder {
 
     private Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateInstanceOrganizationSettings sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateInstanceOrganizationSettingsRequestBuilder(SDKMethodInterfaces.MethodCallUpdateInstanceOrganizationSettings sdk) {
-        this.sdk = sdk;
+    public UpdateInstanceOrganizationSettingsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public UpdateInstanceOrganizationSettingsRequestBuilder request(UpdateInstanceOrganizationSettingsRequestBody request) {
@@ -45,10 +49,14 @@ public class UpdateInstanceOrganizationSettingsRequestBuilder {
 
     public UpdateInstanceOrganizationSettingsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.updateOrganizationSettings(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
+              = new UpdateInstanceOrganizationSettingsOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

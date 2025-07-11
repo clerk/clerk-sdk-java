@@ -21,7 +21,7 @@ public enum ExternalAccountWithVerificationObject {
     @JsonValue
     private final String value;
 
-    private ExternalAccountWithVerificationObject(String value) {
+    ExternalAccountWithVerificationObject(String value) {
         this.value = value;
     }
     

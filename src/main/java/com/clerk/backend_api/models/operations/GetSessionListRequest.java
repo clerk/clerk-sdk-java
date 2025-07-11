@@ -14,11 +14,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetSessionListRequest {
 
+public class GetSessionListRequest {
     /**
      * List sessions for the given client
      */
@@ -83,7 +82,8 @@ public class GetSessionListRequest {
     }
     
     public GetSessionListRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -140,9 +140,10 @@ public class GetSessionListRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * List sessions for the given client
@@ -152,6 +153,7 @@ public class GetSessionListRequest {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
+
 
     /**
      * List sessions for the given client
@@ -171,6 +173,7 @@ public class GetSessionListRequest {
         return this;
     }
 
+
     /**
      * List sessions for the given user
      */
@@ -188,6 +191,7 @@ public class GetSessionListRequest {
         this.status = Optional.ofNullable(status);
         return this;
     }
+
 
     /**
      * Filter sessions by the provided status
@@ -208,6 +212,7 @@ public class GetSessionListRequest {
         this.paginated = Optional.ofNullable(paginated);
         return this;
     }
+
 
     /**
      * Whether to paginate the results.
@@ -230,6 +235,7 @@ public class GetSessionListRequest {
         return this;
     }
 
+
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -251,6 +257,7 @@ public class GetSessionListRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -262,7 +269,6 @@ public class GetSessionListRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -273,23 +279,19 @@ public class GetSessionListRequest {
         }
         GetSessionListRequest other = (GetSessionListRequest) o;
         return 
-            Objects.deepEquals(this.clientId, other.clientId) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.paginated, other.paginated) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.paginated, other.paginated) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            clientId,
-            userId,
-            status,
-            paginated,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            clientId, userId, status,
+            paginated, limit, offset);
     }
     
     @Override
@@ -302,24 +304,26 @@ public class GetSessionListRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> clientId = Optional.empty();
- 
+
         private Optional<String> userId = Optional.empty();
- 
+
         private Optional<? extends Status> status = Optional.empty();
- 
+
         private Optional<Boolean> paginated = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * List sessions for the given client
@@ -339,6 +343,7 @@ public class GetSessionListRequest {
             return this;
         }
 
+
         /**
          * List sessions for the given user
          */
@@ -357,6 +362,7 @@ public class GetSessionListRequest {
             return this;
         }
 
+
         /**
          * Filter sessions by the provided status
          */
@@ -374,6 +380,7 @@ public class GetSessionListRequest {
             this.status = status;
             return this;
         }
+
 
         /**
          * Whether to paginate the results.
@@ -397,6 +404,7 @@ public class GetSessionListRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -416,6 +424,7 @@ public class GetSessionListRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -438,7 +447,7 @@ public class GetSessionListRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public GetSessionListRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -446,14 +455,12 @@ public class GetSessionListRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new GetSessionListRequest(
-                clientId,
-                userId,
-                status,
-                paginated,
-                limit,
-                offset);
+                clientId, userId, status,
+                paginated, limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

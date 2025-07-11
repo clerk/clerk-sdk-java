@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UploadOrganizationLogoRequest {
 
+public class UploadOrganizationLogoRequest {
     /**
      * The ID of the organization for which to upload a logo
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
+
 
     @SpeakeasyMetadata("request:mediaType=multipart/form-data")
     private Optional<? extends UploadOrganizationLogoRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class UploadOrganizationLogoRequest {
         return (Optional<UploadOrganizationLogoRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization for which to upload a logo
@@ -72,13 +73,13 @@ public class UploadOrganizationLogoRequest {
         return this;
     }
 
+
     public UploadOrganizationLogoRequest withRequestBody(Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class UploadOrganizationLogoRequest {
         }
         UploadOrganizationLogoRequest other = (UploadOrganizationLogoRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class UploadOrganizationLogoRequest {
                 "organizationId", organizationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<? extends UploadOrganizationLogoRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization for which to upload a logo
@@ -125,6 +127,7 @@ public class UploadOrganizationLogoRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         public Builder requestBody(UploadOrganizationLogoRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class UploadOrganizationLogoRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UploadOrganizationLogoRequest build() {
+
             return new UploadOrganizationLogoRequest(
-                organizationId,
-                requestBody);
+                organizationId, requestBody);
         }
+
     }
 }

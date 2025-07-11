@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +130,16 @@ public final class RequestBody {
             }
 
             if (metadata.file) {
-                serializeMultipartFile(metadata.name, builder, val);
+                if (val instanceof List || val.getClass().isArray()) {
+                    // Handle file arrays
+                    List<?> arr = Utils.toList(val);
+                    for (Object item : arr) {
+                        serializeMultipartFile(metadata.name + "[]", builder, item);
+                    }
+                } else {
+                    // Handle single file
+                    serializeMultipartFile(metadata.name, builder, val);
+                }
             } else if (metadata.json) {
                 ObjectMapper mapper = JSON.getMapper();
                 String json = mapper.writeValueAsString(val);
@@ -183,9 +194,21 @@ public final class RequestBody {
         if (fileName.isBlank() || content == null) {
             throw new RuntimeException("Invalid multipart file");
         }
+        
+        // Detect content type based on file extension
+        String contentType = "application/octet-stream"; // default fallback
+        try {
+            String detectedType = Files.probeContentType(Path.of(fileName));
+            if (detectedType != null && !detectedType.isEmpty()) {
+                contentType = detectedType;
+            }
+        } catch (Exception e) {
+            // If detection fails, use the default fallback
+        }
+        
         byte[] cont = content;
         builder.addPart(fieldName, () -> new ByteArrayInputStream(cont), fileName,
-                Optional.of("application/octet-stream"));
+                Optional.of(contentType));
     }
 
     public static SerializedBody serializeFormData(Object value)

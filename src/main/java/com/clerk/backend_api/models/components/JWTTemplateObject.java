@@ -14,7 +14,7 @@ public enum JWTTemplateObject {
     @JsonValue
     private final String value;
 
-    private JWTTemplateObject(String value) {
+    JWTTemplateObject(String value) {
         this.value = value;
     }
     

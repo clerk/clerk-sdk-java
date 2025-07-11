@@ -14,7 +14,7 @@ public enum SchemasSAMLConnectionObject {
     @JsonValue
     private final String value;
 
-    private SchemasSAMLConnectionObject(String value) {
+    SchemasSAMLConnectionObject(String value) {
         this.value = value;
     }
     

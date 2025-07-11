@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class CreateOrganizationMembershipRequestBody {
-
     /**
      * The ID of the user that will be added as a member in the organization.
      * The user needs to exist in the same instance as the organization and must not be a member of the given organization already.
@@ -53,9 +52,10 @@ public class CreateOrganizationMembershipRequestBody {
         return role;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that will be added as a member in the organization.
@@ -76,7 +76,6 @@ public class CreateOrganizationMembershipRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -87,15 +86,14 @@ public class CreateOrganizationMembershipRequestBody {
         }
         CreateOrganizationMembershipRequestBody other = (CreateOrganizationMembershipRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.role, other.role);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.role, other.role);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            role);
+        return Utils.enhancedHash(
+            userId, role);
     }
     
     @Override
@@ -104,16 +102,18 @@ public class CreateOrganizationMembershipRequestBody {
                 "userId", userId,
                 "role", role);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String role;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that will be added as a member in the organization.
@@ -125,6 +125,7 @@ public class CreateOrganizationMembershipRequestBody {
             return this;
         }
 
+
         /**
          * The role that the new member will have in the organization.
          */
@@ -133,11 +134,12 @@ public class CreateOrganizationMembershipRequestBody {
             this.role = role;
             return this;
         }
-        
+
         public CreateOrganizationMembershipRequestBody build() {
+
             return new CreateOrganizationMembershipRequestBody(
-                userId,
-                role);
+                userId, role);
         }
+
     }
 }

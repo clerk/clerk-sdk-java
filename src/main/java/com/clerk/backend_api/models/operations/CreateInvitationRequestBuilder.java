@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateInvitationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateInvitationRequestBuilder {
 
     private Optional<? extends CreateInvitationRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateInvitation sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateInvitationRequestBuilder(SDKMethodInterfaces.MethodCallCreateInvitation sdk) {
-        this.sdk = sdk;
+    public CreateInvitationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateInvitationRequestBuilder request(CreateInvitationRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateInvitationRequestBuilder {
 
     public CreateInvitationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
+              = new CreateInvitationOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

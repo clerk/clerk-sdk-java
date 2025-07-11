@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteEmailAddressRequest {
-
     /**
      * The ID of the email address to delete
      */
@@ -34,9 +33,10 @@ public class DeleteEmailAddressRequest {
         return emailAddressId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the email address to delete
@@ -47,7 +47,6 @@ public class DeleteEmailAddressRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteEmailAddressRequest {
         }
         DeleteEmailAddressRequest other = (DeleteEmailAddressRequest) o;
         return 
-            Objects.deepEquals(this.emailAddressId, other.emailAddressId);
+            Utils.enhancedDeepEquals(this.emailAddressId, other.emailAddressId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             emailAddressId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteEmailAddressRequest {
         return Utils.toString(DeleteEmailAddressRequest.class,
                 "emailAddressId", emailAddressId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddressId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the email address to delete
@@ -89,10 +90,12 @@ public class DeleteEmailAddressRequest {
             this.emailAddressId = emailAddressId;
             return this;
         }
-        
+
         public DeleteEmailAddressRequest build() {
+
             return new DeleteEmailAddressRequest(
                 emailAddressId);
         }
+
     }
 }

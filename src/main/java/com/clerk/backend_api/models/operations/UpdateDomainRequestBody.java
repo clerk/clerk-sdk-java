@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateDomainRequestBody {
 
+public class UpdateDomainRequestBody {
     /**
      * The new domain name. For development instances, can contain the port,
      * i.e `myhostname:3000`. For production instances, must be a valid FQDN,
@@ -89,9 +88,10 @@ public class UpdateDomainRequestBody {
         return isSecondary;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The new domain name. For development instances, can contain the port,
@@ -157,7 +157,6 @@ public class UpdateDomainRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -168,17 +167,15 @@ public class UpdateDomainRequestBody {
         }
         UpdateDomainRequestBody other = (UpdateDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            Objects.deepEquals(this.isSecondary, other.isSecondary);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl) &&
+            Utils.enhancedDeepEquals(this.isSecondary, other.isSecondary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            proxyUrl,
-            isSecondary);
+        return Utils.enhancedHash(
+            name, proxyUrl, isSecondary);
     }
     
     @Override
@@ -188,18 +185,20 @@ public class UpdateDomainRequestBody {
                 "proxyUrl", proxyUrl,
                 "isSecondary", isSecondary);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> name = JsonNullable.undefined();
- 
+
         private JsonNullable<String> proxyUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> isSecondary = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The new domain name. For development instances, can contain the port,
@@ -223,6 +222,7 @@ public class UpdateDomainRequestBody {
             return this;
         }
 
+
         /**
          * The full URL of the proxy that will forward requests to Clerk's Frontend API.
          * Can only be updated for production instances.
@@ -242,6 +242,7 @@ public class UpdateDomainRequestBody {
             this.proxyUrl = proxyUrl;
             return this;
         }
+
 
         /**
          * Whether this is a domain for a secondary app, meaning that any subdomain provided is significant and
@@ -264,12 +265,12 @@ public class UpdateDomainRequestBody {
             this.isSecondary = isSecondary;
             return this;
         }
-        
+
         public UpdateDomainRequestBody build() {
+
             return new UpdateDomainRequestBody(
-                name,
-                proxyUrl,
-                isSecondary);
+                name, proxyUrl, isSecondary);
         }
+
     }
 }

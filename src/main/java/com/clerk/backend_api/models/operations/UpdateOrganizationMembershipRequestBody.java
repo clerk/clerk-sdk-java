@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UpdateOrganizationMembershipRequestBody {
-
     /**
      * The new role of the given membership.
      */
@@ -34,9 +33,10 @@ public class UpdateOrganizationMembershipRequestBody {
         return role;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The new role of the given membership.
@@ -47,7 +47,6 @@ public class UpdateOrganizationMembershipRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class UpdateOrganizationMembershipRequestBody {
         }
         UpdateOrganizationMembershipRequestBody other = (UpdateOrganizationMembershipRequestBody) o;
         return 
-            Objects.deepEquals(this.role, other.role);
+            Utils.enhancedDeepEquals(this.role, other.role);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             role);
     }
     
@@ -72,14 +71,16 @@ public class UpdateOrganizationMembershipRequestBody {
         return Utils.toString(UpdateOrganizationMembershipRequestBody.class,
                 "role", role);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String role;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The new role of the given membership.
@@ -89,10 +90,12 @@ public class UpdateOrganizationMembershipRequestBody {
             this.role = role;
             return this;
         }
-        
+
         public UpdateOrganizationMembershipRequestBody build() {
+
             return new UpdateOrganizationMembershipRequestBody(
                 role);
         }
+
     }
 }

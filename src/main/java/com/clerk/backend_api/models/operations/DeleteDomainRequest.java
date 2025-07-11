@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteDomainRequest {
-
     /**
      * The ID of the domain that will be deleted. Must be a satellite domain.
      */
@@ -34,9 +33,10 @@ public class DeleteDomainRequest {
         return domainId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the domain that will be deleted. Must be a satellite domain.
@@ -47,7 +47,6 @@ public class DeleteDomainRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteDomainRequest {
         }
         DeleteDomainRequest other = (DeleteDomainRequest) o;
         return 
-            Objects.deepEquals(this.domainId, other.domainId);
+            Utils.enhancedDeepEquals(this.domainId, other.domainId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             domainId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteDomainRequest {
         return Utils.toString(DeleteDomainRequest.class,
                 "domainId", domainId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String domainId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the domain that will be deleted. Must be a satellite domain.
@@ -89,10 +90,12 @@ public class DeleteDomainRequest {
             this.domainId = domainId;
             return this;
         }
-        
+
         public DeleteDomainRequest build() {
+
             return new DeleteDomainRequest(
                 domainId);
         }
+
     }
 }

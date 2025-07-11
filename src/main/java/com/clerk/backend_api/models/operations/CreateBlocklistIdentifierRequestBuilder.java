@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateBlocklistIdentifierOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateBlocklistIdentifierRequestBuilder {
 
     private Optional<? extends CreateBlocklistIdentifierRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateBlocklistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallCreateBlocklistIdentifier sdk) {
-        this.sdk = sdk;
+    public CreateBlocklistIdentifierRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateBlocklistIdentifierRequestBuilder request(CreateBlocklistIdentifierRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateBlocklistIdentifierRequestBuilder {
 
     public CreateBlocklistIdentifierResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateBlocklistIdentifierRequestBody>, CreateBlocklistIdentifierResponse> operation
+              = new CreateBlocklistIdentifierOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

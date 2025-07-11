@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.VerifyClientOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class VerifyClientRequestBuilder {
 
     private Optional<? extends VerifyClientRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallVerifyClient sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public VerifyClientRequestBuilder(SDKMethodInterfaces.MethodCallVerifyClient sdk) {
-        this.sdk = sdk;
+    public VerifyClientRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public VerifyClientRequestBuilder request(VerifyClientRequestBody request) {
@@ -45,10 +49,14 @@ public class VerifyClientRequestBuilder {
 
     public VerifyClientResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.verify(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends VerifyClientRequestBody>, VerifyClientResponse> operation
+              = new VerifyClientOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -11,7 +11,6 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * JWTTemplate
@@ -23,23 +22,30 @@ public class JWTTemplate {
     @JsonProperty("object")
     private JWTTemplateObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("name")
     private String name;
 
+
     @JsonProperty("claims")
     private Claims claims;
+
 
     @JsonProperty("lifetime")
     private long lifetime;
 
+
     @JsonProperty("allowed_clock_skew")
     private long allowedClockSkew;
 
+
     @JsonProperty("custom_signing_key")
     private boolean customSigningKey;
+
 
     @JsonProperty("signing_algorithm")
     private String signingAlgorithm;
@@ -146,9 +152,10 @@ public class JWTTemplate {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public JWTTemplate withObject(JWTTemplateObject object) {
         Utils.checkNotNull(object, "object");
@@ -216,7 +223,6 @@ public class JWTTemplate {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -227,30 +233,24 @@ public class JWTTemplate {
         }
         JWTTemplate other = (JWTTemplate) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.claims, other.claims) &&
-            Objects.deepEquals(this.lifetime, other.lifetime) &&
-            Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
-            Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
-            Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.claims, other.claims) &&
+            Utils.enhancedDeepEquals(this.lifetime, other.lifetime) &&
+            Utils.enhancedDeepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
+            Utils.enhancedDeepEquals(this.customSigningKey, other.customSigningKey) &&
+            Utils.enhancedDeepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            name,
-            claims,
-            lifetime,
-            allowedClockSkew,
-            customSigningKey,
-            signingAlgorithm,
-            createdAt,
+        return Utils.enhancedHash(
+            object, id, name,
+            claims, lifetime, allowedClockSkew,
+            customSigningKey, signingAlgorithm, createdAt,
             updatedAt);
     }
     
@@ -268,32 +268,34 @@ public class JWTTemplate {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JWTTemplateObject object;
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private Claims claims;
- 
+
         private Long lifetime;
- 
+
         private Long allowedClockSkew;
- 
+
         private Boolean customSigningKey;
- 
+
         private String signingAlgorithm;
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(JWTTemplateObject object) {
             Utils.checkNotNull(object, "object");
@@ -301,11 +303,13 @@ public class JWTTemplate {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -313,11 +317,13 @@ public class JWTTemplate {
             return this;
         }
 
+
         public Builder claims(Claims claims) {
             Utils.checkNotNull(claims, "claims");
             this.claims = claims;
             return this;
         }
+
 
         public Builder lifetime(long lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
@@ -325,11 +331,13 @@ public class JWTTemplate {
             return this;
         }
 
+
         public Builder allowedClockSkew(long allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
             this.allowedClockSkew = allowedClockSkew;
             return this;
         }
+
 
         public Builder customSigningKey(boolean customSigningKey) {
             Utils.checkNotNull(customSigningKey, "customSigningKey");
@@ -337,11 +345,13 @@ public class JWTTemplate {
             return this;
         }
 
+
         public Builder signingAlgorithm(String signingAlgorithm) {
             Utils.checkNotNull(signingAlgorithm, "signingAlgorithm");
             this.signingAlgorithm = signingAlgorithm;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation.
@@ -352,6 +362,7 @@ public class JWTTemplate {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -360,19 +371,15 @@ public class JWTTemplate {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public JWTTemplate build() {
+
             return new JWTTemplate(
-                object,
-                id,
-                name,
-                claims,
-                lifetime,
-                allowedClockSkew,
-                customSigningKey,
-                signingAlgorithm,
-                createdAt,
+                object, id, name,
+                claims, lifetime, allowedClockSkew,
+                customSigningKey, signingAlgorithm, createdAt,
                 updatedAt);
         }
+
     }
 }

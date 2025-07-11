@@ -15,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -24,39 +23,47 @@ import java.util.Optional;
  * <p>An organization invitation
  */
 public class OrganizationInvitation {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private OrganizationInvitationObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("email_address")
     private String emailAddress;
 
+
     @JsonProperty("role")
     private String role;
 
+
     @JsonProperty("role_name")
     private String roleName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization_id")
     private Optional<String> organizationId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
     private Optional<String> status;
 
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
     private Optional<? extends Map<String, Object>> privateMetadata;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("url")
@@ -104,6 +111,7 @@ public class OrganizationInvitation {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(status, "status");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(url, "url");
         Utils.checkNotNull(expiresAt, "expiresAt");
@@ -133,7 +141,11 @@ public class OrganizationInvitation {
             Map<String, Object> publicMetadata,
             long createdAt,
             long updatedAt) {
-        this(object, id, emailAddress, role, roleName, Optional.empty(), Optional.empty(), publicMetadata, Optional.empty(), Optional.empty(), Optional.empty(), createdAt, updatedAt);
+        this(object, id, emailAddress,
+            role, roleName, Optional.empty(),
+            Optional.empty(), publicMetadata, Optional.empty(),
+            Optional.empty(), Optional.empty(), createdAt,
+            updatedAt);
     }
 
     /**
@@ -214,9 +226,10 @@ public class OrganizationInvitation {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -257,6 +270,7 @@ public class OrganizationInvitation {
         return this;
     }
 
+
     public OrganizationInvitation withOrganizationId(Optional<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
@@ -268,6 +282,7 @@ public class OrganizationInvitation {
         this.status = Optional.ofNullable(status);
         return this;
     }
+
 
     public OrganizationInvitation withStatus(Optional<String> status) {
         Utils.checkNotNull(status, "status");
@@ -287,6 +302,7 @@ public class OrganizationInvitation {
         return this;
     }
 
+
     public OrganizationInvitation withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
@@ -298,6 +314,7 @@ public class OrganizationInvitation {
         this.url = Optional.ofNullable(url);
         return this;
     }
+
 
     public OrganizationInvitation withUrl(Optional<String> url) {
         Utils.checkNotNull(url, "url");
@@ -313,6 +330,7 @@ public class OrganizationInvitation {
         this.expiresAt = Optional.ofNullable(expiresAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of expiration.
@@ -341,7 +359,6 @@ public class OrganizationInvitation {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -352,36 +369,28 @@ public class OrganizationInvitation {
         }
         OrganizationInvitation other = (OrganizationInvitation) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.role, other.role) &&
-            Objects.deepEquals(this.roleName, other.roleName) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.url, other.url) &&
-            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.role, other.role) &&
+            Utils.enhancedDeepEquals(this.roleName, other.roleName) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.url, other.url) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            emailAddress,
-            role,
-            roleName,
-            organizationId,
-            status,
-            publicMetadata,
-            privateMetadata,
-            url,
-            expiresAt,
-            createdAt,
+        return Utils.enhancedHash(
+            object, id, emailAddress,
+            role, roleName, organizationId,
+            status, publicMetadata, privateMetadata,
+            url, expiresAt, createdAt,
             updatedAt);
     }
     
@@ -402,38 +411,40 @@ public class OrganizationInvitation {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OrganizationInvitationObject object;
- 
+
         private String id;
- 
+
         private String emailAddress;
- 
+
         private String role;
- 
+
         private String roleName;
- 
+
         private Optional<String> organizationId = Optional.empty();
- 
+
         private Optional<String> status = Optional.empty();
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
- 
+
         private Optional<String> url = Optional.empty();
- 
+
         private Optional<Long> expiresAt = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -444,11 +455,13 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -456,17 +469,20 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         public Builder role(String role) {
             Utils.checkNotNull(role, "role");
             this.role = role;
             return this;
         }
 
+
         public Builder roleName(String roleName) {
             Utils.checkNotNull(roleName, "roleName");
             this.roleName = roleName;
             return this;
         }
+
 
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -480,6 +496,7 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         public Builder status(String status) {
             Utils.checkNotNull(status, "status");
             this.status = Optional.ofNullable(status);
@@ -492,11 +509,13 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -510,6 +529,7 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = Optional.ofNullable(url);
@@ -521,6 +541,7 @@ public class OrganizationInvitation {
             this.url = url;
             return this;
         }
+
 
         /**
          * Unix timestamp of expiration.
@@ -540,6 +561,7 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -549,6 +571,7 @@ public class OrganizationInvitation {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -557,22 +580,16 @@ public class OrganizationInvitation {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public OrganizationInvitation build() {
+
             return new OrganizationInvitation(
-                object,
-                id,
-                emailAddress,
-                role,
-                roleName,
-                organizationId,
-                status,
-                publicMetadata,
-                privateMetadata,
-                url,
-                expiresAt,
-                createdAt,
+                object, id, emailAddress,
+                role, roleName, organizationId,
+                status, publicMetadata, privateMetadata,
+                url, expiresAt, createdAt,
                 updatedAt);
         }
+
     }
 }

@@ -15,7 +15,7 @@ public enum CodeType {
     @JsonValue
     private final String value;
 
-    private CodeType(String value) {
+    CodeType(String value) {
         this.value = value;
     }
     

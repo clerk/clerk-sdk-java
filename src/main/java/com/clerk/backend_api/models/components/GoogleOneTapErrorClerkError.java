@@ -12,23 +12,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class GoogleOneTapErrorClerkError {
 
     @JsonProperty("message")
     private String message;
 
+
     @JsonProperty("long_message")
     private String longMessage;
+
 
     @JsonProperty("code")
     private String code;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("meta")
     private Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("clerk_trace_id")
@@ -57,7 +61,8 @@ public class GoogleOneTapErrorClerkError {
             String message,
             String longMessage,
             String code) {
-        this(message, longMessage, code, Optional.empty(), Optional.empty());
+        this(message, longMessage, code,
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -86,9 +91,10 @@ public class GoogleOneTapErrorClerkError {
         return clerkTraceId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public GoogleOneTapErrorClerkError withMessage(String message) {
         Utils.checkNotNull(message, "message");
@@ -114,6 +120,7 @@ public class GoogleOneTapErrorClerkError {
         return this;
     }
 
+
     public GoogleOneTapErrorClerkError withMeta(Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = meta;
@@ -126,13 +133,13 @@ public class GoogleOneTapErrorClerkError {
         return this;
     }
 
+
     public GoogleOneTapErrorClerkError withClerkTraceId(Optional<String> clerkTraceId) {
         Utils.checkNotNull(clerkTraceId, "clerkTraceId");
         this.clerkTraceId = clerkTraceId;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -143,21 +150,18 @@ public class GoogleOneTapErrorClerkError {
         }
         GoogleOneTapErrorClerkError other = (GoogleOneTapErrorClerkError) o;
         return 
-            Objects.deepEquals(this.message, other.message) &&
-            Objects.deepEquals(this.longMessage, other.longMessage) &&
-            Objects.deepEquals(this.code, other.code) &&
-            Objects.deepEquals(this.meta, other.meta) &&
-            Objects.deepEquals(this.clerkTraceId, other.clerkTraceId);
+            Utils.enhancedDeepEquals(this.message, other.message) &&
+            Utils.enhancedDeepEquals(this.longMessage, other.longMessage) &&
+            Utils.enhancedDeepEquals(this.code, other.code) &&
+            Utils.enhancedDeepEquals(this.meta, other.meta) &&
+            Utils.enhancedDeepEquals(this.clerkTraceId, other.clerkTraceId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            message,
-            longMessage,
-            code,
-            meta,
-            clerkTraceId);
+        return Utils.enhancedHash(
+            message, longMessage, code,
+            meta, clerkTraceId);
     }
     
     @Override
@@ -169,22 +173,24 @@ public class GoogleOneTapErrorClerkError {
                 "meta", meta,
                 "clerkTraceId", clerkTraceId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String message;
- 
+
         private String longMessage;
- 
+
         private String code;
- 
+
         private Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta = Optional.empty();
- 
+
         private Optional<String> clerkTraceId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
@@ -192,17 +198,20 @@ public class GoogleOneTapErrorClerkError {
             return this;
         }
 
+
         public Builder longMessage(String longMessage) {
             Utils.checkNotNull(longMessage, "longMessage");
             this.longMessage = longMessage;
             return this;
         }
 
+
         public Builder code(String code) {
             Utils.checkNotNull(code, "code");
             this.code = code;
             return this;
         }
+
 
         public Builder meta(ClerkErrorErrorExternalAccountWithVerificationMeta meta) {
             Utils.checkNotNull(meta, "meta");
@@ -216,6 +225,7 @@ public class GoogleOneTapErrorClerkError {
             return this;
         }
 
+
         public Builder clerkTraceId(String clerkTraceId) {
             Utils.checkNotNull(clerkTraceId, "clerkTraceId");
             this.clerkTraceId = Optional.ofNullable(clerkTraceId);
@@ -227,14 +237,13 @@ public class GoogleOneTapErrorClerkError {
             this.clerkTraceId = clerkTraceId;
             return this;
         }
-        
+
         public GoogleOneTapErrorClerkError build() {
+
             return new GoogleOneTapErrorClerkError(
-                message,
-                longMessage,
-                code,
-                meta,
-                clerkTraceId);
+                message, longMessage, code,
+                meta, clerkTraceId);
         }
+
     }
 }

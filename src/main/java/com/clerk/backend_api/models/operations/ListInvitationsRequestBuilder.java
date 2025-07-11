@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListInvitationsOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class ListInvitationsRequestBuilder {
 
     private ListInvitationsRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListInvitations sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListInvitations sdk) {
-        this.sdk = sdk;
+    public ListInvitationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ListInvitationsRequestBuilder request(ListInvitationsRequest request) {
@@ -39,10 +43,14 @@ public class ListInvitationsRequestBuilder {
 
     public ListInvitationsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListInvitationsRequest, ListInvitationsResponse> operation
+              = new ListInvitationsOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

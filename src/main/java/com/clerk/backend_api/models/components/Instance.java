@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -22,18 +21,20 @@ import java.util.Optional;
  * <p>Success
  */
 public class Instance {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private InstanceObject object;
 
+
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("environment_type")
     private String environmentType;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("allowed_origins")
@@ -59,7 +60,8 @@ public class Instance {
             InstanceObject object,
             String id,
             String environmentType) {
-        this(object, id, environmentType, Optional.empty());
+        this(object, id, environmentType,
+            Optional.empty());
     }
 
     /**
@@ -86,9 +88,10 @@ public class Instance {
         return (Optional<List<String>>) allowedOrigins;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -117,13 +120,13 @@ public class Instance {
         return this;
     }
 
+
     public Instance withAllowedOrigins(Optional<? extends List<String>> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
         this.allowedOrigins = allowedOrigins;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -134,18 +137,16 @@ public class Instance {
         }
         Instance other = (Instance) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.environmentType, other.environmentType) &&
-            Objects.deepEquals(this.allowedOrigins, other.allowedOrigins);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.environmentType, other.environmentType) &&
+            Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            environmentType,
+        return Utils.enhancedHash(
+            object, id, environmentType,
             allowedOrigins);
     }
     
@@ -157,20 +158,22 @@ public class Instance {
                 "environmentType", environmentType,
                 "allowedOrigins", allowedOrigins);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private InstanceObject object;
- 
+
         private String id;
- 
+
         private String environmentType;
- 
+
         private Optional<? extends List<String>> allowedOrigins = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -181,17 +184,20 @@ public class Instance {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
 
+
         public Builder environmentType(String environmentType) {
             Utils.checkNotNull(environmentType, "environmentType");
             this.environmentType = environmentType;
             return this;
         }
+
 
         public Builder allowedOrigins(List<String> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
@@ -204,13 +210,13 @@ public class Instance {
             this.allowedOrigins = allowedOrigins;
             return this;
         }
-        
+
         public Instance build() {
+
             return new Instance(
-                object,
-                id,
-                environmentType,
+                object, id, environmentType,
                 allowedOrigins);
         }
+
     }
 }

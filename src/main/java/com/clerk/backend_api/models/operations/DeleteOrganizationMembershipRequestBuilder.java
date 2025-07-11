@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteOrganizationMembershipOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class DeleteOrganizationMembershipRequestBuilder {
     private String organizationId;
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteOrganizationMembership sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteOrganizationMembershipRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOrganizationMembership sdk) {
-        this.sdk = sdk;
+    public DeleteOrganizationMembershipRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteOrganizationMembershipRequestBuilder organizationId(String organizationId) {
@@ -45,13 +49,26 @@ public class DeleteOrganizationMembershipRequestBuilder {
         return this;
     }
 
+
+    private DeleteOrganizationMembershipRequest buildRequest() {
+
+        DeleteOrganizationMembershipRequest request = new DeleteOrganizationMembershipRequest(organizationId,
+            userId);
+
+        return request;
+    }
+
     public DeleteOrganizationMembershipResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            organizationId,
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteOrganizationMembershipRequest, DeleteOrganizationMembershipResponse> operation
+              = new DeleteOrganizationMembershipOperation(
+                sdkConfiguration,
+                options);
+        DeleteOrganizationMembershipRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

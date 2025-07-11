@@ -35,12 +35,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.lang.Iterable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -80,7 +82,7 @@ public final class Utils {
     }
     
     public static String generateURL(String baseURL, String path)
-            throws IllegalArgumentException, IllegalAccessException {
+            throws IllegalArgumentException {
         if (baseURL != null && baseURL.endsWith("/")) {
             baseURL = baseURL.substring(0, baseURL.length() - 1);
         }
@@ -89,7 +91,7 @@ public final class Utils {
     }
     
     public static <T> String generateURL(Class<T> type, String baseURL, String path, JsonNullable<? extends T> params,
-            Map<String, Map<String, Map<String, Object>>> globals) throws JsonProcessingException, IllegalArgumentException, IllegalAccessException {
+            Globals globals) throws JsonProcessingException, IllegalArgumentException, IllegalAccessException {
         if (params.isPresent() && params.get() != null) {
             return generateURL(type, baseURL, path, params.get(), globals);
         } else {
@@ -98,7 +100,7 @@ public final class Utils {
     }
     
     public static <T> String generateURL(Class<T> type, String baseURL, String path, Optional<? extends T> params,
-            Map<String, Map<String, Map<String, Object>>> globals) throws JsonProcessingException, IllegalArgumentException, IllegalAccessException {
+            Globals globals) throws JsonProcessingException, IllegalArgumentException, IllegalAccessException {
         if (params.isPresent()) {
             return generateURL(type, baseURL, path, params.get(), globals);
         } else {
@@ -107,7 +109,7 @@ public final class Utils {
     }
 
     public static <T> String generateURL(Class<T> type, String baseURL, String path, T params,
-            Map<String, Map<String, Map<String, Object>>> globals)
+            Globals globals)
             throws IllegalArgumentException, IllegalAccessException, JsonProcessingException {
         if (baseURL != null && baseURL.endsWith("/")) {
             baseURL = baseURL.substring(0, baseURL.length() - 1);
@@ -207,7 +209,14 @@ public final class Utils {
                 }
             }
         }
-
+        // include all global params in pathParams if not already present
+        if (globals != null) {
+            globals.pathParamsAsStream()
+                .filter(entry -> !pathParams.containsKey(entry.getKey()))
+                .forEach(entry -> pathParams.put(entry.getKey(), //
+                            pathEncode(entry.getValue(), false)));
+        }
+        
         return baseURL + templateUrl(path, pathParams);
     }
     
@@ -265,7 +274,7 @@ public final class Utils {
     }
     
     public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, Optional<? extends T> params,
-            Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
+            Globals globals) throws Exception {
         if (params.isEmpty()) {
             return Collections.emptyList();
         } else {
@@ -274,7 +283,7 @@ public final class Utils {
     }
     
     public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, JsonNullable<? extends T> params,
-            Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
+            Globals globals) throws Exception {
         if (!params.isPresent() || params.get() == null) {
             return Collections.emptyList();
         } else {
@@ -283,7 +292,7 @@ public final class Utils {
     }
 
     public static <T extends Object> List<QueryParameter> getQueryParams(Class<T> type, T params,
-            Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
+            Globals globals) throws Exception {
         return QueryParameters.parseQueryParams(type, params, globals);
     }
 
@@ -316,12 +325,14 @@ public final class Utils {
         return sb.toString().replace(DOLLAR_MARKER, "$");
     }
 
-    public static Map<String, List<String>> getHeadersFromMetadata(Object headers, Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
-        if (headers == null) {
-            return Collections.emptyMap();
-        }
-
+    public static Map<String, List<String>> getHeadersFromMetadata(Object headers, Globals globals) throws Exception {
         Map<String, List<String>> result = new HashMap<>();
+        if (headers == null) {
+            // include all global headers in result if not already present
+            mergeGlobalHeaders(result, globals);
+
+            return result;
+        }
 
         Field[] fields = headers.getClass().getDeclaredFields();
 
@@ -441,8 +452,21 @@ public final class Utils {
                 }
             }
         }
+        
+        // include all global headers in result if not already present
+        mergeGlobalHeaders(result, globals);
 
         return result;
+    }
+
+    private static void mergeGlobalHeaders(Map<String, List<String>> headers, Globals globals) {
+        if (globals == null) {
+            return;
+        }
+        globals.headerParamsAsStream()
+                .filter(entry -> !headers.containsKey(entry.getKey()))
+                .forEach(entry -> headers.put(entry.getKey(),
+                        Collections.singletonList(entry.getValue())));
     }
 
     public static String valToString(Object value) {
@@ -467,17 +491,10 @@ public final class Utils {
     }
 
     public static Object populateGlobal(Object value, String fieldName, String paramType,
-            Map<String, Map<String, Map<String, Object>>> globals) {
-        if (value == null &&
-                globals != null &&
-                globals.containsKey("parameters") &&
-                globals.get("parameters").containsKey(paramType)) {
-            Object globalVal = globals.get("parameters").get(paramType).get(fieldName);
-            if (globalVal != null) {
-                value = globalVal;
-            }
-        }
-
+            Globals globals) {
+        if (value == null && globals != null) {
+            return globals.getParam(paramType, fieldName).orElse(null);
+        } 
         return value;
     }
 
@@ -752,6 +769,10 @@ public final class Utils {
     }
     
     static <T> Object resolveStringShape(Class<T> type, String fieldName, Object value) throws IllegalAccessException {
+        if (value == null) {
+            return value;
+        }
+
         try {
             // the presence of this TypeReference field indicates that the parameter
             // has a JsonShape of String and that we should convert BigInteger to 
@@ -770,7 +791,12 @@ public final class Utils {
     public static <T> Stream<T> stream(Callable<Optional<T>> first, Function<T, Optional<T>> next) {
         return StreamSupport.stream(iterable(first, next).spliterator(), false);
     }
-    
+
+    public static <T> Stream<T> toStream(Iterable<T> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
+
+
     // need a Function method that throws
     public interface Function<S, T> {
         T apply(S value) throws Exception;
@@ -815,26 +841,14 @@ public final class Utils {
                                 pending = false;
                             }
                         } catch (Exception e) {
-                            rethrow(e);
+                            Exceptions.rethrow(e);
                         }
                     }
                 };
             }
         };
     }
-    
-    static <T> T rethrow(Throwable e) {
-        if (e instanceof RuntimeException) {
-            throw (RuntimeException) e;
-        } else if (e instanceof Error) {
-            throw (Error) e;
-        } else if (e instanceof IOException) {
-            throw new UncheckedIOException((IOException) e);
-        } else {
-           throw new RuntimeException(e);
-        }
-    }
-    
+
     public static boolean statusCodeMatches(int statusCode, String... expectedStatusCodes) {
         return Arrays.stream(expectedStatusCodes)
             .anyMatch(expected -> statusCodeMatchesOne(statusCode, expected));
@@ -1045,12 +1059,21 @@ public final class Utils {
         return readBytes(new File(filename));
     }
     
+    public static String readString(String filename) {
+        return readString(new File(filename));
+    }
+    
     public static byte[] readBytes(File file) {
         try {
             return readBytesAndClose(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             throw new UncheckedIOException(e);
         }
+    }
+    
+    public static String readString(File file) {
+        byte[] bytes = readBytes(file);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
     
     public static byte[] readBytesAndClose(InputStream in) {
@@ -1395,5 +1418,170 @@ public final class Utils {
     
     public static <T> T valueOrNull(JsonNullable<T> value) {
         return valueOrElse(value, null);
+    }
+
+    public static <N> N castLong(long value, Class<N> targetType) {
+        // Handle supported types safely
+        if (targetType == Integer.class) {
+            return targetType.cast((int) value);
+        } else if (targetType == Long.class) {
+            return targetType.cast(value);
+        } else if (targetType == Short.class) {
+            return targetType.cast((short) value);
+        } else if (targetType == BigInteger.class) {
+            return targetType.cast(BigInteger.valueOf(value));
+        } else {
+            throw new IllegalArgumentException("Unsupported number type: " + targetType);
+        }
+    }
+
+    public static <I, O> Iterator<O> transform(Iterator<I> iterator, Function<I, O> mapper) {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public O next() {
+                return Exceptions.unchecked(() -> mapper.apply(iterator.next())).get();
+            }
+        };
+    }
+   
+    /**
+     * Returns true if and only if the two objects are deeply equal, uses
+     * mathematical equivalence for Number subclasses ({@code 2 == 2.0}) instead of
+     * {@code Number.equals}.
+     * 
+     * <p>
+     * Should be paired with {@link #enhancedHashCode(Object)} to ensure the
+     * equals/hashCode contract.
+     * 
+     * @param a the first object to compare
+     * @param b the second object to compare
+     * @return true if the objects are deeply equal bearing in mind mathematical
+     *         equivalence, false otherwise
+     */
+    public static boolean enhancedDeepEquals(Object a, Object b) {
+        if (a == null && b == null) {
+            return true;
+        } else if (a == null || b == null) {
+            return false;
+        } else if (a instanceof Optional && b instanceof Optional) {
+            return enhancedDeepEquals(((Optional<?>) a).orElse(null), ((Optional<?>) b).orElse(null));
+        } else if (a instanceof JsonNullable && b instanceof JsonNullable) {
+            JsonNullable<?> x = (JsonNullable<?>) a;
+            JsonNullable<?> y = (JsonNullable<?>) b;
+            if (x.isPresent() && y.isPresent()) {
+                return enhancedDeepEquals(x.get(), y.get());
+            } else {
+                return Objects.deepEquals(x, y);
+            }
+        } else if (a instanceof List && b instanceof List) {
+            List<?> listA = (List<?>) a;
+            List<?> listB = (List<?>) b;
+            if (listA.size() != listB.size()) {
+                return false;
+            }
+            for (int i = 0; i < listA.size(); i++) {
+                if (!enhancedDeepEquals(listA.get(i), listB.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (a instanceof Map && b instanceof Map) {
+            // don't expect number keys, just Strings and enums
+            Map<?, ?> x = (Map<?, ?>) a;
+            Map<?, ?> y = (Map<?, ?>) b;
+            if (x.size() != y.size()) {
+                return false;
+            }
+            for (Entry<?, ?> entry : x.entrySet()) {
+                Object key = entry.getKey();
+                Object value1 = entry.getValue();
+                Object value2 = y.get(key);
+                if (!enhancedDeepEquals(value1, value2)) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (a instanceof Number && b instanceof Number) {
+            // compare values mathematically
+            BigDecimal x = toBigDecimal((Number) a);
+            BigDecimal y = toBigDecimal((Number) b);
+            return x.compareTo(y) == 0;
+        } else {
+            // we use deepEquals so that byte[] fields are compared appropriately
+            return Objects.deepEquals(a,  b);
+        }    
+    }
+    
+    /**
+     * Returns a combined hash code (applying {@link #enhancedHashCode}) for the
+     * given objects (usually the fields of an object whose hashCode we want to
+     * be calculated).
+     * 
+     * @param objects
+     * @return combined hash code for the objects, 0 if the objects are null
+     */
+    public static int enhancedHash(Object... objects) {
+        if (objects == null) {
+            return 0;
+        }
+        int result = 1;
+        for (Object o : objects) {
+            result = 31 * result + (o == null ? 0 :enhancedHashCode(o));
+        }
+        return result;
+    }
+    
+    /**
+     * Returns a hash code that complies with the equals/hashCode contract when
+     * equals is implemented by {@link #enhancedDeepEquals(Object, Object)}.
+     * 
+     * @param o object to calculate the hash code for (can be null)
+     * @return hash code for the object, 0 if the object is null
+     */
+    public static int enhancedHashCode(Object o) {
+        if (o == null) {
+            return 0;
+        } else if (o instanceof Optional) {
+            Optional<?> opt = (Optional<?>) o;
+            return opt.map(Utils::enhancedHashCode).orElse(Optional.empty().hashCode());
+        } else if (o instanceof JsonNullable) {
+            JsonNullable<?> n = (JsonNullable<?>) o;
+            return n.isPresent() ? Utils.enhancedHashCode(n.get()) : JsonNullable.undefined().hashCode();
+        } else if (o instanceof List) {
+            return ((List<?>) o).stream().mapToInt(Utils::enhancedHashCode).sum();
+        } else if (o instanceof Map) {
+            // don't expect number keys, just Strings and enums
+            Map<?, ?> m = (Map<?, ?>) o;
+            return m.entrySet() //
+                    .stream() //
+                    .mapToInt(entry -> Objects.hashCode(entry.getKey()) + Utils.enhancedHashCode(entry.getValue())) //
+                    .sum();
+        } else if (o instanceof Number) {
+            return toBigDecimal((Number) o).stripTrailingZeros().hashCode();
+        } else {
+            return o.hashCode();
+        }
+    }
+
+    private static BigDecimal toBigDecimal(Number number) {
+        if (number instanceof BigDecimal) {
+            return (BigDecimal) number;
+        } else if (number instanceof BigInteger) {
+            return new BigDecimal((BigInteger) number);
+        } else if (number instanceof Byte || number instanceof Short ||
+                   number instanceof Integer || number instanceof Long) {
+            return BigDecimal.valueOf(number.longValue());
+        } else if (number instanceof Float || number instanceof Double) {
+            // Prevent precision issues for float/double
+            return BigDecimal.valueOf(number.doubleValue());
+        } else {
+            // Fallback: treat as double
+            return BigDecimal.valueOf(number.doubleValue());
+        }
     }
 }

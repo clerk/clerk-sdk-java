@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class CreateSessionRequestBody {
-
     /**
      * The ID representing the user
      */
@@ -34,9 +33,10 @@ public class CreateSessionRequestBody {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID representing the user
@@ -47,7 +47,6 @@ public class CreateSessionRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class CreateSessionRequestBody {
         }
         CreateSessionRequestBody other = (CreateSessionRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -72,14 +71,16 @@ public class CreateSessionRequestBody {
         return Utils.toString(CreateSessionRequestBody.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID representing the user
@@ -89,10 +90,12 @@ public class CreateSessionRequestBody {
             this.userId = userId;
             return this;
         }
-        
+
         public CreateSessionRequestBody build() {
+
             return new CreateSessionRequestBody(
                 userId);
         }
+
     }
 }

@@ -15,11 +15,10 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetUserListResponse implements Response {
 
+public class GetUserListResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -60,7 +59,8 @@ public class GetUserListResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -96,9 +96,10 @@ public class GetUserListResponse implements Response {
         return (Optional<List<User>>) userList;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -136,6 +137,7 @@ public class GetUserListResponse implements Response {
         return this;
     }
 
+
     /**
      * Success
      */
@@ -145,7 +147,6 @@ public class GetUserListResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -156,18 +157,16 @@ public class GetUserListResponse implements Response {
         }
         GetUserListResponse other = (GetUserListResponse) o;
         return 
-            Objects.deepEquals(this.contentType, other.contentType) &&
-            Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.userList, other.userList);
+            Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
+            Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
+            Utils.enhancedDeepEquals(this.userList, other.userList);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            contentType,
-            statusCode,
-            rawResponse,
+        return Utils.enhancedHash(
+            contentType, statusCode, rawResponse,
             userList);
     }
     
@@ -179,20 +178,22 @@ public class GetUserListResponse implements Response {
                 "rawResponse", rawResponse,
                 "userList", userList);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends List<User>> userList = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -203,6 +204,7 @@ public class GetUserListResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -212,6 +214,7 @@ public class GetUserListResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -220,6 +223,7 @@ public class GetUserListResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * Success
@@ -238,13 +242,13 @@ public class GetUserListResponse implements Response {
             this.userList = userList;
             return this;
         }
-        
+
         public GetUserListResponse build() {
+
             return new GetUserListResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 userList);
         }
+
     }
 }

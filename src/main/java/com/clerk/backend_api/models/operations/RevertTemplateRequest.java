@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class RevertTemplateRequest {
-
     /**
      * The type of template to revert
      */
@@ -51,9 +50,10 @@ public class RevertTemplateRequest {
         return slug;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of template to revert
@@ -73,7 +73,6 @@ public class RevertTemplateRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class RevertTemplateRequest {
         }
         RevertTemplateRequest other = (RevertTemplateRequest) o;
         return 
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.slug, other.slug);
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateType,
-            slug);
+        return Utils.enhancedHash(
+            templateType, slug);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class RevertTemplateRequest {
                 "templateType", templateType,
                 "slug", slug);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private RevertTemplatePathParamTemplateType templateType;
- 
+
         private String slug;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of template to revert
@@ -121,6 +121,7 @@ public class RevertTemplateRequest {
             return this;
         }
 
+
         /**
          * The slug of the template to revert
          */
@@ -129,11 +130,12 @@ public class RevertTemplateRequest {
             this.slug = slug;
             return this;
         }
-        
+
         public RevertTemplateRequest build() {
+
             return new RevertTemplateRequest(
-                templateType,
-                slug);
+                templateType, slug);
         }
+
     }
 }

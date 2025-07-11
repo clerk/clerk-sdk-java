@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UploadOrganizationLogoRequestBody {
 
+public class UploadOrganizationLogoRequestBody {
     /**
      * The ID of the user that will be credited with the image upload.
      */
     @SpeakeasyMetadata("multipartForm:name=uploader_user_id")
     private Optional<String> uploaderUserId;
+
 
     @SpeakeasyMetadata("multipartForm:file,name=file")
     private UploadOrganizationLogoFile file;
@@ -51,9 +51,10 @@ public class UploadOrganizationLogoRequestBody {
         return file;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that will be credited with the image upload.
@@ -63,6 +64,7 @@ public class UploadOrganizationLogoRequestBody {
         this.uploaderUserId = Optional.ofNullable(uploaderUserId);
         return this;
     }
+
 
     /**
      * The ID of the user that will be credited with the image upload.
@@ -79,7 +81,6 @@ public class UploadOrganizationLogoRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -90,15 +91,14 @@ public class UploadOrganizationLogoRequestBody {
         }
         UploadOrganizationLogoRequestBody other = (UploadOrganizationLogoRequestBody) o;
         return 
-            Objects.deepEquals(this.uploaderUserId, other.uploaderUserId) &&
-            Objects.deepEquals(this.file, other.file);
+            Utils.enhancedDeepEquals(this.uploaderUserId, other.uploaderUserId) &&
+            Utils.enhancedDeepEquals(this.file, other.file);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            uploaderUserId,
-            file);
+        return Utils.enhancedHash(
+            uploaderUserId, file);
     }
     
     @Override
@@ -107,16 +107,18 @@ public class UploadOrganizationLogoRequestBody {
                 "uploaderUserId", uploaderUserId,
                 "file", file);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> uploaderUserId = Optional.empty();
- 
+
         private UploadOrganizationLogoFile file;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that will be credited with the image upload.
@@ -136,16 +138,18 @@ public class UploadOrganizationLogoRequestBody {
             return this;
         }
 
+
         public Builder file(UploadOrganizationLogoFile file) {
             Utils.checkNotNull(file, "file");
             this.file = file;
             return this;
         }
-        
+
         public UploadOrganizationLogoRequestBody build() {
+
             return new UploadOrganizationLogoRequestBody(
-                uploaderUserId,
-                file);
+                uploaderUserId, file);
         }
+
     }
 }

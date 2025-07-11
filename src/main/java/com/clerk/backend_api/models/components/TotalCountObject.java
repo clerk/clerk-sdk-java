@@ -19,7 +19,7 @@ public enum TotalCountObject {
     @JsonValue
     private final String value;
 
-    private TotalCountObject(String value) {
+    TotalCountObject(String value) {
         this.value = value;
     }
     

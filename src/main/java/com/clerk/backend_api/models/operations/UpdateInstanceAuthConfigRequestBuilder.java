@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateInstanceAuthConfigOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class UpdateInstanceAuthConfigRequestBuilder {
 
     private Optional<? extends UpdateInstanceAuthConfigRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateInstanceAuthConfig sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateInstanceAuthConfigRequestBuilder(SDKMethodInterfaces.MethodCallUpdateInstanceAuthConfig sdk) {
-        this.sdk = sdk;
+    public UpdateInstanceAuthConfigRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public UpdateInstanceAuthConfigRequestBuilder request(UpdateInstanceAuthConfigRequestBody request) {
@@ -45,10 +49,14 @@ public class UpdateInstanceAuthConfigRequestBuilder {
 
     public UpdateInstanceAuthConfigResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.updateInstanceSettings(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends UpdateInstanceAuthConfigRequestBody>, UpdateInstanceAuthConfigResponse> operation
+              = new UpdateInstanceAuthConfigOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

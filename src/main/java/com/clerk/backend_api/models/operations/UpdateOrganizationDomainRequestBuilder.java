@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateOrganizationDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class UpdateOrganizationDomainRequestBuilder {
     private String domainId;
     private UpdateOrganizationDomainRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateOrganizationDomain sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateOrganizationDomainRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOrganizationDomain sdk) {
-        this.sdk = sdk;
+    public UpdateOrganizationDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateOrganizationDomainRequestBuilder organizationId(String organizationId) {
@@ -52,14 +56,27 @@ public class UpdateOrganizationDomainRequestBuilder {
         return this;
     }
 
+
+    private UpdateOrganizationDomainRequest buildRequest() {
+
+        UpdateOrganizationDomainRequest request = new UpdateOrganizationDomainRequest(organizationId,
+            domainId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateOrganizationDomainResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            organizationId,
-            domainId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
+              = new UpdateOrganizationDomainOperation(
+                sdkConfiguration,
+                options);
+        UpdateOrganizationDomainRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

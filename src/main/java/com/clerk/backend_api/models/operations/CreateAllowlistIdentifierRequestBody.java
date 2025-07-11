@@ -14,11 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateAllowlistIdentifierRequestBody {
 
+public class CreateAllowlistIdentifierRequestBody {
     /**
      * The identifier to be added in the allow-list.
      * This can be an email address, a phone number or a web3 wallet.
@@ -67,9 +66,10 @@ public class CreateAllowlistIdentifierRequestBody {
         return notify_;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The identifier to be added in the allow-list.
@@ -91,6 +91,7 @@ public class CreateAllowlistIdentifierRequestBody {
         return this;
     }
 
+
     /**
      * This flag denotes whether the given identifier will receive an invitation to join the application.
      * Note that this only works for email address and phone number identifiers.
@@ -101,7 +102,6 @@ public class CreateAllowlistIdentifierRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -112,15 +112,14 @@ public class CreateAllowlistIdentifierRequestBody {
         }
         CreateAllowlistIdentifierRequestBody other = (CreateAllowlistIdentifierRequestBody) o;
         return 
-            Objects.deepEquals(this.identifier, other.identifier) &&
-            Objects.deepEquals(this.notify_, other.notify_);
+            Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
+            Utils.enhancedDeepEquals(this.notify_, other.notify_);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            identifier,
-            notify_);
+        return Utils.enhancedHash(
+            identifier, notify_);
     }
     
     @Override
@@ -129,16 +128,18 @@ public class CreateAllowlistIdentifierRequestBody {
                 "identifier", identifier,
                 "notify_", notify_);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String identifier;
- 
+
         private Optional<Boolean> notify_;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The identifier to be added in the allow-list.
@@ -149,6 +150,7 @@ public class CreateAllowlistIdentifierRequestBody {
             this.identifier = identifier;
             return this;
         }
+
 
         /**
          * This flag denotes whether the given identifier will receive an invitation to join the application.
@@ -169,15 +171,16 @@ public class CreateAllowlistIdentifierRequestBody {
             this.notify_ = notify_;
             return this;
         }
-        
+
         public CreateAllowlistIdentifierRequestBody build() {
             if (notify_ == null) {
                 notify_ = _SINGLETON_VALUE_Notify.value();
             }
+
             return new CreateAllowlistIdentifierRequestBody(
-                identifier,
-                notify_);
+                identifier, notify_);
         }
+
 
         private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(

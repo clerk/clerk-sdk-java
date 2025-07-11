@@ -38,7 +38,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         ListInstanceOrganizationInvitationsRequest req = ListInstanceOrganizationInvitationsRequest.builder()
@@ -107,7 +107,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         CreateOrganizationInvitationResponse res = sdk.organizationInvitations().create()
@@ -163,7 +163,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
@@ -232,7 +232,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         CreateOrganizationInvitationBulkResponse res = sdk.organizationInvitations().bulkCreate()
@@ -295,7 +295,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         ListPendingOrganizationInvitationsResponse res = sdk.organizationInvitations().listPending()
@@ -349,7 +349,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         GetOrganizationInvitationResponse res = sdk.organizationInvitations().get()
@@ -405,7 +405,7 @@ public class Application {
     public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
-                .bearerAuth("<YOUR_BEARER_TOKEN_HERE>")
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
         RevokeOrganizationInvitationResponse res = sdk.organizationInvitations().revoke()

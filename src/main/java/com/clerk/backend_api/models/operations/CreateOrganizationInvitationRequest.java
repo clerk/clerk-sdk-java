@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateOrganizationInvitationRequest {
 
+public class CreateOrganizationInvitationRequest {
     /**
      * The ID of the organization for which to send the invitation
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class CreateOrganizationInvitationRequest {
         return (Optional<CreateOrganizationInvitationRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization for which to send the invitation
@@ -72,13 +73,13 @@ public class CreateOrganizationInvitationRequest {
         return this;
     }
 
+
     public CreateOrganizationInvitationRequest withRequestBody(Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class CreateOrganizationInvitationRequest {
         }
         CreateOrganizationInvitationRequest other = (CreateOrganizationInvitationRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class CreateOrganizationInvitationRequest {
                 "organizationId", organizationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization for which to send the invitation
@@ -125,6 +127,7 @@ public class CreateOrganizationInvitationRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         public Builder requestBody(CreateOrganizationInvitationRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class CreateOrganizationInvitationRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public CreateOrganizationInvitationRequest build() {
+
             return new CreateOrganizationInvitationRequest(
-                organizationId,
-                requestBody);
+                organizationId, requestBody);
         }
+
     }
 }

@@ -15,9 +15,9 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateInstanceOrganizationSettingsRequestBody {
 
@@ -25,13 +25,16 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     @JsonProperty("enabled")
     private JsonNullable<Boolean> enabled;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_memberships")
     private JsonNullable<Long> maxAllowedMemberships;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("admin_delete_enabled")
     private JsonNullable<Boolean> adminDeleteEnabled;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("domains_enabled")
@@ -85,7 +88,9 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     }
     
     public UpdateInstanceOrganizationSettingsRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -134,9 +139,10 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         return domainsDefaultRoleId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public UpdateInstanceOrganizationSettingsRequestBody withEnabled(boolean enabled) {
         Utils.checkNotNull(enabled, "enabled");
@@ -196,6 +202,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         return this;
     }
 
+
     /**
      * Specify which enrollment modes to enable for your Organization Domains.
      * Supported modes are 'automatic_invitation' &amp; 'automatic_suggestion'.
@@ -242,7 +249,6 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -253,24 +259,20 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         }
         UpdateInstanceOrganizationSettingsRequestBody other = (UpdateInstanceOrganizationSettingsRequestBody) o;
         return 
-            Objects.deepEquals(this.enabled, other.enabled) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            Objects.deepEquals(this.domainsEnabled, other.domainsEnabled) &&
-            Objects.deepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
-            Objects.deepEquals(this.creatorRoleId, other.creatorRoleId) &&
-            Objects.deepEquals(this.domainsDefaultRoleId, other.domainsDefaultRoleId);
+            Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Utils.enhancedDeepEquals(this.domainsEnabled, other.domainsEnabled) &&
+            Utils.enhancedDeepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
+            Utils.enhancedDeepEquals(this.creatorRoleId, other.creatorRoleId) &&
+            Utils.enhancedDeepEquals(this.domainsDefaultRoleId, other.domainsDefaultRoleId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            enabled,
-            maxAllowedMemberships,
-            adminDeleteEnabled,
-            domainsEnabled,
-            domainsEnrollmentModes,
-            creatorRoleId,
+        return Utils.enhancedHash(
+            enabled, maxAllowedMemberships, adminDeleteEnabled,
+            domainsEnabled, domainsEnrollmentModes, creatorRoleId,
             domainsDefaultRoleId);
     }
     
@@ -285,26 +287,28 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
                 "creatorRoleId", creatorRoleId,
                 "domainsDefaultRoleId", domainsDefaultRoleId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Boolean> enabled = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> domainsEnabled = JsonNullable.undefined();
- 
+
         private Optional<? extends List<String>> domainsEnrollmentModes = Optional.empty();
- 
+
         private JsonNullable<String> creatorRoleId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> domainsDefaultRoleId = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder enabled(boolean enabled) {
             Utils.checkNotNull(enabled, "enabled");
@@ -318,6 +322,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             return this;
         }
 
+
         public Builder maxAllowedMemberships(long maxAllowedMemberships) {
             Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
             this.maxAllowedMemberships = JsonNullable.of(maxAllowedMemberships);
@@ -329,6 +334,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             this.maxAllowedMemberships = maxAllowedMemberships;
             return this;
         }
+
 
         public Builder adminDeleteEnabled(boolean adminDeleteEnabled) {
             Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
@@ -342,6 +348,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             return this;
         }
 
+
         public Builder domainsEnabled(boolean domainsEnabled) {
             Utils.checkNotNull(domainsEnabled, "domainsEnabled");
             this.domainsEnabled = JsonNullable.of(domainsEnabled);
@@ -353,6 +360,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             this.domainsEnabled = domainsEnabled;
             return this;
         }
+
 
         /**
          * Specify which enrollment modes to enable for your Organization Domains.
@@ -374,6 +382,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             return this;
         }
 
+
         /**
          * Specify what the default organization role is for an organization creator.
          */
@@ -392,6 +401,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             return this;
         }
 
+
         /**
          * Specify what the default organization role is for the organization domains.
          */
@@ -409,16 +419,14 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             this.domainsDefaultRoleId = domainsDefaultRoleId;
             return this;
         }
-        
+
         public UpdateInstanceOrganizationSettingsRequestBody build() {
+
             return new UpdateInstanceOrganizationSettingsRequestBody(
-                enabled,
-                maxAllowedMemberships,
-                adminDeleteEnabled,
-                domainsEnabled,
-                domainsEnrollmentModes,
-                creatorRoleId,
+                enabled, maxAllowedMemberships, adminDeleteEnabled,
+                domainsEnabled, domainsEnrollmentModes, creatorRoleId,
                 domainsDefaultRoleId);
         }
+
     }
 }

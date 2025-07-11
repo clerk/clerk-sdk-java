@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateSignUpRequest {
 
+public class UpdateSignUpRequest {
     /**
      * The ID of the sign-up to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=id")
     private String id;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends UpdateSignUpRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class UpdateSignUpRequest {
         return (Optional<UpdateSignUpRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the sign-up to update
@@ -72,13 +73,13 @@ public class UpdateSignUpRequest {
         return this;
     }
 
+
     public UpdateSignUpRequest withRequestBody(Optional<? extends UpdateSignUpRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class UpdateSignUpRequest {
         }
         UpdateSignUpRequest other = (UpdateSignUpRequest) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            requestBody);
+        return Utils.enhancedHash(
+            id, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class UpdateSignUpRequest {
                 "id", id,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private Optional<? extends UpdateSignUpRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the sign-up to update
@@ -125,6 +127,7 @@ public class UpdateSignUpRequest {
             this.id = id;
             return this;
         }
+
 
         public Builder requestBody(UpdateSignUpRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class UpdateSignUpRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateSignUpRequest build() {
+
             return new UpdateSignUpRequest(
-                id,
-                requestBody);
+                id, requestBody);
         }
+
     }
 }

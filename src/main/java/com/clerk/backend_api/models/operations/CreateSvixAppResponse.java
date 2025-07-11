@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateSvixAppResponse implements Response {
 
+public class CreateSvixAppResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -59,7 +58,8 @@ public class CreateSvixAppResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -95,9 +95,10 @@ public class CreateSvixAppResponse implements Response {
         return (Optional<SvixURL>) svixURL;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -135,6 +136,7 @@ public class CreateSvixAppResponse implements Response {
         return this;
     }
 
+
     /**
      * Response that contains a temporary Svix URL to access management dashboard
      */
@@ -144,7 +146,6 @@ public class CreateSvixAppResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -155,18 +156,16 @@ public class CreateSvixAppResponse implements Response {
         }
         CreateSvixAppResponse other = (CreateSvixAppResponse) o;
         return 
-            Objects.deepEquals(this.contentType, other.contentType) &&
-            Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.svixURL, other.svixURL);
+            Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
+            Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
+            Utils.enhancedDeepEquals(this.svixURL, other.svixURL);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            contentType,
-            statusCode,
-            rawResponse,
+        return Utils.enhancedHash(
+            contentType, statusCode, rawResponse,
             svixURL);
     }
     
@@ -178,20 +177,22 @@ public class CreateSvixAppResponse implements Response {
                 "rawResponse", rawResponse,
                 "svixURL", svixURL);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends SvixURL> svixURL = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -202,6 +203,7 @@ public class CreateSvixAppResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -211,6 +213,7 @@ public class CreateSvixAppResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -219,6 +222,7 @@ public class CreateSvixAppResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * Response that contains a temporary Svix URL to access management dashboard
@@ -237,13 +241,13 @@ public class CreateSvixAppResponse implements Response {
             this.svixURL = svixURL;
             return this;
         }
-        
+
         public CreateSvixAppResponse build() {
+
             return new CreateSvixAppResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 svixURL);
         }
+
     }
 }

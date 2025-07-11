@@ -14,7 +14,7 @@ public enum AdminVerificationStatus {
     @JsonValue
     private final String value;
 
-    private AdminVerificationStatus(String value) {
+    AdminVerificationStatus(String value) {
         this.value = value;
     }
     

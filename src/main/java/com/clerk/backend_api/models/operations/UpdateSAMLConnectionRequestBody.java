@@ -13,11 +13,10 @@ import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateSAMLConnectionRequestBody {
 
+public class UpdateSAMLConnectionRequestBody {
     /**
      * The name of the new SAML Connection
      */
@@ -163,7 +162,11 @@ public class UpdateSAMLConnectionRequestBody {
     }
     
     public UpdateSAMLConnectionRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -279,9 +282,10 @@ public class UpdateSAMLConnectionRequestBody {
         return disableAdditionalIdentifications;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name of the new SAML Connection
@@ -535,7 +539,6 @@ public class UpdateSAMLConnectionRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -546,39 +549,30 @@ public class UpdateSAMLConnectionRequestBody {
         }
         UpdateSAMLConnectionRequestBody other = (UpdateSAMLConnectionRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.domain, other.domain) &&
-            Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
-            Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
-            Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
-            Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
-            Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
-            Objects.deepEquals(this.active, other.active) &&
-            Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
-            Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Objects.deepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
+            Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
+            Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
+            Utils.enhancedDeepEquals(this.active, other.active) &&
+            Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
+            Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
+            Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
+            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            domain,
-            idpEntityId,
-            idpSsoUrl,
-            idpCertificate,
-            idpMetadataUrl,
-            idpMetadata,
-            organizationId,
-            attributeMapping,
-            active,
-            syncUserAttributes,
-            allowSubdomains,
-            allowIdpInitiated,
-            disableAdditionalIdentifications);
+        return Utils.enhancedHash(
+            name, domain, idpEntityId,
+            idpSsoUrl, idpCertificate, idpMetadataUrl,
+            idpMetadata, organizationId, attributeMapping,
+            active, syncUserAttributes, allowSubdomains,
+            allowIdpInitiated, disableAdditionalIdentifications);
     }
     
     @Override
@@ -599,40 +593,42 @@ public class UpdateSAMLConnectionRequestBody {
                 "allowIdpInitiated", allowIdpInitiated,
                 "disableAdditionalIdentifications", disableAdditionalIdentifications);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> name = JsonNullable.undefined();
- 
+
         private JsonNullable<String> domain = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpEntityId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpSsoUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpCertificate = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> organizationId = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> active = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> syncUserAttributes = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> allowSubdomains = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> disableAdditionalIdentifications = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name of the new SAML Connection
@@ -652,6 +648,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The domain to use for the new SAML Connection
          */
@@ -669,6 +666,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.domain = domain;
             return this;
         }
+
 
         /**
          * The entity id as provided by the IdP
@@ -688,6 +686,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The SSO url as provided by the IdP
          */
@@ -705,6 +704,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.idpSsoUrl = idpSsoUrl;
             return this;
         }
+
 
         /**
          * The x509 certificated as provided by the IdP
@@ -724,6 +724,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
          */
@@ -741,6 +742,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.idpMetadataUrl = idpMetadataUrl;
             return this;
         }
+
 
         /**
          * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
@@ -760,6 +762,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The ID of the organization to which users of this SAML Connection will be added
          */
@@ -777,6 +780,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
@@ -796,6 +800,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * Activate or de-activate the SAML Connection
          */
@@ -813,6 +818,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.active = active;
             return this;
         }
+
 
         /**
          * Controls whether to update the user's attributes in each sign-in
@@ -832,6 +838,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * Allow users with an email address subdomain to use this connection in order to authenticate
          */
@@ -849,6 +856,7 @@ public class UpdateSAMLConnectionRequestBody {
             this.allowSubdomains = allowSubdomains;
             return this;
         }
+
 
         /**
          * Enable or deactivate IdP-initiated flows
@@ -868,6 +876,7 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * Enable or deactivate additional identifications
          */
@@ -885,23 +894,16 @@ public class UpdateSAMLConnectionRequestBody {
             this.disableAdditionalIdentifications = disableAdditionalIdentifications;
             return this;
         }
-        
+
         public UpdateSAMLConnectionRequestBody build() {
+
             return new UpdateSAMLConnectionRequestBody(
-                name,
-                domain,
-                idpEntityId,
-                idpSsoUrl,
-                idpCertificate,
-                idpMetadataUrl,
-                idpMetadata,
-                organizationId,
-                attributeMapping,
-                active,
-                syncUserAttributes,
-                allowSubdomains,
-                allowIdpInitiated,
-                disableAdditionalIdentifications);
+                name, domain, idpEntityId,
+                idpSsoUrl, idpCertificate, idpMetadataUrl,
+                idpMetadata, organizationId, attributeMapping,
+                active, syncUserAttributes, allowSubdomains,
+                allowIdpInitiated, disableAdditionalIdentifications);
         }
+
     }
 }

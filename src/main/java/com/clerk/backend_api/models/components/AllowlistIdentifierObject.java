@@ -19,7 +19,7 @@ public enum AllowlistIdentifierObject {
     @JsonValue
     private final String value;
 
-    private AllowlistIdentifierObject(String value) {
+    AllowlistIdentifierObject(String value) {
         this.value = value;
     }
     

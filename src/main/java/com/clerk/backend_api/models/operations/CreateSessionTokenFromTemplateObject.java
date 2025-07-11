@@ -14,7 +14,7 @@ public enum CreateSessionTokenFromTemplateObject {
     @JsonValue
     private final String value;
 
-    private CreateSessionTokenFromTemplateObject(String value) {
+    CreateSessionTokenFromTemplateObject(String value) {
         this.value = value;
     }
     

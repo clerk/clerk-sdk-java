@@ -19,7 +19,7 @@ public enum InstanceRestrictionsObject {
     @JsonValue
     private final String value;
 
-    private InstanceRestrictionsObject(String value) {
+    InstanceRestrictionsObject(String value) {
         this.value = value;
     }
     

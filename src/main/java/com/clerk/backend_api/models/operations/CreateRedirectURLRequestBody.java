@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class CreateRedirectURLRequestBody {
-
     /**
      * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
@@ -34,9 +33,10 @@ public class CreateRedirectURLRequestBody {
         return url;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
@@ -47,7 +47,6 @@ public class CreateRedirectURLRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class CreateRedirectURLRequestBody {
         }
         CreateRedirectURLRequestBody other = (CreateRedirectURLRequestBody) o;
         return 
-            Objects.deepEquals(this.url, other.url);
+            Utils.enhancedDeepEquals(this.url, other.url);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             url);
     }
     
@@ -72,14 +71,16 @@ public class CreateRedirectURLRequestBody {
         return Utils.toString(CreateRedirectURLRequestBody.class,
                 "url", url);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String url;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
@@ -89,10 +90,12 @@ public class CreateRedirectURLRequestBody {
             this.url = url;
             return this;
         }
-        
+
         public CreateRedirectURLRequestBody build() {
+
             return new CreateRedirectURLRequestBody(
                 url);
         }
+
     }
 }

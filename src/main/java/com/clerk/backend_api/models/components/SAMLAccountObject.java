@@ -19,7 +19,7 @@ public enum SAMLAccountObject {
     @JsonValue
     private final String value;
 
-    private SAMLAccountObject(String value) {
+    SAMLAccountObject(String value) {
         this.value = value;
     }
     

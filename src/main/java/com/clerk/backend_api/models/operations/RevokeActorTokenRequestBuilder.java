@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevokeActorTokenOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class RevokeActorTokenRequestBuilder {
 
     private String actorTokenId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevokeActorToken sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevokeActorTokenRequestBuilder(SDKMethodInterfaces.MethodCallRevokeActorToken sdk) {
-        this.sdk = sdk;
+    public RevokeActorTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevokeActorTokenRequestBuilder actorTokenId(String actorTokenId) {
@@ -38,12 +42,25 @@ public class RevokeActorTokenRequestBuilder {
         return this;
     }
 
+
+    private RevokeActorTokenRequest buildRequest() {
+
+        RevokeActorTokenRequest request = new RevokeActorTokenRequest(actorTokenId);
+
+        return request;
+    }
+
     public RevokeActorTokenResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revoke(
-            actorTokenId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> operation
+              = new RevokeActorTokenOperation(
+                sdkConfiguration,
+                options);
+        RevokeActorTokenRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

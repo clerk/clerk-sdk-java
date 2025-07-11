@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListInstanceOrganizationInvitationsResponse implements Response {
 
+public class ListInstanceOrganizationInvitationsResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -59,7 +58,8 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -95,9 +95,10 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
         return (Optional<OrganizationInvitationsWithPublicOrganizationData>) organizationInvitationsWithPublicOrganizationData;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -135,6 +136,7 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
         return this;
     }
 
+
     /**
      * A list of organization invitations with public organization data
      */
@@ -144,7 +146,6 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -155,18 +156,16 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
         }
         ListInstanceOrganizationInvitationsResponse other = (ListInstanceOrganizationInvitationsResponse) o;
         return 
-            Objects.deepEquals(this.contentType, other.contentType) &&
-            Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.organizationInvitationsWithPublicOrganizationData, other.organizationInvitationsWithPublicOrganizationData);
+            Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
+            Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
+            Utils.enhancedDeepEquals(this.organizationInvitationsWithPublicOrganizationData, other.organizationInvitationsWithPublicOrganizationData);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            contentType,
-            statusCode,
-            rawResponse,
+        return Utils.enhancedHash(
+            contentType, statusCode, rawResponse,
             organizationInvitationsWithPublicOrganizationData);
     }
     
@@ -178,20 +177,22 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
                 "rawResponse", rawResponse,
                 "organizationInvitationsWithPublicOrganizationData", organizationInvitationsWithPublicOrganizationData);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends OrganizationInvitationsWithPublicOrganizationData> organizationInvitationsWithPublicOrganizationData = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -202,6 +203,7 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -211,6 +213,7 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -219,6 +222,7 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * A list of organization invitations with public organization data
@@ -237,13 +241,13 @@ public class ListInstanceOrganizationInvitationsResponse implements Response {
             this.organizationInvitationsWithPublicOrganizationData = organizationInvitationsWithPublicOrganizationData;
             return this;
         }
-        
+
         public ListInstanceOrganizationInvitationsResponse build() {
+
             return new ListInstanceOrganizationInvitationsResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 organizationInvitationsWithPublicOrganizationData);
         }
+
     }
 }

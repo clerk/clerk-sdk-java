@@ -16,7 +16,7 @@ public enum IdentifierType {
     @JsonValue
     private final String value;
 
-    private IdentifierType(String value) {
+    IdentifierType(String value) {
         this.value = value;
     }
     

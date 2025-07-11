@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * RedirectURL
@@ -22,8 +21,10 @@ public class RedirectURL {
     @JsonProperty("object")
     private RedirectURLObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("url")
     private String url;
@@ -90,9 +91,10 @@ public class RedirectURL {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public RedirectURL withObject(RedirectURLObject object) {
         Utils.checkNotNull(object, "object");
@@ -130,7 +132,6 @@ public class RedirectURL {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -141,21 +142,18 @@ public class RedirectURL {
         }
         RedirectURL other = (RedirectURL) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.url, other.url) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.url, other.url) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            url,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, url,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -167,22 +165,24 @@ public class RedirectURL {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private RedirectURLObject object;
- 
+
         private String id;
- 
+
         private String url;
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(RedirectURLObject object) {
             Utils.checkNotNull(object, "object");
@@ -190,17 +190,20 @@ public class RedirectURL {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
 
+
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation.
@@ -211,6 +214,7 @@ public class RedirectURL {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -219,14 +223,13 @@ public class RedirectURL {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public RedirectURL build() {
+
             return new RedirectURL(
-                object,
-                id,
-                url,
-                createdAt,
-                updatedAt);
+                object, id, url,
+                createdAt, updatedAt);
         }
+
     }
 }

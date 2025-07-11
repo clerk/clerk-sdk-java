@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.LockUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class LockUserRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallLockUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public LockUserRequestBuilder(SDKMethodInterfaces.MethodCallLockUser sdk) {
-        this.sdk = sdk;
+    public LockUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public LockUserRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class LockUserRequestBuilder {
         return this;
     }
 
+
+    private LockUserRequest buildRequest() {
+
+        LockUserRequest request = new LockUserRequest(userId);
+
+        return request;
+    }
+
     public LockUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.lock(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<LockUserRequest, LockUserResponse> operation
+              = new LockUserOperation(
+                sdkConfiguration,
+                options);
+        LockUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

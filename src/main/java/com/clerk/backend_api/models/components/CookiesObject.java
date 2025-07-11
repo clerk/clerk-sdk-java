@@ -19,7 +19,7 @@ public enum CookiesObject {
     @JsonValue
     private final String value;
 
-    private CookiesObject(String value) {
+    CookiesObject(String value) {
         this.value = value;
     }
     

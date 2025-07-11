@@ -12,7 +12,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * OrganizationSettings
@@ -20,21 +19,24 @@ import java.util.Objects;
  * <p>Success
  */
 public class OrganizationSettings {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private OrganizationSettingsObject object;
 
+
     @JsonProperty("enabled")
     private boolean enabled;
+
 
     @JsonProperty("max_allowed_memberships")
     private long maxAllowedMemberships;
 
+
     @JsonProperty("max_allowed_roles")
     private long maxAllowedRoles;
+
 
     @JsonProperty("max_allowed_permissions")
     private long maxAllowedPermissions;
@@ -51,8 +53,10 @@ public class OrganizationSettings {
     @JsonProperty("admin_delete_enabled")
     private boolean adminDeleteEnabled;
 
+
     @JsonProperty("domains_enabled")
     private boolean domainsEnabled;
+
 
     @JsonProperty("domains_enrollment_modes")
     private List<DomainsEnrollmentModes> domainsEnrollmentModes;
@@ -159,9 +163,10 @@ public class OrganizationSettings {
         return domainsDefaultRole;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -235,7 +240,6 @@ public class OrganizationSettings {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -246,30 +250,24 @@ public class OrganizationSettings {
         }
         OrganizationSettings other = (OrganizationSettings) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.enabled, other.enabled) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.maxAllowedRoles, other.maxAllowedRoles) &&
-            Objects.deepEquals(this.maxAllowedPermissions, other.maxAllowedPermissions) &&
-            Objects.deepEquals(this.creatorRole, other.creatorRole) &&
-            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            Objects.deepEquals(this.domainsEnabled, other.domainsEnabled) &&
-            Objects.deepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
-            Objects.deepEquals(this.domainsDefaultRole, other.domainsDefaultRole);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Utils.enhancedDeepEquals(this.maxAllowedRoles, other.maxAllowedRoles) &&
+            Utils.enhancedDeepEquals(this.maxAllowedPermissions, other.maxAllowedPermissions) &&
+            Utils.enhancedDeepEquals(this.creatorRole, other.creatorRole) &&
+            Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Utils.enhancedDeepEquals(this.domainsEnabled, other.domainsEnabled) &&
+            Utils.enhancedDeepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
+            Utils.enhancedDeepEquals(this.domainsDefaultRole, other.domainsDefaultRole);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            enabled,
-            maxAllowedMemberships,
-            maxAllowedRoles,
-            maxAllowedPermissions,
-            creatorRole,
-            adminDeleteEnabled,
-            domainsEnabled,
-            domainsEnrollmentModes,
+        return Utils.enhancedHash(
+            object, enabled, maxAllowedMemberships,
+            maxAllowedRoles, maxAllowedPermissions, creatorRole,
+            adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
             domainsDefaultRole);
     }
     
@@ -287,32 +285,34 @@ public class OrganizationSettings {
                 "domainsEnrollmentModes", domainsEnrollmentModes,
                 "domainsDefaultRole", domainsDefaultRole);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OrganizationSettingsObject object;
- 
+
         private Boolean enabled;
- 
+
         private Long maxAllowedMemberships;
- 
+
         private Long maxAllowedRoles;
- 
+
         private Long maxAllowedPermissions;
- 
+
         private String creatorRole;
- 
+
         private Boolean adminDeleteEnabled;
- 
+
         private Boolean domainsEnabled;
- 
+
         private List<DomainsEnrollmentModes> domainsEnrollmentModes;
- 
+
         private String domainsDefaultRole;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -323,11 +323,13 @@ public class OrganizationSettings {
             return this;
         }
 
+
         public Builder enabled(boolean enabled) {
             Utils.checkNotNull(enabled, "enabled");
             this.enabled = enabled;
             return this;
         }
+
 
         public Builder maxAllowedMemberships(long maxAllowedMemberships) {
             Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
@@ -335,17 +337,20 @@ public class OrganizationSettings {
             return this;
         }
 
+
         public Builder maxAllowedRoles(long maxAllowedRoles) {
             Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
             this.maxAllowedRoles = maxAllowedRoles;
             return this;
         }
 
+
         public Builder maxAllowedPermissions(long maxAllowedPermissions) {
             Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
             this.maxAllowedPermissions = maxAllowedPermissions;
             return this;
         }
+
 
         /**
          * The role key that a user will be assigned after creating an organization.
@@ -356,6 +361,7 @@ public class OrganizationSettings {
             return this;
         }
 
+
         /**
          * The default for whether an admin can delete an organization with the Frontend API.
          */
@@ -365,17 +371,20 @@ public class OrganizationSettings {
             return this;
         }
 
+
         public Builder domainsEnabled(boolean domainsEnabled) {
             Utils.checkNotNull(domainsEnabled, "domainsEnabled");
             this.domainsEnabled = domainsEnabled;
             return this;
         }
 
+
         public Builder domainsEnrollmentModes(List<DomainsEnrollmentModes> domainsEnrollmentModes) {
             Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
             this.domainsEnrollmentModes = domainsEnrollmentModes;
             return this;
         }
+
 
         /**
          * The role key that it will be used in order to create an organization invitation or suggestion.
@@ -385,19 +394,15 @@ public class OrganizationSettings {
             this.domainsDefaultRole = domainsDefaultRole;
             return this;
         }
-        
+
         public OrganizationSettings build() {
+
             return new OrganizationSettings(
-                object,
-                enabled,
-                maxAllowedMemberships,
-                maxAllowedRoles,
-                maxAllowedPermissions,
-                creatorRole,
-                adminDeleteEnabled,
-                domainsEnabled,
-                domainsEnrollmentModes,
+                object, enabled, maxAllowedMemberships,
+                maxAllowedRoles, maxAllowedPermissions, creatorRole,
+                adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
                 domainsDefaultRole);
         }
+
     }
 }

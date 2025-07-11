@@ -15,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,15 +34,19 @@ public class EmailAddress {
     @JsonProperty("object")
     private EmailAddressObject object;
 
+
     @JsonProperty("email_address")
     private String emailAddress;
+
 
     @JsonProperty("reserved")
     private boolean reserved;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
     private Optional<? extends Verification> verification;
+
 
     @JsonProperty("linked_to")
     private List<IdentificationLink> linkedTo;
@@ -105,7 +108,9 @@ public class EmailAddress {
             List<IdentificationLink> linkedTo,
             long createdAt,
             long updatedAt) {
-        this(Optional.empty(), object, emailAddress, reserved, Optional.empty(), linkedTo, Optional.empty(), createdAt, updatedAt);
+        this(Optional.empty(), object, emailAddress,
+            reserved, Optional.empty(), linkedTo,
+            Optional.empty(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -166,15 +171,17 @@ public class EmailAddress {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public EmailAddress withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public EmailAddress withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -209,6 +216,7 @@ public class EmailAddress {
         return this;
     }
 
+
     public EmailAddress withVerification(Optional<? extends Verification> verification) {
         Utils.checkNotNull(verification, "verification");
         this.verification = verification;
@@ -229,6 +237,7 @@ public class EmailAddress {
         this.matchesSsoConnection = Optional.ofNullable(matchesSsoConnection);
         return this;
     }
+
 
     /**
      * Indicates whether this email address domain matches an active enterprise connection.
@@ -257,7 +266,6 @@ public class EmailAddress {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -268,29 +276,23 @@ public class EmailAddress {
         }
         EmailAddress other = (EmailAddress) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.reserved, other.reserved) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.linkedTo, other.linkedTo) &&
-            Objects.deepEquals(this.matchesSsoConnection, other.matchesSsoConnection) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.reserved, other.reserved) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.linkedTo, other.linkedTo) &&
+            Utils.enhancedDeepEquals(this.matchesSsoConnection, other.matchesSsoConnection) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            emailAddress,
-            reserved,
-            verification,
-            linkedTo,
-            matchesSsoConnection,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            id, object, emailAddress,
+            reserved, verification, linkedTo,
+            matchesSsoConnection, createdAt, updatedAt);
     }
     
     @Override
@@ -306,30 +308,32 @@ public class EmailAddress {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private EmailAddressObject object;
- 
+
         private String emailAddress;
- 
+
         private Boolean reserved;
- 
+
         private Optional<? extends Verification> verification = Optional.empty();
- 
+
         private List<IdentificationLink> linkedTo;
- 
+
         private Optional<Boolean> matchesSsoConnection = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -343,6 +347,7 @@ public class EmailAddress {
             return this;
         }
 
+
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
@@ -352,17 +357,20 @@ public class EmailAddress {
             return this;
         }
 
+
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
         }
 
+
         public Builder reserved(boolean reserved) {
             Utils.checkNotNull(reserved, "reserved");
             this.reserved = reserved;
             return this;
         }
+
 
         public Builder verification(Verification verification) {
             Utils.checkNotNull(verification, "verification");
@@ -376,11 +384,13 @@ public class EmailAddress {
             return this;
         }
 
+
         public Builder linkedTo(List<IdentificationLink> linkedTo) {
             Utils.checkNotNull(linkedTo, "linkedTo");
             this.linkedTo = linkedTo;
             return this;
         }
+
 
         /**
          * Indicates whether this email address domain matches an active enterprise connection.
@@ -400,6 +410,7 @@ public class EmailAddress {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -409,6 +420,7 @@ public class EmailAddress {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -417,18 +429,14 @@ public class EmailAddress {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public EmailAddress build() {
+
             return new EmailAddress(
-                id,
-                object,
-                emailAddress,
-                reserved,
-                verification,
-                linkedTo,
-                matchesSsoConnection,
-                createdAt,
-                updatedAt);
+                id, object, emailAddress,
+                reserved, verification, linkedTo,
+                matchesSsoConnection, createdAt, updatedAt);
         }
+
     }
 }

@@ -19,7 +19,7 @@ public enum OrganizationDomainObject {
     @JsonValue
     private final String value;
 
-    private OrganizationDomainObject(String value) {
+    OrganizationDomainObject(String value) {
         this.value = value;
     }
     

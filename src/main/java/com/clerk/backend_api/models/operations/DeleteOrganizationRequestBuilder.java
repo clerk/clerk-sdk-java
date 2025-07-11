@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteOrganizationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteOrganizationRequestBuilder {
 
     private String organizationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteOrganization sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteOrganizationRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOrganization sdk) {
-        this.sdk = sdk;
+    public DeleteOrganizationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteOrganizationRequestBuilder organizationId(String organizationId) {
@@ -38,12 +42,25 @@ public class DeleteOrganizationRequestBuilder {
         return this;
     }
 
+
+    private DeleteOrganizationRequest buildRequest() {
+
+        DeleteOrganizationRequest request = new DeleteOrganizationRequest(organizationId);
+
+        return request;
+    }
+
     public DeleteOrganizationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            organizationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteOrganizationRequest, DeleteOrganizationResponse> operation
+              = new DeleteOrganizationOperation(
+                sdkConfiguration,
+                options);
+        DeleteOrganizationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -11,11 +11,10 @@ import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetPublicInterstitialRequest {
 
+public class GetPublicInterstitialRequest {
     /**
      * Please use `frontend_api` instead
      * 
@@ -87,7 +86,9 @@ public class GetPublicInterstitialRequest {
     }
     
     public GetPublicInterstitialRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -149,9 +150,10 @@ public class GetPublicInterstitialRequest {
         return useDomainForScript;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Please use `frontend_api` instead
@@ -164,6 +166,7 @@ public class GetPublicInterstitialRequest {
         this.frontendApiQueryParameter = Optional.ofNullable(frontendApiQueryParameter);
         return this;
     }
+
 
     /**
      * Please use `frontend_api` instead
@@ -186,6 +189,7 @@ public class GetPublicInterstitialRequest {
         return this;
     }
 
+
     /**
      * The Frontend API key of your instance
      */
@@ -203,6 +207,7 @@ public class GetPublicInterstitialRequest {
         this.publishableKey = Optional.ofNullable(publishableKey);
         return this;
     }
+
 
     /**
      * The publishable key of your instance
@@ -222,6 +227,7 @@ public class GetPublicInterstitialRequest {
         return this;
     }
 
+
     /**
      * The proxy URL of your instance
      */
@@ -239,6 +245,7 @@ public class GetPublicInterstitialRequest {
         this.domain = Optional.ofNullable(domain);
         return this;
     }
+
 
     /**
      * The domain of your instance
@@ -258,6 +265,7 @@ public class GetPublicInterstitialRequest {
         return this;
     }
 
+
     /**
      * The sign in URL of your instance
      */
@@ -276,6 +284,7 @@ public class GetPublicInterstitialRequest {
         return this;
     }
 
+
     /**
      * Whether to use the domain for the script URL
      */
@@ -285,7 +294,6 @@ public class GetPublicInterstitialRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -296,24 +304,20 @@ public class GetPublicInterstitialRequest {
         }
         GetPublicInterstitialRequest other = (GetPublicInterstitialRequest) o;
         return 
-            Objects.deepEquals(this.frontendApiQueryParameter, other.frontendApiQueryParameter) &&
-            Objects.deepEquals(this.frontendApiQueryParameter1, other.frontendApiQueryParameter1) &&
-            Objects.deepEquals(this.publishableKey, other.publishableKey) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            Objects.deepEquals(this.domain, other.domain) &&
-            Objects.deepEquals(this.signInUrl, other.signInUrl) &&
-            Objects.deepEquals(this.useDomainForScript, other.useDomainForScript);
+            Utils.enhancedDeepEquals(this.frontendApiQueryParameter, other.frontendApiQueryParameter) &&
+            Utils.enhancedDeepEquals(this.frontendApiQueryParameter1, other.frontendApiQueryParameter1) &&
+            Utils.enhancedDeepEquals(this.publishableKey, other.publishableKey) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl) &&
+            Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.signInUrl, other.signInUrl) &&
+            Utils.enhancedDeepEquals(this.useDomainForScript, other.useDomainForScript);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            frontendApiQueryParameter,
-            frontendApiQueryParameter1,
-            publishableKey,
-            proxyUrl,
-            domain,
-            signInUrl,
+        return Utils.enhancedHash(
+            frontendApiQueryParameter, frontendApiQueryParameter1, publishableKey,
+            proxyUrl, domain, signInUrl,
             useDomainForScript);
     }
     
@@ -328,27 +332,29 @@ public class GetPublicInterstitialRequest {
                 "signInUrl", signInUrl,
                 "useDomainForScript", useDomainForScript);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         @Deprecated
         private Optional<String> frontendApiQueryParameter = Optional.empty();
- 
+
         private Optional<String> frontendApiQueryParameter1 = Optional.empty();
- 
+
         private Optional<String> publishableKey = Optional.empty();
- 
+
         private Optional<String> proxyUrl = Optional.empty();
- 
+
         private Optional<String> domain = Optional.empty();
- 
+
         private Optional<String> signInUrl = Optional.empty();
- 
+
         private Optional<Boolean> useDomainForScript = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Please use `frontend_api` instead
@@ -374,6 +380,7 @@ public class GetPublicInterstitialRequest {
             return this;
         }
 
+
         /**
          * The Frontend API key of your instance
          */
@@ -391,6 +398,7 @@ public class GetPublicInterstitialRequest {
             this.frontendApiQueryParameter1 = frontendApiQueryParameter1;
             return this;
         }
+
 
         /**
          * The publishable key of your instance
@@ -410,6 +418,7 @@ public class GetPublicInterstitialRequest {
             return this;
         }
 
+
         /**
          * The proxy URL of your instance
          */
@@ -427,6 +436,7 @@ public class GetPublicInterstitialRequest {
             this.proxyUrl = proxyUrl;
             return this;
         }
+
 
         /**
          * The domain of your instance
@@ -446,6 +456,7 @@ public class GetPublicInterstitialRequest {
             return this;
         }
 
+
         /**
          * The sign in URL of your instance
          */
@@ -464,6 +475,7 @@ public class GetPublicInterstitialRequest {
             return this;
         }
 
+
         /**
          * Whether to use the domain for the script URL
          */
@@ -481,16 +493,14 @@ public class GetPublicInterstitialRequest {
             this.useDomainForScript = useDomainForScript;
             return this;
         }
-        
+
         public GetPublicInterstitialRequest build() {
+
             return new GetPublicInterstitialRequest(
-                frontendApiQueryParameter,
-                frontendApiQueryParameter1,
-                publishableKey,
-                proxyUrl,
-                domain,
-                signInUrl,
+                frontendApiQueryParameter, frontendApiQueryParameter1, publishableKey,
+                proxyUrl, domain, signInUrl,
                 useDomainForScript);
         }
+
     }
 }

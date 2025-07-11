@@ -14,20 +14,23 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class WaitlistEntry {
 
     @JsonProperty("object")
     private WaitlistEntryObject object;
 
+
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("email_address")
     private String emailAddress;
+
 
     @JsonProperty("status")
     private WaitlistEntryStatus status;
@@ -50,6 +53,7 @@ public class WaitlistEntry {
      */
     @JsonProperty("updated_at")
     private long updatedAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("invitation")
@@ -90,7 +94,9 @@ public class WaitlistEntry {
             WaitlistEntryStatus status,
             long createdAt,
             long updatedAt) {
-        this(object, id, emailAddress, status, Optional.empty(), createdAt, updatedAt, JsonNullable.undefined());
+        this(object, id, emailAddress,
+            status, Optional.empty(), createdAt,
+            updatedAt, JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -143,9 +149,10 @@ public class WaitlistEntry {
         return (JsonNullable<WaitlistEntryInvitation>) invitation;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public WaitlistEntry withObject(WaitlistEntryObject object) {
         Utils.checkNotNull(object, "object");
@@ -179,6 +186,7 @@ public class WaitlistEntry {
         this.isLocked = Optional.ofNullable(isLocked);
         return this;
     }
+
 
     /**
      * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
@@ -219,7 +227,6 @@ public class WaitlistEntry {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -230,27 +237,22 @@ public class WaitlistEntry {
         }
         WaitlistEntry other = (WaitlistEntry) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.isLocked, other.isLocked) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.invitation, other.invitation);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.isLocked, other.isLocked) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.invitation, other.invitation);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            emailAddress,
-            status,
-            isLocked,
-            createdAt,
-            updatedAt,
-            invitation);
+        return Utils.enhancedHash(
+            object, id, emailAddress,
+            status, isLocked, createdAt,
+            updatedAt, invitation);
     }
     
     @Override
@@ -265,28 +267,30 @@ public class WaitlistEntry {
                 "updatedAt", updatedAt,
                 "invitation", invitation);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private WaitlistEntryObject object;
- 
+
         private String id;
- 
+
         private String emailAddress;
- 
+
         private WaitlistEntryStatus status;
- 
+
         private Optional<Boolean> isLocked = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
- 
+
         private JsonNullable<? extends WaitlistEntryInvitation> invitation = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(WaitlistEntryObject object) {
             Utils.checkNotNull(object, "object");
@@ -294,11 +298,13 @@ public class WaitlistEntry {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -306,11 +312,13 @@ public class WaitlistEntry {
             return this;
         }
 
+
         public Builder status(WaitlistEntryStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
+
 
         /**
          * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
@@ -330,6 +338,7 @@ public class WaitlistEntry {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -339,6 +348,7 @@ public class WaitlistEntry {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -347,6 +357,7 @@ public class WaitlistEntry {
             this.updatedAt = updatedAt;
             return this;
         }
+
 
         public Builder invitation(WaitlistEntryInvitation invitation) {
             Utils.checkNotNull(invitation, "invitation");
@@ -359,17 +370,14 @@ public class WaitlistEntry {
             this.invitation = invitation;
             return this;
         }
-        
+
         public WaitlistEntry build() {
+
             return new WaitlistEntry(
-                object,
-                id,
-                emailAddress,
-                status,
-                isLocked,
-                createdAt,
-                updatedAt,
-                invitation);
+                object, id, emailAddress,
+                status, isLocked, createdAt,
+                updatedAt, invitation);
         }
+
     }
 }

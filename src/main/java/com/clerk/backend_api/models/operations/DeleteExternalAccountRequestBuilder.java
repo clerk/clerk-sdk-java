@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteExternalAccountOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class DeleteExternalAccountRequestBuilder {
     private String userId;
     private String externalAccountId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteExternalAccount sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteExternalAccountRequestBuilder(SDKMethodInterfaces.MethodCallDeleteExternalAccount sdk) {
-        this.sdk = sdk;
+    public DeleteExternalAccountRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteExternalAccountRequestBuilder userId(String userId) {
@@ -45,13 +49,26 @@ public class DeleteExternalAccountRequestBuilder {
         return this;
     }
 
+
+    private DeleteExternalAccountRequest buildRequest() {
+
+        DeleteExternalAccountRequest request = new DeleteExternalAccountRequest(userId,
+            externalAccountId);
+
+        return request;
+    }
+
     public DeleteExternalAccountResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteExternalAccount(
-            userId,
-            externalAccountId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
+              = new DeleteExternalAccountOperation(
+                sdkConfiguration,
+                options);
+        DeleteExternalAccountRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

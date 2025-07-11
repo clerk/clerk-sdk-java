@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetClientRequest {
-
     /**
      * Client ID.
      */
@@ -34,9 +33,10 @@ public class GetClientRequest {
         return clientId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Client ID.
@@ -47,7 +47,6 @@ public class GetClientRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetClientRequest {
         }
         GetClientRequest other = (GetClientRequest) o;
         return 
-            Objects.deepEquals(this.clientId, other.clientId);
+            Utils.enhancedDeepEquals(this.clientId, other.clientId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             clientId);
     }
     
@@ -72,14 +71,16 @@ public class GetClientRequest {
         return Utils.toString(GetClientRequest.class,
                 "clientId", clientId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String clientId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Client ID.
@@ -89,10 +90,12 @@ public class GetClientRequest {
             this.clientId = clientId;
             return this;
         }
-        
+
         public GetClientRequest build() {
+
             return new GetClientRequest(
                 clientId);
         }
+
     }
 }

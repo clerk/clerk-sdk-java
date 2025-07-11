@@ -9,12 +9,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class IdentificationLink {
 
     @JsonProperty("type")
     private String type;
+
 
     @JsonProperty("id")
     private String id;
@@ -39,9 +40,10 @@ public class IdentificationLink {
         return id;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public IdentificationLink withType(String type) {
         Utils.checkNotNull(type, "type");
@@ -55,7 +57,6 @@ public class IdentificationLink {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -66,15 +67,14 @@ public class IdentificationLink {
         }
         IdentificationLink other = (IdentificationLink) o;
         return 
-            Objects.deepEquals(this.type, other.type) &&
-            Objects.deepEquals(this.id, other.id);
+            Utils.enhancedDeepEquals(this.type, other.type) &&
+            Utils.enhancedDeepEquals(this.id, other.id);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            type,
-            id);
+        return Utils.enhancedHash(
+            type, id);
     }
     
     @Override
@@ -83,16 +83,18 @@ public class IdentificationLink {
                 "type", type,
                 "id", id);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String type;
- 
+
         private String id;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder type(String type) {
             Utils.checkNotNull(type, "type");
@@ -100,16 +102,18 @@ public class IdentificationLink {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
-        
+
         public IdentificationLink build() {
+
             return new IdentificationLink(
-                type,
-                id);
+                type, id);
         }
+
     }
 }

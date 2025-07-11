@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UserPasskeyDeleteOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UserPasskeyDeleteRequestBuilder {
     private String userId;
     private String passkeyIdentificationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUserPasskeyDelete sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UserPasskeyDeleteRequestBuilder(SDKMethodInterfaces.MethodCallUserPasskeyDelete sdk) {
-        this.sdk = sdk;
+    public UserPasskeyDeleteRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UserPasskeyDeleteRequestBuilder userId(String userId) {
@@ -45,13 +49,26 @@ public class UserPasskeyDeleteRequestBuilder {
         return this;
     }
 
+
+    private UserPasskeyDeleteRequest buildRequest() {
+
+        UserPasskeyDeleteRequest request = new UserPasskeyDeleteRequest(userId,
+            passkeyIdentificationId);
+
+        return request;
+    }
+
     public UserPasskeyDeleteResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deletePasskey(
-            userId,
-            passkeyIdentificationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
+              = new UserPasskeyDeleteOperation(
+                sdkConfiguration,
+                options);
+        UserPasskeyDeleteRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

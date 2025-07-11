@@ -13,12 +13,11 @@ import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateJWTTemplateRequestBody {
 
+public class UpdateJWTTemplateRequestBody {
     /**
      * JWT template name
      */
@@ -94,7 +93,9 @@ public class UpdateJWTTemplateRequestBody {
     public UpdateJWTTemplateRequestBody(
             String name,
             UpdateJWTTemplateClaims claims) {
-        this(name, claims, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(name, claims, JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -153,9 +154,10 @@ public class UpdateJWTTemplateRequestBody {
         return signingKey;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * JWT template name
@@ -220,6 +222,7 @@ public class UpdateJWTTemplateRequestBody {
         return this;
     }
 
+
     /**
      * Whether a custom signing key/algorithm is also provided for this template
      */
@@ -265,7 +268,6 @@ public class UpdateJWTTemplateRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -276,24 +278,20 @@ public class UpdateJWTTemplateRequestBody {
         }
         UpdateJWTTemplateRequestBody other = (UpdateJWTTemplateRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.claims, other.claims) &&
-            Objects.deepEquals(this.lifetime, other.lifetime) &&
-            Objects.deepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
-            Objects.deepEquals(this.customSigningKey, other.customSigningKey) &&
-            Objects.deepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
-            Objects.deepEquals(this.signingKey, other.signingKey);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.claims, other.claims) &&
+            Utils.enhancedDeepEquals(this.lifetime, other.lifetime) &&
+            Utils.enhancedDeepEquals(this.allowedClockSkew, other.allowedClockSkew) &&
+            Utils.enhancedDeepEquals(this.customSigningKey, other.customSigningKey) &&
+            Utils.enhancedDeepEquals(this.signingAlgorithm, other.signingAlgorithm) &&
+            Utils.enhancedDeepEquals(this.signingKey, other.signingKey);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            claims,
-            lifetime,
-            allowedClockSkew,
-            customSigningKey,
-            signingAlgorithm,
+        return Utils.enhancedHash(
+            name, claims, lifetime,
+            allowedClockSkew, customSigningKey, signingAlgorithm,
             signingKey);
     }
     
@@ -308,26 +306,28 @@ public class UpdateJWTTemplateRequestBody {
                 "signingAlgorithm", signingAlgorithm,
                 "signingKey", signingKey);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String name;
- 
+
         private UpdateJWTTemplateClaims claims;
- 
+
         private JsonNullable<Double> lifetime = JsonNullable.undefined();
- 
+
         private JsonNullable<Double> allowedClockSkew = JsonNullable.undefined();
- 
+
         private Optional<Boolean> customSigningKey = Optional.empty();
- 
+
         private JsonNullable<String> signingAlgorithm = JsonNullable.undefined();
- 
+
         private JsonNullable<String> signingKey = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * JWT template name
@@ -338,6 +338,7 @@ public class UpdateJWTTemplateRequestBody {
             return this;
         }
 
+
         /**
          * JWT template claims in JSON format
          */
@@ -346,6 +347,7 @@ public class UpdateJWTTemplateRequestBody {
             this.claims = claims;
             return this;
         }
+
 
         /**
          * JWT token lifetime
@@ -365,6 +367,7 @@ public class UpdateJWTTemplateRequestBody {
             return this;
         }
 
+
         /**
          * JWT token allowed clock skew
          */
@@ -382,6 +385,7 @@ public class UpdateJWTTemplateRequestBody {
             this.allowedClockSkew = allowedClockSkew;
             return this;
         }
+
 
         /**
          * Whether a custom signing key/algorithm is also provided for this template
@@ -401,6 +405,7 @@ public class UpdateJWTTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The custom signing algorithm to use when minting JWTs. Required if `custom_signing_key` is `true`.
          */
@@ -419,6 +424,7 @@ public class UpdateJWTTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The custom signing private key to use when minting JWTs. Required if `custom_signing_key` is `true`.
          */
@@ -436,16 +442,14 @@ public class UpdateJWTTemplateRequestBody {
             this.signingKey = signingKey;
             return this;
         }
-        
+
         public UpdateJWTTemplateRequestBody build() {
+
             return new UpdateJWTTemplateRequestBody(
-                name,
-                claims,
-                lifetime,
-                allowedClockSkew,
-                customSigningKey,
-                signingAlgorithm,
+                name, claims, lifetime,
+                allowedClockSkew, customSigningKey, signingAlgorithm,
                 signingKey);
         }
+
     }
 }

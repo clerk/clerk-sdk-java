@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * SignUpExternalAccount
@@ -17,18 +16,15 @@ import java.util.Objects;
  */
 @Deprecated
 public class SignUpExternalAccount {
-
     @JsonCreator
     public SignUpExternalAccount() {
-        
-        
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
 
-    
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -42,7 +38,7 @@ public class SignUpExternalAccount {
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             );
     }
     
@@ -50,16 +46,19 @@ public class SignUpExternalAccount {
     public String toString() {
         return Utils.toString(SignUpExternalAccount.class);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
-        
+
         private Builder() {
           // force use of static builder() method
         }
-        
+
         public SignUpExternalAccount build() {
+
             return new SignUpExternalAccount(
                 );
         }
+
     }
 }

@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateOrganizationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateOrganizationRequestBuilder {
 
     private Optional<? extends CreateOrganizationRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateOrganization sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateOrganizationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganization sdk) {
-        this.sdk = sdk;
+    public CreateOrganizationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateOrganizationRequestBuilder request(CreateOrganizationRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateOrganizationRequestBuilder {
 
     public CreateOrganizationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateOrganizationRequestBody>, CreateOrganizationResponse> operation
+              = new CreateOrganizationOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

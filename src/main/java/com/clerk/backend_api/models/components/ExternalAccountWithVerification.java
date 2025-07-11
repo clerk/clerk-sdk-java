@@ -19,23 +19,25 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class ExternalAccountWithVerification {
 
+public class ExternalAccountWithVerification {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private ExternalAccountWithVerificationObject object;
 
+
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("provider")
     private String provider;
+
 
     @JsonProperty("identification_id")
     private String identificationId;
@@ -46,14 +48,18 @@ public class ExternalAccountWithVerification {
     @JsonProperty("provider_user_id")
     private String providerUserId;
 
+
     @JsonProperty("approved_scopes")
     private String approvedScopes;
+
 
     @JsonProperty("email_address")
     private String emailAddress;
 
+
     @JsonProperty("first_name")
     private String firstName;
+
 
     @JsonProperty("last_name")
     private String lastName;
@@ -68,16 +74,20 @@ public class ExternalAccountWithVerification {
     @Deprecated
     private Optional<String> avatarUrl;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("image_url")
     private JsonNullable<String> imageUrl;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("username")
     private JsonNullable<String> username;
 
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("label")
@@ -95,9 +105,11 @@ public class ExternalAccountWithVerification {
     @JsonProperty("updated_at")
     private long updatedAt;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
     private Optional<? extends ExternalAccountWithVerificationVerification> verification;
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties;
@@ -134,6 +146,7 @@ public class ExternalAccountWithVerification {
         Utils.checkNotNull(imageUrl, "imageUrl");
         Utils.checkNotNull(username, "username");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(label, "label");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -171,7 +184,12 @@ public class ExternalAccountWithVerification {
             Map<String, Object> publicMetadata,
             long createdAt,
             long updatedAt) {
-        this(object, id, provider, identificationId, providerUserId, approvedScopes, emailAddress, firstName, lastName, Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), publicMetadata, JsonNullable.undefined(), createdAt, updatedAt, Optional.empty());
+        this(object, id, provider,
+            identificationId, providerUserId, approvedScopes,
+            emailAddress, firstName, lastName,
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            publicMetadata, JsonNullable.undefined(), createdAt,
+            updatedAt, Optional.empty());
     }
 
     /**
@@ -283,9 +301,10 @@ public class ExternalAccountWithVerification {
         return additionalProperties;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -358,6 +377,7 @@ public class ExternalAccountWithVerification {
         this.avatarUrl = Optional.ofNullable(avatarUrl);
         return this;
     }
+
 
     /**
      * Please use `image_url` instead
@@ -437,6 +457,7 @@ public class ExternalAccountWithVerification {
         return this;
     }
 
+
     public ExternalAccountWithVerification withVerification(Optional<? extends ExternalAccountWithVerificationVerification> verification) {
         Utils.checkNotNull(verification, "verification");
         this.verification = verification;
@@ -449,15 +470,13 @@ public class ExternalAccountWithVerification {
         Utils.checkNotNull(key, "key");
         additionalProperties.put(key, value); 
         return this;
-    }    
-
+    }
     public ExternalAccountWithVerification withAdditionalProperties(Map<String, Object> additionalProperties) {
         Utils.checkNotNull(additionalProperties, "additionalProperties");
         this.additionalProperties = additionalProperties;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -468,47 +487,35 @@ public class ExternalAccountWithVerification {
         }
         ExternalAccountWithVerification other = (ExternalAccountWithVerification) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.identificationId, other.identificationId) &&
-            Objects.deepEquals(this.providerUserId, other.providerUserId) &&
-            Objects.deepEquals(this.approvedScopes, other.approvedScopes) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.avatarUrl, other.avatarUrl) &&
-            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.label, other.label) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.additionalProperties, other.additionalProperties);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.identificationId, other.identificationId) &&
+            Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
+            Utils.enhancedDeepEquals(this.approvedScopes, other.approvedScopes) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.avatarUrl, other.avatarUrl) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.label, other.label) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            provider,
-            identificationId,
-            providerUserId,
-            approvedScopes,
-            emailAddress,
-            firstName,
-            lastName,
-            avatarUrl,
-            imageUrl,
-            username,
-            publicMetadata,
-            label,
-            createdAt,
-            updatedAt,
-            verification,
-            additionalProperties);
+        return Utils.enhancedHash(
+            object, id, provider,
+            identificationId, providerUserId, approvedScopes,
+            emailAddress, firstName, lastName,
+            avatarUrl, imageUrl, username,
+            publicMetadata, label, createdAt,
+            updatedAt, verification, additionalProperties);
     }
     
     @Override
@@ -533,49 +540,51 @@ public class ExternalAccountWithVerification {
                 "verification", verification,
                 "additionalProperties", additionalProperties);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private ExternalAccountWithVerificationObject object;
- 
+
         private String id;
- 
+
         private String provider;
- 
+
         private String identificationId;
- 
+
         private String providerUserId;
- 
+
         private String approvedScopes;
- 
+
         private String emailAddress;
- 
+
         private String firstName;
- 
+
         private String lastName;
- 
+
         @Deprecated
         private Optional<String> avatarUrl = Optional.empty();
- 
+
         private JsonNullable<String> imageUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> username = JsonNullable.undefined();
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private JsonNullable<String> label = JsonNullable.undefined();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
- 
+
         private Optional<? extends ExternalAccountWithVerificationVerification> verification = Optional.empty();
- 
+
         private Map<String, Object> additionalProperties = new HashMap<>();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -586,11 +595,13 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
@@ -598,11 +609,13 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder identificationId(String identificationId) {
             Utils.checkNotNull(identificationId, "identificationId");
             this.identificationId = identificationId;
             return this;
         }
+
 
         /**
          * The unique ID of the user in the external provider's system
@@ -613,11 +626,13 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder approvedScopes(String approvedScopes) {
             Utils.checkNotNull(approvedScopes, "approvedScopes");
             this.approvedScopes = approvedScopes;
             return this;
         }
+
 
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -625,17 +640,20 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
         }
+
 
         /**
          * Please use `image_url` instead
@@ -661,6 +679,7 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder imageUrl(String imageUrl) {
             Utils.checkNotNull(imageUrl, "imageUrl");
             this.imageUrl = JsonNullable.of(imageUrl);
@@ -672,6 +691,7 @@ public class ExternalAccountWithVerification {
             this.imageUrl = imageUrl;
             return this;
         }
+
 
         public Builder username(String username) {
             Utils.checkNotNull(username, "username");
@@ -685,11 +705,13 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder label(String label) {
             Utils.checkNotNull(label, "label");
@@ -703,6 +725,7 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -712,6 +735,7 @@ public class ExternalAccountWithVerification {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -720,6 +744,7 @@ public class ExternalAccountWithVerification {
             this.updatedAt = updatedAt;
             return this;
         }
+
 
         public Builder verification(ExternalAccountWithVerificationVerification verification) {
             Utils.checkNotNull(verification, "verification");
@@ -748,27 +773,18 @@ public class ExternalAccountWithVerification {
             this.additionalProperties = additionalProperties;
             return this;
         }
-        
+
         public ExternalAccountWithVerification build() {
+
             return new ExternalAccountWithVerification(
-                object,
-                id,
-                provider,
-                identificationId,
-                providerUserId,
-                approvedScopes,
-                emailAddress,
-                firstName,
-                lastName,
-                avatarUrl,
-                imageUrl,
-                username,
-                publicMetadata,
-                label,
-                createdAt,
-                updatedAt,
-                verification)
+                object, id, provider,
+                identificationId, providerUserId, approvedScopes,
+                emailAddress, firstName, lastName,
+                avatarUrl, imageUrl, username,
+                publicMetadata, label, createdAt,
+                updatedAt, verification)
                 .withAdditionalProperties(additionalProperties);
         }
+
     }
 }

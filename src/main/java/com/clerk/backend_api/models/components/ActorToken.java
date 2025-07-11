@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,21 +24,27 @@ public class ActorToken {
     @JsonProperty("object")
     private ActorTokenObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("status")
     private ActorTokenStatus status;
 
+
     @JsonProperty("user_id")
     private String userId;
+
 
     @JsonProperty("actor")
     private ActorTokenActor actor;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
     private Optional<String> token;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
@@ -96,7 +101,9 @@ public class ActorToken {
             ActorTokenActor actor,
             long createdAt,
             long updatedAt) {
-        this(object, id, status, userId, actor, Optional.empty(), Optional.empty(), createdAt, updatedAt);
+        this(object, id, status,
+            userId, actor, Optional.empty(),
+            Optional.empty(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -150,9 +157,10 @@ public class ActorToken {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public ActorToken withObject(ActorTokenObject object) {
         Utils.checkNotNull(object, "object");
@@ -190,6 +198,7 @@ public class ActorToken {
         return this;
     }
 
+
     public ActorToken withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
         this.token = token;
@@ -201,6 +210,7 @@ public class ActorToken {
         this.url = Optional.ofNullable(url);
         return this;
     }
+
 
     public ActorToken withUrl(Optional<String> url) {
         Utils.checkNotNull(url, "url");
@@ -226,7 +236,6 @@ public class ActorToken {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -237,29 +246,23 @@ public class ActorToken {
         }
         ActorToken other = (ActorToken) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.actor, other.actor) &&
-            Objects.deepEquals(this.token, other.token) &&
-            Objects.deepEquals(this.url, other.url) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.actor, other.actor) &&
+            Utils.enhancedDeepEquals(this.token, other.token) &&
+            Utils.enhancedDeepEquals(this.url, other.url) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            status,
-            userId,
-            actor,
-            token,
-            url,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, status,
+            userId, actor, token,
+            url, createdAt, updatedAt);
     }
     
     @Override
@@ -275,30 +278,32 @@ public class ActorToken {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private ActorTokenObject object;
- 
+
         private String id;
- 
+
         private ActorTokenStatus status;
- 
+
         private String userId;
- 
+
         private ActorTokenActor actor;
- 
+
         private Optional<String> token = Optional.empty();
- 
+
         private Optional<String> url = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(ActorTokenObject object) {
             Utils.checkNotNull(object, "object");
@@ -306,11 +311,13 @@ public class ActorToken {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder status(ActorTokenStatus status) {
             Utils.checkNotNull(status, "status");
@@ -318,17 +325,20 @@ public class ActorToken {
             return this;
         }
 
+
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
         }
 
+
         public Builder actor(ActorTokenActor actor) {
             Utils.checkNotNull(actor, "actor");
             this.actor = actor;
             return this;
         }
+
 
         public Builder token(String token) {
             Utils.checkNotNull(token, "token");
@@ -342,6 +352,7 @@ public class ActorToken {
             return this;
         }
 
+
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = Optional.ofNullable(url);
@@ -354,6 +365,7 @@ public class ActorToken {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -363,6 +375,7 @@ public class ActorToken {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -371,18 +384,14 @@ public class ActorToken {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public ActorToken build() {
+
             return new ActorToken(
-                object,
-                id,
-                status,
-                userId,
-                actor,
-                token,
-                url,
-                createdAt,
-                updatedAt);
+                object, id, status,
+                userId, actor, token,
+                url, createdAt, updatedAt);
         }
+
     }
 }

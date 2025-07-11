@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetSessionOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetSessionRequestBuilder {
 
     private String sessionId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetSession sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetSessionRequestBuilder(SDKMethodInterfaces.MethodCallGetSession sdk) {
-        this.sdk = sdk;
+    public GetSessionRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetSessionRequestBuilder sessionId(String sessionId) {
@@ -38,12 +42,25 @@ public class GetSessionRequestBuilder {
         return this;
     }
 
+
+    private GetSessionRequest buildRequest() {
+
+        GetSessionRequest request = new GetSessionRequest(sessionId);
+
+        return request;
+    }
+
     public GetSessionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            sessionId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetSessionRequest, GetSessionResponse> operation
+              = new GetSessionOperation(
+                sdkConfiguration,
+                options);
+        GetSessionRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

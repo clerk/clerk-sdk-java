@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteRedirectURLRequest {
-
     /**
      * The ID of the redirect URL
      */
@@ -34,9 +33,10 @@ public class DeleteRedirectURLRequest {
         return id;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the redirect URL
@@ -47,7 +47,6 @@ public class DeleteRedirectURLRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteRedirectURLRequest {
         }
         DeleteRedirectURLRequest other = (DeleteRedirectURLRequest) o;
         return 
-            Objects.deepEquals(this.id, other.id);
+            Utils.enhancedDeepEquals(this.id, other.id);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             id);
     }
     
@@ -72,14 +71,16 @@ public class DeleteRedirectURLRequest {
         return Utils.toString(DeleteRedirectURLRequest.class,
                 "id", id);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the redirect URL
@@ -89,10 +90,12 @@ public class DeleteRedirectURLRequest {
             this.id = id;
             return this;
         }
-        
+
         public DeleteRedirectURLRequest build() {
+
             return new DeleteRedirectURLRequest(
                 id);
         }
+
     }
 }

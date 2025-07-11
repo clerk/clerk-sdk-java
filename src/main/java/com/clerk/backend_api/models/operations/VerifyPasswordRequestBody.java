@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class VerifyPasswordRequestBody {
-
     /**
      * The user password to verify
      */
@@ -34,9 +33,10 @@ public class VerifyPasswordRequestBody {
         return password;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The user password to verify
@@ -47,7 +47,6 @@ public class VerifyPasswordRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class VerifyPasswordRequestBody {
         }
         VerifyPasswordRequestBody other = (VerifyPasswordRequestBody) o;
         return 
-            Objects.deepEquals(this.password, other.password);
+            Utils.enhancedDeepEquals(this.password, other.password);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             password);
     }
     
@@ -72,14 +71,16 @@ public class VerifyPasswordRequestBody {
         return Utils.toString(VerifyPasswordRequestBody.class,
                 "password", password);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String password;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The user password to verify
@@ -89,10 +90,12 @@ public class VerifyPasswordRequestBody {
             this.password = password;
             return this;
         }
-        
+
         public VerifyPasswordRequestBody build() {
+
             return new VerifyPasswordRequestBody(
                 password);
         }
+
     }
 }

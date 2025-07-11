@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.VerifyDomainProxyOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class VerifyDomainProxyRequestBuilder {
 
     private Optional<? extends VerifyDomainProxyRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallVerifyDomainProxy sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public VerifyDomainProxyRequestBuilder(SDKMethodInterfaces.MethodCallVerifyDomainProxy sdk) {
-        this.sdk = sdk;
+    public VerifyDomainProxyRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public VerifyDomainProxyRequestBuilder request(VerifyDomainProxyRequestBody request) {
@@ -45,10 +49,14 @@ public class VerifyDomainProxyRequestBuilder {
 
     public VerifyDomainProxyResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.verify(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends VerifyDomainProxyRequestBody>, VerifyDomainProxyResponse> operation
+              = new VerifyDomainProxyOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class SetUserProfileImageRequestBody {
 
@@ -35,9 +35,10 @@ public class SetUserProfileImageRequestBody {
         return (Optional<File>) file;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SetUserProfileImageRequestBody withFile(File file) {
         Utils.checkNotNull(file, "file");
@@ -45,13 +46,13 @@ public class SetUserProfileImageRequestBody {
         return this;
     }
 
+
     public SetUserProfileImageRequestBody withFile(Optional<? extends File> file) {
         Utils.checkNotNull(file, "file");
         this.file = file;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -62,12 +63,12 @@ public class SetUserProfileImageRequestBody {
         }
         SetUserProfileImageRequestBody other = (SetUserProfileImageRequestBody) o;
         return 
-            Objects.deepEquals(this.file, other.file);
+            Utils.enhancedDeepEquals(this.file, other.file);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             file);
     }
     
@@ -76,14 +77,16 @@ public class SetUserProfileImageRequestBody {
         return Utils.toString(SetUserProfileImageRequestBody.class,
                 "file", file);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends File> file = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder file(File file) {
             Utils.checkNotNull(file, "file");
@@ -96,10 +99,12 @@ public class SetUserProfileImageRequestBody {
             this.file = file;
             return this;
         }
-        
+
         public SetUserProfileImageRequestBody build() {
+
             return new SetUserProfileImageRequestBody(
                 file);
         }
+
     }
 }

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,9 +40,10 @@ public class DisableMFAResponseBody {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public DisableMFAResponseBody withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -51,13 +51,13 @@ public class DisableMFAResponseBody {
         return this;
     }
 
+
     public DisableMFAResponseBody withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -68,12 +68,12 @@ public class DisableMFAResponseBody {
         }
         DisableMFAResponseBody other = (DisableMFAResponseBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -82,14 +82,16 @@ public class DisableMFAResponseBody {
         return Utils.toString(DisableMFAResponseBody.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> userId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -102,10 +104,12 @@ public class DisableMFAResponseBody {
             this.userId = userId;
             return this;
         }
-        
+
         public DisableMFAResponseBody build() {
+
             return new DisableMFAResponseBody(
                 userId);
         }
+
     }
 }

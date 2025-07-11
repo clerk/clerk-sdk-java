@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetJWTTemplateRequest {
-
     /**
      * JWT Template ID
      */
@@ -34,9 +33,10 @@ public class GetJWTTemplateRequest {
         return templateId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * JWT Template ID
@@ -47,7 +47,6 @@ public class GetJWTTemplateRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetJWTTemplateRequest {
         }
         GetJWTTemplateRequest other = (GetJWTTemplateRequest) o;
         return 
-            Objects.deepEquals(this.templateId, other.templateId);
+            Utils.enhancedDeepEquals(this.templateId, other.templateId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             templateId);
     }
     
@@ -72,14 +71,16 @@ public class GetJWTTemplateRequest {
         return Utils.toString(GetJWTTemplateRequest.class,
                 "templateId", templateId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String templateId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * JWT Template ID
@@ -89,10 +90,12 @@ public class GetJWTTemplateRequest {
             this.templateId = templateId;
             return this;
         }
-        
+
         public GetJWTTemplateRequest build() {
+
             return new GetJWTTemplateRequest(
                 templateId);
         }
+
     }
 }

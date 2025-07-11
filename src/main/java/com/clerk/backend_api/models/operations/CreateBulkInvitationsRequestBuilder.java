@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateBulkInvitationsOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class CreateBulkInvitationsRequestBuilder {
 
     private Optional<? extends List<RequestBody>> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateBulkInvitations sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateBulkInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallCreateBulkInvitations sdk) {
-        this.sdk = sdk;
+    public CreateBulkInvitationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateBulkInvitationsRequestBuilder request(List<RequestBody> request) {
@@ -46,10 +50,14 @@ public class CreateBulkInvitationsRequestBuilder {
 
     public CreateBulkInvitationsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.bulkCreate(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
+              = new CreateBulkInvitationsOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

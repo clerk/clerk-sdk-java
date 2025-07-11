@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -26,18 +25,23 @@ public class SignInToken {
     @JsonProperty("object")
     private SignInTokenObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("status")
     private SignInTokenStatus status;
 
+
     @JsonProperty("user_id")
     private String userId;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("token")
     private Optional<String> token;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
@@ -90,7 +94,9 @@ public class SignInToken {
             String userId,
             long createdAt,
             long updatedAt) {
-        this(object, id, status, userId, Optional.empty(), JsonNullable.undefined(), createdAt, updatedAt);
+        this(object, id, status,
+            userId, Optional.empty(), JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -139,9 +145,10 @@ public class SignInToken {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SignInToken withObject(SignInTokenObject object) {
         Utils.checkNotNull(object, "object");
@@ -172,6 +179,7 @@ public class SignInToken {
         this.token = Optional.ofNullable(token);
         return this;
     }
+
 
     public SignInToken withToken(Optional<String> token) {
         Utils.checkNotNull(token, "token");
@@ -209,7 +217,6 @@ public class SignInToken {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -220,27 +227,22 @@ public class SignInToken {
         }
         SignInToken other = (SignInToken) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.token, other.token) &&
-            Objects.deepEquals(this.url, other.url) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.token, other.token) &&
+            Utils.enhancedDeepEquals(this.url, other.url) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            status,
-            userId,
-            token,
-            url,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, status,
+            userId, token, url,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -255,28 +257,30 @@ public class SignInToken {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private SignInTokenObject object;
- 
+
         private String id;
- 
+
         private SignInTokenStatus status;
- 
+
         private String userId;
- 
+
         private Optional<String> token = Optional.empty();
- 
+
         private JsonNullable<String> url = JsonNullable.undefined();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(SignInTokenObject object) {
             Utils.checkNotNull(object, "object");
@@ -284,11 +288,13 @@ public class SignInToken {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder status(SignInTokenStatus status) {
             Utils.checkNotNull(status, "status");
@@ -296,11 +302,13 @@ public class SignInToken {
             return this;
         }
 
+
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
         }
+
 
         public Builder token(String token) {
             Utils.checkNotNull(token, "token");
@@ -314,6 +322,7 @@ public class SignInToken {
             return this;
         }
 
+
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = JsonNullable.of(url);
@@ -326,6 +335,7 @@ public class SignInToken {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -335,6 +345,7 @@ public class SignInToken {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -343,17 +354,14 @@ public class SignInToken {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public SignInToken build() {
+
             return new SignInToken(
-                object,
-                id,
-                status,
-                userId,
-                token,
-                url,
-                createdAt,
-                updatedAt);
+                object, id, status,
+                userId, token, url,
+                createdAt, updatedAt);
         }
+
     }
 }

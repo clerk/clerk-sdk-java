@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdatePhoneNumberOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdatePhoneNumberRequestBuilder {
     private String phoneNumberId;
     private Optional<? extends UpdatePhoneNumberRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdatePhoneNumber sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdatePhoneNumberRequestBuilder(SDKMethodInterfaces.MethodCallUpdatePhoneNumber sdk) {
-        this.sdk = sdk;
+    public UpdatePhoneNumberRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdatePhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
@@ -51,13 +55,26 @@ public class UpdatePhoneNumberRequestBuilder {
         return this;
     }
 
+
+    private UpdatePhoneNumberRequest buildRequest() {
+
+        UpdatePhoneNumberRequest request = new UpdatePhoneNumberRequest(phoneNumberId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdatePhoneNumberResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            phoneNumberId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdatePhoneNumberRequest, UpdatePhoneNumberResponse> operation
+              = new UpdatePhoneNumberOperation(
+                sdkConfiguration,
+                options);
+        UpdatePhoneNumberRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

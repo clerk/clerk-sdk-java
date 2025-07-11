@@ -15,7 +15,6 @@ import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -29,21 +28,27 @@ public class Invitation {
     @JsonProperty("object")
     private InvitationObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("email_address")
     private String emailAddress;
 
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("revoked")
     private Optional<Boolean> revoked;
 
+
     @JsonProperty("status")
     private InvitationStatus status;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
@@ -84,6 +89,7 @@ public class Invitation {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(emailAddress, "emailAddress");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(revoked, "revoked");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(url, "url");
@@ -110,7 +116,10 @@ public class Invitation {
             InvitationStatus status,
             long createdAt,
             long updatedAt) {
-        this(object, id, emailAddress, publicMetadata, Optional.empty(), status, Optional.empty(), JsonNullable.undefined(), createdAt, updatedAt);
+        this(object, id, emailAddress,
+            publicMetadata, Optional.empty(), status,
+            Optional.empty(), JsonNullable.undefined(), createdAt,
+            updatedAt);
     }
 
     @JsonIgnore
@@ -172,9 +181,10 @@ public class Invitation {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Invitation withObject(InvitationObject object) {
         Utils.checkNotNull(object, "object");
@@ -206,6 +216,7 @@ public class Invitation {
         return this;
     }
 
+
     public Invitation withRevoked(Optional<Boolean> revoked) {
         Utils.checkNotNull(revoked, "revoked");
         this.revoked = revoked;
@@ -223,6 +234,7 @@ public class Invitation {
         this.url = Optional.ofNullable(url);
         return this;
     }
+
 
     public Invitation withUrl(Optional<String> url) {
         Utils.checkNotNull(url, "url");
@@ -266,7 +278,6 @@ public class Invitation {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -277,30 +288,24 @@ public class Invitation {
         }
         Invitation other = (Invitation) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.revoked, other.revoked) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.url, other.url) &&
-            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.revoked, other.revoked) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.url, other.url) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            emailAddress,
-            publicMetadata,
-            revoked,
-            status,
-            url,
-            expiresAt,
-            createdAt,
+        return Utils.enhancedHash(
+            object, id, emailAddress,
+            publicMetadata, revoked, status,
+            url, expiresAt, createdAt,
             updatedAt);
     }
     
@@ -318,32 +323,34 @@ public class Invitation {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private InvitationObject object;
- 
+
         private String id;
- 
+
         private String emailAddress;
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private Optional<Boolean> revoked = Optional.empty();
- 
+
         private InvitationStatus status;
- 
+
         private Optional<String> url = Optional.empty();
- 
+
         private JsonNullable<Long> expiresAt = JsonNullable.undefined();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(InvitationObject object) {
             Utils.checkNotNull(object, "object");
@@ -351,11 +358,13 @@ public class Invitation {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -363,11 +372,13 @@ public class Invitation {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder revoked(boolean revoked) {
             Utils.checkNotNull(revoked, "revoked");
@@ -381,11 +392,13 @@ public class Invitation {
             return this;
         }
 
+
         public Builder status(InvitationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
+
 
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
@@ -398,6 +411,7 @@ public class Invitation {
             this.url = url;
             return this;
         }
+
 
         /**
          * Unix timestamp of expiration.
@@ -417,6 +431,7 @@ public class Invitation {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -426,6 +441,7 @@ public class Invitation {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -434,19 +450,15 @@ public class Invitation {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public Invitation build() {
+
             return new Invitation(
-                object,
-                id,
-                emailAddress,
-                publicMetadata,
-                revoked,
-                status,
-                url,
-                expiresAt,
-                createdAt,
+                object, id, emailAddress,
+                publicMetadata, revoked, status,
+                url, expiresAt, createdAt,
                 updatedAt);
         }
+
     }
 }

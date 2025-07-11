@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetPublicInterstitialOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class GetPublicInterstitialRequestBuilder {
 
     private GetPublicInterstitialRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetPublicInterstitial sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetPublicInterstitialRequestBuilder(SDKMethodInterfaces.MethodCallGetPublicInterstitial sdk) {
-        this.sdk = sdk;
+    public GetPublicInterstitialRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetPublicInterstitialRequestBuilder request(GetPublicInterstitialRequest request) {
@@ -39,10 +43,14 @@ public class GetPublicInterstitialRequestBuilder {
 
     public GetPublicInterstitialResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getPublicInterstitial(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetPublicInterstitialRequest, GetPublicInterstitialResponse> operation
+              = new GetPublicInterstitialOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -13,11 +13,10 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UsersGetOrganizationInvitationsRequest {
 
+public class UsersGetOrganizationInvitationsRequest {
     /**
      * The ID of the user whose organization invitations we want to retrieve
      */
@@ -63,7 +62,8 @@ public class UsersGetOrganizationInvitationsRequest {
     
     public UsersGetOrganizationInvitationsRequest(
             String userId) {
-        this(userId, Optional.empty(), Optional.empty(), Optional.empty());
+        this(userId, Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -102,9 +102,10 @@ public class UsersGetOrganizationInvitationsRequest {
         return (Optional<QueryParamStatus>) status;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user whose organization invitations we want to retrieve
@@ -124,6 +125,7 @@ public class UsersGetOrganizationInvitationsRequest {
         this.limit = Optional.ofNullable(limit);
         return this;
     }
+
 
     /**
      * Applies a limit to the number of results returned.
@@ -146,6 +148,7 @@ public class UsersGetOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -166,6 +169,7 @@ public class UsersGetOrganizationInvitationsRequest {
         return this;
     }
 
+
     /**
      * Filter organization invitations based on their status
      */
@@ -175,7 +179,6 @@ public class UsersGetOrganizationInvitationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -186,18 +189,16 @@ public class UsersGetOrganizationInvitationsRequest {
         }
         UsersGetOrganizationInvitationsRequest other = (UsersGetOrganizationInvitationsRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset) &&
-            Objects.deepEquals(this.status, other.status);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset) &&
+            Utils.enhancedDeepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            limit,
-            offset,
+        return Utils.enhancedHash(
+            userId, limit, offset,
             status);
     }
     
@@ -209,20 +210,22 @@ public class UsersGetOrganizationInvitationsRequest {
                 "offset", offset,
                 "status", status);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
- 
+
         private Optional<? extends QueryParamStatus> status = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user whose organization invitations we want to retrieve
@@ -232,6 +235,7 @@ public class UsersGetOrganizationInvitationsRequest {
             this.userId = userId;
             return this;
         }
+
 
         /**
          * Applies a limit to the number of results returned.
@@ -252,6 +256,7 @@ public class UsersGetOrganizationInvitationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -275,6 +280,7 @@ public class UsersGetOrganizationInvitationsRequest {
             return this;
         }
 
+
         /**
          * Filter organization invitations based on their status
          */
@@ -292,7 +298,7 @@ public class UsersGetOrganizationInvitationsRequest {
             this.status = status;
             return this;
         }
-        
+
         public UsersGetOrganizationInvitationsRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -300,12 +306,12 @@ public class UsersGetOrganizationInvitationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new UsersGetOrganizationInvitationsRequest(
-                userId,
-                limit,
-                offset,
+                userId, limit, offset,
                 status);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(
