@@ -8,7 +8,7 @@ import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationResponse;
 import com.clerk.backend_api.helpers.security.models.VerifyTokenOptions;
 import java.io.IOException;
-import java.net.HttpCookie;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,17 +85,16 @@ public final class AuthenticateRequest {
         }
 
         List<String> cookieHeaders = lowerCaseHeaders.get("cookie");
-        if (cookieHeaders != null && !cookieHeaders.isEmpty()) {
-            String cookieHeaderValue = cookieHeaders.get(0);
-            List<HttpCookie> cookies = HttpCookie.parse(cookieHeaderValue);
-            for (HttpCookie cookie : cookies) {
-                if (cookie.getName().startsWith(SESSION_COOKIE_NAME)) {
-                    return cookie.getValue();
-                }
-            }
+        if (cookieHeaders == null || cookieHeaders.isEmpty()) {
+            return null;
         }
-
-        return null;
+        return Arrays.stream(cookieHeaders.get(0).split(";"))
+                .map(String::trim)
+                .map(s -> s.split("=", 2))       // ["name","value"]
+                .filter(kv -> kv[0].startsWith("__session"))
+                .map(kv -> kv[1])
+                .findFirst()
+                .orElse(null);
     }
 
 
