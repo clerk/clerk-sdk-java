@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdatePhoneNumberRequest {
 
+public class UpdatePhoneNumberRequest {
     /**
      * The ID of the phone number to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=phone_number_id")
     private String phoneNumberId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends UpdatePhoneNumberRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class UpdatePhoneNumberRequest {
         return (Optional<UpdatePhoneNumberRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the phone number to update
@@ -72,13 +73,13 @@ public class UpdatePhoneNumberRequest {
         return this;
     }
 
+
     public UpdatePhoneNumberRequest withRequestBody(Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class UpdatePhoneNumberRequest {
         }
         UpdatePhoneNumberRequest other = (UpdatePhoneNumberRequest) o;
         return 
-            Objects.deepEquals(this.phoneNumberId, other.phoneNumberId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.phoneNumberId, other.phoneNumberId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            phoneNumberId,
-            requestBody);
+        return Utils.enhancedHash(
+            phoneNumberId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class UpdatePhoneNumberRequest {
                 "phoneNumberId", phoneNumberId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String phoneNumberId;
- 
+
         private Optional<? extends UpdatePhoneNumberRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the phone number to update
@@ -125,6 +127,7 @@ public class UpdatePhoneNumberRequest {
             this.phoneNumberId = phoneNumberId;
             return this;
         }
+
 
         public Builder requestBody(UpdatePhoneNumberRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class UpdatePhoneNumberRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdatePhoneNumberRequest build() {
+
             return new UpdatePhoneNumberRequest(
-                phoneNumberId,
-                requestBody);
+                phoneNumberId, requestBody);
         }
+
     }
 }

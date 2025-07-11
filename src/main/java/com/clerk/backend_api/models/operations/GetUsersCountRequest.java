@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetUsersCountRequest {
 
+public class GetUsersCountRequest {
     /**
      * Counts users with the specified email addresses.
      * Accepts up to 100 email addresses.
@@ -217,7 +216,12 @@ public class GetUsersCountRequest {
     }
     
     public GetUsersCountRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -402,9 +406,10 @@ public class GetUsersCountRequest {
         return createdAtAfter;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Counts users with the specified email addresses.
@@ -416,6 +421,7 @@ public class GetUsersCountRequest {
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
     }
+
 
     /**
      * Counts users with the specified email addresses.
@@ -439,6 +445,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users with the specified phone numbers.
      * Accepts up to 100 phone numbers.
@@ -460,6 +467,7 @@ public class GetUsersCountRequest {
         this.externalId = Optional.ofNullable(externalId);
         return this;
     }
+
 
     /**
      * Counts users with the specified external ids.
@@ -483,6 +491,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users with the specified usernames.
      * Accepts up to 100 usernames.
@@ -504,6 +513,7 @@ public class GetUsersCountRequest {
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
     }
+
 
     /**
      * Counts users with the specified web3 wallet addresses.
@@ -527,6 +537,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users with the user ids specified.
      * Accepts up to 100 user ids.
@@ -548,6 +559,7 @@ public class GetUsersCountRequest {
         this.organizationId = Optional.ofNullable(organizationId);
         return this;
     }
+
 
     /**
      * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
@@ -571,6 +583,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users that match the given query.
      * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
@@ -592,6 +605,7 @@ public class GetUsersCountRequest {
         this.emailAddressQuery = Optional.ofNullable(emailAddressQuery);
         return this;
     }
+
 
     /**
      * Counts users with emails that match the given query, via case-insensitive partial match.
@@ -615,6 +629,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users with phone numbers that match the given query, via case-insensitive partial match.
      * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
@@ -637,6 +652,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Counts users with usernames that match the given query, via case-insensitive partial match.
      * For example, `username_query=CoolUser` will match a user with the username `SomeCoolUser`,
@@ -657,6 +673,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Returns users with names that match the given query, via case-insensitive partial match.
      */
@@ -674,6 +691,7 @@ public class GetUsersCountRequest {
         this.banned = Optional.ofNullable(banned);
         return this;
     }
+
 
     /**
      * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
@@ -694,6 +712,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Returns users whose last session activity was before the given date (with millisecond precision).
      * Example: use 1700690400000 to retrieve users whose last session activity was before 2023-11-23.
@@ -713,6 +732,7 @@ public class GetUsersCountRequest {
         this.lastActiveAtAfter = Optional.ofNullable(lastActiveAtAfter);
         return this;
     }
+
 
     /**
      * Returns users whose last session activity was after the given date (with millisecond precision).
@@ -738,6 +758,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Returns users that had session activity since the given date.
      * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
@@ -762,6 +783,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Returns users who have been created before the given date (with millisecond precision).
      * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
@@ -782,6 +804,7 @@ public class GetUsersCountRequest {
         return this;
     }
 
+
     /**
      * Returns users who have been created after the given date (with millisecond precision).
      * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
@@ -792,7 +815,6 @@ public class GetUsersCountRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -803,47 +825,35 @@ public class GetUsersCountRequest {
         }
         GetUsersCountRequest other = (GetUsersCountRequest) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.externalId, other.externalId) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
-            Objects.deepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
-            Objects.deepEquals(this.usernameQuery, other.usernameQuery) &&
-            Objects.deepEquals(this.nameQuery, other.nameQuery) &&
-            Objects.deepEquals(this.banned, other.banned) &&
-            Objects.deepEquals(this.lastActiveAtBefore, other.lastActiveAtBefore) &&
-            Objects.deepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
-            Objects.deepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
-            Objects.deepEquals(this.createdAtBefore, other.createdAtBefore) &&
-            Objects.deepEquals(this.createdAtAfter, other.createdAtAfter);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.emailAddressQuery, other.emailAddressQuery) &&
+            Utils.enhancedDeepEquals(this.phoneNumberQuery, other.phoneNumberQuery) &&
+            Utils.enhancedDeepEquals(this.usernameQuery, other.usernameQuery) &&
+            Utils.enhancedDeepEquals(this.nameQuery, other.nameQuery) &&
+            Utils.enhancedDeepEquals(this.banned, other.banned) &&
+            Utils.enhancedDeepEquals(this.lastActiveAtBefore, other.lastActiveAtBefore) &&
+            Utils.enhancedDeepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
+            Utils.enhancedDeepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
+            Utils.enhancedDeepEquals(this.createdAtBefore, other.createdAtBefore) &&
+            Utils.enhancedDeepEquals(this.createdAtAfter, other.createdAtAfter);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            phoneNumber,
-            externalId,
-            username,
-            web3Wallet,
-            userId,
-            organizationId,
-            query,
-            emailAddressQuery,
-            phoneNumberQuery,
-            usernameQuery,
-            nameQuery,
-            banned,
-            lastActiveAtBefore,
-            lastActiveAtAfter,
-            lastActiveAtSince,
-            createdAtBefore,
-            createdAtAfter);
+        return Utils.enhancedHash(
+            emailAddress, phoneNumber, externalId,
+            username, web3Wallet, userId,
+            organizationId, query, emailAddressQuery,
+            phoneNumberQuery, usernameQuery, nameQuery,
+            banned, lastActiveAtBefore, lastActiveAtAfter,
+            lastActiveAtSince, createdAtBefore, createdAtAfter);
     }
     
     @Override
@@ -868,49 +878,51 @@ public class GetUsersCountRequest {
                 "createdAtBefore", createdAtBefore,
                 "createdAtAfter", createdAtAfter);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends List<String>> emailAddress = Optional.empty();
- 
+
         private Optional<? extends List<String>> phoneNumber = Optional.empty();
- 
+
         private Optional<? extends List<String>> externalId = Optional.empty();
- 
+
         private Optional<? extends List<String>> username = Optional.empty();
- 
+
         private Optional<? extends List<String>> web3Wallet = Optional.empty();
- 
+
         private Optional<? extends List<String>> userId = Optional.empty();
- 
+
         private Optional<? extends List<String>> organizationId = Optional.empty();
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<String> emailAddressQuery = Optional.empty();
- 
+
         private Optional<String> phoneNumberQuery = Optional.empty();
- 
+
         private Optional<String> usernameQuery = Optional.empty();
- 
+
         private Optional<String> nameQuery = Optional.empty();
- 
+
         private Optional<Boolean> banned = Optional.empty();
- 
+
         private Optional<Long> lastActiveAtBefore = Optional.empty();
- 
+
         private Optional<Long> lastActiveAtAfter = Optional.empty();
- 
+
         @Deprecated
         private Optional<Long> lastActiveAtSince = Optional.empty();
- 
+
         private Optional<Long> createdAtBefore = Optional.empty();
- 
+
         private Optional<Long> createdAtAfter = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Counts users with the specified email addresses.
@@ -934,6 +946,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users with the specified phone numbers.
          * Accepts up to 100 phone numbers.
@@ -955,6 +968,7 @@ public class GetUsersCountRequest {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         /**
          * Counts users with the specified external ids.
@@ -978,6 +992,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users with the specified usernames.
          * Accepts up to 100 usernames.
@@ -999,6 +1014,7 @@ public class GetUsersCountRequest {
             this.username = username;
             return this;
         }
+
 
         /**
          * Counts users with the specified web3 wallet addresses.
@@ -1022,6 +1038,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users with the user ids specified.
          * Accepts up to 100 user ids.
@@ -1043,6 +1060,7 @@ public class GetUsersCountRequest {
             this.userId = userId;
             return this;
         }
+
 
         /**
          * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
@@ -1066,6 +1084,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users that match the given query.
          * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
@@ -1087,6 +1106,7 @@ public class GetUsersCountRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Counts users with emails that match the given query, via case-insensitive partial match.
@@ -1110,6 +1130,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users with phone numbers that match the given query, via case-insensitive partial match.
          * For example, `phone_number_query=555` will match a user with the phone number `+1555xxxxxxx`,
@@ -1131,6 +1152,7 @@ public class GetUsersCountRequest {
             this.phoneNumberQuery = phoneNumberQuery;
             return this;
         }
+
 
         /**
          * Counts users with usernames that match the given query, via case-insensitive partial match.
@@ -1154,6 +1176,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Returns users with names that match the given query, via case-insensitive partial match.
          */
@@ -1172,6 +1195,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Counts users which are either banned (`banned=true`) or not banned (`banned=false`).
          */
@@ -1189,6 +1213,7 @@ public class GetUsersCountRequest {
             this.banned = banned;
             return this;
         }
+
 
         /**
          * Returns users whose last session activity was before the given date (with millisecond precision).
@@ -1210,6 +1235,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Returns users whose last session activity was after the given date (with millisecond precision).
          * Example: use 1700690400000 to retrieve users whose last session activity was after 2023-11-23.
@@ -1229,6 +1255,7 @@ public class GetUsersCountRequest {
             this.lastActiveAtAfter = lastActiveAtAfter;
             return this;
         }
+
 
         /**
          * Returns users that had session activity since the given date.
@@ -1258,6 +1285,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Returns users who have been created before the given date (with millisecond precision).
          * Example: use 1730160000000 to retrieve users who have been created before 2024-10-29.
@@ -1278,6 +1306,7 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
         /**
          * Returns users who have been created after the given date (with millisecond precision).
          * Example: use 1730160000000 to retrieve users who have been created after 2024-10-29.
@@ -1297,27 +1326,17 @@ public class GetUsersCountRequest {
             this.createdAtAfter = createdAtAfter;
             return this;
         }
-        
+
         public GetUsersCountRequest build() {
+
             return new GetUsersCountRequest(
-                emailAddress,
-                phoneNumber,
-                externalId,
-                username,
-                web3Wallet,
-                userId,
-                organizationId,
-                query,
-                emailAddressQuery,
-                phoneNumberQuery,
-                usernameQuery,
-                nameQuery,
-                banned,
-                lastActiveAtBefore,
-                lastActiveAtAfter,
-                lastActiveAtSince,
-                createdAtBefore,
-                createdAtAfter);
+                emailAddress, phoneNumber, externalId,
+                username, web3Wallet, userId,
+                organizationId, query, emailAddressQuery,
+                phoneNumberQuery, usernameQuery, nameQuery,
+                banned, lastActiveAtBefore, lastActiveAtAfter,
+                lastActiveAtSince, createdAtBefore, createdAtAfter);
         }
+
     }
 }

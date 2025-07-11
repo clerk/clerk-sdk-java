@@ -14,11 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateSignInTokenRequestBody {
 
+public class CreateSignInTokenRequestBody {
     /**
      * The ID of the user that can use the newly created sign in token
      */
@@ -65,9 +64,10 @@ public class CreateSignInTokenRequestBody {
         return expiresInSeconds;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user that can use the newly created sign in token
@@ -98,7 +98,6 @@ public class CreateSignInTokenRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -109,15 +108,14 @@ public class CreateSignInTokenRequestBody {
         }
         CreateSignInTokenRequestBody other = (CreateSignInTokenRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            expiresInSeconds);
+        return Utils.enhancedHash(
+            userId, expiresInSeconds);
     }
     
     @Override
@@ -126,16 +124,18 @@ public class CreateSignInTokenRequestBody {
                 "userId", userId,
                 "expiresInSeconds", expiresInSeconds);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private JsonNullable<Long> expiresInSeconds;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user that can use the newly created sign in token
@@ -145,6 +145,7 @@ public class CreateSignInTokenRequestBody {
             this.userId = userId;
             return this;
         }
+
 
         /**
          * Optional parameter to specify the life duration of the sign in token in seconds.
@@ -165,15 +166,16 @@ public class CreateSignInTokenRequestBody {
             this.expiresInSeconds = expiresInSeconds;
             return this;
         }
-        
+
         public CreateSignInTokenRequestBody build() {
             if (expiresInSeconds == null) {
                 expiresInSeconds = _SINGLETON_VALUE_ExpiresInSeconds.value();
             }
+
             return new CreateSignInTokenRequestBody(
-                userId,
-                expiresInSeconds);
+                userId, expiresInSeconds);
         }
+
 
         private static final LazySingletonValue<JsonNullable<Long>> _SINGLETON_VALUE_ExpiresInSeconds =
                 new LazySingletonValue<>(

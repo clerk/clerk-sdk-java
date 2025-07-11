@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteUserRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteUserRequestBuilder(SDKMethodInterfaces.MethodCallDeleteUser sdk) {
-        this.sdk = sdk;
+    public DeleteUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteUserRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class DeleteUserRequestBuilder {
         return this;
     }
 
+
+    private DeleteUserRequest buildRequest() {
+
+        DeleteUserRequest request = new DeleteUserRequest(userId);
+
+        return request;
+    }
+
     public DeleteUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteUserRequest, DeleteUserResponse> operation
+              = new DeleteUserOperation(
+                sdkConfiguration,
+                options);
+        DeleteUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

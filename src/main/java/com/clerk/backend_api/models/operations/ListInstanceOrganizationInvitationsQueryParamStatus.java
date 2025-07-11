@@ -21,7 +21,7 @@ public enum ListInstanceOrganizationInvitationsQueryParamStatus {
     @JsonValue
     private final String value;
 
-    private ListInstanceOrganizationInvitationsQueryParamStatus(String value) {
+    ListInstanceOrganizationInvitationsQueryParamStatus(String value) {
         this.value = value;
     }
     

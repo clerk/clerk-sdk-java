@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,13 +24,16 @@ public class UpdateSAMLConnectionAttributeMapping {
     @JsonProperty("user_id")
     private Optional<String> userId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
     private Optional<String> emailAddress;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
     private Optional<String> firstName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
@@ -54,7 +56,8 @@ public class UpdateSAMLConnectionAttributeMapping {
     }
     
     public UpdateSAMLConnectionAttributeMapping() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -77,15 +80,17 @@ public class UpdateSAMLConnectionAttributeMapping {
         return lastName;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public UpdateSAMLConnectionAttributeMapping withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = Optional.ofNullable(userId);
         return this;
     }
+
 
     public UpdateSAMLConnectionAttributeMapping withUserId(Optional<String> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -99,6 +104,7 @@ public class UpdateSAMLConnectionAttributeMapping {
         return this;
     }
 
+
     public UpdateSAMLConnectionAttributeMapping withEmailAddress(Optional<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
@@ -110,6 +116,7 @@ public class UpdateSAMLConnectionAttributeMapping {
         this.firstName = Optional.ofNullable(firstName);
         return this;
     }
+
 
     public UpdateSAMLConnectionAttributeMapping withFirstName(Optional<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
@@ -123,13 +130,13 @@ public class UpdateSAMLConnectionAttributeMapping {
         return this;
     }
 
+
     public UpdateSAMLConnectionAttributeMapping withLastName(Optional<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -140,18 +147,16 @@ public class UpdateSAMLConnectionAttributeMapping {
         }
         UpdateSAMLConnectionAttributeMapping other = (UpdateSAMLConnectionAttributeMapping) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            emailAddress,
-            firstName,
+        return Utils.enhancedHash(
+            userId, emailAddress, firstName,
             lastName);
     }
     
@@ -163,20 +168,22 @@ public class UpdateSAMLConnectionAttributeMapping {
                 "firstName", firstName,
                 "lastName", lastName);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> userId = Optional.empty();
- 
+
         private Optional<String> emailAddress = Optional.empty();
- 
+
         private Optional<String> firstName = Optional.empty();
- 
+
         private Optional<String> lastName = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
@@ -190,6 +197,7 @@ public class UpdateSAMLConnectionAttributeMapping {
             return this;
         }
 
+
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = Optional.ofNullable(emailAddress);
@@ -201,6 +209,7 @@ public class UpdateSAMLConnectionAttributeMapping {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -214,6 +223,7 @@ public class UpdateSAMLConnectionAttributeMapping {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = Optional.ofNullable(lastName);
@@ -225,13 +235,13 @@ public class UpdateSAMLConnectionAttributeMapping {
             this.lastName = lastName;
             return this;
         }
-        
+
         public UpdateSAMLConnectionAttributeMapping build() {
+
             return new UpdateSAMLConnectionAttributeMapping(
-                userId,
-                emailAddress,
-                firstName,
+                userId, emailAddress, firstName,
                 lastName);
         }
+
     }
 }

@@ -15,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -135,17 +134,21 @@ public class Template {
     @JsonProperty("required_variables")
     private Optional<? extends List<String>> requiredVariables;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_name")
     private Optional<String> fromEmailName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reply_to_email_name")
     private Optional<String> replyToEmailName;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delivered_by_clerk")
     private Optional<Boolean> deliveredByClerk;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enabled")
@@ -236,7 +239,14 @@ public class Template {
     }
     
     public Template() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -403,15 +413,17 @@ public class Template {
         return createdAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Template withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public Template withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -427,6 +439,7 @@ public class Template {
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -464,6 +477,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * whether this is a system (default) or user overridden) template
      */
@@ -481,6 +495,7 @@ public class Template {
         this.templateType = Optional.ofNullable(templateType);
         return this;
     }
+
 
     /**
      * whether this is an email or SMS template
@@ -500,6 +515,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * user-friendly name of the template
      */
@@ -517,6 +533,7 @@ public class Template {
         this.slug = Optional.ofNullable(slug);
         return this;
     }
+
 
     /**
      * machine-friendly name of the template
@@ -536,6 +553,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * position with the listing of templates
      */
@@ -553,6 +571,7 @@ public class Template {
         this.canRevert = Optional.ofNullable(canRevert);
         return this;
     }
+
 
     /**
      * whether this template can be reverted to the corresponding system default
@@ -572,6 +591,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * whether this template can be deleted
      */
@@ -589,6 +609,7 @@ public class Template {
         this.canToggle = Optional.ofNullable(canToggle);
         return this;
     }
+
 
     /**
      * whether this template can be enabled or disabled, true only for notification SMS templates
@@ -626,6 +647,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * the editor markup used to generate the body of the template
      */
@@ -643,6 +665,7 @@ public class Template {
         this.body = Optional.ofNullable(body);
         return this;
     }
+
 
     /**
      * the template body before variable interpolation
@@ -662,6 +685,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * list of variables that are available for use in the template body
      */
@@ -680,6 +704,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * list of variables that must be contained in the template body
      */
@@ -695,6 +720,7 @@ public class Template {
         return this;
     }
 
+
     public Template withFromEmailName(Optional<String> fromEmailName) {
         Utils.checkNotNull(fromEmailName, "fromEmailName");
         this.fromEmailName = fromEmailName;
@@ -706,6 +732,7 @@ public class Template {
         this.replyToEmailName = Optional.ofNullable(replyToEmailName);
         return this;
     }
+
 
     public Template withReplyToEmailName(Optional<String> replyToEmailName) {
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
@@ -719,6 +746,7 @@ public class Template {
         return this;
     }
 
+
     public Template withDeliveredByClerk(Optional<Boolean> deliveredByClerk) {
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         this.deliveredByClerk = deliveredByClerk;
@@ -730,6 +758,7 @@ public class Template {
         this.enabled = Optional.ofNullable(enabled);
         return this;
     }
+
 
     public Template withEnabled(Optional<Boolean> enabled) {
         Utils.checkNotNull(enabled, "enabled");
@@ -745,6 +774,7 @@ public class Template {
         this.updatedAt = Optional.ofNullable(updatedAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of last update.
@@ -764,6 +794,7 @@ public class Template {
         return this;
     }
 
+
     /**
      * Unix timestamp of creation.
      */
@@ -773,7 +804,6 @@ public class Template {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -784,54 +814,40 @@ public class Template {
         }
         Template other = (Template) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.instanceId, other.instanceId) &&
-            Objects.deepEquals(this.resourceType, other.resourceType) &&
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.position, other.position) &&
-            Objects.deepEquals(this.canRevert, other.canRevert) &&
-            Objects.deepEquals(this.canDelete, other.canDelete) &&
-            Objects.deepEquals(this.canToggle, other.canToggle) &&
-            Objects.deepEquals(this.subject, other.subject) &&
-            Objects.deepEquals(this.markup, other.markup) &&
-            Objects.deepEquals(this.body, other.body) &&
-            Objects.deepEquals(this.availableVariables, other.availableVariables) &&
-            Objects.deepEquals(this.requiredVariables, other.requiredVariables) &&
-            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName) &&
-            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
-            Objects.deepEquals(this.enabled, other.enabled) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
+            Utils.enhancedDeepEquals(this.resourceType, other.resourceType) &&
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.position, other.position) &&
+            Utils.enhancedDeepEquals(this.canRevert, other.canRevert) &&
+            Utils.enhancedDeepEquals(this.canDelete, other.canDelete) &&
+            Utils.enhancedDeepEquals(this.canToggle, other.canToggle) &&
+            Utils.enhancedDeepEquals(this.subject, other.subject) &&
+            Utils.enhancedDeepEquals(this.markup, other.markup) &&
+            Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.availableVariables, other.availableVariables) &&
+            Utils.enhancedDeepEquals(this.requiredVariables, other.requiredVariables) &&
+            Utils.enhancedDeepEquals(this.fromEmailName, other.fromEmailName) &&
+            Utils.enhancedDeepEquals(this.replyToEmailName, other.replyToEmailName) &&
+            Utils.enhancedDeepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
+            Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            instanceId,
-            resourceType,
-            templateType,
-            name,
-            slug,
-            position,
-            canRevert,
-            canDelete,
-            canToggle,
-            subject,
-            markup,
-            body,
-            availableVariables,
-            requiredVariables,
-            fromEmailName,
-            replyToEmailName,
-            deliveredByClerk,
-            enabled,
-            updatedAt,
+        return Utils.enhancedHash(
+            id, object, instanceId,
+            resourceType, templateType, name,
+            slug, position, canRevert,
+            canDelete, canToggle, subject,
+            markup, body, availableVariables,
+            requiredVariables, fromEmailName, replyToEmailName,
+            deliveredByClerk, enabled, updatedAt,
             createdAt);
     }
     
@@ -861,56 +877,58 @@ public class Template {
                 "updatedAt", updatedAt,
                 "createdAt", createdAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<? extends TemplateObject> object = Optional.empty();
- 
+
         private JsonNullable<String> instanceId = JsonNullable.undefined();
- 
+
         private Optional<String> resourceType = Optional.empty();
- 
+
         private Optional<String> templateType = Optional.empty();
- 
+
         private Optional<String> name = Optional.empty();
- 
+
         private Optional<String> slug = Optional.empty();
- 
+
         private Optional<Long> position = Optional.empty();
- 
+
         private Optional<Boolean> canRevert = Optional.empty();
- 
+
         private Optional<Boolean> canDelete = Optional.empty();
- 
+
         private Optional<Boolean> canToggle = Optional.empty();
- 
+
         private JsonNullable<String> subject = JsonNullable.undefined();
- 
+
         private Optional<String> markup = Optional.empty();
- 
+
         private Optional<String> body = Optional.empty();
- 
+
         private Optional<? extends List<String>> availableVariables = Optional.empty();
- 
+
         private Optional<? extends List<String>> requiredVariables = Optional.empty();
- 
+
         private Optional<String> fromEmailName = Optional.empty();
- 
+
         private Optional<String> replyToEmailName = Optional.empty();
- 
+
         private Optional<Boolean> deliveredByClerk = Optional.empty();
- 
+
         private Optional<Boolean> enabled = Optional.empty();
- 
+
         private Optional<Long> updatedAt = Optional.empty();
- 
+
         private Optional<Long> createdAt = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -923,6 +941,7 @@ public class Template {
             this.id = id;
             return this;
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -942,6 +961,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * the id of the instance the template belongs to
          */
@@ -959,6 +979,7 @@ public class Template {
             this.instanceId = instanceId;
             return this;
         }
+
 
         /**
          * whether this is a system (default) or user overridden) template
@@ -978,6 +999,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * whether this is an email or SMS template
          */
@@ -995,6 +1017,7 @@ public class Template {
             this.templateType = templateType;
             return this;
         }
+
 
         /**
          * user-friendly name of the template
@@ -1014,6 +1037,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * machine-friendly name of the template
          */
@@ -1031,6 +1055,7 @@ public class Template {
             this.slug = slug;
             return this;
         }
+
 
         /**
          * position with the listing of templates
@@ -1050,6 +1075,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * whether this template can be reverted to the corresponding system default
          */
@@ -1067,6 +1093,7 @@ public class Template {
             this.canRevert = canRevert;
             return this;
         }
+
 
         /**
          * whether this template can be deleted
@@ -1086,6 +1113,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * whether this template can be enabled or disabled, true only for notification SMS templates
          */
@@ -1103,6 +1131,7 @@ public class Template {
             this.canToggle = canToggle;
             return this;
         }
+
 
         /**
          * email subject
@@ -1122,6 +1151,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * the editor markup used to generate the body of the template
          */
@@ -1139,6 +1169,7 @@ public class Template {
             this.markup = markup;
             return this;
         }
+
 
         /**
          * the template body before variable interpolation
@@ -1158,6 +1189,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * list of variables that are available for use in the template body
          */
@@ -1175,6 +1207,7 @@ public class Template {
             this.availableVariables = availableVariables;
             return this;
         }
+
 
         /**
          * list of variables that must be contained in the template body
@@ -1194,6 +1227,7 @@ public class Template {
             return this;
         }
 
+
         public Builder fromEmailName(String fromEmailName) {
             Utils.checkNotNull(fromEmailName, "fromEmailName");
             this.fromEmailName = Optional.ofNullable(fromEmailName);
@@ -1205,6 +1239,7 @@ public class Template {
             this.fromEmailName = fromEmailName;
             return this;
         }
+
 
         public Builder replyToEmailName(String replyToEmailName) {
             Utils.checkNotNull(replyToEmailName, "replyToEmailName");
@@ -1218,6 +1253,7 @@ public class Template {
             return this;
         }
 
+
         public Builder deliveredByClerk(boolean deliveredByClerk) {
             Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
             this.deliveredByClerk = Optional.ofNullable(deliveredByClerk);
@@ -1230,6 +1266,7 @@ public class Template {
             return this;
         }
 
+
         public Builder enabled(boolean enabled) {
             Utils.checkNotNull(enabled, "enabled");
             this.enabled = Optional.ofNullable(enabled);
@@ -1241,6 +1278,7 @@ public class Template {
             this.enabled = enabled;
             return this;
         }
+
 
         /**
          * Unix timestamp of last update.
@@ -1260,6 +1298,7 @@ public class Template {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -1277,31 +1316,19 @@ public class Template {
             this.createdAt = createdAt;
             return this;
         }
-        
+
         public Template build() {
+
             return new Template(
-                id,
-                object,
-                instanceId,
-                resourceType,
-                templateType,
-                name,
-                slug,
-                position,
-                canRevert,
-                canDelete,
-                canToggle,
-                subject,
-                markup,
-                body,
-                availableVariables,
-                requiredVariables,
-                fromEmailName,
-                replyToEmailName,
-                deliveredByClerk,
-                enabled,
-                updatedAt,
+                id, object, instanceId,
+                resourceType, templateType, name,
+                slug, position, canRevert,
+                canDelete, canToggle, subject,
+                markup, body, availableVariables,
+                requiredVariables, fromEmailName, replyToEmailName,
+                deliveredByClerk, enabled, updatedAt,
                 createdAt);
         }
+
     }
 }

@@ -20,7 +20,7 @@ public enum OrganizationDomainStatus {
     @JsonValue
     private final String value;
 
-    private OrganizationDomainStatus(String value) {
+    OrganizationDomainStatus(String value) {
         this.value = value;
     }
     

@@ -14,7 +14,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Actor
@@ -23,12 +22,12 @@ import java.util.Objects;
  * This whole payload will be also included in the JWT session token.
  */
 public class Actor {
-
     /**
      * The ID of the actor.
      */
     @JsonProperty("sub")
     private String sub;
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties;
@@ -54,9 +53,10 @@ public class Actor {
         return additionalProperties;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the actor.
@@ -73,15 +73,13 @@ public class Actor {
         Utils.checkNotNull(key, "key");
         additionalProperties.put(key, value); 
         return this;
-    }    
-
+    }
     public Actor withAdditionalProperties(Map<String, Object> additionalProperties) {
         Utils.checkNotNull(additionalProperties, "additionalProperties");
         this.additionalProperties = additionalProperties;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -92,15 +90,14 @@ public class Actor {
         }
         Actor other = (Actor) o;
         return 
-            Objects.deepEquals(this.sub, other.sub) &&
-            Objects.deepEquals(this.additionalProperties, other.additionalProperties);
+            Utils.enhancedDeepEquals(this.sub, other.sub) &&
+            Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sub,
-            additionalProperties);
+        return Utils.enhancedHash(
+            sub, additionalProperties);
     }
     
     @Override
@@ -109,16 +106,18 @@ public class Actor {
                 "sub", sub,
                 "additionalProperties", additionalProperties);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sub;
- 
+
         private Map<String, Object> additionalProperties = new HashMap<>();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the actor.
@@ -144,11 +143,13 @@ public class Actor {
             this.additionalProperties = additionalProperties;
             return this;
         }
-        
+
         public Actor build() {
+
             return new Actor(
                 sub)
                 .withAdditionalProperties(additionalProperties);
         }
+
     }
 }

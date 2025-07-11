@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteOrganizationDomainRequest {
-
     /**
      * The ID of the organization the domain belongs to
      */
@@ -51,9 +50,10 @@ public class DeleteOrganizationDomainRequest {
         return domainId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization the domain belongs to
@@ -73,7 +73,6 @@ public class DeleteOrganizationDomainRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class DeleteOrganizationDomainRequest {
         }
         DeleteOrganizationDomainRequest other = (DeleteOrganizationDomainRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.domainId, other.domainId);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.domainId, other.domainId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            domainId);
+        return Utils.enhancedHash(
+            organizationId, domainId);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class DeleteOrganizationDomainRequest {
                 "organizationId", organizationId,
                 "domainId", domainId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String domainId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization the domain belongs to
@@ -121,6 +121,7 @@ public class DeleteOrganizationDomainRequest {
             return this;
         }
 
+
         /**
          * The ID of the domain
          */
@@ -129,11 +130,12 @@ public class DeleteOrganizationDomainRequest {
             this.domainId = domainId;
             return this;
         }
-        
+
         public DeleteOrganizationDomainRequest build() {
+
             return new DeleteOrganizationDomainRequest(
-                organizationId,
-                domainId);
+                organizationId, domainId);
         }
+
     }
 }

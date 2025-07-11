@@ -16,7 +16,7 @@ public enum BlocklistIdentifierIdentifierType {
     @JsonValue
     private final String value;
 
-    private BlocklistIdentifierIdentifierType(String value) {
+    BlocklistIdentifierIdentifierType(String value) {
         this.value = value;
     }
     

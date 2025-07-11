@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateWaitlistEntryOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateWaitlistEntryRequestBuilder {
 
     private Optional<? extends CreateWaitlistEntryRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateWaitlistEntry sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateWaitlistEntryRequestBuilder(SDKMethodInterfaces.MethodCallCreateWaitlistEntry sdk) {
-        this.sdk = sdk;
+    public CreateWaitlistEntryRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateWaitlistEntryRequestBuilder request(CreateWaitlistEntryRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateWaitlistEntryRequestBuilder {
 
     public CreateWaitlistEntryResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
+              = new CreateWaitlistEntryOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

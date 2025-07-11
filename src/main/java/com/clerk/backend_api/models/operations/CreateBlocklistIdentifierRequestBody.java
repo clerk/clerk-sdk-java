@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class CreateBlocklistIdentifierRequestBody {
-
     /**
      * The identifier to be added in the block-list.
      * This can be an email address, a phone number or a web3 wallet.
@@ -36,9 +35,10 @@ public class CreateBlocklistIdentifierRequestBody {
         return identifier;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The identifier to be added in the block-list.
@@ -50,7 +50,6 @@ public class CreateBlocklistIdentifierRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -61,12 +60,12 @@ public class CreateBlocklistIdentifierRequestBody {
         }
         CreateBlocklistIdentifierRequestBody other = (CreateBlocklistIdentifierRequestBody) o;
         return 
-            Objects.deepEquals(this.identifier, other.identifier);
+            Utils.enhancedDeepEquals(this.identifier, other.identifier);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             identifier);
     }
     
@@ -75,14 +74,16 @@ public class CreateBlocklistIdentifierRequestBody {
         return Utils.toString(CreateBlocklistIdentifierRequestBody.class,
                 "identifier", identifier);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String identifier;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The identifier to be added in the block-list.
@@ -93,10 +94,12 @@ public class CreateBlocklistIdentifierRequestBody {
             this.identifier = identifier;
             return this;
         }
-        
+
         public CreateBlocklistIdentifierRequestBody build() {
+
             return new CreateBlocklistIdentifierRequestBody(
                 identifier);
         }
+
     }
 }

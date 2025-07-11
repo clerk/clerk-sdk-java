@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UnlockUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class UnlockUserRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUnlockUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UnlockUserRequestBuilder(SDKMethodInterfaces.MethodCallUnlockUser sdk) {
-        this.sdk = sdk;
+    public UnlockUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UnlockUserRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class UnlockUserRequestBuilder {
         return this;
     }
 
+
+    private UnlockUserRequest buildRequest() {
+
+        UnlockUserRequest request = new UnlockUserRequest(userId);
+
+        return request;
+    }
+
     public UnlockUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.unlock(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
+              = new UnlockUserOperation(
+                sdkConfiguration,
+                options);
+        UnlockUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

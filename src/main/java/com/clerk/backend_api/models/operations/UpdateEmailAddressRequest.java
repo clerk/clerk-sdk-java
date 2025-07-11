@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateEmailAddressRequest {
 
+public class UpdateEmailAddressRequest {
     /**
      * The ID of the email address to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=email_address_id")
     private String emailAddressId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends UpdateEmailAddressRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class UpdateEmailAddressRequest {
         return (Optional<UpdateEmailAddressRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the email address to update
@@ -72,13 +73,13 @@ public class UpdateEmailAddressRequest {
         return this;
     }
 
+
     public UpdateEmailAddressRequest withRequestBody(Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class UpdateEmailAddressRequest {
         }
         UpdateEmailAddressRequest other = (UpdateEmailAddressRequest) o;
         return 
-            Objects.deepEquals(this.emailAddressId, other.emailAddressId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.emailAddressId, other.emailAddressId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddressId,
-            requestBody);
+        return Utils.enhancedHash(
+            emailAddressId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class UpdateEmailAddressRequest {
                 "emailAddressId", emailAddressId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddressId;
- 
+
         private Optional<? extends UpdateEmailAddressRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the email address to update
@@ -125,6 +127,7 @@ public class UpdateEmailAddressRequest {
             this.emailAddressId = emailAddressId;
             return this;
         }
+
 
         public Builder requestBody(UpdateEmailAddressRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class UpdateEmailAddressRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateEmailAddressRequest build() {
+
             return new UpdateEmailAddressRequest(
-                emailAddressId,
-                requestBody);
+                emailAddressId, requestBody);
         }
+
     }
 }

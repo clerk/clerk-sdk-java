@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteTOTPRequest {
-
     /**
      * The ID of the user whose TOTPs are to be deleted
      */
@@ -34,9 +33,10 @@ public class DeleteTOTPRequest {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user whose TOTPs are to be deleted
@@ -47,7 +47,6 @@ public class DeleteTOTPRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteTOTPRequest {
         }
         DeleteTOTPRequest other = (DeleteTOTPRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteTOTPRequest {
         return Utils.toString(DeleteTOTPRequest.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user whose TOTPs are to be deleted
@@ -89,10 +90,12 @@ public class DeleteTOTPRequest {
             this.userId = userId;
             return this;
         }
-        
+
         public DeleteTOTPRequest build() {
+
             return new DeleteTOTPRequest(
                 userId);
         }
+
     }
 }

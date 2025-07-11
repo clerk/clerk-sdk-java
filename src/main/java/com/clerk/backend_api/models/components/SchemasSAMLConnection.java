@@ -14,80 +14,100 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SchemasSAMLConnection {
 
     @JsonProperty("object")
     private SchemasSAMLConnectionObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("name")
     private String name;
 
+
     @JsonProperty("domain")
     private String domain;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_entity_id")
     private Optional<String> idpEntityId;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_sso_url")
     private Optional<String> idpSsoUrl;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("idp_certificate")
     private Optional<String> idpCertificate;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
     private JsonNullable<String> idpMetadataUrl;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata")
     private JsonNullable<String> idpMetadata;
 
+
     @JsonProperty("acs_url")
     private String acsUrl;
+
 
     @JsonProperty("sp_entity_id")
     private String spEntityId;
 
+
     @JsonProperty("sp_metadata_url")
     private String spMetadataUrl;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization_id")
     private JsonNullable<String> organizationId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attribute_mapping")
     private Optional<? extends SAMLConnectionAttributeMapping> attributeMapping;
 
+
     @JsonProperty("active")
     private boolean active;
+
 
     @JsonProperty("provider")
     private String provider;
 
+
     @JsonProperty("user_count")
     private long userCount;
 
+
     @JsonProperty("sync_user_attributes")
     private boolean syncUserAttributes;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_subdomains")
     private Optional<Boolean> allowSubdomains;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_idp_initiated")
     private Optional<Boolean> allowIdpInitiated;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("disable_additional_identifications")
@@ -192,7 +212,14 @@ public class SchemasSAMLConnection {
             boolean syncUserAttributes,
             long createdAt,
             long updatedAt) {
-        this(object, id, name, domain, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), acsUrl, spEntityId, spMetadataUrl, JsonNullable.undefined(), Optional.empty(), active, provider, userCount, syncUserAttributes, Optional.empty(), Optional.empty(), Optional.empty(), createdAt, updatedAt);
+        this(object, id, name,
+            domain, Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            acsUrl, spEntityId, spMetadataUrl,
+            JsonNullable.undefined(), Optional.empty(), active,
+            provider, userCount, syncUserAttributes,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -317,9 +344,10 @@ public class SchemasSAMLConnection {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SchemasSAMLConnection withObject(SchemasSAMLConnectionObject object) {
         Utils.checkNotNull(object, "object");
@@ -351,6 +379,7 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+
     public SchemasSAMLConnection withIdpEntityId(Optional<String> idpEntityId) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         this.idpEntityId = idpEntityId;
@@ -363,6 +392,7 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+
     public SchemasSAMLConnection withIdpSsoUrl(Optional<String> idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         this.idpSsoUrl = idpSsoUrl;
@@ -374,6 +404,7 @@ public class SchemasSAMLConnection {
         this.idpCertificate = Optional.ofNullable(idpCertificate);
         return this;
     }
+
 
     public SchemasSAMLConnection withIdpCertificate(Optional<String> idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
@@ -441,6 +472,7 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+
     public SchemasSAMLConnection withAttributeMapping(Optional<? extends SAMLConnectionAttributeMapping> attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         this.attributeMapping = attributeMapping;
@@ -477,6 +509,7 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+
     public SchemasSAMLConnection withAllowSubdomains(Optional<Boolean> allowSubdomains) {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         this.allowSubdomains = allowSubdomains;
@@ -489,6 +522,7 @@ public class SchemasSAMLConnection {
         return this;
     }
 
+
     public SchemasSAMLConnection withAllowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         this.allowIdpInitiated = allowIdpInitiated;
@@ -500,6 +534,7 @@ public class SchemasSAMLConnection {
         this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
         return this;
     }
+
 
     public SchemasSAMLConnection withDisableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
@@ -525,7 +560,6 @@ public class SchemasSAMLConnection {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -536,57 +570,42 @@ public class SchemasSAMLConnection {
         }
         SchemasSAMLConnection other = (SchemasSAMLConnection) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.domain, other.domain) &&
-            Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
-            Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
-            Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
-            Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
-            Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
-            Objects.deepEquals(this.acsUrl, other.acsUrl) &&
-            Objects.deepEquals(this.spEntityId, other.spEntityId) &&
-            Objects.deepEquals(this.spMetadataUrl, other.spMetadataUrl) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.attributeMapping, other.attributeMapping) &&
-            Objects.deepEquals(this.active, other.active) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.userCount, other.userCount) &&
-            Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
-            Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Objects.deepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
+            Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
+            Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
+            Utils.enhancedDeepEquals(this.acsUrl, other.acsUrl) &&
+            Utils.enhancedDeepEquals(this.spEntityId, other.spEntityId) &&
+            Utils.enhancedDeepEquals(this.spMetadataUrl, other.spMetadataUrl) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
+            Utils.enhancedDeepEquals(this.active, other.active) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.userCount, other.userCount) &&
+            Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
+            Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
+            Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
+            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            name,
-            domain,
-            idpEntityId,
-            idpSsoUrl,
-            idpCertificate,
-            idpMetadataUrl,
-            idpMetadata,
-            acsUrl,
-            spEntityId,
-            spMetadataUrl,
-            organizationId,
-            attributeMapping,
-            active,
-            provider,
-            userCount,
-            syncUserAttributes,
-            allowSubdomains,
-            allowIdpInitiated,
-            disableAdditionalIdentifications,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, name,
+            domain, idpEntityId, idpSsoUrl,
+            idpCertificate, idpMetadataUrl, idpMetadata,
+            acsUrl, spEntityId, spMetadataUrl,
+            organizationId, attributeMapping, active,
+            provider, userCount, syncUserAttributes,
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -616,58 +635,60 @@ public class SchemasSAMLConnection {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private SchemasSAMLConnectionObject object;
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private String domain;
- 
+
         private Optional<String> idpEntityId = Optional.empty();
- 
+
         private Optional<String> idpSsoUrl = Optional.empty();
- 
+
         private Optional<String> idpCertificate = Optional.empty();
- 
+
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpMetadata = JsonNullable.undefined();
- 
+
         private String acsUrl;
- 
+
         private String spEntityId;
- 
+
         private String spMetadataUrl;
- 
+
         private JsonNullable<String> organizationId = JsonNullable.undefined();
- 
+
         private Optional<? extends SAMLConnectionAttributeMapping> attributeMapping = Optional.empty();
- 
+
         private Boolean active;
- 
+
         private String provider;
- 
+
         private Long userCount;
- 
+
         private Boolean syncUserAttributes;
- 
+
         private Optional<Boolean> allowSubdomains = Optional.empty();
- 
+
         private Optional<Boolean> allowIdpInitiated = Optional.empty();
- 
+
         private Optional<Boolean> disableAdditionalIdentifications = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(SchemasSAMLConnectionObject object) {
             Utils.checkNotNull(object, "object");
@@ -675,11 +696,13 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -687,11 +710,13 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder domain(String domain) {
             Utils.checkNotNull(domain, "domain");
             this.domain = domain;
             return this;
         }
+
 
         public Builder idpEntityId(String idpEntityId) {
             Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -705,6 +730,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder idpSsoUrl(String idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
             this.idpSsoUrl = Optional.ofNullable(idpSsoUrl);
@@ -716,6 +742,7 @@ public class SchemasSAMLConnection {
             this.idpSsoUrl = idpSsoUrl;
             return this;
         }
+
 
         public Builder idpCertificate(String idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
@@ -729,6 +756,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder idpMetadataUrl(String idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
             this.idpMetadataUrl = JsonNullable.of(idpMetadataUrl);
@@ -740,6 +768,7 @@ public class SchemasSAMLConnection {
             this.idpMetadataUrl = idpMetadataUrl;
             return this;
         }
+
 
         public Builder idpMetadata(String idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -753,11 +782,13 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder acsUrl(String acsUrl) {
             Utils.checkNotNull(acsUrl, "acsUrl");
             this.acsUrl = acsUrl;
             return this;
         }
+
 
         public Builder spEntityId(String spEntityId) {
             Utils.checkNotNull(spEntityId, "spEntityId");
@@ -765,11 +796,13 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder spMetadataUrl(String spMetadataUrl) {
             Utils.checkNotNull(spMetadataUrl, "spMetadataUrl");
             this.spMetadataUrl = spMetadataUrl;
             return this;
         }
+
 
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -783,6 +816,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder attributeMapping(SAMLConnectionAttributeMapping attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
             this.attributeMapping = Optional.ofNullable(attributeMapping);
@@ -795,11 +829,13 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder active(boolean active) {
             Utils.checkNotNull(active, "active");
             this.active = active;
             return this;
         }
+
 
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
@@ -807,17 +843,20 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder userCount(long userCount) {
             Utils.checkNotNull(userCount, "userCount");
             this.userCount = userCount;
             return this;
         }
 
+
         public Builder syncUserAttributes(boolean syncUserAttributes) {
             Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
             this.syncUserAttributes = syncUserAttributes;
             return this;
         }
+
 
         public Builder allowSubdomains(boolean allowSubdomains) {
             Utils.checkNotNull(allowSubdomains, "allowSubdomains");
@@ -831,6 +870,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         public Builder allowIdpInitiated(boolean allowIdpInitiated) {
             Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
             this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
@@ -842,6 +882,7 @@ public class SchemasSAMLConnection {
             this.allowIdpInitiated = allowIdpInitiated;
             return this;
         }
+
 
         public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
             Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
@@ -855,6 +896,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -864,6 +906,7 @@ public class SchemasSAMLConnection {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -872,32 +915,19 @@ public class SchemasSAMLConnection {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public SchemasSAMLConnection build() {
+
             return new SchemasSAMLConnection(
-                object,
-                id,
-                name,
-                domain,
-                idpEntityId,
-                idpSsoUrl,
-                idpCertificate,
-                idpMetadataUrl,
-                idpMetadata,
-                acsUrl,
-                spEntityId,
-                spMetadataUrl,
-                organizationId,
-                attributeMapping,
-                active,
-                provider,
-                userCount,
-                syncUserAttributes,
-                allowSubdomains,
-                allowIdpInitiated,
-                disableAdditionalIdentifications,
-                createdAt,
-                updatedAt);
+                object, id, name,
+                domain, idpEntityId, idpSsoUrl,
+                idpCertificate, idpMetadataUrl, idpMetadata,
+                acsUrl, spEntityId, spMetadataUrl,
+                organizationId, attributeMapping, active,
+                provider, userCount, syncUserAttributes,
+                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+                createdAt, updatedAt);
         }
+
     }
 }

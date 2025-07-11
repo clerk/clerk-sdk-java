@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RotateOAuthApplicationSecretOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class RotateOAuthApplicationSecretRequestBuilder {
 
     private String oauthApplicationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRotateOAuthApplicationSecret sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RotateOAuthApplicationSecretRequestBuilder(SDKMethodInterfaces.MethodCallRotateOAuthApplicationSecret sdk) {
-        this.sdk = sdk;
+    public RotateOAuthApplicationSecretRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RotateOAuthApplicationSecretRequestBuilder oauthApplicationId(String oauthApplicationId) {
@@ -38,12 +42,25 @@ public class RotateOAuthApplicationSecretRequestBuilder {
         return this;
     }
 
+
+    private RotateOAuthApplicationSecretRequest buildRequest() {
+
+        RotateOAuthApplicationSecretRequest request = new RotateOAuthApplicationSecretRequest(oauthApplicationId);
+
+        return request;
+    }
+
     public RotateOAuthApplicationSecretResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.rotateSecret(
-            oauthApplicationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
+              = new RotateOAuthApplicationSecretOperation(
+                sdkConfiguration,
+                options);
+        RotateOAuthApplicationSecretRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

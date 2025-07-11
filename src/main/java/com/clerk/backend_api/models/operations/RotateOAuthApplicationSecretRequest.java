@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class RotateOAuthApplicationSecretRequest {
-
     /**
      * The ID of the OAuth application for which to rotate the client secret
      */
@@ -34,9 +33,10 @@ public class RotateOAuthApplicationSecretRequest {
         return oauthApplicationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the OAuth application for which to rotate the client secret
@@ -47,7 +47,6 @@ public class RotateOAuthApplicationSecretRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class RotateOAuthApplicationSecretRequest {
         }
         RotateOAuthApplicationSecretRequest other = (RotateOAuthApplicationSecretRequest) o;
         return 
-            Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId);
+            Utils.enhancedDeepEquals(this.oauthApplicationId, other.oauthApplicationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             oauthApplicationId);
     }
     
@@ -72,14 +71,16 @@ public class RotateOAuthApplicationSecretRequest {
         return Utils.toString(RotateOAuthApplicationSecretRequest.class,
                 "oauthApplicationId", oauthApplicationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String oauthApplicationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the OAuth application for which to rotate the client secret
@@ -89,10 +90,12 @@ public class RotateOAuthApplicationSecretRequest {
             this.oauthApplicationId = oauthApplicationId;
             return this;
         }
-        
+
         public RotateOAuthApplicationSecretRequest build() {
+
             return new RotateOAuthApplicationSecretRequest(
                 oauthApplicationId);
         }
+
     }
 }

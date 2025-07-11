@@ -16,7 +16,7 @@ public enum TicketVerificationSAMLAccountStatus {
     @JsonValue
     private final String value;
 
-    private TicketVerificationSAMLAccountStatus(String value) {
+    TicketVerificationSAMLAccountStatus(String value) {
         this.value = value;
     }
     

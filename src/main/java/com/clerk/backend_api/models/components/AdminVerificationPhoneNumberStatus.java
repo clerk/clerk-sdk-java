@@ -14,7 +14,7 @@ public enum AdminVerificationPhoneNumberStatus {
     @JsonValue
     private final String value;
 
-    private AdminVerificationPhoneNumberStatus(String value) {
+    AdminVerificationPhoneNumberStatus(String value) {
         this.value = value;
     }
     

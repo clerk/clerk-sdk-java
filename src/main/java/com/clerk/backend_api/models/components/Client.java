@@ -13,7 +13,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -22,7 +21,6 @@ import java.util.Optional;
  * <p>Success
  */
 public class Client {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -35,15 +33,19 @@ public class Client {
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("session_ids")
     private List<String> sessionIds;
+
 
     @JsonProperty("sessions")
     private List<Session> sessions;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("sign_in_id")
     private Optional<String> signInId;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("sign_up_id")
@@ -106,7 +108,9 @@ public class Client {
             List<Session> sessions,
             long updatedAt,
             long createdAt) {
-        this(object, id, sessionIds, sessions, Optional.empty(), Optional.empty(), Optional.empty(), updatedAt, createdAt);
+        this(object, id, sessionIds,
+            sessions, Optional.empty(), Optional.empty(),
+            Optional.empty(), updatedAt, createdAt);
     }
 
     /**
@@ -169,9 +173,10 @@ public class Client {
         return createdAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -209,6 +214,7 @@ public class Client {
         return this;
     }
 
+
     public Client withSignInId(Optional<String> signInId) {
         Utils.checkNotNull(signInId, "signInId");
         this.signInId = signInId;
@@ -220,6 +226,7 @@ public class Client {
         this.signUpId = Optional.ofNullable(signUpId);
         return this;
     }
+
 
     public Client withSignUpId(Optional<String> signUpId) {
         Utils.checkNotNull(signUpId, "signUpId");
@@ -235,6 +242,7 @@ public class Client {
         this.lastActiveSessionId = Optional.ofNullable(lastActiveSessionId);
         return this;
     }
+
 
     /**
      * Last active session_id.
@@ -263,7 +271,6 @@ public class Client {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -274,29 +281,23 @@ public class Client {
         }
         Client other = (Client) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.sessionIds, other.sessionIds) &&
-            Objects.deepEquals(this.sessions, other.sessions) &&
-            Objects.deepEquals(this.signInId, other.signInId) &&
-            Objects.deepEquals(this.signUpId, other.signUpId) &&
-            Objects.deepEquals(this.lastActiveSessionId, other.lastActiveSessionId) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.sessionIds, other.sessionIds) &&
+            Utils.enhancedDeepEquals(this.sessions, other.sessions) &&
+            Utils.enhancedDeepEquals(this.signInId, other.signInId) &&
+            Utils.enhancedDeepEquals(this.signUpId, other.signUpId) &&
+            Utils.enhancedDeepEquals(this.lastActiveSessionId, other.lastActiveSessionId) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            sessionIds,
-            sessions,
-            signInId,
-            signUpId,
-            lastActiveSessionId,
-            updatedAt,
-            createdAt);
+        return Utils.enhancedHash(
+            object, id, sessionIds,
+            sessions, signInId, signUpId,
+            lastActiveSessionId, updatedAt, createdAt);
     }
     
     @Override
@@ -312,30 +313,32 @@ public class Client {
                 "updatedAt", updatedAt,
                 "createdAt", createdAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Object object;
- 
+
         private String id;
- 
+
         private List<String> sessionIds;
- 
+
         private List<Session> sessions;
- 
+
         private Optional<String> signInId = Optional.empty();
- 
+
         private Optional<String> signUpId = Optional.empty();
- 
+
         private Optional<String> lastActiveSessionId = Optional.empty();
- 
+
         private Long updatedAt;
- 
+
         private Long createdAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -346,6 +349,7 @@ public class Client {
             return this;
         }
 
+
         /**
          * String representing the identifier of the session.
          */
@@ -355,17 +359,20 @@ public class Client {
             return this;
         }
 
+
         public Builder sessionIds(List<String> sessionIds) {
             Utils.checkNotNull(sessionIds, "sessionIds");
             this.sessionIds = sessionIds;
             return this;
         }
 
+
         public Builder sessions(List<Session> sessions) {
             Utils.checkNotNull(sessions, "sessions");
             this.sessions = sessions;
             return this;
         }
+
 
         public Builder signInId(String signInId) {
             Utils.checkNotNull(signInId, "signInId");
@@ -379,6 +386,7 @@ public class Client {
             return this;
         }
 
+
         public Builder signUpId(String signUpId) {
             Utils.checkNotNull(signUpId, "signUpId");
             this.signUpId = Optional.ofNullable(signUpId);
@@ -390,6 +398,7 @@ public class Client {
             this.signUpId = signUpId;
             return this;
         }
+
 
         /**
          * Last active session_id.
@@ -409,6 +418,7 @@ public class Client {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -418,6 +428,7 @@ public class Client {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -426,18 +437,14 @@ public class Client {
             this.createdAt = createdAt;
             return this;
         }
-        
+
         public Client build() {
+
             return new Client(
-                object,
-                id,
-                sessionIds,
-                sessions,
-                signInId,
-                signUpId,
-                lastActiveSessionId,
-                updatedAt,
-                createdAt);
+                object, id, sessionIds,
+                sessions, signInId, signUpId,
+                lastActiveSessionId, updatedAt, createdAt);
         }
+
     }
 }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,13 +24,16 @@ public class DeletedObject {
     @JsonProperty("object")
     private String object;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
     private Optional<String> id;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
     private Optional<String> slug;
+
 
     @JsonProperty("deleted")
     private boolean deleted;
@@ -55,7 +57,8 @@ public class DeletedObject {
     public DeletedObject(
             String object,
             boolean deleted) {
-        this(object, Optional.empty(), Optional.empty(), deleted);
+        this(object, Optional.empty(), Optional.empty(),
+            deleted);
     }
 
     @JsonIgnore
@@ -78,9 +81,10 @@ public class DeletedObject {
         return deleted;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public DeletedObject withObject(String object) {
         Utils.checkNotNull(object, "object");
@@ -94,6 +98,7 @@ public class DeletedObject {
         return this;
     }
 
+
     public DeletedObject withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
@@ -105,6 +110,7 @@ public class DeletedObject {
         this.slug = Optional.ofNullable(slug);
         return this;
     }
+
 
     public DeletedObject withSlug(Optional<String> slug) {
         Utils.checkNotNull(slug, "slug");
@@ -118,7 +124,6 @@ public class DeletedObject {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -129,18 +134,16 @@ public class DeletedObject {
         }
         DeletedObject other = (DeletedObject) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.deleted, other.deleted);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.deleted, other.deleted);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            slug,
+        return Utils.enhancedHash(
+            object, id, slug,
             deleted);
     }
     
@@ -152,26 +155,29 @@ public class DeletedObject {
                 "slug", slug,
                 "deleted", deleted);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String object;
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> slug = Optional.empty();
- 
+
         private Boolean deleted;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(String object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -185,6 +191,7 @@ public class DeletedObject {
             return this;
         }
 
+
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = Optional.ofNullable(slug);
@@ -197,18 +204,19 @@ public class DeletedObject {
             return this;
         }
 
+
         public Builder deleted(boolean deleted) {
             Utils.checkNotNull(deleted, "deleted");
             this.deleted = deleted;
             return this;
         }
-        
+
         public DeletedObject build() {
+
             return new DeletedObject(
-                object,
-                id,
-                slug,
+                object, id, slug,
                 deleted);
         }
+
     }
 }

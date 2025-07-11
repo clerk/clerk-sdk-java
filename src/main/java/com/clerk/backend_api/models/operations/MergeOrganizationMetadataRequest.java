@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class MergeOrganizationMetadataRequest {
-
     /**
      * The ID of the organization for which metadata will be merged or updated
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private MergeOrganizationMetadataRequestBody requestBody;
@@ -45,9 +45,10 @@ public class MergeOrganizationMetadataRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization for which metadata will be merged or updated
@@ -64,7 +65,6 @@ public class MergeOrganizationMetadataRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -75,15 +75,14 @@ public class MergeOrganizationMetadataRequest {
         }
         MergeOrganizationMetadataRequest other = (MergeOrganizationMetadataRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, requestBody);
     }
     
     @Override
@@ -92,16 +91,18 @@ public class MergeOrganizationMetadataRequest {
                 "organizationId", organizationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private MergeOrganizationMetadataRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization for which metadata will be merged or updated
@@ -112,16 +113,18 @@ public class MergeOrganizationMetadataRequest {
             return this;
         }
 
+
         public Builder requestBody(MergeOrganizationMetadataRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public MergeOrganizationMetadataRequest build() {
+
             return new MergeOrganizationMetadataRequest(
-                organizationId,
-                requestBody);
+                organizationId, requestBody);
         }
+
     }
 }

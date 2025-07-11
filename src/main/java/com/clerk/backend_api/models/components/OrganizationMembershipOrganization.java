@@ -15,46 +15,57 @@ import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class OrganizationMembershipOrganization {
 
     @JsonProperty("object")
     private OrganizationMembershipOrganizationObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("name")
     private String name;
 
+
     @JsonProperty("slug")
     private String slug;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("members_count")
     private Optional<Long> membersCount;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("missing_member_with_elevated_permissions")
     private Optional<Boolean> missingMemberWithElevatedPermissions;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("pending_invitations_count")
     private Optional<Long> pendingInvitationsCount;
 
+
     @JsonProperty("max_allowed_memberships")
     private long maxAllowedMemberships;
+
 
     @JsonProperty("admin_delete_enabled")
     private boolean adminDeleteEnabled;
 
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
 
+
     @JsonProperty("private_metadata")
     private Map<String, Object> privateMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_by")
@@ -98,7 +109,9 @@ public class OrganizationMembershipOrganization {
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         privateMetadata = Utils.emptyMapIfNull(privateMetadata);
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -129,7 +142,11 @@ public class OrganizationMembershipOrganization {
             Map<String, Object> privateMetadata,
             long createdAt,
             long updatedAt) {
-        this(object, id, name, slug, Optional.empty(), Optional.empty(), Optional.empty(), maxAllowedMemberships, adminDeleteEnabled, publicMetadata, privateMetadata, Optional.empty(), createdAt, updatedAt);
+        this(object, id, name,
+            slug, Optional.empty(), Optional.empty(),
+            Optional.empty(), maxAllowedMemberships, adminDeleteEnabled,
+            publicMetadata, privateMetadata, Optional.empty(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -208,9 +225,10 @@ public class OrganizationMembershipOrganization {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OrganizationMembershipOrganization withObject(OrganizationMembershipOrganizationObject object) {
         Utils.checkNotNull(object, "object");
@@ -242,6 +260,7 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
+
     public OrganizationMembershipOrganization withMembersCount(Optional<Long> membersCount) {
         Utils.checkNotNull(membersCount, "membersCount");
         this.membersCount = membersCount;
@@ -254,6 +273,7 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
+
     public OrganizationMembershipOrganization withMissingMemberWithElevatedPermissions(Optional<Boolean> missingMemberWithElevatedPermissions) {
         Utils.checkNotNull(missingMemberWithElevatedPermissions, "missingMemberWithElevatedPermissions");
         this.missingMemberWithElevatedPermissions = missingMemberWithElevatedPermissions;
@@ -265,6 +285,7 @@ public class OrganizationMembershipOrganization {
         this.pendingInvitationsCount = Optional.ofNullable(pendingInvitationsCount);
         return this;
     }
+
 
     public OrganizationMembershipOrganization withPendingInvitationsCount(Optional<Long> pendingInvitationsCount) {
         Utils.checkNotNull(pendingInvitationsCount, "pendingInvitationsCount");
@@ -302,6 +323,7 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
+
     public OrganizationMembershipOrganization withCreatedBy(Optional<String> createdBy) {
         Utils.checkNotNull(createdBy, "createdBy");
         this.createdBy = createdBy;
@@ -326,7 +348,6 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -337,39 +358,30 @@ public class OrganizationMembershipOrganization {
         }
         OrganizationMembershipOrganization other = (OrganizationMembershipOrganization) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.membersCount, other.membersCount) &&
-            Objects.deepEquals(this.missingMemberWithElevatedPermissions, other.missingMemberWithElevatedPermissions) &&
-            Objects.deepEquals(this.pendingInvitationsCount, other.pendingInvitationsCount) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.createdBy, other.createdBy) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.membersCount, other.membersCount) &&
+            Utils.enhancedDeepEquals(this.missingMemberWithElevatedPermissions, other.missingMemberWithElevatedPermissions) &&
+            Utils.enhancedDeepEquals(this.pendingInvitationsCount, other.pendingInvitationsCount) &&
+            Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            name,
-            slug,
-            membersCount,
-            missingMemberWithElevatedPermissions,
-            pendingInvitationsCount,
-            maxAllowedMemberships,
-            adminDeleteEnabled,
-            publicMetadata,
-            privateMetadata,
-            createdBy,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, name,
+            slug, membersCount, missingMemberWithElevatedPermissions,
+            pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
+            publicMetadata, privateMetadata, createdBy,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -390,40 +402,42 @@ public class OrganizationMembershipOrganization {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OrganizationMembershipOrganizationObject object;
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private String slug;
- 
+
         private Optional<Long> membersCount = Optional.empty();
- 
+
         private Optional<Boolean> missingMemberWithElevatedPermissions = Optional.empty();
- 
+
         private Optional<Long> pendingInvitationsCount = Optional.empty();
- 
+
         private Long maxAllowedMemberships;
- 
+
         private Boolean adminDeleteEnabled;
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private Map<String, Object> privateMetadata;
- 
+
         private Optional<String> createdBy = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(OrganizationMembershipOrganizationObject object) {
             Utils.checkNotNull(object, "object");
@@ -431,11 +445,13 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -443,11 +459,13 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;
         }
+
 
         public Builder membersCount(long membersCount) {
             Utils.checkNotNull(membersCount, "membersCount");
@@ -461,6 +479,7 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         public Builder missingMemberWithElevatedPermissions(boolean missingMemberWithElevatedPermissions) {
             Utils.checkNotNull(missingMemberWithElevatedPermissions, "missingMemberWithElevatedPermissions");
             this.missingMemberWithElevatedPermissions = Optional.ofNullable(missingMemberWithElevatedPermissions);
@@ -472,6 +491,7 @@ public class OrganizationMembershipOrganization {
             this.missingMemberWithElevatedPermissions = missingMemberWithElevatedPermissions;
             return this;
         }
+
 
         public Builder pendingInvitationsCount(long pendingInvitationsCount) {
             Utils.checkNotNull(pendingInvitationsCount, "pendingInvitationsCount");
@@ -485,11 +505,13 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         public Builder maxAllowedMemberships(long maxAllowedMemberships) {
             Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
             this.maxAllowedMemberships = maxAllowedMemberships;
             return this;
         }
+
 
         public Builder adminDeleteEnabled(boolean adminDeleteEnabled) {
             Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
@@ -497,17 +519,20 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
 
+
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
         }
+
 
         public Builder createdBy(String createdBy) {
             Utils.checkNotNull(createdBy, "createdBy");
@@ -521,6 +546,7 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -530,6 +556,7 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -538,23 +565,16 @@ public class OrganizationMembershipOrganization {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public OrganizationMembershipOrganization build() {
+
             return new OrganizationMembershipOrganization(
-                object,
-                id,
-                name,
-                slug,
-                membersCount,
-                missingMemberWithElevatedPermissions,
-                pendingInvitationsCount,
-                maxAllowedMemberships,
-                adminDeleteEnabled,
-                publicMetadata,
-                privateMetadata,
-                createdBy,
-                createdAt,
-                updatedAt);
+                object, id, name,
+                slug, membersCount, missingMemberWithElevatedPermissions,
+                pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
+                publicMetadata, privateMetadata, createdBy,
+                createdAt, updatedAt);
         }
+
     }
 }

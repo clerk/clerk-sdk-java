@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class AddDomainRequestBody {
 
+public class AddDomainRequestBody {
     /**
      * The new domain name. Can contain the port for development instances.
      */
@@ -79,9 +78,10 @@ public class AddDomainRequestBody {
         return proxyUrl;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The new domain name. Can contain the port for development instances.
@@ -119,7 +119,6 @@ public class AddDomainRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -130,17 +129,15 @@ public class AddDomainRequestBody {
         }
         AddDomainRequestBody other = (AddDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.isSatellite, other.isSatellite) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.isSatellite, other.isSatellite) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            isSatellite,
-            proxyUrl);
+        return Utils.enhancedHash(
+            name, isSatellite, proxyUrl);
     }
     
     @Override
@@ -150,18 +147,20 @@ public class AddDomainRequestBody {
                 "isSatellite", isSatellite,
                 "proxyUrl", proxyUrl);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String name;
- 
+
         private Boolean isSatellite;
- 
+
         private JsonNullable<String> proxyUrl = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The new domain name. Can contain the port for development instances.
@@ -172,6 +171,7 @@ public class AddDomainRequestBody {
             return this;
         }
 
+
         /**
          * Marks the new domain as satellite. Only `true` is accepted at the moment.
          */
@@ -180,6 +180,7 @@ public class AddDomainRequestBody {
             this.isSatellite = isSatellite;
             return this;
         }
+
 
         /**
          * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
@@ -198,12 +199,12 @@ public class AddDomainRequestBody {
             this.proxyUrl = proxyUrl;
             return this;
         }
-        
+
         public AddDomainRequestBody build() {
+
             return new AddDomainRequestBody(
-                name,
-                isSatellite,
-                proxyUrl);
+                name, isSatellite, proxyUrl);
         }
+
     }
 }

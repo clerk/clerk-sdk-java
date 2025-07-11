@@ -16,7 +16,7 @@ public enum NextAction {
     @JsonValue
     private final String value;
 
-    private NextAction(String value) {
+    NextAction(String value) {
         this.value = value;
     }
     

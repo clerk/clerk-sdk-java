@@ -13,11 +13,10 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListAllowlistIdentifiersRequest {
 
+public class ListAllowlistIdentifiersRequest {
     /**
      * Whether to paginate the results.
      * If true, the results will be paginated.
@@ -87,9 +86,10 @@ public class ListAllowlistIdentifiersRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Whether to paginate the results.
@@ -101,6 +101,7 @@ public class ListAllowlistIdentifiersRequest {
         this.paginated = Optional.ofNullable(paginated);
         return this;
     }
+
 
     /**
      * Whether to paginate the results.
@@ -123,6 +124,7 @@ public class ListAllowlistIdentifiersRequest {
         return this;
     }
 
+
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -144,6 +146,7 @@ public class ListAllowlistIdentifiersRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -155,7 +158,6 @@ public class ListAllowlistIdentifiersRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -166,17 +168,15 @@ public class ListAllowlistIdentifiersRequest {
         }
         ListAllowlistIdentifiersRequest other = (ListAllowlistIdentifiersRequest) o;
         return 
-            Objects.deepEquals(this.paginated, other.paginated) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.paginated, other.paginated) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            paginated,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            paginated, limit, offset);
     }
     
     @Override
@@ -186,18 +186,20 @@ public class ListAllowlistIdentifiersRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Boolean> paginated = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Whether to paginate the results.
@@ -221,6 +223,7 @@ public class ListAllowlistIdentifiersRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -240,6 +243,7 @@ public class ListAllowlistIdentifiersRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -262,7 +266,7 @@ public class ListAllowlistIdentifiersRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListAllowlistIdentifiersRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -270,11 +274,11 @@ public class ListAllowlistIdentifiersRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListAllowlistIdentifiersRequest(
-                paginated,
-                limit,
-                offset);
+                paginated, limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

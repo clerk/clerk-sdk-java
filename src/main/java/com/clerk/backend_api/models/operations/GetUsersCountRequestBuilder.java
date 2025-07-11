@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetUsersCountOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class GetUsersCountRequestBuilder {
 
     private GetUsersCountRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetUsersCount sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetUsersCountRequestBuilder(SDKMethodInterfaces.MethodCallGetUsersCount sdk) {
-        this.sdk = sdk;
+    public GetUsersCountRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetUsersCountRequestBuilder request(GetUsersCountRequest request) {
@@ -39,10 +43,14 @@ public class GetUsersCountRequestBuilder {
 
     public GetUsersCountResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.count(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
+              = new GetUsersCountOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

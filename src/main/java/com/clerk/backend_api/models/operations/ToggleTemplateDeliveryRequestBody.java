@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ToggleTemplateDeliveryRequestBody {
 
+public class ToggleTemplateDeliveryRequestBody {
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
@@ -43,9 +42,10 @@ public class ToggleTemplateDeliveryRequestBody {
         return deliveredByClerk;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
@@ -56,6 +56,7 @@ public class ToggleTemplateDeliveryRequestBody {
         return this;
     }
 
+
     /**
      * Whether Clerk should deliver emails or SMS messages based on the current template
      */
@@ -65,7 +66,6 @@ public class ToggleTemplateDeliveryRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -76,12 +76,12 @@ public class ToggleTemplateDeliveryRequestBody {
         }
         ToggleTemplateDeliveryRequestBody other = (ToggleTemplateDeliveryRequestBody) o;
         return 
-            Objects.deepEquals(this.deliveredByClerk, other.deliveredByClerk);
+            Utils.enhancedDeepEquals(this.deliveredByClerk, other.deliveredByClerk);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             deliveredByClerk);
     }
     
@@ -90,14 +90,16 @@ public class ToggleTemplateDeliveryRequestBody {
         return Utils.toString(ToggleTemplateDeliveryRequestBody.class,
                 "deliveredByClerk", deliveredByClerk);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Boolean> deliveredByClerk = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Whether Clerk should deliver emails or SMS messages based on the current template
@@ -116,10 +118,12 @@ public class ToggleTemplateDeliveryRequestBody {
             this.deliveredByClerk = deliveredByClerk;
             return this;
         }
-        
+
         public ToggleTemplateDeliveryRequestBody build() {
+
             return new ToggleTemplateDeliveryRequestBody(
                 deliveredByClerk);
         }
+
     }
 }

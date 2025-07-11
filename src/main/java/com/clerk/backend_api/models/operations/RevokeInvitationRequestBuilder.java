@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevokeInvitationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class RevokeInvitationRequestBuilder {
 
     private String invitationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevokeInvitation sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevokeInvitationRequestBuilder(SDKMethodInterfaces.MethodCallRevokeInvitation sdk) {
-        this.sdk = sdk;
+    public RevokeInvitationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevokeInvitationRequestBuilder invitationId(String invitationId) {
@@ -38,12 +42,25 @@ public class RevokeInvitationRequestBuilder {
         return this;
     }
 
+
+    private RevokeInvitationRequest buildRequest() {
+
+        RevokeInvitationRequest request = new RevokeInvitationRequest(invitationId);
+
+        return request;
+    }
+
     public RevokeInvitationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revoke(
-            invitationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevokeInvitationRequest, RevokeInvitationResponse> operation
+              = new RevokeInvitationOperation(
+                sdkConfiguration,
+                options);
+        RevokeInvitationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class UpdateInstanceRestrictionsRequestBody {
 
@@ -21,17 +21,21 @@ public class UpdateInstanceRestrictionsRequestBody {
     @JsonProperty("allowlist")
     private JsonNullable<Boolean> allowlist;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("blocklist")
     private JsonNullable<Boolean> blocklist;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("block_email_subaddresses")
     private JsonNullable<Boolean> blockEmailSubaddresses;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("block_disposable_email_domains")
     private JsonNullable<Boolean> blockDisposableEmailDomains;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ignore_dots_for_gmail_addresses")
@@ -57,7 +61,8 @@ public class UpdateInstanceRestrictionsRequestBody {
     }
     
     public UpdateInstanceRestrictionsRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -85,9 +90,10 @@ public class UpdateInstanceRestrictionsRequestBody {
         return ignoreDotsForGmailAddresses;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public UpdateInstanceRestrictionsRequestBody withAllowlist(boolean allowlist) {
         Utils.checkNotNull(allowlist, "allowlist");
@@ -149,7 +155,6 @@ public class UpdateInstanceRestrictionsRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -160,21 +165,18 @@ public class UpdateInstanceRestrictionsRequestBody {
         }
         UpdateInstanceRestrictionsRequestBody other = (UpdateInstanceRestrictionsRequestBody) o;
         return 
-            Objects.deepEquals(this.allowlist, other.allowlist) &&
-            Objects.deepEquals(this.blocklist, other.blocklist) &&
-            Objects.deepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
-            Objects.deepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
-            Objects.deepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
+            Utils.enhancedDeepEquals(this.allowlist, other.allowlist) &&
+            Utils.enhancedDeepEquals(this.blocklist, other.blocklist) &&
+            Utils.enhancedDeepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
+            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
+            Utils.enhancedDeepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            allowlist,
-            blocklist,
-            blockEmailSubaddresses,
-            blockDisposableEmailDomains,
-            ignoreDotsForGmailAddresses);
+        return Utils.enhancedHash(
+            allowlist, blocklist, blockEmailSubaddresses,
+            blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
     }
     
     @Override
@@ -186,22 +188,24 @@ public class UpdateInstanceRestrictionsRequestBody {
                 "blockDisposableEmailDomains", blockDisposableEmailDomains,
                 "ignoreDotsForGmailAddresses", ignoreDotsForGmailAddresses);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Boolean> allowlist = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> blocklist = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> blockEmailSubaddresses = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> blockDisposableEmailDomains = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> ignoreDotsForGmailAddresses = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder allowlist(boolean allowlist) {
             Utils.checkNotNull(allowlist, "allowlist");
@@ -215,6 +219,7 @@ public class UpdateInstanceRestrictionsRequestBody {
             return this;
         }
 
+
         public Builder blocklist(boolean blocklist) {
             Utils.checkNotNull(blocklist, "blocklist");
             this.blocklist = JsonNullable.of(blocklist);
@@ -226,6 +231,7 @@ public class UpdateInstanceRestrictionsRequestBody {
             this.blocklist = blocklist;
             return this;
         }
+
 
         public Builder blockEmailSubaddresses(boolean blockEmailSubaddresses) {
             Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
@@ -239,6 +245,7 @@ public class UpdateInstanceRestrictionsRequestBody {
             return this;
         }
 
+
         public Builder blockDisposableEmailDomains(boolean blockDisposableEmailDomains) {
             Utils.checkNotNull(blockDisposableEmailDomains, "blockDisposableEmailDomains");
             this.blockDisposableEmailDomains = JsonNullable.of(blockDisposableEmailDomains);
@@ -251,6 +258,7 @@ public class UpdateInstanceRestrictionsRequestBody {
             return this;
         }
 
+
         public Builder ignoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
             Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
             this.ignoreDotsForGmailAddresses = JsonNullable.of(ignoreDotsForGmailAddresses);
@@ -262,14 +270,13 @@ public class UpdateInstanceRestrictionsRequestBody {
             this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
             return this;
         }
-        
+
         public UpdateInstanceRestrictionsRequestBody build() {
+
             return new UpdateInstanceRestrictionsRequestBody(
-                allowlist,
-                blocklist,
-                blockEmailSubaddresses,
-                blockDisposableEmailDomains,
-                ignoreDotsForGmailAddresses);
+                allowlist, blocklist, blockEmailSubaddresses,
+                blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
         }
+
     }
 }

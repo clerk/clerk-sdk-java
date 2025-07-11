@@ -13,7 +13,6 @@ import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -22,7 +21,6 @@ import java.util.Optional;
  * <p>InstanceSettings Server API
  */
 public class InstanceSettings {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -30,21 +28,26 @@ public class InstanceSettings {
     @JsonProperty("object")
     private Optional<? extends InstanceSettingsObject> object;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
     private Optional<String> id;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("restricted_to_allowlist")
     private Optional<Boolean> restrictedToAllowlist;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_address")
     private Optional<String> fromEmailAddress;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("progressive_sign_up")
     private Optional<Boolean> progressiveSignUp;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enhanced_email_deliverability")
@@ -73,7 +76,8 @@ public class InstanceSettings {
     }
     
     public InstanceSettings() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -110,9 +114,10 @@ public class InstanceSettings {
         return enhancedEmailDeliverability;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -122,6 +127,7 @@ public class InstanceSettings {
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -138,6 +144,7 @@ public class InstanceSettings {
         return this;
     }
 
+
     public InstanceSettings withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
@@ -149,6 +156,7 @@ public class InstanceSettings {
         this.restrictedToAllowlist = Optional.ofNullable(restrictedToAllowlist);
         return this;
     }
+
 
     public InstanceSettings withRestrictedToAllowlist(Optional<Boolean> restrictedToAllowlist) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -162,6 +170,7 @@ public class InstanceSettings {
         return this;
     }
 
+
     public InstanceSettings withFromEmailAddress(Optional<String> fromEmailAddress) {
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
         this.fromEmailAddress = fromEmailAddress;
@@ -173,6 +182,7 @@ public class InstanceSettings {
         this.progressiveSignUp = Optional.ofNullable(progressiveSignUp);
         return this;
     }
+
 
     public InstanceSettings withProgressiveSignUp(Optional<Boolean> progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -186,13 +196,13 @@ public class InstanceSettings {
         return this;
     }
 
+
     public InstanceSettings withEnhancedEmailDeliverability(Optional<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -203,23 +213,19 @@ public class InstanceSettings {
         }
         InstanceSettings other = (InstanceSettings) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
-            Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
-            Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
-            Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
+            Utils.enhancedDeepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
+            Utils.enhancedDeepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
+            Utils.enhancedDeepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            restrictedToAllowlist,
-            fromEmailAddress,
-            progressiveSignUp,
-            enhancedEmailDeliverability);
+        return Utils.enhancedHash(
+            object, id, restrictedToAllowlist,
+            fromEmailAddress, progressiveSignUp, enhancedEmailDeliverability);
     }
     
     @Override
@@ -232,24 +238,26 @@ public class InstanceSettings {
                 "progressiveSignUp", progressiveSignUp,
                 "enhancedEmailDeliverability", enhancedEmailDeliverability);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends InstanceSettingsObject> object = Optional.empty();
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<Boolean> restrictedToAllowlist = Optional.empty();
- 
+
         private Optional<String> fromEmailAddress = Optional.empty();
- 
+
         private Optional<Boolean> progressiveSignUp = Optional.empty();
- 
+
         private Optional<Boolean> enhancedEmailDeliverability = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -269,6 +277,7 @@ public class InstanceSettings {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = Optional.ofNullable(id);
@@ -280,6 +289,7 @@ public class InstanceSettings {
             this.id = id;
             return this;
         }
+
 
         public Builder restrictedToAllowlist(boolean restrictedToAllowlist) {
             Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -293,6 +303,7 @@ public class InstanceSettings {
             return this;
         }
 
+
         public Builder fromEmailAddress(String fromEmailAddress) {
             Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
             this.fromEmailAddress = Optional.ofNullable(fromEmailAddress);
@@ -304,6 +315,7 @@ public class InstanceSettings {
             this.fromEmailAddress = fromEmailAddress;
             return this;
         }
+
 
         public Builder progressiveSignUp(boolean progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -317,6 +329,7 @@ public class InstanceSettings {
             return this;
         }
 
+
         public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = Optional.ofNullable(enhancedEmailDeliverability);
@@ -328,15 +341,13 @@ public class InstanceSettings {
             this.enhancedEmailDeliverability = enhancedEmailDeliverability;
             return this;
         }
-        
+
         public InstanceSettings build() {
+
             return new InstanceSettings(
-                object,
-                id,
-                restrictedToAllowlist,
-                fromEmailAddress,
-                progressiveSignUp,
-                enhancedEmailDeliverability);
+                object, id, restrictedToAllowlist,
+                fromEmailAddress, progressiveSignUp, enhancedEmailDeliverability);
         }
+
     }
 }

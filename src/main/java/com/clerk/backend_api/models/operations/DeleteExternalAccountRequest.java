@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteExternalAccountRequest {
-
     /**
      * The ID of the user's external account
      */
@@ -51,9 +50,10 @@ public class DeleteExternalAccountRequest {
         return externalAccountId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user's external account
@@ -73,7 +73,6 @@ public class DeleteExternalAccountRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class DeleteExternalAccountRequest {
         }
         DeleteExternalAccountRequest other = (DeleteExternalAccountRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.externalAccountId, other.externalAccountId);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.externalAccountId, other.externalAccountId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            externalAccountId);
+        return Utils.enhancedHash(
+            userId, externalAccountId);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class DeleteExternalAccountRequest {
                 "userId", userId,
                 "externalAccountId", externalAccountId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String externalAccountId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user's external account
@@ -121,6 +121,7 @@ public class DeleteExternalAccountRequest {
             return this;
         }
 
+
         /**
          * The ID of the external account to delete
          */
@@ -129,11 +130,12 @@ public class DeleteExternalAccountRequest {
             this.externalAccountId = externalAccountId;
             return this;
         }
-        
+
         public DeleteExternalAccountRequest build() {
+
             return new DeleteExternalAccountRequest(
-                userId,
-                externalAccountId);
+                userId, externalAccountId);
         }
+
     }
 }

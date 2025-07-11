@@ -13,17 +13,17 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class BlocklistIdentifier {
 
+public class BlocklistIdentifier {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("object")
     private Optional<? extends BlocklistIdentifierObject> object;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
@@ -36,9 +36,11 @@ public class BlocklistIdentifier {
     @JsonProperty("identifier")
     private Optional<String> identifier;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier_type")
     private Optional<? extends BlocklistIdentifierIdentifierType> identifierType;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
@@ -84,7 +86,9 @@ public class BlocklistIdentifier {
     }
     
     public BlocklistIdentifier() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -136,9 +140,10 @@ public class BlocklistIdentifier {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -148,6 +153,7 @@ public class BlocklistIdentifier {
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -164,6 +170,7 @@ public class BlocklistIdentifier {
         return this;
     }
 
+
     public BlocklistIdentifier withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
@@ -178,6 +185,7 @@ public class BlocklistIdentifier {
         this.identifier = Optional.ofNullable(identifier);
         return this;
     }
+
 
     /**
      * An email address, email domain, phone number or web3 wallet.
@@ -194,6 +202,7 @@ public class BlocklistIdentifier {
         return this;
     }
 
+
     public BlocklistIdentifier withIdentifierType(Optional<? extends BlocklistIdentifierIdentifierType> identifierType) {
         Utils.checkNotNull(identifierType, "identifierType");
         this.identifierType = identifierType;
@@ -205,6 +214,7 @@ public class BlocklistIdentifier {
         this.instanceId = Optional.ofNullable(instanceId);
         return this;
     }
+
 
     public BlocklistIdentifier withInstanceId(Optional<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -220,6 +230,7 @@ public class BlocklistIdentifier {
         this.createdAt = Optional.ofNullable(createdAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of creation
@@ -239,6 +250,7 @@ public class BlocklistIdentifier {
         return this;
     }
 
+
     /**
      * Unix timestamp of last update.
      */
@@ -248,7 +260,6 @@ public class BlocklistIdentifier {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -259,24 +270,20 @@ public class BlocklistIdentifier {
         }
         BlocklistIdentifier other = (BlocklistIdentifier) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.identifier, other.identifier) &&
-            Objects.deepEquals(this.identifierType, other.identifierType) &&
-            Objects.deepEquals(this.instanceId, other.instanceId) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
+            Utils.enhancedDeepEquals(this.identifierType, other.identifierType) &&
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            identifier,
-            identifierType,
-            instanceId,
-            createdAt,
+        return Utils.enhancedHash(
+            object, id, identifier,
+            identifierType, instanceId, createdAt,
             updatedAt);
     }
     
@@ -291,26 +298,28 @@ public class BlocklistIdentifier {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends BlocklistIdentifierObject> object = Optional.empty();
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> identifier = Optional.empty();
- 
+
         private Optional<? extends BlocklistIdentifierIdentifierType> identifierType = Optional.empty();
- 
+
         private Optional<String> instanceId = Optional.empty();
- 
+
         private Optional<Long> createdAt = Optional.empty();
- 
+
         private Optional<Long> updatedAt = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -330,6 +339,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = Optional.ofNullable(id);
@@ -341,6 +351,7 @@ public class BlocklistIdentifier {
             this.id = id;
             return this;
         }
+
 
         /**
          * An email address, email domain, phone number or web3 wallet.
@@ -360,6 +371,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
+
         public Builder identifierType(BlocklistIdentifierIdentifierType identifierType) {
             Utils.checkNotNull(identifierType, "identifierType");
             this.identifierType = Optional.ofNullable(identifierType);
@@ -372,6 +384,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
+
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
             this.instanceId = Optional.ofNullable(instanceId);
@@ -383,6 +396,7 @@ public class BlocklistIdentifier {
             this.instanceId = instanceId;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation
@@ -402,6 +416,7 @@ public class BlocklistIdentifier {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -419,16 +434,14 @@ public class BlocklistIdentifier {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public BlocklistIdentifier build() {
+
             return new BlocklistIdentifier(
-                object,
-                id,
-                identifier,
-                identifierType,
-                instanceId,
-                createdAt,
+                object, id, identifier,
+                identifierType, instanceId, createdAt,
                 updatedAt);
         }
+
     }
 }

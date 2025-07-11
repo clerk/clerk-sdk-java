@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -44,9 +43,10 @@ public class Jwks {
         return (Optional<List<Keys>>) keys;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Jwks withKeys(List<Keys> keys) {
         Utils.checkNotNull(keys, "keys");
@@ -54,13 +54,13 @@ public class Jwks {
         return this;
     }
 
+
     public Jwks withKeys(Optional<? extends List<Keys>> keys) {
         Utils.checkNotNull(keys, "keys");
         this.keys = keys;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -71,12 +71,12 @@ public class Jwks {
         }
         Jwks other = (Jwks) o;
         return 
-            Objects.deepEquals(this.keys, other.keys);
+            Utils.enhancedDeepEquals(this.keys, other.keys);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             keys);
     }
     
@@ -85,14 +85,16 @@ public class Jwks {
         return Utils.toString(Jwks.class,
                 "keys", keys);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends List<Keys>> keys = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder keys(List<Keys> keys) {
             Utils.checkNotNull(keys, "keys");
@@ -105,10 +107,12 @@ public class Jwks {
             this.keys = keys;
             return this;
         }
-        
+
         public Jwks build() {
+
             return new Jwks(
                 keys);
         }
+
     }
 }

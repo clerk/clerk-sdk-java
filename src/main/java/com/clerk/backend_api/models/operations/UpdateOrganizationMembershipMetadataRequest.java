@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateOrganizationMembershipMetadataRequest {
 
+public class UpdateOrganizationMembershipMetadataRequest {
     /**
      * The ID of the organization the membership belongs to
      */
@@ -26,6 +25,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody;
@@ -71,9 +71,10 @@ public class UpdateOrganizationMembershipMetadataRequest {
         return (Optional<UpdateOrganizationMembershipMetadataRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization the membership belongs to
@@ -99,13 +100,13 @@ public class UpdateOrganizationMembershipMetadataRequest {
         return this;
     }
 
+
     public UpdateOrganizationMembershipMetadataRequest withRequestBody(Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,17 +117,15 @@ public class UpdateOrganizationMembershipMetadataRequest {
         }
         UpdateOrganizationMembershipMetadataRequest other = (UpdateOrganizationMembershipMetadataRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            userId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, userId, requestBody);
     }
     
     @Override
@@ -136,18 +135,20 @@ public class UpdateOrganizationMembershipMetadataRequest {
                 "userId", userId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String userId;
- 
+
         private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization the membership belongs to
@@ -158,6 +159,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
             return this;
         }
 
+
         /**
          * The ID of the user that this membership belongs to
          */
@@ -166,6 +168,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
             this.userId = userId;
             return this;
         }
+
 
         public Builder requestBody(UpdateOrganizationMembershipMetadataRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -178,12 +181,12 @@ public class UpdateOrganizationMembershipMetadataRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateOrganizationMembershipMetadataRequest build() {
+
             return new UpdateOrganizationMembershipMetadataRequest(
-                organizationId,
-                userId,
-                requestBody);
+                organizationId, userId, requestBody);
         }
+
     }
 }

@@ -14,11 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateInstanceAuthConfigRequestBody {
 
+public class UpdateInstanceAuthConfigRequestBody {
     /**
      * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
      */
@@ -78,7 +77,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
     
     public UpdateInstanceAuthConfigRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -125,9 +125,10 @@ public class UpdateInstanceAuthConfigRequestBody {
         return testMode;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
@@ -227,7 +228,6 @@ public class UpdateInstanceAuthConfigRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -238,21 +238,18 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
         UpdateInstanceAuthConfigRequestBody other = (UpdateInstanceAuthConfigRequestBody) o;
         return 
-            Objects.deepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
-            Objects.deepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
-            Objects.deepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
-            Objects.deepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
-            Objects.deepEquals(this.testMode, other.testMode);
+            Utils.enhancedDeepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
+            Utils.enhancedDeepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
+            Utils.enhancedDeepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
+            Utils.enhancedDeepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
+            Utils.enhancedDeepEquals(this.testMode, other.testMode);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            restrictedToAllowlist,
-            fromEmailAddress,
-            progressiveSignUp,
-            enhancedEmailDeliverability,
-            testMode);
+        return Utils.enhancedHash(
+            restrictedToAllowlist, fromEmailAddress, progressiveSignUp,
+            enhancedEmailDeliverability, testMode);
     }
     
     @Override
@@ -264,22 +261,24 @@ public class UpdateInstanceAuthConfigRequestBody {
                 "enhancedEmailDeliverability", enhancedEmailDeliverability,
                 "testMode", testMode);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Boolean> restrictedToAllowlist;
- 
+
         private JsonNullable<String> fromEmailAddress = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> progressiveSignUp = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> testMode = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
@@ -298,6 +297,7 @@ public class UpdateInstanceAuthConfigRequestBody {
             this.restrictedToAllowlist = restrictedToAllowlist;
             return this;
         }
+
 
         /**
          * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
@@ -321,6 +321,7 @@ public class UpdateInstanceAuthConfigRequestBody {
             return this;
         }
 
+
         /**
          * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
          */
@@ -338,6 +339,7 @@ public class UpdateInstanceAuthConfigRequestBody {
             this.progressiveSignUp = progressiveSignUp;
             return this;
         }
+
 
         /**
          * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
@@ -359,6 +361,7 @@ public class UpdateInstanceAuthConfigRequestBody {
             return this;
         }
 
+
         /**
          * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
          * Defaults to true for development instances.
@@ -378,18 +381,17 @@ public class UpdateInstanceAuthConfigRequestBody {
             this.testMode = testMode;
             return this;
         }
-        
+
         public UpdateInstanceAuthConfigRequestBody build() {
             if (restrictedToAllowlist == null) {
                 restrictedToAllowlist = _SINGLETON_VALUE_RestrictedToAllowlist.value();
             }
+
             return new UpdateInstanceAuthConfigRequestBody(
-                restrictedToAllowlist,
-                fromEmailAddress,
-                progressiveSignUp,
-                enhancedEmailDeliverability,
-                testMode);
+                restrictedToAllowlist, fromEmailAddress, progressiveSignUp,
+                enhancedEmailDeliverability, testMode);
         }
+
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_RestrictedToAllowlist =
                 new LazySingletonValue<>(

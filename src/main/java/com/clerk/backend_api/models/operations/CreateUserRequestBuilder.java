@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateUserRequestBuilder {
 
     private CreateUserRequestBody request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateUserRequestBuilder(SDKMethodInterfaces.MethodCallCreateUser sdk) {
-        this.sdk = sdk;
+    public CreateUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public CreateUserRequestBuilder request(CreateUserRequestBody request) {
@@ -39,10 +43,14 @@ public class CreateUserRequestBuilder {
 
     public CreateUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<CreateUserRequestBody, CreateUserResponse> operation
+              = new CreateUserOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

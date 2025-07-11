@@ -13,11 +13,10 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class GetTemplateListRequest {
 
+public class GetTemplateListRequest {
     /**
      * The type of templates to list (email or SMS)
      */
@@ -65,7 +64,8 @@ public class GetTemplateListRequest {
     
     public GetTemplateListRequest(
             TemplateType templateType) {
-        this(templateType, Optional.empty(), Optional.empty(), Optional.empty());
+        this(templateType, Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -105,9 +105,10 @@ public class GetTemplateListRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of templates to list (email or SMS)
@@ -128,6 +129,7 @@ public class GetTemplateListRequest {
         this.paginated = Optional.ofNullable(paginated);
         return this;
     }
+
 
     /**
      * Whether to paginate the results.
@@ -150,6 +152,7 @@ public class GetTemplateListRequest {
         return this;
     }
 
+
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -171,6 +174,7 @@ public class GetTemplateListRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -182,7 +186,6 @@ public class GetTemplateListRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -193,18 +196,16 @@ public class GetTemplateListRequest {
         }
         GetTemplateListRequest other = (GetTemplateListRequest) o;
         return 
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.paginated, other.paginated) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.paginated, other.paginated) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateType,
-            paginated,
-            limit,
+        return Utils.enhancedHash(
+            templateType, paginated, limit,
             offset);
     }
     
@@ -216,20 +217,22 @@ public class GetTemplateListRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private TemplateType templateType;
- 
+
         private Optional<Boolean> paginated = Optional.empty();
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of templates to list (email or SMS)
@@ -239,6 +242,7 @@ public class GetTemplateListRequest {
             this.templateType = templateType;
             return this;
         }
+
 
         /**
          * Whether to paginate the results.
@@ -262,6 +266,7 @@ public class GetTemplateListRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -281,6 +286,7 @@ public class GetTemplateListRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -303,7 +309,7 @@ public class GetTemplateListRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public GetTemplateListRequest build() {
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
@@ -311,12 +317,12 @@ public class GetTemplateListRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new GetTemplateListRequest(
-                templateType,
-                paginated,
-                limit,
+                templateType, paginated, limit,
                 offset);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

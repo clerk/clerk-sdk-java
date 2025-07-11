@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,6 +24,7 @@ public class CreateSessionTokenResponseBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("object")
     private Optional<? extends Object> object;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("jwt")
@@ -55,15 +55,17 @@ public class CreateSessionTokenResponseBody {
         return jwt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public CreateSessionTokenResponseBody withObject(Object object) {
         Utils.checkNotNull(object, "object");
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     public CreateSessionTokenResponseBody withObject(Optional<? extends Object> object) {
         Utils.checkNotNull(object, "object");
@@ -77,13 +79,13 @@ public class CreateSessionTokenResponseBody {
         return this;
     }
 
+
     public CreateSessionTokenResponseBody withJwt(Optional<String> jwt) {
         Utils.checkNotNull(jwt, "jwt");
         this.jwt = jwt;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -94,15 +96,14 @@ public class CreateSessionTokenResponseBody {
         }
         CreateSessionTokenResponseBody other = (CreateSessionTokenResponseBody) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.jwt, other.jwt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.jwt, other.jwt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            jwt);
+        return Utils.enhancedHash(
+            object, jwt);
     }
     
     @Override
@@ -111,16 +112,18 @@ public class CreateSessionTokenResponseBody {
                 "object", object,
                 "jwt", jwt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends Object> object = Optional.empty();
- 
+
         private Optional<String> jwt = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(Object object) {
             Utils.checkNotNull(object, "object");
@@ -134,6 +137,7 @@ public class CreateSessionTokenResponseBody {
             return this;
         }
 
+
         public Builder jwt(String jwt) {
             Utils.checkNotNull(jwt, "jwt");
             this.jwt = Optional.ofNullable(jwt);
@@ -145,11 +149,12 @@ public class CreateSessionTokenResponseBody {
             this.jwt = jwt;
             return this;
         }
-        
+
         public CreateSessionTokenResponseBody build() {
+
             return new CreateSessionTokenResponseBody(
-                object,
-                jwt);
+                object, jwt);
         }
+
     }
 }

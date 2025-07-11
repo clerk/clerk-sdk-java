@@ -19,7 +19,7 @@ public enum PhoneNumberObject {
     @JsonValue
     private final String value;
 
-    private PhoneNumberObject(String value) {
+    PhoneNumberObject(String value) {
         this.value = value;
     }
     

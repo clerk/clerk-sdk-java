@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateSignUpRequestBody {
 
+public class UpdateSignUpRequestBody {
     /**
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
@@ -63,9 +62,10 @@ public class UpdateSignUpRequestBody {
         return customAction;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
@@ -105,7 +105,6 @@ public class UpdateSignUpRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,15 +115,14 @@ public class UpdateSignUpRequestBody {
         }
         UpdateSignUpRequestBody other = (UpdateSignUpRequestBody) o;
         return 
-            Objects.deepEquals(this.externalId, other.externalId) &&
-            Objects.deepEquals(this.customAction, other.customAction);
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.customAction, other.customAction);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            externalId,
-            customAction);
+        return Utils.enhancedHash(
+            externalId, customAction);
     }
     
     @Override
@@ -133,16 +131,18 @@ public class UpdateSignUpRequestBody {
                 "externalId", externalId,
                 "customAction", customAction);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> externalId = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> customAction = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
@@ -164,6 +164,7 @@ public class UpdateSignUpRequestBody {
             return this;
         }
 
+
         /**
          * If true, the sign-up will be marked as a custom action.
          */
@@ -181,11 +182,12 @@ public class UpdateSignUpRequestBody {
             this.customAction = customAction;
             return this;
         }
-        
+
         public UpdateSignUpRequestBody build() {
+
             return new UpdateSignUpRequestBody(
-                externalId,
-                customAction);
+                externalId, customAction);
         }
+
     }
 }

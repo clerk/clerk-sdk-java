@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetSessionRequest {
-
     /**
      * The ID of the session
      */
@@ -34,9 +33,10 @@ public class GetSessionRequest {
         return sessionId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the session
@@ -47,7 +47,6 @@ public class GetSessionRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetSessionRequest {
         }
         GetSessionRequest other = (GetSessionRequest) o;
         return 
-            Objects.deepEquals(this.sessionId, other.sessionId);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             sessionId);
     }
     
@@ -72,14 +71,16 @@ public class GetSessionRequest {
         return Utils.toString(GetSessionRequest.class,
                 "sessionId", sessionId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sessionId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the session
@@ -89,10 +90,12 @@ public class GetSessionRequest {
             this.sessionId = sessionId;
             return this;
         }
-        
+
         public GetSessionRequest build() {
+
             return new GetSessionRequest(
                 sessionId);
         }
+
     }
 }

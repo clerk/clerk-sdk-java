@@ -18,7 +18,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -28,7 +27,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>Required parameters
  */
 public class CreateInvitationRequestBody {
-
     /**
      * The email address the invitation will be sent to
      */
@@ -108,7 +106,9 @@ public class CreateInvitationRequestBody {
     
     public CreateInvitationRequestBody(
             String emailAddress) {
-        this(emailAddress, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+        this(emailAddress, Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     /**
@@ -173,9 +173,10 @@ public class CreateInvitationRequestBody {
         return (Optional<TemplateSlug>) templateSlug;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email address the invitation will be sent to
@@ -197,6 +198,7 @@ public class CreateInvitationRequestBody {
         return this;
     }
 
+
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
@@ -217,6 +219,7 @@ public class CreateInvitationRequestBody {
         this.redirectUrl = Optional.ofNullable(redirectUrl);
         return this;
     }
+
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
@@ -293,6 +296,7 @@ public class CreateInvitationRequestBody {
         return this;
     }
 
+
     /**
      * The slug of the email template to use for the invitation email.
      */
@@ -302,7 +306,6 @@ public class CreateInvitationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -313,24 +316,20 @@ public class CreateInvitationRequestBody {
         }
         CreateInvitationRequestBody other = (CreateInvitationRequestBody) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
-            Objects.deepEquals(this.notify_, other.notify_) &&
-            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting) &&
-            Objects.deepEquals(this.expiresInDays, other.expiresInDays) &&
-            Objects.deepEquals(this.templateSlug, other.templateSlug);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.redirectUrl, other.redirectUrl) &&
+            Utils.enhancedDeepEquals(this.notify_, other.notify_) &&
+            Utils.enhancedDeepEquals(this.ignoreExisting, other.ignoreExisting) &&
+            Utils.enhancedDeepEquals(this.expiresInDays, other.expiresInDays) &&
+            Utils.enhancedDeepEquals(this.templateSlug, other.templateSlug);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            publicMetadata,
-            redirectUrl,
-            notify_,
-            ignoreExisting,
-            expiresInDays,
+        return Utils.enhancedHash(
+            emailAddress, publicMetadata, redirectUrl,
+            notify_, ignoreExisting, expiresInDays,
             templateSlug);
     }
     
@@ -345,26 +344,28 @@ public class CreateInvitationRequestBody {
                 "expiresInDays", expiresInDays,
                 "templateSlug", templateSlug);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddress;
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Optional<String> redirectUrl = Optional.empty();
- 
+
         private JsonNullable<Boolean> notify_;
- 
+
         private JsonNullable<Boolean> ignoreExisting;
- 
+
         private JsonNullable<Long> expiresInDays = JsonNullable.undefined();
- 
+
         private Optional<? extends TemplateSlug> templateSlug = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email address the invitation will be sent to
@@ -374,6 +375,7 @@ public class CreateInvitationRequestBody {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         /**
          * Metadata that will be attached to the newly created invitation.
@@ -397,6 +399,7 @@ public class CreateInvitationRequestBody {
             return this;
         }
 
+
         /**
          * Optional URL which specifies where to redirect the user once they click the invitation link.
          * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
@@ -416,6 +419,7 @@ public class CreateInvitationRequestBody {
             this.redirectUrl = redirectUrl;
             return this;
         }
+
 
         /**
          * Optional flag which denotes whether an email invitation should be sent to the given email address.
@@ -437,6 +441,7 @@ public class CreateInvitationRequestBody {
             return this;
         }
 
+
         /**
          * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
          */
@@ -454,6 +459,7 @@ public class CreateInvitationRequestBody {
             this.ignoreExisting = ignoreExisting;
             return this;
         }
+
 
         /**
          * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
@@ -473,6 +479,7 @@ public class CreateInvitationRequestBody {
             return this;
         }
 
+
         /**
          * The slug of the email template to use for the invitation email.
          */
@@ -490,7 +497,7 @@ public class CreateInvitationRequestBody {
             this.templateSlug = templateSlug;
             return this;
         }
-        
+
         public CreateInvitationRequestBody build() {
             if (notify_ == null) {
                 notify_ = _SINGLETON_VALUE_Notify.value();
@@ -498,15 +505,13 @@ public class CreateInvitationRequestBody {
             if (ignoreExisting == null) {
                 ignoreExisting = _SINGLETON_VALUE_IgnoreExisting.value();
             }
+
             return new CreateInvitationRequestBody(
-                emailAddress,
-                publicMetadata,
-                redirectUrl,
-                notify_,
-                ignoreExisting,
-                expiresInDays,
+                emailAddress, publicMetadata, redirectUrl,
+                notify_, ignoreExisting, expiresInDays,
                 templateSlug);
         }
+
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(

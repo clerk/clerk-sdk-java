@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteRedirectURLOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteRedirectURLRequestBuilder {
 
     private String id;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteRedirectURL sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteRedirectURLRequestBuilder(SDKMethodInterfaces.MethodCallDeleteRedirectURL sdk) {
-        this.sdk = sdk;
+    public DeleteRedirectURLRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteRedirectURLRequestBuilder id(String id) {
@@ -38,12 +42,25 @@ public class DeleteRedirectURLRequestBuilder {
         return this;
     }
 
+
+    private DeleteRedirectURLRequest buildRequest() {
+
+        DeleteRedirectURLRequest request = new DeleteRedirectURLRequest(id);
+
+        return request;
+    }
+
     public DeleteRedirectURLResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            id,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteRedirectURLRequest, DeleteRedirectURLResponse> operation
+              = new DeleteRedirectURLOperation(
+                sdkConfiguration,
+                options);
+        DeleteRedirectURLRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

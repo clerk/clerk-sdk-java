@@ -14,7 +14,7 @@ public enum PasskeyVerificationStrategy {
     @JsonValue
     private final String value;
 
-    private PasskeyVerificationStrategy(String value) {
+    PasskeyVerificationStrategy(String value) {
         this.value = value;
     }
     

@@ -15,9 +15,9 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class SAMLAccount {
 
@@ -30,34 +30,43 @@ public class SAMLAccount {
     @JsonProperty("object")
     private SAMLAccountObject object;
 
+
     @JsonProperty("provider")
     private String provider;
+
 
     @JsonProperty("active")
     private boolean active;
 
+
     @JsonProperty("email_address")
     private String emailAddress;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
     private JsonNullable<String> firstName;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
     private JsonNullable<String> lastName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provider_user_id")
     private JsonNullable<String> providerUserId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
     private Optional<? extends Map<String, Object>> publicMetadata;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
     private Optional<? extends SAMLAccountVerification> verification;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("saml_connection")
@@ -106,7 +115,10 @@ public class SAMLAccount {
             String provider,
             boolean active,
             String emailAddress) {
-        this(id, object, provider, active, emailAddress, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(id, object, provider,
+            active, emailAddress, JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -170,9 +182,10 @@ public class SAMLAccount {
         return (JsonNullable<SamlConnection>) samlConnection;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SAMLAccount withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -249,6 +262,7 @@ public class SAMLAccount {
         return this;
     }
 
+
     public SAMLAccount withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
@@ -260,6 +274,7 @@ public class SAMLAccount {
         this.verification = Optional.ofNullable(verification);
         return this;
     }
+
 
     public SAMLAccount withVerification(Optional<? extends SAMLAccountVerification> verification) {
         Utils.checkNotNull(verification, "verification");
@@ -279,7 +294,6 @@ public class SAMLAccount {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -290,33 +304,26 @@ public class SAMLAccount {
         }
         SAMLAccount other = (SAMLAccount) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.active, other.active) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.providerUserId, other.providerUserId) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.samlConnection, other.samlConnection);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.active, other.active) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.samlConnection, other.samlConnection);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            provider,
-            active,
-            emailAddress,
-            firstName,
-            lastName,
-            providerUserId,
-            publicMetadata,
-            verification,
-            samlConnection);
+        return Utils.enhancedHash(
+            id, object, provider,
+            active, emailAddress, firstName,
+            lastName, providerUserId, publicMetadata,
+            verification, samlConnection);
     }
     
     @Override
@@ -334,40 +341,43 @@ public class SAMLAccount {
                 "verification", verification,
                 "samlConnection", samlConnection);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private SAMLAccountObject object;
- 
+
         private String provider;
- 
+
         private Boolean active;
- 
+
         private String emailAddress;
- 
+
         private JsonNullable<String> firstName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> lastName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> providerUserId = JsonNullable.undefined();
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Optional<? extends SAMLAccountVerification> verification = Optional.empty();
- 
+
         private JsonNullable<? extends SamlConnection> samlConnection = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -378,11 +388,13 @@ public class SAMLAccount {
             return this;
         }
 
+
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
             this.provider = provider;
             return this;
         }
+
 
         public Builder active(boolean active) {
             Utils.checkNotNull(active, "active");
@@ -390,11 +402,13 @@ public class SAMLAccount {
             return this;
         }
 
+
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -408,6 +422,7 @@ public class SAMLAccount {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = JsonNullable.of(lastName);
@@ -419,6 +434,7 @@ public class SAMLAccount {
             this.lastName = lastName;
             return this;
         }
+
 
         public Builder providerUserId(String providerUserId) {
             Utils.checkNotNull(providerUserId, "providerUserId");
@@ -432,6 +448,7 @@ public class SAMLAccount {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
@@ -443,6 +460,7 @@ public class SAMLAccount {
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder verification(SAMLAccountVerification verification) {
             Utils.checkNotNull(verification, "verification");
@@ -456,6 +474,7 @@ public class SAMLAccount {
             return this;
         }
 
+
         public Builder samlConnection(SamlConnection samlConnection) {
             Utils.checkNotNull(samlConnection, "samlConnection");
             this.samlConnection = JsonNullable.of(samlConnection);
@@ -467,20 +486,15 @@ public class SAMLAccount {
             this.samlConnection = samlConnection;
             return this;
         }
-        
+
         public SAMLAccount build() {
+
             return new SAMLAccount(
-                id,
-                object,
-                provider,
-                active,
-                emailAddress,
-                firstName,
-                lastName,
-                providerUserId,
-                publicMetadata,
-                verification,
-                samlConnection);
+                id, object, provider,
+                active, emailAddress, firstName,
+                lastName, providerUserId, publicMetadata,
+                verification, samlConnection);
         }
+
     }
 }

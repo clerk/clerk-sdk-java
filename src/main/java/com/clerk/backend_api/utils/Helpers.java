@@ -104,7 +104,7 @@ public final class Helpers {
         @Override
         public void onError(Throwable throwable) {
             latch.countDown();
-            Utils.rethrow(throwable);
+            Exceptions.rethrow(throwable);
         }
 
         @Override

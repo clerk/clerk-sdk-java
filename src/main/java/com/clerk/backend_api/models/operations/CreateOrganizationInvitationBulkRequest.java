@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
+
 
 public class CreateOrganizationInvitationBulkRequest {
-
     /**
      * The organization ID.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
@@ -46,9 +46,10 @@ public class CreateOrganizationInvitationBulkRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -65,7 +66,6 @@ public class CreateOrganizationInvitationBulkRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -76,15 +76,14 @@ public class CreateOrganizationInvitationBulkRequest {
         }
         CreateOrganizationInvitationBulkRequest other = (CreateOrganizationInvitationBulkRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, requestBody);
     }
     
     @Override
@@ -93,16 +92,18 @@ public class CreateOrganizationInvitationBulkRequest {
                 "organizationId", organizationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -113,16 +114,18 @@ public class CreateOrganizationInvitationBulkRequest {
             return this;
         }
 
+
         public Builder requestBody(List<CreateOrganizationInvitationBulkRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public CreateOrganizationInvitationBulkRequest build() {
+
             return new CreateOrganizationInvitationBulkRequest(
-                organizationId,
-                requestBody);
+                organizationId, requestBody);
         }
+
     }
 }

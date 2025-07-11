@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateUserMetadataOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateUserMetadataRequestBuilder {
     private String userId;
     private Optional<? extends UpdateUserMetadataRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateUserMetadata sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateUserMetadataRequestBuilder(SDKMethodInterfaces.MethodCallUpdateUserMetadata sdk) {
-        this.sdk = sdk;
+    public UpdateUserMetadataRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateUserMetadataRequestBuilder userId(String userId) {
@@ -51,13 +55,26 @@ public class UpdateUserMetadataRequestBuilder {
         return this;
     }
 
+
+    private UpdateUserMetadataRequest buildRequest() {
+
+        UpdateUserMetadataRequest request = new UpdateUserMetadataRequest(userId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateUserMetadataResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.updateMetadata(
-            userId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
+              = new UpdateUserMetadataOperation(
+                sdkConfiguration,
+                options);
+        UpdateUserMetadataRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

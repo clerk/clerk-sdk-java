@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class VerifyTOTPRequest {
 
+public class VerifyTOTPRequest {
     /**
      * The ID of the user for whom to verify the TOTP
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends VerifyTOTPRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class VerifyTOTPRequest {
         return (Optional<VerifyTOTPRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user for whom to verify the TOTP
@@ -72,13 +73,13 @@ public class VerifyTOTPRequest {
         return this;
     }
 
+
     public VerifyTOTPRequest withRequestBody(Optional<? extends VerifyTOTPRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class VerifyTOTPRequest {
         }
         VerifyTOTPRequest other = (VerifyTOTPRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            requestBody);
+        return Utils.enhancedHash(
+            userId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class VerifyTOTPRequest {
                 "userId", userId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Optional<? extends VerifyTOTPRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user for whom to verify the TOTP
@@ -125,6 +127,7 @@ public class VerifyTOTPRequest {
             this.userId = userId;
             return this;
         }
+
 
         public Builder requestBody(VerifyTOTPRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class VerifyTOTPRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public VerifyTOTPRequest build() {
+
             return new VerifyTOTPRequest(
-                userId,
-                requestBody);
+                userId, requestBody);
         }
+
     }
 }

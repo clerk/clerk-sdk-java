@@ -14,7 +14,7 @@ public enum SignInTokenObject {
     @JsonValue
     private final String value;
 
-    private SignInTokenObject(String value) {
+    SignInTokenObject(String value) {
         this.value = value;
     }
     

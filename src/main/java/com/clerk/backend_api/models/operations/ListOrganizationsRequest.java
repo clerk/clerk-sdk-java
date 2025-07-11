@@ -15,11 +15,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class ListOrganizationsRequest {
 
+public class ListOrganizationsRequest {
     /**
      * Flag to denote whether the member counts of each organization should be included in the response or not.
      */
@@ -111,7 +110,9 @@ public class ListOrganizationsRequest {
     }
     
     public ListOrganizationsRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -194,9 +195,10 @@ public class ListOrganizationsRequest {
         return offset;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Flag to denote whether the member counts of each organization should be included in the response or not.
@@ -206,6 +208,7 @@ public class ListOrganizationsRequest {
         this.includeMembersCount = Optional.ofNullable(includeMembersCount);
         return this;
     }
+
 
     /**
      * Flag to denote whether the member counts of each organization should be included in the response or not.
@@ -225,6 +228,7 @@ public class ListOrganizationsRequest {
         return this;
     }
 
+
     /**
      * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
      */
@@ -243,6 +247,7 @@ public class ListOrganizationsRequest {
         this.query = Optional.ofNullable(query);
         return this;
     }
+
 
     /**
      * Returns organizations with ID, name, or slug that match the given query.
@@ -264,6 +269,7 @@ public class ListOrganizationsRequest {
         this.userId = Optional.ofNullable(userId);
         return this;
     }
+
 
     /**
      * Returns organizations with the user ids specified. Any user ids not found are ignored.
@@ -287,6 +293,7 @@ public class ListOrganizationsRequest {
         this.organizationId = Optional.ofNullable(organizationId);
         return this;
     }
+
 
     /**
      * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
@@ -314,6 +321,7 @@ public class ListOrganizationsRequest {
         return this;
     }
 
+
     /**
      * Allows to return organizations in a particular order.
      * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
@@ -338,6 +346,7 @@ public class ListOrganizationsRequest {
         return this;
     }
 
+
     /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
@@ -359,6 +368,7 @@ public class ListOrganizationsRequest {
         return this;
     }
 
+
     /**
      * Skip the first `offset` results when paginating.
      * Needs to be an integer greater or equal to zero.
@@ -370,7 +380,6 @@ public class ListOrganizationsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -381,27 +390,22 @@ public class ListOrganizationsRequest {
         }
         ListOrganizationsRequest other = (ListOrganizationsRequest) o;
         return 
-            Objects.deepEquals(this.includeMembersCount, other.includeMembersCount) &&
-            Objects.deepEquals(this.includeMissingMemberWithElevatedPermissions, other.includeMissingMemberWithElevatedPermissions) &&
-            Objects.deepEquals(this.query, other.query) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.orderBy, other.orderBy) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.offset, other.offset);
+            Utils.enhancedDeepEquals(this.includeMembersCount, other.includeMembersCount) &&
+            Utils.enhancedDeepEquals(this.includeMissingMemberWithElevatedPermissions, other.includeMissingMemberWithElevatedPermissions) &&
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.offset, other.offset);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            includeMembersCount,
-            includeMissingMemberWithElevatedPermissions,
-            query,
-            userId,
-            organizationId,
-            orderBy,
-            limit,
-            offset);
+        return Utils.enhancedHash(
+            includeMembersCount, includeMissingMemberWithElevatedPermissions, query,
+            userId, organizationId, orderBy,
+            limit, offset);
     }
     
     @Override
@@ -416,28 +420,30 @@ public class ListOrganizationsRequest {
                 "limit", limit,
                 "offset", offset);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Boolean> includeMembersCount = Optional.empty();
- 
+
         private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
- 
+
         private Optional<String> query = Optional.empty();
- 
+
         private Optional<? extends List<String>> userId = Optional.empty();
- 
+
         private Optional<? extends List<String>> organizationId = Optional.empty();
- 
+
         private Optional<String> orderBy;
- 
+
         private Optional<Long> limit;
- 
+
         private Optional<Long> offset;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Flag to denote whether the member counts of each organization should be included in the response or not.
@@ -457,6 +463,7 @@ public class ListOrganizationsRequest {
             return this;
         }
 
+
         /**
          * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
          */
@@ -474,6 +481,7 @@ public class ListOrganizationsRequest {
             this.includeMissingMemberWithElevatedPermissions = includeMissingMemberWithElevatedPermissions;
             return this;
         }
+
 
         /**
          * Returns organizations with ID, name, or slug that match the given query.
@@ -494,6 +502,7 @@ public class ListOrganizationsRequest {
             this.query = query;
             return this;
         }
+
 
         /**
          * Returns organizations with the user ids specified. Any user ids not found are ignored.
@@ -516,6 +525,7 @@ public class ListOrganizationsRequest {
             this.userId = userId;
             return this;
         }
+
 
         /**
          * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
@@ -540,6 +550,7 @@ public class ListOrganizationsRequest {
             this.organizationId = organizationId;
             return this;
         }
+
 
         /**
          * Allows to return organizations in a particular order.
@@ -569,6 +580,7 @@ public class ListOrganizationsRequest {
             return this;
         }
 
+
         /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
@@ -588,6 +600,7 @@ public class ListOrganizationsRequest {
             this.limit = limit;
             return this;
         }
+
 
         /**
          * Skip the first `offset` results when paginating.
@@ -610,7 +623,7 @@ public class ListOrganizationsRequest {
             this.offset = offset;
             return this;
         }
-        
+
         public ListOrganizationsRequest build() {
             if (orderBy == null) {
                 orderBy = _SINGLETON_VALUE_OrderBy.value();
@@ -621,16 +634,13 @@ public class ListOrganizationsRequest {
             if (offset == null) {
                 offset = _SINGLETON_VALUE_Offset.value();
             }
+
             return new ListOrganizationsRequest(
-                includeMembersCount,
-                includeMissingMemberWithElevatedPermissions,
-                query,
-                userId,
-                organizationId,
-                orderBy,
-                limit,
-                offset);
+                includeMembersCount, includeMissingMemberWithElevatedPermissions, query,
+                userId, organizationId, orderBy,
+                limit, offset);
         }
+
 
         private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
                 new LazySingletonValue<>(

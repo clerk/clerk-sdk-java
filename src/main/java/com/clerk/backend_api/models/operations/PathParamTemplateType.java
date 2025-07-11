@@ -20,7 +20,7 @@ public enum PathParamTemplateType {
     @JsonValue
     private final String value;
 
-    private PathParamTemplateType(String value) {
+    PathParamTemplateType(String value) {
         this.value = value;
     }
     

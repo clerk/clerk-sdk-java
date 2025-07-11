@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateSAMLConnectionRequestBody {
 
+public class CreateSAMLConnectionRequestBody {
     /**
      * The name to use as a label for this SAML Connection
      */
@@ -122,7 +121,10 @@ public class CreateSAMLConnectionRequestBody {
             String name,
             String domain,
             Provider provider) {
-        this(name, domain, provider, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(name, domain, provider,
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -206,9 +208,10 @@ public class CreateSAMLConnectionRequestBody {
         return (JsonNullable<AttributeMapping>) attributeMapping;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name to use as a label for this SAML Connection
@@ -363,7 +366,6 @@ public class CreateSAMLConnectionRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -374,30 +376,24 @@ public class CreateSAMLConnectionRequestBody {
         }
         CreateSAMLConnectionRequestBody other = (CreateSAMLConnectionRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.domain, other.domain) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.idpEntityId, other.idpEntityId) &&
-            Objects.deepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
-            Objects.deepEquals(this.idpCertificate, other.idpCertificate) &&
-            Objects.deepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
-            Objects.deepEquals(this.idpMetadata, other.idpMetadata) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.attributeMapping, other.attributeMapping);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
+            Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
+            Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            domain,
-            provider,
-            idpEntityId,
-            idpSsoUrl,
-            idpCertificate,
-            idpMetadataUrl,
-            idpMetadata,
-            organizationId,
+        return Utils.enhancedHash(
+            name, domain, provider,
+            idpEntityId, idpSsoUrl, idpCertificate,
+            idpMetadataUrl, idpMetadata, organizationId,
             attributeMapping);
     }
     
@@ -415,32 +411,34 @@ public class CreateSAMLConnectionRequestBody {
                 "organizationId", organizationId,
                 "attributeMapping", attributeMapping);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String name;
- 
+
         private String domain;
- 
+
         private Provider provider;
- 
+
         private JsonNullable<String> idpEntityId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpSsoUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpCertificate = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> idpMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> organizationId = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends AttributeMapping> attributeMapping = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name to use as a label for this SAML Connection
@@ -451,6 +449,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
          */
@@ -460,6 +459,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The IdP provider of the connection.
          */
@@ -468,6 +468,7 @@ public class CreateSAMLConnectionRequestBody {
             this.provider = provider;
             return this;
         }
+
 
         /**
          * The Entity ID as provided by the IdP
@@ -487,6 +488,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The Single-Sign On URL as provided by the IdP
          */
@@ -504,6 +506,7 @@ public class CreateSAMLConnectionRequestBody {
             this.idpSsoUrl = idpSsoUrl;
             return this;
         }
+
 
         /**
          * The X.509 certificate as provided by the IdP
@@ -523,6 +526,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
          */
@@ -540,6 +544,7 @@ public class CreateSAMLConnectionRequestBody {
             this.idpMetadataUrl = idpMetadataUrl;
             return this;
         }
+
 
         /**
          * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
@@ -559,6 +564,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * The ID of the organization to which users of this SAML Connection will be added
          */
@@ -577,6 +583,7 @@ public class CreateSAMLConnectionRequestBody {
             return this;
         }
 
+
         /**
          * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
@@ -594,19 +601,15 @@ public class CreateSAMLConnectionRequestBody {
             this.attributeMapping = attributeMapping;
             return this;
         }
-        
+
         public CreateSAMLConnectionRequestBody build() {
+
             return new CreateSAMLConnectionRequestBody(
-                name,
-                domain,
-                provider,
-                idpEntityId,
-                idpSsoUrl,
-                idpCertificate,
-                idpMetadataUrl,
-                idpMetadata,
-                organizationId,
+                name, domain, provider,
+                idpEntityId, idpSsoUrl, idpCertificate,
+                idpMetadataUrl, idpMetadata, organizationId,
                 attributeMapping);
         }
+
     }
 }

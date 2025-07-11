@@ -17,7 +17,7 @@ public enum Web3SignatureVerificationStatus {
     @JsonValue
     private final String value;
 
-    private Web3SignatureVerificationStatus(String value) {
+    Web3SignatureVerificationStatus(String value) {
         this.value = value;
     }
     

@@ -20,7 +20,7 @@ public enum TemplateType {
     @JsonValue
     private final String value;
 
-    private TemplateType(String value) {
+    TemplateType(String value) {
         this.value = value;
     }
     

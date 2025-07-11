@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListOrganizationInvitationsOperation;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -26,10 +30,10 @@ public class ListOrganizationInvitationsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListOrganizationInvitations sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListOrganizationInvitations sdk) {
-        this.sdk = sdk;
+    public ListOrganizationInvitationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ListOrganizationInvitationsRequestBuilder organizationId(String organizationId) {
@@ -86,21 +90,35 @@ public class ListOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public ListOrganizationInvitationsResponse call() throws Exception {
+
+    private ListOrganizationInvitationsRequest buildRequest() {
         if (limit == null) {
             limit = _SINGLETON_VALUE_Limit.value();
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            organizationId,
+        }
+
+        ListOrganizationInvitationsRequest request = new ListOrganizationInvitationsRequest(organizationId,
             status,
             limit,
-            offset,
-            options);
+            offset);
+
+        return request;
+    }
+
+    public ListOrganizationInvitationsResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListOrganizationInvitationsRequest, ListOrganizationInvitationsResponse> operation
+              = new ListOrganizationInvitationsOperation(
+                sdkConfiguration,
+                options);
+        ListOrganizationInvitationsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

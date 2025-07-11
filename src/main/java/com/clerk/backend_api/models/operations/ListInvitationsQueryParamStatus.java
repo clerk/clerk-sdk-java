@@ -22,7 +22,7 @@ public enum ListInvitationsQueryParamStatus {
     @JsonValue
     private final String value;
 
-    private ListInvitationsQueryParamStatus(String value) {
+    ListInvitationsQueryParamStatus(String value) {
         this.value = value;
     }
     

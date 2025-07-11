@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateUserRequestBuilder {
     private String userId;
     private UpdateUserRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateUserRequestBuilder(SDKMethodInterfaces.MethodCallUpdateUser sdk) {
-        this.sdk = sdk;
+    public UpdateUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateUserRequestBuilder userId(String userId) {
@@ -45,13 +49,26 @@ public class UpdateUserRequestBuilder {
         return this;
     }
 
+
+    private UpdateUserRequest buildRequest() {
+
+        UpdateUserRequest request = new UpdateUserRequest(userId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            userId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
+              = new UpdateUserOperation(
+                sdkConfiguration,
+                options);
+        UpdateUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

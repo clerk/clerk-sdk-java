@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * VerifyClientRequestBody
@@ -17,7 +16,6 @@ import java.util.Objects;
  * <p>Parameters.
  */
 public class VerifyClientRequestBody {
-
     /**
      * A JWT that represents the active client.
      */
@@ -39,9 +37,10 @@ public class VerifyClientRequestBody {
         return token;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A JWT that represents the active client.
@@ -52,7 +51,6 @@ public class VerifyClientRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -63,12 +61,12 @@ public class VerifyClientRequestBody {
         }
         VerifyClientRequestBody other = (VerifyClientRequestBody) o;
         return 
-            Objects.deepEquals(this.token, other.token);
+            Utils.enhancedDeepEquals(this.token, other.token);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             token);
     }
     
@@ -77,14 +75,16 @@ public class VerifyClientRequestBody {
         return Utils.toString(VerifyClientRequestBody.class,
                 "token", token);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String token;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A JWT that represents the active client.
@@ -94,10 +94,12 @@ public class VerifyClientRequestBody {
             this.token = token;
             return this;
         }
-        
+
         public VerifyClientRequestBody build() {
+
             return new VerifyClientRequestBody(
                 token);
         }
+
     }
 }

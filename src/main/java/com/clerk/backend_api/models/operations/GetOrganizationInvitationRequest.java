@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetOrganizationInvitationRequest {
-
     /**
      * The organization ID.
      */
@@ -51,9 +50,10 @@ public class GetOrganizationInvitationRequest {
         return invitationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The organization ID.
@@ -73,7 +73,6 @@ public class GetOrganizationInvitationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class GetOrganizationInvitationRequest {
         }
         GetOrganizationInvitationRequest other = (GetOrganizationInvitationRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.invitationId, other.invitationId);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.invitationId, other.invitationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            invitationId);
+        return Utils.enhancedHash(
+            organizationId, invitationId);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class GetOrganizationInvitationRequest {
                 "organizationId", organizationId,
                 "invitationId", invitationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String invitationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The organization ID.
@@ -121,6 +121,7 @@ public class GetOrganizationInvitationRequest {
             return this;
         }
 
+
         /**
          * The organization invitation ID.
          */
@@ -129,11 +130,12 @@ public class GetOrganizationInvitationRequest {
             this.invitationId = invitationId;
             return this;
         }
-        
+
         public GetOrganizationInvitationRequest build() {
+
             return new GetOrganizationInvitationRequest(
-                organizationId,
-                invitationId);
+                organizationId, invitationId);
         }
+
     }
 }

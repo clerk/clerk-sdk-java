@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateOAuthApplicationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class UpdateOAuthApplicationRequestBuilder {
     private String oauthApplicationId;
     private UpdateOAuthApplicationRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateOAuthApplication sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateOAuthApplicationRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOAuthApplication sdk) {
-        this.sdk = sdk;
+    public UpdateOAuthApplicationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateOAuthApplicationRequestBuilder oauthApplicationId(String oauthApplicationId) {
@@ -45,13 +49,26 @@ public class UpdateOAuthApplicationRequestBuilder {
         return this;
     }
 
+
+    private UpdateOAuthApplicationRequest buildRequest() {
+
+        UpdateOAuthApplicationRequest request = new UpdateOAuthApplicationRequest(oauthApplicationId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateOAuthApplicationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.update(
-            oauthApplicationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateOAuthApplicationRequest, UpdateOAuthApplicationResponse> operation
+              = new UpdateOAuthApplicationOperation(
+                sdkConfiguration,
+                options);
+        UpdateOAuthApplicationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

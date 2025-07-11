@@ -14,7 +14,7 @@ public enum AdminVerificationWeb3WalletStatus {
     @JsonValue
     private final String value;
 
-    private AdminVerificationWeb3WalletStatus(String value) {
+    AdminVerificationWeb3WalletStatus(String value) {
         this.value = value;
     }
     

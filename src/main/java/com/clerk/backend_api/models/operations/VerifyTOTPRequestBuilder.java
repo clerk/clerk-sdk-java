@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.VerifyTOTPOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class VerifyTOTPRequestBuilder {
     private String userId;
     private Optional<? extends VerifyTOTPRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallVerifyTOTP sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public VerifyTOTPRequestBuilder(SDKMethodInterfaces.MethodCallVerifyTOTP sdk) {
-        this.sdk = sdk;
+    public VerifyTOTPRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public VerifyTOTPRequestBuilder userId(String userId) {
@@ -51,13 +55,26 @@ public class VerifyTOTPRequestBuilder {
         return this;
     }
 
+
+    private VerifyTOTPRequest buildRequest() {
+
+        VerifyTOTPRequest request = new VerifyTOTPRequest(userId,
+            requestBody);
+
+        return request;
+    }
+
     public VerifyTOTPResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.verifyTotp(
-            userId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
+              = new VerifyTOTPOperation(
+                sdkConfiguration,
+                options);
+        VerifyTOTPRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -22,7 +22,7 @@ public enum Provider {
     @JsonValue
     private final String value;
 
-    private Provider(String value) {
+    Provider(String value) {
         this.value = value;
     }
     

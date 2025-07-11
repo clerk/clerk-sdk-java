@@ -10,10 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
+
 
 public class Cookies {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
@@ -52,9 +51,10 @@ public class Cookies {
         return cookies;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -74,7 +74,6 @@ public class Cookies {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -85,15 +84,14 @@ public class Cookies {
         }
         Cookies other = (Cookies) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.cookies, other.cookies);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.cookies, other.cookies);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            cookies);
+        return Utils.enhancedHash(
+            object, cookies);
     }
     
     @Override
@@ -102,16 +100,18 @@ public class Cookies {
                 "object", object,
                 "cookies", cookies);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private CookiesObject object;
- 
+
         private List<String> cookies;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -122,6 +122,7 @@ public class Cookies {
             return this;
         }
 
+
         /**
          * Array of cookie directives.
          */
@@ -130,11 +131,12 @@ public class Cookies {
             this.cookies = cookies;
             return this;
         }
-        
+
         public Cookies build() {
+
             return new Cookies(
-                object,
-                cookies);
+                object, cookies);
         }
+
     }
 }

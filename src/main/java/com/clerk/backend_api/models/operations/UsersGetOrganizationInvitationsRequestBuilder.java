@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UsersGetOrganizationInvitationsOperation;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -26,10 +30,10 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<? extends QueryParamStatus> status = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUsersGetOrganizationInvitations sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UsersGetOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallUsersGetOrganizationInvitations sdk) {
-        this.sdk = sdk;
+    public UsersGetOrganizationInvitationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UsersGetOrganizationInvitationsRequestBuilder userId(String userId) {
@@ -86,21 +90,35 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
         return this;
     }
 
-    public UsersGetOrganizationInvitationsResponse call() throws Exception {
+
+    private UsersGetOrganizationInvitationsRequest buildRequest() {
         if (limit == null) {
             limit = _SINGLETON_VALUE_Limit.value();
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getOrganizationInvitations(
-            userId,
+        }
+
+        UsersGetOrganizationInvitationsRequest request = new UsersGetOrganizationInvitationsRequest(userId,
             limit,
             offset,
-            status,
-            options);
+            status);
+
+        return request;
+    }
+
+    public UsersGetOrganizationInvitationsResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UsersGetOrganizationInvitationsRequest, UsersGetOrganizationInvitationsResponse> operation
+              = new UsersGetOrganizationInvitationsOperation(
+                sdkConfiguration,
+                options);
+        UsersGetOrganizationInvitationsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

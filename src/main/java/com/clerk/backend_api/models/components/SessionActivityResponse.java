@@ -12,39 +12,47 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class SessionActivityResponse {
 
     @JsonProperty("object")
     private String object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("device_type")
     private Optional<String> deviceType;
 
+
     @JsonProperty("is_mobile")
     private boolean isMobile;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("browser_name")
     private Optional<String> browserName;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("browser_version")
     private Optional<String> browserVersion;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ip_address")
     private Optional<String> ipAddress;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("city")
     private Optional<String> city;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("country")
@@ -85,7 +93,9 @@ public class SessionActivityResponse {
             String object,
             String id,
             boolean isMobile) {
-        this(object, id, Optional.empty(), isMobile, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(object, id, Optional.empty(),
+            isMobile, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -133,9 +143,10 @@ public class SessionActivityResponse {
         return country;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SessionActivityResponse withObject(String object) {
         Utils.checkNotNull(object, "object");
@@ -155,6 +166,7 @@ public class SessionActivityResponse {
         return this;
     }
 
+
     public SessionActivityResponse withDeviceType(Optional<String> deviceType) {
         Utils.checkNotNull(deviceType, "deviceType");
         this.deviceType = deviceType;
@@ -173,6 +185,7 @@ public class SessionActivityResponse {
         return this;
     }
 
+
     public SessionActivityResponse withBrowserName(Optional<String> browserName) {
         Utils.checkNotNull(browserName, "browserName");
         this.browserName = browserName;
@@ -184,6 +197,7 @@ public class SessionActivityResponse {
         this.browserVersion = Optional.ofNullable(browserVersion);
         return this;
     }
+
 
     public SessionActivityResponse withBrowserVersion(Optional<String> browserVersion) {
         Utils.checkNotNull(browserVersion, "browserVersion");
@@ -197,6 +211,7 @@ public class SessionActivityResponse {
         return this;
     }
 
+
     public SessionActivityResponse withIpAddress(Optional<String> ipAddress) {
         Utils.checkNotNull(ipAddress, "ipAddress");
         this.ipAddress = ipAddress;
@@ -208,6 +223,7 @@ public class SessionActivityResponse {
         this.city = Optional.ofNullable(city);
         return this;
     }
+
 
     public SessionActivityResponse withCity(Optional<String> city) {
         Utils.checkNotNull(city, "city");
@@ -221,13 +237,13 @@ public class SessionActivityResponse {
         return this;
     }
 
+
     public SessionActivityResponse withCountry(Optional<String> country) {
         Utils.checkNotNull(country, "country");
         this.country = country;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -238,29 +254,23 @@ public class SessionActivityResponse {
         }
         SessionActivityResponse other = (SessionActivityResponse) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.deviceType, other.deviceType) &&
-            Objects.deepEquals(this.isMobile, other.isMobile) &&
-            Objects.deepEquals(this.browserName, other.browserName) &&
-            Objects.deepEquals(this.browserVersion, other.browserVersion) &&
-            Objects.deepEquals(this.ipAddress, other.ipAddress) &&
-            Objects.deepEquals(this.city, other.city) &&
-            Objects.deepEquals(this.country, other.country);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.deviceType, other.deviceType) &&
+            Utils.enhancedDeepEquals(this.isMobile, other.isMobile) &&
+            Utils.enhancedDeepEquals(this.browserName, other.browserName) &&
+            Utils.enhancedDeepEquals(this.browserVersion, other.browserVersion) &&
+            Utils.enhancedDeepEquals(this.ipAddress, other.ipAddress) &&
+            Utils.enhancedDeepEquals(this.city, other.city) &&
+            Utils.enhancedDeepEquals(this.country, other.country);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            deviceType,
-            isMobile,
-            browserName,
-            browserVersion,
-            ipAddress,
-            city,
-            country);
+        return Utils.enhancedHash(
+            object, id, deviceType,
+            isMobile, browserName, browserVersion,
+            ipAddress, city, country);
     }
     
     @Override
@@ -276,30 +286,32 @@ public class SessionActivityResponse {
                 "city", city,
                 "country", country);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String object;
- 
+
         private String id;
- 
+
         private Optional<String> deviceType = Optional.empty();
- 
+
         private Boolean isMobile;
- 
+
         private Optional<String> browserName = Optional.empty();
- 
+
         private Optional<String> browserVersion = Optional.empty();
- 
+
         private Optional<String> ipAddress = Optional.empty();
- 
+
         private Optional<String> city = Optional.empty();
- 
+
         private Optional<String> country = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(String object) {
             Utils.checkNotNull(object, "object");
@@ -307,11 +319,13 @@ public class SessionActivityResponse {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder deviceType(String deviceType) {
             Utils.checkNotNull(deviceType, "deviceType");
@@ -325,11 +339,13 @@ public class SessionActivityResponse {
             return this;
         }
 
+
         public Builder isMobile(boolean isMobile) {
             Utils.checkNotNull(isMobile, "isMobile");
             this.isMobile = isMobile;
             return this;
         }
+
 
         public Builder browserName(String browserName) {
             Utils.checkNotNull(browserName, "browserName");
@@ -343,6 +359,7 @@ public class SessionActivityResponse {
             return this;
         }
 
+
         public Builder browserVersion(String browserVersion) {
             Utils.checkNotNull(browserVersion, "browserVersion");
             this.browserVersion = Optional.ofNullable(browserVersion);
@@ -354,6 +371,7 @@ public class SessionActivityResponse {
             this.browserVersion = browserVersion;
             return this;
         }
+
 
         public Builder ipAddress(String ipAddress) {
             Utils.checkNotNull(ipAddress, "ipAddress");
@@ -367,6 +385,7 @@ public class SessionActivityResponse {
             return this;
         }
 
+
         public Builder city(String city) {
             Utils.checkNotNull(city, "city");
             this.city = Optional.ofNullable(city);
@@ -379,6 +398,7 @@ public class SessionActivityResponse {
             return this;
         }
 
+
         public Builder country(String country) {
             Utils.checkNotNull(country, "country");
             this.country = Optional.ofNullable(country);
@@ -390,18 +410,14 @@ public class SessionActivityResponse {
             this.country = country;
             return this;
         }
-        
+
         public SessionActivityResponse build() {
+
             return new SessionActivityResponse(
-                object,
-                id,
-                deviceType,
-                isMobile,
-                browserName,
-                browserVersion,
-                ipAddress,
-                city,
-                country);
+                object, id, deviceType,
+                isMobile, browserName, browserVersion,
+                ipAddress, city, country);
         }
+
     }
 }

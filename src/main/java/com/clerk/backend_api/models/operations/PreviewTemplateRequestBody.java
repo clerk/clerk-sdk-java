@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -21,7 +20,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>Required parameters
  */
 public class PreviewTemplateRequestBody {
-
     /**
      * The email subject.
      * Applicable only to email templates.
@@ -72,7 +70,8 @@ public class PreviewTemplateRequestBody {
     }
     
     public PreviewTemplateRequestBody() {
-        this(JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -112,9 +111,10 @@ public class PreviewTemplateRequestBody {
         return replyToEmailName;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email subject.
@@ -145,6 +145,7 @@ public class PreviewTemplateRequestBody {
         return this;
     }
 
+
     /**
      * The template body before variable interpolation
      */
@@ -164,6 +165,7 @@ public class PreviewTemplateRequestBody {
         this.fromEmailName = Optional.ofNullable(fromEmailName);
         return this;
     }
+
 
     /**
      * The local part of the From email address that will be used for emails.
@@ -187,6 +189,7 @@ public class PreviewTemplateRequestBody {
         return this;
     }
 
+
     /**
      * The local part of the Reply To email address that will be used for emails.
      * For example, in the address 'hello@example.com', the local part is 'hello'.
@@ -198,7 +201,6 @@ public class PreviewTemplateRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -209,18 +211,16 @@ public class PreviewTemplateRequestBody {
         }
         PreviewTemplateRequestBody other = (PreviewTemplateRequestBody) o;
         return 
-            Objects.deepEquals(this.subject, other.subject) &&
-            Objects.deepEquals(this.body, other.body) &&
-            Objects.deepEquals(this.fromEmailName, other.fromEmailName) &&
-            Objects.deepEquals(this.replyToEmailName, other.replyToEmailName);
+            Utils.enhancedDeepEquals(this.subject, other.subject) &&
+            Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.fromEmailName, other.fromEmailName) &&
+            Utils.enhancedDeepEquals(this.replyToEmailName, other.replyToEmailName);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            subject,
-            body,
-            fromEmailName,
+        return Utils.enhancedHash(
+            subject, body, fromEmailName,
             replyToEmailName);
     }
     
@@ -232,20 +232,22 @@ public class PreviewTemplateRequestBody {
                 "fromEmailName", fromEmailName,
                 "replyToEmailName", replyToEmailName);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> subject = JsonNullable.undefined();
- 
+
         private Optional<String> body = Optional.empty();
- 
+
         private Optional<String> fromEmailName = Optional.empty();
- 
+
         private Optional<String> replyToEmailName = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email subject.
@@ -267,6 +269,7 @@ public class PreviewTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The template body before variable interpolation
          */
@@ -284,6 +287,7 @@ public class PreviewTemplateRequestBody {
             this.body = body;
             return this;
         }
+
 
         /**
          * The local part of the From email address that will be used for emails.
@@ -307,6 +311,7 @@ public class PreviewTemplateRequestBody {
             return this;
         }
 
+
         /**
          * The local part of the Reply To email address that will be used for emails.
          * For example, in the address 'hello@example.com', the local part is 'hello'.
@@ -328,13 +333,13 @@ public class PreviewTemplateRequestBody {
             this.replyToEmailName = replyToEmailName;
             return this;
         }
-        
+
         public PreviewTemplateRequestBody build() {
+
             return new PreviewTemplateRequestBody(
-                subject,
-                body,
-                fromEmailName,
+                subject, body, fromEmailName,
                 replyToEmailName);
         }
+
     }
 }

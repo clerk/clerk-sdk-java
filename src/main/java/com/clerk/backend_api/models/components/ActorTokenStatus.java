@@ -16,7 +16,7 @@ public enum ActorTokenStatus {
     @JsonValue
     private final String value;
 
-    private ActorTokenStatus(String value) {
+    ActorTokenStatus(String value) {
         this.value = value;
     }
     

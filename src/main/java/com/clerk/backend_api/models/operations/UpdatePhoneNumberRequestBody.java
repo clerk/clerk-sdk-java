@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdatePhoneNumberRequestBody {
 
+public class UpdatePhoneNumberRequestBody {
     /**
      * The phone number will be marked as verified.
      */
@@ -83,9 +82,10 @@ public class UpdatePhoneNumberRequestBody {
         return reservedForSecondFactor;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The phone number will be marked as verified.
@@ -145,7 +145,6 @@ public class UpdatePhoneNumberRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -156,17 +155,15 @@ public class UpdatePhoneNumberRequestBody {
         }
         UpdatePhoneNumberRequestBody other = (UpdatePhoneNumberRequestBody) o;
         return 
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.primary, other.primary) &&
-            Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.primary, other.primary) &&
+            Utils.enhancedDeepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            verified,
-            primary,
-            reservedForSecondFactor);
+        return Utils.enhancedHash(
+            verified, primary, reservedForSecondFactor);
     }
     
     @Override
@@ -176,18 +173,20 @@ public class UpdatePhoneNumberRequestBody {
                 "primary", primary,
                 "reservedForSecondFactor", reservedForSecondFactor);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> primary = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> reservedForSecondFactor = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The phone number will be marked as verified.
@@ -207,6 +206,7 @@ public class UpdatePhoneNumberRequestBody {
             return this;
         }
 
+
         /**
          * Set this phone number as the primary phone number for the user.
          */
@@ -224,6 +224,7 @@ public class UpdatePhoneNumberRequestBody {
             this.primary = primary;
             return this;
         }
+
 
         /**
          * Set this phone number as reserved for multi-factor authentication.
@@ -246,12 +247,12 @@ public class UpdatePhoneNumberRequestBody {
             this.reservedForSecondFactor = reservedForSecondFactor;
             return this;
         }
-        
+
         public UpdatePhoneNumberRequestBody build() {
+
             return new UpdatePhoneNumberRequestBody(
-                verified,
-                primary,
-                reservedForSecondFactor);
+                verified, primary, reservedForSecondFactor);
         }
+
     }
 }

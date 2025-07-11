@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateOrganizationMembershipMetadataRequestBody {
 
+public class UpdateOrganizationMembershipMetadataRequestBody {
     /**
      * Metadata saved on the organization membership, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
@@ -69,9 +68,10 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
         return (Optional<Map<String, Object>>) privateMetadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Metadata saved on the organization membership, that is visible to both your frontend and backend.
@@ -82,6 +82,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
+
 
     /**
      * Metadata saved on the organization membership, that is visible to both your frontend and backend.
@@ -103,6 +104,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
         return this;
     }
 
+
     /**
      * Metadata saved on the organization membership that is only visible to your backend.
      * The new object will be merged with the existing value.
@@ -113,7 +115,6 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -124,15 +125,14 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
         }
         UpdateOrganizationMembershipMetadataRequestBody other = (UpdateOrganizationMembershipMetadataRequestBody) o;
         return 
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata);
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            publicMetadata,
-            privateMetadata);
+        return Utils.enhancedHash(
+            publicMetadata, privateMetadata);
     }
     
     @Override
@@ -141,16 +141,18 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Metadata saved on the organization membership, that is visible to both your frontend and backend.
@@ -172,6 +174,7 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the organization membership that is only visible to your backend.
          * The new object will be merged with the existing value.
@@ -191,11 +194,12 @@ public class UpdateOrganizationMembershipMetadataRequestBody {
             this.privateMetadata = privateMetadata;
             return this;
         }
-        
+
         public UpdateOrganizationMembershipMetadataRequestBody build() {
+
             return new UpdateOrganizationMembershipMetadataRequestBody(
-                publicMetadata,
-                privateMetadata);
+                publicMetadata, privateMetadata);
         }
+
     }
 }

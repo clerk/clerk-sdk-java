@@ -14,11 +14,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateUserMetadataRequestBody {
 
+public class UpdateUserMetadataRequestBody {
     /**
      * Metadata saved on the user, that is visible to both your frontend and backend.
      * The new object will be merged with the existing value.
@@ -94,9 +93,10 @@ public class UpdateUserMetadataRequestBody {
         return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Metadata saved on the user, that is visible to both your frontend and backend.
@@ -107,6 +107,7 @@ public class UpdateUserMetadataRequestBody {
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
+
 
     /**
      * Metadata saved on the user, that is visible to both your frontend and backend.
@@ -127,6 +128,7 @@ public class UpdateUserMetadataRequestBody {
         this.privateMetadata = Optional.ofNullable(privateMetadata);
         return this;
     }
+
 
     /**
      * Metadata saved on the user that is only visible to your backend.
@@ -150,6 +152,7 @@ public class UpdateUserMetadataRequestBody {
         return this;
     }
 
+
     /**
      * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
      * The new object will be merged with the existing value.
@@ -162,7 +165,6 @@ public class UpdateUserMetadataRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -173,17 +175,15 @@ public class UpdateUserMetadataRequestBody {
         }
         UpdateUserMetadataRequestBody other = (UpdateUserMetadataRequestBody) o;
         return 
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata);
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.unsafeMetadata, other.unsafeMetadata);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            publicMetadata,
-            privateMetadata,
-            unsafeMetadata);
+        return Utils.enhancedHash(
+            publicMetadata, privateMetadata, unsafeMetadata);
     }
     
     @Override
@@ -193,18 +193,20 @@ public class UpdateUserMetadataRequestBody {
                 "privateMetadata", privateMetadata,
                 "unsafeMetadata", unsafeMetadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Metadata saved on the user, that is visible to both your frontend and backend.
@@ -226,6 +228,7 @@ public class UpdateUserMetadataRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the user that is only visible to your backend.
          * The new object will be merged with the existing value.
@@ -245,6 +248,7 @@ public class UpdateUserMetadataRequestBody {
             this.privateMetadata = privateMetadata;
             return this;
         }
+
 
         /**
          * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
@@ -269,12 +273,12 @@ public class UpdateUserMetadataRequestBody {
             this.unsafeMetadata = unsafeMetadata;
             return this;
         }
-        
+
         public UpdateUserMetadataRequestBody build() {
+
             return new UpdateUserMetadataRequestBody(
-                publicMetadata,
-                privateMetadata,
-                unsafeMetadata);
+                publicMetadata, privateMetadata, unsafeMetadata);
         }
+
     }
 }

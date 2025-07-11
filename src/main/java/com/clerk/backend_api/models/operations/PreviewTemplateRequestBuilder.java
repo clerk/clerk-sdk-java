@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.PreviewTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class PreviewTemplateRequestBuilder {
     private String slug;
     private Optional<? extends PreviewTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallPreviewTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public PreviewTemplateRequestBuilder(SDKMethodInterfaces.MethodCallPreviewTemplate sdk) {
-        this.sdk = sdk;
+    public PreviewTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public PreviewTemplateRequestBuilder templateType(String templateType) {
@@ -58,14 +62,27 @@ public class PreviewTemplateRequestBuilder {
         return this;
     }
 
+
+    private PreviewTemplateRequest buildRequest() {
+
+        PreviewTemplateRequest request = new PreviewTemplateRequest(templateType,
+            slug,
+            requestBody);
+
+        return request;
+    }
+
     public PreviewTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.preview(
-            templateType,
-            slug,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<PreviewTemplateRequest, PreviewTemplateResponse> operation
+              = new PreviewTemplateOperation(
+                sdkConfiguration,
+                options);
+        PreviewTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

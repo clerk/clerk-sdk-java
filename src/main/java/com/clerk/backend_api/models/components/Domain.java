@@ -14,22 +14,26 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Domain {
 
     @JsonProperty("object")
     private DomainObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("name")
     private String name;
 
+
     @JsonProperty("is_satellite")
     private boolean isSatellite;
+
 
     @JsonProperty("frontend_api_url")
     private String frontendApiUrl;
@@ -41,12 +45,15 @@ public class Domain {
     @JsonProperty("accounts_portal_url")
     private JsonNullable<String> accountsPortalUrl;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
     private JsonNullable<String> proxyUrl;
 
+
     @JsonProperty("development_origin")
     private String developmentOrigin;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("cname_targets")
@@ -90,7 +97,9 @@ public class Domain {
             boolean isSatellite,
             String frontendApiUrl,
             String developmentOrigin) {
-        this(object, id, name, isSatellite, frontendApiUrl, JsonNullable.undefined(), JsonNullable.undefined(), developmentOrigin, JsonNullable.undefined());
+        this(object, id, name,
+            isSatellite, frontendApiUrl, JsonNullable.undefined(),
+            JsonNullable.undefined(), developmentOrigin, JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -142,9 +151,10 @@ public class Domain {
         return (JsonNullable<List<CNameTarget>>) cnameTargets;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Domain withObject(DomainObject object) {
         Utils.checkNotNull(object, "object");
@@ -224,7 +234,6 @@ public class Domain {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -235,29 +244,23 @@ public class Domain {
         }
         Domain other = (Domain) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.isSatellite, other.isSatellite) &&
-            Objects.deepEquals(this.frontendApiUrl, other.frontendApiUrl) &&
-            Objects.deepEquals(this.accountsPortalUrl, other.accountsPortalUrl) &&
-            Objects.deepEquals(this.proxyUrl, other.proxyUrl) &&
-            Objects.deepEquals(this.developmentOrigin, other.developmentOrigin) &&
-            Objects.deepEquals(this.cnameTargets, other.cnameTargets);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.isSatellite, other.isSatellite) &&
+            Utils.enhancedDeepEquals(this.frontendApiUrl, other.frontendApiUrl) &&
+            Utils.enhancedDeepEquals(this.accountsPortalUrl, other.accountsPortalUrl) &&
+            Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl) &&
+            Utils.enhancedDeepEquals(this.developmentOrigin, other.developmentOrigin) &&
+            Utils.enhancedDeepEquals(this.cnameTargets, other.cnameTargets);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            name,
-            isSatellite,
-            frontendApiUrl,
-            accountsPortalUrl,
-            proxyUrl,
-            developmentOrigin,
-            cnameTargets);
+        return Utils.enhancedHash(
+            object, id, name,
+            isSatellite, frontendApiUrl, accountsPortalUrl,
+            proxyUrl, developmentOrigin, cnameTargets);
     }
     
     @Override
@@ -273,30 +276,32 @@ public class Domain {
                 "developmentOrigin", developmentOrigin,
                 "cnameTargets", cnameTargets);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private DomainObject object;
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private Boolean isSatellite;
- 
+
         private String frontendApiUrl;
- 
+
         private JsonNullable<String> accountsPortalUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> proxyUrl = JsonNullable.undefined();
- 
+
         private String developmentOrigin;
- 
+
         private JsonNullable<? extends List<CNameTarget>> cnameTargets = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(DomainObject object) {
             Utils.checkNotNull(object, "object");
@@ -304,11 +309,13 @@ public class Domain {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -316,17 +323,20 @@ public class Domain {
             return this;
         }
 
+
         public Builder isSatellite(boolean isSatellite) {
             Utils.checkNotNull(isSatellite, "isSatellite");
             this.isSatellite = isSatellite;
             return this;
         }
 
+
         public Builder frontendApiUrl(String frontendApiUrl) {
             Utils.checkNotNull(frontendApiUrl, "frontendApiUrl");
             this.frontendApiUrl = frontendApiUrl;
             return this;
         }
+
 
         /**
          * Null for satellite domains.
@@ -346,6 +356,7 @@ public class Domain {
             return this;
         }
 
+
         public Builder proxyUrl(String proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
             this.proxyUrl = JsonNullable.of(proxyUrl);
@@ -358,11 +369,13 @@ public class Domain {
             return this;
         }
 
+
         public Builder developmentOrigin(String developmentOrigin) {
             Utils.checkNotNull(developmentOrigin, "developmentOrigin");
             this.developmentOrigin = developmentOrigin;
             return this;
         }
+
 
         public Builder cnameTargets(List<CNameTarget> cnameTargets) {
             Utils.checkNotNull(cnameTargets, "cnameTargets");
@@ -375,18 +388,14 @@ public class Domain {
             this.cnameTargets = cnameTargets;
             return this;
         }
-        
+
         public Domain build() {
+
             return new Domain(
-                object,
-                id,
-                name,
-                isSatellite,
-                frontendApiUrl,
-                accountsPortalUrl,
-                proxyUrl,
-                developmentOrigin,
-                cnameTargets);
+                object, id, name,
+                isSatellite, frontendApiUrl, accountsPortalUrl,
+                proxyUrl, developmentOrigin, cnameTargets);
         }
+
     }
 }

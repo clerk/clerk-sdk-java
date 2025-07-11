@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.RevokeOrganizationInvitationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class RevokeOrganizationInvitationRequestBuilder {
     private String invitationId;
     private Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallRevokeOrganizationInvitation sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public RevokeOrganizationInvitationRequestBuilder(SDKMethodInterfaces.MethodCallRevokeOrganizationInvitation sdk) {
-        this.sdk = sdk;
+    public RevokeOrganizationInvitationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public RevokeOrganizationInvitationRequestBuilder organizationId(String organizationId) {
@@ -58,14 +62,27 @@ public class RevokeOrganizationInvitationRequestBuilder {
         return this;
     }
 
+
+    private RevokeOrganizationInvitationRequest buildRequest() {
+
+        RevokeOrganizationInvitationRequest request = new RevokeOrganizationInvitationRequest(organizationId,
+            invitationId,
+            requestBody);
+
+        return request;
+    }
+
     public RevokeOrganizationInvitationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.revoke(
-            organizationId,
-            invitationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<RevokeOrganizationInvitationRequest, RevokeOrganizationInvitationResponse> operation
+              = new RevokeOrganizationInvitationOperation(
+                sdkConfiguration,
+                options);
+        RevokeOrganizationInvitationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

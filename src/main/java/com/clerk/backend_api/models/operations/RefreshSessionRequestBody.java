@@ -16,7 +16,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -25,7 +24,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>Refresh session parameters
  */
 public class RefreshSessionRequestBody {
-
     /**
      * The JWT that is sent via the `__session` cookie from your frontend.
      * Note: this JWT must be associated with the supplied session ID.
@@ -92,7 +90,8 @@ public class RefreshSessionRequestBody {
             String expiredToken,
             String refreshToken,
             String requestOrigin) {
-        this(expiredToken, refreshToken, requestOrigin, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(expiredToken, refreshToken, requestOrigin,
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -146,9 +145,10 @@ public class RefreshSessionRequestBody {
         return requestOriginatingIp;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The JWT that is sent via the `__session` cookie from your frontend.
@@ -232,7 +232,6 @@ public class RefreshSessionRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -243,23 +242,19 @@ public class RefreshSessionRequestBody {
         }
         RefreshSessionRequestBody other = (RefreshSessionRequestBody) o;
         return 
-            Objects.deepEquals(this.expiredToken, other.expiredToken) &&
-            Objects.deepEquals(this.refreshToken, other.refreshToken) &&
-            Objects.deepEquals(this.requestOrigin, other.requestOrigin) &&
-            Objects.deepEquals(this.requestHeaders, other.requestHeaders) &&
-            Objects.deepEquals(this.format, other.format) &&
-            Objects.deepEquals(this.requestOriginatingIp, other.requestOriginatingIp);
+            Utils.enhancedDeepEquals(this.expiredToken, other.expiredToken) &&
+            Utils.enhancedDeepEquals(this.refreshToken, other.refreshToken) &&
+            Utils.enhancedDeepEquals(this.requestOrigin, other.requestOrigin) &&
+            Utils.enhancedDeepEquals(this.requestHeaders, other.requestHeaders) &&
+            Utils.enhancedDeepEquals(this.format, other.format) &&
+            Utils.enhancedDeepEquals(this.requestOriginatingIp, other.requestOriginatingIp);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            expiredToken,
-            refreshToken,
-            requestOrigin,
-            requestHeaders,
-            format,
-            requestOriginatingIp);
+        return Utils.enhancedHash(
+            expiredToken, refreshToken, requestOrigin,
+            requestHeaders, format, requestOriginatingIp);
     }
     
     @Override
@@ -272,24 +267,26 @@ public class RefreshSessionRequestBody {
                 "format", format,
                 "requestOriginatingIp", requestOriginatingIp);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String expiredToken;
- 
+
         private String refreshToken;
- 
+
         private String requestOrigin;
- 
+
         private JsonNullable<? extends Map<String, Object>> requestHeaders = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Format> format;
- 
+
         private JsonNullable<String> requestOriginatingIp = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The JWT that is sent via the `__session` cookie from your frontend.
@@ -301,6 +298,7 @@ public class RefreshSessionRequestBody {
             return this;
         }
 
+
         /**
          * The JWT that is sent via the `__session` cookie from your frontend.
          */
@@ -310,6 +308,7 @@ public class RefreshSessionRequestBody {
             return this;
         }
 
+
         /**
          * The origin of the request.
          */
@@ -318,6 +317,7 @@ public class RefreshSessionRequestBody {
             this.requestOrigin = requestOrigin;
             return this;
         }
+
 
         /**
          * The headers of the request.
@@ -337,6 +337,7 @@ public class RefreshSessionRequestBody {
             return this;
         }
 
+
         /**
          * The format of the response.
          */
@@ -355,6 +356,7 @@ public class RefreshSessionRequestBody {
             return this;
         }
 
+
         /**
          * The IP address of the request.
          */
@@ -372,19 +374,17 @@ public class RefreshSessionRequestBody {
             this.requestOriginatingIp = requestOriginatingIp;
             return this;
         }
-        
+
         public RefreshSessionRequestBody build() {
             if (format == null) {
                 format = _SINGLETON_VALUE_Format.value();
             }
+
             return new RefreshSessionRequestBody(
-                expiredToken,
-                refreshToken,
-                requestOrigin,
-                requestHeaders,
-                format,
-                requestOriginatingIp);
+                expiredToken, refreshToken, requestOrigin,
+                requestHeaders, format, requestOriginatingIp);
         }
+
 
         private static final LazySingletonValue<JsonNullable<? extends Format>> _SINGLETON_VALUE_Format =
                 new LazySingletonValue<>(

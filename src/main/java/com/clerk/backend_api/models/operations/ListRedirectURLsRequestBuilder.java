@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListRedirectURLsOperation;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -25,10 +29,10 @@ public class ListRedirectURLsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListRedirectURLs sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListRedirectURLsRequestBuilder(SDKMethodInterfaces.MethodCallListRedirectURLs sdk) {
-        this.sdk = sdk;
+    public ListRedirectURLsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public ListRedirectURLsRequestBuilder paginated(boolean paginated) {
@@ -79,20 +83,34 @@ public class ListRedirectURLsRequestBuilder {
         return this;
     }
 
-    public ListRedirectURLsResponse call() throws Exception {
+
+    private ListRedirectURLsRequest buildRequest() {
         if (limit == null) {
             limit = _SINGLETON_VALUE_Limit.value();
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            paginated,
+        }
+
+        ListRedirectURLsRequest request = new ListRedirectURLsRequest(paginated,
             limit,
-            offset,
-            options);
+            offset);
+
+        return request;
+    }
+
+    public ListRedirectURLsResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
+              = new ListRedirectURLsOperation(
+                sdkConfiguration,
+                options);
+        ListRedirectURLsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

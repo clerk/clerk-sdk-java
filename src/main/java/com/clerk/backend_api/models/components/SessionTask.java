@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class SessionTask {
 
@@ -28,9 +28,10 @@ public class SessionTask {
         return key;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SessionTask withKey(String key) {
         Utils.checkNotNull(key, "key");
@@ -38,7 +39,6 @@ public class SessionTask {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -49,12 +49,12 @@ public class SessionTask {
         }
         SessionTask other = (SessionTask) o;
         return 
-            Objects.deepEquals(this.key, other.key);
+            Utils.enhancedDeepEquals(this.key, other.key);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             key);
     }
     
@@ -63,24 +63,28 @@ public class SessionTask {
         return Utils.toString(SessionTask.class,
                 "key", key);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String key;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder key(String key) {
             Utils.checkNotNull(key, "key");
             this.key = key;
             return this;
         }
-        
+
         public SessionTask build() {
+
             return new SessionTask(
                 key);
         }
+
     }
 }

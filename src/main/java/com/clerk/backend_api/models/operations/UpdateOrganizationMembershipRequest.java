@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UpdateOrganizationMembershipRequest {
-
     /**
      * The ID of the organization the membership belongs to
      */
@@ -24,6 +23,7 @@ public class UpdateOrganizationMembershipRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private UpdateOrganizationMembershipRequestBody requestBody;
@@ -62,9 +62,10 @@ public class UpdateOrganizationMembershipRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization the membership belongs to
@@ -90,7 +91,6 @@ public class UpdateOrganizationMembershipRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -101,17 +101,15 @@ public class UpdateOrganizationMembershipRequest {
         }
         UpdateOrganizationMembershipRequest other = (UpdateOrganizationMembershipRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            organizationId,
-            userId,
-            requestBody);
+        return Utils.enhancedHash(
+            organizationId, userId, requestBody);
     }
     
     @Override
@@ -121,18 +119,20 @@ public class UpdateOrganizationMembershipRequest {
                 "userId", userId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private String userId;
- 
+
         private UpdateOrganizationMembershipRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization the membership belongs to
@@ -143,6 +143,7 @@ public class UpdateOrganizationMembershipRequest {
             return this;
         }
 
+
         /**
          * The ID of the user that this membership belongs to
          */
@@ -152,17 +153,18 @@ public class UpdateOrganizationMembershipRequest {
             return this;
         }
 
+
         public Builder requestBody(UpdateOrganizationMembershipRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateOrganizationMembershipRequest build() {
+
             return new UpdateOrganizationMembershipRequest(
-                organizationId,
-                userId,
-                requestBody);
+                organizationId, userId, requestBody);
         }
+
     }
 }

@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListInstanceOrganizationInvitationsOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class ListInstanceOrganizationInvitationsRequestBuilder {
 
     private ListInstanceOrganizationInvitationsRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListInstanceOrganizationInvitations sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListInstanceOrganizationInvitationsRequestBuilder(SDKMethodInterfaces.MethodCallListInstanceOrganizationInvitations sdk) {
-        this.sdk = sdk;
+    public ListInstanceOrganizationInvitationsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ListInstanceOrganizationInvitationsRequestBuilder request(ListInstanceOrganizationInvitationsRequest request) {
@@ -39,10 +43,14 @@ public class ListInstanceOrganizationInvitationsRequestBuilder {
 
     public ListInstanceOrganizationInvitationsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getAll(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListInstanceOrganizationInvitationsRequest, ListInstanceOrganizationInvitationsResponse> operation
+              = new ListInstanceOrganizationInvitationsOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -14,7 +14,7 @@ public enum Nonce {
     @JsonValue
     private final String value;
 
-    private Nonce(String value) {
+    Nonce(String value) {
         this.value = value;
     }
     

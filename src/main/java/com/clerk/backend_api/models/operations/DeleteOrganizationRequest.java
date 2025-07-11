@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteOrganizationRequest {
-
     /**
      * The ID of the organization to delete
      */
@@ -34,9 +33,10 @@ public class DeleteOrganizationRequest {
         return organizationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the organization to delete
@@ -47,7 +47,6 @@ public class DeleteOrganizationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteOrganizationRequest {
         }
         DeleteOrganizationRequest other = (DeleteOrganizationRequest) o;
         return 
-            Objects.deepEquals(this.organizationId, other.organizationId);
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             organizationId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteOrganizationRequest {
         return Utils.toString(DeleteOrganizationRequest.class,
                 "organizationId", organizationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the organization to delete
@@ -89,10 +90,12 @@ public class DeleteOrganizationRequest {
             this.organizationId = organizationId;
             return this;
         }
-        
+
         public DeleteOrganizationRequest build() {
+
             return new DeleteOrganizationRequest(
                 organizationId);
         }
+
     }
 }

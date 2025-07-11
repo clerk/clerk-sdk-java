@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadataOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
     private String userId;
     private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpdateOrganizationMembershipMetadata sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpdateOrganizationMembershipMetadataRequestBuilder(SDKMethodInterfaces.MethodCallUpdateOrganizationMembershipMetadata sdk) {
-        this.sdk = sdk;
+    public UpdateOrganizationMembershipMetadataRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpdateOrganizationMembershipMetadataRequestBuilder organizationId(String organizationId) {
@@ -58,14 +62,27 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
         return this;
     }
 
+
+    private UpdateOrganizationMembershipMetadataRequest buildRequest() {
+
+        UpdateOrganizationMembershipMetadataRequest request = new UpdateOrganizationMembershipMetadataRequest(organizationId,
+            userId,
+            requestBody);
+
+        return request;
+    }
+
     public UpdateOrganizationMembershipMetadataResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.updateMetadata(
-            organizationId,
-            userId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpdateOrganizationMembershipMetadataRequest, UpdateOrganizationMembershipMetadataResponse> operation
+              = new UpdateOrganizationMembershipMetadataOperation(
+                sdkConfiguration,
+                options);
+        UpdateOrganizationMembershipMetadataRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -13,7 +13,6 @@ import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,6 +25,7 @@ public class VerifyTOTPResponseBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified")
     private Optional<Boolean> verified;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("code_type")
@@ -56,15 +56,17 @@ public class VerifyTOTPResponseBody {
         return (Optional<CodeType>) codeType;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public VerifyTOTPResponseBody withVerified(boolean verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = Optional.ofNullable(verified);
         return this;
     }
+
 
     public VerifyTOTPResponseBody withVerified(Optional<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
@@ -78,13 +80,13 @@ public class VerifyTOTPResponseBody {
         return this;
     }
 
+
     public VerifyTOTPResponseBody withCodeType(Optional<? extends CodeType> codeType) {
         Utils.checkNotNull(codeType, "codeType");
         this.codeType = codeType;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -95,15 +97,14 @@ public class VerifyTOTPResponseBody {
         }
         VerifyTOTPResponseBody other = (VerifyTOTPResponseBody) o;
         return 
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.codeType, other.codeType);
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.codeType, other.codeType);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            verified,
-            codeType);
+        return Utils.enhancedHash(
+            verified, codeType);
     }
     
     @Override
@@ -112,16 +113,18 @@ public class VerifyTOTPResponseBody {
                 "verified", verified,
                 "codeType", codeType);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Boolean> verified = Optional.empty();
- 
+
         private Optional<? extends CodeType> codeType = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder verified(boolean verified) {
             Utils.checkNotNull(verified, "verified");
@@ -135,6 +138,7 @@ public class VerifyTOTPResponseBody {
             return this;
         }
 
+
         public Builder codeType(CodeType codeType) {
             Utils.checkNotNull(codeType, "codeType");
             this.codeType = Optional.ofNullable(codeType);
@@ -146,11 +150,12 @@ public class VerifyTOTPResponseBody {
             this.codeType = codeType;
             return this;
         }
-        
+
         public VerifyTOTPResponseBody build() {
+
             return new VerifyTOTPResponseBody(
-                verified,
-                codeType);
+                verified, codeType);
         }
+
     }
 }

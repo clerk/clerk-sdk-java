@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateSessionTokenFromTemplateRequest {
 
+public class CreateSessionTokenFromTemplateRequest {
     /**
      * The ID of the session
      */
@@ -26,6 +25,7 @@ public class CreateSessionTokenFromTemplateRequest {
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=template_name")
     private String templateName;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody;
@@ -71,9 +71,10 @@ public class CreateSessionTokenFromTemplateRequest {
         return (Optional<CreateSessionTokenFromTemplateRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the session
@@ -99,13 +100,13 @@ public class CreateSessionTokenFromTemplateRequest {
         return this;
     }
 
+
     public CreateSessionTokenFromTemplateRequest withRequestBody(Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,17 +117,15 @@ public class CreateSessionTokenFromTemplateRequest {
         }
         CreateSessionTokenFromTemplateRequest other = (CreateSessionTokenFromTemplateRequest) o;
         return 
-            Objects.deepEquals(this.sessionId, other.sessionId) &&
-            Objects.deepEquals(this.templateName, other.templateName) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.templateName, other.templateName) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sessionId,
-            templateName,
-            requestBody);
+        return Utils.enhancedHash(
+            sessionId, templateName, requestBody);
     }
     
     @Override
@@ -136,18 +135,20 @@ public class CreateSessionTokenFromTemplateRequest {
                 "templateName", templateName,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sessionId;
- 
+
         private String templateName;
- 
+
         private Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the session
@@ -158,6 +159,7 @@ public class CreateSessionTokenFromTemplateRequest {
             return this;
         }
 
+
         /**
          * The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
          */
@@ -166,6 +168,7 @@ public class CreateSessionTokenFromTemplateRequest {
             this.templateName = templateName;
             return this;
         }
+
 
         public Builder requestBody(CreateSessionTokenFromTemplateRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -178,12 +181,12 @@ public class CreateSessionTokenFromTemplateRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public CreateSessionTokenFromTemplateRequest build() {
+
             return new CreateSessionTokenFromTemplateRequest(
-                sessionId,
-                templateName,
-                requestBody);
+                sessionId, templateName, requestBody);
         }
+
     }
 }

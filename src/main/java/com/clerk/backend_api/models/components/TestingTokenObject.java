@@ -14,7 +14,7 @@ public enum TestingTokenObject {
     @JsonValue
     private final String value;
 
-    private TestingTokenObject(String value) {
+    TestingTokenObject(String value) {
         this.value = value;
     }
     

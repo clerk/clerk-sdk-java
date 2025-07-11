@@ -21,7 +21,7 @@ public enum EnrollmentMode {
     @JsonValue
     private final String value;
 
-    private EnrollmentMode(String value) {
+    EnrollmentMode(String value) {
         this.value = value;
     }
     

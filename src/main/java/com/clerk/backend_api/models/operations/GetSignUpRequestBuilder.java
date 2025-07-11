@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetSignUpOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetSignUpRequestBuilder {
 
     private String id;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetSignUp sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetSignUpRequestBuilder(SDKMethodInterfaces.MethodCallGetSignUp sdk) {
-        this.sdk = sdk;
+    public GetSignUpRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetSignUpRequestBuilder id(String id) {
@@ -38,12 +42,25 @@ public class GetSignUpRequestBuilder {
         return this;
     }
 
+
+    private GetSignUpRequest buildRequest() {
+
+        GetSignUpRequest request = new GetSignUpRequest(id);
+
+        return request;
+    }
+
     public GetSignUpResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            id,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetSignUpRequest, GetSignUpResponse> operation
+              = new GetSignUpOperation(
+                sdkConfiguration,
+                options);
+        GetSignUpRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

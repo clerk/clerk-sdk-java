@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteOAuthApplicationRequest {
-
     /**
      * The ID of the OAuth application to delete
      */
@@ -34,9 +33,10 @@ public class DeleteOAuthApplicationRequest {
         return oauthApplicationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the OAuth application to delete
@@ -47,7 +47,6 @@ public class DeleteOAuthApplicationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteOAuthApplicationRequest {
         }
         DeleteOAuthApplicationRequest other = (DeleteOAuthApplicationRequest) o;
         return 
-            Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId);
+            Utils.enhancedDeepEquals(this.oauthApplicationId, other.oauthApplicationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             oauthApplicationId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteOAuthApplicationRequest {
         return Utils.toString(DeleteOAuthApplicationRequest.class,
                 "oauthApplicationId", oauthApplicationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String oauthApplicationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the OAuth application to delete
@@ -89,10 +90,12 @@ public class DeleteOAuthApplicationRequest {
             this.oauthApplicationId = oauthApplicationId;
             return this;
         }
-        
+
         public DeleteOAuthApplicationRequest build() {
+
             return new DeleteOAuthApplicationRequest(
                 oauthApplicationId);
         }
+
     }
 }

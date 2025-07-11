@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateOrganizationInvitationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class CreateOrganizationInvitationRequestBuilder {
     private String organizationId;
     private Optional<? extends CreateOrganizationInvitationRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateOrganizationInvitation sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateOrganizationInvitationRequestBuilder(SDKMethodInterfaces.MethodCallCreateOrganizationInvitation sdk) {
-        this.sdk = sdk;
+    public CreateOrganizationInvitationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public CreateOrganizationInvitationRequestBuilder organizationId(String organizationId) {
@@ -51,13 +55,26 @@ public class CreateOrganizationInvitationRequestBuilder {
         return this;
     }
 
+
+    private CreateOrganizationInvitationRequest buildRequest() {
+
+        CreateOrganizationInvitationRequest request = new CreateOrganizationInvitationRequest(organizationId,
+            requestBody);
+
+        return request;
+    }
+
     public CreateOrganizationInvitationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            organizationId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<CreateOrganizationInvitationRequest, CreateOrganizationInvitationResponse> operation
+              = new CreateOrganizationInvitationOperation(
+                sdkConfiguration,
+                options);
+        CreateOrganizationInvitationRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

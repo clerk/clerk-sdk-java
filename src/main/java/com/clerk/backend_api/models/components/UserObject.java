@@ -19,7 +19,7 @@ public enum UserObject {
     @JsonValue
     private final String value;
 
-    private UserObject(String value) {
+    UserObject(String value) {
         this.value = value;
     }
     

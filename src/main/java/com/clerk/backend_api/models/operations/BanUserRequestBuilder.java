@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.BanUserOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class BanUserRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallBanUser sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public BanUserRequestBuilder(SDKMethodInterfaces.MethodCallBanUser sdk) {
-        this.sdk = sdk;
+    public BanUserRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public BanUserRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class BanUserRequestBuilder {
         return this;
     }
 
+
+    private BanUserRequest buildRequest() {
+
+        BanUserRequest request = new BanUserRequest(userId);
+
+        return request;
+    }
+
     public BanUserResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.ban(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<BanUserRequest, BanUserResponse> operation
+              = new BanUserOperation(
+                sdkConfiguration,
+                options);
+        BanUserRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

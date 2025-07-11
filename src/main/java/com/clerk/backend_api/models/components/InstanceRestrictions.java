@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * InstanceRestrictions
@@ -18,24 +17,28 @@ import java.util.Objects;
  * <p>Success
  */
 public class InstanceRestrictions {
-
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
     private InstanceRestrictionsObject object;
 
+
     @JsonProperty("allowlist")
     private boolean allowlist;
+
 
     @JsonProperty("blocklist")
     private boolean blocklist;
 
+
     @JsonProperty("block_email_subaddresses")
     private boolean blockEmailSubaddresses;
 
+
     @JsonProperty("block_disposable_email_domains")
     private boolean blockDisposableEmailDomains;
+
 
     @JsonProperty("ignore_dots_for_gmail_addresses")
     private boolean ignoreDotsForGmailAddresses;
@@ -95,9 +98,10 @@ public class InstanceRestrictions {
         return ignoreDotsForGmailAddresses;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -138,7 +142,6 @@ public class InstanceRestrictions {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -149,23 +152,19 @@ public class InstanceRestrictions {
         }
         InstanceRestrictions other = (InstanceRestrictions) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.allowlist, other.allowlist) &&
-            Objects.deepEquals(this.blocklist, other.blocklist) &&
-            Objects.deepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
-            Objects.deepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
-            Objects.deepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.allowlist, other.allowlist) &&
+            Utils.enhancedDeepEquals(this.blocklist, other.blocklist) &&
+            Utils.enhancedDeepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
+            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
+            Utils.enhancedDeepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            allowlist,
-            blocklist,
-            blockEmailSubaddresses,
-            blockDisposableEmailDomains,
-            ignoreDotsForGmailAddresses);
+        return Utils.enhancedHash(
+            object, allowlist, blocklist,
+            blockEmailSubaddresses, blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
     }
     
     @Override
@@ -178,24 +177,26 @@ public class InstanceRestrictions {
                 "blockDisposableEmailDomains", blockDisposableEmailDomains,
                 "ignoreDotsForGmailAddresses", ignoreDotsForGmailAddresses);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private InstanceRestrictionsObject object;
- 
+
         private Boolean allowlist;
- 
+
         private Boolean blocklist;
- 
+
         private Boolean blockEmailSubaddresses;
- 
+
         private Boolean blockDisposableEmailDomains;
- 
+
         private Boolean ignoreDotsForGmailAddresses;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -206,11 +207,13 @@ public class InstanceRestrictions {
             return this;
         }
 
+
         public Builder allowlist(boolean allowlist) {
             Utils.checkNotNull(allowlist, "allowlist");
             this.allowlist = allowlist;
             return this;
         }
+
 
         public Builder blocklist(boolean blocklist) {
             Utils.checkNotNull(blocklist, "blocklist");
@@ -218,11 +221,13 @@ public class InstanceRestrictions {
             return this;
         }
 
+
         public Builder blockEmailSubaddresses(boolean blockEmailSubaddresses) {
             Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
             this.blockEmailSubaddresses = blockEmailSubaddresses;
             return this;
         }
+
 
         public Builder blockDisposableEmailDomains(boolean blockDisposableEmailDomains) {
             Utils.checkNotNull(blockDisposableEmailDomains, "blockDisposableEmailDomains");
@@ -230,20 +235,19 @@ public class InstanceRestrictions {
             return this;
         }
 
+
         public Builder ignoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
             Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
             this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
             return this;
         }
-        
+
         public InstanceRestrictions build() {
+
             return new InstanceRestrictions(
-                object,
-                allowlist,
-                blocklist,
-                blockEmailSubaddresses,
-                blockDisposableEmailDomains,
-                ignoreDotsForGmailAddresses);
+                object, allowlist, blocklist,
+                blockEmailSubaddresses, blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
         }
+
     }
 }

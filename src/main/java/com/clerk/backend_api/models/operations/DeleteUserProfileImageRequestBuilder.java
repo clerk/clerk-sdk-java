@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteUserProfileImageOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteUserProfileImageRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteUserProfileImage sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteUserProfileImageRequestBuilder(SDKMethodInterfaces.MethodCallDeleteUserProfileImage sdk) {
-        this.sdk = sdk;
+    public DeleteUserProfileImageRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteUserProfileImageRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class DeleteUserProfileImageRequestBuilder {
         return this;
     }
 
+
+    private DeleteUserProfileImageRequest buildRequest() {
+
+        DeleteUserProfileImageRequest request = new DeleteUserProfileImageRequest(userId);
+
+        return request;
+    }
+
     public DeleteUserProfileImageResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteProfileImage(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
+              = new DeleteUserProfileImageOperation(
+                sdkConfiguration,
+                options);
+        DeleteUserProfileImageRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

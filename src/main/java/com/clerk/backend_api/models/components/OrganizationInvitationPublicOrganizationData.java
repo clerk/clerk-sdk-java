@@ -12,23 +12,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class OrganizationInvitationPublicOrganizationData {
 
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("name")
     private String name;
+
 
     @JsonProperty("slug")
     private String slug;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("image_url")
     private Optional<String> imageUrl;
+
 
     @JsonProperty("has_image")
     private boolean hasImage;
@@ -57,7 +61,8 @@ public class OrganizationInvitationPublicOrganizationData {
             String name,
             String slug,
             boolean hasImage) {
-        this(id, name, slug, Optional.empty(), hasImage);
+        this(id, name, slug,
+            Optional.empty(), hasImage);
     }
 
     @JsonIgnore
@@ -85,9 +90,10 @@ public class OrganizationInvitationPublicOrganizationData {
         return hasImage;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OrganizationInvitationPublicOrganizationData withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -113,6 +119,7 @@ public class OrganizationInvitationPublicOrganizationData {
         return this;
     }
 
+
     public OrganizationInvitationPublicOrganizationData withImageUrl(Optional<String> imageUrl) {
         Utils.checkNotNull(imageUrl, "imageUrl");
         this.imageUrl = imageUrl;
@@ -125,7 +132,6 @@ public class OrganizationInvitationPublicOrganizationData {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -136,21 +142,18 @@ public class OrganizationInvitationPublicOrganizationData {
         }
         OrganizationInvitationPublicOrganizationData other = (OrganizationInvitationPublicOrganizationData) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            Objects.deepEquals(this.hasImage, other.hasImage);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.hasImage, other.hasImage);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            name,
-            slug,
-            imageUrl,
-            hasImage);
+        return Utils.enhancedHash(
+            id, name, slug,
+            imageUrl, hasImage);
     }
     
     @Override
@@ -162,22 +165,24 @@ public class OrganizationInvitationPublicOrganizationData {
                 "imageUrl", imageUrl,
                 "hasImage", hasImage);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private String slug;
- 
+
         private Optional<String> imageUrl = Optional.empty();
- 
+
         private Boolean hasImage;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -185,17 +190,20 @@ public class OrganizationInvitationPublicOrganizationData {
             return this;
         }
 
+
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
 
+
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
             return this;
         }
+
 
         public Builder imageUrl(String imageUrl) {
             Utils.checkNotNull(imageUrl, "imageUrl");
@@ -209,19 +217,19 @@ public class OrganizationInvitationPublicOrganizationData {
             return this;
         }
 
+
         public Builder hasImage(boolean hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
             this.hasImage = hasImage;
             return this;
         }
-        
+
         public OrganizationInvitationPublicOrganizationData build() {
+
             return new OrganizationInvitationPublicOrganizationData(
-                id,
-                name,
-                slug,
-                imageUrl,
-                hasImage);
+                id, name, slug,
+                imageUrl, hasImage);
         }
+
     }
 }

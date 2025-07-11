@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -24,16 +23,20 @@ public class AccountlessApplication {
     @JsonProperty("object")
     private AccountlessApplicationObject object;
 
+
     @JsonProperty("publishable_key")
     private String publishableKey;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("secret_key")
     private Optional<String> secretKey;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("claim_url")
     private Optional<String> claimUrl;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("api_keys_url")
@@ -61,7 +64,8 @@ public class AccountlessApplication {
     public AccountlessApplication(
             AccountlessApplicationObject object,
             String publishableKey) {
-        this(object, publishableKey, Optional.empty(), Optional.empty(), Optional.empty());
+        this(object, publishableKey, Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -89,9 +93,10 @@ public class AccountlessApplication {
         return apiKeysUrl;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public AccountlessApplication withObject(AccountlessApplicationObject object) {
         Utils.checkNotNull(object, "object");
@@ -111,6 +116,7 @@ public class AccountlessApplication {
         return this;
     }
 
+
     public AccountlessApplication withSecretKey(Optional<String> secretKey) {
         Utils.checkNotNull(secretKey, "secretKey");
         this.secretKey = secretKey;
@@ -122,6 +128,7 @@ public class AccountlessApplication {
         this.claimUrl = Optional.ofNullable(claimUrl);
         return this;
     }
+
 
     public AccountlessApplication withClaimUrl(Optional<String> claimUrl) {
         Utils.checkNotNull(claimUrl, "claimUrl");
@@ -135,13 +142,13 @@ public class AccountlessApplication {
         return this;
     }
 
+
     public AccountlessApplication withApiKeysUrl(Optional<String> apiKeysUrl) {
         Utils.checkNotNull(apiKeysUrl, "apiKeysUrl");
         this.apiKeysUrl = apiKeysUrl;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -152,21 +159,18 @@ public class AccountlessApplication {
         }
         AccountlessApplication other = (AccountlessApplication) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.publishableKey, other.publishableKey) &&
-            Objects.deepEquals(this.secretKey, other.secretKey) &&
-            Objects.deepEquals(this.claimUrl, other.claimUrl) &&
-            Objects.deepEquals(this.apiKeysUrl, other.apiKeysUrl);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.publishableKey, other.publishableKey) &&
+            Utils.enhancedDeepEquals(this.secretKey, other.secretKey) &&
+            Utils.enhancedDeepEquals(this.claimUrl, other.claimUrl) &&
+            Utils.enhancedDeepEquals(this.apiKeysUrl, other.apiKeysUrl);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            publishableKey,
-            secretKey,
-            claimUrl,
-            apiKeysUrl);
+        return Utils.enhancedHash(
+            object, publishableKey, secretKey,
+            claimUrl, apiKeysUrl);
     }
     
     @Override
@@ -178,22 +182,24 @@ public class AccountlessApplication {
                 "claimUrl", claimUrl,
                 "apiKeysUrl", apiKeysUrl);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private AccountlessApplicationObject object;
- 
+
         private String publishableKey;
- 
+
         private Optional<String> secretKey = Optional.empty();
- 
+
         private Optional<String> claimUrl = Optional.empty();
- 
+
         private Optional<String> apiKeysUrl = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(AccountlessApplicationObject object) {
             Utils.checkNotNull(object, "object");
@@ -201,11 +207,13 @@ public class AccountlessApplication {
             return this;
         }
 
+
         public Builder publishableKey(String publishableKey) {
             Utils.checkNotNull(publishableKey, "publishableKey");
             this.publishableKey = publishableKey;
             return this;
         }
+
 
         public Builder secretKey(String secretKey) {
             Utils.checkNotNull(secretKey, "secretKey");
@@ -219,6 +227,7 @@ public class AccountlessApplication {
             return this;
         }
 
+
         public Builder claimUrl(String claimUrl) {
             Utils.checkNotNull(claimUrl, "claimUrl");
             this.claimUrl = Optional.ofNullable(claimUrl);
@@ -231,6 +240,7 @@ public class AccountlessApplication {
             return this;
         }
 
+
         public Builder apiKeysUrl(String apiKeysUrl) {
             Utils.checkNotNull(apiKeysUrl, "apiKeysUrl");
             this.apiKeysUrl = Optional.ofNullable(apiKeysUrl);
@@ -242,14 +252,13 @@ public class AccountlessApplication {
             this.apiKeysUrl = apiKeysUrl;
             return this;
         }
-        
+
         public AccountlessApplication build() {
+
             return new AccountlessApplication(
-                object,
-                publishableKey,
-                secretKey,
-                claimUrl,
-                apiKeysUrl);
+                object, publishableKey, secretKey,
+                claimUrl, apiKeysUrl);
         }
+
     }
 }

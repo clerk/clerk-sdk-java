@@ -17,11 +17,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateOAuthApplicationRequestBody {
 
+public class CreateOAuthApplicationRequestBody {
     /**
      * The name of the new OAuth application.
      * Max length: 256
@@ -81,7 +80,8 @@ public class CreateOAuthApplicationRequestBody {
     
     public CreateOAuthApplicationRequestBody(
             String name) {
-        this(name, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(name, JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -129,9 +129,10 @@ public class CreateOAuthApplicationRequestBody {
         return public_;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name of the new OAuth application.
@@ -221,7 +222,6 @@ public class CreateOAuthApplicationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -232,21 +232,18 @@ public class CreateOAuthApplicationRequestBody {
         }
         CreateOAuthApplicationRequestBody other = (CreateOAuthApplicationRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.redirectUris, other.redirectUris) &&
-            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            Objects.deepEquals(this.scopes, other.scopes) &&
-            Objects.deepEquals(this.public_, other.public_);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.redirectUris, other.redirectUris) &&
+            Utils.enhancedDeepEquals(this.callbackUrl, other.callbackUrl) &&
+            Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.public_, other.public_);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            redirectUris,
-            callbackUrl,
-            scopes,
-            public_);
+        return Utils.enhancedHash(
+            name, redirectUris, callbackUrl,
+            scopes, public_);
     }
     
     @Override
@@ -258,23 +255,25 @@ public class CreateOAuthApplicationRequestBody {
                 "scopes", scopes,
                 "public_", public_);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String name;
- 
+
         private JsonNullable<? extends List<String>> redirectUris = JsonNullable.undefined();
- 
+
         @Deprecated
         private JsonNullable<String> callbackUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<String> scopes;
- 
+
         private JsonNullable<Boolean> public_ = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name of the new OAuth application.
@@ -285,6 +284,7 @@ public class CreateOAuthApplicationRequestBody {
             this.name = name;
             return this;
         }
+
 
         /**
          * An array of redirect URIs of the new OAuth application
@@ -303,6 +303,7 @@ public class CreateOAuthApplicationRequestBody {
             this.redirectUris = redirectUris;
             return this;
         }
+
 
         /**
          * The callback URL of the new OAuth application
@@ -328,6 +329,7 @@ public class CreateOAuthApplicationRequestBody {
             return this;
         }
 
+
         /**
          * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
          */
@@ -346,6 +348,7 @@ public class CreateOAuthApplicationRequestBody {
             return this;
         }
 
+
         /**
          * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
          */
@@ -363,18 +366,17 @@ public class CreateOAuthApplicationRequestBody {
             this.public_ = public_;
             return this;
         }
-        
+
         public CreateOAuthApplicationRequestBody build() {
             if (scopes == null) {
                 scopes = _SINGLETON_VALUE_Scopes.value();
             }
+
             return new CreateOAuthApplicationRequestBody(
-                name,
-                redirectUris,
-                callbackUrl,
-                scopes,
-                public_);
+                name, redirectUris, callbackUrl,
+                scopes, public_);
         }
+
 
         private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_Scopes =
                 new LazySingletonValue<>(

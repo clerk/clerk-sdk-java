@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UpdateOAuthApplicationRequest {
-
     /**
      * The ID of the OAuth application to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=oauth_application_id")
     private String oauthApplicationId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private UpdateOAuthApplicationRequestBody requestBody;
@@ -45,9 +45,10 @@ public class UpdateOAuthApplicationRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the OAuth application to update
@@ -64,7 +65,6 @@ public class UpdateOAuthApplicationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -75,15 +75,14 @@ public class UpdateOAuthApplicationRequest {
         }
         UpdateOAuthApplicationRequest other = (UpdateOAuthApplicationRequest) o;
         return 
-            Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.oauthApplicationId, other.oauthApplicationId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            oauthApplicationId,
-            requestBody);
+        return Utils.enhancedHash(
+            oauthApplicationId, requestBody);
     }
     
     @Override
@@ -92,16 +91,18 @@ public class UpdateOAuthApplicationRequest {
                 "oauthApplicationId", oauthApplicationId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String oauthApplicationId;
- 
+
         private UpdateOAuthApplicationRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the OAuth application to update
@@ -112,16 +113,18 @@ public class UpdateOAuthApplicationRequest {
             return this;
         }
 
+
         public Builder requestBody(UpdateOAuthApplicationRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateOAuthApplicationRequest build() {
+
             return new UpdateOAuthApplicationRequest(
-                oauthApplicationId,
-                requestBody);
+                oauthApplicationId, requestBody);
         }
+
     }
 }

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -20,7 +19,6 @@ import java.util.Optional;
  * <p>Parameters.
  */
 public class VerifySessionRequestBody {
-
     /**
      * The JWT that is sent via the `__session` cookie from your frontend.
      * Note: this JWT must be associated with the supplied session ID.
@@ -49,9 +47,10 @@ public class VerifySessionRequestBody {
         return token;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The JWT that is sent via the `__session` cookie from your frontend.
@@ -63,6 +62,7 @@ public class VerifySessionRequestBody {
         return this;
     }
 
+
     /**
      * The JWT that is sent via the `__session` cookie from your frontend.
      * Note: this JWT must be associated with the supplied session ID.
@@ -73,7 +73,6 @@ public class VerifySessionRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,12 +83,12 @@ public class VerifySessionRequestBody {
         }
         VerifySessionRequestBody other = (VerifySessionRequestBody) o;
         return 
-            Objects.deepEquals(this.token, other.token);
+            Utils.enhancedDeepEquals(this.token, other.token);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             token);
     }
     
@@ -98,14 +97,16 @@ public class VerifySessionRequestBody {
         return Utils.toString(VerifySessionRequestBody.class,
                 "token", token);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> token = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The JWT that is sent via the `__session` cookie from your frontend.
@@ -126,10 +127,12 @@ public class VerifySessionRequestBody {
             this.token = token;
             return this;
         }
-        
+
         public VerifySessionRequestBody build() {
+
             return new VerifySessionRequestBody(
                 token);
         }
+
     }
 }

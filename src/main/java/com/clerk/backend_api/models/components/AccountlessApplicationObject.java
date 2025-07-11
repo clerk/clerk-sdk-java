@@ -14,7 +14,7 @@ public enum AccountlessApplicationObject {
     @JsonValue
     private final String value;
 
-    private AccountlessApplicationObject(String value) {
+    AccountlessApplicationObject(String value) {
         this.value = value;
     }
     

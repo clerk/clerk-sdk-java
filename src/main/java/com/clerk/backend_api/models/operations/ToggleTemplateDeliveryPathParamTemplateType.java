@@ -20,7 +20,7 @@ public enum ToggleTemplateDeliveryPathParamTemplateType {
     @JsonValue
     private final String value;
 
-    private ToggleTemplateDeliveryPathParamTemplateType(String value) {
+    ToggleTemplateDeliveryPathParamTemplateType(String value) {
         this.value = value;
     }
     

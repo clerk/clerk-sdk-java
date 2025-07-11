@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class QueryParameters {
     public static <T extends Object> List<QueryParameter> parseQueryParams(Class<T> type, T queryParams,
-            Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
+            Globals globals) throws Exception {
         List<QueryParameter> allParams = new ArrayList<>();
 
         Field[] fields = type.getDeclaredFields();
@@ -63,6 +64,18 @@ public class QueryParameters {
             }
         }
 
+        // include all global params in pathParams if not already present
+        if (globals != null) {
+            Set<String> allParamNames = allParams.stream()
+                .map(QueryParameter::name)
+                .collect(Collectors.toSet());
+            globals.queryParamsAsStream()
+                .filter(entry -> !allParamNames.contains(entry.getKey()))
+                .forEach(entry ->      
+                        allParams.add(QueryParameter.of(entry.getKey(), 
+                            entry.getValue(), false)));
+        }
+        
         return allParams;
     }
 

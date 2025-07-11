@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeletePhoneNumberRequest {
-
     /**
      * The ID of the phone number to delete
      */
@@ -34,9 +33,10 @@ public class DeletePhoneNumberRequest {
         return phoneNumberId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the phone number to delete
@@ -47,7 +47,6 @@ public class DeletePhoneNumberRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeletePhoneNumberRequest {
         }
         DeletePhoneNumberRequest other = (DeletePhoneNumberRequest) o;
         return 
-            Objects.deepEquals(this.phoneNumberId, other.phoneNumberId);
+            Utils.enhancedDeepEquals(this.phoneNumberId, other.phoneNumberId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             phoneNumberId);
     }
     
@@ -72,14 +71,16 @@ public class DeletePhoneNumberRequest {
         return Utils.toString(DeletePhoneNumberRequest.class,
                 "phoneNumberId", phoneNumberId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String phoneNumberId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the phone number to delete
@@ -89,10 +90,12 @@ public class DeletePhoneNumberRequest {
             this.phoneNumberId = phoneNumberId;
             return this;
         }
-        
+
         public DeletePhoneNumberRequest build() {
+
             return new DeletePhoneNumberRequest(
                 phoneNumberId);
         }
+
     }
 }

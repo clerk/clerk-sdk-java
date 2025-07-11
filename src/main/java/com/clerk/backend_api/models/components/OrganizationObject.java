@@ -14,7 +14,7 @@ public enum OrganizationObject {
     @JsonValue
     private final String value;
 
-    private OrganizationObject(String value) {
+    OrganizationObject(String value) {
         this.value = value;
     }
     

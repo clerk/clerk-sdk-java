@@ -20,7 +20,7 @@ public enum RevertTemplatePathParamTemplateType {
     @JsonValue
     private final String value;
 
-    private RevertTemplatePathParamTemplateType(String value) {
+    RevertTemplatePathParamTemplateType(String value) {
         this.value = value;
     }
     

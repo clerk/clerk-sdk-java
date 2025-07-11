@@ -14,7 +14,7 @@ public enum GoogleOneTapVerificationStrategy {
     @JsonValue
     private final String value;
 
-    private GoogleOneTapVerificationStrategy(String value) {
+    GoogleOneTapVerificationStrategy(String value) {
         this.value = value;
     }
     

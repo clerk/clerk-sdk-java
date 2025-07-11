@@ -174,8 +174,8 @@ public final class Multipart {
                     return null;
                 Part nextPart = iter.next();
                 if (PartType.STRING.equals(nextPart.type)) {
-                    String part = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name=" + nextPart.name
-                            + "\r\n" + "Content-Type: text/plain; charset=UTF-8\r\n\r\n" + nextPart.value + "\r\n";
+                    String part = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name=\"" + nextPart.name
+                            + "\"\r\n" + "Content-Type: text/plain; charset=UTF-8\r\n\r\n" + nextPart.value + "\r\n";
                     return part.getBytes(StandardCharsets.UTF_8);
                 } else if (PartType.FINAL_BOUNDARY.equals(nextPart.type)) {
                     return nextPart.value.getBytes(StandardCharsets.UTF_8);
@@ -186,8 +186,8 @@ public final class Multipart {
                         contentType = APPLICATION_OCTET_STREAM;
                     }
                     currentFileInput = nextPart.stream.get();
-                    String partHeader = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name="
-                            + nextPart.name + "; filename=" + filename + "\r\n" + "Content-Type: " + contentType
+                    String partHeader = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name=\""
+                            + nextPart.name + "\"; filename=\"" + filename + "\"\r\n" + "Content-Type: " + contentType
                             + "\r\n\r\n";
                     return partHeader.getBytes(StandardCharsets.UTF_8);
                 }

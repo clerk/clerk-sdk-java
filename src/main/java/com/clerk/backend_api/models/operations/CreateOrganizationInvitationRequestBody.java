@@ -15,11 +15,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateOrganizationInvitationRequestBody {
 
+public class CreateOrganizationInvitationRequestBody {
     /**
      * The email address of the new member that is going to be invited to the organization
      */
@@ -98,7 +97,9 @@ public class CreateOrganizationInvitationRequestBody {
     public CreateOrganizationInvitationRequestBody(
             String emailAddress,
             String role) {
-        this(emailAddress, JsonNullable.undefined(), role, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(emailAddress, JsonNullable.undefined(), role,
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -162,9 +163,10 @@ public class CreateOrganizationInvitationRequestBody {
         return expiresInDays;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email address of the new member that is going to be invited to the organization
@@ -280,7 +282,6 @@ public class CreateOrganizationInvitationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -291,24 +292,20 @@ public class CreateOrganizationInvitationRequestBody {
         }
         CreateOrganizationInvitationRequestBody other = (CreateOrganizationInvitationRequestBody) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.inviterUserId, other.inviterUserId) &&
-            Objects.deepEquals(this.role, other.role) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
-            Objects.deepEquals(this.expiresInDays, other.expiresInDays);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.inviterUserId, other.inviterUserId) &&
+            Utils.enhancedDeepEquals(this.role, other.role) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.redirectUrl, other.redirectUrl) &&
+            Utils.enhancedDeepEquals(this.expiresInDays, other.expiresInDays);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            inviterUserId,
-            role,
-            publicMetadata,
-            privateMetadata,
-            redirectUrl,
+        return Utils.enhancedHash(
+            emailAddress, inviterUserId, role,
+            publicMetadata, privateMetadata, redirectUrl,
             expiresInDays);
     }
     
@@ -323,26 +320,28 @@ public class CreateOrganizationInvitationRequestBody {
                 "redirectUrl", redirectUrl,
                 "expiresInDays", expiresInDays);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddress;
- 
+
         private JsonNullable<String> inviterUserId = JsonNullable.undefined();
- 
+
         private String role;
- 
+
         private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> redirectUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> expiresInDays = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email address of the new member that is going to be invited to the organization
@@ -352,6 +351,7 @@ public class CreateOrganizationInvitationRequestBody {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         /**
          * The ID of the user that invites the new member to the organization.
@@ -373,6 +373,7 @@ public class CreateOrganizationInvitationRequestBody {
             return this;
         }
 
+
         /**
          * The role of the new member in the organization
          */
@@ -381,6 +382,7 @@ public class CreateOrganizationInvitationRequestBody {
             this.role = role;
             return this;
         }
+
 
         /**
          * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
@@ -402,6 +404,7 @@ public class CreateOrganizationInvitationRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
          * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
@@ -422,6 +425,7 @@ public class CreateOrganizationInvitationRequestBody {
             return this;
         }
 
+
         /**
          * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
          */
@@ -440,6 +444,7 @@ public class CreateOrganizationInvitationRequestBody {
             return this;
         }
 
+
         /**
          * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
          */
@@ -457,16 +462,14 @@ public class CreateOrganizationInvitationRequestBody {
             this.expiresInDays = expiresInDays;
             return this;
         }
-        
+
         public CreateOrganizationInvitationRequestBody build() {
+
             return new CreateOrganizationInvitationRequestBody(
-                emailAddress,
-                inviterUserId,
-                role,
-                publicMetadata,
-                privateMetadata,
-                redirectUrl,
+                emailAddress, inviterUserId, role,
+                publicMetadata, privateMetadata, redirectUrl,
                 expiresInDays);
         }
+
     }
 }

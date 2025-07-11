@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetRedirectURLOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetRedirectURLRequestBuilder {
 
     private String id;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetRedirectURL sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetRedirectURLRequestBuilder(SDKMethodInterfaces.MethodCallGetRedirectURL sdk) {
-        this.sdk = sdk;
+    public GetRedirectURLRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetRedirectURLRequestBuilder id(String id) {
@@ -38,12 +42,25 @@ public class GetRedirectURLRequestBuilder {
         return this;
     }
 
+
+    private GetRedirectURLRequest buildRequest() {
+
+        GetRedirectURLRequest request = new GetRedirectURLRequest(id);
+
+        return request;
+    }
+
     public GetRedirectURLResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            id,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetRedirectURLRequest, GetRedirectURLResponse> operation
+              = new GetRedirectURLOperation(
+                sdkConfiguration,
+                options);
+        GetRedirectURLRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

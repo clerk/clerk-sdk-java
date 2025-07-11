@@ -16,11 +16,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateOrganizationRequestBody {
 
+public class UpdateOrganizationRequestBody {
     /**
      * Metadata saved on the organization, that is visible to both your frontend and backend.
      */
@@ -98,7 +97,9 @@ public class UpdateOrganizationRequestBody {
     }
     
     public UpdateOrganizationRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -161,9 +162,10 @@ public class UpdateOrganizationRequestBody {
         return createdAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Metadata saved on the organization, that is visible to both your frontend and backend.
@@ -295,7 +297,6 @@ public class UpdateOrganizationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -306,24 +307,20 @@ public class UpdateOrganizationRequestBody {
         }
         UpdateOrganizationRequestBody other = (UpdateOrganizationRequestBody) o;
         return 
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            publicMetadata,
-            privateMetadata,
-            name,
-            slug,
-            maxAllowedMemberships,
-            adminDeleteEnabled,
+        return Utils.enhancedHash(
+            publicMetadata, privateMetadata, name,
+            slug, maxAllowedMemberships, adminDeleteEnabled,
             createdAt);
     }
     
@@ -338,26 +335,28 @@ public class UpdateOrganizationRequestBody {
                 "adminDeleteEnabled", adminDeleteEnabled,
                 "createdAt", createdAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> name = JsonNullable.undefined();
- 
+
         private JsonNullable<String> slug = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();
- 
+
         private JsonNullable<String> createdAt = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Metadata saved on the organization, that is visible to both your frontend and backend.
@@ -377,6 +376,7 @@ public class UpdateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the organization that is only visible to your backend.
          */
@@ -394,6 +394,7 @@ public class UpdateOrganizationRequestBody {
             this.privateMetadata = privateMetadata;
             return this;
         }
+
 
         /**
          * The new name of the organization.
@@ -417,6 +418,7 @@ public class UpdateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * The new slug of the organization, which needs to be unique in the instance
          */
@@ -434,6 +436,7 @@ public class UpdateOrganizationRequestBody {
             this.slug = slug;
             return this;
         }
+
 
         /**
          * The maximum number of memberships allowed for this organization
@@ -453,6 +456,7 @@ public class UpdateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * If true, an admin can delete this organization with the Frontend API.
          */
@@ -471,6 +475,7 @@ public class UpdateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
@@ -488,16 +493,14 @@ public class UpdateOrganizationRequestBody {
             this.createdAt = createdAt;
             return this;
         }
-        
+
         public UpdateOrganizationRequestBody build() {
+
             return new UpdateOrganizationRequestBody(
-                publicMetadata,
-                privateMetadata,
-                name,
-                slug,
-                maxAllowedMemberships,
-                adminDeleteEnabled,
+                publicMetadata, privateMetadata, name,
+                slug, maxAllowedMemberships, adminDeleteEnabled,
                 createdAt);
         }
+
     }
 }

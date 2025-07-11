@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class VerifySessionRequest {
 
+public class VerifySessionRequest {
     /**
      * The ID of the session
      */
@@ -59,9 +58,10 @@ public class VerifySessionRequest {
         return (Optional<VerifySessionRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the session
@@ -81,6 +81,7 @@ public class VerifySessionRequest {
         return this;
     }
 
+
     /**
      * Parameters.
      */
@@ -90,7 +91,6 @@ public class VerifySessionRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -101,15 +101,14 @@ public class VerifySessionRequest {
         }
         VerifySessionRequest other = (VerifySessionRequest) o;
         return 
-            Objects.deepEquals(this.sessionId, other.sessionId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sessionId,
-            requestBody);
+        return Utils.enhancedHash(
+            sessionId, requestBody);
     }
     
     @Override
@@ -118,16 +117,18 @@ public class VerifySessionRequest {
                 "sessionId", sessionId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sessionId;
- 
+
         private Optional<? extends VerifySessionRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the session
@@ -137,6 +138,7 @@ public class VerifySessionRequest {
             this.sessionId = sessionId;
             return this;
         }
+
 
         /**
          * Parameters.
@@ -155,11 +157,12 @@ public class VerifySessionRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public VerifySessionRequest build() {
+
             return new VerifySessionRequest(
-                sessionId,
-                requestBody);
+                sessionId, requestBody);
         }
+
     }
 }

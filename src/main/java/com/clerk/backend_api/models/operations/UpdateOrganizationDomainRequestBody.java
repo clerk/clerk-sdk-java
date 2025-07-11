@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class UpdateOrganizationDomainRequestBody {
 
+public class UpdateOrganizationDomainRequestBody {
     /**
      * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
      */
@@ -61,9 +60,10 @@ public class UpdateOrganizationDomainRequestBody {
         return verified;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
@@ -101,7 +101,6 @@ public class UpdateOrganizationDomainRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -112,15 +111,14 @@ public class UpdateOrganizationDomainRequestBody {
         }
         UpdateOrganizationDomainRequestBody other = (UpdateOrganizationDomainRequestBody) o;
         return 
-            Objects.deepEquals(this.enrollmentMode, other.enrollmentMode) &&
-            Objects.deepEquals(this.verified, other.verified);
+            Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
+            Utils.enhancedDeepEquals(this.verified, other.verified);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            enrollmentMode,
-            verified);
+        return Utils.enhancedHash(
+            enrollmentMode, verified);
     }
     
     @Override
@@ -129,16 +127,18 @@ public class UpdateOrganizationDomainRequestBody {
                 "enrollmentMode", enrollmentMode,
                 "verified", verified);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> enrollmentMode = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
@@ -158,6 +158,7 @@ public class UpdateOrganizationDomainRequestBody {
             return this;
         }
 
+
         /**
          * The status of the domain's verification
          */
@@ -175,11 +176,12 @@ public class UpdateOrganizationDomainRequestBody {
             this.verified = verified;
             return this;
         }
-        
+
         public UpdateOrganizationDomainRequestBody build() {
+
             return new UpdateOrganizationDomainRequestBody(
-                enrollmentMode,
-                verified);
+                enrollmentMode, verified);
         }
+
     }
 }

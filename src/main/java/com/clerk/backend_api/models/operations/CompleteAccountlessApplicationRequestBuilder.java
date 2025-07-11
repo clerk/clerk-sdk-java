@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CompleteAccountlessApplicationOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -12,10 +16,10 @@ import java.util.Optional;
 public class CompleteAccountlessApplicationRequestBuilder {
 
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCompleteAccountlessApplication sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CompleteAccountlessApplicationRequestBuilder(SDKMethodInterfaces.MethodCallCompleteAccountlessApplication sdk) {
-        this.sdk = sdk;
+    public CompleteAccountlessApplicationRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CompleteAccountlessApplicationRequestBuilder retryConfig(RetryConfig retryConfig) {
@@ -32,9 +36,14 @@ public class CompleteAccountlessApplicationRequestBuilder {
 
     public CompleteAccountlessApplicationResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.complete(
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestlessOperation<CompleteAccountlessApplicationResponse> operation
+            = new CompleteAccountlessApplicationOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest());
     }
 }

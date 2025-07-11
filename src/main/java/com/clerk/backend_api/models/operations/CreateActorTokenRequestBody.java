@@ -14,11 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateActorTokenRequestBody {
 
+public class CreateActorTokenRequestBody {
     /**
      * The ID of the user being impersonated.
      */
@@ -67,7 +66,8 @@ public class CreateActorTokenRequestBody {
     public CreateActorTokenRequestBody(
             String userId,
             Actor actor) {
-        this(userId, actor, Optional.empty(), Optional.empty());
+        this(userId, actor, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -105,9 +105,10 @@ public class CreateActorTokenRequestBody {
         return sessionMaxDurationInSeconds;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user being impersonated.
@@ -138,6 +139,7 @@ public class CreateActorTokenRequestBody {
         return this;
     }
 
+
     /**
      * Optional parameter to specify the life duration of the actor token in seconds.
      * By default, the duration is 1 hour.
@@ -158,6 +160,7 @@ public class CreateActorTokenRequestBody {
         return this;
     }
 
+
     /**
      * The maximum duration that the session which will be created by the generated actor token should last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
@@ -168,7 +171,6 @@ public class CreateActorTokenRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -179,18 +181,16 @@ public class CreateActorTokenRequestBody {
         }
         CreateActorTokenRequestBody other = (CreateActorTokenRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.actor, other.actor) &&
-            Objects.deepEquals(this.expiresInSeconds, other.expiresInSeconds) &&
-            Objects.deepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.actor, other.actor) &&
+            Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds) &&
+            Utils.enhancedDeepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            actor,
-            expiresInSeconds,
+        return Utils.enhancedHash(
+            userId, actor, expiresInSeconds,
             sessionMaxDurationInSeconds);
     }
     
@@ -202,20 +202,22 @@ public class CreateActorTokenRequestBody {
                 "expiresInSeconds", expiresInSeconds,
                 "sessionMaxDurationInSeconds", sessionMaxDurationInSeconds);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Actor actor;
- 
+
         private Optional<Long> expiresInSeconds;
- 
+
         private Optional<Long> sessionMaxDurationInSeconds;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user being impersonated.
@@ -226,6 +228,7 @@ public class CreateActorTokenRequestBody {
             return this;
         }
 
+
         /**
          * The actor payload. It needs to include a sub property which should contain the ID of the actor.
          * This whole payload will be also included in the JWT session token.
@@ -235,6 +238,7 @@ public class CreateActorTokenRequestBody {
             this.actor = actor;
             return this;
         }
+
 
         /**
          * Optional parameter to specify the life duration of the actor token in seconds.
@@ -256,6 +260,7 @@ public class CreateActorTokenRequestBody {
             return this;
         }
 
+
         /**
          * The maximum duration that the session which will be created by the generated actor token should last.
          * By default, the duration of a session created via an actor token, lasts 30 minutes.
@@ -275,7 +280,7 @@ public class CreateActorTokenRequestBody {
             this.sessionMaxDurationInSeconds = sessionMaxDurationInSeconds;
             return this;
         }
-        
+
         public CreateActorTokenRequestBody build() {
             if (expiresInSeconds == null) {
                 expiresInSeconds = _SINGLETON_VALUE_ExpiresInSeconds.value();
@@ -283,12 +288,12 @@ public class CreateActorTokenRequestBody {
             if (sessionMaxDurationInSeconds == null) {
                 sessionMaxDurationInSeconds = _SINGLETON_VALUE_SessionMaxDurationInSeconds.value();
             }
+
             return new CreateActorTokenRequestBody(
-                userId,
-                actor,
-                expiresInSeconds,
+                userId, actor, expiresInSeconds,
                 sessionMaxDurationInSeconds);
         }
+
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_ExpiresInSeconds =
                 new LazySingletonValue<>(

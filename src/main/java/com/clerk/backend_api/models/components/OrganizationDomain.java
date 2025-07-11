@@ -14,7 +14,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,7 +22,6 @@ import java.util.Optional;
  * <p>An organization domain
  */
 public class OrganizationDomain {
-
     /**
      * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
      */
@@ -139,7 +137,10 @@ public class OrganizationDomain {
             int totalPendingSuggestions,
             long createdAt,
             long updatedAt) {
-        this(object, id, organizationId, name, enrollmentMode, Optional.empty(), Optional.empty(), totalPendingInvitations, totalPendingSuggestions, createdAt, updatedAt);
+        this(object, id, organizationId,
+            name, enrollmentMode, Optional.empty(),
+            Optional.empty(), totalPendingInvitations, totalPendingSuggestions,
+            createdAt, updatedAt);
     }
 
     /**
@@ -231,9 +232,10 @@ public class OrganizationDomain {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
@@ -289,6 +291,7 @@ public class OrganizationDomain {
         return this;
     }
 
+
     /**
      * Affiliation email address for the domain, if available.
      */
@@ -306,6 +309,7 @@ public class OrganizationDomain {
         this.verification = Optional.ofNullable(verification);
         return this;
     }
+
 
     /**
      * Verification details for the domain
@@ -352,7 +356,6 @@ public class OrganizationDomain {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -363,33 +366,26 @@ public class OrganizationDomain {
         }
         OrganizationDomain other = (OrganizationDomain) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.organizationId, other.organizationId) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.enrollmentMode, other.enrollmentMode) &&
-            Objects.deepEquals(this.affiliationEmailAddress, other.affiliationEmailAddress) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.totalPendingInvitations, other.totalPendingInvitations) &&
-            Objects.deepEquals(this.totalPendingSuggestions, other.totalPendingSuggestions) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
+            Utils.enhancedDeepEquals(this.affiliationEmailAddress, other.affiliationEmailAddress) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.totalPendingInvitations, other.totalPendingInvitations) &&
+            Utils.enhancedDeepEquals(this.totalPendingSuggestions, other.totalPendingSuggestions) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            organizationId,
-            name,
-            enrollmentMode,
-            affiliationEmailAddress,
-            verification,
-            totalPendingInvitations,
-            totalPendingSuggestions,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            object, id, organizationId,
+            name, enrollmentMode, affiliationEmailAddress,
+            verification, totalPendingInvitations, totalPendingSuggestions,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -407,34 +403,36 @@ public class OrganizationDomain {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OrganizationDomainObject object;
- 
+
         private String id;
- 
+
         private String organizationId;
- 
+
         private String name;
- 
+
         private EnrollmentMode enrollmentMode;
- 
+
         private Optional<String> affiliationEmailAddress = Optional.empty();
- 
+
         private Optional<? extends OrganizationDomainVerification> verification = Optional.empty();
- 
+
         private Integer totalPendingInvitations;
- 
+
         private Integer totalPendingSuggestions;
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
@@ -445,6 +443,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Unique identifier for the organization domain
          */
@@ -453,6 +452,7 @@ public class OrganizationDomain {
             this.id = id;
             return this;
         }
+
 
         /**
          * Unique identifier for the organization
@@ -463,6 +463,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Name of the organization domain
          */
@@ -472,6 +473,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Mode of enrollment for the domain
          */
@@ -480,6 +482,7 @@ public class OrganizationDomain {
             this.enrollmentMode = enrollmentMode;
             return this;
         }
+
 
         /**
          * Affiliation email address for the domain, if available.
@@ -499,6 +502,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Verification details for the domain
          */
@@ -517,6 +521,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Total number of pending invitations associated with this domain
          */
@@ -525,6 +530,7 @@ public class OrganizationDomain {
             this.totalPendingInvitations = totalPendingInvitations;
             return this;
         }
+
 
         /**
          * Total number of pending suggestions associated with this domain
@@ -535,6 +541,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Unix timestamp when the domain was created
          */
@@ -544,6 +551,7 @@ public class OrganizationDomain {
             return this;
         }
 
+
         /**
          * Unix timestamp of the last update to the domain
          */
@@ -552,20 +560,15 @@ public class OrganizationDomain {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public OrganizationDomain build() {
+
             return new OrganizationDomain(
-                object,
-                id,
-                organizationId,
-                name,
-                enrollmentMode,
-                affiliationEmailAddress,
-                verification,
-                totalPendingInvitations,
-                totalPendingSuggestions,
-                createdAt,
-                updatedAt);
+                object, id, organizationId,
+                name, enrollmentMode, affiliationEmailAddress,
+                verification, totalPendingInvitations, totalPendingSuggestions,
+                createdAt, updatedAt);
         }
+
     }
 }

@@ -7,21 +7,18 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class ClerkErrorErrorExternalAccountWithVerificationMeta {
-
     @JsonCreator
     public ClerkErrorErrorExternalAccountWithVerificationMeta() {
-        
-        
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
 
-    
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -35,7 +32,7 @@ public class ClerkErrorErrorExternalAccountWithVerificationMeta {
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             );
     }
     
@@ -43,16 +40,19 @@ public class ClerkErrorErrorExternalAccountWithVerificationMeta {
     public String toString() {
         return Utils.toString(ClerkErrorErrorExternalAccountWithVerificationMeta.class);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
-        
+
         private Builder() {
           // force use of static builder() method
         }
-        
+
         public ClerkErrorErrorExternalAccountWithVerificationMeta build() {
+
             return new ClerkErrorErrorExternalAccountWithVerificationMeta(
                 );
         }
+
     }
 }

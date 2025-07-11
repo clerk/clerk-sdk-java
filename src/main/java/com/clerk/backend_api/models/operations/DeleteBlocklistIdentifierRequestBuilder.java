@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteBlocklistIdentifierOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteBlocklistIdentifierRequestBuilder {
 
     private String identifierId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteBlocklistIdentifier sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteBlocklistIdentifierRequestBuilder(SDKMethodInterfaces.MethodCallDeleteBlocklistIdentifier sdk) {
-        this.sdk = sdk;
+    public DeleteBlocklistIdentifierRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteBlocklistIdentifierRequestBuilder identifierId(String identifierId) {
@@ -38,12 +42,25 @@ public class DeleteBlocklistIdentifierRequestBuilder {
         return this;
     }
 
+
+    private DeleteBlocklistIdentifierRequest buildRequest() {
+
+        DeleteBlocklistIdentifierRequest request = new DeleteBlocklistIdentifierRequest(identifierId);
+
+        return request;
+    }
+
     public DeleteBlocklistIdentifierResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            identifierId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteBlocklistIdentifierRequest, DeleteBlocklistIdentifierResponse> operation
+              = new DeleteBlocklistIdentifierOperation(
+                sdkConfiguration,
+                options);
+        DeleteBlocklistIdentifierRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

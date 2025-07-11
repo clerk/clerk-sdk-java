@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetJWTTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetJWTTemplateRequestBuilder {
 
     private String templateId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetJWTTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallGetJWTTemplate sdk) {
-        this.sdk = sdk;
+    public GetJWTTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetJWTTemplateRequestBuilder templateId(String templateId) {
@@ -38,12 +42,25 @@ public class GetJWTTemplateRequestBuilder {
         return this;
     }
 
+
+    private GetJWTTemplateRequest buildRequest() {
+
+        GetJWTTemplateRequest request = new GetJWTTemplateRequest(templateId);
+
+        return request;
+    }
+
     public GetJWTTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            templateId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetJWTTemplateRequest, GetJWTTemplateResponse> operation
+              = new GetJWTTemplateOperation(
+                sdkConfiguration,
+                options);
+        GetJWTTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

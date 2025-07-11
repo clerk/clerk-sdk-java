@@ -18,7 +18,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -40,29 +39,36 @@ public class User {
     @JsonProperty("object")
     private Optional<? extends UserObject> object;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_id")
     private JsonNullable<String> externalId;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_email_address_id")
     private JsonNullable<String> primaryEmailAddressId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_phone_number_id")
     private JsonNullable<String> primaryPhoneNumberId;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("primary_web3_wallet_id")
     private JsonNullable<String> primaryWeb3WalletId;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("username")
     private JsonNullable<String> username;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("first_name")
     private JsonNullable<String> firstName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("last_name")
@@ -77,53 +83,66 @@ public class User {
     @Deprecated
     private Optional<String> profileImageUrl;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("image_url")
     private Optional<String> imageUrl;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("has_image")
     private Optional<Boolean> hasImage;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
     private Optional<? extends Map<String, Object>> publicMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
     private JsonNullable<? extends Map<String, Object>> privateMetadata;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
     private Optional<? extends Map<String, Object>> unsafeMetadata;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_addresses")
     private Optional<? extends List<EmailAddress>> emailAddresses;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone_numbers")
     private Optional<? extends List<PhoneNumber>> phoneNumbers;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("web3_wallets")
     private Optional<? extends List<Web3Wallet>> web3Wallets;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("passkeys")
     private Optional<? extends List<SchemasPasskey>> passkeys;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_enabled")
     private Optional<Boolean> passwordEnabled;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("two_factor_enabled")
     private Optional<Boolean> twoFactorEnabled;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totp_enabled")
     private Optional<Boolean> totpEnabled;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_code_enabled")
@@ -143,9 +162,11 @@ public class User {
     @JsonProperty("mfa_disabled_at")
     private JsonNullable<Long> mfaDisabledAt;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_accounts")
     private Optional<? extends List<ExternalAccountWithVerification>> externalAccounts;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("saml_accounts")
@@ -357,7 +378,19 @@ public class User {
     }
     
     public User() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -615,15 +648,17 @@ public class User {
         return legalAcceptedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public User withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public User withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -639,6 +674,7 @@ public class User {
         this.object = Optional.ofNullable(object);
         return this;
     }
+
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -744,6 +780,7 @@ public class User {
         return this;
     }
 
+
     /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -761,6 +798,7 @@ public class User {
         return this;
     }
 
+
     public User withImageUrl(Optional<String> imageUrl) {
         Utils.checkNotNull(imageUrl, "imageUrl");
         this.imageUrl = imageUrl;
@@ -773,6 +811,7 @@ public class User {
         return this;
     }
 
+
     public User withHasImage(Optional<Boolean> hasImage) {
         Utils.checkNotNull(hasImage, "hasImage");
         this.hasImage = hasImage;
@@ -784,6 +823,7 @@ public class User {
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
+
 
     public User withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -809,6 +849,7 @@ public class User {
         return this;
     }
 
+
     public User withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
@@ -820,6 +861,7 @@ public class User {
         this.emailAddresses = Optional.ofNullable(emailAddresses);
         return this;
     }
+
 
     public User withEmailAddresses(Optional<? extends List<EmailAddress>> emailAddresses) {
         Utils.checkNotNull(emailAddresses, "emailAddresses");
@@ -833,6 +875,7 @@ public class User {
         return this;
     }
 
+
     public User withPhoneNumbers(Optional<? extends List<PhoneNumber>> phoneNumbers) {
         Utils.checkNotNull(phoneNumbers, "phoneNumbers");
         this.phoneNumbers = phoneNumbers;
@@ -844,6 +887,7 @@ public class User {
         this.web3Wallets = Optional.ofNullable(web3Wallets);
         return this;
     }
+
 
     public User withWeb3Wallets(Optional<? extends List<Web3Wallet>> web3Wallets) {
         Utils.checkNotNull(web3Wallets, "web3Wallets");
@@ -857,6 +901,7 @@ public class User {
         return this;
     }
 
+
     public User withPasskeys(Optional<? extends List<SchemasPasskey>> passkeys) {
         Utils.checkNotNull(passkeys, "passkeys");
         this.passkeys = passkeys;
@@ -868,6 +913,7 @@ public class User {
         this.passwordEnabled = Optional.ofNullable(passwordEnabled);
         return this;
     }
+
 
     public User withPasswordEnabled(Optional<Boolean> passwordEnabled) {
         Utils.checkNotNull(passwordEnabled, "passwordEnabled");
@@ -881,6 +927,7 @@ public class User {
         return this;
     }
 
+
     public User withTwoFactorEnabled(Optional<Boolean> twoFactorEnabled) {
         Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
         this.twoFactorEnabled = twoFactorEnabled;
@@ -893,6 +940,7 @@ public class User {
         return this;
     }
 
+
     public User withTotpEnabled(Optional<Boolean> totpEnabled) {
         Utils.checkNotNull(totpEnabled, "totpEnabled");
         this.totpEnabled = totpEnabled;
@@ -904,6 +952,7 @@ public class User {
         this.backupCodeEnabled = Optional.ofNullable(backupCodeEnabled);
         return this;
     }
+
 
     public User withBackupCodeEnabled(Optional<Boolean> backupCodeEnabled) {
         Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
@@ -953,6 +1002,7 @@ public class User {
         return this;
     }
 
+
     public User withExternalAccounts(Optional<? extends List<ExternalAccountWithVerification>> externalAccounts) {
         Utils.checkNotNull(externalAccounts, "externalAccounts");
         this.externalAccounts = externalAccounts;
@@ -964,6 +1014,7 @@ public class User {
         this.samlAccounts = Optional.ofNullable(samlAccounts);
         return this;
     }
+
 
     public User withSamlAccounts(Optional<? extends List<SAMLAccount>> samlAccounts) {
         Utils.checkNotNull(samlAccounts, "samlAccounts");
@@ -998,6 +1049,7 @@ public class User {
         return this;
     }
 
+
     /**
      * Flag to denote whether user is banned or not.
      */
@@ -1015,6 +1067,7 @@ public class User {
         this.locked = Optional.ofNullable(locked);
         return this;
     }
+
 
     /**
      * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
@@ -1070,6 +1123,7 @@ public class User {
         return this;
     }
 
+
     /**
      * Unix timestamp of last update.
      */
@@ -1087,6 +1141,7 @@ public class User {
         this.createdAt = Optional.ofNullable(createdAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of creation.
@@ -1106,6 +1161,7 @@ public class User {
         return this;
     }
 
+
     /**
      * If enabled, user can delete themselves via FAPI.
      */
@@ -1123,6 +1179,7 @@ public class User {
         this.createOrganizationEnabled = Optional.ofNullable(createOrganizationEnabled);
         return this;
     }
+
 
     /**
      * If enabled, user can create organizations via FAPI.
@@ -1187,7 +1244,6 @@ public class User {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1198,89 +1254,63 @@ public class User {
         }
         User other = (User) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.externalId, other.externalId) &&
-            Objects.deepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
-            Objects.deepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
-            Objects.deepEquals(this.primaryWeb3WalletId, other.primaryWeb3WalletId) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.profileImageUrl, other.profileImageUrl) &&
-            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            Objects.deepEquals(this.hasImage, other.hasImage) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            Objects.deepEquals(this.emailAddresses, other.emailAddresses) &&
-            Objects.deepEquals(this.phoneNumbers, other.phoneNumbers) &&
-            Objects.deepEquals(this.web3Wallets, other.web3Wallets) &&
-            Objects.deepEquals(this.passkeys, other.passkeys) &&
-            Objects.deepEquals(this.passwordEnabled, other.passwordEnabled) &&
-            Objects.deepEquals(this.twoFactorEnabled, other.twoFactorEnabled) &&
-            Objects.deepEquals(this.totpEnabled, other.totpEnabled) &&
-            Objects.deepEquals(this.backupCodeEnabled, other.backupCodeEnabled) &&
-            Objects.deepEquals(this.mfaEnabledAt, other.mfaEnabledAt) &&
-            Objects.deepEquals(this.mfaDisabledAt, other.mfaDisabledAt) &&
-            Objects.deepEquals(this.externalAccounts, other.externalAccounts) &&
-            Objects.deepEquals(this.samlAccounts, other.samlAccounts) &&
-            Objects.deepEquals(this.lastSignInAt, other.lastSignInAt) &&
-            Objects.deepEquals(this.banned, other.banned) &&
-            Objects.deepEquals(this.locked, other.locked) &&
-            Objects.deepEquals(this.lockoutExpiresInSeconds, other.lockoutExpiresInSeconds) &&
-            Objects.deepEquals(this.verificationAttemptsRemaining, other.verificationAttemptsRemaining) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
-            Objects.deepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
-            Objects.deepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
-            Objects.deepEquals(this.lastActiveAt, other.lastActiveAt) &&
-            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
+            Utils.enhancedDeepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
+            Utils.enhancedDeepEquals(this.primaryWeb3WalletId, other.primaryWeb3WalletId) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.profileImageUrl, other.profileImageUrl) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Utils.enhancedDeepEquals(this.emailAddresses, other.emailAddresses) &&
+            Utils.enhancedDeepEquals(this.phoneNumbers, other.phoneNumbers) &&
+            Utils.enhancedDeepEquals(this.web3Wallets, other.web3Wallets) &&
+            Utils.enhancedDeepEquals(this.passkeys, other.passkeys) &&
+            Utils.enhancedDeepEquals(this.passwordEnabled, other.passwordEnabled) &&
+            Utils.enhancedDeepEquals(this.twoFactorEnabled, other.twoFactorEnabled) &&
+            Utils.enhancedDeepEquals(this.totpEnabled, other.totpEnabled) &&
+            Utils.enhancedDeepEquals(this.backupCodeEnabled, other.backupCodeEnabled) &&
+            Utils.enhancedDeepEquals(this.mfaEnabledAt, other.mfaEnabledAt) &&
+            Utils.enhancedDeepEquals(this.mfaDisabledAt, other.mfaDisabledAt) &&
+            Utils.enhancedDeepEquals(this.externalAccounts, other.externalAccounts) &&
+            Utils.enhancedDeepEquals(this.samlAccounts, other.samlAccounts) &&
+            Utils.enhancedDeepEquals(this.lastSignInAt, other.lastSignInAt) &&
+            Utils.enhancedDeepEquals(this.banned, other.banned) &&
+            Utils.enhancedDeepEquals(this.locked, other.locked) &&
+            Utils.enhancedDeepEquals(this.lockoutExpiresInSeconds, other.lockoutExpiresInSeconds) &&
+            Utils.enhancedDeepEquals(this.verificationAttemptsRemaining, other.verificationAttemptsRemaining) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
+            Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
+            Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
+            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            externalId,
-            primaryEmailAddressId,
-            primaryPhoneNumberId,
-            primaryWeb3WalletId,
-            username,
-            firstName,
-            lastName,
-            profileImageUrl,
-            imageUrl,
-            hasImage,
-            publicMetadata,
-            privateMetadata,
-            unsafeMetadata,
-            emailAddresses,
-            phoneNumbers,
-            web3Wallets,
-            passkeys,
-            passwordEnabled,
-            twoFactorEnabled,
-            totpEnabled,
-            backupCodeEnabled,
-            mfaEnabledAt,
-            mfaDisabledAt,
-            externalAccounts,
-            samlAccounts,
-            lastSignInAt,
-            banned,
-            locked,
-            lockoutExpiresInSeconds,
-            verificationAttemptsRemaining,
-            updatedAt,
-            createdAt,
-            deleteSelfEnabled,
-            createOrganizationEnabled,
-            createOrganizationsLimit,
-            lastActiveAt,
-            legalAcceptedAt);
+        return Utils.enhancedHash(
+            id, object, externalId,
+            primaryEmailAddressId, primaryPhoneNumberId, primaryWeb3WalletId,
+            username, firstName, lastName,
+            profileImageUrl, imageUrl, hasImage,
+            publicMetadata, privateMetadata, unsafeMetadata,
+            emailAddresses, phoneNumbers, web3Wallets,
+            passkeys, passwordEnabled, twoFactorEnabled,
+            totpEnabled, backupCodeEnabled, mfaEnabledAt,
+            mfaDisabledAt, externalAccounts, samlAccounts,
+            lastSignInAt, banned, locked,
+            lockoutExpiresInSeconds, verificationAttemptsRemaining, updatedAt,
+            createdAt, deleteSelfEnabled, createOrganizationEnabled,
+            createOrganizationsLimit, lastActiveAt, legalAcceptedAt);
     }
     
     @Override
@@ -1326,91 +1356,93 @@ public class User {
                 "lastActiveAt", lastActiveAt,
                 "legalAcceptedAt", legalAcceptedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<? extends UserObject> object = Optional.empty();
- 
+
         private JsonNullable<String> externalId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> primaryEmailAddressId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> primaryPhoneNumberId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> primaryWeb3WalletId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> username = JsonNullable.undefined();
- 
+
         private JsonNullable<String> firstName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> lastName = JsonNullable.undefined();
- 
+
         @Deprecated
         private Optional<String> profileImageUrl = Optional.empty();
- 
+
         private Optional<String> imageUrl = Optional.empty();
- 
+
         private Optional<Boolean> hasImage = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
- 
+
         private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
- 
+
         private Optional<? extends List<EmailAddress>> emailAddresses = Optional.empty();
- 
+
         private Optional<? extends List<PhoneNumber>> phoneNumbers = Optional.empty();
- 
+
         private Optional<? extends List<Web3Wallet>> web3Wallets = Optional.empty();
- 
+
         private Optional<? extends List<SchemasPasskey>> passkeys = Optional.empty();
- 
+
         private Optional<Boolean> passwordEnabled = Optional.empty();
- 
+
         private Optional<Boolean> twoFactorEnabled = Optional.empty();
- 
+
         private Optional<Boolean> totpEnabled = Optional.empty();
- 
+
         private Optional<Boolean> backupCodeEnabled = Optional.empty();
- 
+
         private JsonNullable<Long> mfaEnabledAt = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> mfaDisabledAt = JsonNullable.undefined();
- 
+
         private Optional<? extends List<ExternalAccountWithVerification>> externalAccounts = Optional.empty();
- 
+
         private Optional<? extends List<SAMLAccount>> samlAccounts = Optional.empty();
- 
+
         private JsonNullable<Long> lastSignInAt = JsonNullable.undefined();
- 
+
         private Optional<Boolean> banned = Optional.empty();
- 
+
         private Optional<Boolean> locked = Optional.empty();
- 
+
         private JsonNullable<Long> lockoutExpiresInSeconds = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> verificationAttemptsRemaining = JsonNullable.undefined();
- 
+
         private Optional<Long> updatedAt = Optional.empty();
- 
+
         private Optional<Long> createdAt = Optional.empty();
- 
+
         private Optional<Boolean> deleteSelfEnabled = Optional.empty();
- 
+
         private Optional<Boolean> createOrganizationEnabled = Optional.empty();
- 
+
         private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> lastActiveAt = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> legalAcceptedAt = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -1423,6 +1455,7 @@ public class User {
             this.id = id;
             return this;
         }
+
 
         /**
          * String representing the object's type. Objects of the same type share the same value.
@@ -1442,6 +1475,7 @@ public class User {
             return this;
         }
 
+
         public Builder externalId(String externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = JsonNullable.of(externalId);
@@ -1453,6 +1487,7 @@ public class User {
             this.externalId = externalId;
             return this;
         }
+
 
         public Builder primaryEmailAddressId(String primaryEmailAddressId) {
             Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
@@ -1466,6 +1501,7 @@ public class User {
             return this;
         }
 
+
         public Builder primaryPhoneNumberId(String primaryPhoneNumberId) {
             Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
             this.primaryPhoneNumberId = JsonNullable.of(primaryPhoneNumberId);
@@ -1477,6 +1513,7 @@ public class User {
             this.primaryPhoneNumberId = primaryPhoneNumberId;
             return this;
         }
+
 
         public Builder primaryWeb3WalletId(String primaryWeb3WalletId) {
             Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
@@ -1490,6 +1527,7 @@ public class User {
             return this;
         }
 
+
         public Builder username(String username) {
             Utils.checkNotNull(username, "username");
             this.username = JsonNullable.of(username);
@@ -1501,6 +1539,7 @@ public class User {
             this.username = username;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -1514,6 +1553,7 @@ public class User {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = JsonNullable.of(lastName);
@@ -1525,6 +1565,7 @@ public class User {
             this.lastName = lastName;
             return this;
         }
+
 
         /**
          * 
@@ -1548,6 +1589,7 @@ public class User {
             return this;
         }
 
+
         public Builder imageUrl(String imageUrl) {
             Utils.checkNotNull(imageUrl, "imageUrl");
             this.imageUrl = Optional.ofNullable(imageUrl);
@@ -1559,6 +1601,7 @@ public class User {
             this.imageUrl = imageUrl;
             return this;
         }
+
 
         public Builder hasImage(boolean hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
@@ -1572,6 +1615,7 @@ public class User {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
@@ -1583,6 +1627,7 @@ public class User {
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -1596,6 +1641,7 @@ public class User {
             return this;
         }
 
+
         public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
             this.unsafeMetadata = Optional.ofNullable(unsafeMetadata);
@@ -1607,6 +1653,7 @@ public class User {
             this.unsafeMetadata = unsafeMetadata;
             return this;
         }
+
 
         public Builder emailAddresses(List<EmailAddress> emailAddresses) {
             Utils.checkNotNull(emailAddresses, "emailAddresses");
@@ -1620,6 +1667,7 @@ public class User {
             return this;
         }
 
+
         public Builder phoneNumbers(List<PhoneNumber> phoneNumbers) {
             Utils.checkNotNull(phoneNumbers, "phoneNumbers");
             this.phoneNumbers = Optional.ofNullable(phoneNumbers);
@@ -1631,6 +1679,7 @@ public class User {
             this.phoneNumbers = phoneNumbers;
             return this;
         }
+
 
         public Builder web3Wallets(List<Web3Wallet> web3Wallets) {
             Utils.checkNotNull(web3Wallets, "web3Wallets");
@@ -1644,6 +1693,7 @@ public class User {
             return this;
         }
 
+
         public Builder passkeys(List<SchemasPasskey> passkeys) {
             Utils.checkNotNull(passkeys, "passkeys");
             this.passkeys = Optional.ofNullable(passkeys);
@@ -1655,6 +1705,7 @@ public class User {
             this.passkeys = passkeys;
             return this;
         }
+
 
         public Builder passwordEnabled(boolean passwordEnabled) {
             Utils.checkNotNull(passwordEnabled, "passwordEnabled");
@@ -1668,6 +1719,7 @@ public class User {
             return this;
         }
 
+
         public Builder twoFactorEnabled(boolean twoFactorEnabled) {
             Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
             this.twoFactorEnabled = Optional.ofNullable(twoFactorEnabled);
@@ -1679,6 +1731,7 @@ public class User {
             this.twoFactorEnabled = twoFactorEnabled;
             return this;
         }
+
 
         public Builder totpEnabled(boolean totpEnabled) {
             Utils.checkNotNull(totpEnabled, "totpEnabled");
@@ -1692,6 +1745,7 @@ public class User {
             return this;
         }
 
+
         public Builder backupCodeEnabled(boolean backupCodeEnabled) {
             Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
             this.backupCodeEnabled = Optional.ofNullable(backupCodeEnabled);
@@ -1703,6 +1757,7 @@ public class User {
             this.backupCodeEnabled = backupCodeEnabled;
             return this;
         }
+
 
         /**
          * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
@@ -1722,6 +1777,7 @@ public class User {
             return this;
         }
 
+
         /**
          * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
          */
@@ -1740,6 +1796,7 @@ public class User {
             return this;
         }
 
+
         public Builder externalAccounts(List<ExternalAccountWithVerification> externalAccounts) {
             Utils.checkNotNull(externalAccounts, "externalAccounts");
             this.externalAccounts = Optional.ofNullable(externalAccounts);
@@ -1752,6 +1809,7 @@ public class User {
             return this;
         }
 
+
         public Builder samlAccounts(List<SAMLAccount> samlAccounts) {
             Utils.checkNotNull(samlAccounts, "samlAccounts");
             this.samlAccounts = Optional.ofNullable(samlAccounts);
@@ -1763,6 +1821,7 @@ public class User {
             this.samlAccounts = samlAccounts;
             return this;
         }
+
 
         /**
          * Unix timestamp of last sign-in.
@@ -1782,6 +1841,7 @@ public class User {
             return this;
         }
 
+
         /**
          * Flag to denote whether user is banned or not.
          */
@@ -1799,6 +1859,7 @@ public class User {
             this.banned = banned;
             return this;
         }
+
 
         /**
          * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
@@ -1818,6 +1879,7 @@ public class User {
             return this;
         }
 
+
         /**
          * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
          */
@@ -1835,6 +1897,7 @@ public class User {
             this.lockoutExpiresInSeconds = lockoutExpiresInSeconds;
             return this;
         }
+
 
         /**
          * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
@@ -1854,6 +1917,7 @@ public class User {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -1871,6 +1935,7 @@ public class User {
             this.updatedAt = updatedAt;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation.
@@ -1890,6 +1955,7 @@ public class User {
             return this;
         }
 
+
         /**
          * If enabled, user can delete themselves via FAPI.
          */
@@ -1907,6 +1973,7 @@ public class User {
             this.deleteSelfEnabled = deleteSelfEnabled;
             return this;
         }
+
 
         /**
          * If enabled, user can create organizations via FAPI.
@@ -1926,6 +1993,7 @@ public class User {
             return this;
         }
 
+
         /**
          * The maximum number of organizations the user can create. 0 means unlimited.
          */
@@ -1943,6 +2011,7 @@ public class User {
             this.createOrganizationsLimit = createOrganizationsLimit;
             return this;
         }
+
 
         /**
          * Unix timestamp of the latest session activity, with day precision.
@@ -1962,6 +2031,7 @@ public class User {
             return this;
         }
 
+
         /**
          * Unix timestamp of when the user accepted the legal requirements.
          */
@@ -1979,48 +2049,24 @@ public class User {
             this.legalAcceptedAt = legalAcceptedAt;
             return this;
         }
-        
+
         public User build() {
+
             return new User(
-                id,
-                object,
-                externalId,
-                primaryEmailAddressId,
-                primaryPhoneNumberId,
-                primaryWeb3WalletId,
-                username,
-                firstName,
-                lastName,
-                profileImageUrl,
-                imageUrl,
-                hasImage,
-                publicMetadata,
-                privateMetadata,
-                unsafeMetadata,
-                emailAddresses,
-                phoneNumbers,
-                web3Wallets,
-                passkeys,
-                passwordEnabled,
-                twoFactorEnabled,
-                totpEnabled,
-                backupCodeEnabled,
-                mfaEnabledAt,
-                mfaDisabledAt,
-                externalAccounts,
-                samlAccounts,
-                lastSignInAt,
-                banned,
-                locked,
-                lockoutExpiresInSeconds,
-                verificationAttemptsRemaining,
-                updatedAt,
-                createdAt,
-                deleteSelfEnabled,
-                createOrganizationEnabled,
-                createOrganizationsLimit,
-                lastActiveAt,
-                legalAcceptedAt);
+                id, object, externalId,
+                primaryEmailAddressId, primaryPhoneNumberId, primaryWeb3WalletId,
+                username, firstName, lastName,
+                profileImageUrl, imageUrl, hasImage,
+                publicMetadata, privateMetadata, unsafeMetadata,
+                emailAddresses, phoneNumbers, web3Wallets,
+                passkeys, passwordEnabled, twoFactorEnabled,
+                totpEnabled, backupCodeEnabled, mfaEnabledAt,
+                mfaDisabledAt, externalAccounts, samlAccounts,
+                lastSignInAt, banned, locked,
+                lockoutExpiresInSeconds, verificationAttemptsRemaining, updatedAt,
+                createdAt, deleteSelfEnabled, createOrganizationEnabled,
+                createOrganizationsLimit, lastActiveAt, legalAcceptedAt);
         }
+
     }
 }

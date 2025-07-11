@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreatePhoneNumberRequestBody {
 
+public class CreatePhoneNumberRequestBody {
     /**
      * The ID representing the user
      */
@@ -73,7 +72,8 @@ public class CreatePhoneNumberRequestBody {
     public CreatePhoneNumberRequestBody(
             String userId,
             String phoneNumber) {
-        this(userId, phoneNumber, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(userId, phoneNumber, JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -117,9 +117,10 @@ public class CreatePhoneNumberRequestBody {
         return reservedForSecondFactor;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID representing the user
@@ -195,7 +196,6 @@ public class CreatePhoneNumberRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -206,21 +206,18 @@ public class CreatePhoneNumberRequestBody {
         }
         CreatePhoneNumberRequestBody other = (CreatePhoneNumberRequestBody) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.verified, other.verified) &&
-            Objects.deepEquals(this.primary, other.primary) &&
-            Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.verified, other.verified) &&
+            Utils.enhancedDeepEquals(this.primary, other.primary) &&
+            Utils.enhancedDeepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            phoneNumber,
-            verified,
-            primary,
-            reservedForSecondFactor);
+        return Utils.enhancedHash(
+            userId, phoneNumber, verified,
+            primary, reservedForSecondFactor);
     }
     
     @Override
@@ -232,22 +229,24 @@ public class CreatePhoneNumberRequestBody {
                 "primary", primary,
                 "reservedForSecondFactor", reservedForSecondFactor);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private String phoneNumber;
- 
+
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> primary = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> reservedForSecondFactor = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID representing the user
@@ -258,6 +257,7 @@ public class CreatePhoneNumberRequestBody {
             return this;
         }
 
+
         /**
          * The new phone number. Must adhere to the E.164 standard for phone number format.
          */
@@ -266,6 +266,7 @@ public class CreatePhoneNumberRequestBody {
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         /**
          * When created, the phone number will be marked as verified.
@@ -285,6 +286,7 @@ public class CreatePhoneNumberRequestBody {
             return this;
         }
 
+
         /**
          * Create this phone number as the primary phone number for the user. Default: false, unless it is the first phone number.
          */
@@ -302,6 +304,7 @@ public class CreatePhoneNumberRequestBody {
             this.primary = primary;
             return this;
         }
+
 
         /**
          * Create this phone number as reserved for multi-factor authentication. The phone number must also be verified.
@@ -322,14 +325,13 @@ public class CreatePhoneNumberRequestBody {
             this.reservedForSecondFactor = reservedForSecondFactor;
             return this;
         }
-        
+
         public CreatePhoneNumberRequestBody build() {
+
             return new CreatePhoneNumberRequestBody(
-                userId,
-                phoneNumber,
-                verified,
-                primary,
-                reservedForSecondFactor);
+                userId, phoneNumber, verified,
+                primary, reservedForSecondFactor);
         }
+
     }
 }

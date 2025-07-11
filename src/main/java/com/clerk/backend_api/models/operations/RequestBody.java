@@ -18,12 +18,11 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class RequestBody {
 
+public class RequestBody {
     /**
      * The email address the invitation will be sent to
      */
@@ -103,7 +102,9 @@ public class RequestBody {
     
     public RequestBody(
             String emailAddress) {
-        this(emailAddress, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+        this(emailAddress, JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     /**
@@ -168,9 +169,10 @@ public class RequestBody {
         return (Optional<CreateBulkInvitationsTemplateSlug>) templateSlug;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email address the invitation will be sent to
@@ -288,6 +290,7 @@ public class RequestBody {
         return this;
     }
 
+
     /**
      * The slug of the email template to use for the invitation email.
      */
@@ -297,7 +300,6 @@ public class RequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -308,24 +310,20 @@ public class RequestBody {
         }
         RequestBody other = (RequestBody) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.redirectUrl, other.redirectUrl) &&
-            Objects.deepEquals(this.notify_, other.notify_) &&
-            Objects.deepEquals(this.ignoreExisting, other.ignoreExisting) &&
-            Objects.deepEquals(this.expiresInDays, other.expiresInDays) &&
-            Objects.deepEquals(this.templateSlug, other.templateSlug);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.redirectUrl, other.redirectUrl) &&
+            Utils.enhancedDeepEquals(this.notify_, other.notify_) &&
+            Utils.enhancedDeepEquals(this.ignoreExisting, other.ignoreExisting) &&
+            Utils.enhancedDeepEquals(this.expiresInDays, other.expiresInDays) &&
+            Utils.enhancedDeepEquals(this.templateSlug, other.templateSlug);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            publicMetadata,
-            redirectUrl,
-            notify_,
-            ignoreExisting,
-            expiresInDays,
+        return Utils.enhancedHash(
+            emailAddress, publicMetadata, redirectUrl,
+            notify_, ignoreExisting, expiresInDays,
             templateSlug);
     }
     
@@ -340,26 +338,28 @@ public class RequestBody {
                 "expiresInDays", expiresInDays,
                 "templateSlug", templateSlug);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddress;
- 
+
         private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> redirectUrl = JsonNullable.undefined();
- 
+
         private JsonNullable<Boolean> notify_;
- 
+
         private JsonNullable<Boolean> ignoreExisting;
- 
+
         private JsonNullable<Long> expiresInDays = JsonNullable.undefined();
- 
+
         private Optional<? extends CreateBulkInvitationsTemplateSlug> templateSlug;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email address the invitation will be sent to
@@ -369,6 +369,7 @@ public class RequestBody {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         /**
          * Metadata that will be attached to the newly created invitation.
@@ -392,6 +393,7 @@ public class RequestBody {
             return this;
         }
 
+
         /**
          * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
          */
@@ -409,6 +411,7 @@ public class RequestBody {
             this.redirectUrl = redirectUrl;
             return this;
         }
+
 
         /**
          * Optional flag which denotes whether an email invitation should be sent to the given email address.
@@ -430,6 +433,7 @@ public class RequestBody {
             return this;
         }
 
+
         /**
          * Whether an invitation should be created if there is already an existing invitation for this email
          * address, or it's claimed by another user.
@@ -450,6 +454,7 @@ public class RequestBody {
             return this;
         }
 
+
         /**
          * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
          */
@@ -468,6 +473,7 @@ public class RequestBody {
             return this;
         }
 
+
         /**
          * The slug of the email template to use for the invitation email.
          */
@@ -485,7 +491,7 @@ public class RequestBody {
             this.templateSlug = templateSlug;
             return this;
         }
-        
+
         public RequestBody build() {
             if (notify_ == null) {
                 notify_ = _SINGLETON_VALUE_Notify.value();
@@ -496,15 +502,13 @@ public class RequestBody {
             if (templateSlug == null) {
                 templateSlug = _SINGLETON_VALUE_TemplateSlug.value();
             }
+
             return new RequestBody(
-                emailAddress,
-                publicMetadata,
-                redirectUrl,
-                notify_,
-                ignoreExisting,
-                expiresInDays,
+                emailAddress, publicMetadata, redirectUrl,
+                notify_, ignoreExisting, expiresInDays,
                 templateSlug);
         }
+
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(

@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class DeleteBackupCodeRequest {
-
     /**
      * The ID of the user whose backup codes are to be deleted.
      */
@@ -34,9 +33,10 @@ public class DeleteBackupCodeRequest {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user whose backup codes are to be deleted.
@@ -47,7 +47,6 @@ public class DeleteBackupCodeRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class DeleteBackupCodeRequest {
         }
         DeleteBackupCodeRequest other = (DeleteBackupCodeRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -72,14 +71,16 @@ public class DeleteBackupCodeRequest {
         return Utils.toString(DeleteBackupCodeRequest.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user whose backup codes are to be deleted.
@@ -89,10 +90,12 @@ public class DeleteBackupCodeRequest {
             this.userId = userId;
             return this;
         }
-        
+
         public DeleteBackupCodeRequest build() {
+
             return new DeleteBackupCodeRequest(
                 userId);
         }
+
     }
 }

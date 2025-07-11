@@ -13,29 +13,34 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class GoogleOneTap {
 
     @JsonProperty("status")
     private GoogleOneTapVerificationStatus status;
 
+
     @JsonProperty("strategy")
     private GoogleOneTapVerificationStrategy strategy;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("expire_at")
     private Optional<Long> expireAt;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("attempts")
     private Optional<Long> attempts;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified_at_client")
     private JsonNullable<String> verifiedAtClient;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
@@ -66,7 +71,8 @@ public class GoogleOneTap {
     public GoogleOneTap(
             GoogleOneTapVerificationStatus status,
             GoogleOneTapVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(status, strategy, Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -100,9 +106,10 @@ public class GoogleOneTap {
         return (JsonNullable<GoogleOneTapVerificationError>) error;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public GoogleOneTap withStatus(GoogleOneTapVerificationStatus status) {
         Utils.checkNotNull(status, "status");
@@ -122,6 +129,7 @@ public class GoogleOneTap {
         return this;
     }
 
+
     public GoogleOneTap withExpireAt(Optional<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
@@ -133,6 +141,7 @@ public class GoogleOneTap {
         this.attempts = Optional.ofNullable(attempts);
         return this;
     }
+
 
     public GoogleOneTap withAttempts(Optional<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
@@ -164,7 +173,6 @@ public class GoogleOneTap {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -175,23 +183,19 @@ public class GoogleOneTap {
         }
         GoogleOneTap other = (GoogleOneTap) o;
         return 
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.strategy, other.strategy) &&
-            Objects.deepEquals(this.expireAt, other.expireAt) &&
-            Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient) &&
-            Objects.deepEquals(this.error, other.error);
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
+            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
+            Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
+            Utils.enhancedDeepEquals(this.verifiedAtClient, other.verifiedAtClient) &&
+            Utils.enhancedDeepEquals(this.error, other.error);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            status,
-            strategy,
-            expireAt,
-            attempts,
-            verifiedAtClient,
-            error);
+        return Utils.enhancedHash(
+            status, strategy, expireAt,
+            attempts, verifiedAtClient, error);
     }
     
     @Override
@@ -204,24 +208,26 @@ public class GoogleOneTap {
                 "verifiedAtClient", verifiedAtClient,
                 "error", error);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private GoogleOneTapVerificationStatus status;
- 
+
         private GoogleOneTapVerificationStrategy strategy;
- 
+
         private Optional<Long> expireAt = Optional.empty();
- 
+
         private Optional<Long> attempts = Optional.empty();
- 
+
         private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends GoogleOneTapVerificationError> error = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder status(GoogleOneTapVerificationStatus status) {
             Utils.checkNotNull(status, "status");
@@ -229,11 +235,13 @@ public class GoogleOneTap {
             return this;
         }
 
+
         public Builder strategy(GoogleOneTapVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
         }
+
 
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
@@ -247,6 +255,7 @@ public class GoogleOneTap {
             return this;
         }
 
+
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
             this.attempts = Optional.ofNullable(attempts);
@@ -258,6 +267,7 @@ public class GoogleOneTap {
             this.attempts = attempts;
             return this;
         }
+
 
         public Builder verifiedAtClient(String verifiedAtClient) {
             Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
@@ -271,6 +281,7 @@ public class GoogleOneTap {
             return this;
         }
 
+
         public Builder error(GoogleOneTapVerificationError error) {
             Utils.checkNotNull(error, "error");
             this.error = JsonNullable.of(error);
@@ -282,15 +293,13 @@ public class GoogleOneTap {
             this.error = error;
             return this;
         }
-        
+
         public GoogleOneTap build() {
+
             return new GoogleOneTap(
-                status,
-                strategy,
-                expireAt,
-                attempts,
-                verifiedAtClient,
-                error);
+                status, strategy, expireAt,
+                attempts, verifiedAtClient, error);
         }
+
     }
 }

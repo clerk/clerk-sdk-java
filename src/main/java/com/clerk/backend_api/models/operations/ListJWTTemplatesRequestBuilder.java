@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ListJWTTemplatesOperation;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -25,10 +29,10 @@ public class ListJWTTemplatesRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallListJWTTemplates sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ListJWTTemplatesRequestBuilder(SDKMethodInterfaces.MethodCallListJWTTemplates sdk) {
-        this.sdk = sdk;
+    public ListJWTTemplatesRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public ListJWTTemplatesRequestBuilder paginated(boolean paginated) {
@@ -79,20 +83,34 @@ public class ListJWTTemplatesRequestBuilder {
         return this;
     }
 
-    public ListJWTTemplatesResponse call() throws Exception {
+
+    private ListJWTTemplatesRequest buildRequest() {
         if (limit == null) {
             limit = _SINGLETON_VALUE_Limit.value();
         }
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.list(
-            paginated,
+        }
+
+        ListJWTTemplatesRequest request = new ListJWTTemplatesRequest(paginated,
             limit,
-            offset,
-            options);
+            offset);
+
+        return request;
+    }
+
+    public ListJWTTemplatesResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ListJWTTemplatesRequest, ListJWTTemplatesResponse> operation
+              = new ListJWTTemplatesOperation(
+                sdkConfiguration,
+                options);
+        ListJWTTemplatesRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =

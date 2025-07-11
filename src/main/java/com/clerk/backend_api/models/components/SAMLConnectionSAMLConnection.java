@@ -13,36 +13,44 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class SAMLConnectionSAMLConnection {
 
     @JsonProperty("id")
     private String id;
 
+
     @JsonProperty("name")
     private String name;
+
 
     @JsonProperty("domain")
     private String domain;
 
+
     @JsonProperty("active")
     private boolean active;
+
 
     @JsonProperty("provider")
     private String provider;
 
+
     @JsonProperty("sync_user_attributes")
     private boolean syncUserAttributes;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_subdomains")
     private Optional<Boolean> allowSubdomains;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_idp_initiated")
     private Optional<Boolean> allowIdpInitiated;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("disable_additional_identifications")
@@ -106,7 +114,10 @@ public class SAMLConnectionSAMLConnection {
             boolean syncUserAttributes,
             long createdAt,
             long updatedAt) {
-        this(id, name, domain, active, provider, syncUserAttributes, Optional.empty(), Optional.empty(), Optional.empty(), createdAt, updatedAt);
+        this(id, name, domain,
+            active, provider, syncUserAttributes,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -170,9 +181,10 @@ public class SAMLConnectionSAMLConnection {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SAMLConnectionSAMLConnection withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -216,6 +228,7 @@ public class SAMLConnectionSAMLConnection {
         return this;
     }
 
+
     public SAMLConnectionSAMLConnection withAllowSubdomains(Optional<Boolean> allowSubdomains) {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         this.allowSubdomains = allowSubdomains;
@@ -228,6 +241,7 @@ public class SAMLConnectionSAMLConnection {
         return this;
     }
 
+
     public SAMLConnectionSAMLConnection withAllowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         this.allowIdpInitiated = allowIdpInitiated;
@@ -239,6 +253,7 @@ public class SAMLConnectionSAMLConnection {
         this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
         return this;
     }
+
 
     public SAMLConnectionSAMLConnection withDisableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
@@ -264,7 +279,6 @@ public class SAMLConnectionSAMLConnection {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -275,33 +289,26 @@ public class SAMLConnectionSAMLConnection {
         }
         SAMLConnectionSAMLConnection other = (SAMLConnectionSAMLConnection) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.domain, other.domain) &&
-            Objects.deepEquals(this.active, other.active) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
-            Objects.deepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Objects.deepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Objects.deepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.active, other.active) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
+            Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
+            Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
+            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            name,
-            domain,
-            active,
-            provider,
-            syncUserAttributes,
-            allowSubdomains,
-            allowIdpInitiated,
-            disableAdditionalIdentifications,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            id, name, domain,
+            active, provider, syncUserAttributes,
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -319,34 +326,36 @@ public class SAMLConnectionSAMLConnection {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private String name;
- 
+
         private String domain;
- 
+
         private Boolean active;
- 
+
         private String provider;
- 
+
         private Boolean syncUserAttributes;
- 
+
         private Optional<Boolean> allowSubdomains = Optional.empty();
- 
+
         private Optional<Boolean> allowIdpInitiated = Optional.empty();
- 
+
         private Optional<Boolean> disableAdditionalIdentifications = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -354,11 +363,13 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
+
 
         public Builder domain(String domain) {
             Utils.checkNotNull(domain, "domain");
@@ -366,11 +377,13 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         public Builder active(boolean active) {
             Utils.checkNotNull(active, "active");
             this.active = active;
             return this;
         }
+
 
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
@@ -378,11 +391,13 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         public Builder syncUserAttributes(boolean syncUserAttributes) {
             Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
             this.syncUserAttributes = syncUserAttributes;
             return this;
         }
+
 
         public Builder allowSubdomains(boolean allowSubdomains) {
             Utils.checkNotNull(allowSubdomains, "allowSubdomains");
@@ -396,6 +411,7 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         public Builder allowIdpInitiated(boolean allowIdpInitiated) {
             Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
             this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
@@ -407,6 +423,7 @@ public class SAMLConnectionSAMLConnection {
             this.allowIdpInitiated = allowIdpInitiated;
             return this;
         }
+
 
         public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
             Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
@@ -420,6 +437,7 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation.
          */
@@ -429,6 +447,7 @@ public class SAMLConnectionSAMLConnection {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -437,20 +456,15 @@ public class SAMLConnectionSAMLConnection {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public SAMLConnectionSAMLConnection build() {
+
             return new SAMLConnectionSAMLConnection(
-                id,
-                name,
-                domain,
-                active,
-                provider,
-                syncUserAttributes,
-                allowSubdomains,
-                allowIdpInitiated,
-                disableAdditionalIdentifications,
-                createdAt,
-                updatedAt);
+                id, name, domain,
+                active, provider, syncUserAttributes,
+                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+                createdAt, updatedAt);
         }
+
     }
 }

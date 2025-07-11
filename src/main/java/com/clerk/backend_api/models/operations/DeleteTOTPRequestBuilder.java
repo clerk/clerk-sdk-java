@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteTOTPOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteTOTPRequestBuilder {
 
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteTOTP sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteTOTPRequestBuilder(SDKMethodInterfaces.MethodCallDeleteTOTP sdk) {
-        this.sdk = sdk;
+    public DeleteTOTPRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteTOTPRequestBuilder userId(String userId) {
@@ -38,12 +42,25 @@ public class DeleteTOTPRequestBuilder {
         return this;
     }
 
+
+    private DeleteTOTPRequest buildRequest() {
+
+        DeleteTOTPRequest request = new DeleteTOTPRequest(userId);
+
+        return request;
+    }
+
     public DeleteTOTPResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteTOTP(
-            userId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteTOTPRequest, DeleteTOTPResponse> operation
+              = new DeleteTOTPOperation(
+                sdkConfiguration,
+                options);
+        DeleteTOTPRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

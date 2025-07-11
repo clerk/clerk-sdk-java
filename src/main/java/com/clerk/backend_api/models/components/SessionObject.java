@@ -19,7 +19,7 @@ public enum SessionObject {
     @JsonValue
     private final String value;
 
-    private SessionObject(String value) {
+    SessionObject(String value) {
         this.value = value;
     }
     

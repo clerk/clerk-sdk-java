@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteOrganizationLogoOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteOrganizationLogoRequestBuilder {
 
     private String organizationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteOrganizationLogo sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteOrganizationLogoRequestBuilder(SDKMethodInterfaces.MethodCallDeleteOrganizationLogo sdk) {
-        this.sdk = sdk;
+    public DeleteOrganizationLogoRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteOrganizationLogoRequestBuilder organizationId(String organizationId) {
@@ -38,12 +42,25 @@ public class DeleteOrganizationLogoRequestBuilder {
         return this;
     }
 
+
+    private DeleteOrganizationLogoRequest buildRequest() {
+
+        DeleteOrganizationLogoRequest request = new DeleteOrganizationLogoRequest(organizationId);
+
+        return request;
+    }
+
     public DeleteOrganizationLogoResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteLogo(
-            organizationId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
+              = new DeleteOrganizationLogoOperation(
+                sdkConfiguration,
+                options);
+        DeleteOrganizationLogoRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

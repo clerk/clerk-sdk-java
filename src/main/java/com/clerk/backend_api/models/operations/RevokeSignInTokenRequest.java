@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class RevokeSignInTokenRequest {
-
     /**
      * The ID of the sign-in token to be revoked
      */
@@ -34,9 +33,10 @@ public class RevokeSignInTokenRequest {
         return signInTokenId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the sign-in token to be revoked
@@ -47,7 +47,6 @@ public class RevokeSignInTokenRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class RevokeSignInTokenRequest {
         }
         RevokeSignInTokenRequest other = (RevokeSignInTokenRequest) o;
         return 
-            Objects.deepEquals(this.signInTokenId, other.signInTokenId);
+            Utils.enhancedDeepEquals(this.signInTokenId, other.signInTokenId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             signInTokenId);
     }
     
@@ -72,14 +71,16 @@ public class RevokeSignInTokenRequest {
         return Utils.toString(RevokeSignInTokenRequest.class,
                 "signInTokenId", signInTokenId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String signInTokenId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the sign-in token to be revoked
@@ -89,10 +90,12 @@ public class RevokeSignInTokenRequest {
             this.signInTokenId = signInTokenId;
             return this;
         }
-        
+
         public RevokeSignInTokenRequest build() {
+
             return new RevokeSignInTokenRequest(
                 signInTokenId);
         }
+
     }
 }

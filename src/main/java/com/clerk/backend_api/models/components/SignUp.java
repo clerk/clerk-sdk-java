@@ -18,7 +18,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,72 +30,92 @@ public class SignUp {
     @JsonProperty("object")
     private SignUpObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("status")
     private SignUpStatus status;
 
+
     @JsonProperty("required_fields")
     private List<String> requiredFields;
+
 
     @JsonProperty("optional_fields")
     private List<String> optionalFields;
 
+
     @JsonProperty("missing_fields")
     private List<String> missingFields;
+
 
     @JsonProperty("unverified_fields")
     private List<String> unverifiedFields;
 
+
     @JsonProperty("verifications")
     private SignUpVerifications verifications;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("username")
     private Optional<String> username;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("email_address")
     private Optional<String> emailAddress;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("phone_number")
     private Optional<String> phoneNumber;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("web3_wallet")
     private Optional<String> web3Wallet;
 
+
     @JsonProperty("password_enabled")
     private boolean passwordEnabled;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("first_name")
     private Optional<String> firstName;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_name")
     private Optional<String> lastName;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("unsafe_metadata")
     private Optional<? extends Map<String, Object>> unsafeMetadata;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
     private Optional<? extends Map<String, Object>> publicMetadata;
 
+
     @JsonProperty("custom_action")
     private boolean customAction;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("external_id")
     private Optional<String> externalId;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("created_session_id")
     private Optional<String> createdSessionId;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("created_user_id")
@@ -212,7 +231,14 @@ public class SignUp {
             boolean passwordEnabled,
             boolean customAction,
             long abandonAt) {
-        this(object, id, status, requiredFields, optionalFields, missingFields, unverifiedFields, verifications, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), passwordEnabled, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), customAction, Optional.empty(), Optional.empty(), Optional.empty(), abandonAt, Optional.empty(), Optional.empty());
+        this(object, id, status,
+            requiredFields, optionalFields, missingFields,
+            unverifiedFields, verifications, Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            passwordEnabled, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), customAction,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            abandonAt, Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -349,9 +375,10 @@ public class SignUp {
         return (Optional<SignUpExternalAccount>) externalAccount;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public SignUp withObject(SignUpObject object) {
         Utils.checkNotNull(object, "object");
@@ -407,6 +434,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withUsername(Optional<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
@@ -418,6 +446,7 @@ public class SignUp {
         this.emailAddress = Optional.ofNullable(emailAddress);
         return this;
     }
+
 
     public SignUp withEmailAddress(Optional<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -431,6 +460,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withPhoneNumber(Optional<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
@@ -442,6 +472,7 @@ public class SignUp {
         this.web3Wallet = Optional.ofNullable(web3Wallet);
         return this;
     }
+
 
     public SignUp withWeb3Wallet(Optional<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -461,6 +492,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withFirstName(Optional<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
@@ -472,6 +504,7 @@ public class SignUp {
         this.lastName = Optional.ofNullable(lastName);
         return this;
     }
+
 
     public SignUp withLastName(Optional<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
@@ -485,6 +518,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withUnsafeMetadata(Optional<? extends Map<String, Object>> unsafeMetadata) {
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         this.unsafeMetadata = unsafeMetadata;
@@ -496,6 +530,7 @@ public class SignUp {
         this.publicMetadata = Optional.ofNullable(publicMetadata);
         return this;
     }
+
 
     public SignUp withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -515,6 +550,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withExternalId(Optional<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
@@ -527,6 +563,7 @@ public class SignUp {
         return this;
     }
 
+
     public SignUp withCreatedSessionId(Optional<String> createdSessionId) {
         Utils.checkNotNull(createdSessionId, "createdSessionId");
         this.createdSessionId = createdSessionId;
@@ -538,6 +575,7 @@ public class SignUp {
         this.createdUserId = Optional.ofNullable(createdUserId);
         return this;
     }
+
 
     public SignUp withCreatedUserId(Optional<String> createdUserId) {
         Utils.checkNotNull(createdUserId, "createdUserId");
@@ -563,6 +601,7 @@ public class SignUp {
         return this;
     }
 
+
     /**
      * Unix timestamp at which the user accepted the legal requirements.
      */
@@ -583,6 +622,7 @@ public class SignUp {
         return this;
     }
 
+
     /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -594,7 +634,6 @@ public class SignUp {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -605,59 +644,43 @@ public class SignUp {
         }
         SignUp other = (SignUp) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.requiredFields, other.requiredFields) &&
-            Objects.deepEquals(this.optionalFields, other.optionalFields) &&
-            Objects.deepEquals(this.missingFields, other.missingFields) &&
-            Objects.deepEquals(this.unverifiedFields, other.unverifiedFields) &&
-            Objects.deepEquals(this.verifications, other.verifications) &&
-            Objects.deepEquals(this.username, other.username) &&
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.passwordEnabled, other.passwordEnabled) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.customAction, other.customAction) &&
-            Objects.deepEquals(this.externalId, other.externalId) &&
-            Objects.deepEquals(this.createdSessionId, other.createdSessionId) &&
-            Objects.deepEquals(this.createdUserId, other.createdUserId) &&
-            Objects.deepEquals(this.abandonAt, other.abandonAt) &&
-            Objects.deepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
-            Objects.deepEquals(this.externalAccount, other.externalAccount);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.requiredFields, other.requiredFields) &&
+            Utils.enhancedDeepEquals(this.optionalFields, other.optionalFields) &&
+            Utils.enhancedDeepEquals(this.missingFields, other.missingFields) &&
+            Utils.enhancedDeepEquals(this.unverifiedFields, other.unverifiedFields) &&
+            Utils.enhancedDeepEquals(this.verifications, other.verifications) &&
+            Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.passwordEnabled, other.passwordEnabled) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.customAction, other.customAction) &&
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.createdSessionId, other.createdSessionId) &&
+            Utils.enhancedDeepEquals(this.createdUserId, other.createdUserId) &&
+            Utils.enhancedDeepEquals(this.abandonAt, other.abandonAt) &&
+            Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Utils.enhancedDeepEquals(this.externalAccount, other.externalAccount);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            status,
-            requiredFields,
-            optionalFields,
-            missingFields,
-            unverifiedFields,
-            verifications,
-            username,
-            emailAddress,
-            phoneNumber,
-            web3Wallet,
-            passwordEnabled,
-            firstName,
-            lastName,
-            unsafeMetadata,
-            publicMetadata,
-            customAction,
-            externalId,
-            createdSessionId,
-            createdUserId,
-            abandonAt,
-            legalAcceptedAt,
-            externalAccount);
+        return Utils.enhancedHash(
+            object, id, status,
+            requiredFields, optionalFields, missingFields,
+            unverifiedFields, verifications, username,
+            emailAddress, phoneNumber, web3Wallet,
+            passwordEnabled, firstName, lastName,
+            unsafeMetadata, publicMetadata, customAction,
+            externalId, createdSessionId, createdUserId,
+            abandonAt, legalAcceptedAt, externalAccount);
     }
     
     @Override
@@ -688,61 +711,63 @@ public class SignUp {
                 "legalAcceptedAt", legalAcceptedAt,
                 "externalAccount", externalAccount);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private SignUpObject object;
- 
+
         private String id;
- 
+
         private SignUpStatus status;
- 
+
         private List<String> requiredFields;
- 
+
         private List<String> optionalFields;
- 
+
         private List<String> missingFields;
- 
+
         private List<String> unverifiedFields;
- 
+
         private SignUpVerifications verifications;
- 
+
         private Optional<String> username = Optional.empty();
- 
+
         private Optional<String> emailAddress = Optional.empty();
- 
+
         private Optional<String> phoneNumber = Optional.empty();
- 
+
         private Optional<String> web3Wallet = Optional.empty();
- 
+
         private Boolean passwordEnabled;
- 
+
         private Optional<String> firstName = Optional.empty();
- 
+
         private Optional<String> lastName = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
- 
+
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
- 
+
         private Boolean customAction;
- 
+
         private Optional<String> externalId = Optional.empty();
- 
+
         private Optional<String> createdSessionId = Optional.empty();
- 
+
         private Optional<String> createdUserId = Optional.empty();
- 
+
         private Long abandonAt;
- 
+
         private Optional<Long> legalAcceptedAt = Optional.empty();
- 
+
         @Deprecated
         private Optional<? extends SignUpExternalAccount> externalAccount = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(SignUpObject object) {
             Utils.checkNotNull(object, "object");
@@ -750,11 +775,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder status(SignUpStatus status) {
             Utils.checkNotNull(status, "status");
@@ -762,11 +789,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder requiredFields(List<String> requiredFields) {
             Utils.checkNotNull(requiredFields, "requiredFields");
             this.requiredFields = requiredFields;
             return this;
         }
+
 
         public Builder optionalFields(List<String> optionalFields) {
             Utils.checkNotNull(optionalFields, "optionalFields");
@@ -774,11 +803,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder missingFields(List<String> missingFields) {
             Utils.checkNotNull(missingFields, "missingFields");
             this.missingFields = missingFields;
             return this;
         }
+
 
         public Builder unverifiedFields(List<String> unverifiedFields) {
             Utils.checkNotNull(unverifiedFields, "unverifiedFields");
@@ -786,11 +817,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder verifications(SignUpVerifications verifications) {
             Utils.checkNotNull(verifications, "verifications");
             this.verifications = verifications;
             return this;
         }
+
 
         public Builder username(String username) {
             Utils.checkNotNull(username, "username");
@@ -804,6 +837,7 @@ public class SignUp {
             return this;
         }
 
+
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = Optional.ofNullable(emailAddress);
@@ -815,6 +849,7 @@ public class SignUp {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         public Builder phoneNumber(String phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -828,6 +863,7 @@ public class SignUp {
             return this;
         }
 
+
         public Builder web3Wallet(String web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = Optional.ofNullable(web3Wallet);
@@ -840,11 +876,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder passwordEnabled(boolean passwordEnabled) {
             Utils.checkNotNull(passwordEnabled, "passwordEnabled");
             this.passwordEnabled = passwordEnabled;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -858,6 +896,7 @@ public class SignUp {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = Optional.ofNullable(lastName);
@@ -869,6 +908,7 @@ public class SignUp {
             this.lastName = lastName;
             return this;
         }
+
 
         public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
             Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
@@ -882,6 +922,7 @@ public class SignUp {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
@@ -894,11 +935,13 @@ public class SignUp {
             return this;
         }
 
+
         public Builder customAction(boolean customAction) {
             Utils.checkNotNull(customAction, "customAction");
             this.customAction = customAction;
             return this;
         }
+
 
         public Builder externalId(String externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -912,6 +955,7 @@ public class SignUp {
             return this;
         }
 
+
         public Builder createdSessionId(String createdSessionId) {
             Utils.checkNotNull(createdSessionId, "createdSessionId");
             this.createdSessionId = Optional.ofNullable(createdSessionId);
@@ -923,6 +967,7 @@ public class SignUp {
             this.createdSessionId = createdSessionId;
             return this;
         }
+
 
         public Builder createdUserId(String createdUserId) {
             Utils.checkNotNull(createdUserId, "createdUserId");
@@ -936,6 +981,7 @@ public class SignUp {
             return this;
         }
 
+
         /**
          * Unix timestamp at which the user abandoned the sign up attempt.
          */
@@ -944,6 +990,7 @@ public class SignUp {
             this.abandonAt = abandonAt;
             return this;
         }
+
 
         /**
          * Unix timestamp at which the user accepted the legal requirements.
@@ -962,6 +1009,7 @@ public class SignUp {
             this.legalAcceptedAt = legalAcceptedAt;
             return this;
         }
+
 
         /**
          * 
@@ -984,33 +1032,19 @@ public class SignUp {
             this.externalAccount = externalAccount;
             return this;
         }
-        
+
         public SignUp build() {
+
             return new SignUp(
-                object,
-                id,
-                status,
-                requiredFields,
-                optionalFields,
-                missingFields,
-                unverifiedFields,
-                verifications,
-                username,
-                emailAddress,
-                phoneNumber,
-                web3Wallet,
-                passwordEnabled,
-                firstName,
-                lastName,
-                unsafeMetadata,
-                publicMetadata,
-                customAction,
-                externalId,
-                createdSessionId,
-                createdUserId,
-                abandonAt,
-                legalAcceptedAt,
-                externalAccount);
+                object, id, status,
+                requiredFields, optionalFields, missingFields,
+                unverifiedFields, verifications, username,
+                emailAddress, phoneNumber, web3Wallet,
+                passwordEnabled, firstName, lastName,
+                unsafeMetadata, publicMetadata, customAction,
+                externalId, createdSessionId, createdUserId,
+                abandonAt, legalAcceptedAt, externalAccount);
         }
+
     }
 }

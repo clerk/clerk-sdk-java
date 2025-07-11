@@ -13,7 +13,6 @@ import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -27,9 +26,11 @@ public class OrganizationMembershipPublicUserData {
     @JsonProperty("user_id")
     private String userId;
 
+
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("first_name")
     private Optional<String> firstName;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_name")
@@ -44,11 +45,14 @@ public class OrganizationMembershipPublicUserData {
     @Deprecated
     private Optional<String> profileImageUrl;
 
+
     @JsonProperty("image_url")
     private String imageUrl;
 
+
     @JsonProperty("has_image")
     private boolean hasImage;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identifier")
@@ -83,7 +87,9 @@ public class OrganizationMembershipPublicUserData {
             String userId,
             String imageUrl,
             boolean hasImage) {
-        this(userId, Optional.empty(), Optional.empty(), Optional.empty(), imageUrl, hasImage, JsonNullable.undefined());
+        this(userId, Optional.empty(), Optional.empty(),
+            Optional.empty(), imageUrl, hasImage,
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -126,9 +132,10 @@ public class OrganizationMembershipPublicUserData {
         return identifier;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OrganizationMembershipPublicUserData withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -142,6 +149,7 @@ public class OrganizationMembershipPublicUserData {
         return this;
     }
 
+
     public OrganizationMembershipPublicUserData withFirstName(Optional<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
@@ -153,6 +161,7 @@ public class OrganizationMembershipPublicUserData {
         this.lastName = Optional.ofNullable(lastName);
         return this;
     }
+
 
     public OrganizationMembershipPublicUserData withLastName(Optional<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
@@ -170,6 +179,7 @@ public class OrganizationMembershipPublicUserData {
         this.profileImageUrl = Optional.ofNullable(profileImageUrl);
         return this;
     }
+
 
     /**
      * 
@@ -206,7 +216,6 @@ public class OrganizationMembershipPublicUserData {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -217,24 +226,20 @@ public class OrganizationMembershipPublicUserData {
         }
         OrganizationMembershipPublicUserData other = (OrganizationMembershipPublicUserData) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.firstName, other.firstName) &&
-            Objects.deepEquals(this.lastName, other.lastName) &&
-            Objects.deepEquals(this.profileImageUrl, other.profileImageUrl) &&
-            Objects.deepEquals(this.imageUrl, other.imageUrl) &&
-            Objects.deepEquals(this.hasImage, other.hasImage) &&
-            Objects.deepEquals(this.identifier, other.identifier);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
+            Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.profileImageUrl, other.profileImageUrl) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
+            Utils.enhancedDeepEquals(this.identifier, other.identifier);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            firstName,
-            lastName,
-            profileImageUrl,
-            imageUrl,
-            hasImage,
+        return Utils.enhancedHash(
+            userId, firstName, lastName,
+            profileImageUrl, imageUrl, hasImage,
             identifier);
     }
     
@@ -249,33 +254,36 @@ public class OrganizationMembershipPublicUserData {
                 "hasImage", hasImage,
                 "identifier", identifier);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Optional<String> firstName = Optional.empty();
- 
+
         private Optional<String> lastName = Optional.empty();
- 
+
         @Deprecated
         private Optional<String> profileImageUrl = Optional.empty();
- 
+
         private String imageUrl;
- 
+
         private Boolean hasImage;
- 
+
         private JsonNullable<String> identifier = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
             return this;
         }
+
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
@@ -289,6 +297,7 @@ public class OrganizationMembershipPublicUserData {
             return this;
         }
 
+
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = Optional.ofNullable(lastName);
@@ -300,6 +309,7 @@ public class OrganizationMembershipPublicUserData {
             this.lastName = lastName;
             return this;
         }
+
 
         /**
          * 
@@ -323,17 +333,20 @@ public class OrganizationMembershipPublicUserData {
             return this;
         }
 
+
         public Builder imageUrl(String imageUrl) {
             Utils.checkNotNull(imageUrl, "imageUrl");
             this.imageUrl = imageUrl;
             return this;
         }
 
+
         public Builder hasImage(boolean hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
             this.hasImage = hasImage;
             return this;
         }
+
 
         public Builder identifier(String identifier) {
             Utils.checkNotNull(identifier, "identifier");
@@ -346,16 +359,14 @@ public class OrganizationMembershipPublicUserData {
             this.identifier = identifier;
             return this;
         }
-        
+
         public OrganizationMembershipPublicUserData build() {
+
             return new OrganizationMembershipPublicUserData(
-                userId,
-                firstName,
-                lastName,
-                profileImageUrl,
-                imageUrl,
-                hasImage,
+                userId, firstName, lastName,
+                profileImageUrl, imageUrl, hasImage,
                 identifier);
         }
+
     }
 }

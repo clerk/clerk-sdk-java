@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetTemplateRequest {
-
     /**
      * The type of templates to retrieve (email or SMS)
      */
@@ -51,9 +50,10 @@ public class GetTemplateRequest {
         return slug;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of templates to retrieve (email or SMS)
@@ -73,7 +73,6 @@ public class GetTemplateRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,15 +83,14 @@ public class GetTemplateRequest {
         }
         GetTemplateRequest other = (GetTemplateRequest) o;
         return 
-            Objects.deepEquals(this.templateType, other.templateType) &&
-            Objects.deepEquals(this.slug, other.slug);
+            Utils.enhancedDeepEquals(this.templateType, other.templateType) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateType,
-            slug);
+        return Utils.enhancedHash(
+            templateType, slug);
     }
     
     @Override
@@ -101,16 +99,18 @@ public class GetTemplateRequest {
                 "templateType", templateType,
                 "slug", slug);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private PathParamTemplateType templateType;
- 
+
         private String slug;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of templates to retrieve (email or SMS)
@@ -121,6 +121,7 @@ public class GetTemplateRequest {
             return this;
         }
 
+
         /**
          * The slug (i.e. machine-friendly name) of the template to retrieve
          */
@@ -129,11 +130,12 @@ public class GetTemplateRequest {
             this.slug = slug;
             return this;
         }
-        
+
         public GetTemplateRequest build() {
+
             return new GetTemplateRequest(
-                templateType,
-                slug);
+                templateType, slug);
         }
+
     }
 }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -42,9 +41,10 @@ public class VerifyPasswordResponseBody {
         return verified;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public VerifyPasswordResponseBody withVerified(boolean verified) {
         Utils.checkNotNull(verified, "verified");
@@ -52,13 +52,13 @@ public class VerifyPasswordResponseBody {
         return this;
     }
 
+
     public VerifyPasswordResponseBody withVerified(Optional<Boolean> verified) {
         Utils.checkNotNull(verified, "verified");
         this.verified = verified;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -69,12 +69,12 @@ public class VerifyPasswordResponseBody {
         }
         VerifyPasswordResponseBody other = (VerifyPasswordResponseBody) o;
         return 
-            Objects.deepEquals(this.verified, other.verified);
+            Utils.enhancedDeepEquals(this.verified, other.verified);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             verified);
     }
     
@@ -83,14 +83,16 @@ public class VerifyPasswordResponseBody {
         return Utils.toString(VerifyPasswordResponseBody.class,
                 "verified", verified);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<Boolean> verified = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder verified(boolean verified) {
             Utils.checkNotNull(verified, "verified");
@@ -103,10 +105,12 @@ public class VerifyPasswordResponseBody {
             this.verified = verified;
             return this;
         }
-        
+
         public VerifyPasswordResponseBody build() {
+
             return new VerifyPasswordResponseBody(
                 verified);
         }
+
     }
 }

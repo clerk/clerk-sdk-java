@@ -19,7 +19,7 @@ public enum OrganizationInvitationWithPublicOrganizationDataObject {
     @JsonValue
     private final String value;
 
-    private OrganizationInvitationWithPublicOrganizationDataObject(String value) {
+    OrganizationInvitationWithPublicOrganizationDataObject(String value) {
         this.value = value;
     }
     

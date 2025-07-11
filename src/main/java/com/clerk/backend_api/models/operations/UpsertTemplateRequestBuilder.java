@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.UpsertTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class UpsertTemplateRequestBuilder {
     private String slug;
     private Optional<? extends UpsertTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUpsertTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public UpsertTemplateRequestBuilder(SDKMethodInterfaces.MethodCallUpsertTemplate sdk) {
-        this.sdk = sdk;
+    public UpsertTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public UpsertTemplateRequestBuilder templateType(UpsertTemplatePathParamTemplateType templateType) {
@@ -58,14 +62,27 @@ public class UpsertTemplateRequestBuilder {
         return this;
     }
 
+
+    private UpsertTemplateRequest buildRequest() {
+
+        UpsertTemplateRequest request = new UpsertTemplateRequest(templateType,
+            slug,
+            requestBody);
+
+        return request;
+    }
+
     public UpsertTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.upsert(
-            templateType,
-            slug,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
+              = new UpsertTemplateOperation(
+                sdkConfiguration,
+                options);
+        UpsertTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

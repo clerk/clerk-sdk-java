@@ -15,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -36,26 +35,33 @@ public class PhoneNumber {
     @JsonProperty("object")
     private PhoneNumberObject object;
 
+
     @JsonProperty("phone_number")
     private String phoneNumber;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reserved_for_second_factor")
     private Optional<Boolean> reservedForSecondFactor;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("default_second_factor")
     private Optional<Boolean> defaultSecondFactor;
 
+
     @JsonProperty("reserved")
     private boolean reserved;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
     private Optional<? extends PhoneNumberVerification> verification;
 
+
     @JsonProperty("linked_to")
     private List<IdentificationLink> linkedTo;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_codes")
@@ -117,7 +123,10 @@ public class PhoneNumber {
             List<IdentificationLink> linkedTo,
             long createdAt,
             long updatedAt) {
-        this(Optional.empty(), object, phoneNumber, Optional.empty(), Optional.empty(), reserved, Optional.empty(), linkedTo, JsonNullable.undefined(), createdAt, updatedAt);
+        this(Optional.empty(), object, phoneNumber,
+            Optional.empty(), Optional.empty(), reserved,
+            Optional.empty(), linkedTo, JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -186,15 +195,17 @@ public class PhoneNumber {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public PhoneNumber withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public PhoneNumber withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -223,6 +234,7 @@ public class PhoneNumber {
         return this;
     }
 
+
     public PhoneNumber withReservedForSecondFactor(Optional<Boolean> reservedForSecondFactor) {
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
         this.reservedForSecondFactor = reservedForSecondFactor;
@@ -234,6 +246,7 @@ public class PhoneNumber {
         this.defaultSecondFactor = Optional.ofNullable(defaultSecondFactor);
         return this;
     }
+
 
     public PhoneNumber withDefaultSecondFactor(Optional<Boolean> defaultSecondFactor) {
         Utils.checkNotNull(defaultSecondFactor, "defaultSecondFactor");
@@ -252,6 +265,7 @@ public class PhoneNumber {
         this.verification = Optional.ofNullable(verification);
         return this;
     }
+
 
     public PhoneNumber withVerification(Optional<? extends PhoneNumberVerification> verification) {
         Utils.checkNotNull(verification, "verification");
@@ -295,7 +309,6 @@ public class PhoneNumber {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -306,33 +319,26 @@ public class PhoneNumber {
         }
         PhoneNumber other = (PhoneNumber) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.phoneNumber, other.phoneNumber) &&
-            Objects.deepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor) &&
-            Objects.deepEquals(this.defaultSecondFactor, other.defaultSecondFactor) &&
-            Objects.deepEquals(this.reserved, other.reserved) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.linkedTo, other.linkedTo) &&
-            Objects.deepEquals(this.backupCodes, other.backupCodes) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.reservedForSecondFactor, other.reservedForSecondFactor) &&
+            Utils.enhancedDeepEquals(this.defaultSecondFactor, other.defaultSecondFactor) &&
+            Utils.enhancedDeepEquals(this.reserved, other.reserved) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.linkedTo, other.linkedTo) &&
+            Utils.enhancedDeepEquals(this.backupCodes, other.backupCodes) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            phoneNumber,
-            reservedForSecondFactor,
-            defaultSecondFactor,
-            reserved,
-            verification,
-            linkedTo,
-            backupCodes,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            id, object, phoneNumber,
+            reservedForSecondFactor, defaultSecondFactor, reserved,
+            verification, linkedTo, backupCodes,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -350,34 +356,36 @@ public class PhoneNumber {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private PhoneNumberObject object;
- 
+
         private String phoneNumber;
- 
+
         private Optional<Boolean> reservedForSecondFactor = Optional.empty();
- 
+
         private Optional<Boolean> defaultSecondFactor = Optional.empty();
- 
+
         private Boolean reserved;
- 
+
         private Optional<? extends PhoneNumberVerification> verification = Optional.empty();
- 
+
         private List<IdentificationLink> linkedTo;
- 
+
         private JsonNullable<? extends List<String>> backupCodes = JsonNullable.undefined();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -391,6 +399,7 @@ public class PhoneNumber {
             return this;
         }
 
+
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
@@ -400,11 +409,13 @@ public class PhoneNumber {
             return this;
         }
 
+
         public Builder phoneNumber(String phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = phoneNumber;
             return this;
         }
+
 
         public Builder reservedForSecondFactor(boolean reservedForSecondFactor) {
             Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
@@ -418,6 +429,7 @@ public class PhoneNumber {
             return this;
         }
 
+
         public Builder defaultSecondFactor(boolean defaultSecondFactor) {
             Utils.checkNotNull(defaultSecondFactor, "defaultSecondFactor");
             this.defaultSecondFactor = Optional.ofNullable(defaultSecondFactor);
@@ -430,11 +442,13 @@ public class PhoneNumber {
             return this;
         }
 
+
         public Builder reserved(boolean reserved) {
             Utils.checkNotNull(reserved, "reserved");
             this.reserved = reserved;
             return this;
         }
+
 
         public Builder verification(PhoneNumberVerification verification) {
             Utils.checkNotNull(verification, "verification");
@@ -448,11 +462,13 @@ public class PhoneNumber {
             return this;
         }
 
+
         public Builder linkedTo(List<IdentificationLink> linkedTo) {
             Utils.checkNotNull(linkedTo, "linkedTo");
             this.linkedTo = linkedTo;
             return this;
         }
+
 
         public Builder backupCodes(List<String> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
@@ -466,6 +482,7 @@ public class PhoneNumber {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -475,6 +492,7 @@ public class PhoneNumber {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -483,20 +501,15 @@ public class PhoneNumber {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public PhoneNumber build() {
+
             return new PhoneNumber(
-                id,
-                object,
-                phoneNumber,
-                reservedForSecondFactor,
-                defaultSecondFactor,
-                reserved,
-                verification,
-                linkedTo,
-                backupCodes,
-                createdAt,
-                updatedAt);
+                id, object, phoneNumber,
+                reservedForSecondFactor, defaultSecondFactor, reserved,
+                verification, linkedTo, backupCodes,
+                createdAt, updatedAt);
         }
+
     }
 }

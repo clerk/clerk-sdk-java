@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class VerifyPasswordRequest {
 
+public class VerifyPasswordRequest {
     /**
      * The ID of the user for whom to verify the password
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends VerifyPasswordRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class VerifyPasswordRequest {
         return (Optional<VerifyPasswordRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user for whom to verify the password
@@ -72,13 +73,13 @@ public class VerifyPasswordRequest {
         return this;
     }
 
+
     public VerifyPasswordRequest withRequestBody(Optional<? extends VerifyPasswordRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class VerifyPasswordRequest {
         }
         VerifyPasswordRequest other = (VerifyPasswordRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            userId,
-            requestBody);
+        return Utils.enhancedHash(
+            userId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class VerifyPasswordRequest {
                 "userId", userId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
- 
+
         private Optional<? extends VerifyPasswordRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user for whom to verify the password
@@ -125,6 +127,7 @@ public class VerifyPasswordRequest {
             this.userId = userId;
             return this;
         }
+
 
         public Builder requestBody(VerifyPasswordRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class VerifyPasswordRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public VerifyPasswordRequest build() {
+
             return new VerifyPasswordRequest(
-                userId,
-                requestBody);
+                userId, requestBody);
         }
+
     }
 }

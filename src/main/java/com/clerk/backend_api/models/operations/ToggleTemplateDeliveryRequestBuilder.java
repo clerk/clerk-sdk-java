@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.ToggleTemplateDeliveryOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -16,10 +20,10 @@ public class ToggleTemplateDeliveryRequestBuilder {
     private String slug;
     private Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallToggleTemplateDelivery sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ToggleTemplateDeliveryRequestBuilder(SDKMethodInterfaces.MethodCallToggleTemplateDelivery sdk) {
-        this.sdk = sdk;
+    public ToggleTemplateDeliveryRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ToggleTemplateDeliveryRequestBuilder templateType(ToggleTemplateDeliveryPathParamTemplateType templateType) {
@@ -58,14 +62,27 @@ public class ToggleTemplateDeliveryRequestBuilder {
         return this;
     }
 
+
+    private ToggleTemplateDeliveryRequest buildRequest() {
+
+        ToggleTemplateDeliveryRequest request = new ToggleTemplateDeliveryRequest(templateType,
+            slug,
+            requestBody);
+
+        return request;
+    }
+
     public ToggleTemplateDeliveryResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.toggleTemplateDelivery(
-            templateType,
-            slug,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ToggleTemplateDeliveryRequest, ToggleTemplateDeliveryResponse> operation
+              = new ToggleTemplateDeliveryOperation(
+                sdkConfiguration,
+                options);
+        ToggleTemplateDeliveryRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

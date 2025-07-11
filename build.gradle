@@ -27,8 +27,6 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
     withSourcesJar()
     withJavadocJar()
 }
@@ -63,6 +61,10 @@ javadoc {
 tasks.withType(Javadoc) {
   failOnError false
   options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
 }
 
 sourcesJar {
@@ -103,11 +105,15 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.clerk"
             artifactId = "backend-api"
-            version = "3.0.3"
+            version = "3.1.0"
 
             from components.java
 
             pom {
+                properties = [
+                    'maven.compiler.source': '11',
+                    'maven.compiler.target': '11',
+                ]
                 name = 'My Company Java SDK'
                 description = 'SDK enabling Java developers to easily integrate with the My Company API.'
                 url = 'https://github.com/owner/repo'

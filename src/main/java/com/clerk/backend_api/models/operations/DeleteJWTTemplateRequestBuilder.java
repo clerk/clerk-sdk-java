@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.DeleteJWTTemplateOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class DeleteJWTTemplateRequestBuilder {
 
     private String templateId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteJWTTemplate sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteJWTTemplateRequestBuilder(SDKMethodInterfaces.MethodCallDeleteJWTTemplate sdk) {
-        this.sdk = sdk;
+    public DeleteJWTTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public DeleteJWTTemplateRequestBuilder templateId(String templateId) {
@@ -38,12 +42,25 @@ public class DeleteJWTTemplateRequestBuilder {
         return this;
     }
 
+
+    private DeleteJWTTemplateRequest buildRequest() {
+
+        DeleteJWTTemplateRequest request = new DeleteJWTTemplateRequest(templateId);
+
+        return request;
+    }
+
     public DeleteJWTTemplateResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.delete(
-            templateId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<DeleteJWTTemplateRequest, DeleteJWTTemplateResponse> operation
+              = new DeleteJWTTemplateOperation(
+                sdkConfiguration,
+                options);
+        DeleteJWTTemplateRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

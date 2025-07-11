@@ -15,11 +15,10 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateOrganizationRequestBody {
 
+public class CreateOrganizationRequestBody {
     /**
      * The name of the new organization.
      * May not contain URLs or HTML.
@@ -99,7 +98,9 @@ public class CreateOrganizationRequestBody {
     
     public CreateOrganizationRequestBody(
             String name) {
-        this(name, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(name, JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -164,9 +165,10 @@ public class CreateOrganizationRequestBody {
         return createdAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name of the new organization.
@@ -291,7 +293,6 @@ public class CreateOrganizationRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -302,24 +303,20 @@ public class CreateOrganizationRequestBody {
         }
         CreateOrganizationRequestBody other = (CreateOrganizationRequestBody) o;
         return 
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.createdBy, other.createdBy) &&
-            Objects.deepEquals(this.privateMetadata, other.privateMetadata) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.slug, other.slug) &&
-            Objects.deepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Objects.deepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            name,
-            createdBy,
-            privateMetadata,
-            publicMetadata,
-            slug,
-            maxAllowedMemberships,
+        return Utils.enhancedHash(
+            name, createdBy, privateMetadata,
+            publicMetadata, slug, maxAllowedMemberships,
             createdAt);
     }
     
@@ -334,26 +331,28 @@ public class CreateOrganizationRequestBody {
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "createdAt", createdAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String name;
- 
+
         private JsonNullable<String> createdBy = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
- 
+
         private JsonNullable<String> slug = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
- 
+
         private JsonNullable<String> createdAt = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name of the new organization.
@@ -365,6 +364,7 @@ public class CreateOrganizationRequestBody {
             this.name = name;
             return this;
         }
+
 
         /**
          * The ID of the User who will become the administrator for the new organization
@@ -384,6 +384,7 @@ public class CreateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the organization, accessible only from the Backend API
          */
@@ -402,6 +403,7 @@ public class CreateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
          */
@@ -419,6 +421,7 @@ public class CreateOrganizationRequestBody {
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         /**
          * A slug for the new organization.
@@ -442,6 +445,7 @@ public class CreateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * The maximum number of memberships allowed for this organization
          */
@@ -460,6 +464,7 @@ public class CreateOrganizationRequestBody {
             return this;
         }
 
+
         /**
          * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
          */
@@ -477,16 +482,14 @@ public class CreateOrganizationRequestBody {
             this.createdAt = createdAt;
             return this;
         }
-        
+
         public CreateOrganizationRequestBody build() {
+
             return new CreateOrganizationRequestBody(
-                name,
-                createdBy,
-                privateMetadata,
-                publicMetadata,
-                slug,
-                maxAllowedMemberships,
+                name, createdBy, privateMetadata,
+                publicMetadata, slug, maxAllowedMemberships,
                 createdAt);
         }
+
     }
 }

@@ -13,8 +13,8 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class Web3Wallet {
 
@@ -28,8 +28,10 @@ public class Web3Wallet {
     @JsonProperty("object")
     private Web3WalletObject object;
 
+
     @JsonProperty("web3_wallet")
     private String web3Wallet;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
@@ -74,7 +76,8 @@ public class Web3Wallet {
             String web3Wallet,
             long createdAt,
             long updatedAt) {
-        this(Optional.empty(), object, web3Wallet, Optional.empty(), createdAt, updatedAt);
+        this(Optional.empty(), object, web3Wallet,
+            Optional.empty(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -117,15 +120,17 @@ public class Web3Wallet {
         return updatedAt;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Web3Wallet withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public Web3Wallet withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -154,6 +159,7 @@ public class Web3Wallet {
         return this;
     }
 
+
     public Web3Wallet withVerification(Optional<? extends Web3WalletVerification> verification) {
         Utils.checkNotNull(verification, "verification");
         this.verification = verification;
@@ -178,7 +184,6 @@ public class Web3Wallet {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -189,23 +194,19 @@ public class Web3Wallet {
         }
         Web3Wallet other = (Web3Wallet) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.web3Wallet, other.web3Wallet) &&
-            Objects.deepEquals(this.verification, other.verification) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            object,
-            web3Wallet,
-            verification,
-            createdAt,
-            updatedAt);
+        return Utils.enhancedHash(
+            id, object, web3Wallet,
+            verification, createdAt, updatedAt);
     }
     
     @Override
@@ -218,24 +219,26 @@ public class Web3Wallet {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Web3WalletObject object;
- 
+
         private String web3Wallet;
- 
+
         private Optional<? extends Web3WalletVerification> verification = Optional.empty();
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -249,6 +252,7 @@ public class Web3Wallet {
             return this;
         }
 
+
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
@@ -258,11 +262,13 @@ public class Web3Wallet {
             return this;
         }
 
+
         public Builder web3Wallet(String web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
             this.web3Wallet = web3Wallet;
             return this;
         }
+
 
         public Builder verification(Web3WalletVerification verification) {
             Utils.checkNotNull(verification, "verification");
@@ -276,6 +282,7 @@ public class Web3Wallet {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -285,6 +292,7 @@ public class Web3Wallet {
             return this;
         }
 
+
         /**
          * Unix timestamp of creation
          */
@@ -293,15 +301,13 @@ public class Web3Wallet {
             this.updatedAt = updatedAt;
             return this;
         }
-        
+
         public Web3Wallet build() {
+
             return new Web3Wallet(
-                id,
-                object,
-                web3Wallet,
-                verification,
-                createdAt,
-                updatedAt);
+                id, object, web3Wallet,
+                verification, createdAt, updatedAt);
         }
+
     }
 }

@@ -14,7 +14,7 @@ public enum OAuthAccessTokenObject {
     @JsonValue
     private final String value;
 
-    private OAuthAccessTokenObject(String value) {
+    OAuthAccessTokenObject(String value) {
         this.value = value;
     }
     

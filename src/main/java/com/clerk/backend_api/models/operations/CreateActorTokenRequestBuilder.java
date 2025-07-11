@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateActorTokenOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateActorTokenRequestBuilder {
 
     private Optional<? extends CreateActorTokenRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateActorToken sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateActorTokenRequestBuilder(SDKMethodInterfaces.MethodCallCreateActorToken sdk) {
-        this.sdk = sdk;
+    public CreateActorTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateActorTokenRequestBuilder request(CreateActorTokenRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateActorTokenRequestBuilder {
 
     public CreateActorTokenResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
+              = new CreateActorTokenOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

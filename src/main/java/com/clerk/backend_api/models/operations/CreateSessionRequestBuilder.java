@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.CreateSessionOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -13,10 +17,10 @@ public class CreateSessionRequestBuilder {
 
     private Optional<? extends CreateSessionRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateSession sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateSessionRequestBuilder(SDKMethodInterfaces.MethodCallCreateSession sdk) {
-        this.sdk = sdk;
+    public CreateSessionRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public CreateSessionRequestBuilder request(CreateSessionRequestBody request) {
@@ -45,10 +49,14 @@ public class CreateSessionRequestBuilder {
 
     public CreateSessionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.create(
-            request,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
+              = new CreateSessionOperation(
+                sdkConfiguration,
+                options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -16,7 +16,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -60,8 +59,10 @@ public class OAuthAccessToken {
     @JsonProperty("provider")
     private String provider;
 
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("label")
@@ -100,6 +101,7 @@ public class OAuthAccessToken {
         Utils.checkNotNull(expiresAt, "expiresAt");
         Utils.checkNotNull(provider, "provider");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(label, "label");
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(tokenSecret, "tokenSecret");
@@ -122,7 +124,10 @@ public class OAuthAccessToken {
             String token,
             String provider,
             Map<String, Object> publicMetadata) {
-        this(object, externalAccountId, providerUserId, token, Optional.empty(), provider, publicMetadata, Optional.empty(), Optional.empty(), Optional.empty());
+        this(object, externalAccountId, providerUserId,
+            token, Optional.empty(), provider,
+            publicMetadata, Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -197,9 +202,10 @@ public class OAuthAccessToken {
         return tokenSecret;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OAuthAccessToken withObject(OAuthAccessTokenObject object) {
         Utils.checkNotNull(object, "object");
@@ -243,6 +249,7 @@ public class OAuthAccessToken {
         return this;
     }
 
+
     /**
      * Unix timestamp of the access token expiration.
      */
@@ -273,6 +280,7 @@ public class OAuthAccessToken {
         return this;
     }
 
+
     public OAuthAccessToken withLabel(Optional<String> label) {
         Utils.checkNotNull(label, "label");
         this.label = label;
@@ -287,6 +295,7 @@ public class OAuthAccessToken {
         this.scopes = Optional.ofNullable(scopes);
         return this;
     }
+
 
     /**
      * The list of scopes that the token is valid for. Only present for OAuth 2.0 tokens.
@@ -306,6 +315,7 @@ public class OAuthAccessToken {
         return this;
     }
 
+
     /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
@@ -315,7 +325,6 @@ public class OAuthAccessToken {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -326,30 +335,24 @@ public class OAuthAccessToken {
         }
         OAuthAccessToken other = (OAuthAccessToken) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.externalAccountId, other.externalAccountId) &&
-            Objects.deepEquals(this.providerUserId, other.providerUserId) &&
-            Objects.deepEquals(this.token, other.token) &&
-            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
-            Objects.deepEquals(this.provider, other.provider) &&
-            Objects.deepEquals(this.publicMetadata, other.publicMetadata) &&
-            Objects.deepEquals(this.label, other.label) &&
-            Objects.deepEquals(this.scopes, other.scopes) &&
-            Objects.deepEquals(this.tokenSecret, other.tokenSecret);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.externalAccountId, other.externalAccountId) &&
+            Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
+            Utils.enhancedDeepEquals(this.token, other.token) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.label, other.label) &&
+            Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.tokenSecret, other.tokenSecret);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            externalAccountId,
-            providerUserId,
-            token,
-            expiresAt,
-            provider,
-            publicMetadata,
-            label,
-            scopes,
+        return Utils.enhancedHash(
+            object, externalAccountId, providerUserId,
+            token, expiresAt, provider,
+            publicMetadata, label, scopes,
             tokenSecret);
     }
     
@@ -367,38 +370,41 @@ public class OAuthAccessToken {
                 "scopes", scopes,
                 "tokenSecret", tokenSecret);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OAuthAccessTokenObject object;
- 
+
         private String externalAccountId;
- 
+
         private String providerUserId;
- 
+
         private String token;
- 
+
         private Optional<Long> expiresAt = Optional.empty();
- 
+
         private String provider;
- 
+
         private Map<String, Object> publicMetadata;
- 
+
         private Optional<String> label = Optional.empty();
- 
+
         private Optional<? extends List<String>> scopes = Optional.empty();
- 
+
         private Optional<String> tokenSecret = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(OAuthAccessTokenObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
         }
+
 
         /**
          * External account ID
@@ -409,6 +415,7 @@ public class OAuthAccessToken {
             return this;
         }
 
+
         /**
          * The unique ID of the user in the external provider's system
          */
@@ -418,6 +425,7 @@ public class OAuthAccessToken {
             return this;
         }
 
+
         /**
          * The access token
          */
@@ -426,6 +434,7 @@ public class OAuthAccessToken {
             this.token = token;
             return this;
         }
+
 
         /**
          * Unix timestamp of the access token expiration.
@@ -445,6 +454,7 @@ public class OAuthAccessToken {
             return this;
         }
 
+
         /**
          * The ID of the provider
          */
@@ -454,11 +464,13 @@ public class OAuthAccessToken {
             return this;
         }
 
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
         }
+
 
         public Builder label(String label) {
             Utils.checkNotNull(label, "label");
@@ -471,6 +483,7 @@ public class OAuthAccessToken {
             this.label = label;
             return this;
         }
+
 
         /**
          * The list of scopes that the token is valid for. Only present for OAuth 2.0 tokens.
@@ -490,6 +503,7 @@ public class OAuthAccessToken {
             return this;
         }
 
+
         /**
          * The token secret. Only present for OAuth 1.0 tokens.
          */
@@ -507,19 +521,15 @@ public class OAuthAccessToken {
             this.tokenSecret = tokenSecret;
             return this;
         }
-        
+
         public OAuthAccessToken build() {
+
             return new OAuthAccessToken(
-                object,
-                externalAccountId,
-                providerUserId,
-                token,
-                expiresAt,
-                provider,
-                publicMetadata,
-                label,
-                scopes,
+                object, externalAccountId, providerUserId,
+                token, expiresAt, provider,
+                publicMetadata, label, scopes,
                 tokenSecret);
         }
+
     }
 }

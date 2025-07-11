@@ -17,7 +17,7 @@ public enum OTPVerificationStatus {
     @JsonValue
     private final String value;
 
-    private OTPVerificationStatus(String value) {
+    OTPVerificationStatus(String value) {
         this.value = value;
     }
     

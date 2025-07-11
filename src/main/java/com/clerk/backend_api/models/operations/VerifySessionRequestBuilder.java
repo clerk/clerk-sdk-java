@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.VerifySessionOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -15,10 +19,10 @@ public class VerifySessionRequestBuilder {
     private String sessionId;
     private Optional<? extends VerifySessionRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallVerifySession sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public VerifySessionRequestBuilder(SDKMethodInterfaces.MethodCallVerifySession sdk) {
-        this.sdk = sdk;
+    public VerifySessionRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public VerifySessionRequestBuilder sessionId(String sessionId) {
@@ -51,13 +55,26 @@ public class VerifySessionRequestBuilder {
         return this;
     }
 
+
+    private VerifySessionRequest buildRequest() {
+
+        VerifySessionRequest request = new VerifySessionRequest(sessionId,
+            requestBody);
+
+        return request;
+    }
+
     public VerifySessionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.verify(
-            sessionId,
-            requestBody,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<VerifySessionRequest, VerifySessionResponse> operation
+              = new VerifySessionOperation(
+                sdkConfiguration,
+                options);
+        VerifySessionRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

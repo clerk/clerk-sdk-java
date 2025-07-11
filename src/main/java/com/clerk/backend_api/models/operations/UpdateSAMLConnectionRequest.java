@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class UpdateSAMLConnectionRequest {
-
     /**
      * The ID of the SAML Connection to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=saml_connection_id")
     private String samlConnectionId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private UpdateSAMLConnectionRequestBody requestBody;
@@ -45,9 +45,10 @@ public class UpdateSAMLConnectionRequest {
         return requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the SAML Connection to update
@@ -64,7 +65,6 @@ public class UpdateSAMLConnectionRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -75,15 +75,14 @@ public class UpdateSAMLConnectionRequest {
         }
         UpdateSAMLConnectionRequest other = (UpdateSAMLConnectionRequest) o;
         return 
-            Objects.deepEquals(this.samlConnectionId, other.samlConnectionId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.samlConnectionId, other.samlConnectionId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            samlConnectionId,
-            requestBody);
+        return Utils.enhancedHash(
+            samlConnectionId, requestBody);
     }
     
     @Override
@@ -92,16 +91,18 @@ public class UpdateSAMLConnectionRequest {
                 "samlConnectionId", samlConnectionId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String samlConnectionId;
- 
+
         private UpdateSAMLConnectionRequestBody requestBody;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the SAML Connection to update
@@ -112,16 +113,18 @@ public class UpdateSAMLConnectionRequest {
             return this;
         }
 
+
         public Builder requestBody(UpdateSAMLConnectionRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateSAMLConnectionRequest build() {
+
             return new UpdateSAMLConnectionRequest(
-                samlConnectionId,
-                requestBody);
+                samlConnectionId, requestBody);
         }
+
     }
 }

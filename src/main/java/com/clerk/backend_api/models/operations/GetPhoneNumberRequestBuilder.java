@@ -3,6 +3,10 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import static com.clerk.backend_api.operations.Operations.RequestOperation;
+
+import com.clerk.backend_api.SDKConfiguration;
+import com.clerk.backend_api.operations.GetPhoneNumberOperation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -14,10 +18,10 @@ public class GetPhoneNumberRequestBuilder {
 
     private String phoneNumberId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetPhoneNumber sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetPhoneNumberRequestBuilder(SDKMethodInterfaces.MethodCallGetPhoneNumber sdk) {
-        this.sdk = sdk;
+    public GetPhoneNumberRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetPhoneNumberRequestBuilder phoneNumberId(String phoneNumberId) {
@@ -38,12 +42,25 @@ public class GetPhoneNumberRequestBuilder {
         return this;
     }
 
+
+    private GetPhoneNumberRequest buildRequest() {
+
+        GetPhoneNumberRequest request = new GetPhoneNumberRequest(phoneNumberId);
+
+        return request;
+    }
+
     public GetPhoneNumberResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.get(
-            phoneNumberId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetPhoneNumberRequest, GetPhoneNumberResponse> operation
+              = new GetPhoneNumberOperation(
+                sdkConfiguration,
+                options);
+        GetPhoneNumberRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

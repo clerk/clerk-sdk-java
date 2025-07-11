@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class LockUserRequest {
-
     /**
      * The ID of the user to lock
      */
@@ -34,9 +33,10 @@ public class LockUserRequest {
         return userId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the user to lock
@@ -47,7 +47,6 @@ public class LockUserRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class LockUserRequest {
         }
         LockUserRequest other = (LockUserRequest) o;
         return 
-            Objects.deepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             userId);
     }
     
@@ -72,14 +71,16 @@ public class LockUserRequest {
         return Utils.toString(LockUserRequest.class,
                 "userId", userId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String userId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the user to lock
@@ -89,10 +90,12 @@ public class LockUserRequest {
             this.userId = userId;
             return this;
         }
-        
+
         public LockUserRequest build() {
+
             return new LockUserRequest(
                 userId);
         }
+
     }
 }

@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
+
 
 public class GetOAuthApplicationRequest {
-
     /**
      * The ID of the OAuth application
      */
@@ -34,9 +33,10 @@ public class GetOAuthApplicationRequest {
         return oauthApplicationId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the OAuth application
@@ -47,7 +47,6 @@ public class GetOAuthApplicationRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -58,12 +57,12 @@ public class GetOAuthApplicationRequest {
         }
         GetOAuthApplicationRequest other = (GetOAuthApplicationRequest) o;
         return 
-            Objects.deepEquals(this.oauthApplicationId, other.oauthApplicationId);
+            Utils.enhancedDeepEquals(this.oauthApplicationId, other.oauthApplicationId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             oauthApplicationId);
     }
     
@@ -72,14 +71,16 @@ public class GetOAuthApplicationRequest {
         return Utils.toString(GetOAuthApplicationRequest.class,
                 "oauthApplicationId", oauthApplicationId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String oauthApplicationId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the OAuth application
@@ -89,10 +90,12 @@ public class GetOAuthApplicationRequest {
             this.oauthApplicationId = oauthApplicationId;
             return this;
         }
-        
+
         public GetOAuthApplicationRequest build() {
+
             return new GetOAuthApplicationRequest(
                 oauthApplicationId);
         }
+
     }
 }

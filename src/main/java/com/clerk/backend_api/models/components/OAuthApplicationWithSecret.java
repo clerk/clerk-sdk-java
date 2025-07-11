@@ -15,31 +15,38 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class OAuthApplicationWithSecret {
 
     @JsonProperty("object")
     private OAuthApplicationWithSecretObject object;
 
+
     @JsonProperty("id")
     private String id;
+
 
     @JsonProperty("instance_id")
     private String instanceId;
 
+
     @JsonProperty("name")
     private String name;
+
 
     @JsonProperty("client_id")
     private String clientId;
 
+
     @JsonProperty("public")
     private boolean public_;
 
+
     @JsonProperty("scopes")
     private String scopes;
+
 
     @JsonProperty("redirect_uris")
     private List<String> redirectUris;
@@ -53,17 +60,22 @@ public class OAuthApplicationWithSecret {
     @Deprecated
     private String callbackUrl;
 
+
     @JsonProperty("authorize_url")
     private String authorizeUrl;
+
 
     @JsonProperty("token_fetch_url")
     private String tokenFetchUrl;
 
+
     @JsonProperty("user_info_url")
     private String userInfoUrl;
 
+
     @JsonProperty("discovery_url")
     private String discoveryUrl;
+
 
     @JsonProperty("token_introspection_url")
     private String tokenIntrospectionUrl;
@@ -159,7 +171,12 @@ public class OAuthApplicationWithSecret {
             String tokenIntrospectionUrl,
             long createdAt,
             long updatedAt) {
-        this(object, id, instanceId, name, clientId, public_, scopes, redirectUris, callbackUrl, authorizeUrl, tokenFetchUrl, userInfoUrl, discoveryUrl, tokenIntrospectionUrl, createdAt, updatedAt, Optional.empty());
+        this(object, id, instanceId,
+            name, clientId, public_,
+            scopes, redirectUris, callbackUrl,
+            authorizeUrl, tokenFetchUrl, userInfoUrl,
+            discoveryUrl, tokenIntrospectionUrl, createdAt,
+            updatedAt, Optional.empty());
     }
 
     @JsonIgnore
@@ -262,9 +279,10 @@ public class OAuthApplicationWithSecret {
         return clientSecret;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OAuthApplicationWithSecret withObject(OAuthApplicationWithSecretObject object) {
         Utils.checkNotNull(object, "object");
@@ -383,6 +401,7 @@ public class OAuthApplicationWithSecret {
         return this;
     }
 
+
     /**
      * Empty if public client.
      */
@@ -392,7 +411,6 @@ public class OAuthApplicationWithSecret {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -403,45 +421,34 @@ public class OAuthApplicationWithSecret {
         }
         OAuthApplicationWithSecret other = (OAuthApplicationWithSecret) o;
         return 
-            Objects.deepEquals(this.object, other.object) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.instanceId, other.instanceId) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.clientId, other.clientId) &&
-            Objects.deepEquals(this.public_, other.public_) &&
-            Objects.deepEquals(this.scopes, other.scopes) &&
-            Objects.deepEquals(this.redirectUris, other.redirectUris) &&
-            Objects.deepEquals(this.callbackUrl, other.callbackUrl) &&
-            Objects.deepEquals(this.authorizeUrl, other.authorizeUrl) &&
-            Objects.deepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
-            Objects.deepEquals(this.userInfoUrl, other.userInfoUrl) &&
-            Objects.deepEquals(this.discoveryUrl, other.discoveryUrl) &&
-            Objects.deepEquals(this.tokenIntrospectionUrl, other.tokenIntrospectionUrl) &&
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.updatedAt, other.updatedAt) &&
-            Objects.deepEquals(this.clientSecret, other.clientSecret);
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.public_, other.public_) &&
+            Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.redirectUris, other.redirectUris) &&
+            Utils.enhancedDeepEquals(this.callbackUrl, other.callbackUrl) &&
+            Utils.enhancedDeepEquals(this.authorizeUrl, other.authorizeUrl) &&
+            Utils.enhancedDeepEquals(this.tokenFetchUrl, other.tokenFetchUrl) &&
+            Utils.enhancedDeepEquals(this.userInfoUrl, other.userInfoUrl) &&
+            Utils.enhancedDeepEquals(this.discoveryUrl, other.discoveryUrl) &&
+            Utils.enhancedDeepEquals(this.tokenIntrospectionUrl, other.tokenIntrospectionUrl) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.clientSecret, other.clientSecret);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            object,
-            id,
-            instanceId,
-            name,
-            clientId,
-            public_,
-            scopes,
-            redirectUris,
-            callbackUrl,
-            authorizeUrl,
-            tokenFetchUrl,
-            userInfoUrl,
-            discoveryUrl,
-            tokenIntrospectionUrl,
-            createdAt,
-            updatedAt,
-            clientSecret);
+        return Utils.enhancedHash(
+            object, id, instanceId,
+            name, clientId, public_,
+            scopes, redirectUris, callbackUrl,
+            authorizeUrl, tokenFetchUrl, userInfoUrl,
+            discoveryUrl, tokenIntrospectionUrl, createdAt,
+            updatedAt, clientSecret);
     }
     
     @Override
@@ -465,47 +472,49 @@ public class OAuthApplicationWithSecret {
                 "updatedAt", updatedAt,
                 "clientSecret", clientSecret);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OAuthApplicationWithSecretObject object;
- 
+
         private String id;
- 
+
         private String instanceId;
- 
+
         private String name;
- 
+
         private String clientId;
- 
+
         private Boolean public_;
- 
+
         private String scopes;
- 
+
         private List<String> redirectUris;
- 
+
         @Deprecated
         private String callbackUrl;
- 
+
         private String authorizeUrl;
- 
+
         private String tokenFetchUrl;
- 
+
         private String userInfoUrl;
- 
+
         private String discoveryUrl;
- 
+
         private String tokenIntrospectionUrl;
- 
+
         private Long createdAt;
- 
+
         private Long updatedAt;
- 
+
         private Optional<String> clientSecret = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder object(OAuthApplicationWithSecretObject object) {
             Utils.checkNotNull(object, "object");
@@ -513,11 +522,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
@@ -525,11 +536,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
+
 
         public Builder clientId(String clientId) {
             Utils.checkNotNull(clientId, "clientId");
@@ -537,11 +550,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder public_(boolean public_) {
             Utils.checkNotNull(public_, "public_");
             this.public_ = public_;
             return this;
         }
+
 
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -549,11 +564,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder redirectUris(List<String> redirectUris) {
             Utils.checkNotNull(redirectUris, "redirectUris");
             this.redirectUris = redirectUris;
             return this;
         }
+
 
         /**
          * Deprecated: Use redirect_uris instead.
@@ -567,11 +584,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder authorizeUrl(String authorizeUrl) {
             Utils.checkNotNull(authorizeUrl, "authorizeUrl");
             this.authorizeUrl = authorizeUrl;
             return this;
         }
+
 
         public Builder tokenFetchUrl(String tokenFetchUrl) {
             Utils.checkNotNull(tokenFetchUrl, "tokenFetchUrl");
@@ -579,11 +598,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder userInfoUrl(String userInfoUrl) {
             Utils.checkNotNull(userInfoUrl, "userInfoUrl");
             this.userInfoUrl = userInfoUrl;
             return this;
         }
+
 
         public Builder discoveryUrl(String discoveryUrl) {
             Utils.checkNotNull(discoveryUrl, "discoveryUrl");
@@ -591,11 +612,13 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         public Builder tokenIntrospectionUrl(String tokenIntrospectionUrl) {
             Utils.checkNotNull(tokenIntrospectionUrl, "tokenIntrospectionUrl");
             this.tokenIntrospectionUrl = tokenIntrospectionUrl;
             return this;
         }
+
 
         /**
          * Unix timestamp of creation.
@@ -606,6 +629,7 @@ public class OAuthApplicationWithSecret {
             return this;
         }
 
+
         /**
          * Unix timestamp of last update.
          */
@@ -614,6 +638,7 @@ public class OAuthApplicationWithSecret {
             this.updatedAt = updatedAt;
             return this;
         }
+
 
         /**
          * Empty if public client.
@@ -632,26 +657,17 @@ public class OAuthApplicationWithSecret {
             this.clientSecret = clientSecret;
             return this;
         }
-        
+
         public OAuthApplicationWithSecret build() {
+
             return new OAuthApplicationWithSecret(
-                object,
-                id,
-                instanceId,
-                name,
-                clientId,
-                public_,
-                scopes,
-                redirectUris,
-                callbackUrl,
-                authorizeUrl,
-                tokenFetchUrl,
-                userInfoUrl,
-                discoveryUrl,
-                tokenIntrospectionUrl,
-                createdAt,
-                updatedAt,
-                clientSecret);
+                object, id, instanceId,
+                name, clientId, public_,
+                scopes, redirectUris, callbackUrl,
+                authorizeUrl, tokenFetchUrl, userInfoUrl,
+                discoveryUrl, tokenIntrospectionUrl, createdAt,
+                updatedAt, clientSecret);
         }
+
     }
 }

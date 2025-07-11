@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class UpdateJWTTemplateRequest {
 
+public class UpdateJWTTemplateRequest {
     /**
      * The ID of the JWT template to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=template_id")
     private String templateId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends UpdateJWTTemplateRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class UpdateJWTTemplateRequest {
         return (Optional<UpdateJWTTemplateRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the JWT template to update
@@ -72,13 +73,13 @@ public class UpdateJWTTemplateRequest {
         return this;
     }
 
+
     public UpdateJWTTemplateRequest withRequestBody(Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class UpdateJWTTemplateRequest {
         }
         UpdateJWTTemplateRequest other = (UpdateJWTTemplateRequest) o;
         return 
-            Objects.deepEquals(this.templateId, other.templateId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.templateId, other.templateId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            templateId,
-            requestBody);
+        return Utils.enhancedHash(
+            templateId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class UpdateJWTTemplateRequest {
                 "templateId", templateId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String templateId;
- 
+
         private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the JWT template to update
@@ -125,6 +127,7 @@ public class UpdateJWTTemplateRequest {
             this.templateId = templateId;
             return this;
         }
+
 
         public Builder requestBody(UpdateJWTTemplateRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class UpdateJWTTemplateRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public UpdateJWTTemplateRequest build() {
+
             return new UpdateJWTTemplateRequest(
-                templateId,
-                requestBody);
+                templateId, requestBody);
         }
+
     }
 }

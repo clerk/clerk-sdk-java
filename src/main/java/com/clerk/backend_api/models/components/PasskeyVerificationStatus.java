@@ -14,7 +14,7 @@ public enum PasskeyVerificationStatus {
     @JsonValue
     private final String value;
 
-    private PasskeyVerificationStatus(String value) {
+    PasskeyVerificationStatus(String value) {
         this.value = value;
     }
     

@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
-public class CreateSessionTokenRequest {
 
+public class CreateSessionTokenRequest {
     /**
      * The ID of the session
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=session_id")
     private String sessionId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private Optional<? extends CreateSessionTokenRequestBody> requestBody;
@@ -53,9 +53,10 @@ public class CreateSessionTokenRequest {
         return (Optional<CreateSessionTokenRequestBody>) requestBody;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The ID of the session
@@ -72,13 +73,13 @@ public class CreateSessionTokenRequest {
         return this;
     }
 
+
     public CreateSessionTokenRequest withRequestBody(Optional<? extends CreateSessionTokenRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -89,15 +90,14 @@ public class CreateSessionTokenRequest {
         }
         CreateSessionTokenRequest other = (CreateSessionTokenRequest) o;
         return 
-            Objects.deepEquals(this.sessionId, other.sessionId) &&
-            Objects.deepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sessionId,
-            requestBody);
+        return Utils.enhancedHash(
+            sessionId, requestBody);
     }
     
     @Override
@@ -106,16 +106,18 @@ public class CreateSessionTokenRequest {
                 "sessionId", sessionId,
                 "requestBody", requestBody);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sessionId;
- 
+
         private Optional<? extends CreateSessionTokenRequestBody> requestBody = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The ID of the session
@@ -125,6 +127,7 @@ public class CreateSessionTokenRequest {
             this.sessionId = sessionId;
             return this;
         }
+
 
         public Builder requestBody(CreateSessionTokenRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
@@ -137,11 +140,12 @@ public class CreateSessionTokenRequest {
             this.requestBody = requestBody;
             return this;
         }
-        
+
         public CreateSessionTokenRequest build() {
+
             return new CreateSessionTokenRequest(
-                sessionId,
-                requestBody);
+                sessionId, requestBody);
         }
+
     }
 }

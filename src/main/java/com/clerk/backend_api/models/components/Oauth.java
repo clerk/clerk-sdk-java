@@ -13,32 +13,38 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
+
 
 public class Oauth {
 
     @JsonProperty("status")
     private OauthVerificationStatus status;
 
+
     @JsonProperty("strategy")
     private String strategy;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_verification_redirect_url")
     private Optional<String> externalVerificationRedirectUrl;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
     private JsonNullable<? extends VerificationError> error;
 
+
     @JsonProperty("expire_at")
     private long expireAt;
+
 
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("attempts")
     private Optional<Long> attempts;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified_at_client")
@@ -73,7 +79,9 @@ public class Oauth {
             OauthVerificationStatus status,
             String strategy,
             long expireAt) {
-        this(status, strategy, Optional.empty(), JsonNullable.undefined(), expireAt, Optional.empty(), JsonNullable.undefined());
+        this(status, strategy, Optional.empty(),
+            JsonNullable.undefined(), expireAt, Optional.empty(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -112,9 +120,10 @@ public class Oauth {
         return verifiedAtClient;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Oauth withStatus(OauthVerificationStatus status) {
         Utils.checkNotNull(status, "status");
@@ -133,6 +142,7 @@ public class Oauth {
         this.externalVerificationRedirectUrl = Optional.ofNullable(externalVerificationRedirectUrl);
         return this;
     }
+
 
     public Oauth withExternalVerificationRedirectUrl(Optional<String> externalVerificationRedirectUrl) {
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
@@ -164,6 +174,7 @@ public class Oauth {
         return this;
     }
 
+
     public Oauth withAttempts(Optional<Long> attempts) {
         Utils.checkNotNull(attempts, "attempts");
         this.attempts = attempts;
@@ -182,7 +193,6 @@ public class Oauth {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -193,24 +203,20 @@ public class Oauth {
         }
         Oauth other = (Oauth) o;
         return 
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.strategy, other.strategy) &&
-            Objects.deepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
-            Objects.deepEquals(this.error, other.error) &&
-            Objects.deepEquals(this.expireAt, other.expireAt) &&
-            Objects.deepEquals(this.attempts, other.attempts) &&
-            Objects.deepEquals(this.verifiedAtClient, other.verifiedAtClient);
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
+            Utils.enhancedDeepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
+            Utils.enhancedDeepEquals(this.error, other.error) &&
+            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
+            Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
+            Utils.enhancedDeepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            status,
-            strategy,
-            externalVerificationRedirectUrl,
-            error,
-            expireAt,
-            attempts,
+        return Utils.enhancedHash(
+            status, strategy, externalVerificationRedirectUrl,
+            error, expireAt, attempts,
             verifiedAtClient);
     }
     
@@ -225,26 +231,28 @@ public class Oauth {
                 "attempts", attempts,
                 "verifiedAtClient", verifiedAtClient);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private OauthVerificationStatus status;
- 
+
         private String strategy;
- 
+
         private Optional<String> externalVerificationRedirectUrl = Optional.empty();
- 
+
         private JsonNullable<? extends VerificationError> error = JsonNullable.undefined();
- 
+
         private Long expireAt;
- 
+
         private Optional<Long> attempts = Optional.empty();
- 
+
         private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder status(OauthVerificationStatus status) {
             Utils.checkNotNull(status, "status");
@@ -252,11 +260,13 @@ public class Oauth {
             return this;
         }
 
+
         public Builder strategy(String strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
         }
+
 
         public Builder externalVerificationRedirectUrl(String externalVerificationRedirectUrl) {
             Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
@@ -270,6 +280,7 @@ public class Oauth {
             return this;
         }
 
+
         public Builder error(VerificationError error) {
             Utils.checkNotNull(error, "error");
             this.error = JsonNullable.of(error);
@@ -282,11 +293,13 @@ public class Oauth {
             return this;
         }
 
+
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;
         }
+
 
         public Builder attempts(long attempts) {
             Utils.checkNotNull(attempts, "attempts");
@@ -300,6 +313,7 @@ public class Oauth {
             return this;
         }
 
+
         public Builder verifiedAtClient(String verifiedAtClient) {
             Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
             this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
@@ -311,16 +325,14 @@ public class Oauth {
             this.verifiedAtClient = verifiedAtClient;
             return this;
         }
-        
+
         public Oauth build() {
+
             return new Oauth(
-                status,
-                strategy,
-                externalVerificationRedirectUrl,
-                error,
-                expireAt,
-                attempts,
+                status, strategy, externalVerificationRedirectUrl,
+                error, expireAt, attempts,
                 verifiedAtClient);
         }
+
     }
 }

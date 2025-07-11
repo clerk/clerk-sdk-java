@@ -14,11 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class CreateWaitlistEntryRequestBody {
 
+public class CreateWaitlistEntryRequestBody {
     /**
      * The email address to add to the waitlist
      */
@@ -65,9 +64,10 @@ public class CreateWaitlistEntryRequestBody {
         return notify_;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The email address to add to the waitlist
@@ -98,7 +98,6 @@ public class CreateWaitlistEntryRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -109,15 +108,14 @@ public class CreateWaitlistEntryRequestBody {
         }
         CreateWaitlistEntryRequestBody other = (CreateWaitlistEntryRequestBody) o;
         return 
-            Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            Objects.deepEquals(this.notify_, other.notify_);
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.notify_, other.notify_);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
-            emailAddress,
-            notify_);
+        return Utils.enhancedHash(
+            emailAddress, notify_);
     }
     
     @Override
@@ -126,16 +124,18 @@ public class CreateWaitlistEntryRequestBody {
                 "emailAddress", emailAddress,
                 "notify_", notify_);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String emailAddress;
- 
+
         private JsonNullable<Boolean> notify_;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The email address to add to the waitlist
@@ -145,6 +145,7 @@ public class CreateWaitlistEntryRequestBody {
             this.emailAddress = emailAddress;
             return this;
         }
+
 
         /**
          * Optional flag which denotes whether a confirmation email should be sent to the given email address.
@@ -165,15 +166,16 @@ public class CreateWaitlistEntryRequestBody {
             this.notify_ = notify_;
             return this;
         }
-        
+
         public CreateWaitlistEntryRequestBody build() {
             if (notify_ == null) {
                 notify_ = _SINGLETON_VALUE_Notify.value();
             }
+
             return new CreateWaitlistEntryRequestBody(
-                emailAddress,
-                notify_);
+                emailAddress, notify_);
         }
+
 
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
                 new LazySingletonValue<>(
