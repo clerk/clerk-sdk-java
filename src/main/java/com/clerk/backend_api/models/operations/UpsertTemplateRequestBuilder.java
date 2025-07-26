@@ -78,9 +78,7 @@ public class UpsertTemplateRequestBuilder {
             .build());
 
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
-              = new UpsertTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new UpsertTemplateOperation(sdkConfiguration, options);
         UpsertTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

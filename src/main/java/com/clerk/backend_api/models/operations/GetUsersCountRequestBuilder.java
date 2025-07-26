@@ -47,9 +47,7 @@ public class GetUsersCountRequestBuilder {
             .build());
 
         RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
-              = new GetUsersCountOperation(
-                sdkConfiguration,
-                options);
+              = new GetUsersCountOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

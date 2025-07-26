@@ -56,9 +56,7 @@ public class DeleteDomainRequestBuilder {
             .build());
 
         RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
-              = new DeleteDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteDomainOperation(sdkConfiguration, options);
         DeleteDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

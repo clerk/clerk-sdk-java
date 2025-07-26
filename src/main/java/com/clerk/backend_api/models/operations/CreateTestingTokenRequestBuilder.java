@@ -40,9 +40,7 @@ public class CreateTestingTokenRequestBuilder {
             .build());
 
         RequestlessOperation<CreateTestingTokenResponse> operation
-            = new CreateTestingTokenOperation(
-                sdkConfiguration,
-                options);
+            = new CreateTestingTokenOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

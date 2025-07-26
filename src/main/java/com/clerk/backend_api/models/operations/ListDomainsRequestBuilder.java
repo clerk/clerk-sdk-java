@@ -40,9 +40,7 @@ public class ListDomainsRequestBuilder {
             .build());
 
         RequestlessOperation<ListDomainsResponse> operation
-            = new ListDomainsOperation(
-                sdkConfiguration,
-                options);
+            = new ListDomainsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

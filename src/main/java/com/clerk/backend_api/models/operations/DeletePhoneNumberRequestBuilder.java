@@ -56,9 +56,7 @@ public class DeletePhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<DeletePhoneNumberRequest, DeletePhoneNumberResponse> operation
-              = new DeletePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new DeletePhoneNumberOperation(sdkConfiguration, options);
         DeletePhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -105,9 +105,7 @@ public class ListRedirectURLsRequestBuilder {
             .build());
 
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
-              = new ListRedirectURLsOperation(
-                sdkConfiguration,
-                options);
+              = new ListRedirectURLsOperation(sdkConfiguration, options);
         ListRedirectURLsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

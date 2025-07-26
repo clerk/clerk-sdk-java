@@ -70,9 +70,7 @@ public class VerifyPasswordRequestBuilder {
             .build());
 
         RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
-              = new VerifyPasswordOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyPasswordOperation(sdkConfiguration, options);
         VerifyPasswordRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

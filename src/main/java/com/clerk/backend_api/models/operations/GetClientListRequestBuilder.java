@@ -105,9 +105,7 @@ public class GetClientListRequestBuilder {
             .build());
 
         RequestOperation<GetClientListRequest, GetClientListResponse> operation
-              = new GetClientListOperation(
-                sdkConfiguration,
-                options);
+              = new GetClientListOperation(sdkConfiguration, options);
         GetClientListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

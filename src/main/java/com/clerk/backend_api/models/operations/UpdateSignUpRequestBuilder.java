@@ -70,9 +70,7 @@ public class UpdateSignUpRequestBuilder {
             .build());
 
         RequestOperation<UpdateSignUpRequest, UpdateSignUpResponse> operation
-              = new UpdateSignUpOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateSignUpOperation(sdkConfiguration, options);
         UpdateSignUpRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

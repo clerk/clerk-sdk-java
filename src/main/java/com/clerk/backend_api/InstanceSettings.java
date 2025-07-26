@@ -27,7 +27,6 @@ import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettingsOperat
 import com.clerk.backend_api.operations.UpdateInstanceRestrictionsOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -37,6 +36,7 @@ public class InstanceSettings {
     InstanceSettings(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Fetch the current instance
      * 
@@ -71,9 +71,7 @@ public class InstanceSettings {
      */
     public GetInstanceResponse get(Optional<Options> options) throws Exception {
         RequestlessOperation<GetInstanceResponse> operation
-            = new GetInstanceOperation(
-                sdkConfiguration,
-                options);
+            = new GetInstanceOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -110,13 +108,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceResponse update(
-            Optional<? extends UpdateInstanceRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceResponse update(Optional<? extends UpdateInstanceRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceRequestBody>, UpdateInstanceResponse> operation
-              = new UpdateInstanceOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -153,13 +147,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends UpdateInstanceRestrictionsRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
-              = new UpdateInstanceRestrictionsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceRestrictionsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -208,13 +198,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ChangeProductionInstanceDomainResponse changeDomain(
-            Optional<? extends ChangeProductionInstanceDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public ChangeProductionInstanceDomainResponse changeDomain(Optional<? extends ChangeProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends ChangeProductionInstanceDomainRequestBody>, ChangeProductionInstanceDomainResponse> operation
-              = new ChangeProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new ChangeProductionInstanceDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -251,13 +237,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
-              = new UpdateInstanceOrganizationSettingsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceOrganizationSettingsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

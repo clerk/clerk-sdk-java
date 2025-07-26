@@ -56,9 +56,7 @@ public class RevokeSessionRequestBuilder {
             .build());
 
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
-              = new RevokeSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSessionOperation(sdkConfiguration, options);
         RevokeSessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -53,9 +53,7 @@ public class VerifyClientRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends VerifyClientRequestBody>, VerifyClientResponse> operation
-              = new VerifyClientOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyClientOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

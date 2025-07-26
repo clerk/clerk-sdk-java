@@ -115,7 +115,6 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -125,6 +124,7 @@ public class Users {
     Users(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all users
      * 
@@ -162,13 +162,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUserListResponse list(
-            GetUserListRequest request,
-            Optional<Options> options) throws Exception {
+    public GetUserListResponse list(GetUserListRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetUserListRequest, GetUserListResponse> operation
-              = new GetUserListOperation(
-                sdkConfiguration,
-                options);
+              = new GetUserListOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -224,13 +220,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateUserResponse create(
-            CreateUserRequestBody request,
-            Optional<Options> options) throws Exception {
+    public CreateUserResponse create(CreateUserRequestBody request, Optional<Options> options) throws Exception {
         RequestOperation<CreateUserRequestBody, CreateUserResponse> operation
-              = new CreateUserOperation(
-                sdkConfiguration,
-                options);
+              = new CreateUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -268,13 +260,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUsersCountResponse count(
-            GetUsersCountRequest request,
-            Optional<Options> options) throws Exception {
+    public GetUsersCountResponse count(GetUsersCountRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
-              = new GetUsersCountOperation(
-                sdkConfiguration,
-                options);
+              = new GetUsersCountOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -312,18 +300,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUserResponse get(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public GetUserResponse get(String userId, Optional<Options> options) throws Exception {
         GetUserRequest request =
             GetUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<GetUserRequest, GetUserResponse> operation
-              = new GetUserOperation(
-                sdkConfiguration,
-                options);
+              = new GetUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -370,9 +354,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateUserResponse update(
-            String userId,
-            UpdateUserRequestBody requestBody) throws Exception {
+    public UpdateUserResponse update(String userId, UpdateUserRequestBody requestBody) throws Exception {
         return update(userId, requestBody, Optional.empty());
     }
 
@@ -399,8 +381,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UpdateUserResponse update(
-            String userId,
-            UpdateUserRequestBody requestBody,
+            String userId, UpdateUserRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateUserRequest request =
             UpdateUserRequest
@@ -409,9 +390,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
-              = new UpdateUserOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -449,18 +428,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteUserResponse delete(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteUserResponse delete(String userId, Optional<Options> options) throws Exception {
         DeleteUserRequest request =
             DeleteUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserRequest, DeleteUserResponse> operation
-              = new DeleteUserOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -498,18 +473,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public BanUserResponse ban(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public BanUserResponse ban(String userId, Optional<Options> options) throws Exception {
         BanUserRequest request =
             BanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<BanUserRequest, BanUserResponse> operation
-              = new BanUserOperation(
-                sdkConfiguration,
-                options);
+              = new BanUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -547,18 +518,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UnbanUserResponse unban(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public UnbanUserResponse unban(String userId, Optional<Options> options) throws Exception {
         UnbanUserRequest request =
             UnbanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
-              = new UnbanUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnbanUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -599,18 +566,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public LockUserResponse lock(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public LockUserResponse lock(String userId, Optional<Options> options) throws Exception {
         LockUserRequest request =
             LockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<LockUserRequest, LockUserResponse> operation
-              = new LockUserOperation(
-                sdkConfiguration,
-                options);
+              = new LockUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -648,18 +611,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UnlockUserResponse unlock(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public UnlockUserResponse unlock(String userId, Optional<Options> options) throws Exception {
         UnlockUserRequest request =
             UnlockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
-              = new UnlockUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnlockUserOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -684,9 +643,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public SetUserProfileImageResponse setProfileImage(
-            String userId,
-            SetUserProfileImageRequestBody requestBody) throws Exception {
+    public SetUserProfileImageResponse setProfileImage(String userId, SetUserProfileImageRequestBody requestBody) throws Exception {
         return setProfileImage(userId, requestBody, Optional.empty());
     }
 
@@ -702,8 +659,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public SetUserProfileImageResponse setProfileImage(
-            String userId,
-            SetUserProfileImageRequestBody requestBody,
+            String userId, SetUserProfileImageRequestBody requestBody,
             Optional<Options> options) throws Exception {
         SetUserProfileImageRequest request =
             SetUserProfileImageRequest
@@ -712,9 +668,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<SetUserProfileImageRequest, SetUserProfileImageResponse> operation
-              = new SetUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new SetUserProfileImageOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -752,18 +706,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteUserProfileImageResponse deleteProfileImage(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteUserProfileImageResponse deleteProfileImage(String userId, Optional<Options> options) throws Exception {
         DeleteUserProfileImageRequest request =
             DeleteUserProfileImageRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
-              = new DeleteUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUserProfileImageOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -824,8 +774,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UpdateUserMetadataResponse updateMetadata(
-            String userId,
-            Optional<? extends UpdateUserMetadataRequestBody> requestBody,
+            String userId, Optional<? extends UpdateUserMetadataRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UpdateUserMetadataRequest request =
             UpdateUserMetadataRequest
@@ -834,9 +783,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
-              = new UpdateUserMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUserMetadataOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -877,13 +824,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetOAuthAccessTokenResponse getOAuthAccessToken(
-            GetOAuthAccessTokenRequest request,
-            Optional<Options> options) throws Exception {
+    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetOAuthAccessTokenRequest, GetOAuthAccessTokenResponse> operation
-              = new GetOAuthAccessTokenOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthAccessTokenOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -928,10 +871,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
-            String userId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            String userId, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         UsersGetOrganizationMembershipsRequest request =
             UsersGetOrganizationMembershipsRequest
                 .builder()
@@ -940,9 +881,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<UsersGetOrganizationMembershipsRequest, UsersGetOrganizationMembershipsResponse> operation
-              = new UsersGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationMembershipsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -988,10 +927,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
-            String userId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<? extends QueryParamStatus> status,
+            String userId, Optional<Long> limit,
+            Optional<Long> offset, Optional<? extends QueryParamStatus> status,
             Optional<Options> options) throws Exception {
         UsersGetOrganizationInvitationsRequest request =
             UsersGetOrganizationInvitationsRequest
@@ -1002,9 +939,7 @@ public class Users {
                 .status(status)
                 .build();
         RequestOperation<UsersGetOrganizationInvitationsRequest, UsersGetOrganizationInvitationsResponse> operation
-              = new UsersGetOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationInvitationsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1047,8 +982,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public VerifyPasswordResponse verifyPassword(
-            String userId,
-            Optional<? extends VerifyPasswordRequestBody> requestBody,
+            String userId, Optional<? extends VerifyPasswordRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         VerifyPasswordRequest request =
             VerifyPasswordRequest
@@ -1057,9 +991,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
-              = new VerifyPasswordOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyPasswordOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1108,8 +1040,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public VerifyTOTPResponse verifyTotp(
-            String userId,
-            Optional<? extends VerifyTOTPRequestBody> requestBody,
+            String userId, Optional<? extends VerifyTOTPRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         VerifyTOTPRequest request =
             VerifyTOTPRequest
@@ -1118,9 +1049,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyTOTPOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1158,18 +1087,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DisableMFAResponse disableMfa(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DisableMFAResponse disableMfa(String userId, Optional<Options> options) throws Exception {
         DisableMFARequest request =
             DisableMFARequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFAOperation(
-                sdkConfiguration,
-                options);
+              = new DisableMFAOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1207,18 +1132,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteBackupCodeResponse deleteBackupCodes(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteBackupCodeResponse deleteBackupCodes(String userId, Optional<Options> options) throws Exception {
         DeleteBackupCodeRequest request =
             DeleteBackupCodeRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
-              = new DeleteBackupCodeOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBackupCodeOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1243,9 +1164,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UserPasskeyDeleteResponse deletePasskey(
-            String userId,
-            String passkeyIdentificationId) throws Exception {
+    public UserPasskeyDeleteResponse deletePasskey(String userId, String passkeyIdentificationId) throws Exception {
         return deletePasskey(userId, passkeyIdentificationId, Optional.empty());
     }
 
@@ -1261,8 +1180,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UserPasskeyDeleteResponse deletePasskey(
-            String userId,
-            String passkeyIdentificationId,
+            String userId, String passkeyIdentificationId,
             Optional<Options> options) throws Exception {
         UserPasskeyDeleteRequest request =
             UserPasskeyDeleteRequest
@@ -1271,9 +1189,7 @@ public class Users {
                 .passkeyIdentificationId(passkeyIdentificationId)
                 .build();
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserPasskeyDeleteOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1298,9 +1214,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
-            String userId,
-            String web3WalletIdentificationId) throws Exception {
+    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(String userId, String web3WalletIdentificationId) throws Exception {
         return deleteWeb3Wallet(userId, web3WalletIdentificationId, Optional.empty());
     }
 
@@ -1316,8 +1230,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
-            String userId,
-            String web3WalletIdentificationId,
+            String userId, String web3WalletIdentificationId,
             Optional<Options> options) throws Exception {
         UserWeb3WalletDeleteRequest request =
             UserWeb3WalletDeleteRequest
@@ -1326,9 +1239,7 @@ public class Users {
                 .web3WalletIdentificationId(web3WalletIdentificationId)
                 .build();
         RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation
-              = new UserWeb3WalletDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserWeb3WalletDeleteOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1366,18 +1277,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteTOTPResponse deleteTOTP(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteTOTPResponse deleteTOTP(String userId, Optional<Options> options) throws Exception {
         DeleteTOTPRequest request =
             DeleteTOTPRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteTOTPRequest, DeleteTOTPResponse> operation
-              = new DeleteTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteTOTPOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1402,9 +1309,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteExternalAccountResponse deleteExternalAccount(
-            String userId,
-            String externalAccountId) throws Exception {
+    public DeleteExternalAccountResponse deleteExternalAccount(String userId, String externalAccountId) throws Exception {
         return deleteExternalAccount(userId, externalAccountId, Optional.empty());
     }
 
@@ -1420,8 +1325,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public DeleteExternalAccountResponse deleteExternalAccount(
-            String userId,
-            String externalAccountId,
+            String userId, String externalAccountId,
             Optional<Options> options) throws Exception {
         DeleteExternalAccountRequest request =
             DeleteExternalAccountRequest
@@ -1430,9 +1334,7 @@ public class Users {
                 .externalAccountId(externalAccountId)
                 .build();
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
-              = new DeleteExternalAccountOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteExternalAccountOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1478,10 +1380,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMemberships(
-            Optional<String> orderBy,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<String> orderBy, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         InstanceGetOrganizationMembershipsRequest request =
             InstanceGetOrganizationMembershipsRequest
                 .builder()
@@ -1490,9 +1390,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<InstanceGetOrganizationMembershipsRequest, InstanceGetOrganizationMembershipsResponse> operation
-              = new InstanceGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new InstanceGetOrganizationMembershipsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

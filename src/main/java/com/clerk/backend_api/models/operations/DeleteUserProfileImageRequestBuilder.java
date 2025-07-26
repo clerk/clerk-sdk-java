@@ -56,9 +56,7 @@ public class DeleteUserProfileImageRequestBuilder {
             .build());
 
         RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
-              = new DeleteUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUserProfileImageOperation(sdkConfiguration, options);
         DeleteUserProfileImageRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

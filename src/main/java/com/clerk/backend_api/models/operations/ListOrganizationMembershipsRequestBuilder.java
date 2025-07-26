@@ -47,9 +47,7 @@ public class ListOrganizationMembershipsRequestBuilder {
             .build());
 
         RequestOperation<ListOrganizationMembershipsRequest, ListOrganizationMembershipsResponse> operation
-              = new ListOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationMembershipsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

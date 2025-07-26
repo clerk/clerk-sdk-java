@@ -64,9 +64,7 @@ public class GetTemplateRequestBuilder {
             .build());
 
         RequestOperation<GetTemplateRequest, GetTemplateResponse> operation
-              = new GetTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new GetTemplateOperation(sdkConfiguration, options);
         GetTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

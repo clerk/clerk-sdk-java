@@ -53,9 +53,7 @@ public class AddDomainRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends AddDomainRequestBody>, AddDomainResponse> operation
-              = new AddDomainOperation(
-                sdkConfiguration,
-                options);
+              = new AddDomainOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -40,9 +40,7 @@ public class ListBlocklistIdentifiersRequestBuilder {
             .build());
 
         RequestlessOperation<ListBlocklistIdentifiersResponse> operation
-            = new ListBlocklistIdentifiersOperation(
-                sdkConfiguration,
-                options);
+            = new ListBlocklistIdentifiersOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

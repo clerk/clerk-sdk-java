@@ -47,9 +47,7 @@ public class ListSAMLConnectionsRequestBuilder {
             .build());
 
         RequestOperation<ListSAMLConnectionsRequest, ListSAMLConnectionsResponse> operation
-              = new ListSAMLConnectionsOperation(
-                sdkConfiguration,
-                options);
+              = new ListSAMLConnectionsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

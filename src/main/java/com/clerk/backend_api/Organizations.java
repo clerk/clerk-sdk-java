@@ -44,7 +44,6 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -54,6 +53,7 @@ public class Organizations {
     Organizations(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Get a list of organizations for an instance
      * 
@@ -97,13 +97,9 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationsResponse list(
-            ListOrganizationsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListOrganizationsResponse list(ListOrganizationsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListOrganizationsRequest, ListOrganizationsResponse> operation
-              = new ListOrganizationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -167,13 +163,9 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationResponse create(
-            Optional<? extends CreateOrganizationRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateOrganizationResponse create(Optional<? extends CreateOrganizationRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateOrganizationRequestBody>, CreateOrganizationResponse> operation
-              = new CreateOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -215,10 +207,8 @@ public class Organizations {
      * @throws Exception if the API call fails
      */
     public GetOrganizationResponse get(
-            String organizationId,
-            Optional<Boolean> includeMembersCount,
-            Optional<Boolean> includeMissingMemberWithElevatedPermissions,
-            Optional<Options> options) throws Exception {
+            String organizationId, Optional<Boolean> includeMembersCount,
+            Optional<Boolean> includeMissingMemberWithElevatedPermissions, Optional<Options> options) throws Exception {
         GetOrganizationRequest request =
             GetOrganizationRequest
                 .builder()
@@ -227,9 +217,7 @@ public class Organizations {
                 .includeMissingMemberWithElevatedPermissions(includeMissingMemberWithElevatedPermissions)
                 .build();
         RequestOperation<GetOrganizationRequest, GetOrganizationResponse> operation
-              = new GetOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOrganizationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -254,9 +242,7 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateOrganizationResponse update(
-            String organizationId,
-            UpdateOrganizationRequestBody requestBody) throws Exception {
+    public UpdateOrganizationResponse update(String organizationId, UpdateOrganizationRequestBody requestBody) throws Exception {
         return update(organizationId, requestBody, Optional.empty());
     }
 
@@ -272,8 +258,7 @@ public class Organizations {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationResponse update(
-            String organizationId,
-            UpdateOrganizationRequestBody requestBody,
+            String organizationId, UpdateOrganizationRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateOrganizationRequest request =
             UpdateOrganizationRequest
@@ -282,9 +267,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationRequest, UpdateOrganizationResponse> operation
-              = new UpdateOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -328,18 +311,14 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOrganizationResponse delete(
-            String organizationId,
-            Optional<Options> options) throws Exception {
+    public DeleteOrganizationResponse delete(String organizationId, Optional<Options> options) throws Exception {
         DeleteOrganizationRequest request =
             DeleteOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         RequestOperation<DeleteOrganizationRequest, DeleteOrganizationResponse> operation
-              = new DeleteOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -370,9 +349,7 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public MergeOrganizationMetadataResponse mergeMetadata(
-            String organizationId,
-            MergeOrganizationMetadataRequestBody requestBody) throws Exception {
+    public MergeOrganizationMetadataResponse mergeMetadata(String organizationId, MergeOrganizationMetadataRequestBody requestBody) throws Exception {
         return mergeMetadata(organizationId, requestBody, Optional.empty());
     }
 
@@ -391,8 +368,7 @@ public class Organizations {
      * @throws Exception if the API call fails
      */
     public MergeOrganizationMetadataResponse mergeMetadata(
-            String organizationId,
-            MergeOrganizationMetadataRequestBody requestBody,
+            String organizationId, MergeOrganizationMetadataRequestBody requestBody,
             Optional<Options> options) throws Exception {
         MergeOrganizationMetadataRequest request =
             MergeOrganizationMetadataRequest
@@ -401,9 +377,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
-              = new MergeOrganizationMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new MergeOrganizationMetadataOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -452,8 +426,7 @@ public class Organizations {
      * @throws Exception if the API call fails
      */
     public UploadOrganizationLogoResponse uploadLogo(
-            String organizationId,
-            Optional<? extends UploadOrganizationLogoRequestBody> requestBody,
+            String organizationId, Optional<? extends UploadOrganizationLogoRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UploadOrganizationLogoRequest request =
             UploadOrganizationLogoRequest
@@ -462,9 +435,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UploadOrganizationLogoRequest, UploadOrganizationLogoResponse> operation
-              = new UploadOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new UploadOrganizationLogoOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -502,18 +473,14 @@ public class Organizations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOrganizationLogoResponse deleteLogo(
-            String organizationId,
-            Optional<Options> options) throws Exception {
+    public DeleteOrganizationLogoResponse deleteLogo(String organizationId, Optional<Options> options) throws Exception {
         DeleteOrganizationLogoRequest request =
             DeleteOrganizationLogoRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
-              = new DeleteOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationLogoOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

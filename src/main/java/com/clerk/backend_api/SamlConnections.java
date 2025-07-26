@@ -29,7 +29,6 @@ import com.clerk.backend_api.operations.UpdateSAMLConnectionOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -39,6 +38,7 @@ public class SamlConnections {
     SamlConnections(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Get a list of SAML Connections for an instance
      * 
@@ -79,13 +79,9 @@ public class SamlConnections {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListSAMLConnectionsResponse list(
-            ListSAMLConnectionsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListSAMLConnectionsRequest, ListSAMLConnectionsResponse> operation
-              = new ListSAMLConnectionsOperation(
-                sdkConfiguration,
-                options);
+              = new ListSAMLConnectionsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -122,13 +118,9 @@ public class SamlConnections {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSAMLConnectionResponse create(
-            Optional<? extends CreateSAMLConnectionRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateSAMLConnectionResponse create(Optional<? extends CreateSAMLConnectionRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateSAMLConnectionRequestBody>, CreateSAMLConnectionResponse> operation
-              = new CreateSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSAMLConnectionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -166,18 +158,14 @@ public class SamlConnections {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSAMLConnectionResponse get(
-            String samlConnectionId,
-            Optional<Options> options) throws Exception {
+    public GetSAMLConnectionResponse get(String samlConnectionId, Optional<Options> options) throws Exception {
         GetSAMLConnectionRequest request =
             GetSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         RequestOperation<GetSAMLConnectionRequest, GetSAMLConnectionResponse> operation
-              = new GetSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new GetSAMLConnectionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -202,9 +190,7 @@ public class SamlConnections {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateSAMLConnectionResponse update(
-            String samlConnectionId,
-            UpdateSAMLConnectionRequestBody requestBody) throws Exception {
+    public UpdateSAMLConnectionResponse update(String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody) throws Exception {
         return update(samlConnectionId, requestBody, Optional.empty());
     }
 
@@ -220,8 +206,7 @@ public class SamlConnections {
      * @throws Exception if the API call fails
      */
     public UpdateSAMLConnectionResponse update(
-            String samlConnectionId,
-            UpdateSAMLConnectionRequestBody requestBody,
+            String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateSAMLConnectionRequest request =
             UpdateSAMLConnectionRequest
@@ -230,9 +215,7 @@ public class SamlConnections {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateSAMLConnectionRequest, UpdateSAMLConnectionResponse> operation
-              = new UpdateSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateSAMLConnectionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -270,18 +253,14 @@ public class SamlConnections {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteSAMLConnectionResponse delete(
-            String samlConnectionId,
-            Optional<Options> options) throws Exception {
+    public DeleteSAMLConnectionResponse delete(String samlConnectionId, Optional<Options> options) throws Exception {
         DeleteSAMLConnectionRequest request =
             DeleteSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         RequestOperation<DeleteSAMLConnectionRequest, DeleteSAMLConnectionResponse> operation
-              = new DeleteSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteSAMLConnectionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

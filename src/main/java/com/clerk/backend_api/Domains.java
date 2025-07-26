@@ -25,7 +25,6 @@ import com.clerk.backend_api.operations.UpdateDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -35,6 +34,7 @@ public class Domains {
     Domains(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all instance domains
      * 
@@ -72,9 +72,7 @@ public class Domains {
      */
     public ListDomainsResponse list(Optional<Options> options) throws Exception {
         RequestlessOperation<ListDomainsResponse> operation
-            = new ListDomainsOperation(
-                sdkConfiguration,
-                options);
+            = new ListDomainsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -123,13 +121,9 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public AddDomainResponse add(
-            Optional<? extends AddDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public AddDomainResponse add(Optional<? extends AddDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends AddDomainRequestBody>, AddDomainResponse> operation
-              = new AddDomainOperation(
-                sdkConfiguration,
-                options);
+              = new AddDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -170,18 +164,14 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteDomainResponse delete(
-            String domainId,
-            Optional<Options> options) throws Exception {
+    public DeleteDomainResponse delete(String domainId, Optional<Options> options) throws Exception {
         DeleteDomainRequest request =
             DeleteDomainRequest
                 .builder()
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
-              = new DeleteDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -220,9 +210,7 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateDomainResponse update(
-            String domainId,
-            UpdateDomainRequestBody requestBody) throws Exception {
+    public UpdateDomainResponse update(String domainId, UpdateDomainRequestBody requestBody) throws Exception {
         return update(domainId, requestBody, Optional.empty());
     }
 
@@ -245,8 +233,7 @@ public class Domains {
      * @throws Exception if the API call fails
      */
     public UpdateDomainResponse update(
-            String domainId,
-            UpdateDomainRequestBody requestBody,
+            String domainId, UpdateDomainRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateDomainRequest request =
             UpdateDomainRequest
@@ -255,9 +242,7 @@ public class Domains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateDomainRequest, UpdateDomainResponse> operation
-              = new UpdateDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

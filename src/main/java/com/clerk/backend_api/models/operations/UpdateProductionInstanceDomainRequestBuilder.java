@@ -53,9 +53,7 @@ public class UpdateProductionInstanceDomainRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
-              = new UpdateProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateProductionInstanceDomainOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

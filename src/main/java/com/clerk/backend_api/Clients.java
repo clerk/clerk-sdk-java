@@ -23,7 +23,6 @@ import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -33,6 +32,7 @@ public class Clients {
     Clients(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all clients
      * 
@@ -87,10 +87,8 @@ public class Clients {
      */
     @Deprecated
     public GetClientListResponse list(
-            Optional<Boolean> paginated,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         GetClientListRequest request =
             GetClientListRequest
                 .builder()
@@ -99,9 +97,7 @@ public class Clients {
                 .offset(offset)
                 .build();
         RequestOperation<GetClientListRequest, GetClientListResponse> operation
-              = new GetClientListOperation(
-                sdkConfiguration,
-                options);
+              = new GetClientListOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -138,13 +134,9 @@ public class Clients {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public VerifyClientResponse verify(
-            Optional<? extends VerifyClientRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public VerifyClientResponse verify(Optional<? extends VerifyClientRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends VerifyClientRequestBody>, VerifyClientResponse> operation
-              = new VerifyClientOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyClientOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -182,18 +174,14 @@ public class Clients {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetClientResponse get(
-            String clientId,
-            Optional<Options> options) throws Exception {
+    public GetClientResponse get(String clientId, Optional<Options> options) throws Exception {
         GetClientRequest request =
             GetClientRequest
                 .builder()
                 .clientId(clientId)
                 .build();
         RequestOperation<GetClientRequest, GetClientResponse> operation
-              = new GetClientOperation(
-                sdkConfiguration,
-                options);
+              = new GetClientOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

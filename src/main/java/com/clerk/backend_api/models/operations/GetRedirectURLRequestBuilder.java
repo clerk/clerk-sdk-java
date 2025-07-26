@@ -56,9 +56,7 @@ public class GetRedirectURLRequestBuilder {
             .build());
 
         RequestOperation<GetRedirectURLRequest, GetRedirectURLResponse> operation
-              = new GetRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new GetRedirectURLOperation(sdkConfiguration, options);
         GetRedirectURLRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

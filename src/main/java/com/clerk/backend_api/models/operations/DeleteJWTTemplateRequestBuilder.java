@@ -56,9 +56,7 @@ public class DeleteJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<DeleteJWTTemplateRequest, DeleteJWTTemplateResponse> operation
-              = new DeleteJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteJWTTemplateOperation(sdkConfiguration, options);
         DeleteJWTTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

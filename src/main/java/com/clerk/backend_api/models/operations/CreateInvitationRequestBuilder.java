@@ -53,9 +53,7 @@ public class CreateInvitationRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
-              = new CreateInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateInvitationOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

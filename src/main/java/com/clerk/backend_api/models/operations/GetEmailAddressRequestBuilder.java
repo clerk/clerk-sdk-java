@@ -56,9 +56,7 @@ public class GetEmailAddressRequestBuilder {
             .build());
 
         RequestOperation<GetEmailAddressRequest, GetEmailAddressResponse> operation
-              = new GetEmailAddressOperation(
-                sdkConfiguration,
-                options);
+              = new GetEmailAddressOperation(sdkConfiguration, options);
         GetEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

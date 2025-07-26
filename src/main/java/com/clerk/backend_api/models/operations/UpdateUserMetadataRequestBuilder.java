@@ -70,9 +70,7 @@ public class UpdateUserMetadataRequestBuilder {
             .build());
 
         RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
-              = new UpdateUserMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUserMetadataOperation(sdkConfiguration, options);
         UpdateUserMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

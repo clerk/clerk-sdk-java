@@ -31,7 +31,7 @@ public class Retries {
         this.retryConfig = retryConfig;
         this.statusCodes = statusCodes;
     }
-
+    
     @SuppressWarnings("serial")
     public static final class NonRetryableException extends Exception {
         private final Exception exception;

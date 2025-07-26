@@ -78,9 +78,7 @@ public class PreviewTemplateRequestBuilder {
             .build());
 
         RequestOperation<PreviewTemplateRequest, PreviewTemplateResponse> operation
-              = new PreviewTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new PreviewTemplateOperation(sdkConfiguration, options);
         PreviewTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

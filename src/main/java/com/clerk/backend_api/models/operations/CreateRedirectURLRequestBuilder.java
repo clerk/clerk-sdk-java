@@ -53,9 +53,7 @@ public class CreateRedirectURLRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateRedirectURLRequestBody>, CreateRedirectURLResponse> operation
-              = new CreateRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new CreateRedirectURLOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

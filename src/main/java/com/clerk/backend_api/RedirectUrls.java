@@ -26,7 +26,6 @@ import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +35,7 @@ public class RedirectUrls {
     RedirectUrls(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all redirect URLs
      * 
@@ -78,10 +78,8 @@ public class RedirectUrls {
      * @throws Exception if the API call fails
      */
     public ListRedirectURLsResponse list(
-            Optional<Boolean> paginated,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         ListRedirectURLsRequest request =
             ListRedirectURLsRequest
                 .builder()
@@ -90,9 +88,7 @@ public class RedirectUrls {
                 .offset(offset)
                 .build();
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
-              = new ListRedirectURLsOperation(
-                sdkConfiguration,
-                options);
+              = new ListRedirectURLsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -129,13 +125,9 @@ public class RedirectUrls {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateRedirectURLResponse create(
-            Optional<? extends CreateRedirectURLRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateRedirectURLResponse create(Optional<? extends CreateRedirectURLRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateRedirectURLRequestBody>, CreateRedirectURLResponse> operation
-              = new CreateRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new CreateRedirectURLOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -173,18 +165,14 @@ public class RedirectUrls {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetRedirectURLResponse get(
-            String id,
-            Optional<Options> options) throws Exception {
+    public GetRedirectURLResponse get(String id, Optional<Options> options) throws Exception {
         GetRedirectURLRequest request =
             GetRedirectURLRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<GetRedirectURLRequest, GetRedirectURLResponse> operation
-              = new GetRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new GetRedirectURLOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -222,18 +210,14 @@ public class RedirectUrls {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteRedirectURLResponse delete(
-            String id,
-            Optional<Options> options) throws Exception {
+    public DeleteRedirectURLResponse delete(String id, Optional<Options> options) throws Exception {
         DeleteRedirectURLRequest request =
             DeleteRedirectURLRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<DeleteRedirectURLRequest, DeleteRedirectURLResponse> operation
-              = new DeleteRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteRedirectURLOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

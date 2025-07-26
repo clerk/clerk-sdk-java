@@ -53,9 +53,7 @@ public class CreateSAMLConnectionRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateSAMLConnectionRequestBody>, CreateSAMLConnectionResponse> operation
-              = new CreateSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSAMLConnectionOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

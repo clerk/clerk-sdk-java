@@ -70,9 +70,7 @@ public class CreateSessionTokenRequestBuilder {
             .build());
 
         RequestOperation<CreateSessionTokenRequest, CreateSessionTokenResponse> operation
-              = new CreateSessionTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenOperation(sdkConfiguration, options);
         CreateSessionTokenRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

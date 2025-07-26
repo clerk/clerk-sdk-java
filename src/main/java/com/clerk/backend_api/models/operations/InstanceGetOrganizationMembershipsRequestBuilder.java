@@ -105,9 +105,7 @@ public class InstanceGetOrganizationMembershipsRequestBuilder {
             .build());
 
         RequestOperation<InstanceGetOrganizationMembershipsRequest, InstanceGetOrganizationMembershipsResponse> operation
-              = new InstanceGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new InstanceGetOrganizationMembershipsOperation(sdkConfiguration, options);
         InstanceGetOrganizationMembershipsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

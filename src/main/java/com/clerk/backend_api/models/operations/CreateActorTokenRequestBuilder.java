@@ -53,9 +53,7 @@ public class CreateActorTokenRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
-              = new CreateActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateActorTokenOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

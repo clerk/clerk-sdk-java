@@ -53,9 +53,7 @@ public class CreateSignInTokenRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateSignInTokenRequestBody>, CreateSignInTokenResponse> operation
-              = new CreateSignInTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSignInTokenOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

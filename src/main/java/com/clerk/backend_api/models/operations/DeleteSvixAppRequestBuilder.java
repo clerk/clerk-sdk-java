@@ -40,9 +40,7 @@ public class DeleteSvixAppRequestBuilder {
             .build());
 
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new DeleteSvixAppOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

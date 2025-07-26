@@ -70,9 +70,7 @@ public class UploadOrganizationLogoRequestBuilder {
             .build());
 
         RequestOperation<UploadOrganizationLogoRequest, UploadOrganizationLogoResponse> operation
-              = new UploadOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new UploadOrganizationLogoOperation(sdkConfiguration, options);
         UploadOrganizationLogoRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

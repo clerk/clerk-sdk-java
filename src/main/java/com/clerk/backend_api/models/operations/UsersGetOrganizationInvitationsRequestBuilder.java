@@ -113,9 +113,7 @@ public class UsersGetOrganizationInvitationsRequestBuilder {
             .build());
 
         RequestOperation<UsersGetOrganizationInvitationsRequest, UsersGetOrganizationInvitationsResponse> operation
-              = new UsersGetOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationInvitationsOperation(sdkConfiguration, options);
         UsersGetOrganizationInvitationsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

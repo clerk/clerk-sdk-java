@@ -56,9 +56,7 @@ public class DeleteEmailAddressRequestBuilder {
             .build());
 
         RequestOperation<DeleteEmailAddressRequest, DeleteEmailAddressResponse> operation
-              = new DeleteEmailAddressOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteEmailAddressOperation(sdkConfiguration, options);
         DeleteEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

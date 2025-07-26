@@ -56,9 +56,7 @@ public class GetSignUpRequestBuilder {
             .build());
 
         RequestOperation<GetSignUpRequest, GetSignUpResponse> operation
-              = new GetSignUpOperation(
-                sdkConfiguration,
-                options);
+              = new GetSignUpOperation(sdkConfiguration, options);
         GetSignUpRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

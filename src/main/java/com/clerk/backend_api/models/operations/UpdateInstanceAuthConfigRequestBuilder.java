@@ -53,9 +53,7 @@ public class UpdateInstanceAuthConfigRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateInstanceAuthConfigRequestBody>, UpdateInstanceAuthConfigResponse> operation
-              = new UpdateInstanceAuthConfigOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceAuthConfigOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

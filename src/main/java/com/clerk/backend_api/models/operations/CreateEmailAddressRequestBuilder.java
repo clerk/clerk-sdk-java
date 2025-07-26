@@ -53,9 +53,7 @@ public class CreateEmailAddressRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateEmailAddressRequestBody>, CreateEmailAddressResponse> operation
-              = new CreateEmailAddressOperation(
-                sdkConfiguration,
-                options);
+              = new CreateEmailAddressOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

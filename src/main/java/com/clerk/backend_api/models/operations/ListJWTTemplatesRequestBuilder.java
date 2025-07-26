@@ -105,9 +105,7 @@ public class ListJWTTemplatesRequestBuilder {
             .build());
 
         RequestOperation<ListJWTTemplatesRequest, ListJWTTemplatesResponse> operation
-              = new ListJWTTemplatesOperation(
-                sdkConfiguration,
-                options);
+              = new ListJWTTemplatesOperation(sdkConfiguration, options);
         ListJWTTemplatesRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

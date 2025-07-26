@@ -56,9 +56,7 @@ public class GetJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<GetJWTTemplateRequest, GetJWTTemplateResponse> operation
-              = new GetJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new GetJWTTemplateOperation(sdkConfiguration, options);
         GetJWTTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

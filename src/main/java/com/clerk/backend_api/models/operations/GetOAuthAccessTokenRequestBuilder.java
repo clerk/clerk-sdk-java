@@ -47,9 +47,7 @@ public class GetOAuthAccessTokenRequestBuilder {
             .build());
 
         RequestOperation<GetOAuthAccessTokenRequest, GetOAuthAccessTokenResponse> operation
-              = new GetOAuthAccessTokenOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthAccessTokenOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

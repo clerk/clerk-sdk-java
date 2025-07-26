@@ -53,9 +53,7 @@ public class CreateJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateJWTTemplateRequestBody>, CreateJWTTemplateResponse> operation
-              = new CreateJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateJWTTemplateOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

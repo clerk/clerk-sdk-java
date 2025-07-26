@@ -53,9 +53,7 @@ public class ChangeProductionInstanceDomainRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends ChangeProductionInstanceDomainRequestBody>, ChangeProductionInstanceDomainResponse> operation
-              = new ChangeProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new ChangeProductionInstanceDomainOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

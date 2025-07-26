@@ -56,9 +56,7 @@ public class UnbanUserRequestBuilder {
             .build());
 
         RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
-              = new UnbanUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnbanUserOperation(sdkConfiguration, options);
         UnbanUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

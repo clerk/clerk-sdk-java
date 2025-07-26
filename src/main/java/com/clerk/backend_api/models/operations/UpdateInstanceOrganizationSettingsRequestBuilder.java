@@ -53,9 +53,7 @@ public class UpdateInstanceOrganizationSettingsRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
-              = new UpdateInstanceOrganizationSettingsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceOrganizationSettingsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -56,9 +56,7 @@ public class DeleteBackupCodeRequestBuilder {
             .build());
 
         RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
-              = new DeleteBackupCodeOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBackupCodeOperation(sdkConfiguration, options);
         DeleteBackupCodeRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -47,9 +47,7 @@ public class GetSessionListRequestBuilder {
             .build());
 
         RequestOperation<GetSessionListRequest, GetSessionListResponse> operation
-              = new GetSessionListOperation(
-                sdkConfiguration,
-                options);
+              = new GetSessionListOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

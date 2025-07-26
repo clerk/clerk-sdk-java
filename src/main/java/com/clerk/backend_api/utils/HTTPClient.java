@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest;
+import java.util.concurrent.CompletableFuture;
 
 public interface HTTPClient {
 

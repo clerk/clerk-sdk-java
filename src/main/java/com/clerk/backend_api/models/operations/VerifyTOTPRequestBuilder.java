@@ -70,9 +70,7 @@ public class VerifyTOTPRequestBuilder {
             .build());
 
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyTOTPOperation(sdkConfiguration, options);
         VerifyTOTPRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

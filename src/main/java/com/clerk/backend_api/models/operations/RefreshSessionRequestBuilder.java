@@ -70,9 +70,7 @@ public class RefreshSessionRequestBuilder {
             .build());
 
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
-              = new RefreshSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RefreshSessionOperation(sdkConfiguration, options);
         RefreshSessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

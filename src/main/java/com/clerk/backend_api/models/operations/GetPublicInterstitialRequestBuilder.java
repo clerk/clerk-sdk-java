@@ -47,9 +47,7 @@ public class GetPublicInterstitialRequestBuilder {
             .build());
 
         RequestOperation<GetPublicInterstitialRequest, GetPublicInterstitialResponse> operation
-              = new GetPublicInterstitialOperation(
-                sdkConfiguration,
-                options);
+              = new GetPublicInterstitialOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -70,9 +70,7 @@ public class VerifySessionRequestBuilder {
             .build());
 
         RequestOperation<VerifySessionRequest, VerifySessionResponse> operation
-              = new VerifySessionOperation(
-                sdkConfiguration,
-                options);
+              = new VerifySessionOperation(sdkConfiguration, options);
         VerifySessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

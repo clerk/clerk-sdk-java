@@ -16,7 +16,6 @@ import com.clerk.backend_api.operations.DeleteSvixAppOperation;
 import com.clerk.backend_api.operations.GenerateSvixAuthURLOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class Webhooks {
     Webhooks(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a Svix app
      * 
@@ -60,9 +60,7 @@ public class Webhooks {
      */
     public CreateSvixAppResponse createSvixApp(Optional<Options> options) throws Exception {
         RequestlessOperation<CreateSvixAppResponse> operation
-            = new CreateSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new CreateSvixAppOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -100,9 +98,7 @@ public class Webhooks {
      */
     public DeleteSvixAppResponse deleteSvixApp(Optional<Options> options) throws Exception {
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new DeleteSvixAppOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -140,9 +136,7 @@ public class Webhooks {
      */
     public GenerateSvixAuthURLResponse generateSvixAuthURL(Optional<Options> options) throws Exception {
         RequestlessOperation<GenerateSvixAuthURLResponse> operation
-            = new GenerateSvixAuthURLOperation(
-                sdkConfiguration,
-                options);
+            = new GenerateSvixAuthURLOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 

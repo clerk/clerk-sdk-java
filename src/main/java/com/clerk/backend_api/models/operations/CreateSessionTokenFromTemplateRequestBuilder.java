@@ -78,9 +78,7 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
             .build());
 
         RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
-              = new CreateSessionTokenFromTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenFromTemplateOperation(sdkConfiguration, options);
         CreateSessionTokenFromTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -64,9 +64,7 @@ public class DeleteOrganizationDomainRequestBuilder {
             .build());
 
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
-              = new DeleteOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationDomainOperation(sdkConfiguration, options);
         DeleteOrganizationDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

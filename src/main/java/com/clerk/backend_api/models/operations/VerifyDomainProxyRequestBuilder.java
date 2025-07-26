@@ -53,9 +53,7 @@ public class VerifyDomainProxyRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends VerifyDomainProxyRequestBody>, VerifyDomainProxyResponse> operation
-              = new VerifyDomainProxyOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyDomainProxyOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

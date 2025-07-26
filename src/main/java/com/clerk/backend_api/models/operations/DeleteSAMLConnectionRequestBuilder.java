@@ -56,9 +56,7 @@ public class DeleteSAMLConnectionRequestBuilder {
             .build());
 
         RequestOperation<DeleteSAMLConnectionRequest, DeleteSAMLConnectionResponse> operation
-              = new DeleteSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteSAMLConnectionOperation(sdkConfiguration, options);
         DeleteSAMLConnectionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -64,9 +64,7 @@ public class CreateOrganizationDomainRequestBuilder {
             .build());
 
         RequestOperation<CreateOrganizationDomainRequest, CreateOrganizationDomainResponse> operation
-              = new CreateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationDomainOperation(sdkConfiguration, options);
         CreateOrganizationDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

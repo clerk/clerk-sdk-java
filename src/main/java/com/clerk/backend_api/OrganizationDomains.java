@@ -26,7 +26,6 @@ import com.clerk.backend_api.operations.UpdateOrganizationDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +35,7 @@ public class OrganizationDomains {
     OrganizationDomains(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a new organization domain.
      * 
@@ -57,9 +57,7 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationDomainResponse create(
-            String organizationId,
-            CreateOrganizationDomainRequestBody requestBody) throws Exception {
+    public CreateOrganizationDomainResponse create(String organizationId, CreateOrganizationDomainRequestBody requestBody) throws Exception {
         return create(organizationId, requestBody, Optional.empty());
     }
 
@@ -75,8 +73,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public CreateOrganizationDomainResponse create(
-            String organizationId,
-            CreateOrganizationDomainRequestBody requestBody,
+            String organizationId, CreateOrganizationDomainRequestBody requestBody,
             Optional<Options> options) throws Exception {
         CreateOrganizationDomainRequest request =
             CreateOrganizationDomainRequest
@@ -85,9 +82,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationDomainRequest, CreateOrganizationDomainResponse> operation
-              = new CreateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -125,13 +120,9 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationDomainsResponse list(
-            ListOrganizationDomainsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListOrganizationDomainsRequest, ListOrganizationDomainsResponse> operation
-              = new ListOrganizationDomainsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationDomainsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -158,8 +149,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
-            String organizationId,
-            String domainId,
+            String organizationId, String domainId,
             UpdateOrganizationDomainRequestBody requestBody) throws Exception {
         return update(organizationId, domainId, requestBody,
             Optional.empty());
@@ -178,10 +168,8 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
-            String organizationId,
-            String domainId,
-            UpdateOrganizationDomainRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            String organizationId, String domainId,
+            UpdateOrganizationDomainRequestBody requestBody, Optional<Options> options) throws Exception {
         UpdateOrganizationDomainRequest request =
             UpdateOrganizationDomainRequest
                 .builder()
@@ -190,9 +178,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
-              = new UpdateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -217,9 +203,7 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOrganizationDomainResponse delete(
-            String organizationId,
-            String domainId) throws Exception {
+    public DeleteOrganizationDomainResponse delete(String organizationId, String domainId) throws Exception {
         return delete(organizationId, domainId, Optional.empty());
     }
 
@@ -235,8 +219,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public DeleteOrganizationDomainResponse delete(
-            String organizationId,
-            String domainId,
+            String organizationId, String domainId,
             Optional<Options> options) throws Exception {
         DeleteOrganizationDomainRequest request =
             DeleteOrganizationDomainRequest
@@ -245,9 +228,7 @@ public class OrganizationDomains {
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
-              = new DeleteOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

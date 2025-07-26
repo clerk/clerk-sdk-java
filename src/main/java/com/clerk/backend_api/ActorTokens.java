@@ -16,7 +16,6 @@ import com.clerk.backend_api.operations.RevokeActorTokenOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class ActorTokens {
     ActorTokens(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create actor token
      * 
@@ -62,13 +62,9 @@ public class ActorTokens {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateActorTokenResponse create(
-            Optional<? extends CreateActorTokenRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateActorTokenResponse create(Optional<? extends CreateActorTokenRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
-              = new CreateActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateActorTokenOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -106,18 +102,14 @@ public class ActorTokens {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeActorTokenResponse revoke(
-            String actorTokenId,
-            Optional<Options> options) throws Exception {
+    public RevokeActorTokenResponse revoke(String actorTokenId, Optional<Options> options) throws Exception {
         RevokeActorTokenRequest request =
             RevokeActorTokenRequest
                 .builder()
                 .actorTokenId(actorTokenId)
                 .build();
         RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> operation
-              = new RevokeActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeActorTokenOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

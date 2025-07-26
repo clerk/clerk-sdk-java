@@ -53,9 +53,7 @@ public class CreateOAuthApplicationRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateOAuthApplicationRequestBody>, CreateOAuthApplicationResponse> operation
-              = new CreateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOAuthApplicationOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

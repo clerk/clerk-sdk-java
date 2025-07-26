@@ -56,9 +56,7 @@ public class BanUserRequestBuilder {
             .build());
 
         RequestOperation<BanUserRequest, BanUserResponse> operation
-              = new BanUserOperation(
-                sdkConfiguration,
-                options);
+              = new BanUserOperation(sdkConfiguration, options);
         BanUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

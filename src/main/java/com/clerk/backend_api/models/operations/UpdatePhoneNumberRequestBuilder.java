@@ -70,9 +70,7 @@ public class UpdatePhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<UpdatePhoneNumberRequest, UpdatePhoneNumberResponse> operation
-              = new UpdatePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new UpdatePhoneNumberOperation(sdkConfiguration, options);
         UpdatePhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

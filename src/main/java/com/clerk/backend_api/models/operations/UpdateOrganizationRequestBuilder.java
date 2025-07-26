@@ -64,9 +64,7 @@ public class UpdateOrganizationRequestBuilder {
             .build());
 
         RequestOperation<UpdateOrganizationRequest, UpdateOrganizationResponse> operation
-              = new UpdateOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationOperation(sdkConfiguration, options);
         UpdateOrganizationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

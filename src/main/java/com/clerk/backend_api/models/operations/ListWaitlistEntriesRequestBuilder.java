@@ -47,9 +47,7 @@ public class ListWaitlistEntriesRequestBuilder {
             .build());
 
         RequestOperation<ListWaitlistEntriesRequest, ListWaitlistEntriesResponse> operation
-              = new ListWaitlistEntriesOperation(
-                sdkConfiguration,
-                options);
+              = new ListWaitlistEntriesOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -105,9 +105,7 @@ public class ListAllowlistIdentifiersRequestBuilder {
             .build());
 
         RequestOperation<ListAllowlistIdentifiersRequest, ListAllowlistIdentifiersResponse> operation
-              = new ListAllowlistIdentifiersOperation(
-                sdkConfiguration,
-                options);
+              = new ListAllowlistIdentifiersOperation(sdkConfiguration, options);
         ListAllowlistIdentifiersRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

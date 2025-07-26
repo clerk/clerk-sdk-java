@@ -53,9 +53,7 @@ public class UpdateInstanceRestrictionsRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
-              = new UpdateInstanceRestrictionsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceRestrictionsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

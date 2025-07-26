@@ -56,9 +56,7 @@ public class DeleteBlocklistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<DeleteBlocklistIdentifierRequest, DeleteBlocklistIdentifierResponse> operation
-              = new DeleteBlocklistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBlocklistIdentifierOperation(sdkConfiguration, options);
         DeleteBlocklistIdentifierRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

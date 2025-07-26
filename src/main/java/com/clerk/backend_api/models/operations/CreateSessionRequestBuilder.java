@@ -53,9 +53,7 @@ public class CreateSessionRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
-              = new CreateSessionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

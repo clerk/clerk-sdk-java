@@ -15,7 +15,6 @@ import com.clerk.backend_api.operations.CreateWaitlistEntryOperation;
 import com.clerk.backend_api.operations.ListWaitlistEntriesOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -25,6 +24,7 @@ public class WaitlistEntries {
     WaitlistEntries(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all waitlist entries
      * 
@@ -65,13 +65,9 @@ public class WaitlistEntries {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListWaitlistEntriesResponse list(
-            ListWaitlistEntriesRequest request,
-            Optional<Options> options) throws Exception {
+    public ListWaitlistEntriesResponse list(ListWaitlistEntriesRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListWaitlistEntriesRequest, ListWaitlistEntriesResponse> operation
-              = new ListWaitlistEntriesOperation(
-                sdkConfiguration,
-                options);
+              = new ListWaitlistEntriesOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -111,13 +107,9 @@ public class WaitlistEntries {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateWaitlistEntryResponse create(
-            Optional<? extends CreateWaitlistEntryRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateWaitlistEntryResponse create(Optional<? extends CreateWaitlistEntryRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
-              = new CreateWaitlistEntryOperation(
-                sdkConfiguration,
-                options);
+              = new CreateWaitlistEntryOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

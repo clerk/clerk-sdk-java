@@ -56,9 +56,7 @@ public class RevokeActorTokenRequestBuilder {
             .build());
 
         RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> operation
-              = new RevokeActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeActorTokenOperation(sdkConfiguration, options);
         RevokeActorTokenRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));
