@@ -78,9 +78,7 @@ public class ToggleTemplateDeliveryRequestBuilder {
             .build());
 
         RequestOperation<ToggleTemplateDeliveryRequest, ToggleTemplateDeliveryResponse> operation
-              = new ToggleTemplateDeliveryOperation(
-                sdkConfiguration,
-                options);
+              = new ToggleTemplateDeliveryOperation(sdkConfiguration, options);
         ToggleTemplateDeliveryRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

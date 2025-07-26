@@ -113,9 +113,7 @@ public class GetTemplateListRequestBuilder {
             .build());
 
         RequestOperation<GetTemplateListRequest, GetTemplateListResponse> operation
-              = new GetTemplateListOperation(
-                sdkConfiguration,
-                options);
+              = new GetTemplateListOperation(sdkConfiguration, options);
         GetTemplateListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

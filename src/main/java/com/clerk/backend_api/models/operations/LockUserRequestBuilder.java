@@ -56,9 +56,7 @@ public class LockUserRequestBuilder {
             .build());
 
         RequestOperation<LockUserRequest, LockUserResponse> operation
-              = new LockUserOperation(
-                sdkConfiguration,
-                options);
+              = new LockUserOperation(sdkConfiguration, options);
         LockUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

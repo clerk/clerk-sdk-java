@@ -99,9 +99,7 @@ public class ListPendingOrganizationInvitationsRequestBuilder {
             .build());
 
         RequestOperation<ListPendingOrganizationInvitationsRequest, ListPendingOrganizationInvitationsResponse> operation
-              = new ListPendingOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListPendingOrganizationInvitationsOperation(sdkConfiguration, options);
         ListPendingOrganizationInvitationsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

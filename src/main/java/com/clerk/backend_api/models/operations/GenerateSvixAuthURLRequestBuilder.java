@@ -40,9 +40,7 @@ public class GenerateSvixAuthURLRequestBuilder {
             .build());
 
         RequestlessOperation<GenerateSvixAuthURLResponse> operation
-            = new GenerateSvixAuthURLOperation(
-                sdkConfiguration,
-                options);
+            = new GenerateSvixAuthURLOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

@@ -40,9 +40,7 @@ public class CreateSvixAppRequestBuilder {
             .build());
 
         RequestlessOperation<CreateSvixAppResponse> operation
-            = new CreateSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new CreateSvixAppOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

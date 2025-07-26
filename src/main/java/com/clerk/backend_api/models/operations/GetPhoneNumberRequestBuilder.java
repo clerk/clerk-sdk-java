@@ -56,9 +56,7 @@ public class GetPhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<GetPhoneNumberRequest, GetPhoneNumberResponse> operation
-              = new GetPhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new GetPhoneNumberOperation(sdkConfiguration, options);
         GetPhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

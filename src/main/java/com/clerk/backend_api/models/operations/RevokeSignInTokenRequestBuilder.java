@@ -56,9 +56,7 @@ public class RevokeSignInTokenRequestBuilder {
             .build());
 
         RequestOperation<RevokeSignInTokenRequest, RevokeSignInTokenResponse> operation
-              = new RevokeSignInTokenOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSignInTokenOperation(sdkConfiguration, options);
         RevokeSignInTokenRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

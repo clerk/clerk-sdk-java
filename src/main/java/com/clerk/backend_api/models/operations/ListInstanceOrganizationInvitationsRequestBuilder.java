@@ -47,9 +47,7 @@ public class ListInstanceOrganizationInvitationsRequestBuilder {
             .build());
 
         RequestOperation<ListInstanceOrganizationInvitationsRequest, ListInstanceOrganizationInvitationsResponse> operation
-              = new ListInstanceOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListInstanceOrganizationInvitationsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

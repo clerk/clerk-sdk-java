@@ -15,7 +15,6 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -25,6 +24,7 @@ public class EmailAndSmsTemplates {
     EmailAndSmsTemplates(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Update a template for a given type and slug
      * 
@@ -50,9 +50,7 @@ public class EmailAndSmsTemplates {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpsertTemplateResponse upsert(
-            UpsertTemplatePathParamTemplateType templateType,
-            String slug) throws Exception {
+    public UpsertTemplateResponse upsert(UpsertTemplatePathParamTemplateType templateType, String slug) throws Exception {
         return upsert(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -72,10 +70,8 @@ public class EmailAndSmsTemplates {
      */
     @Deprecated
     public UpsertTemplateResponse upsert(
-            UpsertTemplatePathParamTemplateType templateType,
-            String slug,
-            Optional<? extends UpsertTemplateRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            UpsertTemplatePathParamTemplateType templateType, String slug,
+            Optional<? extends UpsertTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
         UpsertTemplateRequest request =
             UpsertTemplateRequest
                 .builder()
@@ -84,9 +80,7 @@ public class EmailAndSmsTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
-              = new UpsertTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new UpsertTemplateOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

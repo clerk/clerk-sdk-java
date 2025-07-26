@@ -64,9 +64,7 @@ public class UserPasskeyDeleteRequestBuilder {
             .build());
 
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserPasskeyDeleteOperation(sdkConfiguration, options);
         UserPasskeyDeleteRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

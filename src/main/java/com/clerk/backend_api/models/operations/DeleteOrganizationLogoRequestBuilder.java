@@ -56,9 +56,7 @@ public class DeleteOrganizationLogoRequestBuilder {
             .build());
 
         RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
-              = new DeleteOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationLogoOperation(sdkConfiguration, options);
         DeleteOrganizationLogoRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

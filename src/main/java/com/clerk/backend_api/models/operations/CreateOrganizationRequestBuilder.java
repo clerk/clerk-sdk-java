@@ -53,9 +53,7 @@ public class CreateOrganizationRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateOrganizationRequestBody>, CreateOrganizationResponse> operation
-              = new CreateOrganizationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

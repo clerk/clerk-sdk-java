@@ -40,9 +40,7 @@ public class GetInstanceRequestBuilder {
             .build());
 
         RequestlessOperation<GetInstanceResponse> operation
-            = new GetInstanceOperation(
-                sdkConfiguration,
-                options);
+            = new GetInstanceOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

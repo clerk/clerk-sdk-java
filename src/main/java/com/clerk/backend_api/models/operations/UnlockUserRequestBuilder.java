@@ -56,9 +56,7 @@ public class UnlockUserRequestBuilder {
             .build());
 
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
-              = new UnlockUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnlockUserOperation(sdkConfiguration, options);
         UnlockUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

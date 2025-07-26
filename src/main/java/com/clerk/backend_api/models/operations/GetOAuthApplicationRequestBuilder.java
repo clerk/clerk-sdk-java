@@ -56,9 +56,7 @@ public class GetOAuthApplicationRequestBuilder {
             .build());
 
         RequestOperation<GetOAuthApplicationRequest, GetOAuthApplicationResponse> operation
-              = new GetOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthApplicationOperation(sdkConfiguration, options);
         GetOAuthApplicationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

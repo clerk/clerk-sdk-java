@@ -72,9 +72,7 @@ public class UpdateOrganizationMembershipRequestBuilder {
             .build());
 
         RequestOperation<UpdateOrganizationMembershipRequest, UpdateOrganizationMembershipResponse> operation
-              = new UpdateOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationMembershipOperation(sdkConfiguration, options);
         UpdateOrganizationMembershipRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

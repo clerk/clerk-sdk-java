@@ -64,9 +64,7 @@ public class MergeOrganizationMetadataRequestBuilder {
             .build());
 
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
-              = new MergeOrganizationMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new MergeOrganizationMetadataOperation(sdkConfiguration, options);
         MergeOrganizationMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

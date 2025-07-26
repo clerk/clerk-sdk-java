@@ -56,9 +56,7 @@ public class DeleteOAuthApplicationRequestBuilder {
             .build());
 
         RequestOperation<DeleteOAuthApplicationRequest, DeleteOAuthApplicationResponse> operation
-              = new DeleteOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOAuthApplicationOperation(sdkConfiguration, options);
         DeleteOAuthApplicationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

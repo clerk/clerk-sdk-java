@@ -64,9 +64,7 @@ public class SetUserProfileImageRequestBuilder {
             .build());
 
         RequestOperation<SetUserProfileImageRequest, SetUserProfileImageResponse> operation
-              = new SetUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new SetUserProfileImageOperation(sdkConfiguration, options);
         SetUserProfileImageRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

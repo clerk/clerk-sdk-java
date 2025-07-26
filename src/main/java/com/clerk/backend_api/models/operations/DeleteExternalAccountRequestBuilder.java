@@ -64,9 +64,7 @@ public class DeleteExternalAccountRequestBuilder {
             .build());
 
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
-              = new DeleteExternalAccountOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteExternalAccountOperation(sdkConfiguration, options);
         DeleteExternalAccountRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

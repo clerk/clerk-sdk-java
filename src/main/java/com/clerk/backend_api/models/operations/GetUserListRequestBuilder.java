@@ -47,9 +47,7 @@ public class GetUserListRequestBuilder {
             .build());
 
         RequestOperation<GetUserListRequest, GetUserListResponse> operation
-              = new GetUserListOperation(
-                sdkConfiguration,
-                options);
+              = new GetUserListOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -56,9 +56,7 @@ public class GetSessionRequestBuilder {
             .build());
 
         RequestOperation<GetSessionRequest, GetSessionResponse> operation
-              = new GetSessionOperation(
-                sdkConfiguration,
-                options);
+              = new GetSessionOperation(sdkConfiguration, options);
         GetSessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

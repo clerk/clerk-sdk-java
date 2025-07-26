@@ -56,9 +56,7 @@ public class GetSAMLConnectionRequestBuilder {
             .build());
 
         RequestOperation<GetSAMLConnectionRequest, GetSAMLConnectionResponse> operation
-              = new GetSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new GetSAMLConnectionOperation(sdkConfiguration, options);
         GetSAMLConnectionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

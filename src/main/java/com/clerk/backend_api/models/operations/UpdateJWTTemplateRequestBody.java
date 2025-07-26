@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
-import java.lang.Double;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -35,14 +35,14 @@ public class UpdateJWTTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lifetime")
-    private JsonNullable<Double> lifetime;
+    private JsonNullable<Long> lifetime;
 
     /**
      * JWT token allowed clock skew
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_clock_skew")
-    private JsonNullable<Double> allowedClockSkew;
+    private JsonNullable<Long> allowedClockSkew;
 
     /**
      * Whether a custom signing key/algorithm is also provided for this template
@@ -69,8 +69,8 @@ public class UpdateJWTTemplateRequestBody {
     public UpdateJWTTemplateRequestBody(
             @JsonProperty("name") String name,
             @JsonProperty("claims") UpdateJWTTemplateClaims claims,
-            @JsonProperty("lifetime") JsonNullable<Double> lifetime,
-            @JsonProperty("allowed_clock_skew") JsonNullable<Double> allowedClockSkew,
+            @JsonProperty("lifetime") JsonNullable<Long> lifetime,
+            @JsonProperty("allowed_clock_skew") JsonNullable<Long> allowedClockSkew,
             @JsonProperty("custom_signing_key") Optional<Boolean> customSigningKey,
             @JsonProperty("signing_algorithm") JsonNullable<String> signingAlgorithm,
             @JsonProperty("signing_key") JsonNullable<String> signingKey) {
@@ -118,7 +118,7 @@ public class UpdateJWTTemplateRequestBody {
      * JWT token lifetime
      */
     @JsonIgnore
-    public JsonNullable<Double> lifetime() {
+    public JsonNullable<Long> lifetime() {
         return lifetime;
     }
 
@@ -126,7 +126,7 @@ public class UpdateJWTTemplateRequestBody {
      * JWT token allowed clock skew
      */
     @JsonIgnore
-    public JsonNullable<Double> allowedClockSkew() {
+    public JsonNullable<Long> allowedClockSkew() {
         return allowedClockSkew;
     }
 
@@ -180,7 +180,7 @@ public class UpdateJWTTemplateRequestBody {
     /**
      * JWT token lifetime
      */
-    public UpdateJWTTemplateRequestBody withLifetime(double lifetime) {
+    public UpdateJWTTemplateRequestBody withLifetime(long lifetime) {
         Utils.checkNotNull(lifetime, "lifetime");
         this.lifetime = JsonNullable.of(lifetime);
         return this;
@@ -189,7 +189,7 @@ public class UpdateJWTTemplateRequestBody {
     /**
      * JWT token lifetime
      */
-    public UpdateJWTTemplateRequestBody withLifetime(JsonNullable<Double> lifetime) {
+    public UpdateJWTTemplateRequestBody withLifetime(JsonNullable<Long> lifetime) {
         Utils.checkNotNull(lifetime, "lifetime");
         this.lifetime = lifetime;
         return this;
@@ -198,7 +198,7 @@ public class UpdateJWTTemplateRequestBody {
     /**
      * JWT token allowed clock skew
      */
-    public UpdateJWTTemplateRequestBody withAllowedClockSkew(double allowedClockSkew) {
+    public UpdateJWTTemplateRequestBody withAllowedClockSkew(long allowedClockSkew) {
         Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
         this.allowedClockSkew = JsonNullable.of(allowedClockSkew);
         return this;
@@ -207,7 +207,7 @@ public class UpdateJWTTemplateRequestBody {
     /**
      * JWT token allowed clock skew
      */
-    public UpdateJWTTemplateRequestBody withAllowedClockSkew(JsonNullable<Double> allowedClockSkew) {
+    public UpdateJWTTemplateRequestBody withAllowedClockSkew(JsonNullable<Long> allowedClockSkew) {
         Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
         this.allowedClockSkew = allowedClockSkew;
         return this;
@@ -314,9 +314,9 @@ public class UpdateJWTTemplateRequestBody {
 
         private UpdateJWTTemplateClaims claims;
 
-        private JsonNullable<Double> lifetime = JsonNullable.undefined();
+        private JsonNullable<Long> lifetime = JsonNullable.undefined();
 
-        private JsonNullable<Double> allowedClockSkew = JsonNullable.undefined();
+        private JsonNullable<Long> allowedClockSkew = JsonNullable.undefined();
 
         private Optional<Boolean> customSigningKey = Optional.empty();
 
@@ -352,7 +352,7 @@ public class UpdateJWTTemplateRequestBody {
         /**
          * JWT token lifetime
          */
-        public Builder lifetime(double lifetime) {
+        public Builder lifetime(long lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
             this.lifetime = JsonNullable.of(lifetime);
             return this;
@@ -361,7 +361,7 @@ public class UpdateJWTTemplateRequestBody {
         /**
          * JWT token lifetime
          */
-        public Builder lifetime(JsonNullable<Double> lifetime) {
+        public Builder lifetime(JsonNullable<Long> lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
             this.lifetime = lifetime;
             return this;
@@ -371,7 +371,7 @@ public class UpdateJWTTemplateRequestBody {
         /**
          * JWT token allowed clock skew
          */
-        public Builder allowedClockSkew(double allowedClockSkew) {
+        public Builder allowedClockSkew(long allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
             this.allowedClockSkew = JsonNullable.of(allowedClockSkew);
             return this;
@@ -380,7 +380,7 @@ public class UpdateJWTTemplateRequestBody {
         /**
          * JWT token allowed clock skew
          */
-        public Builder allowedClockSkew(JsonNullable<Double> allowedClockSkew) {
+        public Builder allowedClockSkew(JsonNullable<Long> allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
             this.allowedClockSkew = allowedClockSkew;
             return this;

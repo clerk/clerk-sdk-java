@@ -53,9 +53,7 @@ public class CreatePhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreatePhoneNumberRequestBody>, CreatePhoneNumberResponse> operation
-              = new CreatePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new CreatePhoneNumberOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

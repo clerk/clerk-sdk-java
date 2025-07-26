@@ -64,9 +64,7 @@ public class RevertTemplateRequestBuilder {
             .build());
 
         RequestOperation<RevertTemplateRequest, RevertTemplateResponse> operation
-              = new RevertTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new RevertTemplateOperation(sdkConfiguration, options);
         RevertTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

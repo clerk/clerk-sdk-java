@@ -53,9 +53,7 @@ public class CreateAllowlistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateAllowlistIdentifierRequestBody>, CreateAllowlistIdentifierResponse> operation
-              = new CreateAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new CreateAllowlistIdentifierOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

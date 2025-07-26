@@ -53,9 +53,7 @@ public class CreateWaitlistEntryRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
-              = new CreateWaitlistEntryOperation(
-                sdkConfiguration,
-                options);
+              = new CreateWaitlistEntryOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

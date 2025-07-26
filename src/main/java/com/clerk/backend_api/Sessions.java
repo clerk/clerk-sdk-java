@@ -45,7 +45,6 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -55,6 +54,7 @@ public class Sessions {
     Sessions(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all sessions
      * 
@@ -98,13 +98,9 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSessionListResponse list(
-            GetSessionListRequest request,
-            Optional<Options> options) throws Exception {
+    public GetSessionListResponse list(GetSessionListRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetSessionListRequest, GetSessionListResponse> operation
-              = new GetSessionListOperation(
-                sdkConfiguration,
-                options);
+              = new GetSessionListOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -150,13 +146,9 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSessionResponse create(
-            Optional<? extends CreateSessionRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateSessionResponse create(Optional<? extends CreateSessionRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
-              = new CreateSessionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -194,18 +186,14 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSessionResponse get(
-            String sessionId,
-            Optional<Options> options) throws Exception {
+    public GetSessionResponse get(String sessionId, Optional<Options> options) throws Exception {
         GetSessionRequest request =
             GetSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<GetSessionRequest, GetSessionResponse> operation
-              = new GetSessionOperation(
-                sdkConfiguration,
-                options);
+              = new GetSessionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -248,8 +236,7 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public RefreshSessionResponse refresh(
-            String sessionId,
-            Optional<? extends RefreshSessionRequestBody> requestBody,
+            String sessionId, Optional<? extends RefreshSessionRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         RefreshSessionRequest request =
             RefreshSessionRequest
@@ -258,9 +245,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
-              = new RefreshSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RefreshSessionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -301,18 +286,14 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeSessionResponse revoke(
-            String sessionId,
-            Optional<Options> options) throws Exception {
+    public RevokeSessionResponse revoke(String sessionId, Optional<Options> options) throws Exception {
         RevokeSessionRequest request =
             RevokeSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
-              = new RevokeSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSessionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -367,8 +348,7 @@ public class Sessions {
      */
     @Deprecated
     public VerifySessionResponse verify(
-            String sessionId,
-            Optional<? extends VerifySessionRequestBody> requestBody,
+            String sessionId, Optional<? extends VerifySessionRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         VerifySessionRequest request =
             VerifySessionRequest
@@ -377,9 +357,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifySessionRequest, VerifySessionResponse> operation
-              = new VerifySessionOperation(
-                sdkConfiguration,
-                options);
+              = new VerifySessionOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -419,8 +397,7 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public CreateSessionTokenResponse createToken(
-            String sessionId,
-            Optional<? extends CreateSessionTokenRequestBody> requestBody,
+            String sessionId, Optional<? extends CreateSessionTokenRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         CreateSessionTokenRequest request =
             CreateSessionTokenRequest
@@ -429,9 +406,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenRequest, CreateSessionTokenResponse> operation
-              = new CreateSessionTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -456,9 +431,7 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
-            String sessionId,
-            String templateName) throws Exception {
+    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(String sessionId, String templateName) throws Exception {
         return createTokenFromTemplate(sessionId, templateName, Optional.empty(),
             Optional.empty());
     }
@@ -476,10 +449,8 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
-            String sessionId,
-            String templateName,
-            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            String sessionId, String templateName,
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
         CreateSessionTokenFromTemplateRequest request =
             CreateSessionTokenFromTemplateRequest
                 .builder()
@@ -488,9 +459,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
-              = new CreateSessionTokenFromTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenFromTemplateOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

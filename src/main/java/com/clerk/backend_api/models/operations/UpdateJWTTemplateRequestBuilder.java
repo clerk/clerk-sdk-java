@@ -70,9 +70,7 @@ public class UpdateJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<UpdateJWTTemplateRequest, UpdateJWTTemplateResponse> operation
-              = new UpdateJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateJWTTemplateOperation(sdkConfiguration, options);
         UpdateJWTTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

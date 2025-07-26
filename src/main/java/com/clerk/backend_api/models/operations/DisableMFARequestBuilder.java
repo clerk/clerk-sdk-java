@@ -56,9 +56,7 @@ public class DisableMFARequestBuilder {
             .build());
 
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFAOperation(
-                sdkConfiguration,
-                options);
+              = new DisableMFAOperation(sdkConfiguration, options);
         DisableMFARequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

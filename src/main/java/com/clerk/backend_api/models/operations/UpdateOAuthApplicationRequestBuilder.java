@@ -64,9 +64,7 @@ public class UpdateOAuthApplicationRequestBuilder {
             .build());
 
         RequestOperation<UpdateOAuthApplicationRequest, UpdateOAuthApplicationResponse> operation
-              = new UpdateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOAuthApplicationOperation(sdkConfiguration, options);
         UpdateOAuthApplicationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

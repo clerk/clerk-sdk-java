@@ -34,6 +34,7 @@ public class Invitations {
     Invitations(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create an invitation
      * 
@@ -73,13 +74,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateInvitationResponse create(
-            Optional<? extends CreateInvitationRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateInvitationResponse create(Optional<? extends CreateInvitationRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
-              = new CreateInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateInvitationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -117,13 +114,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListInvitationsResponse list(
-            ListInvitationsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListInvitationsResponse list(ListInvitationsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListInvitationsRequest, ListInvitationsResponse> operation
-              = new ListInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListInvitationsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -169,13 +162,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateBulkInvitationsResponse bulkCreate(
-            Optional<? extends List<RequestBody>> request,
-            Optional<Options> options) throws Exception {
+    public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
-              = new CreateBulkInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new CreateBulkInvitationsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -222,18 +211,14 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeInvitationResponse revoke(
-            String invitationId,
-            Optional<Options> options) throws Exception {
+    public RevokeInvitationResponse revoke(String invitationId, Optional<Options> options) throws Exception {
         RevokeInvitationRequest request =
             RevokeInvitationRequest
                 .builder()
                 .invitationId(invitationId)
                 .build();
         RequestOperation<RevokeInvitationRequest, RevokeInvitationResponse> operation
-              = new RevokeInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeInvitationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

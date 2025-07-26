@@ -90,9 +90,7 @@ public class ListOAuthApplicationsRequestBuilder {
             .build());
 
         RequestOperation<ListOAuthApplicationsRequest, ListOAuthApplicationsResponse> operation
-              = new ListOAuthApplicationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOAuthApplicationsOperation(sdkConfiguration, options);
         ListOAuthApplicationsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

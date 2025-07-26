@@ -53,9 +53,7 @@ public class UpdateInstanceRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateInstanceRequestBody>, UpdateInstanceResponse> operation
-              = new UpdateInstanceOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

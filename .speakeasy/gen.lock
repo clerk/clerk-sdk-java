@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 8eca1f8d4d1026b09957be1b73537220
+  docChecksum: 6554d8d1debac8a3e97d18d4d49ccfdf
   docVersion: "2025-03-12"
-  speakeasyVersion: 1.581.0
-  generationVersion: 2.656.5
-  releaseVersion: 3.1.0
-  configChecksum: 67c70049af75d143e71f90ab3ad1a076
+  speakeasyVersion: 1.590.0
+  generationVersion: 2.666.0
+  releaseVersion: 3.2.0
+  configChecksum: f3d7042b2bcda60d0654566265e2926c
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.44.0
+    core: 3.45.1
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.83.0

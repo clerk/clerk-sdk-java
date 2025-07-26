@@ -72,9 +72,7 @@ public class UpdateOrganizationDomainRequestBuilder {
             .build());
 
         RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
-              = new UpdateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationDomainOperation(sdkConfiguration, options);
         UpdateOrganizationDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

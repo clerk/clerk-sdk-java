@@ -113,9 +113,7 @@ public class ListOrganizationInvitationsRequestBuilder {
             .build());
 
         RequestOperation<ListOrganizationInvitationsRequest, ListOrganizationInvitationsResponse> operation
-              = new ListOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationInvitationsOperation(sdkConfiguration, options);
         ListOrganizationInvitationsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -70,9 +70,7 @@ public class UpdateEmailAddressRequestBuilder {
             .build());
 
         RequestOperation<UpdateEmailAddressRequest, UpdateEmailAddressResponse> operation
-              = new UpdateEmailAddressOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateEmailAddressOperation(sdkConfiguration, options);
         UpdateEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

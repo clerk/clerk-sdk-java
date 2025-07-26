@@ -53,9 +53,7 @@ public class CreateBlocklistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateBlocklistIdentifierRequestBody>, CreateBlocklistIdentifierResponse> operation
-              = new CreateBlocklistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new CreateBlocklistIdentifierOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

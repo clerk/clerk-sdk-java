@@ -56,9 +56,7 @@ public class DeleteRedirectURLRequestBuilder {
             .build());
 
         RequestOperation<DeleteRedirectURLRequest, DeleteRedirectURLResponse> operation
-              = new DeleteRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteRedirectURLOperation(sdkConfiguration, options);
         DeleteRedirectURLRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

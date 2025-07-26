@@ -64,9 +64,7 @@ public class UpdateSAMLConnectionRequestBuilder {
             .build());
 
         RequestOperation<UpdateSAMLConnectionRequest, UpdateSAMLConnectionResponse> operation
-              = new UpdateSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateSAMLConnectionOperation(sdkConfiguration, options);
         UpdateSAMLConnectionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

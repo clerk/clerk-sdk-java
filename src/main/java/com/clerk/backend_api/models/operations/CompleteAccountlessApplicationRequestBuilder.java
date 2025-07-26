@@ -40,9 +40,7 @@ public class CompleteAccountlessApplicationRequestBuilder {
             .build());
 
         RequestlessOperation<CompleteAccountlessApplicationResponse> operation
-            = new CompleteAccountlessApplicationOperation(
-                sdkConfiguration,
-                options);
+            = new CompleteAccountlessApplicationOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

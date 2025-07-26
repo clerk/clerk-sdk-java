@@ -64,9 +64,7 @@ public class UserWeb3WalletDeleteRequestBuilder {
             .build());
 
         RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation
-              = new UserWeb3WalletDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserWeb3WalletDeleteOperation(sdkConfiguration, options);
         UserWeb3WalletDeleteRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -34,7 +34,6 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -44,6 +43,7 @@ public class OauthApplications {
     OauthApplications(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Get a list of OAuth applications for an instance
      * 
@@ -91,8 +91,7 @@ public class OauthApplications {
      * @throws Exception if the API call fails
      */
     public ListOAuthApplicationsResponse list(
-            Optional<Long> limit,
-            Optional<Long> offset,
+            Optional<Long> limit, Optional<Long> offset,
             Optional<Options> options) throws Exception {
         ListOAuthApplicationsRequest request =
             ListOAuthApplicationsRequest
@@ -101,9 +100,7 @@ public class OauthApplications {
                 .offset(offset)
                 .build();
         RequestOperation<ListOAuthApplicationsRequest, ListOAuthApplicationsResponse> operation
-              = new ListOAuthApplicationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOAuthApplicationsOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -146,13 +143,9 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOAuthApplicationResponse create(
-            Optional<? extends CreateOAuthApplicationRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateOAuthApplicationResponse create(Optional<? extends CreateOAuthApplicationRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateOAuthApplicationRequestBody>, CreateOAuthApplicationResponse> operation
-              = new CreateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOAuthApplicationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -190,18 +183,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetOAuthApplicationResponse get(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public GetOAuthApplicationResponse get(String oauthApplicationId, Optional<Options> options) throws Exception {
         GetOAuthApplicationRequest request =
             GetOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<GetOAuthApplicationRequest, GetOAuthApplicationResponse> operation
-              = new GetOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthApplicationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -226,9 +215,7 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateOAuthApplicationResponse update(
-            String oauthApplicationId,
-            UpdateOAuthApplicationRequestBody requestBody) throws Exception {
+    public UpdateOAuthApplicationResponse update(String oauthApplicationId, UpdateOAuthApplicationRequestBody requestBody) throws Exception {
         return update(oauthApplicationId, requestBody, Optional.empty());
     }
 
@@ -244,8 +231,7 @@ public class OauthApplications {
      * @throws Exception if the API call fails
      */
     public UpdateOAuthApplicationResponse update(
-            String oauthApplicationId,
-            UpdateOAuthApplicationRequestBody requestBody,
+            String oauthApplicationId, UpdateOAuthApplicationRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateOAuthApplicationRequest request =
             UpdateOAuthApplicationRequest
@@ -254,9 +240,7 @@ public class OauthApplications {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOAuthApplicationRequest, UpdateOAuthApplicationResponse> operation
-              = new UpdateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOAuthApplicationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -297,18 +281,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOAuthApplicationResponse delete(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public DeleteOAuthApplicationResponse delete(String oauthApplicationId, Optional<Options> options) throws Exception {
         DeleteOAuthApplicationRequest request =
             DeleteOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<DeleteOAuthApplicationRequest, DeleteOAuthApplicationResponse> operation
-              = new DeleteOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOAuthApplicationOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -349,18 +329,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RotateOAuthApplicationSecretResponse rotateSecret(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public RotateOAuthApplicationSecretResponse rotateSecret(String oauthApplicationId, Optional<Options> options) throws Exception {
         RotateOAuthApplicationSecretRequest request =
             RotateOAuthApplicationSecretRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
-              = new RotateOAuthApplicationSecretOperation(
-                sdkConfiguration,
-                options);
+              = new RotateOAuthApplicationSecretOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -56,9 +56,7 @@ public class DeleteAllowlistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<DeleteAllowlistIdentifierRequest, DeleteAllowlistIdentifierResponse> operation
-              = new DeleteAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteAllowlistIdentifierOperation(sdkConfiguration, options);
         DeleteAllowlistIdentifierRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

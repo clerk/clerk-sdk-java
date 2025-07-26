@@ -64,9 +64,7 @@ public class UpdateUserRequestBuilder {
             .build());
 
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
-              = new UpdateUserOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUserOperation(sdkConfiguration, options);
         UpdateUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

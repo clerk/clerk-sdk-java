@@ -40,9 +40,7 @@ public class GetJWKSRequestBuilder {
             .build());
 
         RequestlessOperation<GetJWKSResponse> operation
-            = new GetJWKSOperation(
-                sdkConfiguration,
-                options);
+            = new GetJWKSOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

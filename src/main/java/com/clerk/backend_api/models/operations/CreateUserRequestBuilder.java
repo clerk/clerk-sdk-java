@@ -47,9 +47,7 @@ public class CreateUserRequestBuilder {
             .build());
 
         RequestOperation<CreateUserRequestBody, CreateUserResponse> operation
-              = new CreateUserOperation(
-                sdkConfiguration,
-                options);
+              = new CreateUserOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

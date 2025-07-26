@@ -47,9 +47,7 @@ public class ListOrganizationsRequestBuilder {
             .build());
 
         RequestOperation<ListOrganizationsRequest, ListOrganizationsResponse> operation
-              = new ListOrganizationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -78,9 +78,7 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
             .build());
 
         RequestOperation<UpdateOrganizationMembershipMetadataRequest, UpdateOrganizationMembershipMetadataResponse> operation
-              = new UpdateOrganizationMembershipMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationMembershipMetadataOperation(sdkConfiguration, options);
         UpdateOrganizationMembershipMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

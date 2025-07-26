@@ -56,9 +56,7 @@ public class DeleteTOTPRequestBuilder {
             .build());
 
         RequestOperation<DeleteTOTPRequest, DeleteTOTPResponse> operation
-              = new DeleteTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteTOTPOperation(sdkConfiguration, options);
         DeleteTOTPRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

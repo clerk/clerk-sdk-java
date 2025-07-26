@@ -54,9 +54,7 @@ public class CreateBulkInvitationsRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
-              = new CreateBulkInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new CreateBulkInvitationsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

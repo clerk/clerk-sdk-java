@@ -70,9 +70,7 @@ public class CreateOrganizationInvitationRequestBuilder {
             .build());
 
         RequestOperation<CreateOrganizationInvitationRequest, CreateOrganizationInvitationResponse> operation
-              = new CreateOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationInvitationOperation(sdkConfiguration, options);
         CreateOrganizationInvitationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

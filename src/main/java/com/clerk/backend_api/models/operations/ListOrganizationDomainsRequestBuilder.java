@@ -47,9 +47,7 @@ public class ListOrganizationDomainsRequestBuilder {
             .build());
 
         RequestOperation<ListOrganizationDomainsRequest, ListOrganizationDomainsResponse> operation
-              = new ListOrganizationDomainsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationDomainsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

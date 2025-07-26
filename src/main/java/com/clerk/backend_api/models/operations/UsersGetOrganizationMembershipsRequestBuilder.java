@@ -99,9 +99,7 @@ public class UsersGetOrganizationMembershipsRequestBuilder {
             .build());
 
         RequestOperation<UsersGetOrganizationMembershipsRequest, UsersGetOrganizationMembershipsResponse> operation
-              = new UsersGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationMembershipsOperation(sdkConfiguration, options);
         UsersGetOrganizationMembershipsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

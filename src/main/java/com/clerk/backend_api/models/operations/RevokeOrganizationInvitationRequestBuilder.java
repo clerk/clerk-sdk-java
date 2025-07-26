@@ -78,9 +78,7 @@ public class RevokeOrganizationInvitationRequestBuilder {
             .build());
 
         RequestOperation<RevokeOrganizationInvitationRequest, RevokeOrganizationInvitationResponse> operation
-              = new RevokeOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeOrganizationInvitationOperation(sdkConfiguration, options);
         RevokeOrganizationInvitationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

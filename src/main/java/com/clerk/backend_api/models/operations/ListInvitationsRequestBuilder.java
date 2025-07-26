@@ -47,9 +47,7 @@ public class ListInvitationsRequestBuilder {
             .build());
 
         RequestOperation<ListInvitationsRequest, ListInvitationsResponse> operation
-              = new ListInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListInvitationsOperation(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

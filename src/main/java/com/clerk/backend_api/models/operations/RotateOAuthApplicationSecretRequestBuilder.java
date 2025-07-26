@@ -56,9 +56,7 @@ public class RotateOAuthApplicationSecretRequestBuilder {
             .build());
 
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
-              = new RotateOAuthApplicationSecretOperation(
-                sdkConfiguration,
-                options);
+              = new RotateOAuthApplicationSecretOperation(sdkConfiguration, options);
         RotateOAuthApplicationSecretRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -64,9 +64,7 @@ public class CreateOrganizationMembershipRequestBuilder {
             .build());
 
         RequestOperation<CreateOrganizationMembershipRequest, CreateOrganizationMembershipResponse> operation
-              = new CreateOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationMembershipOperation(sdkConfiguration, options);
         CreateOrganizationMembershipRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

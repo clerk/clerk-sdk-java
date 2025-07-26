@@ -16,7 +16,6 @@ import com.clerk.backend_api.operations.UpdateProductionInstanceDomainOperation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class BetaFeatures {
     BetaFeatures(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Update instance settings
      * 
@@ -59,13 +59,9 @@ public class BetaFeatures {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceAuthConfigResponse updateInstanceSettings(
-            Optional<? extends UpdateInstanceAuthConfigRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceAuthConfigResponse updateInstanceSettings(Optional<? extends UpdateInstanceAuthConfigRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceAuthConfigRequestBody>, UpdateInstanceAuthConfigResponse> operation
-              = new UpdateInstanceAuthConfigOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceAuthConfigOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -120,13 +116,9 @@ public class BetaFeatures {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(
-            Optional<? extends UpdateProductionInstanceDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(Optional<? extends UpdateProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
-              = new UpdateProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateProductionInstanceDomainOperation(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -65,9 +65,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
             .build());
 
         RequestOperation<CreateOrganizationInvitationBulkRequest, CreateOrganizationInvitationBulkResponse> operation
-              = new CreateOrganizationInvitationBulkOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationInvitationBulkOperation(sdkConfiguration, options);
         CreateOrganizationInvitationBulkRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));
