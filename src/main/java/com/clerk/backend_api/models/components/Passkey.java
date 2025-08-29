@@ -14,110 +14,92 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Passkey {
 
-    @JsonProperty("status")
-    private PasskeyVerificationStatus status;
-
-
-    @JsonProperty("strategy")
-    private PasskeyVerificationStrategy strategy;
-
-
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("nonce")
-    private Optional<? extends Nonce> nonce;
+    @JsonProperty("id")
+    private Optional<String> id;
+
+    /**
+     * String representing the object's type. Objects of the same type share the same value.
+     */
+    @JsonProperty("object")
+    private PasskeyObject object;
 
 
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("message")
-    private JsonNullable<String> message;
+    @JsonProperty("name")
+    private String name;
+
+    /**
+     * Unix timestamp of when the passkey was last used.
+     */
+    @JsonProperty("last_used_at")
+    private long lastUsedAt;
 
 
     @JsonInclude(Include.ALWAYS)
-    @JsonProperty("attempts")
-    private Optional<Long> attempts;
-
-
-    @JsonInclude(Include.ALWAYS)
-    @JsonProperty("expire_at")
-    private Optional<Long> expireAt;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("verified_at_client")
-    private JsonNullable<String> verifiedAtClient;
+    @JsonProperty("verification")
+    private Optional<? extends PasskeyVerification> verification;
 
     @JsonCreator
     public Passkey(
-            @JsonProperty("status") PasskeyVerificationStatus status,
-            @JsonProperty("strategy") PasskeyVerificationStrategy strategy,
-            @JsonProperty("nonce") Optional<? extends Nonce> nonce,
-            @JsonProperty("message") JsonNullable<String> message,
-            @JsonProperty("attempts") Optional<Long> attempts,
-            @JsonProperty("expire_at") Optional<Long> expireAt,
-            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
-        Utils.checkNotNull(status, "status");
-        Utils.checkNotNull(strategy, "strategy");
-        Utils.checkNotNull(nonce, "nonce");
-        Utils.checkNotNull(message, "message");
-        Utils.checkNotNull(attempts, "attempts");
-        Utils.checkNotNull(expireAt, "expireAt");
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.status = status;
-        this.strategy = strategy;
-        this.nonce = nonce;
-        this.message = message;
-        this.attempts = attempts;
-        this.expireAt = expireAt;
-        this.verifiedAtClient = verifiedAtClient;
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("object") PasskeyObject object,
+            @JsonProperty("name") String name,
+            @JsonProperty("last_used_at") long lastUsedAt,
+            @JsonProperty("verification") Optional<? extends PasskeyVerification> verification) {
+        Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(lastUsedAt, "lastUsedAt");
+        Utils.checkNotNull(verification, "verification");
+        this.id = id;
+        this.object = object;
+        this.name = name;
+        this.lastUsedAt = lastUsedAt;
+        this.verification = verification;
     }
     
     public Passkey(
-            PasskeyVerificationStatus status,
-            PasskeyVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined());
+            PasskeyObject object,
+            String name,
+            long lastUsedAt) {
+        this(Optional.empty(), object, name,
+            lastUsedAt, Optional.empty());
     }
 
     @JsonIgnore
-    public PasskeyVerificationStatus status() {
-        return status;
+    public Optional<String> id() {
+        return id;
+    }
+
+    /**
+     * String representing the object's type. Objects of the same type share the same value.
+     */
+    @JsonIgnore
+    public PasskeyObject object() {
+        return object;
     }
 
     @JsonIgnore
-    public PasskeyVerificationStrategy strategy() {
-        return strategy;
+    public String name() {
+        return name;
+    }
+
+    /**
+     * Unix timestamp of when the passkey was last used.
+     */
+    @JsonIgnore
+    public long lastUsedAt() {
+        return lastUsedAt;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Nonce> nonce() {
-        return (Optional<Nonce>) nonce;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> message() {
-        return message;
-    }
-
-    @JsonIgnore
-    public Optional<Long> attempts() {
-        return attempts;
-    }
-
-    @JsonIgnore
-    public Optional<Long> expireAt() {
-        return expireAt;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> verifiedAtClient() {
-        return verifiedAtClient;
+    public Optional<PasskeyVerification> verification() {
+        return (Optional<PasskeyVerification>) verification;
     }
 
     public static Builder builder() {
@@ -125,78 +107,53 @@ public class Passkey {
     }
 
 
-    public Passkey withStatus(PasskeyVerificationStatus status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
-        return this;
-    }
-
-    public Passkey withStrategy(PasskeyVerificationStrategy strategy) {
-        Utils.checkNotNull(strategy, "strategy");
-        this.strategy = strategy;
-        return this;
-    }
-
-    public Passkey withNonce(Nonce nonce) {
-        Utils.checkNotNull(nonce, "nonce");
-        this.nonce = Optional.ofNullable(nonce);
+    public Passkey withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = Optional.ofNullable(id);
         return this;
     }
 
 
-    public Passkey withNonce(Optional<? extends Nonce> nonce) {
-        Utils.checkNotNull(nonce, "nonce");
-        this.nonce = nonce;
+    public Passkey withId(Optional<String> id) {
+        Utils.checkNotNull(id, "id");
+        this.id = id;
         return this;
     }
 
-    public Passkey withMessage(String message) {
-        Utils.checkNotNull(message, "message");
-        this.message = JsonNullable.of(message);
+    /**
+     * String representing the object's type. Objects of the same type share the same value.
+     */
+    public Passkey withObject(PasskeyObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
         return this;
     }
 
-    public Passkey withMessage(JsonNullable<String> message) {
-        Utils.checkNotNull(message, "message");
-        this.message = message;
+    public Passkey withName(String name) {
+        Utils.checkNotNull(name, "name");
+        this.name = name;
         return this;
     }
 
-    public Passkey withAttempts(long attempts) {
-        Utils.checkNotNull(attempts, "attempts");
-        this.attempts = Optional.ofNullable(attempts);
+    /**
+     * Unix timestamp of when the passkey was last used.
+     */
+    public Passkey withLastUsedAt(long lastUsedAt) {
+        Utils.checkNotNull(lastUsedAt, "lastUsedAt");
+        this.lastUsedAt = lastUsedAt;
         return this;
     }
 
-
-    public Passkey withAttempts(Optional<Long> attempts) {
-        Utils.checkNotNull(attempts, "attempts");
-        this.attempts = attempts;
-        return this;
-    }
-
-    public Passkey withExpireAt(long expireAt) {
-        Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = Optional.ofNullable(expireAt);
+    public Passkey withVerification(PasskeyVerification verification) {
+        Utils.checkNotNull(verification, "verification");
+        this.verification = Optional.ofNullable(verification);
         return this;
     }
 
 
-    public Passkey withExpireAt(Optional<Long> expireAt) {
-        Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = expireAt;
-        return this;
-    }
-
-    public Passkey withVerifiedAtClient(String verifiedAtClient) {
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
-        return this;
-    }
-
-    public Passkey withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.verifiedAtClient = verifiedAtClient;
+    public Passkey withVerification(Optional<? extends PasskeyVerification> verification) {
+        Utils.checkNotNull(verification, "verification");
+        this.verification = verification;
         return this;
     }
 
@@ -210,141 +167,105 @@ public class Passkey {
         }
         Passkey other = (Passkey) o;
         return 
-            Utils.enhancedDeepEquals(this.status, other.status) &&
-            Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
-            Utils.enhancedDeepEquals(this.nonce, other.nonce) &&
-            Utils.enhancedDeepEquals(this.message, other.message) &&
-            Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
-            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
-            Utils.enhancedDeepEquals(this.verifiedAtClient, other.verifiedAtClient);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.object, other.object) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.lastUsedAt, other.lastUsedAt) &&
+            Utils.enhancedDeepEquals(this.verification, other.verification);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, nonce,
-            message, attempts, expireAt,
-            verifiedAtClient);
+            id, object, name,
+            lastUsedAt, verification);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Passkey.class,
-                "status", status,
-                "strategy", strategy,
-                "nonce", nonce,
-                "message", message,
-                "attempts", attempts,
-                "expireAt", expireAt,
-                "verifiedAtClient", verifiedAtClient);
+                "id", id,
+                "object", object,
+                "name", name,
+                "lastUsedAt", lastUsedAt,
+                "verification", verification);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private PasskeyVerificationStatus status;
+        private Optional<String> id = Optional.empty();
 
-        private PasskeyVerificationStrategy strategy;
+        private PasskeyObject object;
 
-        private Optional<? extends Nonce> nonce = Optional.empty();
+        private String name;
 
-        private JsonNullable<String> message = JsonNullable.undefined();
+        private Long lastUsedAt;
 
-        private Optional<Long> attempts = Optional.empty();
-
-        private Optional<Long> expireAt = Optional.empty();
-
-        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
+        private Optional<? extends PasskeyVerification> verification = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        public Builder status(PasskeyVerificationStatus status) {
-            Utils.checkNotNull(status, "status");
-            this.status = status;
+        public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        public Builder id(Optional<String> id) {
+            Utils.checkNotNull(id, "id");
+            this.id = id;
             return this;
         }
 
 
-        public Builder strategy(PasskeyVerificationStrategy strategy) {
-            Utils.checkNotNull(strategy, "strategy");
-            this.strategy = strategy;
+        /**
+         * String representing the object's type. Objects of the same type share the same value.
+         */
+        public Builder object(PasskeyObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
             return this;
         }
 
 
-        public Builder nonce(Nonce nonce) {
-            Utils.checkNotNull(nonce, "nonce");
-            this.nonce = Optional.ofNullable(nonce);
-            return this;
-        }
-
-        public Builder nonce(Optional<? extends Nonce> nonce) {
-            Utils.checkNotNull(nonce, "nonce");
-            this.nonce = nonce;
+        public Builder name(String name) {
+            Utils.checkNotNull(name, "name");
+            this.name = name;
             return this;
         }
 
 
-        public Builder message(String message) {
-            Utils.checkNotNull(message, "message");
-            this.message = JsonNullable.of(message);
-            return this;
-        }
-
-        public Builder message(JsonNullable<String> message) {
-            Utils.checkNotNull(message, "message");
-            this.message = message;
-            return this;
-        }
-
-
-        public Builder attempts(long attempts) {
-            Utils.checkNotNull(attempts, "attempts");
-            this.attempts = Optional.ofNullable(attempts);
-            return this;
-        }
-
-        public Builder attempts(Optional<Long> attempts) {
-            Utils.checkNotNull(attempts, "attempts");
-            this.attempts = attempts;
+        /**
+         * Unix timestamp of when the passkey was last used.
+         */
+        public Builder lastUsedAt(long lastUsedAt) {
+            Utils.checkNotNull(lastUsedAt, "lastUsedAt");
+            this.lastUsedAt = lastUsedAt;
             return this;
         }
 
 
-        public Builder expireAt(long expireAt) {
-            Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = Optional.ofNullable(expireAt);
+        public Builder verification(PasskeyVerification verification) {
+            Utils.checkNotNull(verification, "verification");
+            this.verification = Optional.ofNullable(verification);
             return this;
         }
 
-        public Builder expireAt(Optional<Long> expireAt) {
-            Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = expireAt;
-            return this;
-        }
-
-
-        public Builder verifiedAtClient(String verifiedAtClient) {
-            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
-            return this;
-        }
-
-        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
-            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-            this.verifiedAtClient = verifiedAtClient;
+        public Builder verification(Optional<? extends PasskeyVerification> verification) {
+            Utils.checkNotNull(verification, "verification");
+            this.verification = verification;
             return this;
         }
 
         public Passkey build() {
 
             return new Passkey(
-                status, strategy, nonce,
-                message, attempts, expireAt,
-                verifiedAtClient);
+                id, object, name,
+                lastUsedAt, verification);
         }
 
     }

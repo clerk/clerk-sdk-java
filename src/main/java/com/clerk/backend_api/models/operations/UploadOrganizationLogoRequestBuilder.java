@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UploadOrganizationLogoOperation;
+import com.clerk.backend_api.operations.UploadOrganizationLogo;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -70,9 +70,7 @@ public class UploadOrganizationLogoRequestBuilder {
             .build());
 
         RequestOperation<UploadOrganizationLogoRequest, UploadOrganizationLogoResponse> operation
-              = new UploadOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new UploadOrganizationLogo.Sync(sdkConfiguration, options);
         UploadOrganizationLogoRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

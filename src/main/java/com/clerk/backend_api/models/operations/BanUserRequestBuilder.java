@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.BanUserOperation;
+import com.clerk.backend_api.operations.BanUser;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class BanUserRequestBuilder {
             .build());
 
         RequestOperation<BanUserRequest, BanUserResponse> operation
-              = new BanUserOperation(
-                sdkConfiguration,
-                options);
+              = new BanUser.Sync(sdkConfiguration, options);
         BanUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

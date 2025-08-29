@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UnbanUserOperation;
+import com.clerk.backend_api.operations.UnbanUser;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class UnbanUserRequestBuilder {
             .build());
 
         RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
-              = new UnbanUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnbanUser.Sync(sdkConfiguration, options);
         UnbanUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

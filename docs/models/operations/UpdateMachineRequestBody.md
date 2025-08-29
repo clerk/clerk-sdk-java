@@ -1,0 +1,9 @@
+# UpdateMachineRequestBody
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                   | *Optional\<String>*                                                                                      | :heavy_minus_sign:                                                                                       | The name of the machine                                                                                  |
+| `defaultTokenTtl`                                                                                        | *Optional\<Long>*                                                                                        | :heavy_minus_sign:                                                                                       | The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second. |

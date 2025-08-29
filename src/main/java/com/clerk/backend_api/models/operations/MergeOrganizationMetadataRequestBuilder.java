@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.MergeOrganizationMetadataOperation;
+import com.clerk.backend_api.operations.MergeOrganizationMetadata;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class MergeOrganizationMetadataRequestBuilder {
             .build());
 
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
-              = new MergeOrganizationMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new MergeOrganizationMetadata.Sync(sdkConfiguration, options);
         MergeOrganizationMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

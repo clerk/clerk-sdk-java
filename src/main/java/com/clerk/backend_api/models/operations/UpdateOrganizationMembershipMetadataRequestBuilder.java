@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadataOperation;
+import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadata;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -78,9 +78,7 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
             .build());
 
         RequestOperation<UpdateOrganizationMembershipMetadataRequest, UpdateOrganizationMembershipMetadataResponse> operation
-              = new UpdateOrganizationMembershipMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationMembershipMetadata.Sync(sdkConfiguration, options);
         UpdateOrganizationMembershipMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

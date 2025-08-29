@@ -3,92 +3,20 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.OneOfDeserializer;
-import com.clerk.backend_api.utils.TypedObject;
-import com.clerk.backend_api.utils.Utils.JsonShape;
-import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.lang.Override;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 
-@JsonDeserialize(using = Web3WalletVerification._Deserializer.class)
-public class Web3WalletVerification {
+@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
+@JsonSubTypes({
+    @Type(value = Web3Signature.class, name="verification_web3"),
+    @Type(value = VerificationAdminVerificationAdmin.class, name="Admin")})
+public interface Web3WalletVerification {
 
-    @JsonValue
-    private TypedObject value;
-    
-    private Web3WalletVerification(TypedObject value) {
-        this.value = value;
-    }
+    String object();
 
-    public static Web3WalletVerification of(Web3Signature value) {
-        Utils.checkNotNull(value, "value");
-        return new Web3WalletVerification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Web3Signature>(){}));
-    }
-
-    public static Web3WalletVerification of(Web3WalletVerificationAdmin value) {
-        Utils.checkNotNull(value, "value");
-        return new Web3WalletVerification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Web3WalletVerificationAdmin>(){}));
-    }
-    
-    /**
-     * Returns an instance of one of these types:
-     * <ul>
-     * <li>{@code com.clerk.backend_api.models.components.Web3Signature}</li>
-     * <li>{@code com.clerk.backend_api.models.components.Web3WalletVerificationAdmin}</li>
-     * </ul>
-     * 
-     * <p>Use {@code instanceof} to determine what type is returned. For example:
-     * 
-     * <pre>
-     * if (obj.value() instanceof String) {
-     *     String answer = (String) obj.value();
-     *     System.out.println("answer=" + answer);
-     * }
-     * </pre>
-     * 
-     * @return value of oneOf type
-     **/ 
-    public java.lang.Object value() {
-        return value.value();
-    }    
-    
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Web3WalletVerification other = (Web3WalletVerification) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(value.value());
-    }
-    
-    @SuppressWarnings("serial")
-    public static final class _Deserializer extends OneOfDeserializer<Web3WalletVerification> {
-
-        public _Deserializer() {
-            super(Web3WalletVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<Web3Signature>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Web3WalletVerificationAdmin>() {}, JsonShape.DEFAULT));
-        }
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(Web3WalletVerification.class,
-                "value", value);
-    }
- 
 }
 

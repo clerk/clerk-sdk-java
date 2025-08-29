@@ -15,6 +15,7 @@ Get a list of all identifiers which are not allowed to access an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListBlocklistIdentifiers" method="get" path="/blocklist_identifiers" -->
 ```java
 package hello.world;
 
@@ -58,6 +59,7 @@ Create an identifier that is blocked from accessing an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateBlocklistIdentifier" method="post" path="/blocklist_identifiers" -->
 ```java
 package hello.world;
 
@@ -107,6 +109,7 @@ Delete an identifier from the instance block-list
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteBlocklistIdentifier" method="delete" path="/blocklist_identifiers/{identifier_id}" -->
 ```java
 package hello.world;
 

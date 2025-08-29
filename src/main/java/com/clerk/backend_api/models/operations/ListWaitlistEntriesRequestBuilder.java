@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ListWaitlistEntriesOperation;
+import com.clerk.backend_api.operations.ListWaitlistEntries;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -47,9 +47,7 @@ public class ListWaitlistEntriesRequestBuilder {
             .build());
 
         RequestOperation<ListWaitlistEntriesRequest, ListWaitlistEntriesResponse> operation
-              = new ListWaitlistEntriesOperation(
-                sdkConfiguration,
-                options);
+              = new ListWaitlistEntries.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

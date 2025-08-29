@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UpdateProductionInstanceDomainOperation;
+import com.clerk.backend_api.operations.UpdateProductionInstanceDomain;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class UpdateProductionInstanceDomainRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
-              = new UpdateProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateProductionInstanceDomain.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

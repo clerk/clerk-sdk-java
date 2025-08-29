@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeletePhoneNumberOperation;
+import com.clerk.backend_api.operations.DeletePhoneNumber;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeletePhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<DeletePhoneNumberRequest, DeletePhoneNumberResponse> operation
-              = new DeletePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new DeletePhoneNumber.Sync(sdkConfiguration, options);
         DeletePhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

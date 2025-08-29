@@ -12,12 +12,11 @@ import com.clerk.backend_api.models.operations.UpdateSignUpRequest;
 import com.clerk.backend_api.models.operations.UpdateSignUpRequestBody;
 import com.clerk.backend_api.models.operations.UpdateSignUpRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateSignUpResponse;
-import com.clerk.backend_api.operations.GetSignUpOperation;
-import com.clerk.backend_api.operations.UpdateSignUpOperation;
+import com.clerk.backend_api.operations.GetSignUp;
+import com.clerk.backend_api.operations.UpdateSignUp;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -27,6 +26,7 @@ public class SignUps {
     SignUps(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Retrieve a sign-up by ID
      * 
@@ -61,18 +61,14 @@ public class SignUps {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSignUpResponse get(
-            String id,
-            Optional<Options> options) throws Exception {
+    public GetSignUpResponse get(String id, Optional<Options> options) throws Exception {
         GetSignUpRequest request =
             GetSignUpRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<GetSignUpRequest, GetSignUpResponse> operation
-              = new GetSignUpOperation(
-                sdkConfiguration,
-                options);
+              = new GetSignUp.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -112,8 +108,7 @@ public class SignUps {
      * @throws Exception if the API call fails
      */
     public UpdateSignUpResponse update(
-            String id,
-            Optional<? extends UpdateSignUpRequestBody> requestBody,
+            String id, Optional<? extends UpdateSignUpRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UpdateSignUpRequest request =
             UpdateSignUpRequest
@@ -122,9 +117,7 @@ public class SignUps {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateSignUpRequest, UpdateSignUpResponse> operation
-              = new UpdateSignUpOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateSignUp.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

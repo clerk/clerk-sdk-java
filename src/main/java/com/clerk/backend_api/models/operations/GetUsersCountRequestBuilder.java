@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetUsersCountOperation;
+import com.clerk.backend_api.operations.GetUsersCount;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -47,9 +47,7 @@ public class GetUsersCountRequestBuilder {
             .build());
 
         RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
-              = new GetUsersCountOperation(
-                sdkConfiguration,
-                options);
+              = new GetUsersCount.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

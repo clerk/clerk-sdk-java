@@ -9,12 +9,11 @@ import com.clerk.backend_api.models.operations.PreviewTemplateRequest;
 import com.clerk.backend_api.models.operations.PreviewTemplateRequestBody;
 import com.clerk.backend_api.models.operations.PreviewTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.PreviewTemplateResponse;
-import com.clerk.backend_api.operations.PreviewTemplateOperation;
+import com.clerk.backend_api.operations.PreviewTemplate;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -24,6 +23,7 @@ public class Templates {
     Templates(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Preview changes to a template
      * 
@@ -49,9 +49,7 @@ public class Templates {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public PreviewTemplateResponse preview(
-            String templateType,
-            String slug) throws Exception {
+    public PreviewTemplateResponse preview(String templateType, String slug) throws Exception {
         return preview(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -71,10 +69,8 @@ public class Templates {
      */
     @Deprecated
     public PreviewTemplateResponse preview(
-            String templateType,
-            String slug,
-            Optional<? extends PreviewTemplateRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            String templateType, String slug,
+            Optional<? extends PreviewTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
         PreviewTemplateRequest request =
             PreviewTemplateRequest
                 .builder()
@@ -83,9 +79,7 @@ public class Templates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<PreviewTemplateRequest, PreviewTemplateResponse> operation
-              = new PreviewTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new PreviewTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

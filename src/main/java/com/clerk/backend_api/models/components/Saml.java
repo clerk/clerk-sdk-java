@@ -17,28 +17,34 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class Saml {
+public class Saml implements Verification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationSamlVerificationObject> object;
+
 
     @JsonProperty("status")
-    private SAMLVerificationStatus status;
+    private VerificationSamlVerificationStatus status;
 
 
     @JsonProperty("strategy")
-    private SAMLVerificationStrategy strategy;
+    private VerificationSamlVerificationStrategy strategy;
 
 
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_verification_redirect_url")
-    private Optional<String> externalVerificationRedirectUrl;
+    private JsonNullable<String> externalVerificationRedirectUrl;
 
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
-    private JsonNullable<? extends SAMLVerificationError> error;
+    private JsonNullable<? extends VerificationError> error;
 
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expire_at")
-    private long expireAt;
+    private JsonNullable<Long> expireAt;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -52,13 +58,15 @@ public class Saml {
 
     @JsonCreator
     public Saml(
-            @JsonProperty("status") SAMLVerificationStatus status,
-            @JsonProperty("strategy") SAMLVerificationStrategy strategy,
-            @JsonProperty("external_verification_redirect_url") Optional<String> externalVerificationRedirectUrl,
-            @JsonProperty("error") JsonNullable<? extends SAMLVerificationError> error,
-            @JsonProperty("expire_at") long expireAt,
+            @JsonProperty("object") Optional<? extends VerificationSamlVerificationObject> object,
+            @JsonProperty("status") VerificationSamlVerificationStatus status,
+            @JsonProperty("strategy") VerificationSamlVerificationStrategy strategy,
+            @JsonProperty("external_verification_redirect_url") JsonNullable<String> externalVerificationRedirectUrl,
+            @JsonProperty("error") JsonNullable<? extends VerificationError> error,
+            @JsonProperty("expire_at") JsonNullable<Long> expireAt,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
@@ -66,6 +74,7 @@ public class Saml {
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
@@ -76,37 +85,42 @@ public class Saml {
     }
     
     public Saml(
-            SAMLVerificationStatus status,
-            SAMLVerificationStrategy strategy,
-            long expireAt) {
-        this(status, strategy, Optional.empty(),
-            JsonNullable.undefined(), expireAt, Optional.empty(),
-            JsonNullable.undefined());
+            VerificationSamlVerificationStatus status,
+            VerificationSamlVerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public SAMLVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationSamlVerificationStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public SAMLVerificationStrategy strategy() {
+    public VerificationSamlVerificationStrategy strategy() {
         return strategy;
     }
 
     @JsonIgnore
-    public Optional<String> externalVerificationRedirectUrl() {
+    public JsonNullable<String> externalVerificationRedirectUrl() {
         return externalVerificationRedirectUrl;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<SAMLVerificationError> error() {
-        return (JsonNullable<SAMLVerificationError>) error;
+    public JsonNullable<VerificationError> error() {
+        return (JsonNullable<VerificationError>) error;
     }
 
     @JsonIgnore
-    public long expireAt() {
+    public JsonNullable<Long> expireAt() {
         return expireAt;
     }
 
@@ -125,13 +139,26 @@ public class Saml {
     }
 
 
-    public Saml withStatus(SAMLVerificationStatus status) {
+    public Saml withObject(VerificationSamlVerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public Saml withObject(Optional<? extends VerificationSamlVerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public Saml withStatus(VerificationSamlVerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public Saml withStrategy(SAMLVerificationStrategy strategy) {
+    public Saml withStrategy(VerificationSamlVerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -139,30 +166,35 @@ public class Saml {
 
     public Saml withExternalVerificationRedirectUrl(String externalVerificationRedirectUrl) {
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-        this.externalVerificationRedirectUrl = Optional.ofNullable(externalVerificationRedirectUrl);
+        this.externalVerificationRedirectUrl = JsonNullable.of(externalVerificationRedirectUrl);
         return this;
     }
 
-
-    public Saml withExternalVerificationRedirectUrl(Optional<String> externalVerificationRedirectUrl) {
+    public Saml withExternalVerificationRedirectUrl(JsonNullable<String> externalVerificationRedirectUrl) {
         Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
         this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
         return this;
     }
 
-    public Saml withError(SAMLVerificationError error) {
+    public Saml withError(VerificationError error) {
         Utils.checkNotNull(error, "error");
         this.error = JsonNullable.of(error);
         return this;
     }
 
-    public Saml withError(JsonNullable<? extends SAMLVerificationError> error) {
+    public Saml withError(JsonNullable<? extends VerificationError> error) {
         Utils.checkNotNull(error, "error");
         this.error = error;
         return this;
     }
 
     public Saml withExpireAt(long expireAt) {
+        Utils.checkNotNull(expireAt, "expireAt");
+        this.expireAt = JsonNullable.of(expireAt);
+        return this;
+    }
+
+    public Saml withExpireAt(JsonNullable<Long> expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
         this.expireAt = expireAt;
         return this;
@@ -203,6 +235,7 @@ public class Saml {
         }
         Saml other = (Saml) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
@@ -215,14 +248,15 @@ public class Saml {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, externalVerificationRedirectUrl,
-            error, expireAt, attempts,
-            verifiedAtClient);
+            object, status, strategy,
+            externalVerificationRedirectUrl, error, expireAt,
+            attempts, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Saml.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "externalVerificationRedirectUrl", externalVerificationRedirectUrl,
@@ -235,15 +269,17 @@ public class Saml {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private SAMLVerificationStatus status;
+        private Optional<? extends VerificationSamlVerificationObject> object = Optional.empty();
 
-        private SAMLVerificationStrategy strategy;
+        private VerificationSamlVerificationStatus status;
 
-        private Optional<String> externalVerificationRedirectUrl = Optional.empty();
+        private VerificationSamlVerificationStrategy strategy;
 
-        private JsonNullable<? extends SAMLVerificationError> error = JsonNullable.undefined();
+        private JsonNullable<String> externalVerificationRedirectUrl = JsonNullable.undefined();
 
-        private Long expireAt;
+        private JsonNullable<? extends VerificationError> error = JsonNullable.undefined();
+
+        private JsonNullable<Long> expireAt = JsonNullable.undefined();
 
         private Optional<Long> attempts = Optional.empty();
 
@@ -254,14 +290,27 @@ public class Saml {
         }
 
 
-        public Builder status(SAMLVerificationStatus status) {
+        public Builder object(VerificationSamlVerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationSamlVerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationSamlVerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(SAMLVerificationStrategy strategy) {
+        public Builder strategy(VerificationSamlVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -270,24 +319,24 @@ public class Saml {
 
         public Builder externalVerificationRedirectUrl(String externalVerificationRedirectUrl) {
             Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-            this.externalVerificationRedirectUrl = Optional.ofNullable(externalVerificationRedirectUrl);
+            this.externalVerificationRedirectUrl = JsonNullable.of(externalVerificationRedirectUrl);
             return this;
         }
 
-        public Builder externalVerificationRedirectUrl(Optional<String> externalVerificationRedirectUrl) {
+        public Builder externalVerificationRedirectUrl(JsonNullable<String> externalVerificationRedirectUrl) {
             Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
             this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
             return this;
         }
 
 
-        public Builder error(SAMLVerificationError error) {
+        public Builder error(VerificationError error) {
             Utils.checkNotNull(error, "error");
             this.error = JsonNullable.of(error);
             return this;
         }
 
-        public Builder error(JsonNullable<? extends SAMLVerificationError> error) {
+        public Builder error(JsonNullable<? extends VerificationError> error) {
             Utils.checkNotNull(error, "error");
             this.error = error;
             return this;
@@ -295,6 +344,12 @@ public class Saml {
 
 
         public Builder expireAt(long expireAt) {
+            Utils.checkNotNull(expireAt, "expireAt");
+            this.expireAt = JsonNullable.of(expireAt);
+            return this;
+        }
+
+        public Builder expireAt(JsonNullable<Long> expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
             this.expireAt = expireAt;
             return this;
@@ -329,9 +384,9 @@ public class Saml {
         public Saml build() {
 
             return new Saml(
-                status, strategy, externalVerificationRedirectUrl,
-                error, expireAt, attempts,
-                verifiedAtClient);
+                object, status, strategy,
+                externalVerificationRedirectUrl, error, expireAt,
+                attempts, verifiedAtClient);
         }
 
     }

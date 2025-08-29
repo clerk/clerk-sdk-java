@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UpdatePhoneNumberOperation;
+import com.clerk.backend_api.operations.UpdatePhoneNumber;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -70,9 +70,7 @@ public class UpdatePhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<UpdatePhoneNumberRequest, UpdatePhoneNumberResponse> operation
-              = new UpdatePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new UpdatePhoneNumber.Sync(sdkConfiguration, options);
         UpdatePhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

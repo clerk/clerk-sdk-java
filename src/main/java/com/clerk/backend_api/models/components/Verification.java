@@ -3,106 +3,24 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.OneOfDeserializer;
-import com.clerk.backend_api.utils.TypedObject;
-import com.clerk.backend_api.utils.Utils.JsonShape;
-import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.lang.Override;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 
-@JsonDeserialize(using = Verification._Deserializer.class)
-public class Verification {
+@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
+@JsonSubTypes({
+    @Type(value = Otp.class, name="verification_otp"),
+    @Type(value = Admin.class, name="verification_admin"),
+    @Type(value = FromOAuth.class, name="verification_from_oauth"),
+    @Type(value = Ticket.class, name="verification_ticket"),
+    @Type(value = Saml.class, name="verification_saml"),
+    @Type(value = EmailLink.class, name="verification_email_link")})
+public interface Verification {
 
-    @JsonValue
-    private TypedObject value;
-    
-    private Verification(TypedObject value) {
-        this.value = value;
-    }
+    String object();
 
-    public static Verification of(Otp value) {
-        Utils.checkNotNull(value, "value");
-        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Otp>(){}));
-    }
-
-    public static Verification of(Admin value) {
-        Utils.checkNotNull(value, "value");
-        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Admin>(){}));
-    }
-
-    public static Verification of(FromOAuth value) {
-        Utils.checkNotNull(value, "value");
-        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<FromOAuth>(){}));
-    }
-
-    public static Verification of(Ticket value) {
-        Utils.checkNotNull(value, "value");
-        return new Verification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Ticket>(){}));
-    }
-    
-    /**
-     * Returns an instance of one of these types:
-     * <ul>
-     * <li>{@code com.clerk.backend_api.models.components.Otp}</li>
-     * <li>{@code com.clerk.backend_api.models.components.Admin}</li>
-     * <li>{@code com.clerk.backend_api.models.components.FromOAuth}</li>
-     * <li>{@code com.clerk.backend_api.models.components.Ticket}</li>
-     * </ul>
-     * 
-     * <p>Use {@code instanceof} to determine what type is returned. For example:
-     * 
-     * <pre>
-     * if (obj.value() instanceof String) {
-     *     String answer = (String) obj.value();
-     *     System.out.println("answer=" + answer);
-     * }
-     * </pre>
-     * 
-     * @return value of oneOf type
-     **/ 
-    public java.lang.Object value() {
-        return value.value();
-    }    
-    
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Verification other = (Verification) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(value.value());
-    }
-    
-    @SuppressWarnings("serial")
-    public static final class _Deserializer extends OneOfDeserializer<Verification> {
-
-        public _Deserializer() {
-            super(Verification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<FromOAuth>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Ticket>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Admin>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Otp>() {}, JsonShape.DEFAULT));
-        }
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(Verification.class,
-                "value", value);
-    }
- 
 }
 

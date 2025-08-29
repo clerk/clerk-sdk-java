@@ -6,12 +6,16 @@ package com.clerk.backend_api.models.components;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * OrganizationSettings
@@ -37,9 +41,15 @@ public class OrganizationSettings {
     @JsonProperty("max_allowed_roles")
     private long maxAllowedRoles;
 
-
+    /**
+     * max_allowed_permissions is now a no-op, as permissions are now unlimited
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("max_allowed_permissions")
-    private long maxAllowedPermissions;
+    @Deprecated
+    private Optional<Long> maxAllowedPermissions;
 
     /**
      * The role key that a user will be assigned after creating an organization.
@@ -73,7 +83,7 @@ public class OrganizationSettings {
             @JsonProperty("enabled") boolean enabled,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("max_allowed_roles") long maxAllowedRoles,
-            @JsonProperty("max_allowed_permissions") long maxAllowedPermissions,
+            @JsonProperty("max_allowed_permissions") Optional<Long> maxAllowedPermissions,
             @JsonProperty("creator_role") String creatorRole,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
             @JsonProperty("domains_enabled") boolean domainsEnabled,
@@ -100,6 +110,22 @@ public class OrganizationSettings {
         this.domainsEnrollmentModes = domainsEnrollmentModes;
         this.domainsDefaultRole = domainsDefaultRole;
     }
+    
+    public OrganizationSettings(
+            OrganizationSettingsObject object,
+            boolean enabled,
+            long maxAllowedMemberships,
+            long maxAllowedRoles,
+            String creatorRole,
+            boolean adminDeleteEnabled,
+            boolean domainsEnabled,
+            List<DomainsEnrollmentModes> domainsEnrollmentModes,
+            String domainsDefaultRole) {
+        this(object, enabled, maxAllowedMemberships,
+            maxAllowedRoles, Optional.empty(), creatorRole,
+            adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
+            domainsDefaultRole);
+    }
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
@@ -124,8 +150,14 @@ public class OrganizationSettings {
         return maxAllowedRoles;
     }
 
+    /**
+     * max_allowed_permissions is now a no-op, as permissions are now unlimited
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @JsonIgnore
-    public long maxAllowedPermissions() {
+    public Optional<Long> maxAllowedPermissions() {
         return maxAllowedPermissions;
     }
 
@@ -195,7 +227,26 @@ public class OrganizationSettings {
         return this;
     }
 
+    /**
+     * max_allowed_permissions is now a no-op, as permissions are now unlimited
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public OrganizationSettings withMaxAllowedPermissions(long maxAllowedPermissions) {
+        Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
+        this.maxAllowedPermissions = Optional.ofNullable(maxAllowedPermissions);
+        return this;
+    }
+
+
+    /**
+     * max_allowed_permissions is now a no-op, as permissions are now unlimited
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public OrganizationSettings withMaxAllowedPermissions(Optional<Long> maxAllowedPermissions) {
         Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
         this.maxAllowedPermissions = maxAllowedPermissions;
         return this;
@@ -297,7 +348,8 @@ public class OrganizationSettings {
 
         private Long maxAllowedRoles;
 
-        private Long maxAllowedPermissions;
+        @Deprecated
+        private Optional<Long> maxAllowedPermissions = Optional.empty();
 
         private String creatorRole;
 
@@ -345,7 +397,25 @@ public class OrganizationSettings {
         }
 
 
+        /**
+         * max_allowed_permissions is now a no-op, as permissions are now unlimited
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder maxAllowedPermissions(long maxAllowedPermissions) {
+            Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
+            this.maxAllowedPermissions = Optional.ofNullable(maxAllowedPermissions);
+            return this;
+        }
+
+        /**
+         * max_allowed_permissions is now a no-op, as permissions are now unlimited
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
+        public Builder maxAllowedPermissions(Optional<Long> maxAllowedPermissions) {
             Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
             this.maxAllowedPermissions = maxAllowedPermissions;
             return this;

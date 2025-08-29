@@ -6,6 +6,8 @@ package com.clerk.backend_api.models.components;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Deprecated;
@@ -13,6 +15,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Optional;
 
 
 public class OAuthApplication {
@@ -35,6 +38,28 @@ public class OAuthApplication {
 
     @JsonProperty("client_id")
     private String clientId;
+
+
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("client_uri")
+    private Optional<String> clientUri;
+
+
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("client_image_url")
+    private Optional<String> clientImageUrl;
+
+
+    @JsonProperty("dynamically_registered")
+    private boolean dynamicallyRegistered;
+
+
+    @JsonProperty("consent_screen_enabled")
+    private boolean consentScreenEnabled;
+
+
+    @JsonProperty("pkce_required")
+    private boolean pkceRequired;
 
 
     @JsonProperty("public")
@@ -96,6 +121,11 @@ public class OAuthApplication {
             @JsonProperty("instance_id") String instanceId,
             @JsonProperty("name") String name,
             @JsonProperty("client_id") String clientId,
+            @JsonProperty("client_uri") Optional<String> clientUri,
+            @JsonProperty("client_image_url") Optional<String> clientImageUrl,
+            @JsonProperty("dynamically_registered") boolean dynamicallyRegistered,
+            @JsonProperty("consent_screen_enabled") boolean consentScreenEnabled,
+            @JsonProperty("pkce_required") boolean pkceRequired,
             @JsonProperty("public") boolean public_,
             @JsonProperty("scopes") String scopes,
             @JsonProperty("redirect_uris") List<String> redirectUris,
@@ -112,6 +142,11 @@ public class OAuthApplication {
         Utils.checkNotNull(instanceId, "instanceId");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(clientId, "clientId");
+        Utils.checkNotNull(clientUri, "clientUri");
+        Utils.checkNotNull(clientImageUrl, "clientImageUrl");
+        Utils.checkNotNull(dynamicallyRegistered, "dynamicallyRegistered");
+        Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
         Utils.checkNotNull(public_, "public_");
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(redirectUris, "redirectUris");
@@ -128,6 +163,11 @@ public class OAuthApplication {
         this.instanceId = instanceId;
         this.name = name;
         this.clientId = clientId;
+        this.clientUri = clientUri;
+        this.clientImageUrl = clientImageUrl;
+        this.dynamicallyRegistered = dynamicallyRegistered;
+        this.consentScreenEnabled = consentScreenEnabled;
+        this.pkceRequired = pkceRequired;
         this.public_ = public_;
         this.scopes = scopes;
         this.redirectUris = redirectUris;
@@ -139,6 +179,35 @@ public class OAuthApplication {
         this.tokenIntrospectionUrl = tokenIntrospectionUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+    
+    public OAuthApplication(
+            OAuthApplicationObject object,
+            String id,
+            String instanceId,
+            String name,
+            String clientId,
+            boolean dynamicallyRegistered,
+            boolean consentScreenEnabled,
+            boolean pkceRequired,
+            boolean public_,
+            String scopes,
+            List<String> redirectUris,
+            String callbackUrl,
+            String authorizeUrl,
+            String tokenFetchUrl,
+            String userInfoUrl,
+            String discoveryUrl,
+            String tokenIntrospectionUrl,
+            long createdAt,
+            long updatedAt) {
+        this(object, id, instanceId,
+            name, clientId, Optional.empty(),
+            Optional.empty(), dynamicallyRegistered, consentScreenEnabled,
+            pkceRequired, public_, scopes,
+            redirectUris, callbackUrl, authorizeUrl,
+            tokenFetchUrl, userInfoUrl, discoveryUrl,
+            tokenIntrospectionUrl, createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -164,6 +233,31 @@ public class OAuthApplication {
     @JsonIgnore
     public String clientId() {
         return clientId;
+    }
+
+    @JsonIgnore
+    public Optional<String> clientUri() {
+        return clientUri;
+    }
+
+    @JsonIgnore
+    public Optional<String> clientImageUrl() {
+        return clientImageUrl;
+    }
+
+    @JsonIgnore
+    public boolean dynamicallyRegistered() {
+        return dynamicallyRegistered;
+    }
+
+    @JsonIgnore
+    public boolean consentScreenEnabled() {
+        return consentScreenEnabled;
+    }
+
+    @JsonIgnore
+    public boolean pkceRequired() {
+        return pkceRequired;
     }
 
     @JsonIgnore
@@ -268,6 +362,50 @@ public class OAuthApplication {
         return this;
     }
 
+    public OAuthApplication withClientUri(String clientUri) {
+        Utils.checkNotNull(clientUri, "clientUri");
+        this.clientUri = Optional.ofNullable(clientUri);
+        return this;
+    }
+
+
+    public OAuthApplication withClientUri(Optional<String> clientUri) {
+        Utils.checkNotNull(clientUri, "clientUri");
+        this.clientUri = clientUri;
+        return this;
+    }
+
+    public OAuthApplication withClientImageUrl(String clientImageUrl) {
+        Utils.checkNotNull(clientImageUrl, "clientImageUrl");
+        this.clientImageUrl = Optional.ofNullable(clientImageUrl);
+        return this;
+    }
+
+
+    public OAuthApplication withClientImageUrl(Optional<String> clientImageUrl) {
+        Utils.checkNotNull(clientImageUrl, "clientImageUrl");
+        this.clientImageUrl = clientImageUrl;
+        return this;
+    }
+
+    public OAuthApplication withDynamicallyRegistered(boolean dynamicallyRegistered) {
+        Utils.checkNotNull(dynamicallyRegistered, "dynamicallyRegistered");
+        this.dynamicallyRegistered = dynamicallyRegistered;
+        return this;
+    }
+
+    public OAuthApplication withConsentScreenEnabled(boolean consentScreenEnabled) {
+        Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+        this.consentScreenEnabled = consentScreenEnabled;
+        return this;
+    }
+
+    public OAuthApplication withPkceRequired(boolean pkceRequired) {
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
+        this.pkceRequired = pkceRequired;
+        return this;
+    }
+
     public OAuthApplication withPublic(boolean public_) {
         Utils.checkNotNull(public_, "public_");
         this.public_ = public_;
@@ -361,6 +499,11 @@ public class OAuthApplication {
             Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.clientUri, other.clientUri) &&
+            Utils.enhancedDeepEquals(this.clientImageUrl, other.clientImageUrl) &&
+            Utils.enhancedDeepEquals(this.dynamicallyRegistered, other.dynamicallyRegistered) &&
+            Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
+            Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
             Utils.enhancedDeepEquals(this.public_, other.public_) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
             Utils.enhancedDeepEquals(this.redirectUris, other.redirectUris) &&
@@ -378,11 +521,12 @@ public class OAuthApplication {
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, instanceId,
-            name, clientId, public_,
-            scopes, redirectUris, callbackUrl,
-            authorizeUrl, tokenFetchUrl, userInfoUrl,
-            discoveryUrl, tokenIntrospectionUrl, createdAt,
-            updatedAt);
+            name, clientId, clientUri,
+            clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
+            pkceRequired, public_, scopes,
+            redirectUris, callbackUrl, authorizeUrl,
+            tokenFetchUrl, userInfoUrl, discoveryUrl,
+            tokenIntrospectionUrl, createdAt, updatedAt);
     }
     
     @Override
@@ -393,6 +537,11 @@ public class OAuthApplication {
                 "instanceId", instanceId,
                 "name", name,
                 "clientId", clientId,
+                "clientUri", clientUri,
+                "clientImageUrl", clientImageUrl,
+                "dynamicallyRegistered", dynamicallyRegistered,
+                "consentScreenEnabled", consentScreenEnabled,
+                "pkceRequired", pkceRequired,
                 "public_", public_,
                 "scopes", scopes,
                 "redirectUris", redirectUris,
@@ -418,6 +567,16 @@ public class OAuthApplication {
         private String name;
 
         private String clientId;
+
+        private Optional<String> clientUri = Optional.empty();
+
+        private Optional<String> clientImageUrl = Optional.empty();
+
+        private Boolean dynamicallyRegistered;
+
+        private Boolean consentScreenEnabled;
+
+        private Boolean pkceRequired;
 
         private Boolean public_;
 
@@ -478,6 +637,53 @@ public class OAuthApplication {
         public Builder clientId(String clientId) {
             Utils.checkNotNull(clientId, "clientId");
             this.clientId = clientId;
+            return this;
+        }
+
+
+        public Builder clientUri(String clientUri) {
+            Utils.checkNotNull(clientUri, "clientUri");
+            this.clientUri = Optional.ofNullable(clientUri);
+            return this;
+        }
+
+        public Builder clientUri(Optional<String> clientUri) {
+            Utils.checkNotNull(clientUri, "clientUri");
+            this.clientUri = clientUri;
+            return this;
+        }
+
+
+        public Builder clientImageUrl(String clientImageUrl) {
+            Utils.checkNotNull(clientImageUrl, "clientImageUrl");
+            this.clientImageUrl = Optional.ofNullable(clientImageUrl);
+            return this;
+        }
+
+        public Builder clientImageUrl(Optional<String> clientImageUrl) {
+            Utils.checkNotNull(clientImageUrl, "clientImageUrl");
+            this.clientImageUrl = clientImageUrl;
+            return this;
+        }
+
+
+        public Builder dynamicallyRegistered(boolean dynamicallyRegistered) {
+            Utils.checkNotNull(dynamicallyRegistered, "dynamicallyRegistered");
+            this.dynamicallyRegistered = dynamicallyRegistered;
+            return this;
+        }
+
+
+        public Builder consentScreenEnabled(boolean consentScreenEnabled) {
+            Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+            this.consentScreenEnabled = consentScreenEnabled;
+            return this;
+        }
+
+
+        public Builder pkceRequired(boolean pkceRequired) {
+            Utils.checkNotNull(pkceRequired, "pkceRequired");
+            this.pkceRequired = pkceRequired;
             return this;
         }
 
@@ -574,11 +780,12 @@ public class OAuthApplication {
 
             return new OAuthApplication(
                 object, id, instanceId,
-                name, clientId, public_,
-                scopes, redirectUris, callbackUrl,
-                authorizeUrl, tokenFetchUrl, userInfoUrl,
-                discoveryUrl, tokenIntrospectionUrl, createdAt,
-                updatedAt);
+                name, clientId, clientUri,
+                clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
+                pkceRequired, public_, scopes,
+                redirectUris, callbackUrl, authorizeUrl,
+                tokenFetchUrl, userInfoUrl, discoveryUrl,
+                tokenIntrospectionUrl, createdAt, updatedAt);
         }
 
     }

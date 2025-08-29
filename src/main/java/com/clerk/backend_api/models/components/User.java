@@ -28,51 +28,49 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class User {
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<String> id;
+    private String id;
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("object")
-    private Optional<? extends UserObject> object;
+    private UserObject object;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("external_id")
-    private JsonNullable<String> externalId;
+    private Optional<String> externalId;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("primary_email_address_id")
-    private JsonNullable<String> primaryEmailAddressId;
+    private Optional<String> primaryEmailAddressId;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("primary_phone_number_id")
-    private JsonNullable<String> primaryPhoneNumberId;
+    private Optional<String> primaryPhoneNumberId;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("primary_web3_wallet_id")
-    private JsonNullable<String> primaryWeb3WalletId;
+    private Optional<String> primaryWeb3WalletId;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("username")
-    private JsonNullable<String> username;
+    private Optional<String> username;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("first_name")
-    private JsonNullable<String> firstName;
+    private Optional<String> firstName;
 
 
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_name")
-    private JsonNullable<String> lastName;
+    private Optional<String> lastName;
 
     /**
      * 
@@ -89,14 +87,12 @@ public class User {
     private Optional<String> imageUrl;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("has_image")
-    private Optional<Boolean> hasImage;
+    private boolean hasImage;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
-    private Optional<? extends Map<String, Object>> publicMetadata;
+    private Map<String, Object> publicMetadata;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -109,131 +105,115 @@ public class User {
     private Optional<? extends Map<String, Object>> unsafeMetadata;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_addresses")
-    private Optional<? extends List<EmailAddress>> emailAddresses;
+    private List<EmailAddress> emailAddresses;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone_numbers")
-    private Optional<? extends List<PhoneNumber>> phoneNumbers;
+    private List<PhoneNumber> phoneNumbers;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("web3_wallets")
-    private Optional<? extends List<Web3Wallet>> web3Wallets;
+    private List<Web3Wallet> web3Wallets;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("passkeys")
-    private Optional<? extends List<SchemasPasskey>> passkeys;
+    private List<Passkey> passkeys;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_enabled")
-    private Optional<Boolean> passwordEnabled;
+    private boolean passwordEnabled;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("two_factor_enabled")
-    private Optional<Boolean> twoFactorEnabled;
+    private boolean twoFactorEnabled;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totp_enabled")
-    private Optional<Boolean> totpEnabled;
+    private boolean totpEnabled;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_code_enabled")
-    private Optional<Boolean> backupCodeEnabled;
+    private boolean backupCodeEnabled;
 
     /**
      * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("mfa_enabled_at")
-    private JsonNullable<Long> mfaEnabledAt;
+    private Optional<Long> mfaEnabledAt;
 
     /**
      * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("mfa_disabled_at")
-    private JsonNullable<Long> mfaDisabledAt;
+    private Optional<Long> mfaDisabledAt;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("external_accounts")
-    private Optional<? extends List<ExternalAccountWithVerification>> externalAccounts;
+    private List<ExternalAccountWithVerification> externalAccounts;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("saml_accounts")
-    private Optional<? extends List<SAMLAccount>> samlAccounts;
+    private List<SAMLAccount> samlAccounts;
 
     /**
      * Unix timestamp of last sign-in.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_sign_in_at")
-    private JsonNullable<Long> lastSignInAt;
+    private Optional<Long> lastSignInAt;
 
     /**
      * Flag to denote whether user is banned or not.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("banned")
-    private Optional<Boolean> banned;
+    private boolean banned;
 
     /**
      * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("locked")
-    private Optional<Boolean> locked;
+    private boolean locked;
 
     /**
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("lockout_expires_in_seconds")
-    private JsonNullable<Long> lockoutExpiresInSeconds;
+    private Optional<Long> lockoutExpiresInSeconds;
 
     /**
      * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification_attempts_remaining")
-    private JsonNullable<Long> verificationAttemptsRemaining;
+    private Optional<Long> verificationAttemptsRemaining;
 
     /**
      * Unix timestamp of last update.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private Optional<Long> updatedAt;
+    private long updatedAt;
 
     /**
      * Unix timestamp of creation.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
-    private Optional<Long> createdAt;
+    private long createdAt;
 
     /**
      * If enabled, user can delete themselves via FAPI.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("delete_self_enabled")
-    private Optional<Boolean> deleteSelfEnabled;
+    private boolean deleteSelfEnabled;
 
     /**
      * If enabled, user can create organizations via FAPI.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("create_organization_enabled")
-    private Optional<Boolean> createOrganizationEnabled;
+    private boolean createOrganizationEnabled;
 
     /**
      * The maximum number of organizations the user can create. 0 means unlimited.
@@ -245,58 +225,58 @@ public class User {
     /**
      * Unix timestamp of the latest session activity, with day precision.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_active_at")
-    private JsonNullable<Long> lastActiveAt;
+    private Optional<Long> lastActiveAt;
 
     /**
      * Unix timestamp of when the user accepted the legal requirements.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("legal_accepted_at")
-    private JsonNullable<Long> legalAcceptedAt;
+    private Optional<Long> legalAcceptedAt;
 
     @JsonCreator
     public User(
-            @JsonProperty("id") Optional<String> id,
-            @JsonProperty("object") Optional<? extends UserObject> object,
-            @JsonProperty("external_id") JsonNullable<String> externalId,
-            @JsonProperty("primary_email_address_id") JsonNullable<String> primaryEmailAddressId,
-            @JsonProperty("primary_phone_number_id") JsonNullable<String> primaryPhoneNumberId,
-            @JsonProperty("primary_web3_wallet_id") JsonNullable<String> primaryWeb3WalletId,
-            @JsonProperty("username") JsonNullable<String> username,
-            @JsonProperty("first_name") JsonNullable<String> firstName,
-            @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("id") String id,
+            @JsonProperty("object") UserObject object,
+            @JsonProperty("external_id") Optional<String> externalId,
+            @JsonProperty("primary_email_address_id") Optional<String> primaryEmailAddressId,
+            @JsonProperty("primary_phone_number_id") Optional<String> primaryPhoneNumberId,
+            @JsonProperty("primary_web3_wallet_id") Optional<String> primaryWeb3WalletId,
+            @JsonProperty("username") Optional<String> username,
+            @JsonProperty("first_name") Optional<String> firstName,
+            @JsonProperty("last_name") Optional<String> lastName,
             @JsonProperty("profile_image_url") Optional<String> profileImageUrl,
             @JsonProperty("image_url") Optional<String> imageUrl,
-            @JsonProperty("has_image") Optional<Boolean> hasImage,
-            @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("has_image") boolean hasImage,
+            @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
             @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("unsafe_metadata") Optional<? extends Map<String, Object>> unsafeMetadata,
-            @JsonProperty("email_addresses") Optional<? extends List<EmailAddress>> emailAddresses,
-            @JsonProperty("phone_numbers") Optional<? extends List<PhoneNumber>> phoneNumbers,
-            @JsonProperty("web3_wallets") Optional<? extends List<Web3Wallet>> web3Wallets,
-            @JsonProperty("passkeys") Optional<? extends List<SchemasPasskey>> passkeys,
-            @JsonProperty("password_enabled") Optional<Boolean> passwordEnabled,
-            @JsonProperty("two_factor_enabled") Optional<Boolean> twoFactorEnabled,
-            @JsonProperty("totp_enabled") Optional<Boolean> totpEnabled,
-            @JsonProperty("backup_code_enabled") Optional<Boolean> backupCodeEnabled,
-            @JsonProperty("mfa_enabled_at") JsonNullable<Long> mfaEnabledAt,
-            @JsonProperty("mfa_disabled_at") JsonNullable<Long> mfaDisabledAt,
-            @JsonProperty("external_accounts") Optional<? extends List<ExternalAccountWithVerification>> externalAccounts,
-            @JsonProperty("saml_accounts") Optional<? extends List<SAMLAccount>> samlAccounts,
-            @JsonProperty("last_sign_in_at") JsonNullable<Long> lastSignInAt,
-            @JsonProperty("banned") Optional<Boolean> banned,
-            @JsonProperty("locked") Optional<Boolean> locked,
-            @JsonProperty("lockout_expires_in_seconds") JsonNullable<Long> lockoutExpiresInSeconds,
-            @JsonProperty("verification_attempts_remaining") JsonNullable<Long> verificationAttemptsRemaining,
-            @JsonProperty("updated_at") Optional<Long> updatedAt,
-            @JsonProperty("created_at") Optional<Long> createdAt,
-            @JsonProperty("delete_self_enabled") Optional<Boolean> deleteSelfEnabled,
-            @JsonProperty("create_organization_enabled") Optional<Boolean> createOrganizationEnabled,
+            @JsonProperty("email_addresses") List<EmailAddress> emailAddresses,
+            @JsonProperty("phone_numbers") List<PhoneNumber> phoneNumbers,
+            @JsonProperty("web3_wallets") List<Web3Wallet> web3Wallets,
+            @JsonProperty("passkeys") List<Passkey> passkeys,
+            @JsonProperty("password_enabled") boolean passwordEnabled,
+            @JsonProperty("two_factor_enabled") boolean twoFactorEnabled,
+            @JsonProperty("totp_enabled") boolean totpEnabled,
+            @JsonProperty("backup_code_enabled") boolean backupCodeEnabled,
+            @JsonProperty("mfa_enabled_at") Optional<Long> mfaEnabledAt,
+            @JsonProperty("mfa_disabled_at") Optional<Long> mfaDisabledAt,
+            @JsonProperty("external_accounts") List<ExternalAccountWithVerification> externalAccounts,
+            @JsonProperty("saml_accounts") List<SAMLAccount> samlAccounts,
+            @JsonProperty("last_sign_in_at") Optional<Long> lastSignInAt,
+            @JsonProperty("banned") boolean banned,
+            @JsonProperty("locked") boolean locked,
+            @JsonProperty("lockout_expires_in_seconds") Optional<Long> lockoutExpiresInSeconds,
+            @JsonProperty("verification_attempts_remaining") Optional<Long> verificationAttemptsRemaining,
+            @JsonProperty("updated_at") long updatedAt,
+            @JsonProperty("created_at") long createdAt,
+            @JsonProperty("delete_self_enabled") boolean deleteSelfEnabled,
+            @JsonProperty("create_organization_enabled") boolean createOrganizationEnabled,
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
-            @JsonProperty("last_active_at") JsonNullable<Long> lastActiveAt,
-            @JsonProperty("legal_accepted_at") JsonNullable<Long> legalAcceptedAt) {
+            @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
+            @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalId, "externalId");
@@ -309,6 +289,7 @@ public class User {
         Utils.checkNotNull(profileImageUrl, "profileImageUrl");
         Utils.checkNotNull(imageUrl, "imageUrl");
         Utils.checkNotNull(hasImage, "hasImage");
+        publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
@@ -377,68 +358,87 @@ public class User {
         this.legalAcceptedAt = legalAcceptedAt;
     }
     
-    public User() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+    public User(
+            String id,
+            UserObject object,
+            boolean hasImage,
+            Map<String, Object> publicMetadata,
+            List<EmailAddress> emailAddresses,
+            List<PhoneNumber> phoneNumbers,
+            List<Web3Wallet> web3Wallets,
+            List<Passkey> passkeys,
+            boolean passwordEnabled,
+            boolean twoFactorEnabled,
+            boolean totpEnabled,
+            boolean backupCodeEnabled,
+            List<ExternalAccountWithVerification> externalAccounts,
+            List<SAMLAccount> samlAccounts,
+            boolean banned,
+            boolean locked,
+            long updatedAt,
+            long createdAt,
+            boolean deleteSelfEnabled,
+            boolean createOrganizationEnabled) {
+        this(id, object, Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), hasImage,
+            publicMetadata, JsonNullable.undefined(), Optional.empty(),
+            emailAddresses, phoneNumbers, web3Wallets,
+            passkeys, passwordEnabled, twoFactorEnabled,
+            totpEnabled, backupCodeEnabled, Optional.empty(),
+            Optional.empty(), externalAccounts, samlAccounts,
+            Optional.empty(), banned, locked,
+            Optional.empty(), Optional.empty(), updatedAt,
+            createdAt, deleteSelfEnabled, createOrganizationEnabled,
+            JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
-    public Optional<String> id() {
+    public String id() {
         return id;
     }
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<UserObject> object() {
-        return (Optional<UserObject>) object;
+    public UserObject object() {
+        return object;
     }
 
     @JsonIgnore
-    public JsonNullable<String> externalId() {
+    public Optional<String> externalId() {
         return externalId;
     }
 
     @JsonIgnore
-    public JsonNullable<String> primaryEmailAddressId() {
+    public Optional<String> primaryEmailAddressId() {
         return primaryEmailAddressId;
     }
 
     @JsonIgnore
-    public JsonNullable<String> primaryPhoneNumberId() {
+    public Optional<String> primaryPhoneNumberId() {
         return primaryPhoneNumberId;
     }
 
     @JsonIgnore
-    public JsonNullable<String> primaryWeb3WalletId() {
+    public Optional<String> primaryWeb3WalletId() {
         return primaryWeb3WalletId;
     }
 
     @JsonIgnore
-    public JsonNullable<String> username() {
+    public Optional<String> username() {
         return username;
     }
 
     @JsonIgnore
-    public JsonNullable<String> firstName() {
+    public Optional<String> firstName() {
         return firstName;
     }
 
     @JsonIgnore
-    public JsonNullable<String> lastName() {
+    public Optional<String> lastName() {
         return lastName;
     }
 
@@ -458,14 +458,13 @@ public class User {
     }
 
     @JsonIgnore
-    public Optional<Boolean> hasImage() {
+    public boolean hasImage() {
         return hasImage;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Map<String, Object>> publicMetadata() {
-        return (Optional<Map<String, Object>>) publicMetadata;
+    public Map<String, Object> publicMetadata() {
+        return publicMetadata;
     }
 
     @SuppressWarnings("unchecked")
@@ -480,47 +479,43 @@ public class User {
         return (Optional<Map<String, Object>>) unsafeMetadata;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<EmailAddress>> emailAddresses() {
-        return (Optional<List<EmailAddress>>) emailAddresses;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<PhoneNumber>> phoneNumbers() {
-        return (Optional<List<PhoneNumber>>) phoneNumbers;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<Web3Wallet>> web3Wallets() {
-        return (Optional<List<Web3Wallet>>) web3Wallets;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<SchemasPasskey>> passkeys() {
-        return (Optional<List<SchemasPasskey>>) passkeys;
+    public List<EmailAddress> emailAddresses() {
+        return emailAddresses;
     }
 
     @JsonIgnore
-    public Optional<Boolean> passwordEnabled() {
+    public List<PhoneNumber> phoneNumbers() {
+        return phoneNumbers;
+    }
+
+    @JsonIgnore
+    public List<Web3Wallet> web3Wallets() {
+        return web3Wallets;
+    }
+
+    @JsonIgnore
+    public List<Passkey> passkeys() {
+        return passkeys;
+    }
+
+    @JsonIgnore
+    public boolean passwordEnabled() {
         return passwordEnabled;
     }
 
     @JsonIgnore
-    public Optional<Boolean> twoFactorEnabled() {
+    public boolean twoFactorEnabled() {
         return twoFactorEnabled;
     }
 
     @JsonIgnore
-    public Optional<Boolean> totpEnabled() {
+    public boolean totpEnabled() {
         return totpEnabled;
     }
 
     @JsonIgnore
-    public Optional<Boolean> backupCodeEnabled() {
+    public boolean backupCodeEnabled() {
         return backupCodeEnabled;
     }
 
@@ -528,7 +523,7 @@ public class User {
      * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
      */
     @JsonIgnore
-    public JsonNullable<Long> mfaEnabledAt() {
+    public Optional<Long> mfaEnabledAt() {
         return mfaEnabledAt;
     }
 
@@ -536,27 +531,25 @@ public class User {
      * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
      */
     @JsonIgnore
-    public JsonNullable<Long> mfaDisabledAt() {
+    public Optional<Long> mfaDisabledAt() {
         return mfaDisabledAt;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<ExternalAccountWithVerification>> externalAccounts() {
-        return (Optional<List<ExternalAccountWithVerification>>) externalAccounts;
+    public List<ExternalAccountWithVerification> externalAccounts() {
+        return externalAccounts;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<SAMLAccount>> samlAccounts() {
-        return (Optional<List<SAMLAccount>>) samlAccounts;
+    public List<SAMLAccount> samlAccounts() {
+        return samlAccounts;
     }
 
     /**
      * Unix timestamp of last sign-in.
      */
     @JsonIgnore
-    public JsonNullable<Long> lastSignInAt() {
+    public Optional<Long> lastSignInAt() {
         return lastSignInAt;
     }
 
@@ -564,7 +557,7 @@ public class User {
      * Flag to denote whether user is banned or not.
      */
     @JsonIgnore
-    public Optional<Boolean> banned() {
+    public boolean banned() {
         return banned;
     }
 
@@ -572,7 +565,7 @@ public class User {
      * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
      */
     @JsonIgnore
-    public Optional<Boolean> locked() {
+    public boolean locked() {
         return locked;
     }
 
@@ -580,7 +573,7 @@ public class User {
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
      */
     @JsonIgnore
-    public JsonNullable<Long> lockoutExpiresInSeconds() {
+    public Optional<Long> lockoutExpiresInSeconds() {
         return lockoutExpiresInSeconds;
     }
 
@@ -588,7 +581,7 @@ public class User {
      * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
      */
     @JsonIgnore
-    public JsonNullable<Long> verificationAttemptsRemaining() {
+    public Optional<Long> verificationAttemptsRemaining() {
         return verificationAttemptsRemaining;
     }
 
@@ -596,7 +589,7 @@ public class User {
      * Unix timestamp of last update.
      */
     @JsonIgnore
-    public Optional<Long> updatedAt() {
+    public long updatedAt() {
         return updatedAt;
     }
 
@@ -604,7 +597,7 @@ public class User {
      * Unix timestamp of creation.
      */
     @JsonIgnore
-    public Optional<Long> createdAt() {
+    public long createdAt() {
         return createdAt;
     }
 
@@ -612,7 +605,7 @@ public class User {
      * If enabled, user can delete themselves via FAPI.
      */
     @JsonIgnore
-    public Optional<Boolean> deleteSelfEnabled() {
+    public boolean deleteSelfEnabled() {
         return deleteSelfEnabled;
     }
 
@@ -620,7 +613,7 @@ public class User {
      * If enabled, user can create organizations via FAPI.
      */
     @JsonIgnore
-    public Optional<Boolean> createOrganizationEnabled() {
+    public boolean createOrganizationEnabled() {
         return createOrganizationEnabled;
     }
 
@@ -636,7 +629,7 @@ public class User {
      * Unix timestamp of the latest session activity, with day precision.
      */
     @JsonIgnore
-    public JsonNullable<Long> lastActiveAt() {
+    public Optional<Long> lastActiveAt() {
         return lastActiveAt;
     }
 
@@ -644,7 +637,7 @@ public class User {
      * Unix timestamp of when the user accepted the legal requirements.
      */
     @JsonIgnore
-    public JsonNullable<Long> legalAcceptedAt() {
+    public Optional<Long> legalAcceptedAt() {
         return legalAcceptedAt;
     }
 
@@ -655,13 +648,6 @@ public class User {
 
     public User withId(String id) {
         Utils.checkNotNull(id, "id");
-        this.id = Optional.ofNullable(id);
-        return this;
-    }
-
-
-    public User withId(Optional<String> id) {
-        Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
     }
@@ -671,27 +657,18 @@ public class User {
      */
     public User withObject(UserObject object) {
         Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
-        return this;
-    }
-
-
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    public User withObject(Optional<? extends UserObject> object) {
-        Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
     }
 
     public User withExternalId(String externalId) {
         Utils.checkNotNull(externalId, "externalId");
-        this.externalId = JsonNullable.of(externalId);
+        this.externalId = Optional.ofNullable(externalId);
         return this;
     }
 
-    public User withExternalId(JsonNullable<String> externalId) {
+
+    public User withExternalId(Optional<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -699,11 +676,12 @@ public class User {
 
     public User withPrimaryEmailAddressId(String primaryEmailAddressId) {
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
-        this.primaryEmailAddressId = JsonNullable.of(primaryEmailAddressId);
+        this.primaryEmailAddressId = Optional.ofNullable(primaryEmailAddressId);
         return this;
     }
 
-    public User withPrimaryEmailAddressId(JsonNullable<String> primaryEmailAddressId) {
+
+    public User withPrimaryEmailAddressId(Optional<String> primaryEmailAddressId) {
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
         this.primaryEmailAddressId = primaryEmailAddressId;
         return this;
@@ -711,11 +689,12 @@ public class User {
 
     public User withPrimaryPhoneNumberId(String primaryPhoneNumberId) {
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
-        this.primaryPhoneNumberId = JsonNullable.of(primaryPhoneNumberId);
+        this.primaryPhoneNumberId = Optional.ofNullable(primaryPhoneNumberId);
         return this;
     }
 
-    public User withPrimaryPhoneNumberId(JsonNullable<String> primaryPhoneNumberId) {
+
+    public User withPrimaryPhoneNumberId(Optional<String> primaryPhoneNumberId) {
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
         this.primaryPhoneNumberId = primaryPhoneNumberId;
         return this;
@@ -723,11 +702,12 @@ public class User {
 
     public User withPrimaryWeb3WalletId(String primaryWeb3WalletId) {
         Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
-        this.primaryWeb3WalletId = JsonNullable.of(primaryWeb3WalletId);
+        this.primaryWeb3WalletId = Optional.ofNullable(primaryWeb3WalletId);
         return this;
     }
 
-    public User withPrimaryWeb3WalletId(JsonNullable<String> primaryWeb3WalletId) {
+
+    public User withPrimaryWeb3WalletId(Optional<String> primaryWeb3WalletId) {
         Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
         this.primaryWeb3WalletId = primaryWeb3WalletId;
         return this;
@@ -735,11 +715,12 @@ public class User {
 
     public User withUsername(String username) {
         Utils.checkNotNull(username, "username");
-        this.username = JsonNullable.of(username);
+        this.username = Optional.ofNullable(username);
         return this;
     }
 
-    public User withUsername(JsonNullable<String> username) {
+
+    public User withUsername(Optional<String> username) {
         Utils.checkNotNull(username, "username");
         this.username = username;
         return this;
@@ -747,11 +728,12 @@ public class User {
 
     public User withFirstName(String firstName) {
         Utils.checkNotNull(firstName, "firstName");
-        this.firstName = JsonNullable.of(firstName);
+        this.firstName = Optional.ofNullable(firstName);
         return this;
     }
 
-    public User withFirstName(JsonNullable<String> firstName) {
+
+    public User withFirstName(Optional<String> firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
@@ -759,11 +741,12 @@ public class User {
 
     public User withLastName(String lastName) {
         Utils.checkNotNull(lastName, "lastName");
-        this.lastName = JsonNullable.of(lastName);
+        this.lastName = Optional.ofNullable(lastName);
         return this;
     }
 
-    public User withLastName(JsonNullable<String> lastName) {
+
+    public User withLastName(Optional<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
@@ -807,25 +790,11 @@ public class User {
 
     public User withHasImage(boolean hasImage) {
         Utils.checkNotNull(hasImage, "hasImage");
-        this.hasImage = Optional.ofNullable(hasImage);
-        return this;
-    }
-
-
-    public User withHasImage(Optional<Boolean> hasImage) {
-        Utils.checkNotNull(hasImage, "hasImage");
         this.hasImage = hasImage;
         return this;
     }
 
     public User withPublicMetadata(Map<String, Object> publicMetadata) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        this.publicMetadata = Optional.ofNullable(publicMetadata);
-        return this;
-    }
-
-
-    public User withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
         return this;
@@ -858,25 +827,11 @@ public class User {
 
     public User withEmailAddresses(List<EmailAddress> emailAddresses) {
         Utils.checkNotNull(emailAddresses, "emailAddresses");
-        this.emailAddresses = Optional.ofNullable(emailAddresses);
-        return this;
-    }
-
-
-    public User withEmailAddresses(Optional<? extends List<EmailAddress>> emailAddresses) {
-        Utils.checkNotNull(emailAddresses, "emailAddresses");
         this.emailAddresses = emailAddresses;
         return this;
     }
 
     public User withPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-        Utils.checkNotNull(phoneNumbers, "phoneNumbers");
-        this.phoneNumbers = Optional.ofNullable(phoneNumbers);
-        return this;
-    }
-
-
-    public User withPhoneNumbers(Optional<? extends List<PhoneNumber>> phoneNumbers) {
         Utils.checkNotNull(phoneNumbers, "phoneNumbers");
         this.phoneNumbers = phoneNumbers;
         return this;
@@ -884,25 +839,11 @@ public class User {
 
     public User withWeb3Wallets(List<Web3Wallet> web3Wallets) {
         Utils.checkNotNull(web3Wallets, "web3Wallets");
-        this.web3Wallets = Optional.ofNullable(web3Wallets);
-        return this;
-    }
-
-
-    public User withWeb3Wallets(Optional<? extends List<Web3Wallet>> web3Wallets) {
-        Utils.checkNotNull(web3Wallets, "web3Wallets");
         this.web3Wallets = web3Wallets;
         return this;
     }
 
-    public User withPasskeys(List<SchemasPasskey> passkeys) {
-        Utils.checkNotNull(passkeys, "passkeys");
-        this.passkeys = Optional.ofNullable(passkeys);
-        return this;
-    }
-
-
-    public User withPasskeys(Optional<? extends List<SchemasPasskey>> passkeys) {
+    public User withPasskeys(List<Passkey> passkeys) {
         Utils.checkNotNull(passkeys, "passkeys");
         this.passkeys = passkeys;
         return this;
@@ -910,25 +851,11 @@ public class User {
 
     public User withPasswordEnabled(boolean passwordEnabled) {
         Utils.checkNotNull(passwordEnabled, "passwordEnabled");
-        this.passwordEnabled = Optional.ofNullable(passwordEnabled);
-        return this;
-    }
-
-
-    public User withPasswordEnabled(Optional<Boolean> passwordEnabled) {
-        Utils.checkNotNull(passwordEnabled, "passwordEnabled");
         this.passwordEnabled = passwordEnabled;
         return this;
     }
 
     public User withTwoFactorEnabled(boolean twoFactorEnabled) {
-        Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
-        this.twoFactorEnabled = Optional.ofNullable(twoFactorEnabled);
-        return this;
-    }
-
-
-    public User withTwoFactorEnabled(Optional<Boolean> twoFactorEnabled) {
         Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
         this.twoFactorEnabled = twoFactorEnabled;
         return this;
@@ -936,25 +863,11 @@ public class User {
 
     public User withTotpEnabled(boolean totpEnabled) {
         Utils.checkNotNull(totpEnabled, "totpEnabled");
-        this.totpEnabled = Optional.ofNullable(totpEnabled);
-        return this;
-    }
-
-
-    public User withTotpEnabled(Optional<Boolean> totpEnabled) {
-        Utils.checkNotNull(totpEnabled, "totpEnabled");
         this.totpEnabled = totpEnabled;
         return this;
     }
 
     public User withBackupCodeEnabled(boolean backupCodeEnabled) {
-        Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
-        this.backupCodeEnabled = Optional.ofNullable(backupCodeEnabled);
-        return this;
-    }
-
-
-    public User withBackupCodeEnabled(Optional<Boolean> backupCodeEnabled) {
         Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
         this.backupCodeEnabled = backupCodeEnabled;
         return this;
@@ -965,14 +878,15 @@ public class User {
      */
     public User withMfaEnabledAt(long mfaEnabledAt) {
         Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
-        this.mfaEnabledAt = JsonNullable.of(mfaEnabledAt);
+        this.mfaEnabledAt = Optional.ofNullable(mfaEnabledAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
      */
-    public User withMfaEnabledAt(JsonNullable<Long> mfaEnabledAt) {
+    public User withMfaEnabledAt(Optional<Long> mfaEnabledAt) {
         Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
         this.mfaEnabledAt = mfaEnabledAt;
         return this;
@@ -983,14 +897,15 @@ public class User {
      */
     public User withMfaDisabledAt(long mfaDisabledAt) {
         Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
-        this.mfaDisabledAt = JsonNullable.of(mfaDisabledAt);
+        this.mfaDisabledAt = Optional.ofNullable(mfaDisabledAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
      */
-    public User withMfaDisabledAt(JsonNullable<Long> mfaDisabledAt) {
+    public User withMfaDisabledAt(Optional<Long> mfaDisabledAt) {
         Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
         this.mfaDisabledAt = mfaDisabledAt;
         return this;
@@ -998,25 +913,11 @@ public class User {
 
     public User withExternalAccounts(List<ExternalAccountWithVerification> externalAccounts) {
         Utils.checkNotNull(externalAccounts, "externalAccounts");
-        this.externalAccounts = Optional.ofNullable(externalAccounts);
-        return this;
-    }
-
-
-    public User withExternalAccounts(Optional<? extends List<ExternalAccountWithVerification>> externalAccounts) {
-        Utils.checkNotNull(externalAccounts, "externalAccounts");
         this.externalAccounts = externalAccounts;
         return this;
     }
 
     public User withSamlAccounts(List<SAMLAccount> samlAccounts) {
-        Utils.checkNotNull(samlAccounts, "samlAccounts");
-        this.samlAccounts = Optional.ofNullable(samlAccounts);
-        return this;
-    }
-
-
-    public User withSamlAccounts(Optional<? extends List<SAMLAccount>> samlAccounts) {
         Utils.checkNotNull(samlAccounts, "samlAccounts");
         this.samlAccounts = samlAccounts;
         return this;
@@ -1027,14 +928,15 @@ public class User {
      */
     public User withLastSignInAt(long lastSignInAt) {
         Utils.checkNotNull(lastSignInAt, "lastSignInAt");
-        this.lastSignInAt = JsonNullable.of(lastSignInAt);
+        this.lastSignInAt = Optional.ofNullable(lastSignInAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of last sign-in.
      */
-    public User withLastSignInAt(JsonNullable<Long> lastSignInAt) {
+    public User withLastSignInAt(Optional<Long> lastSignInAt) {
         Utils.checkNotNull(lastSignInAt, "lastSignInAt");
         this.lastSignInAt = lastSignInAt;
         return this;
@@ -1045,16 +947,6 @@ public class User {
      */
     public User withBanned(boolean banned) {
         Utils.checkNotNull(banned, "banned");
-        this.banned = Optional.ofNullable(banned);
-        return this;
-    }
-
-
-    /**
-     * Flag to denote whether user is banned or not.
-     */
-    public User withBanned(Optional<Boolean> banned) {
-        Utils.checkNotNull(banned, "banned");
         this.banned = banned;
         return this;
     }
@@ -1063,16 +955,6 @@ public class User {
      * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
      */
     public User withLocked(boolean locked) {
-        Utils.checkNotNull(locked, "locked");
-        this.locked = Optional.ofNullable(locked);
-        return this;
-    }
-
-
-    /**
-     * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
-     */
-    public User withLocked(Optional<Boolean> locked) {
         Utils.checkNotNull(locked, "locked");
         this.locked = locked;
         return this;
@@ -1083,14 +965,15 @@ public class User {
      */
     public User withLockoutExpiresInSeconds(long lockoutExpiresInSeconds) {
         Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
-        this.lockoutExpiresInSeconds = JsonNullable.of(lockoutExpiresInSeconds);
+        this.lockoutExpiresInSeconds = Optional.ofNullable(lockoutExpiresInSeconds);
         return this;
     }
+
 
     /**
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
      */
-    public User withLockoutExpiresInSeconds(JsonNullable<Long> lockoutExpiresInSeconds) {
+    public User withLockoutExpiresInSeconds(Optional<Long> lockoutExpiresInSeconds) {
         Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
         this.lockoutExpiresInSeconds = lockoutExpiresInSeconds;
         return this;
@@ -1101,14 +984,15 @@ public class User {
      */
     public User withVerificationAttemptsRemaining(long verificationAttemptsRemaining) {
         Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
-        this.verificationAttemptsRemaining = JsonNullable.of(verificationAttemptsRemaining);
+        this.verificationAttemptsRemaining = Optional.ofNullable(verificationAttemptsRemaining);
         return this;
     }
+
 
     /**
      * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
      */
-    public User withVerificationAttemptsRemaining(JsonNullable<Long> verificationAttemptsRemaining) {
+    public User withVerificationAttemptsRemaining(Optional<Long> verificationAttemptsRemaining) {
         Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
         this.verificationAttemptsRemaining = verificationAttemptsRemaining;
         return this;
@@ -1119,16 +1003,6 @@ public class User {
      */
     public User withUpdatedAt(long updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
-        this.updatedAt = Optional.ofNullable(updatedAt);
-        return this;
-    }
-
-
-    /**
-     * Unix timestamp of last update.
-     */
-    public User withUpdatedAt(Optional<Long> updatedAt) {
-        Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
     }
@@ -1137,16 +1011,6 @@ public class User {
      * Unix timestamp of creation.
      */
     public User withCreatedAt(long createdAt) {
-        Utils.checkNotNull(createdAt, "createdAt");
-        this.createdAt = Optional.ofNullable(createdAt);
-        return this;
-    }
-
-
-    /**
-     * Unix timestamp of creation.
-     */
-    public User withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
@@ -1157,16 +1021,6 @@ public class User {
      */
     public User withDeleteSelfEnabled(boolean deleteSelfEnabled) {
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
-        this.deleteSelfEnabled = Optional.ofNullable(deleteSelfEnabled);
-        return this;
-    }
-
-
-    /**
-     * If enabled, user can delete themselves via FAPI.
-     */
-    public User withDeleteSelfEnabled(Optional<Boolean> deleteSelfEnabled) {
-        Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         this.deleteSelfEnabled = deleteSelfEnabled;
         return this;
     }
@@ -1175,16 +1029,6 @@ public class User {
      * If enabled, user can create organizations via FAPI.
      */
     public User withCreateOrganizationEnabled(boolean createOrganizationEnabled) {
-        Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
-        this.createOrganizationEnabled = Optional.ofNullable(createOrganizationEnabled);
-        return this;
-    }
-
-
-    /**
-     * If enabled, user can create organizations via FAPI.
-     */
-    public User withCreateOrganizationEnabled(Optional<Boolean> createOrganizationEnabled) {
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
         this.createOrganizationEnabled = createOrganizationEnabled;
         return this;
@@ -1213,14 +1057,15 @@ public class User {
      */
     public User withLastActiveAt(long lastActiveAt) {
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
-        this.lastActiveAt = JsonNullable.of(lastActiveAt);
+        this.lastActiveAt = Optional.ofNullable(lastActiveAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of the latest session activity, with day precision.
      */
-    public User withLastActiveAt(JsonNullable<Long> lastActiveAt) {
+    public User withLastActiveAt(Optional<Long> lastActiveAt) {
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         this.lastActiveAt = lastActiveAt;
         return this;
@@ -1231,14 +1076,15 @@ public class User {
      */
     public User withLegalAcceptedAt(long legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
-        this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+        this.legalAcceptedAt = Optional.ofNullable(legalAcceptedAt);
         return this;
     }
+
 
     /**
      * Unix timestamp of when the user accepted the legal requirements.
      */
-    public User withLegalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+    public User withLegalAcceptedAt(Optional<Long> legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         this.legalAcceptedAt = legalAcceptedAt;
         return this;
@@ -1360,84 +1206,84 @@ public class User {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> id = Optional.empty();
+        private String id;
 
-        private Optional<? extends UserObject> object = Optional.empty();
+        private UserObject object;
 
-        private JsonNullable<String> externalId = JsonNullable.undefined();
+        private Optional<String> externalId = Optional.empty();
 
-        private JsonNullable<String> primaryEmailAddressId = JsonNullable.undefined();
+        private Optional<String> primaryEmailAddressId = Optional.empty();
 
-        private JsonNullable<String> primaryPhoneNumberId = JsonNullable.undefined();
+        private Optional<String> primaryPhoneNumberId = Optional.empty();
 
-        private JsonNullable<String> primaryWeb3WalletId = JsonNullable.undefined();
+        private Optional<String> primaryWeb3WalletId = Optional.empty();
 
-        private JsonNullable<String> username = JsonNullable.undefined();
+        private Optional<String> username = Optional.empty();
 
-        private JsonNullable<String> firstName = JsonNullable.undefined();
+        private Optional<String> firstName = Optional.empty();
 
-        private JsonNullable<String> lastName = JsonNullable.undefined();
+        private Optional<String> lastName = Optional.empty();
 
         @Deprecated
         private Optional<String> profileImageUrl = Optional.empty();
 
         private Optional<String> imageUrl = Optional.empty();
 
-        private Optional<Boolean> hasImage = Optional.empty();
+        private Boolean hasImage;
 
-        private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
+        private Map<String, Object> publicMetadata;
 
         private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
 
         private Optional<? extends Map<String, Object>> unsafeMetadata = Optional.empty();
 
-        private Optional<? extends List<EmailAddress>> emailAddresses = Optional.empty();
+        private List<EmailAddress> emailAddresses;
 
-        private Optional<? extends List<PhoneNumber>> phoneNumbers = Optional.empty();
+        private List<PhoneNumber> phoneNumbers;
 
-        private Optional<? extends List<Web3Wallet>> web3Wallets = Optional.empty();
+        private List<Web3Wallet> web3Wallets;
 
-        private Optional<? extends List<SchemasPasskey>> passkeys = Optional.empty();
+        private List<Passkey> passkeys;
 
-        private Optional<Boolean> passwordEnabled = Optional.empty();
+        private Boolean passwordEnabled;
 
-        private Optional<Boolean> twoFactorEnabled = Optional.empty();
+        private Boolean twoFactorEnabled;
 
-        private Optional<Boolean> totpEnabled = Optional.empty();
+        private Boolean totpEnabled;
 
-        private Optional<Boolean> backupCodeEnabled = Optional.empty();
+        private Boolean backupCodeEnabled;
 
-        private JsonNullable<Long> mfaEnabledAt = JsonNullable.undefined();
+        private Optional<Long> mfaEnabledAt = Optional.empty();
 
-        private JsonNullable<Long> mfaDisabledAt = JsonNullable.undefined();
+        private Optional<Long> mfaDisabledAt = Optional.empty();
 
-        private Optional<? extends List<ExternalAccountWithVerification>> externalAccounts = Optional.empty();
+        private List<ExternalAccountWithVerification> externalAccounts;
 
-        private Optional<? extends List<SAMLAccount>> samlAccounts = Optional.empty();
+        private List<SAMLAccount> samlAccounts;
 
-        private JsonNullable<Long> lastSignInAt = JsonNullable.undefined();
+        private Optional<Long> lastSignInAt = Optional.empty();
 
-        private Optional<Boolean> banned = Optional.empty();
+        private Boolean banned;
 
-        private Optional<Boolean> locked = Optional.empty();
+        private Boolean locked;
 
-        private JsonNullable<Long> lockoutExpiresInSeconds = JsonNullable.undefined();
+        private Optional<Long> lockoutExpiresInSeconds = Optional.empty();
 
-        private JsonNullable<Long> verificationAttemptsRemaining = JsonNullable.undefined();
+        private Optional<Long> verificationAttemptsRemaining = Optional.empty();
 
-        private Optional<Long> updatedAt = Optional.empty();
+        private Long updatedAt;
 
-        private Optional<Long> createdAt = Optional.empty();
+        private Long createdAt;
 
-        private Optional<Boolean> deleteSelfEnabled = Optional.empty();
+        private Boolean deleteSelfEnabled;
 
-        private Optional<Boolean> createOrganizationEnabled = Optional.empty();
+        private Boolean createOrganizationEnabled;
 
         private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
 
-        private JsonNullable<Long> lastActiveAt = JsonNullable.undefined();
+        private Optional<Long> lastActiveAt = Optional.empty();
 
-        private JsonNullable<Long> legalAcceptedAt = JsonNullable.undefined();
+        private Optional<Long> legalAcceptedAt = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -1445,12 +1291,6 @@ public class User {
 
 
         public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -1462,15 +1302,6 @@ public class User {
          */
         public Builder object(UserObject object) {
             Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
-            return this;
-        }
-
-        /**
-         * String representing the object's type. Objects of the same type share the same value.
-         */
-        public Builder object(Optional<? extends UserObject> object) {
-            Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
         }
@@ -1478,11 +1309,11 @@ public class User {
 
         public Builder externalId(String externalId) {
             Utils.checkNotNull(externalId, "externalId");
-            this.externalId = JsonNullable.of(externalId);
+            this.externalId = Optional.ofNullable(externalId);
             return this;
         }
 
-        public Builder externalId(JsonNullable<String> externalId) {
+        public Builder externalId(Optional<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
             this.externalId = externalId;
             return this;
@@ -1491,11 +1322,11 @@ public class User {
 
         public Builder primaryEmailAddressId(String primaryEmailAddressId) {
             Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
-            this.primaryEmailAddressId = JsonNullable.of(primaryEmailAddressId);
+            this.primaryEmailAddressId = Optional.ofNullable(primaryEmailAddressId);
             return this;
         }
 
-        public Builder primaryEmailAddressId(JsonNullable<String> primaryEmailAddressId) {
+        public Builder primaryEmailAddressId(Optional<String> primaryEmailAddressId) {
             Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
             this.primaryEmailAddressId = primaryEmailAddressId;
             return this;
@@ -1504,11 +1335,11 @@ public class User {
 
         public Builder primaryPhoneNumberId(String primaryPhoneNumberId) {
             Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
-            this.primaryPhoneNumberId = JsonNullable.of(primaryPhoneNumberId);
+            this.primaryPhoneNumberId = Optional.ofNullable(primaryPhoneNumberId);
             return this;
         }
 
-        public Builder primaryPhoneNumberId(JsonNullable<String> primaryPhoneNumberId) {
+        public Builder primaryPhoneNumberId(Optional<String> primaryPhoneNumberId) {
             Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
             this.primaryPhoneNumberId = primaryPhoneNumberId;
             return this;
@@ -1517,11 +1348,11 @@ public class User {
 
         public Builder primaryWeb3WalletId(String primaryWeb3WalletId) {
             Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
-            this.primaryWeb3WalletId = JsonNullable.of(primaryWeb3WalletId);
+            this.primaryWeb3WalletId = Optional.ofNullable(primaryWeb3WalletId);
             return this;
         }
 
-        public Builder primaryWeb3WalletId(JsonNullable<String> primaryWeb3WalletId) {
+        public Builder primaryWeb3WalletId(Optional<String> primaryWeb3WalletId) {
             Utils.checkNotNull(primaryWeb3WalletId, "primaryWeb3WalletId");
             this.primaryWeb3WalletId = primaryWeb3WalletId;
             return this;
@@ -1530,11 +1361,11 @@ public class User {
 
         public Builder username(String username) {
             Utils.checkNotNull(username, "username");
-            this.username = JsonNullable.of(username);
+            this.username = Optional.ofNullable(username);
             return this;
         }
 
-        public Builder username(JsonNullable<String> username) {
+        public Builder username(Optional<String> username) {
             Utils.checkNotNull(username, "username");
             this.username = username;
             return this;
@@ -1543,11 +1374,11 @@ public class User {
 
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
-            this.firstName = JsonNullable.of(firstName);
+            this.firstName = Optional.ofNullable(firstName);
             return this;
         }
 
-        public Builder firstName(JsonNullable<String> firstName) {
+        public Builder firstName(Optional<String> firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
             return this;
@@ -1556,11 +1387,11 @@ public class User {
 
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
-            this.lastName = JsonNullable.of(lastName);
+            this.lastName = Optional.ofNullable(lastName);
             return this;
         }
 
-        public Builder lastName(JsonNullable<String> lastName) {
+        public Builder lastName(Optional<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
             return this;
@@ -1605,24 +1436,12 @@ public class User {
 
         public Builder hasImage(boolean hasImage) {
             Utils.checkNotNull(hasImage, "hasImage");
-            this.hasImage = Optional.ofNullable(hasImage);
-            return this;
-        }
-
-        public Builder hasImage(Optional<Boolean> hasImage) {
-            Utils.checkNotNull(hasImage, "hasImage");
             this.hasImage = hasImage;
             return this;
         }
 
 
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
-            Utils.checkNotNull(publicMetadata, "publicMetadata");
-            this.publicMetadata = Optional.ofNullable(publicMetadata);
-            return this;
-        }
-
-        public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
             return this;
@@ -1657,24 +1476,12 @@ public class User {
 
         public Builder emailAddresses(List<EmailAddress> emailAddresses) {
             Utils.checkNotNull(emailAddresses, "emailAddresses");
-            this.emailAddresses = Optional.ofNullable(emailAddresses);
-            return this;
-        }
-
-        public Builder emailAddresses(Optional<? extends List<EmailAddress>> emailAddresses) {
-            Utils.checkNotNull(emailAddresses, "emailAddresses");
             this.emailAddresses = emailAddresses;
             return this;
         }
 
 
         public Builder phoneNumbers(List<PhoneNumber> phoneNumbers) {
-            Utils.checkNotNull(phoneNumbers, "phoneNumbers");
-            this.phoneNumbers = Optional.ofNullable(phoneNumbers);
-            return this;
-        }
-
-        public Builder phoneNumbers(Optional<? extends List<PhoneNumber>> phoneNumbers) {
             Utils.checkNotNull(phoneNumbers, "phoneNumbers");
             this.phoneNumbers = phoneNumbers;
             return this;
@@ -1683,24 +1490,12 @@ public class User {
 
         public Builder web3Wallets(List<Web3Wallet> web3Wallets) {
             Utils.checkNotNull(web3Wallets, "web3Wallets");
-            this.web3Wallets = Optional.ofNullable(web3Wallets);
-            return this;
-        }
-
-        public Builder web3Wallets(Optional<? extends List<Web3Wallet>> web3Wallets) {
-            Utils.checkNotNull(web3Wallets, "web3Wallets");
             this.web3Wallets = web3Wallets;
             return this;
         }
 
 
-        public Builder passkeys(List<SchemasPasskey> passkeys) {
-            Utils.checkNotNull(passkeys, "passkeys");
-            this.passkeys = Optional.ofNullable(passkeys);
-            return this;
-        }
-
-        public Builder passkeys(Optional<? extends List<SchemasPasskey>> passkeys) {
+        public Builder passkeys(List<Passkey> passkeys) {
             Utils.checkNotNull(passkeys, "passkeys");
             this.passkeys = passkeys;
             return this;
@@ -1709,24 +1504,12 @@ public class User {
 
         public Builder passwordEnabled(boolean passwordEnabled) {
             Utils.checkNotNull(passwordEnabled, "passwordEnabled");
-            this.passwordEnabled = Optional.ofNullable(passwordEnabled);
-            return this;
-        }
-
-        public Builder passwordEnabled(Optional<Boolean> passwordEnabled) {
-            Utils.checkNotNull(passwordEnabled, "passwordEnabled");
             this.passwordEnabled = passwordEnabled;
             return this;
         }
 
 
         public Builder twoFactorEnabled(boolean twoFactorEnabled) {
-            Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
-            this.twoFactorEnabled = Optional.ofNullable(twoFactorEnabled);
-            return this;
-        }
-
-        public Builder twoFactorEnabled(Optional<Boolean> twoFactorEnabled) {
             Utils.checkNotNull(twoFactorEnabled, "twoFactorEnabled");
             this.twoFactorEnabled = twoFactorEnabled;
             return this;
@@ -1735,24 +1518,12 @@ public class User {
 
         public Builder totpEnabled(boolean totpEnabled) {
             Utils.checkNotNull(totpEnabled, "totpEnabled");
-            this.totpEnabled = Optional.ofNullable(totpEnabled);
-            return this;
-        }
-
-        public Builder totpEnabled(Optional<Boolean> totpEnabled) {
-            Utils.checkNotNull(totpEnabled, "totpEnabled");
             this.totpEnabled = totpEnabled;
             return this;
         }
 
 
         public Builder backupCodeEnabled(boolean backupCodeEnabled) {
-            Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
-            this.backupCodeEnabled = Optional.ofNullable(backupCodeEnabled);
-            return this;
-        }
-
-        public Builder backupCodeEnabled(Optional<Boolean> backupCodeEnabled) {
             Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
             this.backupCodeEnabled = backupCodeEnabled;
             return this;
@@ -1764,14 +1535,14 @@ public class User {
          */
         public Builder mfaEnabledAt(long mfaEnabledAt) {
             Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
-            this.mfaEnabledAt = JsonNullable.of(mfaEnabledAt);
+            this.mfaEnabledAt = Optional.ofNullable(mfaEnabledAt);
             return this;
         }
 
         /**
          * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
          */
-        public Builder mfaEnabledAt(JsonNullable<Long> mfaEnabledAt) {
+        public Builder mfaEnabledAt(Optional<Long> mfaEnabledAt) {
             Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
             this.mfaEnabledAt = mfaEnabledAt;
             return this;
@@ -1783,14 +1554,14 @@ public class User {
          */
         public Builder mfaDisabledAt(long mfaDisabledAt) {
             Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
-            this.mfaDisabledAt = JsonNullable.of(mfaDisabledAt);
+            this.mfaDisabledAt = Optional.ofNullable(mfaDisabledAt);
             return this;
         }
 
         /**
          * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
          */
-        public Builder mfaDisabledAt(JsonNullable<Long> mfaDisabledAt) {
+        public Builder mfaDisabledAt(Optional<Long> mfaDisabledAt) {
             Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
             this.mfaDisabledAt = mfaDisabledAt;
             return this;
@@ -1799,24 +1570,12 @@ public class User {
 
         public Builder externalAccounts(List<ExternalAccountWithVerification> externalAccounts) {
             Utils.checkNotNull(externalAccounts, "externalAccounts");
-            this.externalAccounts = Optional.ofNullable(externalAccounts);
-            return this;
-        }
-
-        public Builder externalAccounts(Optional<? extends List<ExternalAccountWithVerification>> externalAccounts) {
-            Utils.checkNotNull(externalAccounts, "externalAccounts");
             this.externalAccounts = externalAccounts;
             return this;
         }
 
 
         public Builder samlAccounts(List<SAMLAccount> samlAccounts) {
-            Utils.checkNotNull(samlAccounts, "samlAccounts");
-            this.samlAccounts = Optional.ofNullable(samlAccounts);
-            return this;
-        }
-
-        public Builder samlAccounts(Optional<? extends List<SAMLAccount>> samlAccounts) {
             Utils.checkNotNull(samlAccounts, "samlAccounts");
             this.samlAccounts = samlAccounts;
             return this;
@@ -1828,14 +1587,14 @@ public class User {
          */
         public Builder lastSignInAt(long lastSignInAt) {
             Utils.checkNotNull(lastSignInAt, "lastSignInAt");
-            this.lastSignInAt = JsonNullable.of(lastSignInAt);
+            this.lastSignInAt = Optional.ofNullable(lastSignInAt);
             return this;
         }
 
         /**
          * Unix timestamp of last sign-in.
          */
-        public Builder lastSignInAt(JsonNullable<Long> lastSignInAt) {
+        public Builder lastSignInAt(Optional<Long> lastSignInAt) {
             Utils.checkNotNull(lastSignInAt, "lastSignInAt");
             this.lastSignInAt = lastSignInAt;
             return this;
@@ -1847,15 +1606,6 @@ public class User {
          */
         public Builder banned(boolean banned) {
             Utils.checkNotNull(banned, "banned");
-            this.banned = Optional.ofNullable(banned);
-            return this;
-        }
-
-        /**
-         * Flag to denote whether user is banned or not.
-         */
-        public Builder banned(Optional<Boolean> banned) {
-            Utils.checkNotNull(banned, "banned");
             this.banned = banned;
             return this;
         }
@@ -1865,15 +1615,6 @@ public class User {
          * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
          */
         public Builder locked(boolean locked) {
-            Utils.checkNotNull(locked, "locked");
-            this.locked = Optional.ofNullable(locked);
-            return this;
-        }
-
-        /**
-         * Flag to denote whether user is currently locked, i.e. restricted from signing in or not.
-         */
-        public Builder locked(Optional<Boolean> locked) {
             Utils.checkNotNull(locked, "locked");
             this.locked = locked;
             return this;
@@ -1885,14 +1626,14 @@ public class User {
          */
         public Builder lockoutExpiresInSeconds(long lockoutExpiresInSeconds) {
             Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
-            this.lockoutExpiresInSeconds = JsonNullable.of(lockoutExpiresInSeconds);
+            this.lockoutExpiresInSeconds = Optional.ofNullable(lockoutExpiresInSeconds);
             return this;
         }
 
         /**
          * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
          */
-        public Builder lockoutExpiresInSeconds(JsonNullable<Long> lockoutExpiresInSeconds) {
+        public Builder lockoutExpiresInSeconds(Optional<Long> lockoutExpiresInSeconds) {
             Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
             this.lockoutExpiresInSeconds = lockoutExpiresInSeconds;
             return this;
@@ -1904,14 +1645,14 @@ public class User {
          */
         public Builder verificationAttemptsRemaining(long verificationAttemptsRemaining) {
             Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
-            this.verificationAttemptsRemaining = JsonNullable.of(verificationAttemptsRemaining);
+            this.verificationAttemptsRemaining = Optional.ofNullable(verificationAttemptsRemaining);
             return this;
         }
 
         /**
          * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
          */
-        public Builder verificationAttemptsRemaining(JsonNullable<Long> verificationAttemptsRemaining) {
+        public Builder verificationAttemptsRemaining(Optional<Long> verificationAttemptsRemaining) {
             Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
             this.verificationAttemptsRemaining = verificationAttemptsRemaining;
             return this;
@@ -1923,15 +1664,6 @@ public class User {
          */
         public Builder updatedAt(long updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
-            this.updatedAt = Optional.ofNullable(updatedAt);
-            return this;
-        }
-
-        /**
-         * Unix timestamp of last update.
-         */
-        public Builder updatedAt(Optional<Long> updatedAt) {
-            Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;
         }
@@ -1941,15 +1673,6 @@ public class User {
          * Unix timestamp of creation.
          */
         public Builder createdAt(long createdAt) {
-            Utils.checkNotNull(createdAt, "createdAt");
-            this.createdAt = Optional.ofNullable(createdAt);
-            return this;
-        }
-
-        /**
-         * Unix timestamp of creation.
-         */
-        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -1961,15 +1684,6 @@ public class User {
          */
         public Builder deleteSelfEnabled(boolean deleteSelfEnabled) {
             Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
-            this.deleteSelfEnabled = Optional.ofNullable(deleteSelfEnabled);
-            return this;
-        }
-
-        /**
-         * If enabled, user can delete themselves via FAPI.
-         */
-        public Builder deleteSelfEnabled(Optional<Boolean> deleteSelfEnabled) {
-            Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
             this.deleteSelfEnabled = deleteSelfEnabled;
             return this;
         }
@@ -1979,15 +1693,6 @@ public class User {
          * If enabled, user can create organizations via FAPI.
          */
         public Builder createOrganizationEnabled(boolean createOrganizationEnabled) {
-            Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
-            this.createOrganizationEnabled = Optional.ofNullable(createOrganizationEnabled);
-            return this;
-        }
-
-        /**
-         * If enabled, user can create organizations via FAPI.
-         */
-        public Builder createOrganizationEnabled(Optional<Boolean> createOrganizationEnabled) {
             Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
             this.createOrganizationEnabled = createOrganizationEnabled;
             return this;
@@ -2018,14 +1723,14 @@ public class User {
          */
         public Builder lastActiveAt(long lastActiveAt) {
             Utils.checkNotNull(lastActiveAt, "lastActiveAt");
-            this.lastActiveAt = JsonNullable.of(lastActiveAt);
+            this.lastActiveAt = Optional.ofNullable(lastActiveAt);
             return this;
         }
 
         /**
          * Unix timestamp of the latest session activity, with day precision.
          */
-        public Builder lastActiveAt(JsonNullable<Long> lastActiveAt) {
+        public Builder lastActiveAt(Optional<Long> lastActiveAt) {
             Utils.checkNotNull(lastActiveAt, "lastActiveAt");
             this.lastActiveAt = lastActiveAt;
             return this;
@@ -2037,14 +1742,14 @@ public class User {
          */
         public Builder legalAcceptedAt(long legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
-            this.legalAcceptedAt = JsonNullable.of(legalAcceptedAt);
+            this.legalAcceptedAt = Optional.ofNullable(legalAcceptedAt);
             return this;
         }
 
         /**
          * Unix timestamp of when the user accepted the legal requirements.
          */
-        public Builder legalAcceptedAt(JsonNullable<Long> legalAcceptedAt) {
+        public Builder legalAcceptedAt(Optional<Long> legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
             this.legalAcceptedAt = legalAcceptedAt;
             return this;

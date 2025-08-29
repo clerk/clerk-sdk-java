@@ -17,10 +17,10 @@ import com.clerk.backend_api.models.operations.RequestBody;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequest;
 import com.clerk.backend_api.models.operations.RevokeInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
-import com.clerk.backend_api.operations.CreateBulkInvitationsOperation;
-import com.clerk.backend_api.operations.CreateInvitationOperation;
-import com.clerk.backend_api.operations.ListInvitationsOperation;
-import com.clerk.backend_api.operations.RevokeInvitationOperation;
+import com.clerk.backend_api.operations.CreateBulkInvitations;
+import com.clerk.backend_api.operations.CreateInvitation;
+import com.clerk.backend_api.operations.ListInvitations;
+import com.clerk.backend_api.operations.RevokeInvitation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -34,6 +34,7 @@ public class Invitations {
     Invitations(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create an invitation
      * 
@@ -73,13 +74,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateInvitationResponse create(
-            Optional<? extends CreateInvitationRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateInvitationResponse create(Optional<? extends CreateInvitationRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
-              = new CreateInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateInvitation.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -117,13 +114,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListInvitationsResponse list(
-            ListInvitationsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListInvitationsResponse list(ListInvitationsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListInvitationsRequest, ListInvitationsResponse> operation
-              = new ListInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -169,13 +162,9 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateBulkInvitationsResponse bulkCreate(
-            Optional<? extends List<RequestBody>> request,
-            Optional<Options> options) throws Exception {
+    public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
-              = new CreateBulkInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new CreateBulkInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -222,18 +211,14 @@ public class Invitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeInvitationResponse revoke(
-            String invitationId,
-            Optional<Options> options) throws Exception {
+    public RevokeInvitationResponse revoke(String invitationId, Optional<Options> options) throws Exception {
         RevokeInvitationRequest request =
             RevokeInvitationRequest
                 .builder()
                 .invitationId(invitationId)
                 .build();
         RequestOperation<RevokeInvitationRequest, RevokeInvitationResponse> operation
-              = new RevokeInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeInvitation.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

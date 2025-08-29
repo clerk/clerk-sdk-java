@@ -3,16 +3,13 @@
  */
 package com.clerk.backend_api.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class QueryParameters {
     public static <T extends Object> List<QueryParameter> parseQueryParams(Class<T> type, T queryParams,
@@ -146,6 +143,11 @@ public class QueryParameters {
                     params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(value), queryParamsMetadata.allowReserved));
                     break;
                 }
+                Optional<?> openEnumValue = Reflections.getOpenEnumValue(value.getClass(), value);
+                if (openEnumValue.isPresent()) {
+                    params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(openEnumValue.get()), queryParamsMetadata.allowReserved));
+                    break;
+                }
                 Field[] fields = value.getClass().getDeclaredFields();
 
                 List<String> items = new ArrayList<>();
@@ -213,6 +215,7 @@ public class QueryParameters {
                 if (!Utils.allowIntrospection(value.getClass())) {
                     throw new RuntimeException("DeepObject style only supports Map and Object types, not " + value.getClass());
                 }
+
                 Field[] fields = value.getClass().getDeclaredFields();
 
                 for (Field field : fields) {

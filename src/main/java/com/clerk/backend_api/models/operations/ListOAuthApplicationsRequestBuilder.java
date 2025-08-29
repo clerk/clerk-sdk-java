@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ListOAuthApplicationsOperation;
+import com.clerk.backend_api.operations.ListOAuthApplications;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -14,6 +14,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Exception;
 import java.lang.Long;
+import java.lang.String;
 import java.util.Optional;
 
 public class ListOAuthApplicationsRequestBuilder {
@@ -26,6 +27,11 @@ public class ListOAuthApplicationsRequestBuilder {
                             "offset",
                             "0",
                             new TypeReference<Optional<Long>>() {});
+    private Optional<String> orderBy = Utils.readDefaultOrConstValue(
+                            "orderBy",
+                            "\"+created_at\"",
+                            new TypeReference<Optional<String>>() {});
+    private Optional<String> nameQuery = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
 
@@ -57,6 +63,30 @@ public class ListOAuthApplicationsRequestBuilder {
         return this;
     }
                 
+    public ListOAuthApplicationsRequestBuilder orderBy(String orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = Optional.of(orderBy);
+        return this;
+    }
+
+    public ListOAuthApplicationsRequestBuilder orderBy(Optional<String> orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = orderBy;
+        return this;
+    }
+                
+    public ListOAuthApplicationsRequestBuilder nameQuery(String nameQuery) {
+        Utils.checkNotNull(nameQuery, "nameQuery");
+        this.nameQuery = Optional.of(nameQuery);
+        return this;
+    }
+
+    public ListOAuthApplicationsRequestBuilder nameQuery(Optional<String> nameQuery) {
+        Utils.checkNotNull(nameQuery, "nameQuery");
+        this.nameQuery = nameQuery;
+        return this;
+    }
+                
     public ListOAuthApplicationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
@@ -77,9 +107,14 @@ public class ListOAuthApplicationsRequestBuilder {
         if (offset == null) {
             offset = _SINGLETON_VALUE_Offset.value();
         }
+        if (orderBy == null) {
+            orderBy = _SINGLETON_VALUE_OrderBy.value();
+        }
 
         ListOAuthApplicationsRequest request = new ListOAuthApplicationsRequest(limit,
-            offset);
+            offset,
+            orderBy,
+            nameQuery);
 
         return request;
     }
@@ -90,9 +125,7 @@ public class ListOAuthApplicationsRequestBuilder {
             .build());
 
         RequestOperation<ListOAuthApplicationsRequest, ListOAuthApplicationsResponse> operation
-              = new ListOAuthApplicationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOAuthApplications.Sync(sdkConfiguration, options);
         ListOAuthApplicationsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));
@@ -109,4 +142,10 @@ public class ListOAuthApplicationsRequestBuilder {
                     "offset",
                     "0",
                     new TypeReference<Optional<Long>>() {});
+
+    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
+            new LazySingletonValue<>(
+                    "orderBy",
+                    "\"+created_at\"",
+                    new TypeReference<Optional<String>>() {});
 }

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateSessionOperation;
+import com.clerk.backend_api.operations.CreateSession;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateSessionRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
-              = new CreateSessionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSession.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

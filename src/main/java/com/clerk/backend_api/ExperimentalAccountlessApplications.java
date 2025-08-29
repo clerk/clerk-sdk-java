@@ -9,11 +9,10 @@ import com.clerk.backend_api.models.operations.CompleteAccountlessApplicationReq
 import com.clerk.backend_api.models.operations.CompleteAccountlessApplicationResponse;
 import com.clerk.backend_api.models.operations.CreateAccountlessApplicationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateAccountlessApplicationResponse;
-import com.clerk.backend_api.operations.CompleteAccountlessApplicationOperation;
-import com.clerk.backend_api.operations.CreateAccountlessApplicationOperation;
+import com.clerk.backend_api.operations.CompleteAccountlessApplication;
+import com.clerk.backend_api.operations.CreateAccountlessApplication;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +22,7 @@ public class ExperimentalAccountlessApplications {
     ExperimentalAccountlessApplications(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create an accountless application [EXPERIMENTAL]
      * 
@@ -57,9 +57,7 @@ public class ExperimentalAccountlessApplications {
      */
     public CreateAccountlessApplicationResponse create(Optional<Options> options) throws Exception {
         RequestlessOperation<CreateAccountlessApplicationResponse> operation
-            = new CreateAccountlessApplicationOperation(
-                sdkConfiguration,
-                options);
+            = new CreateAccountlessApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -97,9 +95,7 @@ public class ExperimentalAccountlessApplications {
      */
     public CompleteAccountlessApplicationResponse complete(Optional<Options> options) throws Exception {
         RequestlessOperation<CompleteAccountlessApplicationResponse> operation
-            = new CompleteAccountlessApplicationOperation(
-                sdkConfiguration,
-                options);
+            = new CompleteAccountlessApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 

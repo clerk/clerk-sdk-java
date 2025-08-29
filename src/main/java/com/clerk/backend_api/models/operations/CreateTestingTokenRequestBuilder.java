@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateTestingTokenOperation;
+import com.clerk.backend_api.operations.CreateTestingToken;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -40,9 +40,7 @@ public class CreateTestingTokenRequestBuilder {
             .build());
 
         RequestlessOperation<CreateTestingTokenResponse> operation
-            = new CreateTestingTokenOperation(
-                sdkConfiguration,
-                options);
+            = new CreateTestingToken.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

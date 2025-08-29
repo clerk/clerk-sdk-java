@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.VerifyPasswordOperation;
+import com.clerk.backend_api.operations.VerifyPassword;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -70,9 +70,7 @@ public class VerifyPasswordRequestBuilder {
             .build());
 
         RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
-              = new VerifyPasswordOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyPassword.Sync(sdkConfiguration, options);
         VerifyPasswordRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

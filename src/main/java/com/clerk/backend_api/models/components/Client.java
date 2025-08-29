@@ -25,7 +25,7 @@ public class Client {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
-    private Object object;
+    private ClientObject object;
 
     /**
      * String representing the identifier of the session.
@@ -72,7 +72,7 @@ public class Client {
 
     @JsonCreator
     public Client(
-            @JsonProperty("object") Object object,
+            @JsonProperty("object") ClientObject object,
             @JsonProperty("id") String id,
             @JsonProperty("session_ids") List<String> sessionIds,
             @JsonProperty("sessions") List<Session> sessions,
@@ -102,7 +102,7 @@ public class Client {
     }
     
     public Client(
-            Object object,
+            ClientObject object,
             String id,
             List<String> sessionIds,
             List<Session> sessions,
@@ -117,7 +117,7 @@ public class Client {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonIgnore
-    public Object object() {
+    public ClientObject object() {
         return object;
     }
 
@@ -181,7 +181,7 @@ public class Client {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    public Client withObject(Object object) {
+    public Client withObject(ClientObject object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -317,7 +317,7 @@ public class Client {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Object object;
+        private ClientObject object;
 
         private String id;
 
@@ -343,7 +343,7 @@ public class Client {
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
-        public Builder object(Object object) {
+        public Builder object(ClientObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;

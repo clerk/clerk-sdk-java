@@ -7,6 +7,8 @@
 
 * [list](#list) - List all waitlist entries
 * [create](#create) - Create a waitlist entry
+* [invite](#invite) - Invite a waitlist entry
+* [reject](#reject) - Reject a waitlist entry
 
 ## list
 
@@ -16,6 +18,7 @@ Supports filtering by email address or status and pagination with limit and offs
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListWaitlistEntries" method="get" path="/waitlist_entries" -->
 ```java
 package hello.world;
 
@@ -69,6 +72,7 @@ If the email address is already on the waitlist, no new entry will be created an
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateWaitlistEntry" method="post" path="/waitlist_entries" -->
 ```java
 package hello.world;
 
@@ -110,4 +114,107 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## invite
+
+Send an invite to the email address in a waitlist entry.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="InviteWaitlistEntry" method="post" path="/waitlist_entries/{waitlist_entry_id}/invite" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.InviteWaitlistEntryResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        InviteWaitlistEntryResponse res = sdk.waitlistEntries().invite()
+                .waitlistEntryId("<id>")
+                .call();
+
+        if (res.waitlistEntry().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `waitlistEntryId`                                                                                      | *String*                                                                                               | :heavy_check_mark:                                                                                     | The ID of the waitlist entry to invite                                                                 |
+| `requestBody`                                                                                          | [Optional\<InviteWaitlistEntryRequestBody>](../../models/operations/InviteWaitlistEntryRequestBody.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+
+### Response
+
+**[InviteWaitlistEntryResponse](../../models/operations/InviteWaitlistEntryResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 404, 409, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## reject
+
+Reject a waitlist entry.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RejectWaitlistEntry" method="post" path="/waitlist_entries/{waitlist_entry_id}/reject" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RejectWaitlistEntryResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RejectWaitlistEntryResponse res = sdk.waitlistEntries().reject()
+                .waitlistEntryId("<id>")
+                .call();
+
+        if (res.waitlistEntry().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                              | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `waitlistEntryId`                      | *String*                               | :heavy_check_mark:                     | The ID of the waitlist entry to reject |
+
+### Response
+
+**[RejectWaitlistEntryResponse](../../models/operations/RejectWaitlistEntryResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 404, 409, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

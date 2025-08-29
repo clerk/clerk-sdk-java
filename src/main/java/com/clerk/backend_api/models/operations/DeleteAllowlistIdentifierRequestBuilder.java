@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteAllowlistIdentifierOperation;
+import com.clerk.backend_api.operations.DeleteAllowlistIdentifier;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteAllowlistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<DeleteAllowlistIdentifierRequest, DeleteAllowlistIdentifierResponse> operation
-              = new DeleteAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteAllowlistIdentifier.Sync(sdkConfiguration, options);
         DeleteAllowlistIdentifierRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 public class SpeakeasyHTTPClient implements HTTPClient {
 
@@ -79,7 +80,7 @@ public class SpeakeasyHTTPClient implements HTTPClient {
                 .map(x -> x.toUpperCase(Locale.ENGLISH)) //
                 .collect(Collectors.toSet());
     }
-    
+
     public static void setLogger(Consumer<? super String> logger) {
         SpeakeasyHTTPClient.logger = logger;
     }

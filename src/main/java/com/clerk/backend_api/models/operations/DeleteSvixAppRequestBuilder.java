@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteSvixAppOperation;
+import com.clerk.backend_api.operations.DeleteSvixApp;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -40,9 +40,7 @@ public class DeleteSvixAppRequestBuilder {
             .build());
 
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new DeleteSvixApp.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

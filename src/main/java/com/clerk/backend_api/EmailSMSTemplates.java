@@ -22,17 +22,16 @@ import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequest;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBody;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryRequestBuilder;
 import com.clerk.backend_api.models.operations.ToggleTemplateDeliveryResponse;
-import com.clerk.backend_api.operations.GetTemplateListOperation;
-import com.clerk.backend_api.operations.GetTemplateOperation;
-import com.clerk.backend_api.operations.RevertTemplateOperation;
-import com.clerk.backend_api.operations.ToggleTemplateDeliveryOperation;
+import com.clerk.backend_api.operations.GetTemplate;
+import com.clerk.backend_api.operations.GetTemplateList;
+import com.clerk.backend_api.operations.RevertTemplate;
+import com.clerk.backend_api.operations.ToggleTemplateDelivery;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -42,6 +41,7 @@ public class EmailSMSTemplates {
     EmailSMSTemplates(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all templates
      * 
@@ -95,10 +95,8 @@ public class EmailSMSTemplates {
      */
     @Deprecated
     public GetTemplateListResponse list(
-            TemplateType templateType,
-            Optional<Boolean> paginated,
-            Optional<Long> limit,
-            Optional<Long> offset,
+            TemplateType templateType, Optional<Boolean> paginated,
+            Optional<Long> limit, Optional<Long> offset,
             Optional<Options> options) throws Exception {
         GetTemplateListRequest request =
             GetTemplateListRequest
@@ -109,9 +107,7 @@ public class EmailSMSTemplates {
                 .offset(offset)
                 .build();
         RequestOperation<GetTemplateListRequest, GetTemplateListResponse> operation
-              = new GetTemplateListOperation(
-                sdkConfiguration,
-                options);
+              = new GetTemplateList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -140,9 +136,7 @@ public class EmailSMSTemplates {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public GetTemplateResponse get(
-            PathParamTemplateType templateType,
-            String slug) throws Exception {
+    public GetTemplateResponse get(PathParamTemplateType templateType, String slug) throws Exception {
         return get(templateType, slug, Optional.empty());
     }
 
@@ -160,8 +154,7 @@ public class EmailSMSTemplates {
      */
     @Deprecated
     public GetTemplateResponse get(
-            PathParamTemplateType templateType,
-            String slug,
+            PathParamTemplateType templateType, String slug,
             Optional<Options> options) throws Exception {
         GetTemplateRequest request =
             GetTemplateRequest
@@ -170,9 +163,7 @@ public class EmailSMSTemplates {
                 .slug(slug)
                 .build();
         RequestOperation<GetTemplateRequest, GetTemplateResponse> operation
-              = new GetTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new GetTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -201,9 +192,7 @@ public class EmailSMSTemplates {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public RevertTemplateResponse revert(
-            RevertTemplatePathParamTemplateType templateType,
-            String slug) throws Exception {
+    public RevertTemplateResponse revert(RevertTemplatePathParamTemplateType templateType, String slug) throws Exception {
         return revert(templateType, slug, Optional.empty());
     }
 
@@ -221,8 +210,7 @@ public class EmailSMSTemplates {
      */
     @Deprecated
     public RevertTemplateResponse revert(
-            RevertTemplatePathParamTemplateType templateType,
-            String slug,
+            RevertTemplatePathParamTemplateType templateType, String slug,
             Optional<Options> options) throws Exception {
         RevertTemplateRequest request =
             RevertTemplateRequest
@@ -231,9 +219,7 @@ public class EmailSMSTemplates {
                 .slug(slug)
                 .build();
         RequestOperation<RevertTemplateRequest, RevertTemplateResponse> operation
-              = new RevertTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new RevertTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -266,9 +252,7 @@ public class EmailSMSTemplates {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public ToggleTemplateDeliveryResponse toggleTemplateDelivery(
-            ToggleTemplateDeliveryPathParamTemplateType templateType,
-            String slug) throws Exception {
+    public ToggleTemplateDeliveryResponse toggleTemplateDelivery(ToggleTemplateDeliveryPathParamTemplateType templateType, String slug) throws Exception {
         return toggleTemplateDelivery(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -290,10 +274,8 @@ public class EmailSMSTemplates {
      */
     @Deprecated
     public ToggleTemplateDeliveryResponse toggleTemplateDelivery(
-            ToggleTemplateDeliveryPathParamTemplateType templateType,
-            String slug,
-            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            ToggleTemplateDeliveryPathParamTemplateType templateType, String slug,
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody, Optional<Options> options) throws Exception {
         ToggleTemplateDeliveryRequest request =
             ToggleTemplateDeliveryRequest
                 .builder()
@@ -302,9 +284,7 @@ public class EmailSMSTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<ToggleTemplateDeliveryRequest, ToggleTemplateDeliveryResponse> operation
-              = new ToggleTemplateDeliveryOperation(
-                sdkConfiguration,
-                options);
+              = new ToggleTemplateDelivery.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

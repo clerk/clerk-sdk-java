@@ -14,7 +14,7 @@ import java.lang.String;
 public class CreateBlocklistIdentifierRequestBody {
     /**
      * The identifier to be added in the block-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     @JsonProperty("identifier")
     private String identifier;
@@ -28,7 +28,7 @@ public class CreateBlocklistIdentifierRequestBody {
 
     /**
      * The identifier to be added in the block-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     @JsonIgnore
     public String identifier() {
@@ -42,7 +42,7 @@ public class CreateBlocklistIdentifierRequestBody {
 
     /**
      * The identifier to be added in the block-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     public CreateBlocklistIdentifierRequestBody withIdentifier(String identifier) {
         Utils.checkNotNull(identifier, "identifier");
@@ -87,7 +87,7 @@ public class CreateBlocklistIdentifierRequestBody {
 
         /**
          * The identifier to be added in the block-list.
-         * This can be an email address, a phone number or a web3 wallet.
+         * This can be an email address, a phone number, or a web3 wallet.
          */
         public Builder identifier(String identifier) {
             Utils.checkNotNull(identifier, "identifier");

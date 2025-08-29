@@ -20,14 +20,13 @@ import com.clerk.backend_api.models.operations.UpdateInstanceResponse;
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
-import com.clerk.backend_api.operations.ChangeProductionInstanceDomainOperation;
-import com.clerk.backend_api.operations.GetInstanceOperation;
-import com.clerk.backend_api.operations.UpdateInstanceOperation;
-import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettingsOperation;
-import com.clerk.backend_api.operations.UpdateInstanceRestrictionsOperation;
+import com.clerk.backend_api.operations.ChangeProductionInstanceDomain;
+import com.clerk.backend_api.operations.GetInstance;
+import com.clerk.backend_api.operations.UpdateInstance;
+import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettings;
+import com.clerk.backend_api.operations.UpdateInstanceRestrictions;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -37,6 +36,7 @@ public class InstanceSettings {
     InstanceSettings(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Fetch the current instance
      * 
@@ -71,9 +71,7 @@ public class InstanceSettings {
      */
     public GetInstanceResponse get(Optional<Options> options) throws Exception {
         RequestlessOperation<GetInstanceResponse> operation
-            = new GetInstanceOperation(
-                sdkConfiguration,
-                options);
+            = new GetInstance.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -110,13 +108,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceResponse update(
-            Optional<? extends UpdateInstanceRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceResponse update(Optional<? extends UpdateInstanceRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceRequestBody>, UpdateInstanceResponse> operation
-              = new UpdateInstanceOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstance.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -153,13 +147,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceRestrictionsResponse updateRestrictions(
-            Optional<? extends UpdateInstanceRestrictionsRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
-              = new UpdateInstanceRestrictionsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceRestrictions.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -168,7 +158,7 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -183,7 +173,7 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -199,7 +189,7 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -208,13 +198,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ChangeProductionInstanceDomainResponse changeDomain(
-            Optional<? extends ChangeProductionInstanceDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public ChangeProductionInstanceDomainResponse changeDomain(Optional<? extends ChangeProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends ChangeProductionInstanceDomainRequestBody>, ChangeProductionInstanceDomainResponse> operation
-              = new ChangeProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new ChangeProductionInstanceDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -251,13 +237,9 @@ public class InstanceSettings {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(
-            Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
-              = new UpdateInstanceOrganizationSettingsOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceOrganizationSettings.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

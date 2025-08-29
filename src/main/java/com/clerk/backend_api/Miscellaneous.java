@@ -8,10 +8,9 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialRequestBuilder;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
-import com.clerk.backend_api.operations.GetPublicInterstitialOperation;
+import com.clerk.backend_api.operations.GetPublicInterstitial;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -21,6 +20,7 @@ public class Miscellaneous {
     Miscellaneous(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Returns the markup for the interstitial page
      * 
@@ -58,13 +58,9 @@ public class Miscellaneous {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPublicInterstitialResponse getPublicInterstitial(
-            GetPublicInterstitialRequest request,
-            Optional<Options> options) throws Exception {
+    public GetPublicInterstitialResponse getPublicInterstitial(GetPublicInterstitialRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetPublicInterstitialRequest, GetPublicInterstitialResponse> operation
-              = new GetPublicInterstitialOperation(
-                sdkConfiguration,
-                options);
+              = new GetPublicInterstitial.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

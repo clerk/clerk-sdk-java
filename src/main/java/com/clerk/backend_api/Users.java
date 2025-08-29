@@ -32,6 +32,9 @@ import com.clerk.backend_api.models.operations.DisableMFAResponse;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse;
+import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionRequest;
+import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionRequestBuilder;
+import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionResponse;
 import com.clerk.backend_api.models.operations.GetUserListRequest;
 import com.clerk.backend_api.models.operations.GetUserListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetUserListResponse;
@@ -72,12 +75,18 @@ import com.clerk.backend_api.models.operations.UserPasskeyDeleteResponse;
 import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteRequest;
 import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteRequestBuilder;
 import com.clerk.backend_api.models.operations.UserWeb3WalletDeleteResponse;
+import com.clerk.backend_api.models.operations.UsersBanRequestBody;
+import com.clerk.backend_api.models.operations.UsersBanRequestBuilder;
+import com.clerk.backend_api.models.operations.UsersBanResponse;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationInvitationsResponse;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.UsersGetOrganizationMembershipsResponse;
+import com.clerk.backend_api.models.operations.UsersUnbanRequestBody;
+import com.clerk.backend_api.models.operations.UsersUnbanRequestBuilder;
+import com.clerk.backend_api.models.operations.UsersUnbanResponse;
 import com.clerk.backend_api.models.operations.VerifyPasswordRequest;
 import com.clerk.backend_api.models.operations.VerifyPasswordRequestBody;
 import com.clerk.backend_api.models.operations.VerifyPasswordRequestBuilder;
@@ -86,36 +95,38 @@ import com.clerk.backend_api.models.operations.VerifyTOTPRequest;
 import com.clerk.backend_api.models.operations.VerifyTOTPRequestBody;
 import com.clerk.backend_api.models.operations.VerifyTOTPRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyTOTPResponse;
-import com.clerk.backend_api.operations.BanUserOperation;
-import com.clerk.backend_api.operations.CreateUserOperation;
-import com.clerk.backend_api.operations.DeleteBackupCodeOperation;
-import com.clerk.backend_api.operations.DeleteExternalAccountOperation;
-import com.clerk.backend_api.operations.DeleteTOTPOperation;
-import com.clerk.backend_api.operations.DeleteUserOperation;
-import com.clerk.backend_api.operations.DeleteUserProfileImageOperation;
-import com.clerk.backend_api.operations.DisableMFAOperation;
-import com.clerk.backend_api.operations.GetOAuthAccessTokenOperation;
-import com.clerk.backend_api.operations.GetUserListOperation;
-import com.clerk.backend_api.operations.GetUserOperation;
-import com.clerk.backend_api.operations.GetUsersCountOperation;
-import com.clerk.backend_api.operations.InstanceGetOrganizationMembershipsOperation;
-import com.clerk.backend_api.operations.LockUserOperation;
-import com.clerk.backend_api.operations.SetUserProfileImageOperation;
-import com.clerk.backend_api.operations.UnbanUserOperation;
-import com.clerk.backend_api.operations.UnlockUserOperation;
-import com.clerk.backend_api.operations.UpdateUserMetadataOperation;
-import com.clerk.backend_api.operations.UpdateUserOperation;
-import com.clerk.backend_api.operations.UserPasskeyDeleteOperation;
-import com.clerk.backend_api.operations.UserWeb3WalletDeleteOperation;
-import com.clerk.backend_api.operations.UsersGetOrganizationInvitationsOperation;
-import com.clerk.backend_api.operations.UsersGetOrganizationMembershipsOperation;
-import com.clerk.backend_api.operations.VerifyPasswordOperation;
-import com.clerk.backend_api.operations.VerifyTOTPOperation;
+import com.clerk.backend_api.operations.BanUser;
+import com.clerk.backend_api.operations.CreateUser;
+import com.clerk.backend_api.operations.DeleteBackupCode;
+import com.clerk.backend_api.operations.DeleteExternalAccount;
+import com.clerk.backend_api.operations.DeleteTOTP;
+import com.clerk.backend_api.operations.DeleteUser;
+import com.clerk.backend_api.operations.DeleteUserProfileImage;
+import com.clerk.backend_api.operations.DisableMFA;
+import com.clerk.backend_api.operations.GetOAuthAccessToken;
+import com.clerk.backend_api.operations.GetUser;
+import com.clerk.backend_api.operations.GetUserBillingSubscription;
+import com.clerk.backend_api.operations.GetUserList;
+import com.clerk.backend_api.operations.GetUsersCount;
+import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
+import com.clerk.backend_api.operations.LockUser;
+import com.clerk.backend_api.operations.SetUserProfileImage;
+import com.clerk.backend_api.operations.UnbanUser;
+import com.clerk.backend_api.operations.UnlockUser;
+import com.clerk.backend_api.operations.UpdateUser;
+import com.clerk.backend_api.operations.UpdateUserMetadata;
+import com.clerk.backend_api.operations.UserPasskeyDelete;
+import com.clerk.backend_api.operations.UserWeb3WalletDelete;
+import com.clerk.backend_api.operations.UsersBan;
+import com.clerk.backend_api.operations.UsersGetOrganizationInvitations;
+import com.clerk.backend_api.operations.UsersGetOrganizationMemberships;
+import com.clerk.backend_api.operations.UsersUnban;
+import com.clerk.backend_api.operations.VerifyPassword;
+import com.clerk.backend_api.operations.VerifyTOTP;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -125,6 +136,7 @@ public class Users {
     Users(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all users
      * 
@@ -162,13 +174,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUserListResponse list(
-            GetUserListRequest request,
-            Optional<Options> options) throws Exception {
+    public GetUserListResponse list(GetUserListRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetUserListRequest, GetUserListResponse> operation
-              = new GetUserListOperation(
-                sdkConfiguration,
-                options);
+              = new GetUserList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -181,7 +189,7 @@ public class Users {
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
      * 
      * @return The call builder
      */
@@ -198,7 +206,7 @@ public class Users {
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -217,20 +225,16 @@ public class Users {
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateUserResponse create(
-            CreateUserRequestBody request,
-            Optional<Options> options) throws Exception {
+    public CreateUserResponse create(CreateUserRequestBody request, Optional<Options> options) throws Exception {
         RequestOperation<CreateUserRequestBody, CreateUserResponse> operation
-              = new CreateUserOperation(
-                sdkConfiguration,
-                options);
+              = new CreateUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -268,13 +272,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUsersCountResponse count(
-            GetUsersCountRequest request,
-            Optional<Options> options) throws Exception {
+    public GetUsersCountResponse count(GetUsersCountRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
-              = new GetUsersCountOperation(
-                sdkConfiguration,
-                options);
+              = new GetUsersCount.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -312,18 +312,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUserResponse get(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public GetUserResponse get(String userId, Optional<Options> options) throws Exception {
         GetUserRequest request =
             GetUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<GetUserRequest, GetUserResponse> operation
-              = new GetUserOperation(
-                sdkConfiguration,
-                options);
+              = new GetUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -370,9 +366,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateUserResponse update(
-            String userId,
-            UpdateUserRequestBody requestBody) throws Exception {
+    public UpdateUserResponse update(String userId, UpdateUserRequestBody requestBody) throws Exception {
         return update(userId, requestBody, Optional.empty());
     }
 
@@ -399,8 +393,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UpdateUserResponse update(
-            String userId,
-            UpdateUserRequestBody requestBody,
+            String userId, UpdateUserRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateUserRequest request =
             UpdateUserRequest
@@ -409,9 +402,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
-              = new UpdateUserOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -449,18 +440,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteUserResponse delete(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteUserResponse delete(String userId, Optional<Options> options) throws Exception {
         DeleteUserRequest request =
             DeleteUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserRequest, DeleteUserResponse> operation
-              = new DeleteUserOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -498,18 +485,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public BanUserResponse ban(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public BanUserResponse ban(String userId, Optional<Options> options) throws Exception {
         BanUserRequest request =
             BanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<BanUserRequest, BanUserResponse> operation
-              = new BanUserOperation(
-                sdkConfiguration,
-                options);
+              = new BanUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -547,18 +530,94 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UnbanUserResponse unban(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public UnbanUserResponse unban(String userId, Optional<Options> options) throws Exception {
         UnbanUserRequest request =
             UnbanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
-              = new UnbanUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnbanUser.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Ban multiple users
+     * 
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * 
+     * @return The call builder
+     */
+    public UsersBanRequestBuilder bulkBan() {
+        return new UsersBanRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Ban multiple users
+     * 
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersBanResponse bulkBan(UsersBanRequestBody request) throws Exception {
+        return bulkBan(request, Optional.empty());
+    }
+
+    /**
+     * Ban multiple users
+     * 
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersBanResponse bulkBan(UsersBanRequestBody request, Optional<Options> options) throws Exception {
+        RequestOperation<UsersBanRequestBody, UsersBanResponse> operation
+              = new UsersBan.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Unban multiple users
+     * 
+     * <p>Removes the ban mark from multiple users.
+     * 
+     * @return The call builder
+     */
+    public UsersUnbanRequestBuilder bulkUnban() {
+        return new UsersUnbanRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Unban multiple users
+     * 
+     * <p>Removes the ban mark from multiple users.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request) throws Exception {
+        return bulkUnban(request, Optional.empty());
+    }
+
+    /**
+     * Unban multiple users
+     * 
+     * <p>Removes the ban mark from multiple users.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request, Optional<Options> options) throws Exception {
+        RequestOperation<UsersUnbanRequestBody, UsersUnbanResponse> operation
+              = new UsersUnban.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -599,18 +658,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public LockUserResponse lock(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public LockUserResponse lock(String userId, Optional<Options> options) throws Exception {
         LockUserRequest request =
             LockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<LockUserRequest, LockUserResponse> operation
-              = new LockUserOperation(
-                sdkConfiguration,
-                options);
+              = new LockUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -648,18 +703,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UnlockUserResponse unlock(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public UnlockUserResponse unlock(String userId, Optional<Options> options) throws Exception {
         UnlockUserRequest request =
             UnlockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
-              = new UnlockUserOperation(
-                sdkConfiguration,
-                options);
+              = new UnlockUser.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -684,9 +735,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public SetUserProfileImageResponse setProfileImage(
-            String userId,
-            SetUserProfileImageRequestBody requestBody) throws Exception {
+    public SetUserProfileImageResponse setProfileImage(String userId, SetUserProfileImageRequestBody requestBody) throws Exception {
         return setProfileImage(userId, requestBody, Optional.empty());
     }
 
@@ -702,8 +751,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public SetUserProfileImageResponse setProfileImage(
-            String userId,
-            SetUserProfileImageRequestBody requestBody,
+            String userId, SetUserProfileImageRequestBody requestBody,
             Optional<Options> options) throws Exception {
         SetUserProfileImageRequest request =
             SetUserProfileImageRequest
@@ -712,9 +760,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<SetUserProfileImageRequest, SetUserProfileImageResponse> operation
-              = new SetUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new SetUserProfileImage.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -752,18 +798,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteUserProfileImageResponse deleteProfileImage(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteUserProfileImageResponse deleteProfileImage(String userId, Optional<Options> options) throws Exception {
         DeleteUserProfileImageRequest request =
             DeleteUserProfileImageRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
-              = new DeleteUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUserProfileImage.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -824,8 +866,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UpdateUserMetadataResponse updateMetadata(
-            String userId,
-            Optional<? extends UpdateUserMetadataRequestBody> requestBody,
+            String userId, Optional<? extends UpdateUserMetadataRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UpdateUserMetadataRequest request =
             UpdateUserMetadataRequest
@@ -834,9 +875,58 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
-              = new UpdateUserMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUserMetadata.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve a user's billing subscription
+     * 
+     * <p>Retrieves the billing subscription for the specified user.
+     * This includes subscription details, active plans, billing information, and payment status.
+     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * 
+     * @return The call builder
+     */
+    public GetUserBillingSubscriptionRequestBuilder getBillingSubscription() {
+        return new GetUserBillingSubscriptionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve a user's billing subscription
+     * 
+     * <p>Retrieves the billing subscription for the specified user.
+     * This includes subscription details, active plans, billing information, and payment status.
+     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * 
+     * @param userId The ID of the user whose subscription to retrieve
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId) throws Exception {
+        return getBillingSubscription(userId, Optional.empty());
+    }
+
+    /**
+     * Retrieve a user's billing subscription
+     * 
+     * <p>Retrieves the billing subscription for the specified user.
+     * This includes subscription details, active plans, billing information, and payment status.
+     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * 
+     * @param userId The ID of the user whose subscription to retrieve
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId, Optional<Options> options) throws Exception {
+        GetUserBillingSubscriptionRequest request =
+            GetUserBillingSubscriptionRequest
+                .builder()
+                .userId(userId)
+                .build();
+        RequestOperation<GetUserBillingSubscriptionRequest, GetUserBillingSubscriptionResponse> operation
+              = new GetUserBillingSubscription.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -877,13 +967,9 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetOAuthAccessTokenResponse getOAuthAccessToken(
-            GetOAuthAccessTokenRequest request,
-            Optional<Options> options) throws Exception {
+    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetOAuthAccessTokenRequest, GetOAuthAccessTokenResponse> operation
-              = new GetOAuthAccessTokenOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthAccessToken.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -928,10 +1014,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
-            String userId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            String userId, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         UsersGetOrganizationMembershipsRequest request =
             UsersGetOrganizationMembershipsRequest
                 .builder()
@@ -940,9 +1024,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<UsersGetOrganizationMembershipsRequest, UsersGetOrganizationMembershipsResponse> operation
-              = new UsersGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationMemberships.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -988,10 +1070,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
-            String userId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<? extends QueryParamStatus> status,
+            String userId, Optional<Long> limit,
+            Optional<Long> offset, Optional<? extends QueryParamStatus> status,
             Optional<Options> options) throws Exception {
         UsersGetOrganizationInvitationsRequest request =
             UsersGetOrganizationInvitationsRequest
@@ -1002,9 +1082,7 @@ public class Users {
                 .status(status)
                 .build();
         RequestOperation<UsersGetOrganizationInvitationsRequest, UsersGetOrganizationInvitationsResponse> operation
-              = new UsersGetOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new UsersGetOrganizationInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1047,8 +1125,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public VerifyPasswordResponse verifyPassword(
-            String userId,
-            Optional<? extends VerifyPasswordRequestBody> requestBody,
+            String userId, Optional<? extends VerifyPasswordRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         VerifyPasswordRequest request =
             VerifyPasswordRequest
@@ -1057,9 +1134,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
-              = new VerifyPasswordOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyPassword.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1108,8 +1183,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public VerifyTOTPResponse verifyTotp(
-            String userId,
-            Optional<? extends VerifyTOTPRequestBody> requestBody,
+            String userId, Optional<? extends VerifyTOTPRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         VerifyTOTPRequest request =
             VerifyTOTPRequest
@@ -1118,9 +1192,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyTOTP.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1158,18 +1230,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DisableMFAResponse disableMfa(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DisableMFAResponse disableMfa(String userId, Optional<Options> options) throws Exception {
         DisableMFARequest request =
             DisableMFARequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFAOperation(
-                sdkConfiguration,
-                options);
+              = new DisableMFA.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1207,18 +1275,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteBackupCodeResponse deleteBackupCodes(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteBackupCodeResponse deleteBackupCodes(String userId, Optional<Options> options) throws Exception {
         DeleteBackupCodeRequest request =
             DeleteBackupCodeRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
-              = new DeleteBackupCodeOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBackupCode.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1243,9 +1307,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UserPasskeyDeleteResponse deletePasskey(
-            String userId,
-            String passkeyIdentificationId) throws Exception {
+    public UserPasskeyDeleteResponse deletePasskey(String userId, String passkeyIdentificationId) throws Exception {
         return deletePasskey(userId, passkeyIdentificationId, Optional.empty());
     }
 
@@ -1261,8 +1323,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UserPasskeyDeleteResponse deletePasskey(
-            String userId,
-            String passkeyIdentificationId,
+            String userId, String passkeyIdentificationId,
             Optional<Options> options) throws Exception {
         UserPasskeyDeleteRequest request =
             UserPasskeyDeleteRequest
@@ -1271,9 +1332,7 @@ public class Users {
                 .passkeyIdentificationId(passkeyIdentificationId)
                 .build();
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserPasskeyDelete.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1298,9 +1357,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
-            String userId,
-            String web3WalletIdentificationId) throws Exception {
+    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(String userId, String web3WalletIdentificationId) throws Exception {
         return deleteWeb3Wallet(userId, web3WalletIdentificationId, Optional.empty());
     }
 
@@ -1316,8 +1373,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
-            String userId,
-            String web3WalletIdentificationId,
+            String userId, String web3WalletIdentificationId,
             Optional<Options> options) throws Exception {
         UserWeb3WalletDeleteRequest request =
             UserWeb3WalletDeleteRequest
@@ -1326,9 +1382,7 @@ public class Users {
                 .web3WalletIdentificationId(web3WalletIdentificationId)
                 .build();
         RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation
-              = new UserWeb3WalletDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserWeb3WalletDelete.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1366,18 +1420,14 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteTOTPResponse deleteTOTP(
-            String userId,
-            Optional<Options> options) throws Exception {
+    public DeleteTOTPResponse deleteTOTP(String userId, Optional<Options> options) throws Exception {
         DeleteTOTPRequest request =
             DeleteTOTPRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteTOTPRequest, DeleteTOTPResponse> operation
-              = new DeleteTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteTOTP.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1402,9 +1452,7 @@ public class Users {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteExternalAccountResponse deleteExternalAccount(
-            String userId,
-            String externalAccountId) throws Exception {
+    public DeleteExternalAccountResponse deleteExternalAccount(String userId, String externalAccountId) throws Exception {
         return deleteExternalAccount(userId, externalAccountId, Optional.empty());
     }
 
@@ -1420,8 +1468,7 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public DeleteExternalAccountResponse deleteExternalAccount(
-            String userId,
-            String externalAccountId,
+            String userId, String externalAccountId,
             Optional<Options> options) throws Exception {
         DeleteExternalAccountRequest request =
             DeleteExternalAccountRequest
@@ -1430,9 +1477,7 @@ public class Users {
                 .externalAccountId(externalAccountId)
                 .build();
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
-              = new DeleteExternalAccountOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteExternalAccount.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1478,10 +1523,8 @@ public class Users {
      * @throws Exception if the API call fails
      */
     public InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMemberships(
-            Optional<String> orderBy,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<String> orderBy, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         InstanceGetOrganizationMembershipsRequest request =
             InstanceGetOrganizationMembershipsRequest
                 .builder()
@@ -1490,9 +1533,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<InstanceGetOrganizationMembershipsRequest, InstanceGetOrganizationMembershipsResponse> operation
-              = new InstanceGetOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new InstanceGetOrganizationMemberships.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

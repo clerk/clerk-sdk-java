@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteSAMLConnectionOperation;
+import com.clerk.backend_api.operations.DeleteSAMLConnection;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteSAMLConnectionRequestBuilder {
             .build());
 
         RequestOperation<DeleteSAMLConnectionRequest, DeleteSAMLConnectionResponse> operation
-              = new DeleteSAMLConnectionOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteSAMLConnection.Sync(sdkConfiguration, options);
         DeleteSAMLConnectionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

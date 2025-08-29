@@ -15,6 +15,7 @@ import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,6 +36,14 @@ public class OrganizationWithLogo {
 
     @JsonProperty("slug")
     private String slug;
+
+
+    @JsonProperty("image_url")
+    private String imageUrl;
+
+
+    @JsonProperty("has_image")
+    private boolean hasImage;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -64,8 +73,9 @@ public class OrganizationWithLogo {
     private Map<String, Object> publicMetadata;
 
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Map<String, Object> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -93,37 +103,31 @@ public class OrganizationWithLogo {
     @Deprecated
     private Optional<String> logoUrl;
 
-
-    @JsonProperty("image_url")
-    private String imageUrl;
-
-
-    @JsonProperty("has_image")
-    private boolean hasImage;
-
     @JsonCreator
     public OrganizationWithLogo(
             @JsonProperty("object") OrganizationWithLogoObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("slug") String slug,
+            @JsonProperty("image_url") String imageUrl,
+            @JsonProperty("has_image") boolean hasImage,
             @JsonProperty("members_count") Optional<Long> membersCount,
             @JsonProperty("missing_member_with_elevated_permissions") Optional<Boolean> missingMemberWithElevatedPermissions,
             @JsonProperty("pending_invitations_count") Optional<Long> pendingInvitationsCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
-            @JsonProperty("private_metadata") Map<String, Object> privateMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("logo_url") Optional<String> logoUrl,
-            @JsonProperty("image_url") String imageUrl,
-            @JsonProperty("has_image") boolean hasImage) {
+            @JsonProperty("logo_url") Optional<String> logoUrl) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
+        Utils.checkNotNull(imageUrl, "imageUrl");
+        Utils.checkNotNull(hasImage, "hasImage");
         Utils.checkNotNull(membersCount, "membersCount");
         Utils.checkNotNull(missingMemberWithElevatedPermissions, "missingMemberWithElevatedPermissions");
         Utils.checkNotNull(pendingInvitationsCount, "pendingInvitationsCount");
@@ -131,18 +135,17 @@ public class OrganizationWithLogo {
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
-        privateMetadata = Utils.emptyMapIfNull(privateMetadata);
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(logoUrl, "logoUrl");
-        Utils.checkNotNull(imageUrl, "imageUrl");
-        Utils.checkNotNull(hasImage, "hasImage");
         this.object = object;
         this.id = id;
         this.name = name;
         this.slug = slug;
+        this.imageUrl = imageUrl;
+        this.hasImage = hasImage;
         this.membersCount = membersCount;
         this.missingMemberWithElevatedPermissions = missingMemberWithElevatedPermissions;
         this.pendingInvitationsCount = pendingInvitationsCount;
@@ -154,8 +157,6 @@ public class OrganizationWithLogo {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.logoUrl = logoUrl;
-        this.imageUrl = imageUrl;
-        this.hasImage = hasImage;
     }
     
     public OrganizationWithLogo(
@@ -163,20 +164,19 @@ public class OrganizationWithLogo {
             String id,
             String name,
             String slug,
+            String imageUrl,
+            boolean hasImage,
             long maxAllowedMemberships,
             boolean adminDeleteEnabled,
             Map<String, Object> publicMetadata,
-            Map<String, Object> privateMetadata,
             long createdAt,
-            long updatedAt,
-            String imageUrl,
-            boolean hasImage) {
+            long updatedAt) {
         this(object, id, name,
-            slug, Optional.empty(), Optional.empty(),
-            Optional.empty(), maxAllowedMemberships, adminDeleteEnabled,
-            publicMetadata, privateMetadata, Optional.empty(),
-            createdAt, updatedAt, Optional.empty(),
-            imageUrl, hasImage);
+            slug, imageUrl, hasImage,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+            Optional.empty(), Optional.empty(), createdAt,
+            updatedAt, Optional.empty());
     }
 
     @JsonIgnore
@@ -197,6 +197,16 @@ public class OrganizationWithLogo {
     @JsonIgnore
     public String slug() {
         return slug;
+    }
+
+    @JsonIgnore
+    public String imageUrl() {
+        return imageUrl;
+    }
+
+    @JsonIgnore
+    public boolean hasImage() {
+        return hasImage;
     }
 
     @JsonIgnore
@@ -229,9 +239,10 @@ public class OrganizationWithLogo {
         return publicMetadata;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Map<String, Object> privateMetadata() {
-        return privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     @JsonIgnore
@@ -265,16 +276,6 @@ public class OrganizationWithLogo {
         return logoUrl;
     }
 
-    @JsonIgnore
-    public String imageUrl() {
-        return imageUrl;
-    }
-
-    @JsonIgnore
-    public boolean hasImage() {
-        return hasImage;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
@@ -301,6 +302,18 @@ public class OrganizationWithLogo {
     public OrganizationWithLogo withSlug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
+        return this;
+    }
+
+    public OrganizationWithLogo withImageUrl(String imageUrl) {
+        Utils.checkNotNull(imageUrl, "imageUrl");
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public OrganizationWithLogo withHasImage(boolean hasImage) {
+        Utils.checkNotNull(hasImage, "hasImage");
+        this.hasImage = hasImage;
         return this;
     }
 
@@ -363,6 +376,13 @@ public class OrganizationWithLogo {
 
     public OrganizationWithLogo withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
+        this.privateMetadata = Optional.ofNullable(privateMetadata);
+        return this;
+    }
+
+
+    public OrganizationWithLogo withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
     }
@@ -421,18 +441,6 @@ public class OrganizationWithLogo {
         return this;
     }
 
-    public OrganizationWithLogo withImageUrl(String imageUrl) {
-        Utils.checkNotNull(imageUrl, "imageUrl");
-        this.imageUrl = imageUrl;
-        return this;
-    }
-
-    public OrganizationWithLogo withHasImage(boolean hasImage) {
-        Utils.checkNotNull(hasImage, "hasImage");
-        this.hasImage = hasImage;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -447,6 +455,8 @@ public class OrganizationWithLogo {
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
             Utils.enhancedDeepEquals(this.membersCount, other.membersCount) &&
             Utils.enhancedDeepEquals(this.missingMemberWithElevatedPermissions, other.missingMemberWithElevatedPermissions) &&
             Utils.enhancedDeepEquals(this.pendingInvitationsCount, other.pendingInvitationsCount) &&
@@ -457,20 +467,18 @@ public class OrganizationWithLogo {
             Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
-            Utils.enhancedDeepEquals(this.logoUrl, other.logoUrl) &&
-            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
-            Utils.enhancedDeepEquals(this.hasImage, other.hasImage);
+            Utils.enhancedDeepEquals(this.logoUrl, other.logoUrl);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, name,
-            slug, membersCount, missingMemberWithElevatedPermissions,
-            pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
-            publicMetadata, privateMetadata, createdBy,
-            createdAt, updatedAt, logoUrl,
-            imageUrl, hasImage);
+            slug, imageUrl, hasImage,
+            membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
+            maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+            privateMetadata, createdBy, createdAt,
+            updatedAt, logoUrl);
     }
     
     @Override
@@ -480,6 +488,8 @@ public class OrganizationWithLogo {
                 "id", id,
                 "name", name,
                 "slug", slug,
+                "imageUrl", imageUrl,
+                "hasImage", hasImage,
                 "membersCount", membersCount,
                 "missingMemberWithElevatedPermissions", missingMemberWithElevatedPermissions,
                 "pendingInvitationsCount", pendingInvitationsCount,
@@ -490,9 +500,7 @@ public class OrganizationWithLogo {
                 "createdBy", createdBy,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt,
-                "logoUrl", logoUrl,
-                "imageUrl", imageUrl,
-                "hasImage", hasImage);
+                "logoUrl", logoUrl);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -506,6 +514,10 @@ public class OrganizationWithLogo {
 
         private String slug;
 
+        private String imageUrl;
+
+        private Boolean hasImage;
+
         private Optional<Long> membersCount = Optional.empty();
 
         private Optional<Boolean> missingMemberWithElevatedPermissions = Optional.empty();
@@ -518,7 +530,7 @@ public class OrganizationWithLogo {
 
         private Map<String, Object> publicMetadata;
 
-        private Map<String, Object> privateMetadata;
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
 
         private Optional<String> createdBy = Optional.empty();
 
@@ -528,10 +540,6 @@ public class OrganizationWithLogo {
 
         @Deprecated
         private Optional<String> logoUrl = Optional.empty();
-
-        private String imageUrl;
-
-        private Boolean hasImage;
 
         private Builder() {
           // force use of static builder() method
@@ -562,6 +570,20 @@ public class OrganizationWithLogo {
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
+            return this;
+        }
+
+
+        public Builder imageUrl(String imageUrl) {
+            Utils.checkNotNull(imageUrl, "imageUrl");
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+
+        public Builder hasImage(boolean hasImage) {
+            Utils.checkNotNull(hasImage, "hasImage");
+            this.hasImage = hasImage;
             return this;
         }
 
@@ -628,6 +650,12 @@ public class OrganizationWithLogo {
 
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
+            this.privateMetadata = Optional.ofNullable(privateMetadata);
+            return this;
+        }
+
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
+            Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
         }
@@ -688,29 +716,15 @@ public class OrganizationWithLogo {
             return this;
         }
 
-
-        public Builder imageUrl(String imageUrl) {
-            Utils.checkNotNull(imageUrl, "imageUrl");
-            this.imageUrl = imageUrl;
-            return this;
-        }
-
-
-        public Builder hasImage(boolean hasImage) {
-            Utils.checkNotNull(hasImage, "hasImage");
-            this.hasImage = hasImage;
-            return this;
-        }
-
         public OrganizationWithLogo build() {
 
             return new OrganizationWithLogo(
                 object, id, name,
-                slug, membersCount, missingMemberWithElevatedPermissions,
-                pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
-                publicMetadata, privateMetadata, createdBy,
-                createdAt, updatedAt, logoUrl,
-                imageUrl, hasImage);
+                slug, imageUrl, hasImage,
+                membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
+                maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+                privateMetadata, createdBy, createdAt,
+                updatedAt, logoUrl);
         }
 
     }

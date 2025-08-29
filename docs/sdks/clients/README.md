@@ -19,6 +19,7 @@ Warning: the endpoint is being deprecated and will be removed in future versions
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetClientList" method="get" path="/clients" -->
 ```java
 package hello.world;
 
@@ -72,6 +73,7 @@ Verifies the client in the provided token
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="VerifyClient" method="post" path="/clients/verify" -->
 ```java
 package hello.world;
 
@@ -121,6 +123,7 @@ Returns the details of a client.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetClient" method="get" path="/clients/{client_id}" -->
 ```java
 package hello.world;
 

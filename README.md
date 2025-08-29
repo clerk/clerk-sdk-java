@@ -16,7 +16,7 @@ Clerk Backend API: The Clerk REST Backend API, meant to be accessed by backend s
 ### Versions
 
 When the API changes in a way that isn't compatible with older versions, a new version is released.
-Each version is identified by its release date, e.g. `2025-03-12`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
+Each version is identified by its release date, e.g. `2025-04-10`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
 
 Please see https://clerk.com/docs for more information.
 
@@ -51,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:3.1.0'
+implementation 'com.clerk:backend-api:3.2.0'
 ```
 
 Maven:
@@ -59,7 +59,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>3.1.0</version>
+    <version>3.2.0</version>
 </dependency>
 ```
 
@@ -87,20 +87,25 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
-        GetPublicInterstitialResponse res = sdk.miscellaneous().getPublicInterstitial()
+        GetEmailAddressResponse res = sdk.emailAddresses().get()
+                .emailAddressId("<id>")
                 .call();
 
-        // handle response
+        if (res.emailAddress().isPresent()) {
+            // handle response
+        }
     }
 }
 ```
@@ -205,6 +210,11 @@ public class MachineAuthentication {
 * [create](docs/sdks/allowlistidentifiers/README.md#create) - Add identifier to the allow-list
 * [delete](docs/sdks/allowlistidentifiers/README.md#delete) - Delete identifier from allow-list
 
+### [awsCredentials()](docs/sdks/awscredentials/README.md)
+
+* [delete](docs/sdks/awscredentials/README.md#delete) - Delete an AWS Credential
+* [update](docs/sdks/awscredentials/README.md#update) - Update an AWS Credential
+
 ### [betaFeatures()](docs/sdks/betafeatures/README.md)
 
 * [updateInstanceSettings](docs/sdks/betafeatures/README.md#updateinstancesettings) - Update instance settings
@@ -222,6 +232,12 @@ public class MachineAuthentication {
 * [~~list~~](docs/sdks/clients/README.md#list) - List all clients :warning: **Deprecated**
 * [verify](docs/sdks/clients/README.md#verify) - Verify a client
 * [get](docs/sdks/clients/README.md#get) - Get a client
+
+### [commerce()](docs/sdks/commerce/README.md)
+
+* [listPlans](docs/sdks/commerce/README.md#listplans) - List all commerce plans
+* [listSubscriptionItems](docs/sdks/commerce/README.md#listsubscriptionitems) - List all subscription items
+* [cancelSubscriptionItem](docs/sdks/commerce/README.md#cancelsubscriptionitem) - Cancel a subscription item
 
 ### [domains()](docs/sdks/domains/README.md)
 
@@ -280,9 +296,31 @@ public class MachineAuthentication {
 * [update](docs/sdks/jwttemplates/README.md#update) - Update a JWT template
 * [delete](docs/sdks/jwttemplates/README.md#delete) - Delete a Template
 
+### [m2m()](docs/sdks/m2m/README.md)
+
+* [createToken](docs/sdks/m2m/README.md#createtoken) - Create a M2M Token
+* [listTokens](docs/sdks/m2m/README.md#listtokens) - Get M2M Tokens
+* [revokeToken](docs/sdks/m2m/README.md#revoketoken) - Revoke a M2M Token
+* [verifyToken](docs/sdks/m2m/README.md#verifytoken) - Verify a M2M Token
+
+### [machines()](docs/sdks/machines/README.md)
+
+* [list](docs/sdks/machines/README.md#list) - Get a list of machines for an instance
+* [create](docs/sdks/machines/README.md#create) - Create a machine
+* [get](docs/sdks/machines/README.md#get) - Retrieve a machine
+* [update](docs/sdks/machines/README.md#update) - Update a machine
+* [delete](docs/sdks/machines/README.md#delete) - Delete a machine
+* [getSecretKey](docs/sdks/machines/README.md#getsecretkey) - Retrieve a machine secret key
+* [createScope](docs/sdks/machines/README.md#createscope) - Create a machine scope
+* [deleteScope](docs/sdks/machines/README.md#deletescope) - Delete a machine scope
+
 ### [miscellaneous()](docs/sdks/miscellaneous/README.md)
 
 * [getPublicInterstitial](docs/sdks/miscellaneous/README.md#getpublicinterstitial) - Returns the markup for the interstitial page
+
+### [oauthAccessTokens()](docs/sdks/oauthaccesstokens/README.md)
+
+* [verify](docs/sdks/oauthaccesstokens/README.md#verify) - Verify an OAuth Access Token
 
 ### [oauthApplications()](docs/sdks/oauthapplications/README.md)
 
@@ -299,6 +337,7 @@ public class MachineAuthentication {
 * [list](docs/sdks/organizationdomains/README.md#list) - Get a list of all domains of an organization.
 * [update](docs/sdks/organizationdomains/README.md#update) - Update an organization domain.
 * [delete](docs/sdks/organizationdomains/README.md#delete) - Remove a domain from an organization.
+* [listAll](docs/sdks/organizationdomains/README.md#listall) - List all organization domains
 
 ### [organizationInvitations()](docs/sdks/organizationinvitations/README.md)
 
@@ -328,6 +367,7 @@ public class MachineAuthentication {
 * [mergeMetadata](docs/sdks/organizations/README.md#mergemetadata) - Merge and update metadata for an organization
 * [uploadLogo](docs/sdks/organizations/README.md#uploadlogo) - Upload a logo for the organization
 * [deleteLogo](docs/sdks/organizations/README.md#deletelogo) - Delete the organization's logo.
+* [getBillingSubscription](docs/sdks/organizations/README.md#getbillingsubscription) - Retrieve an organization's billing subscription
 
 ### [phoneNumbers()](docs/sdks/phonenumbers/README.md)
 
@@ -362,7 +402,6 @@ public class MachineAuthentication {
 * [get](docs/sdks/sessions/README.md#get) - Retrieve a session
 * [refresh](docs/sdks/sessions/README.md#refresh) - Refresh a session
 * [revoke](docs/sdks/sessions/README.md#revoke) - Revoke a session
-* [~~verify~~](docs/sdks/sessions/README.md#verify) - Verify a session :warning: **Deprecated**
 * [createToken](docs/sdks/sessions/README.md#createtoken) - Create a session token
 * [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a jwt template
 
@@ -394,11 +433,14 @@ public class MachineAuthentication {
 * [delete](docs/sdks/users/README.md#delete) - Delete a user
 * [ban](docs/sdks/users/README.md#ban) - Ban a user
 * [unban](docs/sdks/users/README.md#unban) - Unban a user
+* [bulkBan](docs/sdks/users/README.md#bulkban) - Ban multiple users
+* [bulkUnban](docs/sdks/users/README.md#bulkunban) - Unban multiple users
 * [lock](docs/sdks/users/README.md#lock) - Lock a user
 * [unlock](docs/sdks/users/README.md#unlock) - Unlock a user
 * [setProfileImage](docs/sdks/users/README.md#setprofileimage) - Set user profile image
 * [deleteProfileImage](docs/sdks/users/README.md#deleteprofileimage) - Delete user profile image
 * [updateMetadata](docs/sdks/users/README.md#updatemetadata) - Merge and update a user's metadata
+* [getBillingSubscription](docs/sdks/users/README.md#getbillingsubscription) - Retrieve a user's billing subscription
 * [getOAuthAccessToken](docs/sdks/users/README.md#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](docs/sdks/users/README.md#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](docs/sdks/users/README.md#getorganizationinvitations) - Retrieve all invitations for a user
@@ -416,6 +458,8 @@ public class MachineAuthentication {
 
 * [list](docs/sdks/waitlistentries/README.md#list) - List all waitlist entries
 * [create](docs/sdks/waitlistentries/README.md#create) - Create a waitlist entry
+* [invite](docs/sdks/waitlistentries/README.md#invite) - Invite a waitlist entry
+* [reject](docs/sdks/waitlistentries/README.md#reject) - Reject a waitlist entry
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
@@ -509,12 +553,12 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `verify` method throws the following exceptions:
+By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `delete` method throws the following exceptions:
 
-| Error Type                | Status Code   | Content Type     |
-| ------------------------- | ------------- | ---------------- |
-| models/errors/ClerkErrors | 400, 401, 404 | application/json |
-| models/errors/SDKError    | 4XX, 5XX      | \*/\*            |
+| Error Type                | Status Code        | Content Type     |
+| ------------------------- | ------------------ | ---------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404 | application/json |
+| models/errors/SDKError    | 4XX, 5XX           | \*/\*            |
 
 ### Example
 
@@ -523,7 +567,7 @@ package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifyClientResponse;
+import com.clerk.backend_api.models.operations.DeleteAWSCredentialResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -534,10 +578,11 @@ public class Application {
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
-        VerifyClientResponse res = sdk.clients().verify()
+        DeleteAWSCredentialResponse res = sdk.awsCredentials().delete()
+                .id("<id>")
                 .call();
 
-        if (res.client().isPresent()) {
+        if (res.deletedObject().isPresent()) {
             // handle response
         }
     }

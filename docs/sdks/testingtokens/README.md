@@ -13,6 +13,7 @@ Retrieve a new testing token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateTestingToken" method="post" path="/testing_tokens" -->
 ```java
 package hello.world;
 

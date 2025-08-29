@@ -29,23 +29,16 @@ import com.clerk.backend_api.models.operations.RefreshSessionResponse;
 import com.clerk.backend_api.models.operations.RevokeSessionRequest;
 import com.clerk.backend_api.models.operations.RevokeSessionRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeSessionResponse;
-import com.clerk.backend_api.models.operations.VerifySessionRequest;
-import com.clerk.backend_api.models.operations.VerifySessionRequestBody;
-import com.clerk.backend_api.models.operations.VerifySessionRequestBuilder;
-import com.clerk.backend_api.models.operations.VerifySessionResponse;
-import com.clerk.backend_api.operations.CreateSessionOperation;
-import com.clerk.backend_api.operations.CreateSessionTokenFromTemplateOperation;
-import com.clerk.backend_api.operations.CreateSessionTokenOperation;
-import com.clerk.backend_api.operations.GetSessionListOperation;
-import com.clerk.backend_api.operations.GetSessionOperation;
-import com.clerk.backend_api.operations.RefreshSessionOperation;
-import com.clerk.backend_api.operations.RevokeSessionOperation;
-import com.clerk.backend_api.operations.VerifySessionOperation;
+import com.clerk.backend_api.operations.CreateSession;
+import com.clerk.backend_api.operations.CreateSessionToken;
+import com.clerk.backend_api.operations.CreateSessionTokenFromTemplate;
+import com.clerk.backend_api.operations.GetSession;
+import com.clerk.backend_api.operations.GetSessionList;
+import com.clerk.backend_api.operations.RefreshSession;
+import com.clerk.backend_api.operations.RevokeSession;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Deprecated;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -55,6 +48,7 @@ public class Sessions {
     Sessions(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all sessions
      * 
@@ -98,13 +92,9 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSessionListResponse list(
-            GetSessionListRequest request,
-            Optional<Options> options) throws Exception {
+    public GetSessionListResponse list(GetSessionListRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetSessionListRequest, GetSessionListResponse> operation
-              = new GetSessionListOperation(
-                sdkConfiguration,
-                options);
+              = new GetSessionList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -150,13 +140,9 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSessionResponse create(
-            Optional<? extends CreateSessionRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateSessionResponse create(Optional<? extends CreateSessionRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
-              = new CreateSessionOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSession.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -194,18 +180,14 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetSessionResponse get(
-            String sessionId,
-            Optional<Options> options) throws Exception {
+    public GetSessionResponse get(String sessionId, Optional<Options> options) throws Exception {
         GetSessionRequest request =
             GetSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<GetSessionRequest, GetSessionResponse> operation
-              = new GetSessionOperation(
-                sdkConfiguration,
-                options);
+              = new GetSession.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -213,7 +195,7 @@ public class Sessions {
      * Refresh a session
      * 
      * <p>Refreshes a session by creating a new session token. A 401 is returned when there
-     * are validation errors, which signals the SDKs to fallback to the handshake flow.
+     * are validation errors, which signals the SDKs to fall back to the handshake flow.
      * 
      * @return The call builder
      */
@@ -225,7 +207,7 @@ public class Sessions {
      * Refresh a session
      * 
      * <p>Refreshes a session by creating a new session token. A 401 is returned when there
-     * are validation errors, which signals the SDKs to fallback to the handshake flow.
+     * are validation errors, which signals the SDKs to fall back to the handshake flow.
      * 
      * @param sessionId The ID of the session
      * @return The response from the API call
@@ -239,7 +221,7 @@ public class Sessions {
      * Refresh a session
      * 
      * <p>Refreshes a session by creating a new session token. A 401 is returned when there
-     * are validation errors, which signals the SDKs to fallback to the handshake flow.
+     * are validation errors, which signals the SDKs to fall back to the handshake flow.
      * 
      * @param sessionId The ID of the session
      * @param requestBody Refresh session parameters
@@ -248,8 +230,7 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public RefreshSessionResponse refresh(
-            String sessionId,
-            Optional<? extends RefreshSessionRequestBody> requestBody,
+            String sessionId, Optional<? extends RefreshSessionRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         RefreshSessionRequest request =
             RefreshSessionRequest
@@ -258,9 +239,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
-              = new RefreshSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RefreshSession.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -301,85 +280,14 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeSessionResponse revoke(
-            String sessionId,
-            Optional<Options> options) throws Exception {
+    public RevokeSessionResponse revoke(String sessionId, Optional<Options> options) throws Exception {
         RevokeSessionRequest request =
             RevokeSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
-              = new RevokeSessionOperation(
-                sdkConfiguration,
-                options);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Verify a session
-     * 
-     * <p>Returns the session if it is authenticated, otherwise returns an error.
-     * WARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,
-     *          which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).
-     *          For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).
-     * 
-     * @return The call builder
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    @Deprecated
-    public VerifySessionRequestBuilder verify() {
-        return new VerifySessionRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Verify a session
-     * 
-     * <p>Returns the session if it is authenticated, otherwise returns an error.
-     * WARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,
-     *          which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).
-     *          For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).
-     * 
-     * @param sessionId The ID of the session
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    @Deprecated
-    public VerifySessionResponse verify(String sessionId) throws Exception {
-        return verify(sessionId, Optional.empty(), Optional.empty());
-    }
-
-    /**
-     * Verify a session
-     * 
-     * <p>Returns the session if it is authenticated, otherwise returns an error.
-     * WARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,
-     *          which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).
-     *          For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).
-     * 
-     * @param sessionId The ID of the session
-     * @param requestBody Parameters.
-     * @param options additional options
-     * @return The response from the API call
-     * @throws Exception if the API call fails
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    @Deprecated
-    public VerifySessionResponse verify(
-            String sessionId,
-            Optional<? extends VerifySessionRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
-        VerifySessionRequest request =
-            VerifySessionRequest
-                .builder()
-                .sessionId(sessionId)
-                .requestBody(requestBody)
-                .build();
-        RequestOperation<VerifySessionRequest, VerifySessionResponse> operation
-              = new VerifySessionOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSession.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -419,8 +327,7 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public CreateSessionTokenResponse createToken(
-            String sessionId,
-            Optional<? extends CreateSessionTokenRequestBody> requestBody,
+            String sessionId, Optional<? extends CreateSessionTokenRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         CreateSessionTokenRequest request =
             CreateSessionTokenRequest
@@ -429,9 +336,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenRequest, CreateSessionTokenResponse> operation
-              = new CreateSessionTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionToken.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -456,9 +361,7 @@ public class Sessions {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
-            String sessionId,
-            String templateName) throws Exception {
+    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(String sessionId, String templateName) throws Exception {
         return createTokenFromTemplate(sessionId, templateName, Optional.empty(),
             Optional.empty());
     }
@@ -476,10 +379,8 @@ public class Sessions {
      * @throws Exception if the API call fails
      */
     public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
-            String sessionId,
-            String templateName,
-            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            String sessionId, String templateName,
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
         CreateSessionTokenFromTemplateRequest request =
             CreateSessionTokenFromTemplateRequest
                 .builder()
@@ -488,9 +389,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
-              = new CreateSessionTokenFromTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenFromTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

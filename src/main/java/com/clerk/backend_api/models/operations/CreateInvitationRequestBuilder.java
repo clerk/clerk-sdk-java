@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateInvitationOperation;
+import com.clerk.backend_api.operations.CreateInvitation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateInvitationRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
-              = new CreateInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateInvitation.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

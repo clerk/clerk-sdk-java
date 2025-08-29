@@ -11,12 +11,11 @@ import com.clerk.backend_api.models.operations.DeleteSvixAppRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteSvixAppResponse;
 import com.clerk.backend_api.models.operations.GenerateSvixAuthURLRequestBuilder;
 import com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse;
-import com.clerk.backend_api.operations.CreateSvixAppOperation;
-import com.clerk.backend_api.operations.DeleteSvixAppOperation;
-import com.clerk.backend_api.operations.GenerateSvixAuthURLOperation;
+import com.clerk.backend_api.operations.CreateSvixApp;
+import com.clerk.backend_api.operations.DeleteSvixApp;
+import com.clerk.backend_api.operations.GenerateSvixAuthURL;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class Webhooks {
     Webhooks(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a Svix app
      * 
@@ -60,9 +60,7 @@ public class Webhooks {
      */
     public CreateSvixAppResponse createSvixApp(Optional<Options> options) throws Exception {
         RequestlessOperation<CreateSvixAppResponse> operation
-            = new CreateSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new CreateSvixApp.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -100,9 +98,7 @@ public class Webhooks {
      */
     public DeleteSvixAppResponse deleteSvixApp(Optional<Options> options) throws Exception {
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixAppOperation(
-                sdkConfiguration,
-                options);
+            = new DeleteSvixApp.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -140,9 +136,7 @@ public class Webhooks {
      */
     public GenerateSvixAuthURLResponse generateSvixAuthURL(Optional<Options> options) throws Exception {
         RequestlessOperation<GenerateSvixAuthURLResponse> operation
-            = new GenerateSvixAuthURLOperation(
-                sdkConfiguration,
-                options);
+            = new GenerateSvixAuthURL.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 

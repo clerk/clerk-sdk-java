@@ -22,6 +22,7 @@ different organization as active before then.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateOrganizationMembership" method="post" path="/organizations/{organization_id}/memberships" -->
 ```java
 package hello.world;
 
@@ -78,6 +79,7 @@ Retrieves all user memberships for the given organization
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListOrganizationMemberships" method="get" path="/organizations/{organization_id}/memberships" -->
 ```java
 package hello.world;
 
@@ -137,6 +139,7 @@ Updates the properties of an existing organization membership
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateOrganizationMembership" method="patch" path="/organizations/{organization_id}/memberships/{user_id}" -->
 ```java
 package hello.world;
 
@@ -173,7 +176,7 @@ public class Application {
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization the membership belongs to                                                          |
+| `organizationId`                                                                                              | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the organization to which the membership belongs                                                    |
 | `userId`                                                                                                      | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the user that this membership belongs to                                                            |
 | `requestBody`                                                                                                 | [UpdateOrganizationMembershipRequestBody](../../models/operations/UpdateOrganizationMembershipRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
@@ -194,6 +197,7 @@ Removes the given membership from the organization
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteOrganizationMembership" method="delete" path="/organizations/{organization_id}/memberships/{user_id}" -->
 ```java
 package hello.world;
 
@@ -224,10 +228,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                            | Type                                                 | Required                                             | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `organizationId`                                     | *String*                                             | :heavy_check_mark:                                   | The ID of the organization the membership belongs to |
-| `userId`                                             | *String*                                             | :heavy_check_mark:                                   | The ID of the user that this membership belongs to   |
+| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `organizationId`                                           | *String*                                                   | :heavy_check_mark:                                         | The ID of the organization to which the membership belongs |
+| `userId`                                                   | *String*                                                   | :heavy_check_mark:                                         | The ID of the user that this membership belongs to         |
 
 ### Response
 
@@ -237,7 +241,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 401, 404                  | application/json          |
+| models/errors/ClerkErrors | 401, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## updateMetadata
@@ -248,6 +252,7 @@ You can remove metadata keys at any level by setting their value to `null`.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateOrganizationMembershipMetadata" method="patch" path="/organizations/{organization_id}/memberships/{user_id}/metadata" -->
 ```java
 package hello.world;
 
@@ -280,7 +285,7 @@ public class Application {
 
 | Parameter                                                                                                                                | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                         | *String*                                                                                                                                 | :heavy_check_mark:                                                                                                                       | The ID of the organization the membership belongs to                                                                                     |
+| `organizationId`                                                                                                                         | *String*                                                                                                                                 | :heavy_check_mark:                                                                                                                       | The ID of the organization to which the membership belongs                                                                               |
 | `userId`                                                                                                                                 | *String*                                                                                                                                 | :heavy_check_mark:                                                                                                                       | The ID of the user that this membership belongs to                                                                                       |
 | `requestBody`                                                                                                                            | [Optional\<UpdateOrganizationMembershipMetadataRequestBody>](../../models/operations/UpdateOrganizationMembershipMetadataRequestBody.md) | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |
 

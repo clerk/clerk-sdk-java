@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetJWKSOperation;
+import com.clerk.backend_api.operations.GetJWKS;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -40,9 +40,7 @@ public class GetJWKSRequestBuilder {
             .build());
 
         RequestlessOperation<GetJWKSResponse> operation
-            = new GetJWKSOperation(
-                sdkConfiguration,
-                options);
+            = new GetJWKS.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

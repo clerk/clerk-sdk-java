@@ -15,6 +15,7 @@ Updates the existing template of the given type and slug
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpsertTemplate" method="put" path="/templates/{template_type}/{slug}" -->
 ```java
 package hello.world;
 

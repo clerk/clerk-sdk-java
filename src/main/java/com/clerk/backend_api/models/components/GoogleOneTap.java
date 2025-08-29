@@ -17,14 +17,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class GoogleOneTap {
+public class GoogleOneTap implements ExternalAccountWithVerificationVerification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationGoogleOneTapVerificationObject> object;
+
 
     @JsonProperty("status")
-    private GoogleOneTapVerificationStatus status;
+    private VerificationGoogleOneTapVerificationStatus status;
 
 
     @JsonProperty("strategy")
-    private GoogleOneTapVerificationStrategy strategy;
+    private VerificationGoogleOneTapVerificationStrategy strategy;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -44,22 +49,25 @@ public class GoogleOneTap {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
-    private JsonNullable<? extends GoogleOneTapVerificationError> error;
+    private JsonNullable<? extends VerificationGoogleOneTapVerificationError> error;
 
     @JsonCreator
     public GoogleOneTap(
-            @JsonProperty("status") GoogleOneTapVerificationStatus status,
-            @JsonProperty("strategy") GoogleOneTapVerificationStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationGoogleOneTapVerificationObject> object,
+            @JsonProperty("status") VerificationGoogleOneTapVerificationStatus status,
+            @JsonProperty("strategy") VerificationGoogleOneTapVerificationStrategy strategy,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient,
-            @JsonProperty("error") JsonNullable<? extends GoogleOneTapVerificationError> error) {
+            @JsonProperty("error") JsonNullable<? extends VerificationGoogleOneTapVerificationError> error) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         Utils.checkNotNull(error, "error");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.expireAt = expireAt;
@@ -69,19 +77,26 @@ public class GoogleOneTap {
     }
     
     public GoogleOneTap(
-            GoogleOneTapVerificationStatus status,
-            GoogleOneTapVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+            VerificationGoogleOneTapVerificationStatus status,
+            VerificationGoogleOneTapVerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public GoogleOneTapVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationGoogleOneTapVerificationStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public GoogleOneTapVerificationStrategy strategy() {
+    public VerificationGoogleOneTapVerificationStrategy strategy() {
         return strategy;
     }
 
@@ -102,8 +117,8 @@ public class GoogleOneTap {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<GoogleOneTapVerificationError> error() {
-        return (JsonNullable<GoogleOneTapVerificationError>) error;
+    public JsonNullable<VerificationGoogleOneTapVerificationError> error() {
+        return (JsonNullable<VerificationGoogleOneTapVerificationError>) error;
     }
 
     public static Builder builder() {
@@ -111,13 +126,26 @@ public class GoogleOneTap {
     }
 
 
-    public GoogleOneTap withStatus(GoogleOneTapVerificationStatus status) {
+    public GoogleOneTap withObject(VerificationGoogleOneTapVerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public GoogleOneTap withObject(Optional<? extends VerificationGoogleOneTapVerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public GoogleOneTap withStatus(VerificationGoogleOneTapVerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public GoogleOneTap withStrategy(GoogleOneTapVerificationStrategy strategy) {
+    public GoogleOneTap withStrategy(VerificationGoogleOneTapVerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -161,13 +189,13 @@ public class GoogleOneTap {
         return this;
     }
 
-    public GoogleOneTap withError(GoogleOneTapVerificationError error) {
+    public GoogleOneTap withError(VerificationGoogleOneTapVerificationError error) {
         Utils.checkNotNull(error, "error");
         this.error = JsonNullable.of(error);
         return this;
     }
 
-    public GoogleOneTap withError(JsonNullable<? extends GoogleOneTapVerificationError> error) {
+    public GoogleOneTap withError(JsonNullable<? extends VerificationGoogleOneTapVerificationError> error) {
         Utils.checkNotNull(error, "error");
         this.error = error;
         return this;
@@ -183,6 +211,7 @@ public class GoogleOneTap {
         }
         GoogleOneTap other = (GoogleOneTap) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
@@ -194,13 +223,15 @@ public class GoogleOneTap {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, expireAt,
-            attempts, verifiedAtClient, error);
+            object, status, strategy,
+            expireAt, attempts, verifiedAtClient,
+            error);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GoogleOneTap.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "expireAt", expireAt,
@@ -212,9 +243,11 @@ public class GoogleOneTap {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private GoogleOneTapVerificationStatus status;
+        private Optional<? extends VerificationGoogleOneTapVerificationObject> object = Optional.empty();
 
-        private GoogleOneTapVerificationStrategy strategy;
+        private VerificationGoogleOneTapVerificationStatus status;
+
+        private VerificationGoogleOneTapVerificationStrategy strategy;
 
         private Optional<Long> expireAt = Optional.empty();
 
@@ -222,21 +255,34 @@ public class GoogleOneTap {
 
         private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
 
-        private JsonNullable<? extends GoogleOneTapVerificationError> error = JsonNullable.undefined();
+        private JsonNullable<? extends VerificationGoogleOneTapVerificationError> error = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        public Builder status(GoogleOneTapVerificationStatus status) {
+        public Builder object(VerificationGoogleOneTapVerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationGoogleOneTapVerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationGoogleOneTapVerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(GoogleOneTapVerificationStrategy strategy) {
+        public Builder strategy(VerificationGoogleOneTapVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -282,13 +328,13 @@ public class GoogleOneTap {
         }
 
 
-        public Builder error(GoogleOneTapVerificationError error) {
+        public Builder error(VerificationGoogleOneTapVerificationError error) {
             Utils.checkNotNull(error, "error");
             this.error = JsonNullable.of(error);
             return this;
         }
 
-        public Builder error(JsonNullable<? extends GoogleOneTapVerificationError> error) {
+        public Builder error(JsonNullable<? extends VerificationGoogleOneTapVerificationError> error) {
             Utils.checkNotNull(error, "error");
             this.error = error;
             return this;
@@ -297,8 +343,9 @@ public class GoogleOneTap {
         public GoogleOneTap build() {
 
             return new GoogleOneTap(
-                status, strategy, expireAt,
-                attempts, verifiedAtClient, error);
+                object, status, strategy,
+                expireAt, attempts, verifiedAtClient,
+                error);
         }
 
     }

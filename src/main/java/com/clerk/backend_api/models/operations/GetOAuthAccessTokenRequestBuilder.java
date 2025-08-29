@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetOAuthAccessTokenOperation;
+import com.clerk.backend_api.operations.GetOAuthAccessToken;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -47,9 +47,7 @@ public class GetOAuthAccessTokenRequestBuilder {
             .build());
 
         RequestOperation<GetOAuthAccessTokenRequest, GetOAuthAccessTokenResponse> operation
-              = new GetOAuthAccessTokenOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthAccessToken.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

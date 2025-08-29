@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetRedirectURLOperation;
+import com.clerk.backend_api.operations.GetRedirectURL;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class GetRedirectURLRequestBuilder {
             .build());
 
         RequestOperation<GetRedirectURLRequest, GetRedirectURLResponse> operation
-              = new GetRedirectURLOperation(
-                sdkConfiguration,
-                options);
+              = new GetRedirectURL.Sync(sdkConfiguration, options);
         GetRedirectURLRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

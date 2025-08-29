@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteEmailAddressOperation;
+import com.clerk.backend_api.operations.DeleteEmailAddress;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteEmailAddressRequestBuilder {
             .build());
 
         RequestOperation<DeleteEmailAddressRequest, DeleteEmailAddressResponse> operation
-              = new DeleteEmailAddressOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteEmailAddress.Sync(sdkConfiguration, options);
         DeleteEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

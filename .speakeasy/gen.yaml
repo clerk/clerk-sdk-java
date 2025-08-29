@@ -21,7 +21,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 3.1.0
+  version: 3.2.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -31,6 +31,7 @@ java:
   companyName: My Company
   companyURL: www.mycompany.com
   defaultErrorName: SDKError
+  enableAsync: false
   enableCustomCodeRegions: false
   flattenGlobalSecurity: true
   githubURL: github.com/owner/repo

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DisableMFAOperation;
+import com.clerk.backend_api.operations.DisableMFA;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DisableMFARequestBuilder {
             .build());
 
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFAOperation(
-                sdkConfiguration,
-                options);
+              = new DisableMFA.Sync(sdkConfiguration, options);
         DisableMFARequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

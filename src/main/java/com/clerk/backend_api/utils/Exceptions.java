@@ -9,6 +9,14 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 public class Exceptions {
+    public static Exception coerceException(Throwable throwable) {
+        if (throwable instanceof Exception) {
+            return (Exception) throwable;
+        }
+
+        return new Exception(throwable);
+    }
+
     public static RuntimeException unchecked(Throwable t) {
         if (t instanceof RuntimeException) {
             return (RuntimeException) t;

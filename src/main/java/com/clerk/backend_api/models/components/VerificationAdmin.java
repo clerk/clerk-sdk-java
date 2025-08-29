@@ -16,14 +16,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class VerificationAdmin {
+public class VerificationAdmin implements PhoneNumberVerification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationAdminVerificationPhoneNumberObject> object;
+
 
     @JsonProperty("status")
-    private AdminVerificationPhoneNumberStatus status;
+    private VerificationAdminVerificationPhoneNumberStatus status;
 
 
     @JsonProperty("strategy")
-    private AdminVerificationStrategy strategy;
+    private VerificationAdminVerificationStrategy strategy;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -42,16 +47,19 @@ public class VerificationAdmin {
 
     @JsonCreator
     public VerificationAdmin(
-            @JsonProperty("status") AdminVerificationPhoneNumberStatus status,
-            @JsonProperty("strategy") AdminVerificationStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationAdminVerificationPhoneNumberObject> object,
+            @JsonProperty("status") VerificationAdminVerificationPhoneNumberStatus status,
+            @JsonProperty("strategy") VerificationAdminVerificationStrategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
@@ -60,19 +68,25 @@ public class VerificationAdmin {
     }
     
     public VerificationAdmin(
-            AdminVerificationPhoneNumberStatus status,
-            AdminVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+            VerificationAdminVerificationPhoneNumberStatus status,
+            VerificationAdminVerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public AdminVerificationPhoneNumberStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationAdminVerificationPhoneNumberStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public AdminVerificationStrategy strategy() {
+    public VerificationAdminVerificationStrategy strategy() {
         return strategy;
     }
 
@@ -96,13 +110,26 @@ public class VerificationAdmin {
     }
 
 
-    public VerificationAdmin withStatus(AdminVerificationPhoneNumberStatus status) {
+    public VerificationAdmin withObject(VerificationAdminVerificationPhoneNumberObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public VerificationAdmin withObject(Optional<? extends VerificationAdminVerificationPhoneNumberObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public VerificationAdmin withStatus(VerificationAdminVerificationPhoneNumberStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public VerificationAdmin withStrategy(AdminVerificationStrategy strategy) {
+    public VerificationAdmin withStrategy(VerificationAdminVerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -156,6 +183,7 @@ public class VerificationAdmin {
         }
         VerificationAdmin other = (VerificationAdmin) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
@@ -166,13 +194,14 @@ public class VerificationAdmin {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, attempts,
-            expireAt, verifiedAtClient);
+            object, status, strategy,
+            attempts, expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(VerificationAdmin.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
@@ -183,9 +212,11 @@ public class VerificationAdmin {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private AdminVerificationPhoneNumberStatus status;
+        private Optional<? extends VerificationAdminVerificationPhoneNumberObject> object = Optional.empty();
 
-        private AdminVerificationStrategy strategy;
+        private VerificationAdminVerificationPhoneNumberStatus status;
+
+        private VerificationAdminVerificationStrategy strategy;
 
         private Optional<Long> attempts = Optional.empty();
 
@@ -198,14 +229,27 @@ public class VerificationAdmin {
         }
 
 
-        public Builder status(AdminVerificationPhoneNumberStatus status) {
+        public Builder object(VerificationAdminVerificationPhoneNumberObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationAdminVerificationPhoneNumberObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationAdminVerificationPhoneNumberStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(AdminVerificationStrategy strategy) {
+        public Builder strategy(VerificationAdminVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -253,8 +297,8 @@ public class VerificationAdmin {
         public VerificationAdmin build() {
 
             return new VerificationAdmin(
-                status, strategy, attempts,
-                expireAt, verifiedAtClient);
+                object, status, strategy,
+                attempts, expireAt, verifiedAtClient);
         }
 
     }

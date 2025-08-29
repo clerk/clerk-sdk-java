@@ -17,6 +17,7 @@ Fetches the current instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetInstance" method="get" path="/instance" -->
 ```java
 package hello.world;
 
@@ -58,6 +59,7 @@ Updates the settings of an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateInstance" method="patch" path="/instance" -->
 ```java
 package hello.world;
 
@@ -105,6 +107,7 @@ Updates the restriction settings of an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateInstanceRestrictions" method="patch" path="/instance/restrictions" -->
 ```java
 package hello.world;
 
@@ -152,12 +155,13 @@ public class Application {
 
 Change the domain of a production instance.
 
-Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
 
 WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ChangeProductionInstanceDomain" method="post" path="/instance/change_domain" -->
 ```java
 package hello.world;
 
@@ -205,6 +209,7 @@ Updates the organization settings of the instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateInstanceOrganizationSettings" method="patch" path="/instance/organization_settings" -->
 ```java
 package hello.world;
 

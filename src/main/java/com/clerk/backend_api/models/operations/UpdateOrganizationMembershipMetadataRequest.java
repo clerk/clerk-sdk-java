@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class UpdateOrganizationMembershipMetadataRequest {
     /**
-     * The ID of the organization the membership belongs to
+     * The ID of the organization to which the membership belongs
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
@@ -50,7 +50,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
     }
 
     /**
-     * The ID of the organization the membership belongs to
+     * The ID of the organization to which the membership belongs
      */
     @JsonIgnore
     public String organizationId() {
@@ -77,7 +77,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
 
 
     /**
-     * The ID of the organization the membership belongs to
+     * The ID of the organization to which the membership belongs
      */
     public UpdateOrganizationMembershipMetadataRequest withOrganizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -151,7 +151,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
 
 
         /**
-         * The ID of the organization the membership belongs to
+         * The ID of the organization to which the membership belongs
          */
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");

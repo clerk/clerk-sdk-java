@@ -23,15 +23,14 @@ import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipReque
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOrganizationMembershipResponse;
-import com.clerk.backend_api.operations.CreateOrganizationMembershipOperation;
-import com.clerk.backend_api.operations.DeleteOrganizationMembershipOperation;
-import com.clerk.backend_api.operations.ListOrganizationMembershipsOperation;
-import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadataOperation;
-import com.clerk.backend_api.operations.UpdateOrganizationMembershipOperation;
+import com.clerk.backend_api.operations.CreateOrganizationMembership;
+import com.clerk.backend_api.operations.DeleteOrganizationMembership;
+import com.clerk.backend_api.operations.ListOrganizationMemberships;
+import com.clerk.backend_api.operations.UpdateOrganizationMembership;
+import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadata;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -41,6 +40,7 @@ public class OrganizationMemberships {
     OrganizationMemberships(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a new organization membership
      * 
@@ -72,9 +72,7 @@ public class OrganizationMemberships {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationMembershipResponse create(
-            String organizationId,
-            CreateOrganizationMembershipRequestBody requestBody) throws Exception {
+    public CreateOrganizationMembershipResponse create(String organizationId, CreateOrganizationMembershipRequestBody requestBody) throws Exception {
         return create(organizationId, requestBody, Optional.empty());
     }
 
@@ -95,8 +93,7 @@ public class OrganizationMemberships {
      * @throws Exception if the API call fails
      */
     public CreateOrganizationMembershipResponse create(
-            String organizationId,
-            CreateOrganizationMembershipRequestBody requestBody,
+            String organizationId, CreateOrganizationMembershipRequestBody requestBody,
             Optional<Options> options) throws Exception {
         CreateOrganizationMembershipRequest request =
             CreateOrganizationMembershipRequest
@@ -105,9 +102,7 @@ public class OrganizationMemberships {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationMembershipRequest, CreateOrganizationMembershipResponse> operation
-              = new CreateOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationMembership.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -145,13 +140,9 @@ public class OrganizationMemberships {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationMembershipsResponse list(
-            ListOrganizationMembershipsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListOrganizationMembershipsResponse list(ListOrganizationMembershipsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListOrganizationMembershipsRequest, ListOrganizationMembershipsResponse> operation
-              = new ListOrganizationMembershipsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationMemberships.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -171,15 +162,14 @@ public class OrganizationMemberships {
      * 
      * <p>Updates the properties of an existing organization membership
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @param requestBody 
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationMembershipResponse update(
-            String organizationId,
-            String userId,
+            String organizationId, String userId,
             UpdateOrganizationMembershipRequestBody requestBody) throws Exception {
         return update(organizationId, userId, requestBody,
             Optional.empty());
@@ -190,7 +180,7 @@ public class OrganizationMemberships {
      * 
      * <p>Updates the properties of an existing organization membership
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @param requestBody 
      * @param options additional options
@@ -198,10 +188,8 @@ public class OrganizationMemberships {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationMembershipResponse update(
-            String organizationId,
-            String userId,
-            UpdateOrganizationMembershipRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            String organizationId, String userId,
+            UpdateOrganizationMembershipRequestBody requestBody, Optional<Options> options) throws Exception {
         UpdateOrganizationMembershipRequest request =
             UpdateOrganizationMembershipRequest
                 .builder()
@@ -210,9 +198,7 @@ public class OrganizationMemberships {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationMembershipRequest, UpdateOrganizationMembershipResponse> operation
-              = new UpdateOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationMembership.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -232,14 +218,12 @@ public class OrganizationMemberships {
      * 
      * <p>Removes the given membership from the organization
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOrganizationMembershipResponse delete(
-            String organizationId,
-            String userId) throws Exception {
+    public DeleteOrganizationMembershipResponse delete(String organizationId, String userId) throws Exception {
         return delete(organizationId, userId, Optional.empty());
     }
 
@@ -248,15 +232,14 @@ public class OrganizationMemberships {
      * 
      * <p>Removes the given membership from the organization
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public DeleteOrganizationMembershipResponse delete(
-            String organizationId,
-            String userId,
+            String organizationId, String userId,
             Optional<Options> options) throws Exception {
         DeleteOrganizationMembershipRequest request =
             DeleteOrganizationMembershipRequest
@@ -265,9 +248,7 @@ public class OrganizationMemberships {
                 .userId(userId)
                 .build();
         RequestOperation<DeleteOrganizationMembershipRequest, DeleteOrganizationMembershipResponse> operation
-              = new DeleteOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationMembership.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -291,14 +272,12 @@ public class OrganizationMemberships {
      * Metadata values will be updated via a deep merge. Deep means that any nested JSON objects will be merged as well.
      * You can remove metadata keys at any level by setting their value to `null`.
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateOrganizationMembershipMetadataResponse updateMetadata(
-            String organizationId,
-            String userId) throws Exception {
+    public UpdateOrganizationMembershipMetadataResponse updateMetadata(String organizationId, String userId) throws Exception {
         return updateMetadata(organizationId, userId, Optional.empty(),
             Optional.empty());
     }
@@ -310,7 +289,7 @@ public class OrganizationMemberships {
      * Metadata values will be updated via a deep merge. Deep means that any nested JSON objects will be merged as well.
      * You can remove metadata keys at any level by setting their value to `null`.
      * 
-     * @param organizationId The ID of the organization the membership belongs to
+     * @param organizationId The ID of the organization to which the membership belongs
      * @param userId The ID of the user that this membership belongs to
      * @param requestBody 
      * @param options additional options
@@ -318,10 +297,8 @@ public class OrganizationMemberships {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationMembershipMetadataResponse updateMetadata(
-            String organizationId,
-            String userId,
-            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            String organizationId, String userId,
+            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody, Optional<Options> options) throws Exception {
         UpdateOrganizationMembershipMetadataRequest request =
             UpdateOrganizationMembershipMetadataRequest
                 .builder()
@@ -330,9 +307,7 @@ public class OrganizationMemberships {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationMembershipMetadataRequest, UpdateOrganizationMembershipMetadataResponse> operation
-              = new UpdateOrganizationMembershipMetadataOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationMembershipMetadata.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

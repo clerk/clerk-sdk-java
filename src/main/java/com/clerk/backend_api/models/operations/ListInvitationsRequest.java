@@ -31,11 +31,12 @@ public class ListInvitationsRequest {
     private Optional<String> query;
 
     /**
-     * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+     * Allows to return invitations in a particular order.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
     private Optional<String> orderBy;
@@ -108,11 +109,12 @@ public class ListInvitationsRequest {
     }
 
     /**
-     * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+     * Allows to return invitations in a particular order.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
      */
     @JsonIgnore
     public Optional<String> orderBy() {
@@ -192,11 +194,12 @@ public class ListInvitationsRequest {
     }
 
     /**
-     * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+     * Allows to return invitations in a particular order.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
      */
     public ListInvitationsRequest withOrderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -206,11 +209,12 @@ public class ListInvitationsRequest {
 
 
     /**
-     * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+     * Allows to return invitations in a particular order.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
      */
     public ListInvitationsRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -328,7 +332,7 @@ public class ListInvitationsRequest {
 
         private Optional<String> query = Optional.empty();
 
-        private Optional<String> orderBy = Optional.empty();
+        private Optional<String> orderBy;
 
         private Optional<Boolean> paginated = Optional.empty();
 
@@ -380,11 +384,12 @@ public class ListInvitationsRequest {
 
 
         /**
-         * Allows to return organizations in a particular order.
-         * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+         * Allows to return invitations in a particular order.
+         * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
          * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
+         * Defaults to `-created_at`.
          */
         public Builder orderBy(String orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -393,11 +398,12 @@ public class ListInvitationsRequest {
         }
 
         /**
-         * Allows to return organizations in a particular order.
-         * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
+         * Allows to return invitations in a particular order.
+         * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
          * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
+         * Defaults to `-created_at`.
          */
         public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -473,6 +479,9 @@ public class ListInvitationsRequest {
         }
 
         public ListInvitationsRequest build() {
+            if (orderBy == null) {
+                orderBy = _SINGLETON_VALUE_OrderBy.value();
+            }
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
             }
@@ -485,6 +494,12 @@ public class ListInvitationsRequest {
                 paginated, limit, offset);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
+                new LazySingletonValue<>(
+                        "order_by",
+                        "\"-created_at\"",
+                        new TypeReference<Optional<String>>() {});
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

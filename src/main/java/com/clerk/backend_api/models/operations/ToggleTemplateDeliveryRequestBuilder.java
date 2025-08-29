@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ToggleTemplateDeliveryOperation;
+import com.clerk.backend_api.operations.ToggleTemplateDelivery;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -78,9 +78,7 @@ public class ToggleTemplateDeliveryRequestBuilder {
             .build());
 
         RequestOperation<ToggleTemplateDeliveryRequest, ToggleTemplateDeliveryResponse> operation
-              = new ToggleTemplateDeliveryOperation(
-                sdkConfiguration,
-                options);
+              = new ToggleTemplateDelivery.Sync(sdkConfiguration, options);
         ToggleTemplateDeliveryRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

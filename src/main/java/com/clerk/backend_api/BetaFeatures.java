@@ -11,12 +11,11 @@ import com.clerk.backend_api.models.operations.UpdateInstanceAuthConfigResponse;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse;
-import com.clerk.backend_api.operations.UpdateInstanceAuthConfigOperation;
-import com.clerk.backend_api.operations.UpdateProductionInstanceDomainOperation;
+import com.clerk.backend_api.operations.UpdateInstanceAuthConfig;
+import com.clerk.backend_api.operations.UpdateProductionInstanceDomain;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class BetaFeatures {
     BetaFeatures(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Update instance settings
      * 
@@ -59,13 +59,9 @@ public class BetaFeatures {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateInstanceAuthConfigResponse updateInstanceSettings(
-            Optional<? extends UpdateInstanceAuthConfigRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateInstanceAuthConfigResponse updateInstanceSettings(Optional<? extends UpdateInstanceAuthConfigRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateInstanceAuthConfigRequestBody>, UpdateInstanceAuthConfigResponse> operation
-              = new UpdateInstanceAuthConfigOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateInstanceAuthConfig.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -74,7 +70,7 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -91,7 +87,7 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -109,7 +105,7 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
@@ -120,13 +116,9 @@ public class BetaFeatures {
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(
-            Optional<? extends UpdateProductionInstanceDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(Optional<? extends UpdateProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
-              = new UpdateProductionInstanceDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateProductionInstanceDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

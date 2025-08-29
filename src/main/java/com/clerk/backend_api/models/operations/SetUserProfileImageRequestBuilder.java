@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.SetUserProfileImageOperation;
+import com.clerk.backend_api.operations.SetUserProfileImage;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class SetUserProfileImageRequestBuilder {
             .build());
 
         RequestOperation<SetUserProfileImageRequest, SetUserProfileImageResponse> operation
-              = new SetUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new SetUserProfileImage.Sync(sdkConfiguration, options);
         SetUserProfileImageRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

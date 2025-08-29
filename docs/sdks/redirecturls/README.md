@@ -16,6 +16,7 @@ Lists all whitelisted redirect_urls for the instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListRedirectURLs" method="get" path="/redirect_urls" -->
 ```java
 package hello.world;
 
@@ -67,6 +68,7 @@ Create a redirect URL
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateRedirectURL" method="post" path="/redirect_urls" -->
 ```java
 package hello.world;
 
@@ -116,6 +118,7 @@ Retrieve the details of the redirect URL with the given ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetRedirectURL" method="get" path="/redirect_urls/{id}" -->
 ```java
 package hello.world;
 
@@ -166,6 +169,7 @@ Remove the selected redirect URL from the whitelist of the instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteRedirectURL" method="delete" path="/redirect_urls/{id}" -->
 ```java
 package hello.world;
 

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetInstanceOperation;
+import com.clerk.backend_api.operations.GetInstance;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -40,9 +40,7 @@ public class GetInstanceRequestBuilder {
             .build());
 
         RequestlessOperation<GetInstanceResponse> operation
-            = new GetInstanceOperation(
-                sdkConfiguration,
-                options);
+            = new GetInstance.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateJWTTemplateOperation;
+import com.clerk.backend_api.operations.CreateJWTTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateJWTTemplateRequestBody>, CreateJWTTemplateResponse> operation
-              = new CreateJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateJWTTemplate.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

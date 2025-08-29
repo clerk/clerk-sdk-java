@@ -24,6 +24,7 @@ The organization invitations are ordered by descending creation date by default.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListInstanceOrganizationInvitations" method="get" path="/organization_invitations" -->
 ```java
 package hello.world;
 
@@ -94,6 +95,7 @@ When the organization invitation is accepted, the metadata will be transferred t
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateOrganizationInvitation" method="post" path="/organizations/{organization_id}/invitations" -->
 ```java
 package hello.world;
 
@@ -150,11 +152,13 @@ Any invitations created as a result of an Organization Domain are not included i
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListOrganizationInvitations" method="get" path="/organizations/{organization_id}/invitations" -->
 ```java
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse;
 import java.lang.Exception;
 
@@ -166,10 +170,12 @@ public class Application {
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
 
-        ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
+        ListOrganizationInvitationsRequest req = ListOrganizationInvitationsRequest.builder()
                 .organizationId("<id>")
-                .limit(10L)
-                .offset(0L)
+                .build();
+
+        ListOrganizationInvitationsResponse res = sdk.organizationInvitations().list()
+                .request(req)
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
@@ -181,12 +187,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                                                          | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The organization ID.                                                                                                                      |
-| `status`                                                                                                                                  | [Optional\<ListOrganizationInvitationsQueryParamStatus>](../../models/operations/ListOrganizationInvitationsQueryParamStatus.md)          | :heavy_minus_sign:                                                                                                                        | Filter organization invitations based on their status                                                                                     |
-| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
-| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `request`                                                                                           | [ListOrganizationInvitationsRequest](../../models/operations/ListOrganizationInvitationsRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
@@ -196,7 +199,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 404                  | application/json          |
+| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## bulkCreate
@@ -217,6 +220,7 @@ When the organization invitation is accepted, the metadata will be transferred t
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateOrganizationInvitationBulk" method="post" path="/organizations/{organization_id}/invitations/bulk" -->
 ```java
 package hello.world;
 
@@ -282,6 +286,7 @@ Any invitations created as a result of an Organization Domain are not included i
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListPendingOrganizationInvitations" method="get" path="/organizations/{organization_id}/invitations/pending" -->
 ```java
 package hello.world;
 
@@ -336,6 +341,7 @@ Use this request to get an existing organization invitation by ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetOrganizationInvitation" method="get" path="/organizations/{organization_id}/invitations/{invitation_id}" -->
 ```java
 package hello.world;
 
@@ -392,6 +398,7 @@ Only users with "admin" role can revoke invitations.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RevokeOrganizationInvitation" method="post" path="/organizations/{organization_id}/invitations/{invitation_id}/revoke" -->
 ```java
 package hello.world;
 

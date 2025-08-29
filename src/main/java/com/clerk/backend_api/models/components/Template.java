@@ -37,7 +37,7 @@ public class Template {
     private Optional<? extends TemplateObject> object;
 
     /**
-     * the id of the instance the template belongs to
+     * The id of the instance to which this template belongs
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
@@ -91,6 +91,13 @@ public class Template {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("can_delete")
     private Optional<Boolean> canDelete;
+
+    /**
+     * whether the body of this template can be edited
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("can_edit_body")
+    private Optional<Boolean> canEditBody;
 
     /**
      * whether this template can be enabled or disabled, true only for notification SMS templates
@@ -154,6 +161,11 @@ public class Template {
     @JsonProperty("enabled")
     private Optional<Boolean> enabled;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("flagged_as_suspicious")
+    private Optional<Boolean> flaggedAsSuspicious;
+
     /**
      * Unix timestamp of last update.
      */
@@ -180,6 +192,7 @@ public class Template {
             @JsonProperty("position") Optional<Long> position,
             @JsonProperty("can_revert") Optional<Boolean> canRevert,
             @JsonProperty("can_delete") Optional<Boolean> canDelete,
+            @JsonProperty("can_edit_body") Optional<Boolean> canEditBody,
             @JsonProperty("can_toggle") Optional<Boolean> canToggle,
             @JsonProperty("subject") JsonNullable<String> subject,
             @JsonProperty("markup") Optional<String> markup,
@@ -190,6 +203,7 @@ public class Template {
             @JsonProperty("reply_to_email_name") Optional<String> replyToEmailName,
             @JsonProperty("delivered_by_clerk") Optional<Boolean> deliveredByClerk,
             @JsonProperty("enabled") Optional<Boolean> enabled,
+            @JsonProperty("flagged_as_suspicious") Optional<Boolean> flaggedAsSuspicious,
             @JsonProperty("updated_at") Optional<Long> updatedAt,
             @JsonProperty("created_at") Optional<Long> createdAt) {
         Utils.checkNotNull(id, "id");
@@ -202,6 +216,7 @@ public class Template {
         Utils.checkNotNull(position, "position");
         Utils.checkNotNull(canRevert, "canRevert");
         Utils.checkNotNull(canDelete, "canDelete");
+        Utils.checkNotNull(canEditBody, "canEditBody");
         Utils.checkNotNull(canToggle, "canToggle");
         Utils.checkNotNull(subject, "subject");
         Utils.checkNotNull(markup, "markup");
@@ -212,6 +227,7 @@ public class Template {
         Utils.checkNotNull(replyToEmailName, "replyToEmailName");
         Utils.checkNotNull(deliveredByClerk, "deliveredByClerk");
         Utils.checkNotNull(enabled, "enabled");
+        Utils.checkNotNull(flaggedAsSuspicious, "flaggedAsSuspicious");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(createdAt, "createdAt");
         this.id = id;
@@ -224,6 +240,7 @@ public class Template {
         this.position = position;
         this.canRevert = canRevert;
         this.canDelete = canDelete;
+        this.canEditBody = canEditBody;
         this.canToggle = canToggle;
         this.subject = subject;
         this.markup = markup;
@@ -234,6 +251,7 @@ public class Template {
         this.replyToEmailName = replyToEmailName;
         this.deliveredByClerk = deliveredByClerk;
         this.enabled = enabled;
+        this.flaggedAsSuspicious = flaggedAsSuspicious;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
@@ -242,11 +260,11 @@ public class Template {
         this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -264,7 +282,7 @@ public class Template {
     }
 
     /**
-     * the id of the instance the template belongs to
+     * The id of the instance to which this template belongs
      */
     @JsonIgnore
     public JsonNullable<String> instanceId() {
@@ -325,6 +343,14 @@ public class Template {
     @JsonIgnore
     public Optional<Boolean> canDelete() {
         return canDelete;
+    }
+
+    /**
+     * whether the body of this template can be edited
+     */
+    @JsonIgnore
+    public Optional<Boolean> canEditBody() {
+        return canEditBody;
     }
 
     /**
@@ -397,6 +423,11 @@ public class Template {
         return enabled;
     }
 
+    @JsonIgnore
+    public Optional<Boolean> flaggedAsSuspicious() {
+        return flaggedAsSuspicious;
+    }
+
     /**
      * Unix timestamp of last update.
      */
@@ -451,7 +482,7 @@ public class Template {
     }
 
     /**
-     * the id of the instance the template belongs to
+     * The id of the instance to which this template belongs
      */
     public Template withInstanceId(String instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -460,7 +491,7 @@ public class Template {
     }
 
     /**
-     * the id of the instance the template belongs to
+     * The id of the instance to which this template belongs
      */
     public Template withInstanceId(JsonNullable<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -598,6 +629,25 @@ public class Template {
     public Template withCanDelete(Optional<Boolean> canDelete) {
         Utils.checkNotNull(canDelete, "canDelete");
         this.canDelete = canDelete;
+        return this;
+    }
+
+    /**
+     * whether the body of this template can be edited
+     */
+    public Template withCanEditBody(boolean canEditBody) {
+        Utils.checkNotNull(canEditBody, "canEditBody");
+        this.canEditBody = Optional.ofNullable(canEditBody);
+        return this;
+    }
+
+
+    /**
+     * whether the body of this template can be edited
+     */
+    public Template withCanEditBody(Optional<Boolean> canEditBody) {
+        Utils.checkNotNull(canEditBody, "canEditBody");
+        this.canEditBody = canEditBody;
         return this;
     }
 
@@ -766,6 +816,19 @@ public class Template {
         return this;
     }
 
+    public Template withFlaggedAsSuspicious(boolean flaggedAsSuspicious) {
+        Utils.checkNotNull(flaggedAsSuspicious, "flaggedAsSuspicious");
+        this.flaggedAsSuspicious = Optional.ofNullable(flaggedAsSuspicious);
+        return this;
+    }
+
+
+    public Template withFlaggedAsSuspicious(Optional<Boolean> flaggedAsSuspicious) {
+        Utils.checkNotNull(flaggedAsSuspicious, "flaggedAsSuspicious");
+        this.flaggedAsSuspicious = flaggedAsSuspicious;
+        return this;
+    }
+
     /**
      * Unix timestamp of last update.
      */
@@ -824,6 +887,7 @@ public class Template {
             Utils.enhancedDeepEquals(this.position, other.position) &&
             Utils.enhancedDeepEquals(this.canRevert, other.canRevert) &&
             Utils.enhancedDeepEquals(this.canDelete, other.canDelete) &&
+            Utils.enhancedDeepEquals(this.canEditBody, other.canEditBody) &&
             Utils.enhancedDeepEquals(this.canToggle, other.canToggle) &&
             Utils.enhancedDeepEquals(this.subject, other.subject) &&
             Utils.enhancedDeepEquals(this.markup, other.markup) &&
@@ -834,6 +898,7 @@ public class Template {
             Utils.enhancedDeepEquals(this.replyToEmailName, other.replyToEmailName) &&
             Utils.enhancedDeepEquals(this.deliveredByClerk, other.deliveredByClerk) &&
             Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.flaggedAsSuspicious, other.flaggedAsSuspicious) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
@@ -844,11 +909,11 @@ public class Template {
             id, object, instanceId,
             resourceType, templateType, name,
             slug, position, canRevert,
-            canDelete, canToggle, subject,
-            markup, body, availableVariables,
-            requiredVariables, fromEmailName, replyToEmailName,
-            deliveredByClerk, enabled, updatedAt,
-            createdAt);
+            canDelete, canEditBody, canToggle,
+            subject, markup, body,
+            availableVariables, requiredVariables, fromEmailName,
+            replyToEmailName, deliveredByClerk, enabled,
+            flaggedAsSuspicious, updatedAt, createdAt);
     }
     
     @Override
@@ -864,6 +929,7 @@ public class Template {
                 "position", position,
                 "canRevert", canRevert,
                 "canDelete", canDelete,
+                "canEditBody", canEditBody,
                 "canToggle", canToggle,
                 "subject", subject,
                 "markup", markup,
@@ -874,6 +940,7 @@ public class Template {
                 "replyToEmailName", replyToEmailName,
                 "deliveredByClerk", deliveredByClerk,
                 "enabled", enabled,
+                "flaggedAsSuspicious", flaggedAsSuspicious,
                 "updatedAt", updatedAt,
                 "createdAt", createdAt);
     }
@@ -901,6 +968,8 @@ public class Template {
 
         private Optional<Boolean> canDelete = Optional.empty();
 
+        private Optional<Boolean> canEditBody = Optional.empty();
+
         private Optional<Boolean> canToggle = Optional.empty();
 
         private JsonNullable<String> subject = JsonNullable.undefined();
@@ -920,6 +989,8 @@ public class Template {
         private Optional<Boolean> deliveredByClerk = Optional.empty();
 
         private Optional<Boolean> enabled = Optional.empty();
+
+        private Optional<Boolean> flaggedAsSuspicious = Optional.empty();
 
         private Optional<Long> updatedAt = Optional.empty();
 
@@ -963,7 +1034,7 @@ public class Template {
 
 
         /**
-         * the id of the instance the template belongs to
+         * The id of the instance to which this template belongs
          */
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
@@ -972,7 +1043,7 @@ public class Template {
         }
 
         /**
-         * the id of the instance the template belongs to
+         * The id of the instance to which this template belongs
          */
         public Builder instanceId(JsonNullable<String> instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
@@ -1110,6 +1181,25 @@ public class Template {
         public Builder canDelete(Optional<Boolean> canDelete) {
             Utils.checkNotNull(canDelete, "canDelete");
             this.canDelete = canDelete;
+            return this;
+        }
+
+
+        /**
+         * whether the body of this template can be edited
+         */
+        public Builder canEditBody(boolean canEditBody) {
+            Utils.checkNotNull(canEditBody, "canEditBody");
+            this.canEditBody = Optional.ofNullable(canEditBody);
+            return this;
+        }
+
+        /**
+         * whether the body of this template can be edited
+         */
+        public Builder canEditBody(Optional<Boolean> canEditBody) {
+            Utils.checkNotNull(canEditBody, "canEditBody");
+            this.canEditBody = canEditBody;
             return this;
         }
 
@@ -1280,6 +1370,19 @@ public class Template {
         }
 
 
+        public Builder flaggedAsSuspicious(boolean flaggedAsSuspicious) {
+            Utils.checkNotNull(flaggedAsSuspicious, "flaggedAsSuspicious");
+            this.flaggedAsSuspicious = Optional.ofNullable(flaggedAsSuspicious);
+            return this;
+        }
+
+        public Builder flaggedAsSuspicious(Optional<Boolean> flaggedAsSuspicious) {
+            Utils.checkNotNull(flaggedAsSuspicious, "flaggedAsSuspicious");
+            this.flaggedAsSuspicious = flaggedAsSuspicious;
+            return this;
+        }
+
+
         /**
          * Unix timestamp of last update.
          */
@@ -1323,11 +1426,11 @@ public class Template {
                 id, object, instanceId,
                 resourceType, templateType, name,
                 slug, position, canRevert,
-                canDelete, canToggle, subject,
-                markup, body, availableVariables,
-                requiredVariables, fromEmailName, replyToEmailName,
-                deliveredByClerk, enabled, updatedAt,
-                createdAt);
+                canDelete, canEditBody, canToggle,
+                subject, markup, body,
+                availableVariables, requiredVariables, fromEmailName,
+                replyToEmailName, deliveredByClerk, enabled,
+                flaggedAsSuspicious, updatedAt, createdAt);
         }
 
     }

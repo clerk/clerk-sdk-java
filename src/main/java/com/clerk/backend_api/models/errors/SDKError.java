@@ -62,10 +62,12 @@ public class SDKError extends Exception {
     @Override
     public String toString() {
         return Utils.toString(SDKError.class,
-                "rawResponse", rawResponse,
+                "requestMethod", rawResponse.request().method(),
+                "requestUri", rawResponse.request().uri(),
                 "code", code,
+                "responseHeaders", rawResponse.headers().map(), 
                 "message", message,
-                "body", body);
+                "body", bodyAsString());
     }
 
     public HttpResponse<InputStream> rawResponse() {

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ListAllowlistIdentifiersOperation;
+import com.clerk.backend_api.operations.ListAllowlistIdentifiers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -105,9 +105,7 @@ public class ListAllowlistIdentifiersRequestBuilder {
             .build());
 
         RequestOperation<ListAllowlistIdentifiersRequest, ListAllowlistIdentifiersResponse> operation
-              = new ListAllowlistIdentifiersOperation(
-                sdkConfiguration,
-                options);
+              = new ListAllowlistIdentifiers.Sync(sdkConfiguration, options);
         ListAllowlistIdentifiersRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

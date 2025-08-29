@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.RevokeSessionOperation;
+import com.clerk.backend_api.operations.RevokeSession;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class RevokeSessionRequestBuilder {
             .build());
 
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
-              = new RevokeSessionOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSession.Sync(sdkConfiguration, options);
         RevokeSessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

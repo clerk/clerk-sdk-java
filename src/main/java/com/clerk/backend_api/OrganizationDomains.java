@@ -12,6 +12,9 @@ import com.clerk.backend_api.models.operations.CreateOrganizationDomainResponse;
 import com.clerk.backend_api.models.operations.DeleteOrganizationDomainRequest;
 import com.clerk.backend_api.models.operations.DeleteOrganizationDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteOrganizationDomainResponse;
+import com.clerk.backend_api.models.operations.ListAllOrganizationDomainsRequest;
+import com.clerk.backend_api.models.operations.ListAllOrganizationDomainsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListAllOrganizationDomainsResponse;
 import com.clerk.backend_api.models.operations.ListOrganizationDomainsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationDomainsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListOrganizationDomainsResponse;
@@ -19,14 +22,14 @@ import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequest;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainResponse;
-import com.clerk.backend_api.operations.CreateOrganizationDomainOperation;
-import com.clerk.backend_api.operations.DeleteOrganizationDomainOperation;
-import com.clerk.backend_api.operations.ListOrganizationDomainsOperation;
-import com.clerk.backend_api.operations.UpdateOrganizationDomainOperation;
+import com.clerk.backend_api.operations.CreateOrganizationDomain;
+import com.clerk.backend_api.operations.DeleteOrganizationDomain;
+import com.clerk.backend_api.operations.ListAllOrganizationDomains;
+import com.clerk.backend_api.operations.ListOrganizationDomains;
+import com.clerk.backend_api.operations.UpdateOrganizationDomain;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +39,7 @@ public class OrganizationDomains {
     OrganizationDomains(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a new organization domain.
      * 
@@ -57,9 +61,7 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationDomainResponse create(
-            String organizationId,
-            CreateOrganizationDomainRequestBody requestBody) throws Exception {
+    public CreateOrganizationDomainResponse create(String organizationId, CreateOrganizationDomainRequestBody requestBody) throws Exception {
         return create(organizationId, requestBody, Optional.empty());
     }
 
@@ -75,8 +77,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public CreateOrganizationDomainResponse create(
-            String organizationId,
-            CreateOrganizationDomainRequestBody requestBody,
+            String organizationId, CreateOrganizationDomainRequestBody requestBody,
             Optional<Options> options) throws Exception {
         CreateOrganizationDomainRequest request =
             CreateOrganizationDomainRequest
@@ -85,9 +86,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationDomainRequest, CreateOrganizationDomainResponse> operation
-              = new CreateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -125,13 +124,9 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationDomainsResponse list(
-            ListOrganizationDomainsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListOrganizationDomainsRequest, ListOrganizationDomainsResponse> operation
-              = new ListOrganizationDomainsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationDomains.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -158,8 +153,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
-            String organizationId,
-            String domainId,
+            String organizationId, String domainId,
             UpdateOrganizationDomainRequestBody requestBody) throws Exception {
         return update(organizationId, domainId, requestBody,
             Optional.empty());
@@ -178,10 +172,8 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
-            String organizationId,
-            String domainId,
-            UpdateOrganizationDomainRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            String organizationId, String domainId,
+            UpdateOrganizationDomainRequestBody requestBody, Optional<Options> options) throws Exception {
         UpdateOrganizationDomainRequest request =
             UpdateOrganizationDomainRequest
                 .builder()
@@ -190,9 +182,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
-              = new UpdateOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOrganizationDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -217,9 +207,7 @@ public class OrganizationDomains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOrganizationDomainResponse delete(
-            String organizationId,
-            String domainId) throws Exception {
+    public DeleteOrganizationDomainResponse delete(String organizationId, String domainId) throws Exception {
         return delete(organizationId, domainId, Optional.empty());
     }
 
@@ -235,8 +223,7 @@ public class OrganizationDomains {
      * @throws Exception if the API call fails
      */
     public DeleteOrganizationDomainResponse delete(
-            String organizationId,
-            String domainId,
+            String organizationId, String domainId,
             Optional<Options> options) throws Exception {
         DeleteOrganizationDomainRequest request =
             DeleteOrganizationDomainRequest
@@ -245,9 +232,62 @@ public class OrganizationDomains {
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
-              = new DeleteOrganizationDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationDomain.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List all organization domains
+     * 
+     * <p>Retrieves a list of all organization domains within the current instance.
+     * This endpoint can be used to list all domains across all organizations
+     * or filter domains by organization, verification status, enrollment mode, or search query.
+     * 
+     * <p>The response includes pagination information and details about each domain
+     * including its verification status, enrollment mode, and associated counts.
+     * 
+     * @return The call builder
+     */
+    public ListAllOrganizationDomainsRequestBuilder listAll() {
+        return new ListAllOrganizationDomainsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List all organization domains
+     * 
+     * <p>Retrieves a list of all organization domains within the current instance.
+     * This endpoint can be used to list all domains across all organizations
+     * or filter domains by organization, verification status, enrollment mode, or search query.
+     * 
+     * <p>The response includes pagination information and details about each domain
+     * including its verification status, enrollment mode, and associated counts.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request) throws Exception {
+        return listAll(request, Optional.empty());
+    }
+
+    /**
+     * List all organization domains
+     * 
+     * <p>Retrieves a list of all organization domains within the current instance.
+     * This endpoint can be used to list all domains across all organizations
+     * or filter domains by organization, verification status, enrollment mode, or search query.
+     * 
+     * <p>The response includes pagination information and details about each domain
+     * including its verification status, enrollment mode, and associated counts.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request, Optional<Options> options) throws Exception {
+        RequestOperation<ListAllOrganizationDomainsRequest, ListAllOrganizationDomainsResponse> operation
+              = new ListAllOrganizationDomains.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
