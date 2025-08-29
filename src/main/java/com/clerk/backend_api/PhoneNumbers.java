@@ -18,14 +18,13 @@ import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse;
-import com.clerk.backend_api.operations.CreatePhoneNumberOperation;
-import com.clerk.backend_api.operations.DeletePhoneNumberOperation;
-import com.clerk.backend_api.operations.GetPhoneNumberOperation;
-import com.clerk.backend_api.operations.UpdatePhoneNumberOperation;
+import com.clerk.backend_api.operations.CreatePhoneNumber;
+import com.clerk.backend_api.operations.DeletePhoneNumber;
+import com.clerk.backend_api.operations.GetPhoneNumber;
+import com.clerk.backend_api.operations.UpdatePhoneNumber;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -35,6 +34,7 @@ public class PhoneNumbers {
     PhoneNumbers(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create a phone number
      * 
@@ -68,13 +68,9 @@ public class PhoneNumbers {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreatePhoneNumberResponse create(
-            Optional<? extends CreatePhoneNumberRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreatePhoneNumberResponse create(Optional<? extends CreatePhoneNumberRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreatePhoneNumberRequestBody>, CreatePhoneNumberResponse> operation
-              = new CreatePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new CreatePhoneNumber.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -112,18 +108,14 @@ public class PhoneNumbers {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetPhoneNumberResponse get(
-            String phoneNumberId,
-            Optional<Options> options) throws Exception {
+    public GetPhoneNumberResponse get(String phoneNumberId, Optional<Options> options) throws Exception {
         GetPhoneNumberRequest request =
             GetPhoneNumberRequest
                 .builder()
                 .phoneNumberId(phoneNumberId)
                 .build();
         RequestOperation<GetPhoneNumberRequest, GetPhoneNumberResponse> operation
-              = new GetPhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new GetPhoneNumber.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -161,18 +153,14 @@ public class PhoneNumbers {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeletePhoneNumberResponse delete(
-            String phoneNumberId,
-            Optional<Options> options) throws Exception {
+    public DeletePhoneNumberResponse delete(String phoneNumberId, Optional<Options> options) throws Exception {
         DeletePhoneNumberRequest request =
             DeletePhoneNumberRequest
                 .builder()
                 .phoneNumberId(phoneNumberId)
                 .build();
         RequestOperation<DeletePhoneNumberRequest, DeletePhoneNumberResponse> operation
-              = new DeletePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new DeletePhoneNumber.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -212,8 +200,7 @@ public class PhoneNumbers {
      * @throws Exception if the API call fails
      */
     public UpdatePhoneNumberResponse update(
-            String phoneNumberId,
-            Optional<? extends UpdatePhoneNumberRequestBody> requestBody,
+            String phoneNumberId, Optional<? extends UpdatePhoneNumberRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UpdatePhoneNumberRequest request =
             UpdatePhoneNumberRequest
@@ -222,9 +209,7 @@ public class PhoneNumbers {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdatePhoneNumberRequest, UpdatePhoneNumberResponse> operation
-              = new UpdatePhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new UpdatePhoneNumber.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UpdateUserOperation;
+import com.clerk.backend_api.operations.UpdateUser;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class UpdateUserRequestBuilder {
             .build());
 
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
-              = new UpdateUserOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateUser.Sync(sdkConfiguration, options);
         UpdateUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

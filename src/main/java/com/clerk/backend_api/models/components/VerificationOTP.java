@@ -16,14 +16,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class VerificationOTP {
+public class VerificationOTP implements PhoneNumberVerification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationOtpVerificationObject> object;
+
 
     @JsonProperty("status")
-    private OTPVerificationStatus status;
+    private VerificationOtpVerificationStatus status;
 
 
     @JsonProperty("strategy")
-    private OTPVerificationStrategy strategy;
+    private VerificationOtpVerificationStrategy strategy;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -42,16 +47,19 @@ public class VerificationOTP {
 
     @JsonCreator
     public VerificationOTP(
-            @JsonProperty("status") OTPVerificationStatus status,
-            @JsonProperty("strategy") OTPVerificationStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationOtpVerificationObject> object,
+            @JsonProperty("status") VerificationOtpVerificationStatus status,
+            @JsonProperty("strategy") VerificationOtpVerificationStrategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
@@ -60,19 +68,25 @@ public class VerificationOTP {
     }
     
     public VerificationOTP(
-            OTPVerificationStatus status,
-            OTPVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+            VerificationOtpVerificationStatus status,
+            VerificationOtpVerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public OTPVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationOtpVerificationStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public OTPVerificationStrategy strategy() {
+    public VerificationOtpVerificationStrategy strategy() {
         return strategy;
     }
 
@@ -96,13 +110,26 @@ public class VerificationOTP {
     }
 
 
-    public VerificationOTP withStatus(OTPVerificationStatus status) {
+    public VerificationOTP withObject(VerificationOtpVerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public VerificationOTP withObject(Optional<? extends VerificationOtpVerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public VerificationOTP withStatus(VerificationOtpVerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public VerificationOTP withStrategy(OTPVerificationStrategy strategy) {
+    public VerificationOTP withStrategy(VerificationOtpVerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -156,6 +183,7 @@ public class VerificationOTP {
         }
         VerificationOTP other = (VerificationOTP) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
@@ -166,13 +194,14 @@ public class VerificationOTP {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, attempts,
-            expireAt, verifiedAtClient);
+            object, status, strategy,
+            attempts, expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(VerificationOTP.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
@@ -183,9 +212,11 @@ public class VerificationOTP {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private OTPVerificationStatus status;
+        private Optional<? extends VerificationOtpVerificationObject> object = Optional.empty();
 
-        private OTPVerificationStrategy strategy;
+        private VerificationOtpVerificationStatus status;
+
+        private VerificationOtpVerificationStrategy strategy;
 
         private Optional<Long> attempts = Optional.empty();
 
@@ -198,14 +229,27 @@ public class VerificationOTP {
         }
 
 
-        public Builder status(OTPVerificationStatus status) {
+        public Builder object(VerificationOtpVerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationOtpVerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationOtpVerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(OTPVerificationStrategy strategy) {
+        public Builder strategy(VerificationOtpVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -253,8 +297,8 @@ public class VerificationOTP {
         public VerificationOTP build() {
 
             return new VerificationOTP(
-                status, strategy, attempts,
-                expireAt, verifiedAtClient);
+                object, status, strategy,
+                attempts, expireAt, verifiedAtClient);
         }
 
     }

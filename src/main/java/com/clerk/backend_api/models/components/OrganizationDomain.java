@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * OrganizationDomain
@@ -79,6 +80,13 @@ public class OrganizationDomain {
     private int totalPendingSuggestions;
 
     /**
+     * Public organization data associated with this domain
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("public_organization_data")
+    private JsonNullable<? extends PublicOrganizationData> publicOrganizationData;
+
+    /**
      * Unix timestamp when the domain was created
      */
     @JsonProperty("created_at")
@@ -101,6 +109,7 @@ public class OrganizationDomain {
             @JsonProperty("verification") Optional<? extends OrganizationDomainVerification> verification,
             @JsonProperty("total_pending_invitations") int totalPendingInvitations,
             @JsonProperty("total_pending_suggestions") int totalPendingSuggestions,
+            @JsonProperty("public_organization_data") JsonNullable<? extends PublicOrganizationData> publicOrganizationData,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -112,6 +121,7 @@ public class OrganizationDomain {
         Utils.checkNotNull(verification, "verification");
         Utils.checkNotNull(totalPendingInvitations, "totalPendingInvitations");
         Utils.checkNotNull(totalPendingSuggestions, "totalPendingSuggestions");
+        Utils.checkNotNull(publicOrganizationData, "publicOrganizationData");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -123,6 +133,7 @@ public class OrganizationDomain {
         this.verification = verification;
         this.totalPendingInvitations = totalPendingInvitations;
         this.totalPendingSuggestions = totalPendingSuggestions;
+        this.publicOrganizationData = publicOrganizationData;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -140,7 +151,7 @@ public class OrganizationDomain {
         this(object, id, organizationId,
             name, enrollmentMode, Optional.empty(),
             Optional.empty(), totalPendingInvitations, totalPendingSuggestions,
-            createdAt, updatedAt);
+            JsonNullable.undefined(), createdAt, updatedAt);
     }
 
     /**
@@ -214,6 +225,15 @@ public class OrganizationDomain {
     @JsonIgnore
     public int totalPendingSuggestions() {
         return totalPendingSuggestions;
+    }
+
+    /**
+     * Public organization data associated with this domain
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<PublicOrganizationData> publicOrganizationData() {
+        return (JsonNullable<PublicOrganizationData>) publicOrganizationData;
     }
 
     /**
@@ -339,6 +359,24 @@ public class OrganizationDomain {
     }
 
     /**
+     * Public organization data associated with this domain
+     */
+    public OrganizationDomain withPublicOrganizationData(PublicOrganizationData publicOrganizationData) {
+        Utils.checkNotNull(publicOrganizationData, "publicOrganizationData");
+        this.publicOrganizationData = JsonNullable.of(publicOrganizationData);
+        return this;
+    }
+
+    /**
+     * Public organization data associated with this domain
+     */
+    public OrganizationDomain withPublicOrganizationData(JsonNullable<? extends PublicOrganizationData> publicOrganizationData) {
+        Utils.checkNotNull(publicOrganizationData, "publicOrganizationData");
+        this.publicOrganizationData = publicOrganizationData;
+        return this;
+    }
+
+    /**
      * Unix timestamp when the domain was created
      */
     public OrganizationDomain withCreatedAt(long createdAt) {
@@ -375,6 +413,7 @@ public class OrganizationDomain {
             Utils.enhancedDeepEquals(this.verification, other.verification) &&
             Utils.enhancedDeepEquals(this.totalPendingInvitations, other.totalPendingInvitations) &&
             Utils.enhancedDeepEquals(this.totalPendingSuggestions, other.totalPendingSuggestions) &&
+            Utils.enhancedDeepEquals(this.publicOrganizationData, other.publicOrganizationData) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -385,7 +424,7 @@ public class OrganizationDomain {
             object, id, organizationId,
             name, enrollmentMode, affiliationEmailAddress,
             verification, totalPendingInvitations, totalPendingSuggestions,
-            createdAt, updatedAt);
+            publicOrganizationData, createdAt, updatedAt);
     }
     
     @Override
@@ -400,6 +439,7 @@ public class OrganizationDomain {
                 "verification", verification,
                 "totalPendingInvitations", totalPendingInvitations,
                 "totalPendingSuggestions", totalPendingSuggestions,
+                "publicOrganizationData", publicOrganizationData,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -424,6 +464,8 @@ public class OrganizationDomain {
         private Integer totalPendingInvitations;
 
         private Integer totalPendingSuggestions;
+
+        private JsonNullable<? extends PublicOrganizationData> publicOrganizationData = JsonNullable.undefined();
 
         private Long createdAt;
 
@@ -543,6 +585,25 @@ public class OrganizationDomain {
 
 
         /**
+         * Public organization data associated with this domain
+         */
+        public Builder publicOrganizationData(PublicOrganizationData publicOrganizationData) {
+            Utils.checkNotNull(publicOrganizationData, "publicOrganizationData");
+            this.publicOrganizationData = JsonNullable.of(publicOrganizationData);
+            return this;
+        }
+
+        /**
+         * Public organization data associated with this domain
+         */
+        public Builder publicOrganizationData(JsonNullable<? extends PublicOrganizationData> publicOrganizationData) {
+            Utils.checkNotNull(publicOrganizationData, "publicOrganizationData");
+            this.publicOrganizationData = publicOrganizationData;
+            return this;
+        }
+
+
+        /**
          * Unix timestamp when the domain was created
          */
         public Builder createdAt(long createdAt) {
@@ -567,7 +628,7 @@ public class OrganizationDomain {
                 object, id, organizationId,
                 name, enrollmentMode, affiliationEmailAddress,
                 verification, totalPendingInvitations, totalPendingSuggestions,
-                createdAt, updatedAt);
+                publicOrganizationData, createdAt, updatedAt);
         }
 
     }

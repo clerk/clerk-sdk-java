@@ -16,6 +16,7 @@ Create a new phone number
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreatePhoneNumber" method="post" path="/phone_numbers" -->
 ```java
 package hello.world;
 
@@ -65,6 +66,7 @@ Returns the details of a phone number
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetPhoneNumber" method="get" path="/phone_numbers/{phone_number_id}" -->
 ```java
 package hello.world;
 
@@ -115,6 +117,7 @@ Delete the phone number with the given ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeletePhoneNumber" method="delete" path="/phone_numbers/{phone_number_id}" -->
 ```java
 package hello.world;
 
@@ -165,6 +168,7 @@ Updates a phone number
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdatePhoneNumber" method="patch" path="/phone_numbers/{phone_number_id}" -->
 ```java
 package hello.world;
 

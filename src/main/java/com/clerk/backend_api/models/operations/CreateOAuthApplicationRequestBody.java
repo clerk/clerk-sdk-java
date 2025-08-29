@@ -53,6 +53,20 @@ public class CreateOAuthApplicationRequestBody {
     private JsonNullable<String> scopes;
 
     /**
+     * True to enable a consent screen to display in the authentication flow.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("consent_screen_enabled")
+    private JsonNullable<Boolean> consentScreenEnabled;
+
+    /**
+     * True to require the Proof Key of Code Exchange (PKCE) flow.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("pkce_required")
+    private JsonNullable<Boolean> pkceRequired;
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -65,23 +79,30 @@ public class CreateOAuthApplicationRequestBody {
             @JsonProperty("redirect_uris") JsonNullable<? extends List<String>> redirectUris,
             @JsonProperty("callback_url") JsonNullable<String> callbackUrl,
             @JsonProperty("scopes") JsonNullable<String> scopes,
+            @JsonProperty("consent_screen_enabled") JsonNullable<Boolean> consentScreenEnabled,
+            @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
             @JsonProperty("public") JsonNullable<Boolean> public_) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(redirectUris, "redirectUris");
         Utils.checkNotNull(callbackUrl, "callbackUrl");
         Utils.checkNotNull(scopes, "scopes");
+        Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
         Utils.checkNotNull(public_, "public_");
         this.name = name;
         this.redirectUris = redirectUris;
         this.callbackUrl = callbackUrl;
         this.scopes = scopes;
+        this.consentScreenEnabled = consentScreenEnabled;
+        this.pkceRequired = pkceRequired;
         this.public_ = public_;
     }
     
     public CreateOAuthApplicationRequestBody(
             String name) {
         this(name, JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -119,6 +140,22 @@ public class CreateOAuthApplicationRequestBody {
     @JsonIgnore
     public JsonNullable<String> scopes() {
         return scopes;
+    }
+
+    /**
+     * True to enable a consent screen to display in the authentication flow.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> consentScreenEnabled() {
+        return consentScreenEnabled;
+    }
+
+    /**
+     * True to require the Proof Key of Code Exchange (PKCE) flow.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> pkceRequired() {
+        return pkceRequired;
     }
 
     /**
@@ -205,6 +242,42 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
+     * True to enable a consent screen to display in the authentication flow.
+     */
+    public CreateOAuthApplicationRequestBody withConsentScreenEnabled(boolean consentScreenEnabled) {
+        Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+        this.consentScreenEnabled = JsonNullable.of(consentScreenEnabled);
+        return this;
+    }
+
+    /**
+     * True to enable a consent screen to display in the authentication flow.
+     */
+    public CreateOAuthApplicationRequestBody withConsentScreenEnabled(JsonNullable<Boolean> consentScreenEnabled) {
+        Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+        this.consentScreenEnabled = consentScreenEnabled;
+        return this;
+    }
+
+    /**
+     * True to require the Proof Key of Code Exchange (PKCE) flow.
+     */
+    public CreateOAuthApplicationRequestBody withPkceRequired(boolean pkceRequired) {
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
+        this.pkceRequired = JsonNullable.of(pkceRequired);
+        return this;
+    }
+
+    /**
+     * True to require the Proof Key of Code Exchange (PKCE) flow.
+     */
+    public CreateOAuthApplicationRequestBody withPkceRequired(JsonNullable<Boolean> pkceRequired) {
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
+        this.pkceRequired = pkceRequired;
+        return this;
+    }
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     public CreateOAuthApplicationRequestBody withPublic(boolean public_) {
@@ -236,6 +309,8 @@ public class CreateOAuthApplicationRequestBody {
             Utils.enhancedDeepEquals(this.redirectUris, other.redirectUris) &&
             Utils.enhancedDeepEquals(this.callbackUrl, other.callbackUrl) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
+            Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
             Utils.enhancedDeepEquals(this.public_, other.public_);
     }
     
@@ -243,7 +318,8 @@ public class CreateOAuthApplicationRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             name, redirectUris, callbackUrl,
-            scopes, public_);
+            scopes, consentScreenEnabled, pkceRequired,
+            public_);
     }
     
     @Override
@@ -253,6 +329,8 @@ public class CreateOAuthApplicationRequestBody {
                 "redirectUris", redirectUris,
                 "callbackUrl", callbackUrl,
                 "scopes", scopes,
+                "consentScreenEnabled", consentScreenEnabled,
+                "pkceRequired", pkceRequired,
                 "public_", public_);
     }
 
@@ -267,6 +345,10 @@ public class CreateOAuthApplicationRequestBody {
         private JsonNullable<String> callbackUrl = JsonNullable.undefined();
 
         private JsonNullable<String> scopes;
+
+        private JsonNullable<Boolean> consentScreenEnabled;
+
+        private JsonNullable<Boolean> pkceRequired;
 
         private JsonNullable<Boolean> public_ = JsonNullable.undefined();
 
@@ -350,6 +432,44 @@ public class CreateOAuthApplicationRequestBody {
 
 
         /**
+         * True to enable a consent screen to display in the authentication flow.
+         */
+        public Builder consentScreenEnabled(boolean consentScreenEnabled) {
+            Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+            this.consentScreenEnabled = JsonNullable.of(consentScreenEnabled);
+            return this;
+        }
+
+        /**
+         * True to enable a consent screen to display in the authentication flow.
+         */
+        public Builder consentScreenEnabled(JsonNullable<Boolean> consentScreenEnabled) {
+            Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
+            this.consentScreenEnabled = consentScreenEnabled;
+            return this;
+        }
+
+
+        /**
+         * True to require the Proof Key of Code Exchange (PKCE) flow.
+         */
+        public Builder pkceRequired(boolean pkceRequired) {
+            Utils.checkNotNull(pkceRequired, "pkceRequired");
+            this.pkceRequired = JsonNullable.of(pkceRequired);
+            return this;
+        }
+
+        /**
+         * True to require the Proof Key of Code Exchange (PKCE) flow.
+         */
+        public Builder pkceRequired(JsonNullable<Boolean> pkceRequired) {
+            Utils.checkNotNull(pkceRequired, "pkceRequired");
+            this.pkceRequired = pkceRequired;
+            return this;
+        }
+
+
+        /**
          * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
          */
         public Builder public_(boolean public_) {
@@ -371,10 +491,17 @@ public class CreateOAuthApplicationRequestBody {
             if (scopes == null) {
                 scopes = _SINGLETON_VALUE_Scopes.value();
             }
+            if (consentScreenEnabled == null) {
+                consentScreenEnabled = _SINGLETON_VALUE_ConsentScreenEnabled.value();
+            }
+            if (pkceRequired == null) {
+                pkceRequired = _SINGLETON_VALUE_PkceRequired.value();
+            }
 
             return new CreateOAuthApplicationRequestBody(
                 name, redirectUris, callbackUrl,
-                scopes, public_);
+                scopes, consentScreenEnabled, pkceRequired,
+                public_);
         }
 
 
@@ -383,5 +510,17 @@ public class CreateOAuthApplicationRequestBody {
                         "scopes",
                         "\"profile email\"",
                         new TypeReference<JsonNullable<String>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_ConsentScreenEnabled =
+                new LazySingletonValue<>(
+                        "consent_screen_enabled",
+                        "true",
+                        new TypeReference<JsonNullable<Boolean>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_PkceRequired =
+                new LazySingletonValue<>(
+                        "pkce_required",
+                        "false",
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }

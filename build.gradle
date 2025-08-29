@@ -59,7 +59,7 @@ javadoc {
 }
 
 tasks.withType(Javadoc) {
-  failOnError false
+  failOnError = false
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 
@@ -105,7 +105,7 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.clerk"
             artifactId = "backend-api"
-            version = "3.1.0"
+            version = "3.2.0"
 
             from components.java
 

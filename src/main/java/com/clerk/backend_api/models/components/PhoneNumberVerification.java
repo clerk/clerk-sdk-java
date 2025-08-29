@@ -3,92 +3,20 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.OneOfDeserializer;
-import com.clerk.backend_api.utils.TypedObject;
-import com.clerk.backend_api.utils.Utils.JsonShape;
-import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
-import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.lang.Override;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 
-@JsonDeserialize(using = PhoneNumberVerification._Deserializer.class)
-public class PhoneNumberVerification {
+@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
+@JsonSubTypes({
+    @Type(value = VerificationOTP.class, name="OTP"),
+    @Type(value = VerificationAdmin.class, name="Admin")})
+public interface PhoneNumberVerification {
 
-    @JsonValue
-    private TypedObject value;
-    
-    private PhoneNumberVerification(TypedObject value) {
-        this.value = value;
-    }
+    String object();
 
-    public static PhoneNumberVerification of(VerificationOTP value) {
-        Utils.checkNotNull(value, "value");
-        return new PhoneNumberVerification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<VerificationOTP>(){}));
-    }
-
-    public static PhoneNumberVerification of(VerificationAdmin value) {
-        Utils.checkNotNull(value, "value");
-        return new PhoneNumberVerification(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<VerificationAdmin>(){}));
-    }
-    
-    /**
-     * Returns an instance of one of these types:
-     * <ul>
-     * <li>{@code com.clerk.backend_api.models.components.VerificationOTP}</li>
-     * <li>{@code com.clerk.backend_api.models.components.VerificationAdmin}</li>
-     * </ul>
-     * 
-     * <p>Use {@code instanceof} to determine what type is returned. For example:
-     * 
-     * <pre>
-     * if (obj.value() instanceof String) {
-     *     String answer = (String) obj.value();
-     *     System.out.println("answer=" + answer);
-     * }
-     * </pre>
-     * 
-     * @return value of oneOf type
-     **/ 
-    public java.lang.Object value() {
-        return value.value();
-    }    
-    
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PhoneNumberVerification other = (PhoneNumberVerification) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(value.value());
-    }
-    
-    @SuppressWarnings("serial")
-    public static final class _Deserializer extends OneOfDeserializer<PhoneNumberVerification> {
-
-        public _Deserializer() {
-            super(PhoneNumberVerification.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<VerificationAdmin>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<VerificationOTP>() {}, JsonShape.DEFAULT));
-        }
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(PhoneNumberVerification.class,
-                "value", value);
-    }
- 
 }
 

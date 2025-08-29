@@ -3,282 +3,60 @@
  */
 package com.clerk.backend_api.models.components;
 
+import com.clerk.backend_api.utils.OneOfDeserializer;
+import com.clerk.backend_api.utils.TypedObject;
+import com.clerk.backend_api.utils.Utils.JsonShape;
+import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Boolean;
-import java.lang.Long;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Optional;
+import java.lang.SuppressWarnings;
 
-
+@JsonDeserialize(using = SAMLConnectionSAMLConnection._Deserializer.class)
 public class SAMLConnectionSAMLConnection {
 
-    @JsonProperty("id")
-    private String id;
+    @JsonValue
+    private TypedObject value;
+    
+    private SAMLConnectionSAMLConnection(TypedObject value) {
+        this.value = value;
+    }
 
+    public static SAMLConnectionSAMLConnection of(SAMLConnection1 value) {
+        Utils.checkNotNull(value, "value");
+        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SAMLConnection1>(){}));
+    }
 
-    @JsonProperty("name")
-    private String name;
-
-
-    @JsonProperty("domain")
-    private String domain;
-
-
-    @JsonProperty("active")
-    private boolean active;
-
-
-    @JsonProperty("provider")
-    private String provider;
-
-
-    @JsonProperty("sync_user_attributes")
-    private boolean syncUserAttributes;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("allow_subdomains")
-    private Optional<Boolean> allowSubdomains;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("allow_idp_initiated")
-    private Optional<Boolean> allowIdpInitiated;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("disable_additional_identifications")
-    private Optional<Boolean> disableAdditionalIdentifications;
-
-    /**
-     * Unix timestamp of creation.
-     */
-    @JsonProperty("created_at")
-    private long createdAt;
-
-    /**
-     * Unix timestamp of last update.
-     */
-    @JsonProperty("updated_at")
-    private long updatedAt;
-
-    @JsonCreator
-    public SAMLConnectionSAMLConnection(
-            @JsonProperty("id") String id,
-            @JsonProperty("name") String name,
-            @JsonProperty("domain") String domain,
-            @JsonProperty("active") boolean active,
-            @JsonProperty("provider") String provider,
-            @JsonProperty("sync_user_attributes") boolean syncUserAttributes,
-            @JsonProperty("allow_subdomains") Optional<Boolean> allowSubdomains,
-            @JsonProperty("allow_idp_initiated") Optional<Boolean> allowIdpInitiated,
-            @JsonProperty("disable_additional_identifications") Optional<Boolean> disableAdditionalIdentifications,
-            @JsonProperty("created_at") long createdAt,
-            @JsonProperty("updated_at") long updatedAt) {
-        Utils.checkNotNull(id, "id");
-        Utils.checkNotNull(name, "name");
-        Utils.checkNotNull(domain, "domain");
-        Utils.checkNotNull(active, "active");
-        Utils.checkNotNull(provider, "provider");
-        Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
-        Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-        Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-        Utils.checkNotNull(createdAt, "createdAt");
-        Utils.checkNotNull(updatedAt, "updatedAt");
-        this.id = id;
-        this.name = name;
-        this.domain = domain;
-        this.active = active;
-        this.provider = provider;
-        this.syncUserAttributes = syncUserAttributes;
-        this.allowSubdomains = allowSubdomains;
-        this.allowIdpInitiated = allowIdpInitiated;
-        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public static SAMLConnectionSAMLConnection of(SAMLConnection2 value) {
+        Utils.checkNotNull(value, "value");
+        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SAMLConnection2>(){}));
     }
     
-    public SAMLConnectionSAMLConnection(
-            String id,
-            String name,
-            String domain,
-            boolean active,
-            String provider,
-            boolean syncUserAttributes,
-            long createdAt,
-            long updatedAt) {
-        this(id, name, domain,
-            active, provider, syncUserAttributes,
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            createdAt, updatedAt);
-    }
-
-    @JsonIgnore
-    public String id() {
-        return id;
-    }
-
-    @JsonIgnore
-    public String name() {
-        return name;
-    }
-
-    @JsonIgnore
-    public String domain() {
-        return domain;
-    }
-
-    @JsonIgnore
-    public boolean active() {
-        return active;
-    }
-
-    @JsonIgnore
-    public String provider() {
-        return provider;
-    }
-
-    @JsonIgnore
-    public boolean syncUserAttributes() {
-        return syncUserAttributes;
-    }
-
-    @JsonIgnore
-    public Optional<Boolean> allowSubdomains() {
-        return allowSubdomains;
-    }
-
-    @JsonIgnore
-    public Optional<Boolean> allowIdpInitiated() {
-        return allowIdpInitiated;
-    }
-
-    @JsonIgnore
-    public Optional<Boolean> disableAdditionalIdentifications() {
-        return disableAdditionalIdentifications;
-    }
-
     /**
-     * Unix timestamp of creation.
-     */
-    @JsonIgnore
-    public long createdAt() {
-        return createdAt;
-    }
-
-    /**
-     * Unix timestamp of last update.
-     */
-    @JsonIgnore
-    public long updatedAt() {
-        return updatedAt;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public SAMLConnectionSAMLConnection withId(String id) {
-        Utils.checkNotNull(id, "id");
-        this.id = id;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withName(String name) {
-        Utils.checkNotNull(name, "name");
-        this.name = name;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withDomain(String domain) {
-        Utils.checkNotNull(domain, "domain");
-        this.domain = domain;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withActive(boolean active) {
-        Utils.checkNotNull(active, "active");
-        this.active = active;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withProvider(String provider) {
-        Utils.checkNotNull(provider, "provider");
-        this.provider = provider;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withSyncUserAttributes(boolean syncUserAttributes) {
-        Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
-        this.syncUserAttributes = syncUserAttributes;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withAllowSubdomains(boolean allowSubdomains) {
-        Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-        this.allowSubdomains = Optional.ofNullable(allowSubdomains);
-        return this;
-    }
-
-
-    public SAMLConnectionSAMLConnection withAllowSubdomains(Optional<Boolean> allowSubdomains) {
-        Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-        this.allowSubdomains = allowSubdomains;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withAllowIdpInitiated(boolean allowIdpInitiated) {
-        Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-        this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
-        return this;
-    }
-
-
-    public SAMLConnectionSAMLConnection withAllowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
-        Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-        this.allowIdpInitiated = allowIdpInitiated;
-        return this;
-    }
-
-    public SAMLConnectionSAMLConnection withDisableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
-        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-        this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
-        return this;
-    }
-
-
-    public SAMLConnectionSAMLConnection withDisableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
-        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
-        return this;
-    }
-
-    /**
-     * Unix timestamp of creation.
-     */
-    public SAMLConnectionSAMLConnection withCreatedAt(long createdAt) {
-        Utils.checkNotNull(createdAt, "createdAt");
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Unix timestamp of last update.
-     */
-    public SAMLConnectionSAMLConnection withUpdatedAt(long updatedAt) {
-        Utils.checkNotNull(updatedAt, "updatedAt");
-        this.updatedAt = updatedAt;
-        return this;
-    }
-
+     * Returns an instance of one of these types:
+     * <ul>
+     * <li>{@code com.clerk.backend_api.models.components.SAMLConnection1}</li>
+     * <li>{@code com.clerk.backend_api.models.components.SAMLConnection2}</li>
+     * </ul>
+     * 
+     * <p>Use {@code instanceof} to determine what type is returned. For example:
+     * 
+     * <pre>
+     * if (obj.value() instanceof String) {
+     *     String answer = (String) obj.value();
+     *     System.out.println("answer=" + answer);
+     * }
+     * </pre>
+     * 
+     * @return value of oneOf type
+     **/ 
+    public java.lang.Object value() {
+        return value.value();
+    }    
+    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -288,183 +66,29 @@ public class SAMLConnectionSAMLConnection {
             return false;
         }
         SAMLConnectionSAMLConnection other = (SAMLConnectionSAMLConnection) o;
-        return 
-            Utils.enhancedDeepEquals(this.id, other.id) &&
-            Utils.enhancedDeepEquals(this.name, other.name) &&
-            Utils.enhancedDeepEquals(this.domain, other.domain) &&
-            Utils.enhancedDeepEquals(this.active, other.active) &&
-            Utils.enhancedDeepEquals(this.provider, other.provider) &&
-            Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
-            Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
-            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
-            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
     }
     
     @Override
     public int hashCode() {
-        return Utils.enhancedHash(
-            id, name, domain,
-            active, provider, syncUserAttributes,
-            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-            createdAt, updatedAt);
+        return Utils.enhancedHash(value.value());
+    }
+    
+    @SuppressWarnings("serial")
+    public static final class _Deserializer extends OneOfDeserializer<SAMLConnectionSAMLConnection> {
+
+        public _Deserializer() {
+            super(SAMLConnectionSAMLConnection.class, false,
+                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection2>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection1>() {}, JsonShape.DEFAULT));
+        }
     }
     
     @Override
     public String toString() {
         return Utils.toString(SAMLConnectionSAMLConnection.class,
-                "id", id,
-                "name", name,
-                "domain", domain,
-                "active", active,
-                "provider", provider,
-                "syncUserAttributes", syncUserAttributes,
-                "allowSubdomains", allowSubdomains,
-                "allowIdpInitiated", allowIdpInitiated,
-                "disableAdditionalIdentifications", disableAdditionalIdentifications,
-                "createdAt", createdAt,
-                "updatedAt", updatedAt);
+                "value", value);
     }
-
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
-
-        private String id;
-
-        private String name;
-
-        private String domain;
-
-        private Boolean active;
-
-        private String provider;
-
-        private Boolean syncUserAttributes;
-
-        private Optional<Boolean> allowSubdomains = Optional.empty();
-
-        private Optional<Boolean> allowIdpInitiated = Optional.empty();
-
-        private Optional<Boolean> disableAdditionalIdentifications = Optional.empty();
-
-        private Long createdAt;
-
-        private Long updatedAt;
-
-        private Builder() {
-          // force use of static builder() method
-        }
-
-
-        public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = id;
-            return this;
-        }
-
-
-        public Builder name(String name) {
-            Utils.checkNotNull(name, "name");
-            this.name = name;
-            return this;
-        }
-
-
-        public Builder domain(String domain) {
-            Utils.checkNotNull(domain, "domain");
-            this.domain = domain;
-            return this;
-        }
-
-
-        public Builder active(boolean active) {
-            Utils.checkNotNull(active, "active");
-            this.active = active;
-            return this;
-        }
-
-
-        public Builder provider(String provider) {
-            Utils.checkNotNull(provider, "provider");
-            this.provider = provider;
-            return this;
-        }
-
-
-        public Builder syncUserAttributes(boolean syncUserAttributes) {
-            Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
-            this.syncUserAttributes = syncUserAttributes;
-            return this;
-        }
-
-
-        public Builder allowSubdomains(boolean allowSubdomains) {
-            Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-            this.allowSubdomains = Optional.ofNullable(allowSubdomains);
-            return this;
-        }
-
-        public Builder allowSubdomains(Optional<Boolean> allowSubdomains) {
-            Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-            this.allowSubdomains = allowSubdomains;
-            return this;
-        }
-
-
-        public Builder allowIdpInitiated(boolean allowIdpInitiated) {
-            Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-            this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
-            return this;
-        }
-
-        public Builder allowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
-            Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-            this.allowIdpInitiated = allowIdpInitiated;
-            return this;
-        }
-
-
-        public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
-            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-            this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
-            return this;
-        }
-
-        public Builder disableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
-            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-            this.disableAdditionalIdentifications = disableAdditionalIdentifications;
-            return this;
-        }
-
-
-        /**
-         * Unix timestamp of creation.
-         */
-        public Builder createdAt(long createdAt) {
-            Utils.checkNotNull(createdAt, "createdAt");
-            this.createdAt = createdAt;
-            return this;
-        }
-
-
-        /**
-         * Unix timestamp of last update.
-         */
-        public Builder updatedAt(long updatedAt) {
-            Utils.checkNotNull(updatedAt, "updatedAt");
-            this.updatedAt = updatedAt;
-            return this;
-        }
-
-        public SAMLConnectionSAMLConnection build() {
-
-            return new SAMLConnectionSAMLConnection(
-                id, name, domain,
-                active, provider, syncUserAttributes,
-                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-                createdAt, updatedAt);
-        }
-
-    }
+ 
 }
+

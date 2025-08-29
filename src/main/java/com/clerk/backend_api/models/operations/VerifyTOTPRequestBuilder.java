@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.VerifyTOTPOperation;
+import com.clerk.backend_api.operations.VerifyTOTP;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -70,9 +70,7 @@ public class VerifyTOTPRequestBuilder {
             .build());
 
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTPOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyTOTP.Sync(sdkConfiguration, options);
         VerifyTOTPRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

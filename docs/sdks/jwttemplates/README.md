@@ -17,6 +17,7 @@ List all templates
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListJWTTemplates" method="get" path="/jwt_templates" -->
 ```java
 package hello.world;
 
@@ -68,6 +69,7 @@ Create a new JWT template
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateJWTTemplate" method="post" path="/jwt_templates" -->
 ```java
 package hello.world;
 
@@ -117,6 +119,7 @@ Retrieve the details of a given JWT template
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetJWTTemplate" method="get" path="/jwt_templates/{template_id}" -->
 ```java
 package hello.world;
 
@@ -167,6 +170,7 @@ Updates an existing JWT template
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateJWTTemplate" method="patch" path="/jwt_templates/{template_id}" -->
 ```java
 package hello.world;
 
@@ -218,6 +222,7 @@ Delete a Template
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteJWTTemplate" method="delete" path="/jwt_templates/{template_id}" -->
 ```java
 package hello.world;
 

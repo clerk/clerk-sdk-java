@@ -24,17 +24,16 @@ import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
-import com.clerk.backend_api.operations.CreateOAuthApplicationOperation;
-import com.clerk.backend_api.operations.DeleteOAuthApplicationOperation;
-import com.clerk.backend_api.operations.GetOAuthApplicationOperation;
-import com.clerk.backend_api.operations.ListOAuthApplicationsOperation;
-import com.clerk.backend_api.operations.RotateOAuthApplicationSecretOperation;
-import com.clerk.backend_api.operations.UpdateOAuthApplicationOperation;
+import com.clerk.backend_api.operations.CreateOAuthApplication;
+import com.clerk.backend_api.operations.DeleteOAuthApplication;
+import com.clerk.backend_api.operations.GetOAuthApplication;
+import com.clerk.backend_api.operations.ListOAuthApplications;
+import com.clerk.backend_api.operations.RotateOAuthApplicationSecret;
+import com.clerk.backend_api.operations.UpdateOAuthApplication;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -44,6 +43,7 @@ public class OauthApplications {
     OauthApplications(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Get a list of OAuth applications for an instance
      * 
@@ -70,7 +70,8 @@ public class OauthApplications {
      * @throws Exception if the API call fails
      */
     public ListOAuthApplicationsResponse listDirect() throws Exception {
-        return list(Optional.empty(), Optional.empty(), Optional.empty());
+        return list(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -86,24 +87,31 @@ public class OauthApplications {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @param orderBy Allows to return OAuth applications in a particular order.
+     *         At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
+     *         In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     *         For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     *         If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     *         if you pass `order_by=name&order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * @param nameQuery Returns OAuth applications with names that match the given query, via case-insensitive partial match.
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public ListOAuthApplicationsResponse list(
-            Optional<Long> limit,
-            Optional<Long> offset,
+            Optional<Long> limit, Optional<Long> offset,
+            Optional<String> orderBy, Optional<String> nameQuery,
             Optional<Options> options) throws Exception {
         ListOAuthApplicationsRequest request =
             ListOAuthApplicationsRequest
                 .builder()
                 .limit(limit)
                 .offset(offset)
+                .orderBy(orderBy)
+                .nameQuery(nameQuery)
                 .build();
         RequestOperation<ListOAuthApplicationsRequest, ListOAuthApplicationsResponse> operation
-              = new ListOAuthApplicationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOAuthApplications.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -146,13 +154,9 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOAuthApplicationResponse create(
-            Optional<? extends CreateOAuthApplicationRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateOAuthApplicationResponse create(Optional<? extends CreateOAuthApplicationRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateOAuthApplicationRequestBody>, CreateOAuthApplicationResponse> operation
-              = new CreateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOAuthApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -190,18 +194,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetOAuthApplicationResponse get(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public GetOAuthApplicationResponse get(String oauthApplicationId, Optional<Options> options) throws Exception {
         GetOAuthApplicationRequest request =
             GetOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<GetOAuthApplicationRequest, GetOAuthApplicationResponse> operation
-              = new GetOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOAuthApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -226,9 +226,7 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateOAuthApplicationResponse update(
-            String oauthApplicationId,
-            UpdateOAuthApplicationRequestBody requestBody) throws Exception {
+    public UpdateOAuthApplicationResponse update(String oauthApplicationId, UpdateOAuthApplicationRequestBody requestBody) throws Exception {
         return update(oauthApplicationId, requestBody, Optional.empty());
     }
 
@@ -244,8 +242,7 @@ public class OauthApplications {
      * @throws Exception if the API call fails
      */
     public UpdateOAuthApplicationResponse update(
-            String oauthApplicationId,
-            UpdateOAuthApplicationRequestBody requestBody,
+            String oauthApplicationId, UpdateOAuthApplicationRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateOAuthApplicationRequest request =
             UpdateOAuthApplicationRequest
@@ -254,9 +251,7 @@ public class OauthApplications {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOAuthApplicationRequest, UpdateOAuthApplicationResponse> operation
-              = new UpdateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateOAuthApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -297,18 +292,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteOAuthApplicationResponse delete(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public DeleteOAuthApplicationResponse delete(String oauthApplicationId, Optional<Options> options) throws Exception {
         DeleteOAuthApplicationRequest request =
             DeleteOAuthApplicationRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<DeleteOAuthApplicationRequest, DeleteOAuthApplicationResponse> operation
-              = new DeleteOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOAuthApplication.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -349,18 +340,14 @@ public class OauthApplications {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RotateOAuthApplicationSecretResponse rotateSecret(
-            String oauthApplicationId,
-            Optional<Options> options) throws Exception {
+    public RotateOAuthApplicationSecretResponse rotateSecret(String oauthApplicationId, Optional<Options> options) throws Exception {
         RotateOAuthApplicationSecretRequest request =
             RotateOAuthApplicationSecretRequest
                 .builder()
                 .oauthApplicationId(oauthApplicationId)
                 .build();
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
-              = new RotateOAuthApplicationSecretOperation(
-                sdkConfiguration,
-                options);
+              = new RotateOAuthApplicationSecret.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

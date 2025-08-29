@@ -19,7 +19,6 @@ import com.clerk.backend_api.models.operations.GetOrganizationInvitationResponse
 import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListInstanceOrganizationInvitationsResponse;
-import com.clerk.backend_api.models.operations.ListOrganizationInvitationsQueryParamStatus;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListOrganizationInvitationsResponse;
@@ -30,13 +29,13 @@ import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationReque
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBody;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeOrganizationInvitationResponse;
-import com.clerk.backend_api.operations.CreateOrganizationInvitationBulkOperation;
-import com.clerk.backend_api.operations.CreateOrganizationInvitationOperation;
-import com.clerk.backend_api.operations.GetOrganizationInvitationOperation;
-import com.clerk.backend_api.operations.ListInstanceOrganizationInvitationsOperation;
-import com.clerk.backend_api.operations.ListOrganizationInvitationsOperation;
-import com.clerk.backend_api.operations.ListPendingOrganizationInvitationsOperation;
-import com.clerk.backend_api.operations.RevokeOrganizationInvitationOperation;
+import com.clerk.backend_api.operations.CreateOrganizationInvitation;
+import com.clerk.backend_api.operations.CreateOrganizationInvitationBulk;
+import com.clerk.backend_api.operations.GetOrganizationInvitation;
+import com.clerk.backend_api.operations.ListInstanceOrganizationInvitations;
+import com.clerk.backend_api.operations.ListOrganizationInvitations;
+import com.clerk.backend_api.operations.ListPendingOrganizationInvitations;
+import com.clerk.backend_api.operations.RevokeOrganizationInvitation;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
 import java.lang.Exception;
@@ -52,6 +51,7 @@ public class OrganizationInvitations {
     OrganizationInvitations(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Get a list of organization invitations for the current instance
      * 
@@ -101,13 +101,9 @@ public class OrganizationInvitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListInstanceOrganizationInvitationsResponse getAll(
-            ListInstanceOrganizationInvitationsRequest request,
-            Optional<Options> options) throws Exception {
+    public ListInstanceOrganizationInvitationsResponse getAll(ListInstanceOrganizationInvitationsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListInstanceOrganizationInvitationsRequest, ListInstanceOrganizationInvitationsResponse> operation
-              = new ListInstanceOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListInstanceOrganizationInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -192,8 +188,7 @@ public class OrganizationInvitations {
      * @throws Exception if the API call fails
      */
     public CreateOrganizationInvitationResponse create(
-            String organizationId,
-            Optional<? extends CreateOrganizationInvitationRequestBody> requestBody,
+            String organizationId, Optional<? extends CreateOrganizationInvitationRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         CreateOrganizationInvitationRequest request =
             CreateOrganizationInvitationRequest
@@ -202,9 +197,7 @@ public class OrganizationInvitations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationInvitationRequest, CreateOrganizationInvitationResponse> operation
-              = new CreateOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationInvitation.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -234,13 +227,12 @@ public class OrganizationInvitations {
      * Most recent invitations will be returned first.
      * Any invitations created as a result of an Organization Domain are not included in the results.
      * 
-     * @param organizationId The organization ID.
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationInvitationsResponse list(String organizationId) throws Exception {
-        return list(organizationId, Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+    public ListOrganizationInvitationsResponse list(ListOrganizationInvitationsRequest request) throws Exception {
+        return list(request, Optional.empty());
     }
 
     /**
@@ -253,35 +245,14 @@ public class OrganizationInvitations {
      * Most recent invitations will be returned first.
      * Any invitations created as a result of an Organization Domain are not included in the results.
      * 
-     * @param organizationId The organization ID.
-     * @param status Filter organization invitations based on their status
-     * @param limit Applies a limit to the number of results returned.
-     *         Can be used for paginating the results together with `offset`.
-     * @param offset Skip the first `offset` results when paginating.
-     *         Needs to be an integer greater or equal to zero.
-     *         To be used in conjunction with `limit`.
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListOrganizationInvitationsResponse list(
-            String organizationId,
-            Optional<? extends ListOrganizationInvitationsQueryParamStatus> status,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
-        ListOrganizationInvitationsRequest request =
-            ListOrganizationInvitationsRequest
-                .builder()
-                .organizationId(organizationId)
-                .status(status)
-                .limit(limit)
-                .offset(offset)
-                .build();
+    public ListOrganizationInvitationsResponse list(ListOrganizationInvitationsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListOrganizationInvitationsRequest, ListOrganizationInvitationsResponse> operation
-              = new ListOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -330,9 +301,7 @@ public class OrganizationInvitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateOrganizationInvitationBulkResponse bulkCreate(
-            String organizationId,
-            List<CreateOrganizationInvitationBulkRequestBody> requestBody) throws Exception {
+    public CreateOrganizationInvitationBulkResponse bulkCreate(String organizationId, List<CreateOrganizationInvitationBulkRequestBody> requestBody) throws Exception {
         return bulkCreate(organizationId, requestBody, Optional.empty());
     }
 
@@ -360,8 +329,7 @@ public class OrganizationInvitations {
      * @throws Exception if the API call fails
      */
     public CreateOrganizationInvitationBulkResponse bulkCreate(
-            String organizationId,
-            List<CreateOrganizationInvitationBulkRequestBody> requestBody,
+            String organizationId, List<CreateOrganizationInvitationBulkRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         CreateOrganizationInvitationBulkRequest request =
             CreateOrganizationInvitationBulkRequest
@@ -370,9 +338,7 @@ public class OrganizationInvitations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationInvitationBulkRequest, CreateOrganizationInvitationBulkResponse> operation
-              = new CreateOrganizationInvitationBulkOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationInvitationBulk.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -438,10 +404,8 @@ public class OrganizationInvitations {
      */
     @Deprecated
     public ListPendingOrganizationInvitationsResponse listPending(
-            String organizationId,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            String organizationId, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         ListPendingOrganizationInvitationsRequest request =
             ListPendingOrganizationInvitationsRequest
                 .builder()
@@ -450,9 +414,7 @@ public class OrganizationInvitations {
                 .offset(offset)
                 .build();
         RequestOperation<ListPendingOrganizationInvitationsRequest, ListPendingOrganizationInvitationsResponse> operation
-              = new ListPendingOrganizationInvitationsOperation(
-                sdkConfiguration,
-                options);
+              = new ListPendingOrganizationInvitations.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -477,9 +439,7 @@ public class OrganizationInvitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetOrganizationInvitationResponse get(
-            String organizationId,
-            String invitationId) throws Exception {
+    public GetOrganizationInvitationResponse get(String organizationId, String invitationId) throws Exception {
         return get(organizationId, invitationId, Optional.empty());
     }
 
@@ -495,8 +455,7 @@ public class OrganizationInvitations {
      * @throws Exception if the API call fails
      */
     public GetOrganizationInvitationResponse get(
-            String organizationId,
-            String invitationId,
+            String organizationId, String invitationId,
             Optional<Options> options) throws Exception {
         GetOrganizationInvitationRequest request =
             GetOrganizationInvitationRequest
@@ -505,9 +464,7 @@ public class OrganizationInvitations {
                 .invitationId(invitationId)
                 .build();
         RequestOperation<GetOrganizationInvitationRequest, GetOrganizationInvitationResponse> operation
-              = new GetOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOrganizationInvitation.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -540,9 +497,7 @@ public class OrganizationInvitations {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeOrganizationInvitationResponse revoke(
-            String organizationId,
-            String invitationId) throws Exception {
+    public RevokeOrganizationInvitationResponse revoke(String organizationId, String invitationId) throws Exception {
         return revoke(organizationId, invitationId, Optional.empty(),
             Optional.empty());
     }
@@ -564,10 +519,8 @@ public class OrganizationInvitations {
      * @throws Exception if the API call fails
      */
     public RevokeOrganizationInvitationResponse revoke(
-            String organizationId,
-            String invitationId,
-            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            String organizationId, String invitationId,
+            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody, Optional<Options> options) throws Exception {
         RevokeOrganizationInvitationRequest request =
             RevokeOrganizationInvitationRequest
                 .builder()
@@ -576,9 +529,7 @@ public class OrganizationInvitations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<RevokeOrganizationInvitationRequest, RevokeOrganizationInvitationResponse> operation
-              = new RevokeOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeOrganizationInvitation.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

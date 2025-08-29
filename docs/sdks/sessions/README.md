@@ -10,7 +10,6 @@
 * [get](#get) - Retrieve a session
 * [refresh](#refresh) - Refresh a session
 * [revoke](#revoke) - Revoke a session
-* [~~verify~~](#verify) - Verify a session :warning: **Deprecated**
 * [createToken](#createtoken) - Create a session token
 * [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a jwt template
 
@@ -23,6 +22,7 @@ moving forward at least one of `client_id` or `user_id` parameters should be pro
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetSessionList" method="get" path="/sessions" -->
 ```java
 package hello.world;
 
@@ -80,6 +80,7 @@ we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="createSession" method="post" path="/sessions" -->
 ```java
 package hello.world;
 
@@ -129,6 +130,7 @@ Retrieve the details of a session
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetSession" method="get" path="/sessions/{session_id}" -->
 ```java
 package hello.world;
 
@@ -176,10 +178,11 @@ public class Application {
 ## refresh
 
 Refreshes a session by creating a new session token. A 401 is returned when there
-are validation errors, which signals the SDKs to fallback to the handshake flow.
+are validation errors, which signals the SDKs to fall back to the handshake flow.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RefreshSession" method="post" path="/sessions/{session_id}/refresh" -->
 ```java
 package hello.world;
 
@@ -232,6 +235,7 @@ In multi-session mode, a revoked session will still be returned along with its c
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RevokeSession" method="post" path="/sessions/{session_id}/revoke" -->
 ```java
 package hello.world;
 
@@ -276,68 +280,13 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## ~~verify~~
-
-Returns the session if it is authenticated, otherwise returns an error.
-WARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,
-         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).
-         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens).
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
-
-### Example Usage
-
-```java
-package hello.world;
-
-import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.VerifySessionResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ClerkErrors, Exception {
-
-        Clerk sdk = Clerk.builder()
-                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
-            .build();
-
-        VerifySessionResponse res = sdk.sessions().verify()
-                .sessionId("<id>")
-                .call();
-
-        if (res.session().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `sessionId`                                                                                | *String*                                                                                   | :heavy_check_mark:                                                                         | The ID of the session                                                                      |
-| `requestBody`                                                                              | [Optional\<VerifySessionRequestBody>](../../models/operations/VerifySessionRequestBody.md) | :heavy_minus_sign:                                                                         | Parameters.                                                                                |
-
-### Response
-
-**[VerifySessionResponse](../../models/operations/VerifySessionResponse.md)**
-
-### Errors
-
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 404, 410        | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
-
 ## createToken
 
 Creates a session JSON Web Token (JWT) based on a session.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateSessionToken" method="post" path="/sessions/{session_id}/tokens" -->
 ```java
 package hello.world;
 
@@ -389,6 +338,7 @@ Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateSessionTokenFromTemplate" method="post" path="/sessions/{session_id}/tokens/{template_name}" -->
 ```java
 package hello.world;
 

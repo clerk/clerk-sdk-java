@@ -16,7 +16,12 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class Otp {
+public class Otp implements Verification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationObject> object;
+
 
     @JsonProperty("status")
     private VerificationStatus status;
@@ -42,16 +47,19 @@ public class Otp {
 
     @JsonCreator
     public Otp(
+            @JsonProperty("object") Optional<? extends VerificationObject> object,
             @JsonProperty("status") VerificationStatus status,
             @JsonProperty("strategy") Strategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
@@ -62,8 +70,14 @@ public class Otp {
     public Otp(
             VerificationStatus status,
             Strategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
+    }
+
+    @JsonIgnore
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
     }
 
     @JsonIgnore
@@ -95,6 +109,19 @@ public class Otp {
         return new Builder();
     }
 
+
+    public Otp withObject(VerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public Otp withObject(Optional<? extends VerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
 
     public Otp withStatus(VerificationStatus status) {
         Utils.checkNotNull(status, "status");
@@ -156,6 +183,7 @@ public class Otp {
         }
         Otp other = (Otp) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
@@ -166,13 +194,14 @@ public class Otp {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, attempts,
-            expireAt, verifiedAtClient);
+            object, status, strategy,
+            attempts, expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Otp.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
@@ -182,6 +211,8 @@ public class Otp {
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
+
+        private Optional<? extends VerificationObject> object = Optional.empty();
 
         private VerificationStatus status;
 
@@ -195,6 +226,19 @@ public class Otp {
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        public Builder object(VerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
         }
 
 
@@ -253,8 +297,8 @@ public class Otp {
         public Otp build() {
 
             return new Otp(
-                status, strategy, attempts,
-                expireAt, verifiedAtClient);
+                object, status, strategy,
+                attempts, expireAt, verifiedAtClient);
         }
 
     }

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetTemplateOperation;
+import com.clerk.backend_api.operations.GetTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class GetTemplateRequestBuilder {
             .build());
 
         RequestOperation<GetTemplateRequest, GetTemplateResponse> operation
-              = new GetTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new GetTemplate.Sync(sdkConfiguration, options);
         GetTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

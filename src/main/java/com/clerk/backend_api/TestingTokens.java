@@ -7,10 +7,9 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.models.operations.CreateTestingTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateTestingTokenResponse;
-import com.clerk.backend_api.operations.CreateTestingTokenOperation;
+import com.clerk.backend_api.operations.CreateTestingToken;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -20,6 +19,7 @@ public class TestingTokens {
     TestingTokens(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Retrieve a new testing token
      * 
@@ -54,9 +54,7 @@ public class TestingTokens {
      */
     public CreateTestingTokenResponse create(Optional<Options> options) throws Exception {
         RequestlessOperation<CreateTestingTokenResponse> operation
-            = new CreateTestingTokenOperation(
-                sdkConfiguration,
-                options);
+            = new CreateTestingToken.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 

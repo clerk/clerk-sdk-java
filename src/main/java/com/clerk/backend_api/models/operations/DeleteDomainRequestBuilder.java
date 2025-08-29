@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteDomainOperation;
+import com.clerk.backend_api.operations.DeleteDomain;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteDomainRequestBuilder {
             .build());
 
         RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
-              = new DeleteDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteDomain.Sync(sdkConfiguration, options);
         DeleteDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -15,6 +15,7 @@ Returns a preview of a template for a given template_type, slug and body
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="PreviewTemplate" method="post" path="/templates/{template_type}/{slug}/preview" -->
 ```java
 package hello.world;
 

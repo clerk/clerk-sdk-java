@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteBackupCodeOperation;
+import com.clerk.backend_api.operations.DeleteBackupCode;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteBackupCodeRequestBuilder {
             .build());
 
         RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
-              = new DeleteBackupCodeOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBackupCode.Sync(sdkConfiguration, options);
         DeleteBackupCodeRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

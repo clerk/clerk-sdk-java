@@ -15,6 +15,7 @@ Get a list of all identifiers allowed to sign up to an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListAllowlistIdentifiers" method="get" path="/allowlist_identifiers" -->
 ```java
 package hello.world;
 
@@ -68,6 +69,7 @@ Create an identifier allowed to sign up to an instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateAllowlistIdentifier" method="post" path="/allowlist_identifiers" -->
 ```java
 package hello.world;
 
@@ -117,6 +119,7 @@ Delete an identifier from the instance allow-list
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteAllowlistIdentifier" method="delete" path="/allowlist_identifiers/{identifier_id}" -->
 ```java
 package hello.world;
 

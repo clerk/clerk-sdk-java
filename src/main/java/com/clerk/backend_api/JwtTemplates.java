@@ -21,17 +21,16 @@ import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequest;
 import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBody;
 import com.clerk.backend_api.models.operations.UpdateJWTTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateJWTTemplateResponse;
-import com.clerk.backend_api.operations.CreateJWTTemplateOperation;
-import com.clerk.backend_api.operations.DeleteJWTTemplateOperation;
-import com.clerk.backend_api.operations.GetJWTTemplateOperation;
-import com.clerk.backend_api.operations.ListJWTTemplatesOperation;
-import com.clerk.backend_api.operations.UpdateJWTTemplateOperation;
+import com.clerk.backend_api.operations.CreateJWTTemplate;
+import com.clerk.backend_api.operations.DeleteJWTTemplate;
+import com.clerk.backend_api.operations.GetJWTTemplate;
+import com.clerk.backend_api.operations.ListJWTTemplates;
+import com.clerk.backend_api.operations.UpdateJWTTemplate;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -41,6 +40,7 @@ public class JwtTemplates {
     JwtTemplates(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all templates
      * 
@@ -77,10 +77,8 @@ public class JwtTemplates {
      * @throws Exception if the API call fails
      */
     public ListJWTTemplatesResponse list(
-            Optional<Boolean> paginated,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         ListJWTTemplatesRequest request =
             ListJWTTemplatesRequest
                 .builder()
@@ -89,9 +87,7 @@ public class JwtTemplates {
                 .offset(offset)
                 .build();
         RequestOperation<ListJWTTemplatesRequest, ListJWTTemplatesResponse> operation
-              = new ListJWTTemplatesOperation(
-                sdkConfiguration,
-                options);
+              = new ListJWTTemplates.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -128,13 +124,9 @@ public class JwtTemplates {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateJWTTemplateResponse create(
-            Optional<? extends CreateJWTTemplateRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateJWTTemplateResponse create(Optional<? extends CreateJWTTemplateRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateJWTTemplateRequestBody>, CreateJWTTemplateResponse> operation
-              = new CreateJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateJWTTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -172,18 +164,14 @@ public class JwtTemplates {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetJWTTemplateResponse get(
-            String templateId,
-            Optional<Options> options) throws Exception {
+    public GetJWTTemplateResponse get(String templateId, Optional<Options> options) throws Exception {
         GetJWTTemplateRequest request =
             GetJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         RequestOperation<GetJWTTemplateRequest, GetJWTTemplateResponse> operation
-              = new GetJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new GetJWTTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -223,8 +211,7 @@ public class JwtTemplates {
      * @throws Exception if the API call fails
      */
     public UpdateJWTTemplateResponse update(
-            String templateId,
-            Optional<? extends UpdateJWTTemplateRequestBody> requestBody,
+            String templateId, Optional<? extends UpdateJWTTemplateRequestBody> requestBody,
             Optional<Options> options) throws Exception {
         UpdateJWTTemplateRequest request =
             UpdateJWTTemplateRequest
@@ -233,9 +220,7 @@ public class JwtTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateJWTTemplateRequest, UpdateJWTTemplateResponse> operation
-              = new UpdateJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateJWTTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -267,18 +252,14 @@ public class JwtTemplates {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteJWTTemplateResponse delete(
-            String templateId,
-            Optional<Options> options) throws Exception {
+    public DeleteJWTTemplateResponse delete(String templateId, Optional<Options> options) throws Exception {
         DeleteJWTTemplateRequest request =
             DeleteJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         RequestOperation<DeleteJWTTemplateRequest, DeleteJWTTemplateResponse> operation
-              = new DeleteJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteJWTTemplate.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

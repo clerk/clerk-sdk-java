@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteUserOperation;
+import com.clerk.backend_api.operations.DeleteUser;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteUserRequestBuilder {
             .build());
 
         RequestOperation<DeleteUserRequest, DeleteUserResponse> operation
-              = new DeleteUserOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUser.Sync(sdkConfiguration, options);
         DeleteUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UpsertTemplateOperation;
+import com.clerk.backend_api.operations.UpsertTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -78,9 +78,7 @@ public class UpsertTemplateRequestBuilder {
             .build());
 
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
-              = new UpsertTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new UpsertTemplate.Sync(sdkConfiguration, options);
         UpsertTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

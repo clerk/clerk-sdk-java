@@ -13,11 +13,14 @@
 * [delete](#delete) - Delete a user
 * [ban](#ban) - Ban a user
 * [unban](#unban) - Unban a user
+* [bulkBan](#bulkban) - Ban multiple users
+* [bulkUnban](#bulkunban) - Unban multiple users
 * [lock](#lock) - Lock a user
 * [unlock](#unlock) - Unlock a user
 * [setProfileImage](#setprofileimage) - Set user profile image
 * [deleteProfileImage](#deleteprofileimage) - Delete user profile image
 * [updateMetadata](#updatemetadata) - Merge and update a user's metadata
+* [getBillingSubscription](#getbillingsubscription) - Retrieve a user's billing subscription
 * [getOAuthAccessToken](#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](#getorganizationinvitations) - Retrieve all invitations for a user
@@ -38,6 +41,7 @@ The users are returned sorted by creation date, with the newest users appearing 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetUserList" method="get" path="/users" -->
 ```java
 package hello.world;
 
@@ -99,10 +103,11 @@ Any email address and phone number created using this method will be marked as v
 
 Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
 
-A rate limit rule of 20 requests per 10 seconds is applied to this endpoint.
+The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateUser" method="post" path="/users" -->
 ```java
 package hello.world;
 
@@ -157,6 +162,7 @@ Returns a total count of all users that match the given filtering criteria.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetUsersCount" method="get" path="/users/count" -->
 ```java
 package hello.world;
 
@@ -216,6 +222,7 @@ Retrieve the details of a user
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetUser" method="get" path="/users/{user_id}" -->
 ```java
 package hello.world;
 
@@ -277,6 +284,7 @@ You can also choose to sign the user out of all their active sessions on any dev
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateUser" method="patch" path="/users/{user_id}" -->
 ```java
 package hello.world;
 
@@ -331,6 +339,7 @@ Delete the specified user
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteUser" method="delete" path="/users/{user_id}" -->
 ```java
 package hello.world;
 
@@ -381,6 +390,7 @@ Marks the given user as banned, which means that all their sessions are revoked 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="BanUser" method="post" path="/users/{user_id}/ban" -->
 ```java
 package hello.world;
 
@@ -431,6 +441,7 @@ Removes the ban mark from the given user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UnbanUser" method="post" path="/users/{user_id}/unban" -->
 ```java
 package hello.world;
 
@@ -475,6 +486,126 @@ public class Application {
 | models/errors/ClerkErrors | 402                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## bulkBan
+
+Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UsersBan" method="post" path="/users/ban" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UsersBanRequestBody;
+import com.clerk.backend_api.models.operations.UsersBanResponse;
+import java.lang.Exception;
+import java.util.List;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UsersBanRequestBody req = UsersBanRequestBody.builder()
+                .userIds(List.of(
+                    "<value 1>",
+                    "<value 2>",
+                    "<value 3>"))
+                .build();
+
+        UsersBanResponse res = sdk.users().bulkBan()
+                .request(req)
+                .call();
+
+        if (res.userList().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [UsersBanRequestBody](../../models/operations/UsersBanRequestBody.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
+
+### Response
+
+**[UsersBanResponse](../../models/operations/UsersBanResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 402                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## bulkUnban
+
+Removes the ban mark from multiple users.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UsersUnban" method="post" path="/users/unban" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UsersUnbanRequestBody;
+import com.clerk.backend_api.models.operations.UsersUnbanResponse;
+import java.lang.Exception;
+import java.util.List;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UsersUnbanRequestBody req = UsersUnbanRequestBody.builder()
+                .userIds(List.of(
+                    "<value 1>",
+                    "<value 2>",
+                    "<value 3>"))
+                .build();
+
+        UsersUnbanResponse res = sdk.users().bulkUnban()
+                .request(req)
+                .call();
+
+        if (res.userList().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [UsersUnbanRequestBody](../../models/operations/UsersUnbanRequestBody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
+
+### Response
+
+**[UsersUnbanResponse](../../models/operations/UsersUnbanResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 402                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## lock
 
 Marks the given user as locked, which means they are not allowed to sign in again until the lock expires.
@@ -482,6 +613,7 @@ Lock duration can be configured in the instance's restrictions settings.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="LockUser" method="post" path="/users/{user_id}/lock" -->
 ```java
 package hello.world;
 
@@ -532,6 +664,7 @@ Removes the lock from the given user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UnlockUser" method="post" path="/users/{user_id}/unlock" -->
 ```java
 package hello.world;
 
@@ -582,6 +715,7 @@ Update a user's profile image
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="SetUserProfileImage" method="post" path="/users/{user_id}/profile_image" -->
 ```java
 package hello.world;
 
@@ -636,6 +770,7 @@ Delete a user's profile image
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteUserProfileImage" method="delete" path="/users/{user_id}/profile_image" -->
 ```java
 package hello.world;
 
@@ -693,6 +828,7 @@ You can remove metadata keys at any level by setting their value to `null`.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateUserMetadata" method="patch" path="/users/{user_id}/metadata" -->
 ```java
 package hello.world;
 
@@ -738,6 +874,60 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## getBillingSubscription
+
+Retrieves the billing subscription for the specified user.
+This includes subscription details, active plans, billing information, and payment status.
+The subscription contains subscription items which represent the individual plans the user is subscribed to.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetUserBillingSubscription" method="get" path="/users/{user_id}/billing/subscription" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetUserBillingSubscriptionResponse res = sdk.users().getBillingSubscription()
+                .userId("<id>")
+                .call();
+
+        if (res.commerceSubscription().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                         | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `userId`                                          | *String*                                          | :heavy_check_mark:                                | The ID of the user whose subscription to retrieve |
+
+### Response
+
+**[GetUserBillingSubscriptionResponse](../../models/operations/GetUserBillingSubscriptionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## getOAuthAccessToken
 
 Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.
@@ -745,6 +935,7 @@ For OAuth 2.0, if the access token has expired and we have a corresponding refre
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetOAuthAccessToken" method="get" path="/users/{user_id}/oauth_access_tokens/{provider}" -->
 ```java
 package hello.world;
 
@@ -801,6 +992,7 @@ Retrieve a paginated list of the user's organization memberships
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UsersGetOrganizationMemberships" method="get" path="/users/{user_id}/organization_memberships" -->
 ```java
 package hello.world;
 
@@ -855,6 +1047,7 @@ Retrieve a paginated list of the user's organization invitations
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UsersGetOrganizationInvitations" method="get" path="/users/{user_id}/organization_invitations" -->
 ```java
 package hello.world;
 
@@ -911,6 +1104,7 @@ Useful for custom auth flows and re-verification.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="VerifyPassword" method="post" path="/users/{user_id}/verify_password" -->
 ```java
 package hello.world;
 
@@ -965,6 +1159,7 @@ Useful for custom auth flows and re-verification.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="VerifyTOTP" method="post" path="/users/{user_id}/verify_totp" -->
 ```java
 package hello.world;
 
@@ -1016,6 +1211,7 @@ Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authen
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DisableMFA" method="delete" path="/users/{user_id}/mfa" -->
 ```java
 package hello.world;
 
@@ -1067,6 +1263,7 @@ Disable all of a user's backup codes.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteBackupCode" method="delete" path="/users/{user_id}/backup_code" -->
 ```java
 package hello.world;
 
@@ -1118,6 +1315,7 @@ Delete the passkey identification for a given user and notify them through email
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UserPasskeyDelete" method="delete" path="/users/{user_id}/passkeys/{passkey_identification_id}" -->
 ```java
 package hello.world;
 
@@ -1171,6 +1369,7 @@ Delete the web3 wallet identification for a given user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UserWeb3WalletDelete" method="delete" path="/users/{user_id}/web3_wallets/{web3_wallet_identification_id}" -->
 ```java
 package hello.world;
 
@@ -1224,6 +1423,7 @@ Deletes all of the user's TOTPs.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteTOTP" method="delete" path="/users/{user_id}/totp" -->
 ```java
 package hello.world;
 
@@ -1275,6 +1475,7 @@ Delete an external account by ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteExternalAccount" method="delete" path="/users/{user_id}/external_accounts/{external_account_id}" -->
 ```java
 package hello.world;
 
@@ -1328,6 +1529,7 @@ Retrieves all organization user memberships for the given instance.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="InstanceGetOrganizationMemberships" method="get" path="/organization_memberships" -->
 ```java
 package hello.world;
 

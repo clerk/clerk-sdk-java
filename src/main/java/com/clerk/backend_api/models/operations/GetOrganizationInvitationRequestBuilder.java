@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetOrganizationInvitationOperation;
+import com.clerk.backend_api.operations.GetOrganizationInvitation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class GetOrganizationInvitationRequestBuilder {
             .build());
 
         RequestOperation<GetOrganizationInvitationRequest, GetOrganizationInvitationResponse> operation
-              = new GetOrganizationInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new GetOrganizationInvitation.Sync(sdkConfiguration, options);
         GetOrganizationInvitationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CompleteAccountlessApplicationOperation;
+import com.clerk.backend_api.operations.CompleteAccountlessApplication;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -40,9 +40,7 @@ public class CompleteAccountlessApplicationRequestBuilder {
             .build());
 
         RequestlessOperation<CompleteAccountlessApplicationResponse> operation
-            = new CompleteAccountlessApplicationOperation(
-                sdkConfiguration,
-                options);
+            = new CompleteAccountlessApplication.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest());
     }

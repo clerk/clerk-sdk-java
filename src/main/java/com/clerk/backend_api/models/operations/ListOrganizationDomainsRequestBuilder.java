@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ListOrganizationDomainsOperation;
+import com.clerk.backend_api.operations.ListOrganizationDomains;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -47,9 +47,7 @@ public class ListOrganizationDomainsRequestBuilder {
             .build());
 
         RequestOperation<ListOrganizationDomainsRequest, ListOrganizationDomainsResponse> operation
-              = new ListOrganizationDomainsOperation(
-                sdkConfiguration,
-                options);
+              = new ListOrganizationDomains.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

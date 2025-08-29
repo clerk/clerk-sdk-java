@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateAllowlistIdentifierOperation;
+import com.clerk.backend_api.operations.CreateAllowlistIdentifier;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateAllowlistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateAllowlistIdentifierRequestBody>, CreateAllowlistIdentifierResponse> operation
-              = new CreateAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

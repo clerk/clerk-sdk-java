@@ -1,0 +1,11 @@
+# GetM2MTokensM2mResponseBody
+
+403 Forbidden
+
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `errors`                                                                                                                       | List\<[GetM2MTokensM2mErrors](../../models/errors/GetM2MTokensM2mErrors.md)>                                                   | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `rawResponse`                                                                                                                  | [HttpResponse\<InputStream>](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/HttpResponse.html) | :heavy_minus_sign:                                                                                                             | Raw HTTP response; suitable for custom response parsing                                                                        |

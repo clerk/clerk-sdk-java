@@ -17,10 +17,15 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class FromOAuth {
+public class FromOAuth implements Verification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationFromOauthVerificationObject> object;
+
 
     @JsonProperty("status")
-    private FromOAuthVerificationStatus status;
+    private VerificationFromOauthVerificationStatus status;
 
 
     @JsonProperty("strategy")
@@ -48,18 +53,21 @@ public class FromOAuth {
 
     @JsonCreator
     public FromOAuth(
-            @JsonProperty("status") FromOAuthVerificationStatus status,
+            @JsonProperty("object") Optional<? extends VerificationFromOauthVerificationObject> object,
+            @JsonProperty("status") VerificationFromOauthVerificationStatus status,
             @JsonProperty("strategy") String strategy,
             @JsonProperty("error") JsonNullable<? extends Error> error,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(error, "error");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.error = error;
@@ -69,14 +77,21 @@ public class FromOAuth {
     }
     
     public FromOAuth(
-            FromOAuthVerificationStatus status,
+            VerificationFromOauthVerificationStatus status,
             String strategy) {
-        this(status, strategy, JsonNullable.undefined(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(Optional.empty(), status, strategy,
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public FromOAuthVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationFromOauthVerificationStatus status() {
         return status;
     }
 
@@ -111,7 +126,20 @@ public class FromOAuth {
     }
 
 
-    public FromOAuth withStatus(FromOAuthVerificationStatus status) {
+    public FromOAuth withObject(VerificationFromOauthVerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public FromOAuth withObject(Optional<? extends VerificationFromOauthVerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public FromOAuth withStatus(VerificationFromOauthVerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -183,6 +211,7 @@ public class FromOAuth {
         }
         FromOAuth other = (FromOAuth) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.error, other.error) &&
@@ -194,13 +223,15 @@ public class FromOAuth {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, error,
-            expireAt, attempts, verifiedAtClient);
+            object, status, strategy,
+            error, expireAt, attempts,
+            verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(FromOAuth.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "error", error,
@@ -212,7 +243,9 @@ public class FromOAuth {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private FromOAuthVerificationStatus status;
+        private Optional<? extends VerificationFromOauthVerificationObject> object = Optional.empty();
+
+        private VerificationFromOauthVerificationStatus status;
 
         private String strategy;
 
@@ -229,7 +262,20 @@ public class FromOAuth {
         }
 
 
-        public Builder status(FromOAuthVerificationStatus status) {
+        public Builder object(VerificationFromOauthVerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationFromOauthVerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationFromOauthVerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
@@ -297,8 +343,9 @@ public class FromOAuth {
         public FromOAuth build() {
 
             return new FromOAuth(
-                status, strategy, error,
-                expireAt, attempts, verifiedAtClient);
+                object, status, strategy,
+                error, expireAt, attempts,
+                verifiedAtClient);
         }
 
     }

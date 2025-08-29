@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.RevokeInvitationOperation;
+import com.clerk.backend_api.operations.RevokeInvitation;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class RevokeInvitationRequestBuilder {
             .build());
 
         RequestOperation<RevokeInvitationRequest, RevokeInvitationResponse> operation
-              = new RevokeInvitationOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeInvitation.Sync(sdkConfiguration, options);
         RevokeInvitationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

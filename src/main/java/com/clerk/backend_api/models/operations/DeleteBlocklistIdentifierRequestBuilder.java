@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteBlocklistIdentifierOperation;
+import com.clerk.backend_api.operations.DeleteBlocklistIdentifier;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteBlocklistIdentifierRequestBuilder {
             .build());
 
         RequestOperation<DeleteBlocklistIdentifierRequest, DeleteBlocklistIdentifierResponse> operation
-              = new DeleteBlocklistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteBlocklistIdentifier.Sync(sdkConfiguration, options);
         DeleteBlocklistIdentifierRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

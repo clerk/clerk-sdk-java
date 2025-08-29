@@ -14,7 +14,7 @@ import java.util.Optional;
  * <p>String representing the object's type. Objects of the same type share the same value.
  */
 public enum Object {
-    CLIENT("client");
+    AWS_CREDENTIAL("aws_credential");
 
     @JsonValue
     private final String value;

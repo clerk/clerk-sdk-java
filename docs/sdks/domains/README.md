@@ -17,6 +17,7 @@ The response will contain the primary domain for the instance and any satellite 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListDomains" method="get" path="/domains" -->
 ```java
 package hello.world;
 
@@ -62,6 +63,7 @@ If you're planning to configure the new satellite domain to run behind a proxy, 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="AddDomain" method="post" path="/domains" -->
 ```java
 package hello.world;
 
@@ -112,6 +114,7 @@ It is currently not possible to delete the instance's primary domain.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteDomain" method="delete" path="/domains/{domain_id}" -->
 ```java
 package hello.world;
 
@@ -169,6 +172,7 @@ update the instance's home origin, affecting the default application paths.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateDomain" method="patch" path="/domains/{domain_id}" -->
 ```java
 package hello.world;
 

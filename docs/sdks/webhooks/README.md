@@ -15,6 +15,7 @@ Create a Svix app and associate it with the current instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateSvixApp" method="post" path="/webhooks/svix" -->
 ```java
 package hello.world;
 
@@ -58,6 +59,7 @@ Delete a Svix app and disassociate it from the current instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteSvixApp" method="delete" path="/webhooks/svix" -->
 ```java
 package hello.world;
 
@@ -99,6 +101,7 @@ Generate a new url for accessing the Svix's management dashboard for that partic
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GenerateSvixAuthURL" method="post" path="/webhooks/svix_url" -->
 ```java
 package hello.world;
 

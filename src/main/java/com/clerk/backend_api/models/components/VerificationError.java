@@ -25,15 +25,15 @@ public class VerificationError {
         this.value = value;
     }
 
-    public static VerificationError of(OauthErrorClerkError value) {
+    public static VerificationError of(VerificationSamlErrorClerkError value) {
         Utils.checkNotNull(value, "value");
-        return new VerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<OauthErrorClerkError>(){}));
+        return new VerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<VerificationSamlErrorClerkError>(){}));
     }
     
     /**
      * Returns an instance of one of these types:
      * <ul>
-     * <li>{@code com.clerk.backend_api.models.components.OauthErrorClerkError}</li>
+     * <li>{@code com.clerk.backend_api.models.components.VerificationSamlErrorClerkError}</li>
      * </ul>
      * 
      * <p>Use {@code instanceof} to determine what type is returned. For example:
@@ -73,7 +73,7 @@ public class VerificationError {
 
         public _Deserializer() {
             super(VerificationError.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<OauthErrorClerkError>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<VerificationSamlErrorClerkError>() {}, JsonShape.DEFAULT));
         }
     }
     

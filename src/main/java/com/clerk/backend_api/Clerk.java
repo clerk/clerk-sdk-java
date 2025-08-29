@@ -19,7 +19,7 @@ import java.util.function.Consumer;
  * <p>### Versions
  * 
  * <p>When the API changes in a way that isn't compatible with older versions, a new version is released.
- * Each version is identified by its release date, e.g. `2025-03-12`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
+ * Each version is identified by its release date, e.g. `2025-04-10`. For more information, please see [Clerk API Versions](https://clerk.com/docs/versioning/available-versions).
  * 
  * <p>Please see https://clerk.com/docs for more information.
  * 
@@ -41,6 +41,9 @@ public class Clerk {
 
 
     private final Jwks jwks;
+
+
+    private final AwsCredentials awsCredentials;
 
 
     private final Clients clients;
@@ -97,6 +100,9 @@ public class Clerk {
     private final JwtTemplates jwtTemplates;
 
 
+    private final Machines machines;
+
+
     private final Organizations organizations;
 
 
@@ -133,6 +139,15 @@ public class Clerk {
     private final ExperimentalAccountlessApplications experimentalAccountlessApplications;
 
 
+    private final Commerce commerce;
+
+
+    private final M2m m2m;
+
+
+    private final OauthAccessTokens oauthAccessTokens;
+
+
     public Miscellaneous miscellaneous() {
         return miscellaneous;
     }
@@ -140,6 +155,11 @@ public class Clerk {
 
     public Jwks jwks() {
         return jwks;
+    }
+
+
+    public AwsCredentials awsCredentials() {
+        return awsCredentials;
     }
 
 
@@ -233,6 +253,11 @@ public class Clerk {
     }
 
 
+    public Machines machines() {
+        return machines;
+    }
+
+
     public Organizations organizations() {
         return organizations;
     }
@@ -290,6 +315,21 @@ public class Clerk {
 
     public ExperimentalAccountlessApplications experimentalAccountlessApplications() {
         return experimentalAccountlessApplications;
+    }
+
+
+    public Commerce commerce() {
+        return commerce;
+    }
+
+
+    public M2m m2m() {
+        return m2m;
+    }
+
+
+    public OauthAccessTokens oauthAccessTokens() {
+        return oauthAccessTokens;
     }
 
     private final SDKConfiguration sdkConfiguration;
@@ -445,6 +485,7 @@ public class Clerk {
         this.sdkConfiguration.initialize();
         this.miscellaneous = new Miscellaneous(sdkConfiguration);
         this.jwks = new Jwks(sdkConfiguration);
+        this.awsCredentials = new AwsCredentials(sdkConfiguration);
         this.clients = new Clients(sdkConfiguration);
         this.emailAddresses = new EmailAddresses(sdkConfiguration);
         this.phoneNumbers = new PhoneNumbers(sdkConfiguration);
@@ -463,6 +504,7 @@ public class Clerk {
         this.instanceSettings = new InstanceSettings(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);
         this.jwtTemplates = new JwtTemplates(sdkConfiguration);
+        this.machines = new Machines(sdkConfiguration);
         this.organizations = new Organizations(sdkConfiguration);
         this.organizationMemberships = new OrganizationMemberships(sdkConfiguration);
         this.organizationDomains = new OrganizationDomains(sdkConfiguration);
@@ -475,6 +517,9 @@ public class Clerk {
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.experimentalAccountlessApplications = new ExperimentalAccountlessApplications(sdkConfiguration);
+        this.commerce = new Commerce(sdkConfiguration);
+        this.m2m = new M2m(sdkConfiguration);
+        this.oauthAccessTokens = new OauthAccessTokens(sdkConfiguration);
         SdkInitData data = this.sdkConfiguration.hooks().sdkInit(
                 new SdkInitData(
                         this.sdkConfiguration.resolvedServerUrl(), 

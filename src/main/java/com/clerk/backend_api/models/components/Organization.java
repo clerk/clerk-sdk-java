@@ -14,6 +14,7 @@ import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,6 +35,15 @@ public class Organization {
 
     @JsonProperty("slug")
     private String slug;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("image_url")
+    private Optional<String> imageUrl;
+
+
+    @JsonProperty("has_image")
+    private boolean hasImage;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -63,8 +73,9 @@ public class Organization {
     private Map<String, Object> publicMetadata;
 
 
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
-    private Map<String, Object> privateMetadata;
+    private Optional<? extends Map<String, Object>> privateMetadata;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -89,13 +100,15 @@ public class Organization {
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("slug") String slug,
+            @JsonProperty("image_url") Optional<String> imageUrl,
+            @JsonProperty("has_image") boolean hasImage,
             @JsonProperty("members_count") Optional<Long> membersCount,
             @JsonProperty("missing_member_with_elevated_permissions") Optional<Boolean> missingMemberWithElevatedPermissions,
             @JsonProperty("pending_invitations_count") Optional<Long> pendingInvitationsCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
-            @JsonProperty("private_metadata") Map<String, Object> privateMetadata,
+            @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
@@ -103,6 +116,8 @@ public class Organization {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
+        Utils.checkNotNull(imageUrl, "imageUrl");
+        Utils.checkNotNull(hasImage, "hasImage");
         Utils.checkNotNull(membersCount, "membersCount");
         Utils.checkNotNull(missingMemberWithElevatedPermissions, "missingMemberWithElevatedPermissions");
         Utils.checkNotNull(pendingInvitationsCount, "pendingInvitationsCount");
@@ -110,7 +125,6 @@ public class Organization {
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
-        privateMetadata = Utils.emptyMapIfNull(privateMetadata);
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
@@ -119,6 +133,8 @@ public class Organization {
         this.id = id;
         this.name = name;
         this.slug = slug;
+        this.imageUrl = imageUrl;
+        this.hasImage = hasImage;
         this.membersCount = membersCount;
         this.missingMemberWithElevatedPermissions = missingMemberWithElevatedPermissions;
         this.pendingInvitationsCount = pendingInvitationsCount;
@@ -136,17 +152,18 @@ public class Organization {
             String id,
             String name,
             String slug,
+            boolean hasImage,
             long maxAllowedMemberships,
             boolean adminDeleteEnabled,
             Map<String, Object> publicMetadata,
-            Map<String, Object> privateMetadata,
             long createdAt,
             long updatedAt) {
         this(object, id, name,
-            slug, Optional.empty(), Optional.empty(),
-            Optional.empty(), maxAllowedMemberships, adminDeleteEnabled,
-            publicMetadata, privateMetadata, Optional.empty(),
-            createdAt, updatedAt);
+            slug, Optional.empty(), hasImage,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+            Optional.empty(), Optional.empty(), createdAt,
+            updatedAt);
     }
 
     @JsonIgnore
@@ -167,6 +184,16 @@ public class Organization {
     @JsonIgnore
     public String slug() {
         return slug;
+    }
+
+    @JsonIgnore
+    public Optional<String> imageUrl() {
+        return imageUrl;
+    }
+
+    @JsonIgnore
+    public boolean hasImage() {
+        return hasImage;
     }
 
     @JsonIgnore
@@ -199,9 +226,10 @@ public class Organization {
         return publicMetadata;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Map<String, Object> privateMetadata() {
-        return privateMetadata;
+    public Optional<Map<String, Object>> privateMetadata() {
+        return (Optional<Map<String, Object>>) privateMetadata;
     }
 
     @JsonIgnore
@@ -251,6 +279,25 @@ public class Organization {
     public Organization withSlug(String slug) {
         Utils.checkNotNull(slug, "slug");
         this.slug = slug;
+        return this;
+    }
+
+    public Organization withImageUrl(String imageUrl) {
+        Utils.checkNotNull(imageUrl, "imageUrl");
+        this.imageUrl = Optional.ofNullable(imageUrl);
+        return this;
+    }
+
+
+    public Organization withImageUrl(Optional<String> imageUrl) {
+        Utils.checkNotNull(imageUrl, "imageUrl");
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public Organization withHasImage(boolean hasImage) {
+        Utils.checkNotNull(hasImage, "hasImage");
+        this.hasImage = hasImage;
         return this;
     }
 
@@ -313,6 +360,13 @@ public class Organization {
 
     public Organization withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
+        this.privateMetadata = Optional.ofNullable(privateMetadata);
+        return this;
+    }
+
+
+    public Organization withPrivateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.privateMetadata = privateMetadata;
         return this;
     }
@@ -362,6 +416,8 @@ public class Organization {
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
+            Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
             Utils.enhancedDeepEquals(this.membersCount, other.membersCount) &&
             Utils.enhancedDeepEquals(this.missingMemberWithElevatedPermissions, other.missingMemberWithElevatedPermissions) &&
             Utils.enhancedDeepEquals(this.pendingInvitationsCount, other.pendingInvitationsCount) &&
@@ -378,10 +434,11 @@ public class Organization {
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, name,
-            slug, membersCount, missingMemberWithElevatedPermissions,
-            pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
-            publicMetadata, privateMetadata, createdBy,
-            createdAt, updatedAt);
+            slug, imageUrl, hasImage,
+            membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
+            maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+            privateMetadata, createdBy, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -391,6 +448,8 @@ public class Organization {
                 "id", id,
                 "name", name,
                 "slug", slug,
+                "imageUrl", imageUrl,
+                "hasImage", hasImage,
                 "membersCount", membersCount,
                 "missingMemberWithElevatedPermissions", missingMemberWithElevatedPermissions,
                 "pendingInvitationsCount", pendingInvitationsCount,
@@ -414,6 +473,10 @@ public class Organization {
 
         private String slug;
 
+        private Optional<String> imageUrl = Optional.empty();
+
+        private Boolean hasImage;
+
         private Optional<Long> membersCount = Optional.empty();
 
         private Optional<Boolean> missingMemberWithElevatedPermissions = Optional.empty();
@@ -426,7 +489,7 @@ public class Organization {
 
         private Map<String, Object> publicMetadata;
 
-        private Map<String, Object> privateMetadata;
+        private Optional<? extends Map<String, Object>> privateMetadata = Optional.empty();
 
         private Optional<String> createdBy = Optional.empty();
 
@@ -463,6 +526,26 @@ public class Organization {
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
             this.slug = slug;
+            return this;
+        }
+
+
+        public Builder imageUrl(String imageUrl) {
+            Utils.checkNotNull(imageUrl, "imageUrl");
+            this.imageUrl = Optional.ofNullable(imageUrl);
+            return this;
+        }
+
+        public Builder imageUrl(Optional<String> imageUrl) {
+            Utils.checkNotNull(imageUrl, "imageUrl");
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+
+        public Builder hasImage(boolean hasImage) {
+            Utils.checkNotNull(hasImage, "hasImage");
+            this.hasImage = hasImage;
             return this;
         }
 
@@ -529,6 +612,12 @@ public class Organization {
 
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
+            this.privateMetadata = Optional.ofNullable(privateMetadata);
+            return this;
+        }
+
+        public Builder privateMetadata(Optional<? extends Map<String, Object>> privateMetadata) {
+            Utils.checkNotNull(privateMetadata, "privateMetadata");
             this.privateMetadata = privateMetadata;
             return this;
         }
@@ -570,10 +659,11 @@ public class Organization {
 
             return new Organization(
                 object, id, name,
-                slug, membersCount, missingMemberWithElevatedPermissions,
-                pendingInvitationsCount, maxAllowedMemberships, adminDeleteEnabled,
-                publicMetadata, privateMetadata, createdBy,
-                createdAt, updatedAt);
+                slug, imageUrl, hasImage,
+                membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
+                maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
+                privateMetadata, createdBy, createdAt,
+                updatedAt);
         }
 
     }

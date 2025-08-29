@@ -13,6 +13,7 @@
 * [mergeMetadata](#mergemetadata) - Merge and update metadata for an organization
 * [uploadLogo](#uploadlogo) - Upload a logo for the organization
 * [deleteLogo](#deletelogo) - Delete the organization's logo.
+* [getBillingSubscription](#getbillingsubscription) - Retrieve an organization's billing subscription
 
 ## list
 
@@ -23,6 +24,7 @@ Most recent organizations will be returned first.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListOrganizations" method="get" path="/organizations" -->
 ```java
 package hello.world;
 
@@ -81,11 +83,12 @@ You can provide additional metadata for the organization and set any custom attr
 Organizations support private and public metadata.
 Private metadata can only be accessed from the Backend API.
 Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
-The `created_by` user will see this as their [active organization] (https://clerk.com/docs/organizations/overview#active-organization)
+The `created_by` user will see this as their [active organization](https://clerk.com/docs/organizations/overview#active-organization)
 the next time they create a session, presuming they don't explicitly set a different organization as active before then.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateOrganization" method="post" path="/organizations" -->
 ```java
 package hello.world;
 
@@ -135,6 +138,7 @@ Fetches the organization whose ID or slug matches the provided `id_or_slug` URL 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetOrganization" method="get" path="/organizations/{organization_id}" -->
 ```java
 package hello.world;
 
@@ -187,6 +191,7 @@ Updates an existing organization
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateOrganization" method="patch" path="/organizations/{organization_id}" -->
 ```java
 package hello.world;
 
@@ -243,6 +248,7 @@ This is not reversible.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteOrganization" method="delete" path="/organizations/{organization_id}" -->
 ```java
 package hello.world;
 
@@ -296,6 +302,7 @@ You can remove metadata keys at any level by setting their value to `null`.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="MergeOrganizationMetadata" method="patch" path="/organizations/{organization_id}/metadata" -->
 ```java
 package hello.world;
 
@@ -349,10 +356,11 @@ public class Application {
 Set or replace an organization's logo, by uploading an image file.
 This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
 The file size cannot exceed 10MB.
-Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`, `image/x-icon`, `image/vnd.microsoft.icon`.
+Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UploadOrganizationLogo" method="put" path="/organizations/{organization_id}/logo" -->
 ```java
 package hello.world;
 
@@ -404,6 +412,7 @@ Delete the organization's logo.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteOrganizationLogo" method="delete" path="/organizations/{organization_id}/logo" -->
 ```java
 package hello.world;
 
@@ -446,4 +455,58 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 404                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getBillingSubscription
+
+Retrieves the billing subscription for the specified organization.
+This includes subscription details, active plans, billing information, and payment status.
+The subscription contains subscription items which represent the individual plans the organization is subscribed to.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetOrganizationBillingSubscription" method="get" path="/organizations/{organization_id}/billing/subscription" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetOrganizationBillingSubscriptionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetOrganizationBillingSubscriptionResponse res = sdk.organizations().getBillingSubscription()
+                .organizationId("<id>")
+                .call();
+
+        if (res.commerceSubscription().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                 | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `organizationId`                                          | *String*                                                  | :heavy_check_mark:                                        | The ID of the organization whose subscription to retrieve |
+
+### Response
+
+**[GetOrganizationBillingSubscriptionResponse](../../models/operations/GetOrganizationBillingSubscriptionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

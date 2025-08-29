@@ -28,6 +28,11 @@ public class UpdateInstanceRestrictionsRequestBody {
 
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("allowlist_blocklist_disabled_on_sign_in")
+    private JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn;
+
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("block_email_subaddresses")
     private JsonNullable<Boolean> blockEmailSubaddresses;
 
@@ -36,28 +41,23 @@ public class UpdateInstanceRestrictionsRequestBody {
     @JsonProperty("block_disposable_email_domains")
     private JsonNullable<Boolean> blockDisposableEmailDomains;
 
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("ignore_dots_for_gmail_addresses")
-    private JsonNullable<Boolean> ignoreDotsForGmailAddresses;
-
     @JsonCreator
     public UpdateInstanceRestrictionsRequestBody(
             @JsonProperty("allowlist") JsonNullable<Boolean> allowlist,
             @JsonProperty("blocklist") JsonNullable<Boolean> blocklist,
+            @JsonProperty("allowlist_blocklist_disabled_on_sign_in") JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn,
             @JsonProperty("block_email_subaddresses") JsonNullable<Boolean> blockEmailSubaddresses,
-            @JsonProperty("block_disposable_email_domains") JsonNullable<Boolean> blockDisposableEmailDomains,
-            @JsonProperty("ignore_dots_for_gmail_addresses") JsonNullable<Boolean> ignoreDotsForGmailAddresses) {
+            @JsonProperty("block_disposable_email_domains") JsonNullable<Boolean> blockDisposableEmailDomains) {
         Utils.checkNotNull(allowlist, "allowlist");
         Utils.checkNotNull(blocklist, "blocklist");
+        Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
         Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
         Utils.checkNotNull(blockDisposableEmailDomains, "blockDisposableEmailDomains");
-        Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
         this.allowlist = allowlist;
         this.blocklist = blocklist;
+        this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
         this.blockEmailSubaddresses = blockEmailSubaddresses;
         this.blockDisposableEmailDomains = blockDisposableEmailDomains;
-        this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
     }
     
     public UpdateInstanceRestrictionsRequestBody() {
@@ -76,6 +76,11 @@ public class UpdateInstanceRestrictionsRequestBody {
     }
 
     @JsonIgnore
+    public JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn() {
+        return allowlistBlocklistDisabledOnSignIn;
+    }
+
+    @JsonIgnore
     public JsonNullable<Boolean> blockEmailSubaddresses() {
         return blockEmailSubaddresses;
     }
@@ -83,11 +88,6 @@ public class UpdateInstanceRestrictionsRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> blockDisposableEmailDomains() {
         return blockDisposableEmailDomains;
-    }
-
-    @JsonIgnore
-    public JsonNullable<Boolean> ignoreDotsForGmailAddresses() {
-        return ignoreDotsForGmailAddresses;
     }
 
     public static Builder builder() {
@@ -119,6 +119,18 @@ public class UpdateInstanceRestrictionsRequestBody {
         return this;
     }
 
+    public UpdateInstanceRestrictionsRequestBody withAllowlistBlocklistDisabledOnSignIn(boolean allowlistBlocklistDisabledOnSignIn) {
+        Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+        this.allowlistBlocklistDisabledOnSignIn = JsonNullable.of(allowlistBlocklistDisabledOnSignIn);
+        return this;
+    }
+
+    public UpdateInstanceRestrictionsRequestBody withAllowlistBlocklistDisabledOnSignIn(JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn) {
+        Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+        this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
+        return this;
+    }
+
     public UpdateInstanceRestrictionsRequestBody withBlockEmailSubaddresses(boolean blockEmailSubaddresses) {
         Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
         this.blockEmailSubaddresses = JsonNullable.of(blockEmailSubaddresses);
@@ -143,18 +155,6 @@ public class UpdateInstanceRestrictionsRequestBody {
         return this;
     }
 
-    public UpdateInstanceRestrictionsRequestBody withIgnoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
-        Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-        this.ignoreDotsForGmailAddresses = JsonNullable.of(ignoreDotsForGmailAddresses);
-        return this;
-    }
-
-    public UpdateInstanceRestrictionsRequestBody withIgnoreDotsForGmailAddresses(JsonNullable<Boolean> ignoreDotsForGmailAddresses) {
-        Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-        this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -167,16 +167,16 @@ public class UpdateInstanceRestrictionsRequestBody {
         return 
             Utils.enhancedDeepEquals(this.allowlist, other.allowlist) &&
             Utils.enhancedDeepEquals(this.blocklist, other.blocklist) &&
+            Utils.enhancedDeepEquals(this.allowlistBlocklistDisabledOnSignIn, other.allowlistBlocklistDisabledOnSignIn) &&
             Utils.enhancedDeepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
-            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
-            Utils.enhancedDeepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
+            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            allowlist, blocklist, blockEmailSubaddresses,
-            blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
+            allowlist, blocklist, allowlistBlocklistDisabledOnSignIn,
+            blockEmailSubaddresses, blockDisposableEmailDomains);
     }
     
     @Override
@@ -184,9 +184,9 @@ public class UpdateInstanceRestrictionsRequestBody {
         return Utils.toString(UpdateInstanceRestrictionsRequestBody.class,
                 "allowlist", allowlist,
                 "blocklist", blocklist,
+                "allowlistBlocklistDisabledOnSignIn", allowlistBlocklistDisabledOnSignIn,
                 "blockEmailSubaddresses", blockEmailSubaddresses,
-                "blockDisposableEmailDomains", blockDisposableEmailDomains,
-                "ignoreDotsForGmailAddresses", ignoreDotsForGmailAddresses);
+                "blockDisposableEmailDomains", blockDisposableEmailDomains);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -196,11 +196,11 @@ public class UpdateInstanceRestrictionsRequestBody {
 
         private JsonNullable<Boolean> blocklist = JsonNullable.undefined();
 
+        private JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn = JsonNullable.undefined();
+
         private JsonNullable<Boolean> blockEmailSubaddresses = JsonNullable.undefined();
 
         private JsonNullable<Boolean> blockDisposableEmailDomains = JsonNullable.undefined();
-
-        private JsonNullable<Boolean> ignoreDotsForGmailAddresses = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -233,6 +233,19 @@ public class UpdateInstanceRestrictionsRequestBody {
         }
 
 
+        public Builder allowlistBlocklistDisabledOnSignIn(boolean allowlistBlocklistDisabledOnSignIn) {
+            Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+            this.allowlistBlocklistDisabledOnSignIn = JsonNullable.of(allowlistBlocklistDisabledOnSignIn);
+            return this;
+        }
+
+        public Builder allowlistBlocklistDisabledOnSignIn(JsonNullable<Boolean> allowlistBlocklistDisabledOnSignIn) {
+            Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+            this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
+            return this;
+        }
+
+
         public Builder blockEmailSubaddresses(boolean blockEmailSubaddresses) {
             Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
             this.blockEmailSubaddresses = JsonNullable.of(blockEmailSubaddresses);
@@ -258,24 +271,11 @@ public class UpdateInstanceRestrictionsRequestBody {
             return this;
         }
 
-
-        public Builder ignoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
-            Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-            this.ignoreDotsForGmailAddresses = JsonNullable.of(ignoreDotsForGmailAddresses);
-            return this;
-        }
-
-        public Builder ignoreDotsForGmailAddresses(JsonNullable<Boolean> ignoreDotsForGmailAddresses) {
-            Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-            this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
-            return this;
-        }
-
         public UpdateInstanceRestrictionsRequestBody build() {
 
             return new UpdateInstanceRestrictionsRequestBody(
-                allowlist, blocklist, blockEmailSubaddresses,
-                blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
+                allowlist, blocklist, allowlistBlocklistDisabledOnSignIn,
+                blockEmailSubaddresses, blockDisposableEmailDomains);
         }
 
     }

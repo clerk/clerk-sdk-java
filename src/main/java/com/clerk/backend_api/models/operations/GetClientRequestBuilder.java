@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetClientOperation;
+import com.clerk.backend_api.operations.GetClient;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class GetClientRequestBuilder {
             .build());
 
         RequestOperation<GetClientRequest, GetClientResponse> operation
-              = new GetClientOperation(
-                sdkConfiguration,
-                options);
+              = new GetClient.Sync(sdkConfiguration, options);
         GetClientRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

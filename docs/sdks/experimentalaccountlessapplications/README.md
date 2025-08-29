@@ -14,6 +14,7 @@ Creates a new accountless application. [EXPERIMENTAL]
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateAccountlessApplication" method="post" path="/accountless_applications" -->
 ```java
 package hello.world;
 
@@ -57,6 +58,7 @@ Completes an accountless application. [EXPERIMENTAL]
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CompleteAccountlessApplication" method="post" path="/accountless_applications/complete" -->
 ```java
 package hello.world;
 

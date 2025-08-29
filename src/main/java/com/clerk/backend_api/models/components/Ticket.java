@@ -16,14 +16,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class Ticket {
+public class Ticket implements Verification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationTicketVerificationObject> object;
+
 
     @JsonProperty("status")
-    private TicketVerificationStatus status;
+    private VerificationTicketVerificationStatus status;
 
 
     @JsonProperty("strategy")
-    private TicketVerificationStrategy strategy;
+    private VerificationTicketVerificationStrategy strategy;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -42,16 +47,19 @@ public class Ticket {
 
     @JsonCreator
     public Ticket(
-            @JsonProperty("status") TicketVerificationStatus status,
-            @JsonProperty("strategy") TicketVerificationStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationTicketVerificationObject> object,
+            @JsonProperty("status") VerificationTicketVerificationStatus status,
+            @JsonProperty("strategy") VerificationTicketVerificationStrategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
@@ -60,19 +68,25 @@ public class Ticket {
     }
     
     public Ticket(
-            TicketVerificationStatus status,
-            TicketVerificationStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+            VerificationTicketVerificationStatus status,
+            VerificationTicketVerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public TicketVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationTicketVerificationStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public TicketVerificationStrategy strategy() {
+    public VerificationTicketVerificationStrategy strategy() {
         return strategy;
     }
 
@@ -96,13 +110,26 @@ public class Ticket {
     }
 
 
-    public Ticket withStatus(TicketVerificationStatus status) {
+    public Ticket withObject(VerificationTicketVerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public Ticket withObject(Optional<? extends VerificationTicketVerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public Ticket withStatus(VerificationTicketVerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public Ticket withStrategy(TicketVerificationStrategy strategy) {
+    public Ticket withStrategy(VerificationTicketVerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -156,6 +183,7 @@ public class Ticket {
         }
         Ticket other = (Ticket) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
@@ -166,13 +194,14 @@ public class Ticket {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, attempts,
-            expireAt, verifiedAtClient);
+            object, status, strategy,
+            attempts, expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Ticket.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
@@ -183,9 +212,11 @@ public class Ticket {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private TicketVerificationStatus status;
+        private Optional<? extends VerificationTicketVerificationObject> object = Optional.empty();
 
-        private TicketVerificationStrategy strategy;
+        private VerificationTicketVerificationStatus status;
+
+        private VerificationTicketVerificationStrategy strategy;
 
         private Optional<Long> attempts = Optional.empty();
 
@@ -198,14 +229,27 @@ public class Ticket {
         }
 
 
-        public Builder status(TicketVerificationStatus status) {
+        public Builder object(VerificationTicketVerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationTicketVerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationTicketVerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(TicketVerificationStrategy strategy) {
+        public Builder strategy(VerificationTicketVerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -253,8 +297,8 @@ public class Ticket {
         public Ticket build() {
 
             return new Ticket(
-                status, strategy, attempts,
-                expireAt, verifiedAtClient);
+                object, status, strategy,
+                attempts, expireAt, verifiedAtClient);
         }
 
     }

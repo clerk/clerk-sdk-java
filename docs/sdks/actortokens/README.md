@@ -15,6 +15,7 @@ The `actor` parameter needs to include at least a "sub" key whose value is the I
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateActorToken" method="post" path="/actor_tokens" -->
 ```java
 package hello.world;
 
@@ -72,6 +73,7 @@ Revokes a pending actor token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RevokeActorToken" method="post" path="/actor_tokens/{actor_token_id}/revoke" -->
 ```java
 package hello.world;
 

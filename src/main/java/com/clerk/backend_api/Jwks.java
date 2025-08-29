@@ -7,10 +7,9 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.models.operations.GetJWKSRequestBuilder;
 import com.clerk.backend_api.models.operations.GetJWKSResponse;
-import com.clerk.backend_api.operations.GetJWKSOperation;
+import com.clerk.backend_api.operations.GetJWKS;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -20,6 +19,7 @@ public class Jwks {
     Jwks(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Retrieve the JSON Web Key Set of the instance
      * 
@@ -54,9 +54,7 @@ public class Jwks {
      */
     public GetJWKSResponse getJWKS(Optional<Options> options) throws Exception {
         RequestlessOperation<GetJWKSResponse> operation
-            = new GetJWKSOperation(
-                sdkConfiguration,
-                options);
+            = new GetJWKS.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 

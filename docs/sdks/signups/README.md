@@ -14,6 +14,7 @@ Retrieve the details of the sign-up with the given ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetSignUp" method="get" path="/sign_ups/{id}" -->
 ```java
 package hello.world;
 
@@ -64,6 +65,7 @@ Update the sign-up with the given ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateSignUp" method="patch" path="/sign_ups/{id}" -->
 ```java
 package hello.world;
 

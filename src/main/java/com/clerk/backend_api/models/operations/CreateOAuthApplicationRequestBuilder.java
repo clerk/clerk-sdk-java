@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateOAuthApplicationOperation;
+import com.clerk.backend_api.operations.CreateOAuthApplication;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateOAuthApplicationRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateOAuthApplicationRequestBody>, CreateOAuthApplicationResponse> operation
-              = new CreateOAuthApplicationOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOAuthApplication.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

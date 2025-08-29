@@ -20,6 +20,7 @@ a different proxy URL than the one provided. It can also be used to re-validate 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="VerifyDomainProxy" method="post" path="/proxy_checks" -->
 ```java
 package hello.world;
 

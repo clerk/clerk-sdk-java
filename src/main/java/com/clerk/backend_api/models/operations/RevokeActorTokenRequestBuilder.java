@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.RevokeActorTokenOperation;
+import com.clerk.backend_api.operations.RevokeActorToken;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class RevokeActorTokenRequestBuilder {
             .build());
 
         RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> operation
-              = new RevokeActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeActorToken.Sync(sdkConfiguration, options);
         RevokeActorTokenRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

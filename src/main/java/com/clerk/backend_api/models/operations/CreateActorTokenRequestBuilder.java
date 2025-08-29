@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateActorTokenOperation;
+import com.clerk.backend_api.operations.CreateActorToken;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -53,9 +53,7 @@ public class CreateActorTokenRequestBuilder {
             .build());
 
         RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
-              = new CreateActorTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateActorToken.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

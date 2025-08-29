@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteUserProfileImageOperation;
+import com.clerk.backend_api.operations.DeleteUserProfileImage;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteUserProfileImageRequestBuilder {
             .build());
 
         RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
-              = new DeleteUserProfileImageOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteUserProfileImage.Sync(sdkConfiguration, options);
         DeleteUserProfileImageRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

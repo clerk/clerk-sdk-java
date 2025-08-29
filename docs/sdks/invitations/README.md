@@ -18,6 +18,7 @@ Also, trying to create an invitation for an email address that already exists in
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateInvitation" method="post" path="/invitations" -->
 ```java
 package hello.world;
 
@@ -67,6 +68,7 @@ Returns all non-revoked invitations for your application, sorted by creation dat
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ListInvitations" method="get" path="/invitations" -->
 ```java
 package hello.world;
 
@@ -122,6 +124,7 @@ note that there must be no existing user for any of the email addresses you prov
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateBulkInvitations" method="post" path="/invitations/bulk" -->
 ```java
 package hello.world;
 
@@ -174,6 +177,7 @@ Only active (i.e. non-revoked) invitations can be revoked.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RevokeInvitation" method="post" path="/invitations/{invitation_id}/revoke" -->
 ```java
 package hello.world;
 

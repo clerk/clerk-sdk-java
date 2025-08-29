@@ -30,6 +30,23 @@ public class ListOrganizationInvitationsRequest {
     private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status;
 
     /**
+     * Returns organization invitations inviting the specified email address.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address")
+    private Optional<String> emailAddress;
+
+    /**
+     * Allows to return organization invitations in a particular order.
+     * You can order the returned organization invitations either by their `created_at` or `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
+    private Optional<String> orderBy;
+
+    /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
@@ -48,14 +65,20 @@ public class ListOrganizationInvitationsRequest {
     public ListOrganizationInvitationsRequest(
             String organizationId,
             Optional<? extends ListOrganizationInvitationsQueryParamStatus> status,
+            Optional<String> emailAddress,
+            Optional<String> orderBy,
             Optional<Long> limit,
             Optional<Long> offset) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(status, "status");
+        Utils.checkNotNull(emailAddress, "emailAddress");
+        Utils.checkNotNull(orderBy, "orderBy");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         this.organizationId = organizationId;
         this.status = status;
+        this.emailAddress = emailAddress;
+        this.orderBy = orderBy;
         this.limit = limit;
         this.offset = offset;
     }
@@ -63,7 +86,7 @@ public class ListOrganizationInvitationsRequest {
     public ListOrganizationInvitationsRequest(
             String organizationId) {
         this(organizationId, Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -81,6 +104,27 @@ public class ListOrganizationInvitationsRequest {
     @JsonIgnore
     public Optional<ListOrganizationInvitationsQueryParamStatus> status() {
         return (Optional<ListOrganizationInvitationsQueryParamStatus>) status;
+    }
+
+    /**
+     * Returns organization invitations inviting the specified email address.
+     */
+    @JsonIgnore
+    public Optional<String> emailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * Allows to return organization invitations in a particular order.
+     * You can order the returned organization invitations either by their `created_at` or `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
+     */
+    @JsonIgnore
+    public Optional<String> orderBy() {
+        return orderBy;
     }
 
     /**
@@ -132,6 +176,54 @@ public class ListOrganizationInvitationsRequest {
     public ListOrganizationInvitationsRequest withStatus(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
+        return this;
+    }
+
+    /**
+     * Returns organization invitations inviting the specified email address.
+     */
+    public ListOrganizationInvitationsRequest withEmailAddress(String emailAddress) {
+        Utils.checkNotNull(emailAddress, "emailAddress");
+        this.emailAddress = Optional.ofNullable(emailAddress);
+        return this;
+    }
+
+
+    /**
+     * Returns organization invitations inviting the specified email address.
+     */
+    public ListOrganizationInvitationsRequest withEmailAddress(Optional<String> emailAddress) {
+        Utils.checkNotNull(emailAddress, "emailAddress");
+        this.emailAddress = emailAddress;
+        return this;
+    }
+
+    /**
+     * Allows to return organization invitations in a particular order.
+     * You can order the returned organization invitations either by their `created_at` or `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
+     */
+    public ListOrganizationInvitationsRequest withOrderBy(String orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = Optional.ofNullable(orderBy);
+        return this;
+    }
+
+
+    /**
+     * Allows to return organization invitations in a particular order.
+     * You can order the returned organization invitations either by their `created_at` or `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied.
+     * Defaults to `-created_at`.
+     */
+    public ListOrganizationInvitationsRequest withOrderBy(Optional<String> orderBy) {
+        Utils.checkNotNull(orderBy, "orderBy");
+        this.orderBy = orderBy;
         return this;
     }
 
@@ -191,6 +283,8 @@ public class ListOrganizationInvitationsRequest {
         return 
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.offset, other.offset);
     }
@@ -198,8 +292,8 @@ public class ListOrganizationInvitationsRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            organizationId, status, limit,
-            offset);
+            organizationId, status, emailAddress,
+            orderBy, limit, offset);
     }
     
     @Override
@@ -207,6 +301,8 @@ public class ListOrganizationInvitationsRequest {
         return Utils.toString(ListOrganizationInvitationsRequest.class,
                 "organizationId", organizationId,
                 "status", status,
+                "emailAddress", emailAddress,
+                "orderBy", orderBy,
                 "limit", limit,
                 "offset", offset);
     }
@@ -217,6 +313,10 @@ public class ListOrganizationInvitationsRequest {
         private String organizationId;
 
         private Optional<? extends ListOrganizationInvitationsQueryParamStatus> status = Optional.empty();
+
+        private Optional<String> emailAddress = Optional.empty();
+
+        private Optional<String> orderBy;
 
         private Optional<Long> limit;
 
@@ -252,6 +352,54 @@ public class ListOrganizationInvitationsRequest {
         public Builder status(Optional<? extends ListOrganizationInvitationsQueryParamStatus> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
+            return this;
+        }
+
+
+        /**
+         * Returns organization invitations inviting the specified email address.
+         */
+        public Builder emailAddress(String emailAddress) {
+            Utils.checkNotNull(emailAddress, "emailAddress");
+            this.emailAddress = Optional.ofNullable(emailAddress);
+            return this;
+        }
+
+        /**
+         * Returns organization invitations inviting the specified email address.
+         */
+        public Builder emailAddress(Optional<String> emailAddress) {
+            Utils.checkNotNull(emailAddress, "emailAddress");
+            this.emailAddress = emailAddress;
+            return this;
+        }
+
+
+        /**
+         * Allows to return organization invitations in a particular order.
+         * You can order the returned organization invitations either by their `created_at` or `email_address`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+         * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied.
+         * Defaults to `-created_at`.
+         */
+        public Builder orderBy(String orderBy) {
+            Utils.checkNotNull(orderBy, "orderBy");
+            this.orderBy = Optional.ofNullable(orderBy);
+            return this;
+        }
+
+        /**
+         * Allows to return organization invitations in a particular order.
+         * You can order the returned organization invitations either by their `created_at` or `email_address`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+         * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied.
+         * Defaults to `-created_at`.
+         */
+        public Builder orderBy(Optional<String> orderBy) {
+            Utils.checkNotNull(orderBy, "orderBy");
+            this.orderBy = orderBy;
             return this;
         }
 
@@ -300,6 +448,9 @@ public class ListOrganizationInvitationsRequest {
         }
 
         public ListOrganizationInvitationsRequest build() {
+            if (orderBy == null) {
+                orderBy = _SINGLETON_VALUE_OrderBy.value();
+            }
             if (limit == null) {
                 limit = _SINGLETON_VALUE_Limit.value();
             }
@@ -308,10 +459,16 @@ public class ListOrganizationInvitationsRequest {
             }
 
             return new ListOrganizationInvitationsRequest(
-                organizationId, status, limit,
-                offset);
+                organizationId, status, emailAddress,
+                orderBy, limit, offset);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_OrderBy =
+                new LazySingletonValue<>(
+                        "order_by",
+                        "\"-created_at\"",
+                        new TypeReference<Optional<String>>() {});
 
         private static final LazySingletonValue<Optional<Long>> _SINGLETON_VALUE_Limit =
                 new LazySingletonValue<>(

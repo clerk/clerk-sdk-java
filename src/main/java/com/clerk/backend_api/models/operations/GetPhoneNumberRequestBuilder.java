@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetPhoneNumberOperation;
+import com.clerk.backend_api.operations.GetPhoneNumber;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class GetPhoneNumberRequestBuilder {
             .build());
 
         RequestOperation<GetPhoneNumberRequest, GetPhoneNumberResponse> operation
-              = new GetPhoneNumberOperation(
-                sdkConfiguration,
-                options);
+              = new GetPhoneNumber.Sync(sdkConfiguration, options);
         GetPhoneNumberRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

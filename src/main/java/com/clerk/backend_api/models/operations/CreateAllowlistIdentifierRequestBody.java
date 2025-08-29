@@ -20,7 +20,7 @@ import java.util.Optional;
 public class CreateAllowlistIdentifierRequestBody {
     /**
      * The identifier to be added in the allow-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     @JsonProperty("identifier")
     private String identifier;
@@ -50,7 +50,7 @@ public class CreateAllowlistIdentifierRequestBody {
 
     /**
      * The identifier to be added in the allow-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     @JsonIgnore
     public String identifier() {
@@ -73,7 +73,7 @@ public class CreateAllowlistIdentifierRequestBody {
 
     /**
      * The identifier to be added in the allow-list.
-     * This can be an email address, a phone number or a web3 wallet.
+     * This can be an email address, a phone number, or a web3 wallet.
      */
     public CreateAllowlistIdentifierRequestBody withIdentifier(String identifier) {
         Utils.checkNotNull(identifier, "identifier");
@@ -143,7 +143,7 @@ public class CreateAllowlistIdentifierRequestBody {
 
         /**
          * The identifier to be added in the allow-list.
-         * This can be an email address, a phone number or a web3 wallet.
+         * This can be an email address, a phone number, or a web3 wallet.
          */
         public Builder identifier(String identifier) {
             Utils.checkNotNull(identifier, "identifier");

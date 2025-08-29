@@ -16,14 +16,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class VerificationTicket {
+public class VerificationTicket implements SAMLAccountVerification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationTicketVerificationSAMLAccountObject> object;
+
 
     @JsonProperty("status")
-    private TicketVerificationSAMLAccountStatus status;
+    private VerificationTicketVerificationSAMLAccountStatus status;
 
 
     @JsonProperty("strategy")
-    private TicketVerificationSAMLAccountStrategy strategy;
+    private VerificationTicketVerificationSAMLAccountStrategy strategy;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -42,16 +47,19 @@ public class VerificationTicket {
 
     @JsonCreator
     public VerificationTicket(
-            @JsonProperty("status") TicketVerificationSAMLAccountStatus status,
-            @JsonProperty("strategy") TicketVerificationSAMLAccountStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationTicketVerificationSAMLAccountObject> object,
+            @JsonProperty("status") VerificationTicketVerificationSAMLAccountStatus status,
+            @JsonProperty("strategy") VerificationTicketVerificationSAMLAccountStrategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
@@ -60,19 +68,25 @@ public class VerificationTicket {
     }
     
     public VerificationTicket(
-            TicketVerificationSAMLAccountStatus status,
-            TicketVerificationSAMLAccountStrategy strategy) {
-        this(status, strategy, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+            VerificationTicketVerificationSAMLAccountStatus status,
+            VerificationTicketVerificationSAMLAccountStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public TicketVerificationSAMLAccountStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationTicketVerificationSAMLAccountStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public TicketVerificationSAMLAccountStrategy strategy() {
+    public VerificationTicketVerificationSAMLAccountStrategy strategy() {
         return strategy;
     }
 
@@ -96,13 +110,26 @@ public class VerificationTicket {
     }
 
 
-    public VerificationTicket withStatus(TicketVerificationSAMLAccountStatus status) {
+    public VerificationTicket withObject(VerificationTicketVerificationSAMLAccountObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public VerificationTicket withObject(Optional<? extends VerificationTicketVerificationSAMLAccountObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public VerificationTicket withStatus(VerificationTicketVerificationSAMLAccountStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public VerificationTicket withStrategy(TicketVerificationSAMLAccountStrategy strategy) {
+    public VerificationTicket withStrategy(VerificationTicketVerificationSAMLAccountStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -156,6 +183,7 @@ public class VerificationTicket {
         }
         VerificationTicket other = (VerificationTicket) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
@@ -166,13 +194,14 @@ public class VerificationTicket {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, attempts,
-            expireAt, verifiedAtClient);
+            object, status, strategy,
+            attempts, expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(VerificationTicket.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
@@ -183,9 +212,11 @@ public class VerificationTicket {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private TicketVerificationSAMLAccountStatus status;
+        private Optional<? extends VerificationTicketVerificationSAMLAccountObject> object = Optional.empty();
 
-        private TicketVerificationSAMLAccountStrategy strategy;
+        private VerificationTicketVerificationSAMLAccountStatus status;
+
+        private VerificationTicketVerificationSAMLAccountStrategy strategy;
 
         private Optional<Long> attempts = Optional.empty();
 
@@ -198,14 +229,27 @@ public class VerificationTicket {
         }
 
 
-        public Builder status(TicketVerificationSAMLAccountStatus status) {
+        public Builder object(VerificationTicketVerificationSAMLAccountObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationTicketVerificationSAMLAccountObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationTicketVerificationSAMLAccountStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(TicketVerificationSAMLAccountStrategy strategy) {
+        public Builder strategy(VerificationTicketVerificationSAMLAccountStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -253,8 +297,8 @@ public class VerificationTicket {
         public VerificationTicket build() {
 
             return new VerificationTicket(
-                status, strategy, attempts,
-                expireAt, verifiedAtClient);
+                object, status, strategy,
+                attempts, expireAt, verifiedAtClient);
         }
 
     }

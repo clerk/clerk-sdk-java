@@ -13,6 +13,7 @@ Retrieve the JSON Web Key Set of the instance
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetJWKS" method="get" path="/jwks" -->
 ```java
 package hello.world;
 

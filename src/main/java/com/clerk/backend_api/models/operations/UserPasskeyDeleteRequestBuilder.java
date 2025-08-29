@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.UserPasskeyDeleteOperation;
+import com.clerk.backend_api.operations.UserPasskeyDelete;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class UserPasskeyDeleteRequestBuilder {
             .build());
 
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDeleteOperation(
-                sdkConfiguration,
-                options);
+              = new UserPasskeyDelete.Sync(sdkConfiguration, options);
         UserPasskeyDeleteRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

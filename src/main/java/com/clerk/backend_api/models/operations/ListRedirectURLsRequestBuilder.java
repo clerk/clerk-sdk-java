@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.ListRedirectURLsOperation;
+import com.clerk.backend_api.operations.ListRedirectURLs;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -105,9 +105,7 @@ public class ListRedirectURLsRequestBuilder {
             .build());
 
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
-              = new ListRedirectURLsOperation(
-                sdkConfiguration,
-                options);
+              = new ListRedirectURLs.Sync(sdkConfiguration, options);
         ListRedirectURLsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

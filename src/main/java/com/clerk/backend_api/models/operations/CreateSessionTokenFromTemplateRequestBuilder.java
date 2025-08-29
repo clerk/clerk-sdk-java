@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateSessionTokenFromTemplateOperation;
+import com.clerk.backend_api.operations.CreateSessionTokenFromTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -78,9 +78,7 @@ public class CreateSessionTokenFromTemplateRequestBuilder {
             .build());
 
         RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
-              = new CreateSessionTokenFromTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSessionTokenFromTemplate.Sync(sdkConfiguration, options);
         CreateSessionTokenFromTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

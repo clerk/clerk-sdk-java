@@ -8,14 +8,23 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBody;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryResponse;
+import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequest;
+import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequestBody;
+import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequestBuilder;
+import com.clerk.backend_api.models.operations.InviteWaitlistEntryResponse;
 import com.clerk.backend_api.models.operations.ListWaitlistEntriesRequest;
 import com.clerk.backend_api.models.operations.ListWaitlistEntriesRequestBuilder;
 import com.clerk.backend_api.models.operations.ListWaitlistEntriesResponse;
-import com.clerk.backend_api.operations.CreateWaitlistEntryOperation;
-import com.clerk.backend_api.operations.ListWaitlistEntriesOperation;
+import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequest;
+import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequestBuilder;
+import com.clerk.backend_api.models.operations.RejectWaitlistEntryResponse;
+import com.clerk.backend_api.operations.CreateWaitlistEntry;
+import com.clerk.backend_api.operations.InviteWaitlistEntry;
+import com.clerk.backend_api.operations.ListWaitlistEntries;
+import com.clerk.backend_api.operations.RejectWaitlistEntry;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
+import java.lang.String;
 import java.util.Optional;
 
 
@@ -25,6 +34,7 @@ public class WaitlistEntries {
     WaitlistEntries(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all waitlist entries
      * 
@@ -65,13 +75,9 @@ public class WaitlistEntries {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ListWaitlistEntriesResponse list(
-            ListWaitlistEntriesRequest request,
-            Optional<Options> options) throws Exception {
+    public ListWaitlistEntriesResponse list(ListWaitlistEntriesRequest request, Optional<Options> options) throws Exception {
         RequestOperation<ListWaitlistEntriesRequest, ListWaitlistEntriesResponse> operation
-              = new ListWaitlistEntriesOperation(
-                sdkConfiguration,
-                options);
+              = new ListWaitlistEntries.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -111,13 +117,103 @@ public class WaitlistEntries {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateWaitlistEntryResponse create(
-            Optional<? extends CreateWaitlistEntryRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateWaitlistEntryResponse create(Optional<? extends CreateWaitlistEntryRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
-              = new CreateWaitlistEntryOperation(
-                sdkConfiguration,
-                options);
+              = new CreateWaitlistEntry.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Invite a waitlist entry
+     * 
+     * <p>Send an invite to the email address in a waitlist entry.
+     * 
+     * @return The call builder
+     */
+    public InviteWaitlistEntryRequestBuilder invite() {
+        return new InviteWaitlistEntryRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Invite a waitlist entry
+     * 
+     * <p>Send an invite to the email address in a waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to invite
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public InviteWaitlistEntryResponse invite(String waitlistEntryId) throws Exception {
+        return invite(waitlistEntryId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Invite a waitlist entry
+     * 
+     * <p>Send an invite to the email address in a waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to invite
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public InviteWaitlistEntryResponse invite(
+            String waitlistEntryId, Optional<? extends InviteWaitlistEntryRequestBody> requestBody,
+            Optional<Options> options) throws Exception {
+        InviteWaitlistEntryRequest request =
+            InviteWaitlistEntryRequest
+                .builder()
+                .waitlistEntryId(waitlistEntryId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<InviteWaitlistEntryRequest, InviteWaitlistEntryResponse> operation
+              = new InviteWaitlistEntry.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Reject a waitlist entry
+     * 
+     * <p>Reject a waitlist entry.
+     * 
+     * @return The call builder
+     */
+    public RejectWaitlistEntryRequestBuilder reject() {
+        return new RejectWaitlistEntryRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Reject a waitlist entry
+     * 
+     * <p>Reject a waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to reject
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RejectWaitlistEntryResponse reject(String waitlistEntryId) throws Exception {
+        return reject(waitlistEntryId, Optional.empty());
+    }
+
+    /**
+     * Reject a waitlist entry
+     * 
+     * <p>Reject a waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to reject
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RejectWaitlistEntryResponse reject(String waitlistEntryId, Optional<Options> options) throws Exception {
+        RejectWaitlistEntryRequest request =
+            RejectWaitlistEntryRequest
+                .builder()
+                .waitlistEntryId(waitlistEntryId)
+                .build();
+        RequestOperation<RejectWaitlistEntryRequest, RejectWaitlistEntryResponse> operation
+              = new RejectWaitlistEntry.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

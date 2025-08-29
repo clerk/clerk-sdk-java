@@ -85,6 +85,11 @@ public class ExternalAccountWithVerification {
     private JsonNullable<String> username;
 
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("phone_number")
+    private JsonNullable<String> phoneNumber;
+
+
     @JsonProperty("public_metadata")
     private Map<String, Object> publicMetadata;
 
@@ -128,6 +133,7 @@ public class ExternalAccountWithVerification {
             @JsonProperty("avatar_url") Optional<String> avatarUrl,
             @JsonProperty("image_url") JsonNullable<String> imageUrl,
             @JsonProperty("username") JsonNullable<String> username,
+            @JsonProperty("phone_number") JsonNullable<String> phoneNumber,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
             @JsonProperty("label") JsonNullable<String> label,
             @JsonProperty("created_at") long createdAt,
@@ -145,6 +151,7 @@ public class ExternalAccountWithVerification {
         Utils.checkNotNull(avatarUrl, "avatarUrl");
         Utils.checkNotNull(imageUrl, "imageUrl");
         Utils.checkNotNull(username, "username");
+        Utils.checkNotNull(phoneNumber, "phoneNumber");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(label, "label");
@@ -163,6 +170,7 @@ public class ExternalAccountWithVerification {
         this.avatarUrl = avatarUrl;
         this.imageUrl = imageUrl;
         this.username = username;
+        this.phoneNumber = phoneNumber;
         this.publicMetadata = publicMetadata;
         this.label = label;
         this.createdAt = createdAt;
@@ -188,8 +196,8 @@ public class ExternalAccountWithVerification {
             identificationId, providerUserId, approvedScopes,
             emailAddress, firstName, lastName,
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            publicMetadata, JsonNullable.undefined(), createdAt,
-            updatedAt, Optional.empty());
+            JsonNullable.undefined(), publicMetadata, JsonNullable.undefined(),
+            createdAt, updatedAt, Optional.empty());
     }
 
     /**
@@ -262,6 +270,11 @@ public class ExternalAccountWithVerification {
     @JsonIgnore
     public JsonNullable<String> username() {
         return username;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> phoneNumber() {
+        return phoneNumber;
     }
 
     @JsonIgnore
@@ -415,6 +428,18 @@ public class ExternalAccountWithVerification {
         return this;
     }
 
+    public ExternalAccountWithVerification withPhoneNumber(String phoneNumber) {
+        Utils.checkNotNull(phoneNumber, "phoneNumber");
+        this.phoneNumber = JsonNullable.of(phoneNumber);
+        return this;
+    }
+
+    public ExternalAccountWithVerification withPhoneNumber(JsonNullable<String> phoneNumber) {
+        Utils.checkNotNull(phoneNumber, "phoneNumber");
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
     public ExternalAccountWithVerification withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
@@ -499,6 +524,7 @@ public class ExternalAccountWithVerification {
             Utils.enhancedDeepEquals(this.avatarUrl, other.avatarUrl) &&
             Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
             Utils.enhancedDeepEquals(this.username, other.username) &&
+            Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.label, other.label) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
@@ -514,8 +540,9 @@ public class ExternalAccountWithVerification {
             identificationId, providerUserId, approvedScopes,
             emailAddress, firstName, lastName,
             avatarUrl, imageUrl, username,
-            publicMetadata, label, createdAt,
-            updatedAt, verification, additionalProperties);
+            phoneNumber, publicMetadata, label,
+            createdAt, updatedAt, verification,
+            additionalProperties);
     }
     
     @Override
@@ -533,6 +560,7 @@ public class ExternalAccountWithVerification {
                 "avatarUrl", avatarUrl,
                 "imageUrl", imageUrl,
                 "username", username,
+                "phoneNumber", phoneNumber,
                 "publicMetadata", publicMetadata,
                 "label", label,
                 "createdAt", createdAt,
@@ -568,6 +596,8 @@ public class ExternalAccountWithVerification {
         private JsonNullable<String> imageUrl = JsonNullable.undefined();
 
         private JsonNullable<String> username = JsonNullable.undefined();
+
+        private JsonNullable<String> phoneNumber = JsonNullable.undefined();
 
         private Map<String, Object> publicMetadata;
 
@@ -706,6 +736,19 @@ public class ExternalAccountWithVerification {
         }
 
 
+        public Builder phoneNumber(String phoneNumber) {
+            Utils.checkNotNull(phoneNumber, "phoneNumber");
+            this.phoneNumber = JsonNullable.of(phoneNumber);
+            return this;
+        }
+
+        public Builder phoneNumber(JsonNullable<String> phoneNumber) {
+            Utils.checkNotNull(phoneNumber, "phoneNumber");
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
@@ -781,8 +824,8 @@ public class ExternalAccountWithVerification {
                 identificationId, providerUserId, approvedScopes,
                 emailAddress, firstName, lastName,
                 avatarUrl, imageUrl, username,
-                publicMetadata, label, createdAt,
-                updatedAt, verification)
+                phoneNumber, publicMetadata, label,
+                createdAt, updatedAt, verification)
                 .withAdditionalProperties(additionalProperties);
         }
 

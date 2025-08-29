@@ -11,12 +11,11 @@ import com.clerk.backend_api.models.operations.CreateSignInTokenResponse;
 import com.clerk.backend_api.models.operations.RevokeSignInTokenRequest;
 import com.clerk.backend_api.models.operations.RevokeSignInTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeSignInTokenResponse;
-import com.clerk.backend_api.operations.CreateSignInTokenOperation;
-import com.clerk.backend_api.operations.RevokeSignInTokenOperation;
+import com.clerk.backend_api.operations.CreateSignInToken;
+import com.clerk.backend_api.operations.RevokeSignInToken;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +25,7 @@ public class SignInTokens {
     SignInTokens(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Create sign-in token
      * 
@@ -65,13 +65,9 @@ public class SignInTokens {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateSignInTokenResponse create(
-            Optional<? extends CreateSignInTokenRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateSignInTokenResponse create(Optional<? extends CreateSignInTokenRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateSignInTokenRequestBody>, CreateSignInTokenResponse> operation
-              = new CreateSignInTokenOperation(
-                sdkConfiguration,
-                options);
+              = new CreateSignInToken.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -109,18 +105,14 @@ public class SignInTokens {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public RevokeSignInTokenResponse revoke(
-            String signInTokenId,
-            Optional<Options> options) throws Exception {
+    public RevokeSignInTokenResponse revoke(String signInTokenId, Optional<Options> options) throws Exception {
         RevokeSignInTokenRequest request =
             RevokeSignInTokenRequest
                 .builder()
                 .signInTokenId(signInTokenId)
                 .build();
         RequestOperation<RevokeSignInTokenRequest, RevokeSignInTokenResponse> operation
-              = new RevokeSignInTokenOperation(
-                sdkConfiguration,
-                options);
+              = new RevokeSignInToken.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetClientListOperation;
+import com.clerk.backend_api.operations.GetClientList;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
@@ -105,9 +105,7 @@ public class GetClientListRequestBuilder {
             .build());
 
         RequestOperation<GetClientListRequest, GetClientListResponse> operation
-              = new GetClientListOperation(
-                sdkConfiguration,
-                options);
+              = new GetClientList.Sync(sdkConfiguration, options);
         GetClientListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

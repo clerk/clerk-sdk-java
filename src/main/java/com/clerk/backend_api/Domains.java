@@ -18,14 +18,13 @@ import com.clerk.backend_api.models.operations.UpdateDomainRequest;
 import com.clerk.backend_api.models.operations.UpdateDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateDomainResponse;
-import com.clerk.backend_api.operations.AddDomainOperation;
-import com.clerk.backend_api.operations.DeleteDomainOperation;
-import com.clerk.backend_api.operations.ListDomainsOperation;
-import com.clerk.backend_api.operations.UpdateDomainOperation;
+import com.clerk.backend_api.operations.AddDomain;
+import com.clerk.backend_api.operations.DeleteDomain;
+import com.clerk.backend_api.operations.ListDomains;
+import com.clerk.backend_api.operations.UpdateDomain;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -35,6 +34,7 @@ public class Domains {
     Domains(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all instance domains
      * 
@@ -72,9 +72,7 @@ public class Domains {
      */
     public ListDomainsResponse list(Optional<Options> options) throws Exception {
         RequestlessOperation<ListDomainsResponse> operation
-            = new ListDomainsOperation(
-                sdkConfiguration,
-                options);
+            = new ListDomains.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -123,13 +121,9 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public AddDomainResponse add(
-            Optional<? extends AddDomainRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public AddDomainResponse add(Optional<? extends AddDomainRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends AddDomainRequestBody>, AddDomainResponse> operation
-              = new AddDomainOperation(
-                sdkConfiguration,
-                options);
+              = new AddDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -170,18 +164,14 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteDomainResponse delete(
-            String domainId,
-            Optional<Options> options) throws Exception {
+    public DeleteDomainResponse delete(String domainId, Optional<Options> options) throws Exception {
         DeleteDomainRequest request =
             DeleteDomainRequest
                 .builder()
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
-              = new DeleteDomainOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -220,9 +210,7 @@ public class Domains {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public UpdateDomainResponse update(
-            String domainId,
-            UpdateDomainRequestBody requestBody) throws Exception {
+    public UpdateDomainResponse update(String domainId, UpdateDomainRequestBody requestBody) throws Exception {
         return update(domainId, requestBody, Optional.empty());
     }
 
@@ -245,8 +233,7 @@ public class Domains {
      * @throws Exception if the API call fails
      */
     public UpdateDomainResponse update(
-            String domainId,
-            UpdateDomainRequestBody requestBody,
+            String domainId, UpdateDomainRequestBody requestBody,
             Optional<Options> options) throws Exception {
         UpdateDomainRequest request =
             UpdateDomainRequest
@@ -255,9 +242,7 @@ public class Domains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateDomainRequest, UpdateDomainResponse> operation
-              = new UpdateDomainOperation(
-                sdkConfiguration,
-                options);
+              = new UpdateDomain.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

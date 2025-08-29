@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteJWTTemplateOperation;
+import com.clerk.backend_api.operations.DeleteJWTTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteJWTTemplateRequestBuilder {
             .build());
 
         RequestOperation<DeleteJWTTemplateRequest, DeleteJWTTemplateResponse> operation
-              = new DeleteJWTTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteJWTTemplate.Sync(sdkConfiguration, options);
         DeleteJWTTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

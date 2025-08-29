@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Double;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -21,11 +21,11 @@ public class CreateSessionTokenFromTemplateRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_seconds")
-    private JsonNullable<Double> expiresInSeconds;
+    private JsonNullable<Long> expiresInSeconds;
 
     @JsonCreator
     public CreateSessionTokenFromTemplateRequestBody(
-            @JsonProperty("expires_in_seconds") JsonNullable<Double> expiresInSeconds) {
+            @JsonProperty("expires_in_seconds") JsonNullable<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = expiresInSeconds;
     }
@@ -38,7 +38,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
      * Use this parameter to override the JWT token lifetime.
      */
     @JsonIgnore
-    public JsonNullable<Double> expiresInSeconds() {
+    public JsonNullable<Long> expiresInSeconds() {
         return expiresInSeconds;
     }
 
@@ -50,7 +50,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
     /**
      * Use this parameter to override the JWT token lifetime.
      */
-    public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(double expiresInSeconds) {
+    public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(long expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = JsonNullable.of(expiresInSeconds);
         return this;
@@ -59,7 +59,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
     /**
      * Use this parameter to override the JWT token lifetime.
      */
-    public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(JsonNullable<Double> expiresInSeconds) {
+    public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(JsonNullable<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = expiresInSeconds;
         return this;
@@ -93,7 +93,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private JsonNullable<Double> expiresInSeconds = JsonNullable.undefined();
+        private JsonNullable<Long> expiresInSeconds = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -103,7 +103,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
         /**
          * Use this parameter to override the JWT token lifetime.
          */
-        public Builder expiresInSeconds(double expiresInSeconds) {
+        public Builder expiresInSeconds(long expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
             this.expiresInSeconds = JsonNullable.of(expiresInSeconds);
             return this;
@@ -112,7 +112,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
         /**
          * Use this parameter to override the JWT token lifetime.
          */
-        public Builder expiresInSeconds(JsonNullable<Double> expiresInSeconds) {
+        public Builder expiresInSeconds(JsonNullable<Long> expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
             this.expiresInSeconds = expiresInSeconds;
             return this;

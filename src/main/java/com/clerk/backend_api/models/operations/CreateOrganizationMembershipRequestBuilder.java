@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.CreateOrganizationMembershipOperation;
+import com.clerk.backend_api.operations.CreateOrganizationMembership;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -64,9 +64,7 @@ public class CreateOrganizationMembershipRequestBuilder {
             .build());
 
         RequestOperation<CreateOrganizationMembershipRequest, CreateOrganizationMembershipResponse> operation
-              = new CreateOrganizationMembershipOperation(
-                sdkConfiguration,
-                options);
+              = new CreateOrganizationMembership.Sync(sdkConfiguration, options);
         CreateOrganizationMembershipRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

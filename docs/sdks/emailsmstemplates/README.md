@@ -19,6 +19,7 @@ The templates are returned sorted by position.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTemplateList" method="get" path="/templates/{template_type}" -->
 ```java
 package hello.world;
 
@@ -77,6 +78,7 @@ Returns the details of a template
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTemplate" method="get" path="/templates/{template_type}/{slug}" -->
 ```java
 package hello.world;
 
@@ -132,6 +134,7 @@ Reverts an updated template to its default state
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="RevertTemplate" method="post" path="/templates/{template_type}/{slug}/revert" -->
 ```java
 package hello.world;
 
@@ -189,6 +192,7 @@ The app developer will need to listen to the `email.created` or `sms.created` we
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ToggleTemplateDelivery" method="post" path="/templates/{template_type}/{slug}/toggle_delivery" -->
 ```java
 package hello.world;
 

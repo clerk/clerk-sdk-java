@@ -16,14 +16,19 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class Web3Signature {
+public class Web3Signature implements Web3WalletVerification {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("object")
+    private Optional<? extends VerificationWeb3VerificationObject> object;
+
 
     @JsonProperty("status")
-    private Web3SignatureVerificationStatus status;
+    private VerificationWeb3VerificationStatus status;
 
 
     @JsonProperty("strategy")
-    private Web3SignatureVerificationStrategy strategy;
+    private VerificationWeb3VerificationStrategy strategy;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -52,13 +57,15 @@ public class Web3Signature {
 
     @JsonCreator
     public Web3Signature(
-            @JsonProperty("status") Web3SignatureVerificationStatus status,
-            @JsonProperty("strategy") Web3SignatureVerificationStrategy strategy,
+            @JsonProperty("object") Optional<? extends VerificationWeb3VerificationObject> object,
+            @JsonProperty("status") VerificationWeb3VerificationStatus status,
+            @JsonProperty("strategy") VerificationWeb3VerificationStrategy strategy,
             @JsonProperty("nonce") JsonNullable<String> nonce,
             @JsonProperty("message") JsonNullable<String> message,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(nonce, "nonce");
@@ -66,6 +73,7 @@ public class Web3Signature {
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
+        this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.nonce = nonce;
@@ -76,20 +84,26 @@ public class Web3Signature {
     }
     
     public Web3Signature(
-            Web3SignatureVerificationStatus status,
-            Web3SignatureVerificationStrategy strategy) {
-        this(status, strategy, JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined());
+            VerificationWeb3VerificationStatus status,
+            VerificationWeb3VerificationStrategy strategy) {
+        this(Optional.empty(), status, strategy,
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
-    public Web3SignatureVerificationStatus status() {
+    @Override
+    public String object() {
+        return Utils.discriminatorToString(object);
+    }
+
+    @JsonIgnore
+    public VerificationWeb3VerificationStatus status() {
         return status;
     }
 
     @JsonIgnore
-    public Web3SignatureVerificationStrategy strategy() {
+    public VerificationWeb3VerificationStrategy strategy() {
         return strategy;
     }
 
@@ -123,13 +137,26 @@ public class Web3Signature {
     }
 
 
-    public Web3Signature withStatus(Web3SignatureVerificationStatus status) {
+    public Web3Signature withObject(VerificationWeb3VerificationObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = Optional.ofNullable(object);
+        return this;
+    }
+
+
+    public Web3Signature withObject(Optional<? extends VerificationWeb3VerificationObject> object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
+
+    public Web3Signature withStatus(VerificationWeb3VerificationStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
     }
 
-    public Web3Signature withStrategy(Web3SignatureVerificationStrategy strategy) {
+    public Web3Signature withStrategy(VerificationWeb3VerificationStrategy strategy) {
         Utils.checkNotNull(strategy, "strategy");
         this.strategy = strategy;
         return this;
@@ -207,6 +234,7 @@ public class Web3Signature {
         }
         Web3Signature other = (Web3Signature) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.nonce, other.nonce) &&
@@ -219,14 +247,15 @@ public class Web3Signature {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, strategy, nonce,
-            message, attempts, expireAt,
-            verifiedAtClient);
+            object, status, strategy,
+            nonce, message, attempts,
+            expireAt, verifiedAtClient);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Web3Signature.class,
+                "object", object,
                 "status", status,
                 "strategy", strategy,
                 "nonce", nonce,
@@ -239,9 +268,11 @@ public class Web3Signature {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Web3SignatureVerificationStatus status;
+        private Optional<? extends VerificationWeb3VerificationObject> object = Optional.empty();
 
-        private Web3SignatureVerificationStrategy strategy;
+        private VerificationWeb3VerificationStatus status;
+
+        private VerificationWeb3VerificationStrategy strategy;
 
         private JsonNullable<String> nonce = JsonNullable.undefined();
 
@@ -258,14 +289,27 @@ public class Web3Signature {
         }
 
 
-        public Builder status(Web3SignatureVerificationStatus status) {
+        public Builder object(VerificationWeb3VerificationObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = Optional.ofNullable(object);
+            return this;
+        }
+
+        public Builder object(Optional<? extends VerificationWeb3VerificationObject> object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
+        }
+
+
+        public Builder status(VerificationWeb3VerificationStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
 
 
-        public Builder strategy(Web3SignatureVerificationStrategy strategy) {
+        public Builder strategy(VerificationWeb3VerificationStrategy strategy) {
             Utils.checkNotNull(strategy, "strategy");
             this.strategy = strategy;
             return this;
@@ -339,9 +383,9 @@ public class Web3Signature {
         public Web3Signature build() {
 
             return new Web3Signature(
-                status, strategy, nonce,
-                message, attempts, expireAt,
-                verifiedAtClient);
+                object, status, strategy,
+                nonce, message, attempts,
+                expireAt, verifiedAtClient);
         }
 
     }

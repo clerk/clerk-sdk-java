@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.DeleteOrganizationLogoOperation;
+import com.clerk.backend_api.operations.DeleteOrganizationLogo;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class DeleteOrganizationLogoRequestBuilder {
             .build());
 
         RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
-              = new DeleteOrganizationLogoOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteOrganizationLogo.Sync(sdkConfiguration, options);
         DeleteOrganizationLogoRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

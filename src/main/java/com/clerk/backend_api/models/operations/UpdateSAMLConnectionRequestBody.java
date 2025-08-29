@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -26,10 +28,20 @@ public class UpdateSAMLConnectionRequestBody {
 
     /**
      * The domain to use for the new SAML Connection
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("domain")
+    @Deprecated
     private JsonNullable<String> domain;
+
+    /**
+     * A list of the domains on use for the SAML connection
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("domains")
+    private JsonNullable<? extends List<String>> domains;
 
     /**
      * The entity id as provided by the IdP
@@ -78,7 +90,7 @@ public class UpdateSAMLConnectionRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attribute_mapping")
-    private JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping;
+    private JsonNullable<? extends AttributeMapping> attributeMapping;
 
     /**
      * Activate or de-activate the SAML Connection
@@ -119,13 +131,14 @@ public class UpdateSAMLConnectionRequestBody {
     public UpdateSAMLConnectionRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
             @JsonProperty("domain") JsonNullable<String> domain,
+            @JsonProperty("domains") JsonNullable<? extends List<String>> domains,
             @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
             @JsonProperty("idp_sso_url") JsonNullable<String> idpSsoUrl,
             @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("organization_id") JsonNullable<String> organizationId,
-            @JsonProperty("attribute_mapping") JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping,
+            @JsonProperty("attribute_mapping") JsonNullable<? extends AttributeMapping> attributeMapping,
             @JsonProperty("active") JsonNullable<Boolean> active,
             @JsonProperty("sync_user_attributes") JsonNullable<Boolean> syncUserAttributes,
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
@@ -133,6 +146,7 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
+        Utils.checkNotNull(domains, "domains");
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         Utils.checkNotNull(idpCertificate, "idpCertificate");
@@ -147,6 +161,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         this.name = name;
         this.domain = domain;
+        this.domains = domains;
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
         this.idpCertificate = idpCertificate;
@@ -166,7 +181,7 @@ public class UpdateSAMLConnectionRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -179,10 +194,22 @@ public class UpdateSAMLConnectionRequestBody {
 
     /**
      * The domain to use for the new SAML Connection
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     @JsonIgnore
     public JsonNullable<String> domain() {
         return domain;
+    }
+
+    /**
+     * A list of the domains on use for the SAML connection
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<String>> domains() {
+        return (JsonNullable<List<String>>) domains;
     }
 
     /**
@@ -238,8 +265,8 @@ public class UpdateSAMLConnectionRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<UpdateSAMLConnectionAttributeMapping> attributeMapping() {
-        return (JsonNullable<UpdateSAMLConnectionAttributeMapping>) attributeMapping;
+    public JsonNullable<AttributeMapping> attributeMapping() {
+        return (JsonNullable<AttributeMapping>) attributeMapping;
     }
 
     /**
@@ -307,7 +334,10 @@ public class UpdateSAMLConnectionRequestBody {
 
     /**
      * The domain to use for the new SAML Connection
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public UpdateSAMLConnectionRequestBody withDomain(String domain) {
         Utils.checkNotNull(domain, "domain");
         this.domain = JsonNullable.of(domain);
@@ -316,10 +346,31 @@ public class UpdateSAMLConnectionRequestBody {
 
     /**
      * The domain to use for the new SAML Connection
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public UpdateSAMLConnectionRequestBody withDomain(JsonNullable<String> domain) {
         Utils.checkNotNull(domain, "domain");
         this.domain = domain;
+        return this;
+    }
+
+    /**
+     * A list of the domains on use for the SAML connection
+     */
+    public UpdateSAMLConnectionRequestBody withDomains(List<String> domains) {
+        Utils.checkNotNull(domains, "domains");
+        this.domains = JsonNullable.of(domains);
+        return this;
+    }
+
+    /**
+     * A list of the domains on use for the SAML connection
+     */
+    public UpdateSAMLConnectionRequestBody withDomains(JsonNullable<? extends List<String>> domains) {
+        Utils.checkNotNull(domains, "domains");
+        this.domains = domains;
         return this;
     }
 
@@ -434,7 +485,7 @@ public class UpdateSAMLConnectionRequestBody {
     /**
      * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
      */
-    public UpdateSAMLConnectionRequestBody withAttributeMapping(UpdateSAMLConnectionAttributeMapping attributeMapping) {
+    public UpdateSAMLConnectionRequestBody withAttributeMapping(AttributeMapping attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         this.attributeMapping = JsonNullable.of(attributeMapping);
         return this;
@@ -443,7 +494,7 @@ public class UpdateSAMLConnectionRequestBody {
     /**
      * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
      */
-    public UpdateSAMLConnectionRequestBody withAttributeMapping(JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping) {
+    public UpdateSAMLConnectionRequestBody withAttributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         this.attributeMapping = attributeMapping;
         return this;
@@ -551,6 +602,7 @@ public class UpdateSAMLConnectionRequestBody {
         return 
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.domain, other.domain) &&
+            Utils.enhancedDeepEquals(this.domains, other.domains) &&
             Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
             Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
             Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
@@ -568,11 +620,11 @@ public class UpdateSAMLConnectionRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            name, domain, idpEntityId,
-            idpSsoUrl, idpCertificate, idpMetadataUrl,
-            idpMetadata, organizationId, attributeMapping,
-            active, syncUserAttributes, allowSubdomains,
-            allowIdpInitiated, disableAdditionalIdentifications);
+            name, domain, domains,
+            idpEntityId, idpSsoUrl, idpCertificate,
+            idpMetadataUrl, idpMetadata, organizationId,
+            attributeMapping, active, syncUserAttributes,
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications);
     }
     
     @Override
@@ -580,6 +632,7 @@ public class UpdateSAMLConnectionRequestBody {
         return Utils.toString(UpdateSAMLConnectionRequestBody.class,
                 "name", name,
                 "domain", domain,
+                "domains", domains,
                 "idpEntityId", idpEntityId,
                 "idpSsoUrl", idpSsoUrl,
                 "idpCertificate", idpCertificate,
@@ -599,7 +652,10 @@ public class UpdateSAMLConnectionRequestBody {
 
         private JsonNullable<String> name = JsonNullable.undefined();
 
+        @Deprecated
         private JsonNullable<String> domain = JsonNullable.undefined();
+
+        private JsonNullable<? extends List<String>> domains = JsonNullable.undefined();
 
         private JsonNullable<String> idpEntityId = JsonNullable.undefined();
 
@@ -613,7 +669,7 @@ public class UpdateSAMLConnectionRequestBody {
 
         private JsonNullable<String> organizationId = JsonNullable.undefined();
 
-        private JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping = JsonNullable.undefined();
+        private JsonNullable<? extends AttributeMapping> attributeMapping = JsonNullable.undefined();
 
         private JsonNullable<Boolean> active = JsonNullable.undefined();
 
@@ -651,7 +707,10 @@ public class UpdateSAMLConnectionRequestBody {
 
         /**
          * The domain to use for the new SAML Connection
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder domain(String domain) {
             Utils.checkNotNull(domain, "domain");
             this.domain = JsonNullable.of(domain);
@@ -660,10 +719,32 @@ public class UpdateSAMLConnectionRequestBody {
 
         /**
          * The domain to use for the new SAML Connection
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder domain(JsonNullable<String> domain) {
             Utils.checkNotNull(domain, "domain");
             this.domain = domain;
+            return this;
+        }
+
+
+        /**
+         * A list of the domains on use for the SAML connection
+         */
+        public Builder domains(List<String> domains) {
+            Utils.checkNotNull(domains, "domains");
+            this.domains = JsonNullable.of(domains);
+            return this;
+        }
+
+        /**
+         * A list of the domains on use for the SAML connection
+         */
+        public Builder domains(JsonNullable<? extends List<String>> domains) {
+            Utils.checkNotNull(domains, "domains");
+            this.domains = domains;
             return this;
         }
 
@@ -785,7 +866,7 @@ public class UpdateSAMLConnectionRequestBody {
         /**
          * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
          */
-        public Builder attributeMapping(UpdateSAMLConnectionAttributeMapping attributeMapping) {
+        public Builder attributeMapping(AttributeMapping attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
             this.attributeMapping = JsonNullable.of(attributeMapping);
             return this;
@@ -794,7 +875,7 @@ public class UpdateSAMLConnectionRequestBody {
         /**
          * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
          */
-        public Builder attributeMapping(JsonNullable<? extends UpdateSAMLConnectionAttributeMapping> attributeMapping) {
+        public Builder attributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
             this.attributeMapping = attributeMapping;
             return this;
@@ -898,11 +979,11 @@ public class UpdateSAMLConnectionRequestBody {
         public UpdateSAMLConnectionRequestBody build() {
 
             return new UpdateSAMLConnectionRequestBody(
-                name, domain, idpEntityId,
-                idpSsoUrl, idpCertificate, idpMetadataUrl,
-                idpMetadata, organizationId, attributeMapping,
-                active, syncUserAttributes, allowSubdomains,
-                allowIdpInitiated, disableAdditionalIdentifications);
+                name, domain, domains,
+                idpEntityId, idpSsoUrl, idpCertificate,
+                idpMetadataUrl, idpMetadata, organizationId,
+                attributeMapping, active, syncUserAttributes,
+                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications);
         }
 
     }

@@ -32,6 +32,10 @@ public class InstanceRestrictions {
     private boolean blocklist;
 
 
+    @JsonProperty("allowlist_blocklist_disabled_on_sign_in")
+    private boolean allowlistBlocklistDisabledOnSignIn;
+
+
     @JsonProperty("block_email_subaddresses")
     private boolean blockEmailSubaddresses;
 
@@ -39,30 +43,26 @@ public class InstanceRestrictions {
     @JsonProperty("block_disposable_email_domains")
     private boolean blockDisposableEmailDomains;
 
-
-    @JsonProperty("ignore_dots_for_gmail_addresses")
-    private boolean ignoreDotsForGmailAddresses;
-
     @JsonCreator
     public InstanceRestrictions(
             @JsonProperty("object") InstanceRestrictionsObject object,
             @JsonProperty("allowlist") boolean allowlist,
             @JsonProperty("blocklist") boolean blocklist,
+            @JsonProperty("allowlist_blocklist_disabled_on_sign_in") boolean allowlistBlocklistDisabledOnSignIn,
             @JsonProperty("block_email_subaddresses") boolean blockEmailSubaddresses,
-            @JsonProperty("block_disposable_email_domains") boolean blockDisposableEmailDomains,
-            @JsonProperty("ignore_dots_for_gmail_addresses") boolean ignoreDotsForGmailAddresses) {
+            @JsonProperty("block_disposable_email_domains") boolean blockDisposableEmailDomains) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(allowlist, "allowlist");
         Utils.checkNotNull(blocklist, "blocklist");
+        Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
         Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
         Utils.checkNotNull(blockDisposableEmailDomains, "blockDisposableEmailDomains");
-        Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
         this.object = object;
         this.allowlist = allowlist;
         this.blocklist = blocklist;
+        this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
         this.blockEmailSubaddresses = blockEmailSubaddresses;
         this.blockDisposableEmailDomains = blockDisposableEmailDomains;
-        this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
     }
 
     /**
@@ -84,6 +84,11 @@ public class InstanceRestrictions {
     }
 
     @JsonIgnore
+    public boolean allowlistBlocklistDisabledOnSignIn() {
+        return allowlistBlocklistDisabledOnSignIn;
+    }
+
+    @JsonIgnore
     public boolean blockEmailSubaddresses() {
         return blockEmailSubaddresses;
     }
@@ -91,11 +96,6 @@ public class InstanceRestrictions {
     @JsonIgnore
     public boolean blockDisposableEmailDomains() {
         return blockDisposableEmailDomains;
-    }
-
-    @JsonIgnore
-    public boolean ignoreDotsForGmailAddresses() {
-        return ignoreDotsForGmailAddresses;
     }
 
     public static Builder builder() {
@@ -124,6 +124,12 @@ public class InstanceRestrictions {
         return this;
     }
 
+    public InstanceRestrictions withAllowlistBlocklistDisabledOnSignIn(boolean allowlistBlocklistDisabledOnSignIn) {
+        Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+        this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
+        return this;
+    }
+
     public InstanceRestrictions withBlockEmailSubaddresses(boolean blockEmailSubaddresses) {
         Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
         this.blockEmailSubaddresses = blockEmailSubaddresses;
@@ -133,12 +139,6 @@ public class InstanceRestrictions {
     public InstanceRestrictions withBlockDisposableEmailDomains(boolean blockDisposableEmailDomains) {
         Utils.checkNotNull(blockDisposableEmailDomains, "blockDisposableEmailDomains");
         this.blockDisposableEmailDomains = blockDisposableEmailDomains;
-        return this;
-    }
-
-    public InstanceRestrictions withIgnoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
-        Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-        this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
         return this;
     }
 
@@ -155,16 +155,16 @@ public class InstanceRestrictions {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.allowlist, other.allowlist) &&
             Utils.enhancedDeepEquals(this.blocklist, other.blocklist) &&
+            Utils.enhancedDeepEquals(this.allowlistBlocklistDisabledOnSignIn, other.allowlistBlocklistDisabledOnSignIn) &&
             Utils.enhancedDeepEquals(this.blockEmailSubaddresses, other.blockEmailSubaddresses) &&
-            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains) &&
-            Utils.enhancedDeepEquals(this.ignoreDotsForGmailAddresses, other.ignoreDotsForGmailAddresses);
+            Utils.enhancedDeepEquals(this.blockDisposableEmailDomains, other.blockDisposableEmailDomains);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, allowlist, blocklist,
-            blockEmailSubaddresses, blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
+            allowlistBlocklistDisabledOnSignIn, blockEmailSubaddresses, blockDisposableEmailDomains);
     }
     
     @Override
@@ -173,9 +173,9 @@ public class InstanceRestrictions {
                 "object", object,
                 "allowlist", allowlist,
                 "blocklist", blocklist,
+                "allowlistBlocklistDisabledOnSignIn", allowlistBlocklistDisabledOnSignIn,
                 "blockEmailSubaddresses", blockEmailSubaddresses,
-                "blockDisposableEmailDomains", blockDisposableEmailDomains,
-                "ignoreDotsForGmailAddresses", ignoreDotsForGmailAddresses);
+                "blockDisposableEmailDomains", blockDisposableEmailDomains);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,11 +187,11 @@ public class InstanceRestrictions {
 
         private Boolean blocklist;
 
+        private Boolean allowlistBlocklistDisabledOnSignIn;
+
         private Boolean blockEmailSubaddresses;
 
         private Boolean blockDisposableEmailDomains;
-
-        private Boolean ignoreDotsForGmailAddresses;
 
         private Builder() {
           // force use of static builder() method
@@ -222,6 +222,13 @@ public class InstanceRestrictions {
         }
 
 
+        public Builder allowlistBlocklistDisabledOnSignIn(boolean allowlistBlocklistDisabledOnSignIn) {
+            Utils.checkNotNull(allowlistBlocklistDisabledOnSignIn, "allowlistBlocklistDisabledOnSignIn");
+            this.allowlistBlocklistDisabledOnSignIn = allowlistBlocklistDisabledOnSignIn;
+            return this;
+        }
+
+
         public Builder blockEmailSubaddresses(boolean blockEmailSubaddresses) {
             Utils.checkNotNull(blockEmailSubaddresses, "blockEmailSubaddresses");
             this.blockEmailSubaddresses = blockEmailSubaddresses;
@@ -235,18 +242,11 @@ public class InstanceRestrictions {
             return this;
         }
 
-
-        public Builder ignoreDotsForGmailAddresses(boolean ignoreDotsForGmailAddresses) {
-            Utils.checkNotNull(ignoreDotsForGmailAddresses, "ignoreDotsForGmailAddresses");
-            this.ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
-            return this;
-        }
-
         public InstanceRestrictions build() {
 
             return new InstanceRestrictions(
                 object, allowlist, blocklist,
-                blockEmailSubaddresses, blockDisposableEmailDomains, ignoreDotsForGmailAddresses);
+                allowlistBlocklistDisabledOnSignIn, blockEmailSubaddresses, blockDisposableEmailDomains);
         }
 
     }

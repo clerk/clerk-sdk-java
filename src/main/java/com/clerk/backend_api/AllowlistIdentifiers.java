@@ -14,15 +14,14 @@ import com.clerk.backend_api.models.operations.DeleteAllowlistIdentifierResponse
 import com.clerk.backend_api.models.operations.ListAllowlistIdentifiersRequest;
 import com.clerk.backend_api.models.operations.ListAllowlistIdentifiersRequestBuilder;
 import com.clerk.backend_api.models.operations.ListAllowlistIdentifiersResponse;
-import com.clerk.backend_api.operations.CreateAllowlistIdentifierOperation;
-import com.clerk.backend_api.operations.DeleteAllowlistIdentifierOperation;
-import com.clerk.backend_api.operations.ListAllowlistIdentifiersOperation;
+import com.clerk.backend_api.operations.CreateAllowlistIdentifier;
+import com.clerk.backend_api.operations.DeleteAllowlistIdentifier;
+import com.clerk.backend_api.operations.ListAllowlistIdentifiers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -32,6 +31,7 @@ public class AllowlistIdentifiers {
     AllowlistIdentifiers(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * List all identifiers on the allow-list
      * 
@@ -74,10 +74,8 @@ public class AllowlistIdentifiers {
      * @throws Exception if the API call fails
      */
     public ListAllowlistIdentifiersResponse list(
-            Optional<Boolean> paginated,
-            Optional<Long> limit,
-            Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<Options> options) throws Exception {
         ListAllowlistIdentifiersRequest request =
             ListAllowlistIdentifiersRequest
                 .builder()
@@ -86,9 +84,7 @@ public class AllowlistIdentifiers {
                 .offset(offset)
                 .build();
         RequestOperation<ListAllowlistIdentifiersRequest, ListAllowlistIdentifiersResponse> operation
-              = new ListAllowlistIdentifiersOperation(
-                sdkConfiguration,
-                options);
+              = new ListAllowlistIdentifiers.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -125,13 +121,9 @@ public class AllowlistIdentifiers {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateAllowlistIdentifierResponse create(
-            Optional<? extends CreateAllowlistIdentifierRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public CreateAllowlistIdentifierResponse create(Optional<? extends CreateAllowlistIdentifierRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateAllowlistIdentifierRequestBody>, CreateAllowlistIdentifierResponse> operation
-              = new CreateAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -169,18 +161,14 @@ public class AllowlistIdentifiers {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteAllowlistIdentifierResponse delete(
-            String identifierId,
-            Optional<Options> options) throws Exception {
+    public DeleteAllowlistIdentifierResponse delete(String identifierId, Optional<Options> options) throws Exception {
         DeleteAllowlistIdentifierRequest request =
             DeleteAllowlistIdentifierRequest
                 .builder()
                 .identifierId(identifierId)
                 .build();
         RequestOperation<DeleteAllowlistIdentifierRequest, DeleteAllowlistIdentifierResponse> operation
-              = new DeleteAllowlistIdentifierOperation(
-                sdkConfiguration,
-                options);
+              = new DeleteAllowlistIdentifier.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.RotateOAuthApplicationSecretOperation;
+import com.clerk.backend_api.operations.RotateOAuthApplicationSecret;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -56,9 +56,7 @@ public class RotateOAuthApplicationSecretRequestBuilder {
             .build());
 
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
-              = new RotateOAuthApplicationSecretOperation(
-                sdkConfiguration,
-                options);
+              = new RotateOAuthApplicationSecret.Sync(sdkConfiguration, options);
         RotateOAuthApplicationSecretRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

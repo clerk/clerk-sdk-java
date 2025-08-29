@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.GetUserListOperation;
+import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -47,9 +47,7 @@ public class GetUserListRequestBuilder {
             .build());
 
         RequestOperation<GetUserListRequest, GetUserListResponse> operation
-              = new GetUserListOperation(
-                sdkConfiguration,
-                options);
+              = new GetUserList.Sync(sdkConfiguration, options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

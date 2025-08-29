@@ -8,10 +8,9 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyResponse;
-import com.clerk.backend_api.operations.VerifyDomainProxyOperation;
+import com.clerk.backend_api.operations.VerifyDomainProxy;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -21,6 +20,7 @@ public class ProxyChecks {
     ProxyChecks(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     /**
      * Verify the proxy configuration for your domain
      * 
@@ -75,13 +75,9 @@ public class ProxyChecks {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public VerifyDomainProxyResponse verify(
-            Optional<? extends VerifyDomainProxyRequestBody> request,
-            Optional<Options> options) throws Exception {
+    public VerifyDomainProxyResponse verify(Optional<? extends VerifyDomainProxyRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends VerifyDomainProxyRequestBody>, VerifyDomainProxyResponse> operation
-              = new VerifyDomainProxyOperation(
-                sdkConfiguration,
-                options);
+              = new VerifyDomainProxy.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

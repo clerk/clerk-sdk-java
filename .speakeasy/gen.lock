@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 8eca1f8d4d1026b09957be1b73537220
-  docVersion: "2025-03-12"
-  speakeasyVersion: 1.581.0
-  generationVersion: 2.656.5
-  releaseVersion: 3.1.0
-  configChecksum: 67c70049af75d143e71f90ab3ad1a076
+  docChecksum: aa0e8124d4a66a769e20d3dd3f15430c
+  docVersion: "2025-04-10"
+  speakeasyVersion: 1.606.9
+  generationVersion: 2.687.13
+  releaseVersion: 3.2.0
+  configChecksum: f3d7042b2bcda60d0654566265e2926c
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,8 +14,9 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.44.0
+    core: 3.46.0
     deprecations: 2.81.1
+    examples: 2.81.6
     flattening: 2.81.1
     globalSecurity: 2.83.0
     globalSecurityCallbacks: 0.1.0
@@ -32,6 +33,7 @@ generatedFiles:
   - .gitattributes
   - USAGE.md
   - build.gradle
+  - docs/models/components/AWSCredential.md
   - docs/models/components/AccountlessApplication.md
   - docs/models/components/AccountlessApplicationObject.md
   - docs/models/components/Actor.md
@@ -40,13 +42,9 @@ generatedFiles:
   - docs/models/components/ActorTokenObject.md
   - docs/models/components/ActorTokenStatus.md
   - docs/models/components/Admin.md
-  - docs/models/components/AdminVerificationPhoneNumberStatus.md
-  - docs/models/components/AdminVerificationStatus.md
-  - docs/models/components/AdminVerificationStrategy.md
-  - docs/models/components/AdminVerificationWeb3WalletStatus.md
-  - docs/models/components/AdminVerificationWeb3WalletStrategy.md
   - docs/models/components/AllowlistIdentifier.md
   - docs/models/components/AllowlistIdentifierObject.md
+  - docs/models/components/Amount.md
   - docs/models/components/BlocklistIdentifier.md
   - docs/models/components/BlocklistIdentifierIdentifierType.md
   - docs/models/components/BlocklistIdentifierObject.md
@@ -55,11 +53,31 @@ generatedFiles:
   - docs/models/components/Claims.md
   - docs/models/components/ClerkError.md
   - docs/models/components/ClerkErrorErrorExternalAccountWithVerificationMeta.md
+  - docs/models/components/ClerkErrorErrorExternalAccountWithVerificationVerificationMeta.md
   - docs/models/components/ClerkErrorErrorMeta.md
   - docs/models/components/ClerkErrorErrorSAMLAccountMeta.md
   - docs/models/components/Client.md
+  - docs/models/components/ClientObject.md
+  - docs/models/components/CommerceMoneyResponse.md
+  - docs/models/components/CommercePlan.md
+  - docs/models/components/CommercePlanObject.md
+  - docs/models/components/CommerceSubscription.md
+  - docs/models/components/CommerceSubscriptionItem.md
+  - docs/models/components/CommerceSubscriptionItemAmount.md
+  - docs/models/components/CommerceSubscriptionItemNextInvoiceAmount.md
+  - docs/models/components/CommerceSubscriptionItemNextPaymentAmount.md
+  - docs/models/components/CommerceSubscriptionItemObject.md
+  - docs/models/components/CommerceSubscriptionItemPayerObject.md
+  - docs/models/components/CommerceSubscriptionItemPaymentSourceObject.md
+  - docs/models/components/CommerceSubscriptionItemPaymentSourceStatus.md
+  - docs/models/components/CommerceSubscriptionItemPlanObject.md
+  - docs/models/components/CommerceSubscriptionItemStatus.md
+  - docs/models/components/CommerceSubscriptionNextPayment.md
+  - docs/models/components/CommerceSubscriptionObject.md
+  - docs/models/components/CommerceSubscriptionStatus.md
   - docs/models/components/Cookies.md
   - docs/models/components/CookiesObject.md
+  - docs/models/components/Credit.md
   - docs/models/components/DeletedObject.md
   - docs/models/components/Domain.md
   - docs/models/components/DomainObject.md
@@ -67,6 +85,7 @@ generatedFiles:
   - docs/models/components/DomainsEnrollmentModes.md
   - docs/models/components/EmailAddress.md
   - docs/models/components/EmailAddressObject.md
+  - docs/models/components/EmailLink.md
   - docs/models/components/EnrollmentMode.md
   - docs/models/components/Error.md
   - docs/models/components/ErrorClerkError.md
@@ -75,13 +94,10 @@ generatedFiles:
   - docs/models/components/ExternalAccountWithVerification.md
   - docs/models/components/ExternalAccountWithVerificationObject.md
   - docs/models/components/ExternalAccountWithVerificationVerification.md
+  - docs/models/components/FeatureResponse.md
+  - docs/models/components/FeatureResponseObject.md
   - docs/models/components/FromOAuth.md
-  - docs/models/components/FromOAuthVerificationStatus.md
   - docs/models/components/GoogleOneTap.md
-  - docs/models/components/GoogleOneTapErrorClerkError.md
-  - docs/models/components/GoogleOneTapVerificationError.md
-  - docs/models/components/GoogleOneTapVerificationStatus.md
-  - docs/models/components/GoogleOneTapVerificationStrategy.md
   - docs/models/components/IdentificationLink.md
   - docs/models/components/IdentifierType.md
   - docs/models/components/Instance.md
@@ -100,8 +116,26 @@ generatedFiles:
   - docs/models/components/JWTTemplateObject.md
   - docs/models/components/Jwks.md
   - docs/models/components/Keys.md
+  - docs/models/components/LifetimePaid.md
+  - docs/models/components/Machine.md
+  - docs/models/components/MachineCreated.md
+  - docs/models/components/MachineCreatedObject.md
+  - docs/models/components/MachineDeleted.md
+  - docs/models/components/MachineDeletedObject.md
+  - docs/models/components/MachineList.md
+  - docs/models/components/MachineObject.md
+  - docs/models/components/MachineScope.md
+  - docs/models/components/MachineScopeDeleted.md
+  - docs/models/components/MachineScopeDeletedObject.md
+  - docs/models/components/MachineScopeObject.md
+  - docs/models/components/MachineSecretKey.md
+  - docs/models/components/MachineSecretKeyObject.md
+  - docs/models/components/MachineWithoutScopedMachines.md
+  - docs/models/components/MachineWithoutScopedMachinesObject.md
   - docs/models/components/Meta.md
   - docs/models/components/NextAction.md
+  - docs/models/components/NextInvoice.md
+  - docs/models/components/NextPayment.md
   - docs/models/components/Nonce.md
   - docs/models/components/OAuthAccessToken.md
   - docs/models/components/OAuthAccessTokenObject.md
@@ -110,12 +144,9 @@ generatedFiles:
   - docs/models/components/OAuthApplicationWithSecret.md
   - docs/models/components/OAuthApplicationWithSecretObject.md
   - docs/models/components/OAuthApplications.md
-  - docs/models/components/OTPVerificationStatus.md
-  - docs/models/components/OTPVerificationStrategy.md
   - docs/models/components/Oauth.md
-  - docs/models/components/OauthErrorClerkError.md
-  - docs/models/components/OauthVerificationStatus.md
   - docs/models/components/Object.md
+  - docs/models/components/One.md
   - docs/models/components/Organization.md
   - docs/models/components/OrganizationDomain.md
   - docs/models/components/OrganizationDomainObject.md
@@ -142,32 +173,36 @@ generatedFiles:
   - docs/models/components/OrganizationWithLogoObject.md
   - docs/models/components/Organizations.md
   - docs/models/components/Otp.md
+  - docs/models/components/PaginatedCommercePlanResponse.md
+  - docs/models/components/PaginatedCommerceSubscriptionItemResponse.md
   - docs/models/components/Passkey.md
-  - docs/models/components/PasskeyVerificationStatus.md
-  - docs/models/components/PasskeyVerificationStrategy.md
+  - docs/models/components/PasskeyObject.md
+  - docs/models/components/PasskeyVerification.md
+  - docs/models/components/Payer.md
+  - docs/models/components/PaymentMethod.md
+  - docs/models/components/PaymentSource.md
   - docs/models/components/PhoneNumber.md
   - docs/models/components/PhoneNumberObject.md
   - docs/models/components/PhoneNumberVerification.md
+  - docs/models/components/Plan.md
+  - docs/models/components/PlanPeriod.md
   - docs/models/components/ProxyCheck.md
   - docs/models/components/ProxyCheckObject.md
+  - docs/models/components/PublicOrganizationData.md
   - docs/models/components/RedirectURL.md
   - docs/models/components/RedirectURLObject.md
   - docs/models/components/SAMLAccount.md
   - docs/models/components/SAMLAccountObject.md
   - docs/models/components/SAMLAccountVerification.md
+  - docs/models/components/SAMLConnection1.md
+  - docs/models/components/SAMLConnection2.md
   - docs/models/components/SAMLConnectionAttributeMapping.md
   - docs/models/components/SAMLConnectionSAMLConnection.md
   - docs/models/components/SAMLConnections.md
-  - docs/models/components/SAMLErrorClerkError.md
-  - docs/models/components/SAMLVerificationError.md
-  - docs/models/components/SAMLVerificationStatus.md
-  - docs/models/components/SAMLVerificationStrategy.md
   - docs/models/components/Saml.md
   - docs/models/components/SamlConnection.md
-  - docs/models/components/SchemasPasskey.md
-  - docs/models/components/SchemasPasskeyObject.md
-  - docs/models/components/SchemasPasskeyVerification.md
   - docs/models/components/SchemasSAMLConnection.md
+  - docs/models/components/SchemasSAMLConnection2Object.md
   - docs/models/components/SchemasSAMLConnectionObject.md
   - docs/models/components/Security.md
   - docs/models/components/Session.md
@@ -192,23 +227,70 @@ generatedFiles:
   - docs/models/components/TestingToken.md
   - docs/models/components/TestingTokenObject.md
   - docs/models/components/Ticket.md
-  - docs/models/components/TicketVerificationSAMLAccountStatus.md
-  - docs/models/components/TicketVerificationSAMLAccountStrategy.md
-  - docs/models/components/TicketVerificationStatus.md
-  - docs/models/components/TicketVerificationStrategy.md
   - docs/models/components/Token.md
   - docs/models/components/TokenObject.md
   - docs/models/components/TotalCount.md
   - docs/models/components/TotalCountObject.md
+  - docs/models/components/Two.md
   - docs/models/components/User.md
   - docs/models/components/UserObject.md
   - docs/models/components/Verification.md
   - docs/models/components/VerificationAdmin.md
+  - docs/models/components/VerificationAdminVerificationAdmin.md
+  - docs/models/components/VerificationAdminVerificationObject.md
+  - docs/models/components/VerificationAdminVerificationPhoneNumberObject.md
+  - docs/models/components/VerificationAdminVerificationPhoneNumberStatus.md
+  - docs/models/components/VerificationAdminVerificationStatus.md
+  - docs/models/components/VerificationAdminVerificationStrategy.md
+  - docs/models/components/VerificationAdminVerificationWeb3WalletObject.md
+  - docs/models/components/VerificationAdminVerificationWeb3WalletStatus.md
+  - docs/models/components/VerificationAdminVerificationWeb3WalletStrategy.md
+  - docs/models/components/VerificationEmailLinkVerificationObject.md
+  - docs/models/components/VerificationEmailLinkVerificationStatus.md
+  - docs/models/components/VerificationEmailLinkVerificationStrategy.md
   - docs/models/components/VerificationError.md
+  - docs/models/components/VerificationFromOauthVerificationObject.md
+  - docs/models/components/VerificationFromOauthVerificationStatus.md
+  - docs/models/components/VerificationGoogleOneTapErrorClerkError.md
+  - docs/models/components/VerificationGoogleOneTapVerificationError.md
+  - docs/models/components/VerificationGoogleOneTapVerificationObject.md
+  - docs/models/components/VerificationGoogleOneTapVerificationStatus.md
+  - docs/models/components/VerificationGoogleOneTapVerificationStrategy.md
   - docs/models/components/VerificationOTP.md
+  - docs/models/components/VerificationOauthErrorClerkError.md
+  - docs/models/components/VerificationOauthVerificationError.md
+  - docs/models/components/VerificationOauthVerificationObject.md
+  - docs/models/components/VerificationOauthVerificationStatus.md
+  - docs/models/components/VerificationObject.md
+  - docs/models/components/VerificationOtpVerificationObject.md
+  - docs/models/components/VerificationOtpVerificationStatus.md
+  - docs/models/components/VerificationOtpVerificationStrategy.md
+  - docs/models/components/VerificationPasskey.md
+  - docs/models/components/VerificationPasskeyVerificationObject.md
+  - docs/models/components/VerificationPasskeyVerificationStatus.md
+  - docs/models/components/VerificationPasskeyVerificationStrategy.md
+  - docs/models/components/VerificationSAML.md
+  - docs/models/components/VerificationSAMLErrorSAMLAccountClerkError.md
+  - docs/models/components/VerificationSAMLVerificationSAMLAccountObject.md
+  - docs/models/components/VerificationSAMLVerificationSAMLAccountStatus.md
+  - docs/models/components/VerificationSAMLVerificationSAMLAccountStrategy.md
+  - docs/models/components/VerificationSamlErrorClerkError.md
+  - docs/models/components/VerificationSamlVerificationError.md
+  - docs/models/components/VerificationSamlVerificationObject.md
+  - docs/models/components/VerificationSamlVerificationStatus.md
+  - docs/models/components/VerificationSamlVerificationStrategy.md
   - docs/models/components/VerificationStatus.md
   - docs/models/components/VerificationStrategy.md
   - docs/models/components/VerificationTicket.md
+  - docs/models/components/VerificationTicketVerificationObject.md
+  - docs/models/components/VerificationTicketVerificationSAMLAccountObject.md
+  - docs/models/components/VerificationTicketVerificationSAMLAccountStatus.md
+  - docs/models/components/VerificationTicketVerificationSAMLAccountStrategy.md
+  - docs/models/components/VerificationTicketVerificationStatus.md
+  - docs/models/components/VerificationTicketVerificationStrategy.md
+  - docs/models/components/VerificationWeb3VerificationObject.md
+  - docs/models/components/VerificationWeb3VerificationStatus.md
+  - docs/models/components/VerificationWeb3VerificationStrategy.md
   - docs/models/components/WaitlistEntries.md
   - docs/models/components/WaitlistEntry.md
   - docs/models/components/WaitlistEntryInvitation.md
@@ -217,20 +299,41 @@ generatedFiles:
   - docs/models/components/WaitlistEntryObject.md
   - docs/models/components/WaitlistEntryStatus.md
   - docs/models/components/Web3Signature.md
-  - docs/models/components/Web3SignatureVerificationStatus.md
-  - docs/models/components/Web3SignatureVerificationStrategy.md
   - docs/models/components/Web3Wallet.md
   - docs/models/components/Web3WalletObject.md
   - docs/models/components/Web3WalletVerification.md
-  - docs/models/components/Web3WalletVerificationAdmin.md
   - docs/models/errors/ClerkErrors.md
+  - docs/models/errors/CreateM2MTokenErrors.md
+  - docs/models/errors/CreateM2MTokenM2mResponseBody.md
+  - docs/models/errors/CreateM2MTokenResponseBody.md
+  - docs/models/errors/Errors.md
+  - docs/models/errors/GetM2MTokensErrors.md
+  - docs/models/errors/GetM2MTokensM2mErrors.md
+  - docs/models/errors/GetM2MTokensM2mResponseBody.md
+  - docs/models/errors/GetM2MTokensM2mResponseErrors.md
+  - docs/models/errors/GetM2MTokensM2mResponseResponseBody.md
+  - docs/models/errors/GetM2MTokensResponseBody.md
   - docs/models/errors/Meta.md
+  - docs/models/errors/RevokeM2MTokenErrors.md
+  - docs/models/errors/RevokeM2MTokenM2mErrors.md
+  - docs/models/errors/RevokeM2MTokenM2mResponseBody.md
+  - docs/models/errors/RevokeM2MTokenResponseBody.md
+  - docs/models/errors/VerifyM2MTokenErrors.md
+  - docs/models/errors/VerifyM2MTokenM2mErrors.md
+  - docs/models/errors/VerifyM2MTokenM2mResponseBody.md
+  - docs/models/errors/VerifyM2MTokenResponseBody.md
+  - docs/models/errors/VerifyOAuthAccessTokenErrors.md
+  - docs/models/errors/VerifyOAuthAccessTokenOauthAccessTokensErrors.md
+  - docs/models/errors/VerifyOAuthAccessTokenOauthAccessTokensResponseBody.md
+  - docs/models/errors/VerifyOAuthAccessTokenResponseBody.md
   - docs/models/operations/Actor.md
   - docs/models/operations/AddDomainRequestBody.md
   - docs/models/operations/AddDomainResponse.md
   - docs/models/operations/AttributeMapping.md
   - docs/models/operations/BanUserRequest.md
   - docs/models/operations/BanUserResponse.md
+  - docs/models/operations/CancelCommerceSubscriptionItemRequest.md
+  - docs/models/operations/CancelCommerceSubscriptionItemResponse.md
   - docs/models/operations/ChangeProductionInstanceDomainRequestBody.md
   - docs/models/operations/ChangeProductionInstanceDomainResponse.md
   - docs/models/operations/Claims.md
@@ -251,6 +354,15 @@ generatedFiles:
   - docs/models/operations/CreateInvitationResponse.md
   - docs/models/operations/CreateJWTTemplateRequestBody.md
   - docs/models/operations/CreateJWTTemplateResponse.md
+  - docs/models/operations/CreateM2MTokenObject.md
+  - docs/models/operations/CreateM2MTokenRequestBody.md
+  - docs/models/operations/CreateM2MTokenResponse.md
+  - docs/models/operations/CreateM2MTokenResponseBody.md
+  - docs/models/operations/CreateMachineRequestBody.md
+  - docs/models/operations/CreateMachineResponse.md
+  - docs/models/operations/CreateMachineScopeRequest.md
+  - docs/models/operations/CreateMachineScopeRequestBody.md
+  - docs/models/operations/CreateMachineScopeResponse.md
   - docs/models/operations/CreateOAuthApplicationRequestBody.md
   - docs/models/operations/CreateOAuthApplicationResponse.md
   - docs/models/operations/CreateOrganizationDomainRequest.md
@@ -272,6 +384,7 @@ generatedFiles:
   - docs/models/operations/CreateRedirectURLRequestBody.md
   - docs/models/operations/CreateRedirectURLResponse.md
   - docs/models/operations/CreateSAMLConnectionRequestBody.md
+  - docs/models/operations/CreateSAMLConnectionRequestBodyAttributeMapping.md
   - docs/models/operations/CreateSAMLConnectionResponse.md
   - docs/models/operations/CreateSessionRequestBody.md
   - docs/models/operations/CreateSessionResponse.md
@@ -292,6 +405,8 @@ generatedFiles:
   - docs/models/operations/CreateUserResponse.md
   - docs/models/operations/CreateWaitlistEntryRequestBody.md
   - docs/models/operations/CreateWaitlistEntryResponse.md
+  - docs/models/operations/DeleteAWSCredentialRequest.md
+  - docs/models/operations/DeleteAWSCredentialResponse.md
   - docs/models/operations/DeleteAllowlistIdentifierRequest.md
   - docs/models/operations/DeleteAllowlistIdentifierResponse.md
   - docs/models/operations/DeleteBackupCodeRequest.md
@@ -307,6 +422,10 @@ generatedFiles:
   - docs/models/operations/DeleteExternalAccountResponse.md
   - docs/models/operations/DeleteJWTTemplateRequest.md
   - docs/models/operations/DeleteJWTTemplateResponse.md
+  - docs/models/operations/DeleteMachineRequest.md
+  - docs/models/operations/DeleteMachineResponse.md
+  - docs/models/operations/DeleteMachineScopeRequest.md
+  - docs/models/operations/DeleteMachineScopeResponse.md
   - docs/models/operations/DeleteOAuthApplicationRequest.md
   - docs/models/operations/DeleteOAuthApplicationResponse.md
   - docs/models/operations/DeleteOrganizationDomainRequest.md
@@ -334,6 +453,7 @@ generatedFiles:
   - docs/models/operations/DisableMFARequest.md
   - docs/models/operations/DisableMFAResponse.md
   - docs/models/operations/DisableMFAResponseBody.md
+  - docs/models/operations/EnrollmentMode.md
   - docs/models/operations/File.md
   - docs/models/operations/Format.md
   - docs/models/operations/GenerateSvixAuthURLResponse.md
@@ -341,16 +461,31 @@ generatedFiles:
   - docs/models/operations/GetClientListResponse.md
   - docs/models/operations/GetClientRequest.md
   - docs/models/operations/GetClientResponse.md
+  - docs/models/operations/GetCommercePlanListRequest.md
+  - docs/models/operations/GetCommercePlanListResponse.md
+  - docs/models/operations/GetCommerceSubscriptionItemListQueryParamStatus.md
+  - docs/models/operations/GetCommerceSubscriptionItemListRequest.md
+  - docs/models/operations/GetCommerceSubscriptionItemListResponse.md
   - docs/models/operations/GetEmailAddressRequest.md
   - docs/models/operations/GetEmailAddressResponse.md
   - docs/models/operations/GetInstanceResponse.md
   - docs/models/operations/GetJWKSResponse.md
   - docs/models/operations/GetJWTTemplateRequest.md
   - docs/models/operations/GetJWTTemplateResponse.md
+  - docs/models/operations/GetM2MTokensObject.md
+  - docs/models/operations/GetM2MTokensRequest.md
+  - docs/models/operations/GetM2MTokensResponse.md
+  - docs/models/operations/GetM2MTokensResponseBody.md
+  - docs/models/operations/GetMachineRequest.md
+  - docs/models/operations/GetMachineResponse.md
+  - docs/models/operations/GetMachineSecretKeyRequest.md
+  - docs/models/operations/GetMachineSecretKeyResponse.md
   - docs/models/operations/GetOAuthAccessTokenRequest.md
   - docs/models/operations/GetOAuthAccessTokenResponse.md
   - docs/models/operations/GetOAuthApplicationRequest.md
   - docs/models/operations/GetOAuthApplicationResponse.md
+  - docs/models/operations/GetOrganizationBillingSubscriptionRequest.md
+  - docs/models/operations/GetOrganizationBillingSubscriptionResponse.md
   - docs/models/operations/GetOrganizationInvitationRequest.md
   - docs/models/operations/GetOrganizationInvitationResponse.md
   - docs/models/operations/GetOrganizationRequest.md
@@ -373,6 +508,8 @@ generatedFiles:
   - docs/models/operations/GetTemplateListResponse.md
   - docs/models/operations/GetTemplateRequest.md
   - docs/models/operations/GetTemplateResponse.md
+  - docs/models/operations/GetUserBillingSubscriptionRequest.md
+  - docs/models/operations/GetUserBillingSubscriptionResponse.md
   - docs/models/operations/GetUserListRequest.md
   - docs/models/operations/GetUserListResponse.md
   - docs/models/operations/GetUserRequest.md
@@ -381,6 +518,11 @@ generatedFiles:
   - docs/models/operations/GetUsersCountResponse.md
   - docs/models/operations/InstanceGetOrganizationMembershipsRequest.md
   - docs/models/operations/InstanceGetOrganizationMembershipsResponse.md
+  - docs/models/operations/InviteWaitlistEntryRequest.md
+  - docs/models/operations/InviteWaitlistEntryRequestBody.md
+  - docs/models/operations/InviteWaitlistEntryResponse.md
+  - docs/models/operations/ListAllOrganizationDomainsRequest.md
+  - docs/models/operations/ListAllOrganizationDomainsResponse.md
   - docs/models/operations/ListAllowlistIdentifiersRequest.md
   - docs/models/operations/ListAllowlistIdentifiersResponse.md
   - docs/models/operations/ListBlocklistIdentifiersResponse.md
@@ -393,6 +535,8 @@ generatedFiles:
   - docs/models/operations/ListInvitationsResponse.md
   - docs/models/operations/ListJWTTemplatesRequest.md
   - docs/models/operations/ListJWTTemplatesResponse.md
+  - docs/models/operations/ListMachinesRequest.md
+  - docs/models/operations/ListMachinesResponse.md
   - docs/models/operations/ListOAuthApplicationsRequest.md
   - docs/models/operations/ListOAuthApplicationsResponse.md
   - docs/models/operations/ListOrganizationDomainsRequest.md
@@ -415,21 +559,29 @@ generatedFiles:
   - docs/models/operations/ListWaitlistEntriesResponse.md
   - docs/models/operations/LockUserRequest.md
   - docs/models/operations/LockUserResponse.md
+  - docs/models/operations/M2mTokens.md
   - docs/models/operations/MergeOrganizationMetadataRequest.md
   - docs/models/operations/MergeOrganizationMetadataRequestBody.md
   - docs/models/operations/MergeOrganizationMetadataResponse.md
   - docs/models/operations/Object.md
+  - docs/models/operations/One.md
   - docs/models/operations/PathParamTemplateType.md
+  - docs/models/operations/PayerType.md
   - docs/models/operations/PreviewTemplateRequest.md
   - docs/models/operations/PreviewTemplateRequestBody.md
   - docs/models/operations/PreviewTemplateResponse.md
   - docs/models/operations/PreviewTemplateResponseBody.md
   - docs/models/operations/Provider.md
+  - docs/models/operations/QueryParamPayerType.md
   - docs/models/operations/QueryParamStatus.md
   - docs/models/operations/RefreshSessionRequest.md
   - docs/models/operations/RefreshSessionRequestBody.md
   - docs/models/operations/RefreshSessionResponse.md
+  - docs/models/operations/RejectWaitlistEntryRequest.md
+  - docs/models/operations/RejectWaitlistEntryResponse.md
   - docs/models/operations/RequestBody.md
+  - docs/models/operations/RequestBodyAttributeMapping.md
+  - docs/models/operations/RequestBodyProvider.md
   - docs/models/operations/RevertTemplatePathParamTemplateType.md
   - docs/models/operations/RevertTemplateRequest.md
   - docs/models/operations/RevertTemplateResponse.md
@@ -437,6 +589,11 @@ generatedFiles:
   - docs/models/operations/RevokeActorTokenResponse.md
   - docs/models/operations/RevokeInvitationRequest.md
   - docs/models/operations/RevokeInvitationResponse.md
+  - docs/models/operations/RevokeM2MTokenObject.md
+  - docs/models/operations/RevokeM2MTokenRequest.md
+  - docs/models/operations/RevokeM2MTokenRequestBody.md
+  - docs/models/operations/RevokeM2MTokenResponse.md
+  - docs/models/operations/RevokeM2MTokenResponseBody.md
   - docs/models/operations/RevokeOrganizationInvitationRequest.md
   - docs/models/operations/RevokeOrganizationInvitationRequestBody.md
   - docs/models/operations/RevokeOrganizationInvitationResponse.md
@@ -456,10 +613,14 @@ generatedFiles:
   - docs/models/operations/ToggleTemplateDeliveryRequest.md
   - docs/models/operations/ToggleTemplateDeliveryRequestBody.md
   - docs/models/operations/ToggleTemplateDeliveryResponse.md
+  - docs/models/operations/Two.md
   - docs/models/operations/UnbanUserRequest.md
   - docs/models/operations/UnbanUserResponse.md
   - docs/models/operations/UnlockUserRequest.md
   - docs/models/operations/UnlockUserResponse.md
+  - docs/models/operations/UpdateAWSCredentialRequest.md
+  - docs/models/operations/UpdateAWSCredentialRequestBody.md
+  - docs/models/operations/UpdateAWSCredentialResponse.md
   - docs/models/operations/UpdateDomainRequest.md
   - docs/models/operations/UpdateDomainRequestBody.md
   - docs/models/operations/UpdateDomainResponse.md
@@ -478,6 +639,9 @@ generatedFiles:
   - docs/models/operations/UpdateJWTTemplateRequest.md
   - docs/models/operations/UpdateJWTTemplateRequestBody.md
   - docs/models/operations/UpdateJWTTemplateResponse.md
+  - docs/models/operations/UpdateMachineRequest.md
+  - docs/models/operations/UpdateMachineRequestBody.md
+  - docs/models/operations/UpdateMachineResponse.md
   - docs/models/operations/UpdateOAuthApplicationRequest.md
   - docs/models/operations/UpdateOAuthApplicationRequestBody.md
   - docs/models/operations/UpdateOAuthApplicationResponse.md
@@ -498,7 +662,6 @@ generatedFiles:
   - docs/models/operations/UpdatePhoneNumberResponse.md
   - docs/models/operations/UpdateProductionInstanceDomainRequestBody.md
   - docs/models/operations/UpdateProductionInstanceDomainResponse.md
-  - docs/models/operations/UpdateSAMLConnectionAttributeMapping.md
   - docs/models/operations/UpdateSAMLConnectionRequest.md
   - docs/models/operations/UpdateSAMLConnectionRequestBody.md
   - docs/models/operations/UpdateSAMLConnectionResponse.md
@@ -523,31 +686,43 @@ generatedFiles:
   - docs/models/operations/UserPasskeyDeleteResponse.md
   - docs/models/operations/UserWeb3WalletDeleteRequest.md
   - docs/models/operations/UserWeb3WalletDeleteResponse.md
+  - docs/models/operations/UsersBanRequestBody.md
+  - docs/models/operations/UsersBanResponse.md
   - docs/models/operations/UsersGetOrganizationInvitationsRequest.md
   - docs/models/operations/UsersGetOrganizationInvitationsResponse.md
   - docs/models/operations/UsersGetOrganizationMembershipsRequest.md
   - docs/models/operations/UsersGetOrganizationMembershipsResponse.md
+  - docs/models/operations/UsersUnbanRequestBody.md
+  - docs/models/operations/UsersUnbanResponse.md
+  - docs/models/operations/Verified.md
   - docs/models/operations/VerifyClientRequestBody.md
   - docs/models/operations/VerifyClientResponse.md
   - docs/models/operations/VerifyDomainProxyRequestBody.md
   - docs/models/operations/VerifyDomainProxyResponse.md
+  - docs/models/operations/VerifyM2MTokenObject.md
+  - docs/models/operations/VerifyM2MTokenRequestBody.md
+  - docs/models/operations/VerifyM2MTokenResponse.md
+  - docs/models/operations/VerifyM2MTokenResponseBody.md
+  - docs/models/operations/VerifyOAuthAccessTokenObject.md
+  - docs/models/operations/VerifyOAuthAccessTokenRequestBody.md
+  - docs/models/operations/VerifyOAuthAccessTokenResponse.md
+  - docs/models/operations/VerifyOAuthAccessTokenResponseBody.md
   - docs/models/operations/VerifyPasswordRequest.md
   - docs/models/operations/VerifyPasswordRequestBody.md
   - docs/models/operations/VerifyPasswordResponse.md
   - docs/models/operations/VerifyPasswordResponseBody.md
-  - docs/models/operations/VerifySessionRequest.md
-  - docs/models/operations/VerifySessionRequestBody.md
-  - docs/models/operations/VerifySessionResponse.md
   - docs/models/operations/VerifyTOTPRequest.md
   - docs/models/operations/VerifyTOTPRequestBody.md
   - docs/models/operations/VerifyTOTPResponse.md
   - docs/models/operations/VerifyTOTPResponseBody.md
   - docs/sdks/actortokens/README.md
   - docs/sdks/allowlistidentifiers/README.md
+  - docs/sdks/awscredentials/README.md
   - docs/sdks/betafeatures/README.md
   - docs/sdks/blocklistidentifiers/README.md
   - docs/sdks/clerk/README.md
   - docs/sdks/clients/README.md
+  - docs/sdks/commerce/README.md
   - docs/sdks/domains/README.md
   - docs/sdks/emailaddresses/README.md
   - docs/sdks/emailandsmstemplates/README.md
@@ -557,7 +732,10 @@ generatedFiles:
   - docs/sdks/invitations/README.md
   - docs/sdks/jwks/README.md
   - docs/sdks/jwttemplates/README.md
+  - docs/sdks/m2m/README.md
+  - docs/sdks/machines/README.md
   - docs/sdks/miscellaneous/README.md
+  - docs/sdks/oauthaccesstokens/README.md
   - docs/sdks/oauthapplications/README.md
   - docs/sdks/organizationdomains/README.md
   - docs/sdks/organizationinvitations/README.md
@@ -583,10 +761,12 @@ generatedFiles:
   - settings.gradle
   - src/main/java/com/clerk/backend_api/ActorTokens.java
   - src/main/java/com/clerk/backend_api/AllowlistIdentifiers.java
+  - src/main/java/com/clerk/backend_api/AwsCredentials.java
   - src/main/java/com/clerk/backend_api/BetaFeatures.java
   - src/main/java/com/clerk/backend_api/BlocklistIdentifiers.java
   - src/main/java/com/clerk/backend_api/Clerk.java
   - src/main/java/com/clerk/backend_api/Clients.java
+  - src/main/java/com/clerk/backend_api/Commerce.java
   - src/main/java/com/clerk/backend_api/Domains.java
   - src/main/java/com/clerk/backend_api/EmailAddresses.java
   - src/main/java/com/clerk/backend_api/EmailAndSmsTemplates.java
@@ -596,7 +776,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/Invitations.java
   - src/main/java/com/clerk/backend_api/Jwks.java
   - src/main/java/com/clerk/backend_api/JwtTemplates.java
+  - src/main/java/com/clerk/backend_api/M2m.java
+  - src/main/java/com/clerk/backend_api/Machines.java
   - src/main/java/com/clerk/backend_api/Miscellaneous.java
+  - src/main/java/com/clerk/backend_api/OauthAccessTokens.java
   - src/main/java/com/clerk/backend_api/OauthApplications.java
   - src/main/java/com/clerk/backend_api/OrganizationDomains.java
   - src/main/java/com/clerk/backend_api/OrganizationInvitations.java
@@ -616,6 +799,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/Users.java
   - src/main/java/com/clerk/backend_api/WaitlistEntries.java
   - src/main/java/com/clerk/backend_api/Webhooks.java
+  - src/main/java/com/clerk/backend_api/models/components/AWSCredential.java
   - src/main/java/com/clerk/backend_api/models/components/AccountlessApplication.java
   - src/main/java/com/clerk/backend_api/models/components/AccountlessApplicationObject.java
   - src/main/java/com/clerk/backend_api/models/components/Actor.java
@@ -624,13 +808,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenStatus.java
   - src/main/java/com/clerk/backend_api/models/components/Admin.java
-  - src/main/java/com/clerk/backend_api/models/components/AdminVerificationPhoneNumberStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/AdminVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/AdminVerificationStrategy.java
-  - src/main/java/com/clerk/backend_api/models/components/AdminVerificationWeb3WalletStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/AdminVerificationWeb3WalletStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifier.java
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifierObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Amount.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifier.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierIdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierObject.java
@@ -639,11 +819,31 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Claims.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkError.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorExternalAccountWithVerificationMeta.java
+  - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorExternalAccountWithVerificationVerificationMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorSAMLAccountMeta.java
   - src/main/java/com/clerk/backend_api/models/components/Client.java
+  - src/main/java/com/clerk/backend_api/models/components/ClientObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceMoneyResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePlan.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePlanObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscription.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItem.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemNextInvoiceAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemNextPaymentAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPayerObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPaymentSourceObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPaymentSourceStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPlanObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionNextPayment.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionStatus.java
   - src/main/java/com/clerk/backend_api/models/components/Cookies.java
   - src/main/java/com/clerk/backend_api/models/components/CookiesObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Credit.java
   - src/main/java/com/clerk/backend_api/models/components/DeletedObject.java
   - src/main/java/com/clerk/backend_api/models/components/Domain.java
   - src/main/java/com/clerk/backend_api/models/components/DomainObject.java
@@ -651,6 +851,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/DomainsEnrollmentModes.java
   - src/main/java/com/clerk/backend_api/models/components/EmailAddress.java
   - src/main/java/com/clerk/backend_api/models/components/EmailAddressObject.java
+  - src/main/java/com/clerk/backend_api/models/components/EmailLink.java
   - src/main/java/com/clerk/backend_api/models/components/EnrollmentMode.java
   - src/main/java/com/clerk/backend_api/models/components/Error.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorClerkError.java
@@ -659,13 +860,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerification.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/FeatureResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/FeatureResponseObject.java
   - src/main/java/com/clerk/backend_api/models/components/FromOAuth.java
-  - src/main/java/com/clerk/backend_api/models/components/FromOAuthVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/GoogleOneTap.java
-  - src/main/java/com/clerk/backend_api/models/components/GoogleOneTapErrorClerkError.java
-  - src/main/java/com/clerk/backend_api/models/components/GoogleOneTapVerificationError.java
-  - src/main/java/com/clerk/backend_api/models/components/GoogleOneTapVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/GoogleOneTapVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/IdentificationLink.java
   - src/main/java/com/clerk/backend_api/models/components/IdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/Instance.java
@@ -684,8 +882,26 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/JWTTemplateObject.java
   - src/main/java/com/clerk/backend_api/models/components/Jwks.java
   - src/main/java/com/clerk/backend_api/models/components/Keys.java
+  - src/main/java/com/clerk/backend_api/models/components/LifetimePaid.java
+  - src/main/java/com/clerk/backend_api/models/components/Machine.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineCreated.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineCreatedObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineDeleted.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineDeletedObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineList.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineScope.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineScopeDeleted.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineScopeDeletedObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineScopeObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineSecretKey.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineSecretKeyObject.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineWithoutScopedMachines.java
+  - src/main/java/com/clerk/backend_api/models/components/MachineWithoutScopedMachinesObject.java
   - src/main/java/com/clerk/backend_api/models/components/Meta.java
   - src/main/java/com/clerk/backend_api/models/components/NextAction.java
+  - src/main/java/com/clerk/backend_api/models/components/NextInvoice.java
+  - src/main/java/com/clerk/backend_api/models/components/NextPayment.java
   - src/main/java/com/clerk/backend_api/models/components/Nonce.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthAccessToken.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthAccessTokenObject.java
@@ -694,12 +910,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationWithSecret.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplicationWithSecretObject.java
   - src/main/java/com/clerk/backend_api/models/components/OAuthApplications.java
-  - src/main/java/com/clerk/backend_api/models/components/OTPVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/OTPVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/Oauth.java
-  - src/main/java/com/clerk/backend_api/models/components/OauthErrorClerkError.java
-  - src/main/java/com/clerk/backend_api/models/components/OauthVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/Object.java
+  - src/main/java/com/clerk/backend_api/models/components/One.java
   - src/main/java/com/clerk/backend_api/models/components/Organization.java
   - src/main/java/com/clerk/backend_api/models/components/OrganizationDomain.java
   - src/main/java/com/clerk/backend_api/models/components/OrganizationDomainObject.java
@@ -726,32 +939,36 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OrganizationWithLogoObject.java
   - src/main/java/com/clerk/backend_api/models/components/Organizations.java
   - src/main/java/com/clerk/backend_api/models/components/Otp.java
+  - src/main/java/com/clerk/backend_api/models/components/PaginatedCommercePlanResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/PaginatedCommerceSubscriptionItemResponse.java
   - src/main/java/com/clerk/backend_api/models/components/Passkey.java
-  - src/main/java/com/clerk/backend_api/models/components/PasskeyVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/PasskeyVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/PasskeyObject.java
+  - src/main/java/com/clerk/backend_api/models/components/PasskeyVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/Payer.java
+  - src/main/java/com/clerk/backend_api/models/components/PaymentMethod.java
+  - src/main/java/com/clerk/backend_api/models/components/PaymentSource.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumber.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberObject.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/Plan.java
+  - src/main/java/com/clerk/backend_api/models/components/PlanPeriod.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheck.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheckObject.java
+  - src/main/java/com/clerk/backend_api/models/components/PublicOrganizationData.java
   - src/main/java/com/clerk/backend_api/models/components/RedirectURL.java
   - src/main/java/com/clerk/backend_api/models/components/RedirectURLObject.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccount.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountObject.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/SAMLConnection1.java
+  - src/main/java/com/clerk/backend_api/models/components/SAMLConnection2.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnectionAttributeMapping.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnectionSAMLConnection.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnections.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLErrorClerkError.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLVerificationError.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/SAMLVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/Saml.java
   - src/main/java/com/clerk/backend_api/models/components/SamlConnection.java
-  - src/main/java/com/clerk/backend_api/models/components/SchemasPasskey.java
-  - src/main/java/com/clerk/backend_api/models/components/SchemasPasskeyObject.java
-  - src/main/java/com/clerk/backend_api/models/components/SchemasPasskeyVerification.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnection2Object.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnectionObject.java
   - src/main/java/com/clerk/backend_api/models/components/Security.java
   - src/main/java/com/clerk/backend_api/models/components/Session.java
@@ -776,23 +993,70 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/TestingToken.java
   - src/main/java/com/clerk/backend_api/models/components/TestingTokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/Ticket.java
-  - src/main/java/com/clerk/backend_api/models/components/TicketVerificationSAMLAccountStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/TicketVerificationSAMLAccountStrategy.java
-  - src/main/java/com/clerk/backend_api/models/components/TicketVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/TicketVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/Token.java
   - src/main/java/com/clerk/backend_api/models/components/TokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCount.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Two.java
   - src/main/java/com/clerk/backend_api/models/components/User.java
   - src/main/java/com/clerk/backend_api/models/components/UserObject.java
   - src/main/java/com/clerk/backend_api/models/components/Verification.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationAdmin.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationAdmin.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationPhoneNumberObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationPhoneNumberStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationWeb3WalletObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationWeb3WalletStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationAdminVerificationWeb3WalletStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationEmailLinkVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationEmailLinkVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationEmailLinkVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationFromOauthVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationFromOauthVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapErrorClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOTP.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthErrorClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOtpVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOtpVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOtpVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationPasskey.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationPasskeyVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationPasskeyVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationPasskeyVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAML.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLErrorSAMLAccountClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlErrorClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicket.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/WaitlistEntries.java
   - src/main/java/com/clerk/backend_api/models/components/WaitlistEntry.java
   - src/main/java/com/clerk/backend_api/models/components/WaitlistEntryInvitation.java
@@ -801,16 +1065,35 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/WaitlistEntryObject.java
   - src/main/java/com/clerk/backend_api/models/components/WaitlistEntryStatus.java
   - src/main/java/com/clerk/backend_api/models/components/Web3Signature.java
-  - src/main/java/com/clerk/backend_api/models/components/Web3SignatureVerificationStatus.java
-  - src/main/java/com/clerk/backend_api/models/components/Web3SignatureVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/Web3Wallet.java
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletObject.java
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerification.java
-  - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerificationAdmin.java
   - src/main/java/com/clerk/backend_api/models/errors/AuthException.java
   - src/main/java/com/clerk/backend_api/models/errors/ClerkErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/CreateM2MTokenErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/CreateM2MTokenM2mResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/CreateM2MTokenResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/Errors.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensM2mErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensM2mResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensM2mResponseErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensM2mResponseResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/GetM2MTokensResponseBody.java
   - src/main/java/com/clerk/backend_api/models/errors/Meta.java
+  - src/main/java/com/clerk/backend_api/models/errors/RevokeM2MTokenErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/RevokeM2MTokenM2mErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/RevokeM2MTokenM2mResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/RevokeM2MTokenResponseBody.java
   - src/main/java/com/clerk/backend_api/models/errors/SDKError.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyM2MTokenErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyM2MTokenM2mErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyM2MTokenM2mResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyM2MTokenResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyOAuthAccessTokenErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyOAuthAccessTokenOauthAccessTokensErrors.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/errors/VerifyOAuthAccessTokenResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/Actor.java
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBuilder.java
@@ -819,6 +1102,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/BanUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/BanUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/BanUserResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CancelCommerceSubscriptionItemRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CancelCommerceSubscriptionItemRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CancelCommerceSubscriptionItemResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainResponse.java
@@ -849,6 +1135,18 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/CreateJWTTemplateRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateJWTTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateJWTTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateM2MTokenObject.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateM2MTokenRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateM2MTokenRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateM2MTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateM2MTokenResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineScopeRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineScopeRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineScopeRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateMachineScopeResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOAuthApplicationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOAuthApplicationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOAuthApplicationResponse.java
@@ -878,6 +1176,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/CreateRedirectURLRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateRedirectURLResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionRequestBodyAttributeMapping.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateSessionRequestBody.java
@@ -907,6 +1206,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierResponse.java
@@ -929,6 +1231,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DeleteJWTTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteJWTTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteJWTTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineScopeRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineScopeRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteMachineScopeResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOAuthApplicationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOAuthApplicationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOAuthApplicationResponse.java
@@ -969,6 +1277,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/EnrollmentMode.java
   - src/main/java/com/clerk/backend_api/models/operations/File.java
   - src/main/java/com/clerk/backend_api/models/operations/Format.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLRequestBuilder.java
@@ -979,6 +1288,13 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetClientRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetClientRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetClientResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommercePlanListRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommercePlanListRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommercePlanListResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommerceSubscriptionItemListQueryParamStatus.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommerceSubscriptionItemListRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommerceSubscriptionItemListRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetCommerceSubscriptionItemListResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetEmailAddressRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetEmailAddressRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetEmailAddressResponse.java
@@ -989,12 +1305,26 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetJWTTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetJWTTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetJWTTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetM2MTokensObject.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetM2MTokensRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetM2MTokensRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetM2MTokensResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetM2MTokensResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineSecretKeyRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineSecretKeyRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetMachineSecretKeyResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthAccessTokenRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthAccessTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthAccessTokenResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthApplicationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthApplicationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOAuthApplicationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationBillingSubscriptionRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationBillingSubscriptionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationBillingSubscriptionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationResponse.java
@@ -1028,6 +1358,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetUserBillingSubscriptionRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetUserBillingSubscriptionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetUserBillingSubscriptionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetUserListResponse.java
@@ -1040,6 +1373,13 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/InstanceGetOrganizationMembershipsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/InviteWaitlistEntryRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/InviteWaitlistEntryRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/InviteWaitlistEntryRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/InviteWaitlistEntryResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListAllOrganizationDomainsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListAllOrganizationDomainsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListAllOrganizationDomainsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ListAllowlistIdentifiersRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListAllowlistIdentifiersRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListAllowlistIdentifiersResponse.java
@@ -1058,6 +1398,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/ListJWTTemplatesRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListJWTTemplatesRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListJWTTemplatesResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListMachinesRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListMachinesRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListMachinesResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOAuthApplicationsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOAuthApplicationsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOAuthApplicationsResponse.java
@@ -1090,24 +1433,33 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/LockUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/LockUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/LockUserResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/M2mTokens.java
   - src/main/java/com/clerk/backend_api/models/operations/MergeOrganizationMetadataRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/MergeOrganizationMetadataRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/MergeOrganizationMetadataRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/MergeOrganizationMetadataResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/Object.java
+  - src/main/java/com/clerk/backend_api/models/operations/One.java
   - src/main/java/com/clerk/backend_api/models/operations/PathParamTemplateType.java
+  - src/main/java/com/clerk/backend_api/models/operations/PayerType.java
   - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/PreviewTemplateResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/Provider.java
+  - src/main/java/com/clerk/backend_api/models/operations/QueryParamPayerType.java
   - src/main/java/com/clerk/backend_api/models/operations/QueryParamStatus.java
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RefreshSessionResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/RequestBodyAttributeMapping.java
+  - src/main/java/com/clerk/backend_api/models/operations/RequestBodyProvider.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplatePathParamTemplateType.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevertTemplateRequestBuilder.java
@@ -1118,6 +1470,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeInvitationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenObject.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RevokeM2MTokenResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeOrganizationInvitationRequestBuilder.java
@@ -1143,12 +1501,17 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ToggleTemplateDeliveryResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/Two.java
   - src/main/java/com/clerk/backend_api/models/operations/UnbanUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UnbanUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UnbanUserResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBuilder.java
@@ -1174,6 +1537,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateJWTTemplateRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateJWTTemplateRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateJWTTemplateResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateMachineRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateMachineRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateMachineRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateMachineResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOAuthApplicationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOAuthApplicationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOAuthApplicationRequestBuilder.java
@@ -1201,7 +1568,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateProductionInstanceDomainResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateSAMLConnectionAttributeMapping.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateSAMLConnectionRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateSAMLConnectionRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateSAMLConnectionRequestBuilder.java
@@ -1234,175 +1600,211 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UserWeb3WalletDeleteResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersBanRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersBanRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersBanResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationInvitationsResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UsersGetOrganizationMembershipsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersUnbanRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersUnbanRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UsersUnbanResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/Verified.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyClientRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyClientRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyClientResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyDomainProxyResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyM2MTokenObject.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyM2MTokenRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyM2MTokenRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyM2MTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyM2MTokenResponseBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyOAuthAccessTokenObject.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyOAuthAccessTokenRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyOAuthAccessTokenRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyOAuthAccessTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/VerifyOAuthAccessTokenResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyPasswordResponseBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/VerifySessionRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/VerifySessionRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/VerifySessionRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/VerifySessionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponseBody.java
-  - src/main/java/com/clerk/backend_api/operations/AddDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/BanUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ChangeProductionInstanceDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CompleteAccountlessApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateAccountlessApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateActorTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateAllowlistIdentifierOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateBlocklistIdentifierOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateBulkInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateEmailAddressOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateInvitationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateJWTTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOAuthApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationBulkOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationMembershipOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreatePhoneNumberOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateRedirectURLOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSAMLConnectionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSessionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSessionTokenFromTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSessionTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSignInTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateSvixAppOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateTestingTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/CreateWaitlistEntryOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteAllowlistIdentifierOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteBackupCodeOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteBlocklistIdentifierOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteEmailAddressOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteExternalAccountOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteJWTTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteOAuthApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationLogoOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationMembershipOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeletePhoneNumberOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteRedirectURLOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteSAMLConnectionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteSvixAppOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteTOTPOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteUserProfileImageOperation.java
-  - src/main/java/com/clerk/backend_api/operations/DisableMFAOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GenerateSvixAuthURLOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetClientListOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetClientOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetEmailAddressOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetInstanceOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetJWKSOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetJWTTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetOAuthAccessTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetOAuthApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetOrganizationInvitationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetOrganizationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetPhoneNumberOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetPublicInterstitialOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetRedirectURLOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetSAMLConnectionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetSessionListOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetSessionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetSignUpOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetTemplateListOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetUserListOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/GetUsersCountOperation.java
-  - src/main/java/com/clerk/backend_api/operations/InstanceGetOrganizationMembershipsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListAllowlistIdentifiersOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListBlocklistIdentifiersOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListDomainsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListInstanceOrganizationInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListJWTTemplatesOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListOAuthApplicationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListOrganizationDomainsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListOrganizationInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListOrganizationMembershipsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListOrganizationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListPendingOrganizationInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListRedirectURLsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListSAMLConnectionsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ListWaitlistEntriesOperation.java
-  - src/main/java/com/clerk/backend_api/operations/LockUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/MergeOrganizationMetadataOperation.java
+  - src/main/java/com/clerk/backend_api/operations/AddDomain.java
+  - src/main/java/com/clerk/backend_api/operations/BanUser.java
+  - src/main/java/com/clerk/backend_api/operations/CancelCommerceSubscriptionItem.java
+  - src/main/java/com/clerk/backend_api/operations/ChangeProductionInstanceDomain.java
+  - src/main/java/com/clerk/backend_api/operations/CompleteAccountlessApplication.java
+  - src/main/java/com/clerk/backend_api/operations/CreateAccountlessApplication.java
+  - src/main/java/com/clerk/backend_api/operations/CreateActorToken.java
+  - src/main/java/com/clerk/backend_api/operations/CreateAllowlistIdentifier.java
+  - src/main/java/com/clerk/backend_api/operations/CreateBlocklistIdentifier.java
+  - src/main/java/com/clerk/backend_api/operations/CreateBulkInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/CreateEmailAddress.java
+  - src/main/java/com/clerk/backend_api/operations/CreateInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateJWTTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/CreateM2MToken.java
+  - src/main/java/com/clerk/backend_api/operations/CreateMachine.java
+  - src/main/java/com/clerk/backend_api/operations/CreateMachineScope.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOAuthApplication.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganization.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationDomain.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationBulk.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/operations/CreatePhoneNumber.java
+  - src/main/java/com/clerk/backend_api/operations/CreateRedirectURL.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSession.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSessionToken.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSessionTokenFromTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSignInToken.java
+  - src/main/java/com/clerk/backend_api/operations/CreateSvixApp.java
+  - src/main/java/com/clerk/backend_api/operations/CreateTestingToken.java
+  - src/main/java/com/clerk/backend_api/operations/CreateUser.java
+  - src/main/java/com/clerk/backend_api/operations/CreateWaitlistEntry.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteAWSCredential.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteAllowlistIdentifier.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteBackupCode.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteBlocklistIdentifier.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteDomain.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteEmailAddress.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteExternalAccount.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteJWTTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteMachine.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteMachineScope.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOAuthApplication.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganization.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationDomain.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationLogo.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/operations/DeletePhoneNumber.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteRedirectURL.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteSvixApp.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteTOTP.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteUser.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteUserProfileImage.java
+  - src/main/java/com/clerk/backend_api/operations/DisableMFA.java
+  - src/main/java/com/clerk/backend_api/operations/GenerateSvixAuthURL.java
+  - src/main/java/com/clerk/backend_api/operations/GetClient.java
+  - src/main/java/com/clerk/backend_api/operations/GetClientList.java
+  - src/main/java/com/clerk/backend_api/operations/GetCommercePlanList.java
+  - src/main/java/com/clerk/backend_api/operations/GetCommerceSubscriptionItemList.java
+  - src/main/java/com/clerk/backend_api/operations/GetEmailAddress.java
+  - src/main/java/com/clerk/backend_api/operations/GetInstance.java
+  - src/main/java/com/clerk/backend_api/operations/GetJWKS.java
+  - src/main/java/com/clerk/backend_api/operations/GetJWTTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/GetM2MTokens.java
+  - src/main/java/com/clerk/backend_api/operations/GetMachine.java
+  - src/main/java/com/clerk/backend_api/operations/GetMachineSecretKey.java
+  - src/main/java/com/clerk/backend_api/operations/GetOAuthAccessToken.java
+  - src/main/java/com/clerk/backend_api/operations/GetOAuthApplication.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganization.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationBillingSubscription.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/GetPhoneNumber.java
+  - src/main/java/com/clerk/backend_api/operations/GetPublicInterstitial.java
+  - src/main/java/com/clerk/backend_api/operations/GetRedirectURL.java
+  - src/main/java/com/clerk/backend_api/operations/GetSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/operations/GetSession.java
+  - src/main/java/com/clerk/backend_api/operations/GetSessionList.java
+  - src/main/java/com/clerk/backend_api/operations/GetSignUp.java
+  - src/main/java/com/clerk/backend_api/operations/GetTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/GetTemplateList.java
+  - src/main/java/com/clerk/backend_api/operations/GetUser.java
+  - src/main/java/com/clerk/backend_api/operations/GetUserBillingSubscription.java
+  - src/main/java/com/clerk/backend_api/operations/GetUserList.java
+  - src/main/java/com/clerk/backend_api/operations/GetUsersCount.java
+  - src/main/java/com/clerk/backend_api/operations/InstanceGetOrganizationMemberships.java
+  - src/main/java/com/clerk/backend_api/operations/InviteWaitlistEntry.java
+  - src/main/java/com/clerk/backend_api/operations/ListAllOrganizationDomains.java
+  - src/main/java/com/clerk/backend_api/operations/ListAllowlistIdentifiers.java
+  - src/main/java/com/clerk/backend_api/operations/ListBlocklistIdentifiers.java
+  - src/main/java/com/clerk/backend_api/operations/ListDomains.java
+  - src/main/java/com/clerk/backend_api/operations/ListInstanceOrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/ListInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/ListJWTTemplates.java
+  - src/main/java/com/clerk/backend_api/operations/ListMachines.java
+  - src/main/java/com/clerk/backend_api/operations/ListOAuthApplications.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationDomains.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationMemberships.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizations.java
+  - src/main/java/com/clerk/backend_api/operations/ListPendingOrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/ListRedirectURLs.java
+  - src/main/java/com/clerk/backend_api/operations/ListSAMLConnections.java
+  - src/main/java/com/clerk/backend_api/operations/ListWaitlistEntries.java
+  - src/main/java/com/clerk/backend_api/operations/LockUser.java
+  - src/main/java/com/clerk/backend_api/operations/MergeOrganizationMetadata.java
   - src/main/java/com/clerk/backend_api/operations/Operations.java
-  - src/main/java/com/clerk/backend_api/operations/PreviewTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RefreshSessionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevertTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevokeActorTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevokeInvitationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevokeOrganizationInvitationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevokeSessionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RevokeSignInTokenOperation.java
-  - src/main/java/com/clerk/backend_api/operations/RotateOAuthApplicationSecretOperation.java
-  - src/main/java/com/clerk/backend_api/operations/SetUserProfileImageOperation.java
-  - src/main/java/com/clerk/backend_api/operations/ToggleTemplateDeliveryOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UnbanUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UnlockUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateEmailAddressOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceAuthConfigOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceOrganizationSettingsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceRestrictionsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateJWTTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateOAuthApplicationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipMetadataOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdatePhoneNumberOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateProductionInstanceDomainOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateSAMLConnectionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateSignUpOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateUserMetadataOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateUserOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UploadOrganizationLogoOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UpsertTemplateOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UserPasskeyDeleteOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UserWeb3WalletDeleteOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationInvitationsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationMembershipsOperation.java
-  - src/main/java/com/clerk/backend_api/operations/VerifyClientOperation.java
-  - src/main/java/com/clerk/backend_api/operations/VerifyDomainProxyOperation.java
-  - src/main/java/com/clerk/backend_api/operations/VerifyPasswordOperation.java
-  - src/main/java/com/clerk/backend_api/operations/VerifySessionOperation.java
-  - src/main/java/com/clerk/backend_api/operations/VerifyTOTPOperation.java
+  - src/main/java/com/clerk/backend_api/operations/PreviewTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/RefreshSession.java
+  - src/main/java/com/clerk/backend_api/operations/RejectWaitlistEntry.java
+  - src/main/java/com/clerk/backend_api/operations/RevertTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeActorToken.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeM2MToken.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeOrganizationInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeSession.java
+  - src/main/java/com/clerk/backend_api/operations/RevokeSignInToken.java
+  - src/main/java/com/clerk/backend_api/operations/RotateOAuthApplicationSecret.java
+  - src/main/java/com/clerk/backend_api/operations/SetUserProfileImage.java
+  - src/main/java/com/clerk/backend_api/operations/ToggleTemplateDelivery.java
+  - src/main/java/com/clerk/backend_api/operations/UnbanUser.java
+  - src/main/java/com/clerk/backend_api/operations/UnlockUser.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateAWSCredential.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateDomain.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateEmailAddress.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstance.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceAuthConfig.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceOrganizationSettings.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateInstanceRestrictions.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateJWTTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateMachine.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOAuthApplication.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganization.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationDomain.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipMetadata.java
+  - src/main/java/com/clerk/backend_api/operations/UpdatePhoneNumber.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateProductionInstanceDomain.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateSAMLConnection.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateSignUp.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateUser.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateUserMetadata.java
+  - src/main/java/com/clerk/backend_api/operations/UploadOrganizationLogo.java
+  - src/main/java/com/clerk/backend_api/operations/UpsertTemplate.java
+  - src/main/java/com/clerk/backend_api/operations/UserPasskeyDelete.java
+  - src/main/java/com/clerk/backend_api/operations/UserWeb3WalletDelete.java
+  - src/main/java/com/clerk/backend_api/operations/UsersBan.java
+  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationInvitations.java
+  - src/main/java/com/clerk/backend_api/operations/UsersGetOrganizationMemberships.java
+  - src/main/java/com/clerk/backend_api/operations/UsersUnban.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyClient.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyDomainProxy.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyM2MToken.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyOAuthAccessToken.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyPassword.java
+  - src/main/java/com/clerk/backend_api/operations/VerifyTOTP.java
   - src/main/java/com/clerk/backend_api/utils/BackoffStrategy.java
   - src/main/java/com/clerk/backend_api/utils/BigDecimalString.java
   - src/main/java/com/clerk/backend_api/utils/BigIntegerString.java
+  - src/main/java/com/clerk/backend_api/utils/BlockingParser.java
   - src/main/java/com/clerk/backend_api/utils/Constants.java
   - src/main/java/com/clerk/backend_api/utils/CopiableInputStream.java
   - src/main/java/com/clerk/backend_api/utils/Deserializers.java
   - src/main/java/com/clerk/backend_api/utils/EventStream.java
-  - src/main/java/com/clerk/backend_api/utils/EventStreamLineReader.java
   - src/main/java/com/clerk/backend_api/utils/EventStreamMessage.java
-  - src/main/java/com/clerk/backend_api/utils/EventStreamReader.java
   - src/main/java/com/clerk/backend_api/utils/Exceptions.java
   - src/main/java/com/clerk/backend_api/utils/FormMetadata.java
   - src/main/java/com/clerk/backend_api/utils/Globals.java
@@ -1427,9 +1829,11 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/QueryParameters.java
   - src/main/java/com/clerk/backend_api/utils/QueryParamsMetadata.java
   - src/main/java/com/clerk/backend_api/utils/RecordingClient.java
+  - src/main/java/com/clerk/backend_api/utils/Reflections.java
   - src/main/java/com/clerk/backend_api/utils/RequestBody.java
   - src/main/java/com/clerk/backend_api/utils/RequestMetadata.java
   - src/main/java/com/clerk/backend_api/utils/Response.java
+  - src/main/java/com/clerk/backend_api/utils/ResponseWithBody.java
   - src/main/java/com/clerk/backend_api/utils/Retries.java
   - src/main/java/com/clerk/backend_api/utils/RetryConfig.java
   - src/main/java/com/clerk/backend_api/utils/Security.java
@@ -1438,6 +1842,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/SessionManager.java
   - src/main/java/com/clerk/backend_api/utils/SpeakeasyHTTPClient.java
   - src/main/java/com/clerk/backend_api/utils/SpeakeasyMetadata.java
+  - src/main/java/com/clerk/backend_api/utils/StreamingParser.java
   - src/main/java/com/clerk/backend_api/utils/TypedObject.java
   - src/main/java/com/clerk/backend_api/utils/Types.java
   - src/main/java/com/clerk/backend_api/utils/Utf8UrlEncoder.java
@@ -1481,7 +1886,7 @@ examples:
     speakeasy-default-create-email-address:
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Roel13@gmail.com", "reserved": false, "verification": {"status": "failed", "strategy": "reset_password_email_code", "attempts": 547810, "expire_at": 571954}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 280841, "updated_at": 587179}
+          application/json: {"object": "email_address", "email_address": "Roel13@gmail.com", "reserved": false, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 547810, "expire_at": 571954}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 280841, "updated_at": 587179}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetEmailAddress:
@@ -1491,7 +1896,7 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Melba.Williamson51@hotmail.com", "reserved": true, "verification": {"status": "expired", "strategy": "ticket", "attempts": null, "expire_at": 837342}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 214421, "updated_at": 624411}
+          application/json: {"object": "email_address", "email_address": "Melba.Williamson51@hotmail.com", "reserved": true, "verification": {"object": "verification_saml", "status": "expired", "strategy": "saml", "attempts": null}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 214421, "updated_at": 624411}
         "400":
           application/json: {"errors": []}
   DeleteEmailAddress:
@@ -1511,14 +1916,14 @@ examples:
           email_address_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "email_address", "email_address": "Joshuah.Mosciski@hotmail.com", "reserved": false, "verification": {"status": "verified", "strategy": "admin", "attempts": 508602, "expire_at": 409526}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 338322, "updated_at": 674983}
+          application/json: {"object": "email_address", "email_address": "Joshuah.Mosciski@hotmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": 508602, "expire_at": 409526}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 338322, "updated_at": 674983}
         "400":
           application/json: {"errors": []}
   CreatePhoneNumber:
     speakeasy-default-create-phone-number:
       responses:
         "200":
-          application/json: {"object": "phone_number", "phone_number": "511.674.7460 x4280", "reserved": true, "verification": {"status": "verified", "strategy": "admin", "attempts": 67241, "expire_at": 144129}, "linked_to": [], "created_at": 5508, "updated_at": 972544}
+          application/json: {"object": "phone_number", "phone_number": "511.674.7460 x4280", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 67241, "expire_at": 144129}, "linked_to": [], "created_at": 5508, "updated_at": 972544}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetPhoneNumber:
@@ -1528,7 +1933,7 @@ examples:
           phone_number_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "phone_number", "phone_number": "929.431.0980 x615", "reserved": false, "verification": {"status": "verified", "strategy": "admin", "attempts": 864960, "expire_at": 228084}, "linked_to": [], "created_at": 776807, "updated_at": 608980}
+          application/json: {"object": "phone_number", "phone_number": "929.431.0980 x615", "reserved": false, "verification": {"object": "verification_otp", "status": "verified", "strategy": "reset_password_email_code", "attempts": 864960, "expire_at": 228084}, "linked_to": [], "created_at": 776807, "updated_at": 608980}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeletePhoneNumber:
@@ -1727,7 +2132,7 @@ examples:
           order_by: "-created_at"
       responses:
         "200":
-          application/json: [{"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Margie23", "first_name": "Kendall", "last_name": "Armstrong", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Linnea_Herzog@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "unverified", "strategy": "email_link", "attempts": 171073, "expire_at": 208253}, "linked_to": [], "created_at": 280885, "updated_at": 470136}], "phone_numbers": [{"object": "phone_number", "phone_number": "(825) 228-5341 x019", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": null, "expire_at": 682430}, "linked_to": [], "created_at": 419582, "updated_at": 365714}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": null, "created_at": 103773, "updated_at": 320938}], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 435647, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 757692, "expire_at": 419762}}], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 36065, "mfa_disabled_at": 187325, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Luz_Roob@hotmail.com", "first_name": "Rosendo", "last_name": "Zemlak", "public_metadata": {}, "created_at": 728522, "updated_at": 40651, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 657035, "attempts": 157386}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Peggie_Rice@hotmail.com", "verification": null}], "last_sign_in_at": 970002, "banned": true, "locked": false, "lockout_expires_in_seconds": 275825, "verification_attempts_remaining": 812188, "updated_at": 623168, "created_at": 51668, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
           application/json: {"errors": []}
   CreateUser:
@@ -1736,7 +2141,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Alford_Bode", "first_name": "Rowland", "last_name": "Mante", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kendrick48@yahoo.com", "reserved": false, "verification": null, "linked_to": [], "created_at": 570870, "updated_at": 793877}], "phone_numbers": [{"object": "phone_number", "phone_number": "709-601-1972", "reserved": true, "verification": {"object": "verification_otp", "status": "expired", "strategy": "phone_code", "attempts": 283286, "expire_at": 622304}, "linked_to": [], "created_at": 869610, "updated_at": 476222}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "verified", "strategy": "web3_okx_wallet_signature", "attempts": 894102, "expire_at": 541064}, "created_at": 88493, "updated_at": 396087}], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 161636, "mfa_disabled_at": 346920, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kade_Mante@yahoo.com", "first_name": "Aiyana", "last_name": "Wuckert", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 949233, "updated_at": 396112, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 154446, "attempts": 857359}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Leatha50@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 74699}}], "last_sign_in_at": 873253, "banned": false, "locked": false, "lockout_expires_in_seconds": 385134, "verification_attempts_remaining": 327762, "updated_at": 173353, "created_at": 493210, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetUsersCount:
@@ -1772,7 +2177,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Ned.Nicolas", "first_name": "Vinnie", "last_name": "Casper", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_coinbase_wallet_signature", "attempts": null, "expire_at": 707537}, "created_at": 706654, "updated_at": 870907}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 879970, "mfa_disabled_at": null, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Rosalyn54@gmail.com", "first_name": "Blaze", "last_name": "Hintz", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 664608, "updated_at": 57580, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 283892, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Aniya_Dare@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 459440}}], "last_sign_in_at": 28584, "banned": false, "locked": false, "lockout_expires_in_seconds": 62016, "verification_attempts_remaining": null, "updated_at": 84483, "created_at": 969449, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUser:
@@ -1784,7 +2189,7 @@ examples:
         application/json: {"notify_primary_email_address_changed": false}
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Katheryn_Schuppe20", "first_name": "Olen", "last_name": "Hermiston", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kenyon22@gmail.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "expired", "strategy": "email_link", "attempts": 671573, "expire_at": 428976}, "linked_to": [], "created_at": 954996, "updated_at": 606432}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 954036, "expire_at": 477428}, "created_at": 713891, "updated_at": 906707}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 940474, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Una_Bartell73@hotmail.com", "first_name": "Veronica", "last_name": "Reichel", "public_metadata": {"key": "<value>"}, "created_at": 141525, "updated_at": 920530, "verification": {"object": "verification_google_one_tap", "status": "verified", "strategy": "google_one_tap", "expire_at": 829477, "attempts": 355623}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Herminia82@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 694777}}], "last_sign_in_at": 269889, "banned": true, "locked": true, "lockout_expires_in_seconds": 240444, "verification_attempts_remaining": 630714, "updated_at": 894867, "created_at": 897464, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": []}
   DeleteUser:
@@ -1804,7 +2209,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Dameon_McKenzie1", "first_name": "Cyrus", "last_name": "Emmerich", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 383637, "expire_at": 230067}, "created_at": 427369, "updated_at": 15811}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 27551, "mfa_disabled_at": 198918, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Halie.Armstrong@gmail.com", "first_name": "Glennie", "last_name": "Conroy", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 829365, "updated_at": 679400, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": null, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Randi76@hotmail.com", "verification": {"object": "verification_saml", "status": "transferable", "strategy": "saml", "attempts": 814743}}], "last_sign_in_at": 704966, "banned": true, "locked": true, "lockout_expires_in_seconds": 417872, "verification_attempts_remaining": null, "updated_at": 139828, "created_at": 285155, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UnbanUser:
@@ -1814,7 +2219,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Deion_Shanahan88", "first_name": "Willa", "last_name": "O'Kon", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Cristobal_Yost-Schinner31@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": 371956, "expire_at": 430959}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 554894, "updated_at": 590282}], "phone_numbers": [{"object": "phone_number", "phone_number": "1-554-571-5107 x820", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 217884, "expire_at": 946029}, "linked_to": [], "created_at": 550147, "updated_at": 57122}], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 494862, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kaleb88@gmail.com", "first_name": "Denis", "last_name": "Roob", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 427350, "updated_at": 917270, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 900437, "attempts": 57266}}], "saml_accounts": [], "last_sign_in_at": 345903, "banned": true, "locked": false, "lockout_expires_in_seconds": 183404, "verification_attempts_remaining": 520280, "updated_at": 835720, "created_at": 556936, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
           application/json: {"errors": []}
   LockUser:
@@ -1824,7 +2229,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Paige_Keeling", "first_name": "Danny", "last_name": "West", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 529039, "expire_at": 323423}, "created_at": 612221, "updated_at": 958342}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 869240, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Jamie_Harris11@hotmail.com", "first_name": "Terrill", "last_name": "McKenzie", "public_metadata": {}, "created_at": 799820, "updated_at": 825654, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 408253, "attempts": 360777}}], "saml_accounts": [], "last_sign_in_at": 840821, "banned": false, "locked": true, "lockout_expires_in_seconds": null, "verification_attempts_remaining": 353855, "updated_at": 766507, "created_at": 26564, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
           application/json: {"errors": []}
   UnlockUser:
@@ -1834,7 +2239,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Trisha_Schimmel", "first_name": "Golden", "last_name": "Bechtelar-Bartoletti", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 99223, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 621194, "expire_at": 883397}}], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 982099, "mfa_disabled_at": 365844, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": true, "email_address": "Rosina_Considine@gmail.com", "verification": {"object": "verification_ticket", "status": "verified", "strategy": "ticket", "attempts": 453080, "expire_at": null}}], "last_sign_in_at": 780728, "banned": false, "locked": false, "lockout_expires_in_seconds": 436504, "verification_attempts_remaining": 686618, "updated_at": 478655, "created_at": 716859, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
           application/json: {"errors": []}
   SetUserProfileImage:
@@ -1846,7 +2251,7 @@ examples:
         multipart/form-data: {}
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Anita.McCullough", "first_name": "Evalyn", "last_name": "Buckridge", "has_image": true, "public_metadata": {}, "email_addresses": [{"object": "email_address", "email_address": "Josefina_Leffler@yahoo.com", "reserved": false, "verification": {"object": "verification_from_oauth", "status": "verified", "strategy": "<value>", "expire_at": 674502, "attempts": 795457}, "linked_to": [], "created_at": 663113, "updated_at": 947362}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 625839, "mfa_disabled_at": 655961, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Shawna_Labadie15@hotmail.com", "first_name": "Cassidy", "last_name": "Keeling", "public_metadata": {}, "created_at": 492807, "updated_at": 540171, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 547177, "attempts": 229980}}], "saml_accounts": [], "last_sign_in_at": 379079, "banned": false, "locked": false, "lockout_expires_in_seconds": 232012, "verification_attempts_remaining": 273070, "updated_at": 243972, "created_at": 59747, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteUserProfileImage:
@@ -1856,7 +2261,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Troy90", "first_name": "Tess", "last_name": "Feeney", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Marian.Wolf25@hotmail.com", "reserved": true, "verification": {"object": "verification_ticket", "status": "unverified", "strategy": "ticket", "attempts": 711911, "expire_at": 613422}, "linked_to": [], "created_at": 464532, "updated_at": 558346}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_metamask_signature", "attempts": 776566, "expire_at": null}, "created_at": 143938, "updated_at": 864712}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": null, "mfa_disabled_at": 819643, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kory92@hotmail.com", "first_name": "Lilliana", "last_name": "Toy", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 498460, "updated_at": 472188, "verification": {"object": "verification_oauth", "status": "verified", "strategy": "<value>", "expire_at": 84430, "attempts": 555452}}], "saml_accounts": [], "last_sign_in_at": 878536, "banned": true, "locked": true, "lockout_expires_in_seconds": 608359, "verification_attempts_remaining": null, "updated_at": 770154, "created_at": 421918, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUserMetadata:
@@ -1866,7 +2271,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Sylvia89", "first_name": "Mya", "last_name": "Torphy", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Lucas.Effertz@yahoo.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": null, "expire_at": 590543}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 596616, "updated_at": 533152}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 569522, "mfa_disabled_at": 665231, "external_accounts": [], "saml_accounts": [], "last_sign_in_at": 101183, "banned": false, "locked": true, "lockout_expires_in_seconds": 346858, "verification_attempts_remaining": null, "updated_at": 30684, "created_at": 26864, "delete_self_enabled": true, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": []}
   GetOAuthAccessToken:
@@ -1893,7 +2298,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 581854, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 812498, "updated_at": 308028}, "created_at": 750402, "updated_at": 55284}], "total_count": 866456}
+          application/json: {"data": [{"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 581854, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 812498, "updated_at": 308028}, "created_at": 750402, "updated_at": 55284}], "total_count": 866456}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UsersGetOrganizationInvitations:
@@ -2030,6 +2435,7 @@ examples:
         query:
           limit: 10
           offset: 0
+          order_by: "-created_at"
       responses:
         "200":
           application/json: [{"object": "invitation", "id": "<id>", "email_address": "Quincy.Heaney66@yahoo.com", "public_metadata": {"key": "<value>"}, "revoked": false, "status": "pending", "created_at": 782939, "updated_at": 262381}]
@@ -2082,6 +2488,7 @@ examples:
         query:
           limit: 10
           offset: 0
+          order_by: "-created_at"
       responses:
         "200":
           application/json: {"data": [], "total_count": 922464}
@@ -2265,7 +2672,7 @@ examples:
     speakeasy-default-update-instance-restrictions:
       responses:
         "200":
-          application/json: {"object": "instance_restrictions", "allowlist": false, "blocklist": true, "block_email_subaddresses": false, "block_disposable_email_domains": false, "ignore_dots_for_gmail_addresses": false}
+          application/json: {"object": "instance_restrictions", "allowlist": false, "blocklist": true, "allowlist_blocklist_disabled_on_sign_in": false, "block_email_subaddresses": false, "block_disposable_email_domains": false}
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ChangeProductionInstanceDomain:
@@ -2277,7 +2684,7 @@ examples:
     speakeasy-default-update-instance-organization-settings:
       responses:
         "200":
-          application/json: {"object": "organization_settings", "enabled": false, "max_allowed_memberships": 304202, "max_allowed_roles": 718249, "max_allowed_permissions": 113135, "creator_role": "<value>", "admin_delete_enabled": false, "domains_enabled": false, "domains_enrollment_modes": ["manual_invitation"], "domains_default_role": "<value>"}
+          application/json: {"object": "organization_settings", "enabled": false, "max_allowed_memberships": 304202, "max_allowed_roles": 718249, "creator_role": "<value>", "admin_delete_enabled": false, "domains_enabled": false, "domains_enrollment_modes": ["manual_invitation"], "domains_default_role": "<value>"}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateSvixApp:
@@ -2361,7 +2768,7 @@ examples:
     speakeasy-default-create-organization:
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 657363, "admin_delete_enabled": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {}, "created_at": 412546, "updated_at": 69166}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 657363, "admin_delete_enabled": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 412546, "updated_at": 69166}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetOrganization:
@@ -2371,7 +2778,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 540119, "admin_delete_enabled": false, "public_metadata": {}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 800209, "updated_at": 766916}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 540119, "admin_delete_enabled": false, "public_metadata": {}, "created_at": 800209, "updated_at": 766916}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateOrganization:
@@ -2383,7 +2790,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 914329, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 593189, "updated_at": 320640}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 914329, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "created_at": 593189, "updated_at": 320640}
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganization:
@@ -2405,7 +2812,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 612631, "admin_delete_enabled": true, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 31208, "updated_at": 304356}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 612631, "admin_delete_enabled": true, "public_metadata": {"key": "<value>"}, "created_at": 31208, "updated_at": 304356}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UploadOrganizationLogo:
@@ -2415,7 +2822,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 888250, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>"}, "created_at": 194096, "updated_at": 963859, "image_url": "https://forsaken-final.biz/", "has_image": true}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "image_url": "https://forsaken-final.biz/", "has_image": true, "max_allowed_memberships": 888250, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "created_at": 194096, "updated_at": 963859}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganizationLogo:
@@ -2425,7 +2832,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 746322, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 538227, "updated_at": 158169}
+          application/json: {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 746322, "admin_delete_enabled": false, "public_metadata": {"key": "<value>"}, "created_at": 538227, "updated_at": 158169}
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateOrganizationMembership:
@@ -2437,7 +2844,7 @@ examples:
         application/json: {"user_id": "<id>", "role": "<value>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 597684, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 712057, "updated_at": 812074}, "created_at": 985491, "updated_at": 439014}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>", "<value 2>", "<value 3>"], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": false, "max_allowed_memberships": 597684, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 712057, "updated_at": 812074}, "created_at": 985491, "updated_at": 439014}
         "400":
           application/json: {"errors": []}
   ListOrganizationMemberships:
@@ -2483,7 +2890,7 @@ examples:
         application/json: {"role": "<value>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 771224, "admin_delete_enabled": true, "public_metadata": {}, "private_metadata": {"key": "<value>"}, "created_at": 441428, "updated_at": 257589}, "created_at": 257425, "updated_at": 184693}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": ["<value 1>"], "public_metadata": {}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": true, "max_allowed_memberships": 771224, "admin_delete_enabled": true, "public_metadata": {}, "created_at": 441428, "updated_at": 257589}, "created_at": 257425, "updated_at": 184693}
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteOrganizationMembership:
@@ -2494,7 +2901,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 893711, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 205163, "updated_at": 49267}, "created_at": 397831, "updated_at": 521300}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": true, "max_allowed_memberships": 893711, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 205163, "updated_at": 49267}, "created_at": 397831, "updated_at": 521300}
         "401":
           application/json: {"errors": []}
   UpdateOrganizationMembershipMetadata:
@@ -2505,7 +2912,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "max_allowed_memberships": 1788, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "private_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 102522, "updated_at": 630787}, "created_at": 879249, "updated_at": 896790}
+          application/json: {"id": "<id>", "object": "organization_membership", "role": "<value>", "permissions": [], "public_metadata": {"key": "<value>", "key1": "<value>"}, "organization": {"object": "organization", "id": "<id>", "name": "<value>", "slug": "<value>", "has_image": true, "max_allowed_memberships": 1788, "admin_delete_enabled": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 102522, "updated_at": 630787}, "created_at": 879249, "updated_at": 896790}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   CreateOrganizationDomain:
@@ -2643,6 +3050,7 @@ examples:
         query:
           limit: 10
           offset: 0
+          order_by: "+created_at"
       responses:
         "200":
           application/json: {"data": [], "total_count": 823338}
@@ -2651,10 +3059,10 @@ examples:
   CreateOAuthApplication:
     speakeasy-default-create-O-auth-application:
       requestBody:
-        application/json: {"name": "<value>", "scopes": "profile email public_metadata"}
+        application/json: {"name": "<value>", "scopes": "profile email public_metadata", "consent_screen_enabled": true, "pkce_required": false}
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://tedious-giant.info/", "authorize_url": "https://colorful-collectivization.biz/", "token_fetch_url": "https://glossy-dead.com", "user_info_url": "https://key-fraudster.biz", "discovery_url": "https://enchanting-legislature.net/", "token_introspection_url": "https://good-duster.info/", "created_at": 31938, "updated_at": 764933}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "client_uri": "https://familiar-sport.info/", "client_image_url": "https://colorful-collectivization.biz/", "dynamically_registered": false, "consent_screen_enabled": true, "pkce_required": true, "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://tedious-giant.info/", "authorize_url": "https://colorful-collectivization.biz/", "token_fetch_url": "https://glossy-dead.com", "user_info_url": "https://key-fraudster.biz", "discovery_url": "https://enchanting-legislature.net/", "token_introspection_url": "https://good-duster.info/", "created_at": 31938, "updated_at": 764933}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetOAuthApplication:
@@ -2664,7 +3072,7 @@ examples:
           oauth_application_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://yummy-marimba.info", "authorize_url": "https://eminent-warming.com", "token_fetch_url": "https://annual-halt.info/", "user_info_url": "https://complicated-freight.org/", "discovery_url": "https://weird-hyena.org", "token_introspection_url": "https://trivial-cinder.net", "created_at": 172236, "updated_at": 876106}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "client_uri": "https://profitable-yin.name/", "client_image_url": "https://eminent-warming.com", "dynamically_registered": true, "consent_screen_enabled": true, "pkce_required": true, "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>"], "callback_url": "https://yummy-marimba.info", "authorize_url": "https://eminent-warming.com", "token_fetch_url": "https://annual-halt.info/", "user_info_url": "https://complicated-freight.org/", "discovery_url": "https://weird-hyena.org", "token_introspection_url": "https://trivial-cinder.net", "created_at": 172236, "updated_at": 876106}
         "403":
           application/json: {"errors": []}
   UpdateOAuthApplication:
@@ -2676,7 +3084,7 @@ examples:
         application/json: {"scopes": "profile email public_metadata private_metadata"}
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": [], "callback_url": "https://unsightly-flame.net/", "authorize_url": "https://slow-premeditation.biz/", "token_fetch_url": "https://miserly-sarong.net", "user_info_url": "https://hasty-account.info/", "discovery_url": "https://french-cross-contamination.biz", "token_introspection_url": "https://spherical-advertisement.org", "created_at": 558167, "updated_at": 560809}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "client_uri": null, "client_image_url": null, "dynamically_registered": true, "consent_screen_enabled": false, "pkce_required": true, "public": true, "scopes": "<value>", "redirect_uris": [], "callback_url": "https://unsightly-flame.net/", "authorize_url": "https://slow-premeditation.biz/", "token_fetch_url": "https://miserly-sarong.net", "user_info_url": "https://hasty-account.info/", "discovery_url": "https://french-cross-contamination.biz", "token_introspection_url": "https://spherical-advertisement.org", "created_at": 558167, "updated_at": 560809}
         "400":
           application/json: {"errors": []}
   DeleteOAuthApplication:
@@ -2696,7 +3104,7 @@ examples:
           oauth_application_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>", "<value 2>", "<value 3>"], "callback_url": "https://separate-makeover.biz/", "authorize_url": "https://ill-fated-sonar.com/", "token_fetch_url": "https://unique-fibre.biz/", "user_info_url": "https://eminent-scarification.biz/", "discovery_url": "https://miserly-sundae.com", "token_introspection_url": "https://grim-retrospectivity.biz/", "created_at": 812387, "updated_at": 994111}
+          application/json: {"object": "oauth_application", "id": "<id>", "instance_id": "<id>", "name": "<value>", "client_id": "<id>", "client_uri": "https://avaricious-puritan.name", "client_image_url": "https://ill-fated-sonar.com/", "dynamically_registered": true, "consent_screen_enabled": false, "pkce_required": true, "public": true, "scopes": "<value>", "redirect_uris": ["<value 1>", "<value 2>", "<value 3>"], "callback_url": "https://separate-makeover.biz/", "authorize_url": "https://ill-fated-sonar.com/", "token_fetch_url": "https://unique-fibre.biz/", "user_info_url": "https://eminent-scarification.biz/", "discovery_url": "https://miserly-sundae.com", "token_introspection_url": "https://grim-retrospectivity.biz/", "created_at": 812387, "updated_at": 994111}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListSAMLConnections:
@@ -2785,5 +3193,286 @@ examples:
           application/json: {"object": "accountless_application", "publishable_key": "<value>"}
         "500":
           application/json: {"errors": []}
+  DeleteAWSCredential:
+    speakeasy-default-delete-AWS-credential:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": true}
+        "400":
+          application/json: {"errors": []}
+  UpdateAWSCredential:
+    speakeasy-default-update-AWS-credential:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "object": "aws_credential", "access_key_id": "<id>", "user_pool_ids": [], "created_at": 242620, "updated_at": 514946}
+        "400":
+          application/json: {"errors": []}
+  UsersBan:
+    speakeasy-default-users-ban:
+      requestBody:
+        application/json: {"user_ids": ["<value 1>", "<value 2>", "<value 3>"]}
+      responses:
+        "200":
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": null, "username": "Melody48", "first_name": "Felicia", "last_name": "Jakubowski", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_okx_wallet_signature", "attempts": 598545, "expire_at": 959813}, "created_at": 243637, "updated_at": 33571}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 620490, "mfa_disabled_at": 725618, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Abdullah.Wisozk-Schmitt93@gmail.com", "verification": {"object": "verification_saml", "status": "unverified", "strategy": "saml", "attempts": 62911}}], "last_sign_in_at": 765569, "banned": false, "locked": true, "lockout_expires_in_seconds": 305814, "verification_attempts_remaining": 276631, "updated_at": 15742, "created_at": 356726, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  UsersUnban:
+    speakeasy-default-users-unban:
+      requestBody:
+        application/json: {"user_ids": ["<value 1>", "<value 2>", "<value 3>"]}
+      responses:
+        "200":
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": null, "first_name": "Estella", "last_name": "Abbott", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 602166, "expire_at": 755931}, "created_at": 138607, "updated_at": 872873}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 787261, "mfa_disabled_at": 532670, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Buddy.Davis32@yahoo.com", "first_name": "Jon", "last_name": "Aufderhar", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 288253, "updated_at": 486887, "verification": {"object": "verification_oauth", "status": "expired", "strategy": "<value>", "expire_at": 129576, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Ola.Koch@hotmail.com", "verification": {"object": "verification_saml", "status": "expired", "strategy": "saml", "attempts": 321485}}], "last_sign_in_at": 235112, "banned": true, "locked": true, "lockout_expires_in_seconds": 486916, "verification_attempts_remaining": 632513, "updated_at": 604095, "created_at": 459828, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+        "400":
+          application/json: {"errors": []}
+  GetUserBillingSubscription:
+    speakeasy-default-get-user-billing-subscription:
+      parameters:
+        path:
+          user_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "past_due", "payer_id": "<id>", "created_at": 81691, "updated_at": 772691, "subscription_items": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "past_due", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 297026, "amount_formatted": "<value>", "currency": "Colombian Peso", "currency_symbol": "$"}, "annual_monthly_fee": {"amount": 833905, "amount_formatted": "<value>", "currency": "Brazilian Real", "currency_symbol": "Q"}, "annual_fee": {"amount": 633199, "amount_formatted": "<value>", "currency": "Mauritius Rupee", "currency_symbol": "$"}, "amount": 974826, "amount_formatted": "<value>", "annual_monthly_amount": 913091, "annual_monthly_amount_formatted": "<value>", "annual_amount": 287873, "annual_amount_formatted": "<value>", "currency_symbol": "Kč", "currency": "Rupiah", "description": "drab joshingly definitive", "product_id": "<id>", "is_default": false, "is_recurring": false, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://perfumed-starboard.info", "features": []}, "plan_period": "month", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 750417, "updated_at": 469594}]}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  ListMachines:
+    speakeasy-default-list-machines:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+          order_by: "-created_at"
+      responses:
+        "200":
+          application/json: {"data": [{"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 249864, "updated_at": 973340, "default_token_ttl": 3600, "scoped_machines": [{"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 925110, "updated_at": 858677, "default_token_ttl": 3600}]}], "total_count": 970564}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  CreateMachine:
+    speakeasy-default-create-machine:
+      responses:
+        "200":
+          application/json: {"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 724380, "updated_at": 123379, "default_token_ttl": 3600, "scoped_machines": [], "secret_key": "<value>"}
+        "400":
+          application/json: {"errors": []}
+  GetMachine:
+    speakeasy-default-get-machine:
+      parameters:
+        path:
+          machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 209081, "updated_at": 894118, "default_token_ttl": 3600, "scoped_machines": [{"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 149027, "updated_at": 82383, "default_token_ttl": 3600}]}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  UpdateMachine:
+    speakeasy-default-update-machine:
+      parameters:
+        path:
+          machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine", "id": "<id>", "name": "<value>", "instance_id": "<id>", "created_at": 754540, "updated_at": 50086, "default_token_ttl": 3600, "scoped_machines": []}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteMachine:
+    speakeasy-default-delete-machine:
+      parameters:
+        path:
+          machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine", "id": "<id>", "deleted": true}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetMachineSecretKey:
+    speakeasy-default-get-machine-secret-key:
+      parameters:
+        path:
+          machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine_secret_key", "secret": "<value>"}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  CreateMachineScope:
+    speakeasy-default-create-machine-scope:
+      parameters:
+        path:
+          machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine_scope", "from_machine_id": "<id>", "to_machine_id": "<id>", "created_at": 144489}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteMachineScope:
+    speakeasy-default-delete-machine-scope:
+      parameters:
+        path:
+          machine_id: "<id>"
+          other_machine_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "machine_scope", "from_machine_id": "<id>", "to_machine_id": "<id>", "deleted": false}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetOrganizationBillingSubscription:
+    speakeasy-default-get-organization-billing-subscription:
+      parameters:
+        path:
+          organization_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "payer_id": "<id>", "created_at": 867059, "updated_at": 35040, "subscription_items": []}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  ListAllOrganizationDomains:
+    speakeasy-default-list-all-organization-domains:
+      parameters:
+        query:
+          order_by: "-created_at"
+          offset: 0
+          limit: 10
+      responses:
+        "200":
+          application/json: {"data": [], "total_count": 812605}
+        "401":
+          application/json: {"errors": []}
+  InviteWaitlistEntry:
+    speakeasy-default-invite-waitlist-entry:
+      parameters:
+        path:
+          waitlist_entry_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "waitlist_entry", "id": "<id>", "email_address": "Turner.Lemke@yahoo.com", "status": "pending", "created_at": 615321, "updated_at": 856528, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Greta_Carter96@hotmail.com", "public_metadata": {"key": "<value>", "key1": "<value>"}, "revoked": false, "status": "pending", "created_at": 803734, "updated_at": 2383}}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  RejectWaitlistEntry:
+    speakeasy-default-reject-waitlist-entry:
+      parameters:
+        path:
+          waitlist_entry_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "waitlist_entry", "id": "<id>", "email_address": "Keon9@gmail.com", "status": "pending", "created_at": 57955, "updated_at": 410926, "invitation": {"object": "invitation", "id": "<id>", "email_address": "Adolphus31@gmail.com", "public_metadata": {"key": "<value>", "key1": "<value>"}, "revoked": false, "status": "pending", "created_at": 941397, "updated_at": 766963}}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetCommercePlanList:
+    speakeasy-default-get-commerce-plan-list:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [], "total_count": 685364}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetCommerceSubscriptionItemList:
+    speakeasy-default-get-commerce-subscription-item-list:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+          include_free: false
+      responses:
+        "200":
+          application/json: {"data": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 692858, "amount_formatted": "<value>", "currency": "New Zealand Dollar", "currency_symbol": "kr"}, "annual_monthly_fee": {"amount": 119895, "amount_formatted": "<value>", "currency": "Brunei Dollar", "currency_symbol": "ден"}, "annual_fee": {"amount": 989424, "amount_formatted": "<value>", "currency": "Kwacha", "currency_symbol": "L"}, "amount": 349721, "amount_formatted": "<value>", "annual_monthly_amount": 405709, "annual_monthly_amount_formatted": "<value>", "annual_amount": 848366, "annual_amount_formatted": "<value>", "currency_symbol": "₪", "currency": "Sri Lanka Rupee", "description": "scrap numb sentimental advertisement pfft cardboard above satirise", "product_id": "<id>", "is_default": false, "is_recurring": true, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://nervous-jump.net", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "intrepid nautical gee judgementally neaten chasuble dimly", "slug": "<value>", "avatar_url": "https://anguished-cheetah.net"}]}, "plan_period": "month", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 52347, "updated_at": 42603}], "total_count": 88070}
+        "400":
+          application/json: {"errors": []}
+        "500":
+          application/json: {"errors": []}
+  CancelCommerceSubscriptionItem:
+    speakeasy-default-cancel-commerce-subscription-item:
+      parameters:
+        path:
+          subscription_item_id: "<id>"
+        query:
+          end_now: false
+      responses:
+        "200":
+          application/json: {"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 106392, "amount_formatted": "<value>", "currency": "Mexican Peso", "currency_symbol": "B/."}, "annual_monthly_fee": {"amount": 662779, "amount_formatted": "<value>", "currency": "Cordoba Oro", "currency_symbol": "₩"}, "annual_fee": {"amount": 16342, "amount_formatted": "<value>", "currency": "Liberian Dollar", "currency_symbol": "L"}, "amount": 592877, "amount_formatted": "<value>", "annual_monthly_amount": 848023, "annual_monthly_amount_formatted": "<value>", "annual_amount": 638223, "annual_amount_formatted": "<value>", "currency_symbol": "¥", "currency": "CFP Franc", "description": "fooey busily possible shudder uncomfortable woot across embalm", "product_id": "<id>", "is_default": true, "is_recurring": true, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://classic-clamp.net/", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "drat fatherly geez key", "slug": "<value>", "avatar_url": "https://average-avalanche.name"}]}, "plan_period": "annual", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 44909, "updated_at": 899731}
+        "400":
+          application/json: {"errors": []}
+        "500":
+          application/json: {"errors": []}
+  createM2MToken:
+    speakeasy-default-create-m2-M-token:
+      requestBody:
+        application/json: {}
+      responses:
+        "201":
+          application/json: {"object": "machine_to_machine_token", "id": "mt_f7f0ba8c3b4843ce7d85fcdd5e71853e", "subject": "mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "claims": {"important_metadata": "Some useful data"}, "scopes": ["mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "mch_2yGkLpQ7Y3rXSwtU24CzTk9I7Em"], "token": "mt_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "revoked": false, "revocation_reason": "Revoked by user", "expired": false, "expiration": 1716883200, "last_used_at": 1716883200, "created_at": 1716883200, "updated_at": 1716883200}
+        "400":
+          application/json: {"errors": []}
+        "409":
+          application/json: {"errors": [{"message": "some details about the error", "long_message": "some details about the error", "code": "some_error_code"}]}
+  getM2MTokens:
+    speakeasy-default-get-m2-M-tokens:
+      parameters:
+        query:
+          subject: "<value>"
+          revoked: false
+          expired: false
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"m2m_tokens": [{"object": "machine_to_machine_token", "id": "mt_f7f0ba8c3b4843ce7d85fcdd5e71853e", "subject": "mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "claims": {"important_metadata": "Some useful data"}, "scopes": ["mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "mch_2yGkLpQ7Y3rXSwtU24CzTk9I7Em"], "revoked": false, "revocation_reason": "Revoked by user", "expired": false, "expiration": 1716883200, "last_used_at": 1716883200, "created_at": 1716883200, "updated_at": 1716883200}], "total_count": 1715.8}
+        "400":
+          application/json: {"errors": []}
+        "403":
+          application/json: {"errors": [{"message": "some details about the error", "long_message": "some details about the error", "code": "some_error_code"}]}
+        "404":
+          application/json: {"errors": [{"message": "some details about the error", "long_message": "some details about the error", "code": "some_error_code"}]}
+  revokeM2MToken:
+    speakeasy-default-revoke-m2-M-token:
+      parameters:
+        path:
+          m2m_token_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"object": "machine_to_machine_token", "id": "mt_f7f0ba8c3b4843ce7d85fcdd5e71853e", "subject": "mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "claims": {"important_metadata": "Some useful data"}, "scopes": ["mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "mch_2yGkLpQ7Y3rXSwtU24CzTk9I7Em"], "revoked": false, "revocation_reason": "Revoked by user", "expired": false, "expiration": 1716883200, "last_used_at": 1716883200, "created_at": 1716883200, "updated_at": 1716883200}
+        "400":
+          application/json: {"errors": []}
+        "404":
+          application/json: {"errors": []}
+  verifyM2MToken:
+    speakeasy-default-verify-m2-M-token:
+      requestBody:
+        application/json: {"token": "<value>"}
+      responses:
+        "200":
+          application/json: {"object": "machine_to_machine_token", "id": "mt_f7f0ba8c3b4843ce7d85fcdd5e71853e", "subject": "mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "claims": {"important_metadata": "Some useful data"}, "scopes": ["mch_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "mch_2yGkLpQ7Y3rXSwtU24CzTk9I7Em"], "revoked": false, "revocation_reason": "Revoked by user", "expired": false, "expiration": 1716883200, "last_used_at": 1716883200, "created_at": 1716883200, "updated_at": 1716883200}
+        "400":
+          application/json: {"errors": []}
+        "404":
+          application/json: {"errors": [{"message": "some details about the error", "long_message": "some details about the error", "code": "some_error_code"}]}
+  verifyOAuthAccessToken:
+    speakeasy-default-verify-O-auth-access-token:
+      requestBody:
+        application/json: {"access_token": "XXXXXXXXXXXXXX"}
+      responses:
+        "200":
+          application/json: {"object": "clerk_idp_oauth_access_token", "id": "oat_0ef5a7a33d87ed87ee7954c845d80450", "client_id": "client_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "subject": "user_2xhFjEI5X2qWRvtV13BzSj8H6Dk", "scopes": ["read", "write"], "revoked": false, "revocation_reason": "Revoked by user", "expired": false, "expiration": 1716883200, "created_at": 1716883200, "updated_at": 1716883200}
+        "400":
+          application/json: {"errors": []}
+        "404":
+          application/json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## SDK Changes Detected:\n* `clerk.sessions.createToken()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.update()`: \n  *  `requestbody.domains` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.list()`:  `response.data.[]` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.update()`:  `requestbody` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.create()`:  `request` **Changed** **Breaking** :warning:\n* `clerk.instanceSettings.updateRestrictions()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.organizationInvitations.list()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `error.status[422]` **Added**\n* `clerk.users.updateMetadata()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.deleteProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.setProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unlock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.lock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.ban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.update()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.create()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.list()`:  `response.[]` **Changed** **Breaking** :warning:\n* `clerk.sessions.createTokenFromTemplate()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.m2m.createToken()`: **Added**\n* `clerk.invitations.list()`: \n  *  `request.orderBy` **Changed**\n* `clerk.m2m.verifyToken()`: **Added**\n* `clerk.oauthAccessTokens.verify()`: **Added**\n* `clerk.sessions.verify()`: **Deleted** **Breaking** :warning:\n* `clerk.emailAddresses.create()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.get()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.update()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.create()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.get()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.update()`:  `response.verification` **Changed**\n* `clerk.m2m.listTokens()`: **Added**\n* `clerk.awsCredentials.delete()`: **Added**\n* `clerk.emailSmsTemplates.list()`:  `response.[]` **Changed**\n* `clerk.emailSmsTemplates.get()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.revert()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.toggleTemplateDelivery()`:  `response` **Changed**\n* `clerk.emailAndSmsTemplates.upsert()`:  `response` **Changed**\n* `clerk.commerce.cancelSubscriptionItem()`: **Added**\n* `clerk.commerce.listSubscriptionItems()`: **Added**\n* `clerk.commerce.listPlans()`: **Added**\n* `clerk.waitlistEntries.reject()`: **Added**\n* `clerk.waitlistEntries.invite()`: **Added**\n* `clerk.organizationDomains.listAll()`: **Added**\n* `clerk.organizations.getBillingSubscription()`: **Added**\n* `clerk.machines.deleteScope()`: **Added**\n* `clerk.machines.createScope()`: **Added**\n* `clerk.machines.getSecretKey()`: **Added**\n* `clerk.machines.delete()`: **Added**\n* `clerk.users.getOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.users.getInstanceOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.m2m.revokeToken()`: **Added**\n* `clerk.machines.update()`: **Added**\n* `clerk.machines.get()`: **Added**\n* `clerk.instanceSettings.updateOrganizationSettings()`:  `response.max_allowed_permissions` **Changed**\n* `clerk.machines.create()`: **Added**\n* `clerk.machines.list()`: **Added**\n* `clerk.organizations.list()`:  `response.data.[]` **Changed**\n* `clerk.organizations.create()`:  `response` **Changed**\n* `clerk.organizations.get()`:  `response` **Changed**\n* `clerk.organizations.update()`:  `response` **Changed**\n* `clerk.organizations.mergeMetadata()`:  `response` **Changed**\n* `clerk.organizations.uploadLogo()`:  `response.private_metadata` **Changed**\n* `clerk.organizations.deleteLogo()`:  `response` **Changed**\n* `clerk.organizationMemberships.create()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.list()`:  `response.data.[].organization` **Changed**\n* `clerk.organizationMemberships.update()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.delete()`: \n  *  `response.organization` **Changed**\n  *  `error.status[422]` **Added**\n* `clerk.organizationMemberships.updateMetadata()`:  `response.organization` **Changed**\n* `clerk.organizationDomains.create()`:  `response.public_organization_data` **Added**\n* `clerk.organizationDomains.list()`:  `response.data.[].publicOrganizationData` **Added**\n* `clerk.organizationDomains.update()`:  `response.public_organization_data` **Added**\n* `clerk.oauthApplications.list()`: \n  *  `request` **Changed**\n  *  `response.data.[]` **Changed**\n* `clerk.oauthApplications.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.get()`:  `response` **Changed**\n* `clerk.oauthApplications.update()`: \n  *  `requestbody` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.rotateSecret()`:  `response` **Changed**\n* `clerk.users.getBillingSubscription()`: **Added**\n* `clerk.users.bulkUnban()`: **Added**\n* `clerk.users.bulkBan()`: **Added**\n* `clerk.awsCredentials.update()`: **Added**\n"

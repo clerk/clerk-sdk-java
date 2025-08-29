@@ -16,6 +16,7 @@ Create a new email address
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateEmailAddress" method="post" path="/email_addresses" -->
 ```java
 package hello.world;
 
@@ -65,6 +66,7 @@ Returns the details of an email address.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetEmailAddress" method="get" path="/email_addresses/{email_address_id}" -->
 ```java
 package hello.world;
 
@@ -115,6 +117,7 @@ Delete the email address with the given ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteEmailAddress" method="delete" path="/email_addresses/{email_address_id}" -->
 ```java
 package hello.world;
 
@@ -165,6 +168,7 @@ Updates an email address.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="UpdateEmailAddress" method="patch" path="/email_addresses/{email_address_id}" -->
 ```java
 package hello.world;
 

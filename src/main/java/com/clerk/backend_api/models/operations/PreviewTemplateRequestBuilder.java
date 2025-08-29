@@ -6,7 +6,7 @@ package com.clerk.backend_api.models.operations;
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
-import com.clerk.backend_api.operations.PreviewTemplateOperation;
+import com.clerk.backend_api.operations.PreviewTemplate;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
@@ -78,9 +78,7 @@ public class PreviewTemplateRequestBuilder {
             .build());
 
         RequestOperation<PreviewTemplateRequest, PreviewTemplateResponse> operation
-              = new PreviewTemplateOperation(
-                sdkConfiguration,
-                options);
+              = new PreviewTemplate.Sync(sdkConfiguration, options);
         PreviewTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));
