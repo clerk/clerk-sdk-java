@@ -19,6 +19,7 @@ public final class VerifyTokenOptions {
 
     private final Optional<String> secretKey;
     private final Optional<String> jwtKey;
+    private final Optional<String> machineSecretKey;
     private final Optional<String> audience;
     private final Set<String> authorizedParties;
     private final long clockSkewInMs;
@@ -47,6 +48,7 @@ public final class VerifyTokenOptions {
     public VerifyTokenOptions(
             Optional<String> secretKey,
             Optional<String> jwtKey,
+            Optional<String> machineSecretKey,
             Optional<String> audience,
             Set<String> authorizedParties,
             Optional<Long> clockSkewInMs,
@@ -58,6 +60,7 @@ public final class VerifyTokenOptions {
         Utils.checkNotNull(clockSkewInMs, "clockSkewInMs");
         Utils.checkNotNull(jwtKey, "jwtKey");
         Utils.checkNotNull(secretKey, "secretKey");
+        Utils.checkNotNull(machineSecretKey, "machineSecretKey");
         Utils.checkNotNull(apiUrl, "apiUrl");
         Utils.checkNotNull(apiVersion, "apiVersion");
 
@@ -66,6 +69,7 @@ public final class VerifyTokenOptions {
         this.clockSkewInMs = clockSkewInMs.orElse(DEFAULT_CLOCK_SKEW_MS);
         this.jwtKey = jwtKey;
         this.secretKey = secretKey;
+        this.machineSecretKey = machineSecretKey;
         this.apiUrl = apiUrl.orElse(DEFAULT_API_URL);
         this.apiVersion = apiVersion.orElse(DEFAULT_API_VERSION);
     }
@@ -90,6 +94,10 @@ public final class VerifyTokenOptions {
         return secretKey;
     }
 
+    public Optional<String> machineSecretKey() {
+        return machineSecretKey;
+    }
+
     public String apiUrl() {
         return apiUrl;
     }
@@ -106,11 +114,15 @@ public final class VerifyTokenOptions {
         return Builder.withJwtKey(jwtKey);
     }
 
+    public static Builder machineSecretKey(String machineSecretKey) {
+        return Builder.withMachineSecretKey(machineSecretKey);
+    }
+
     public static final class Builder {
 
         private Optional<String> secretKey = Optional.empty();
         private Optional<String> jwtKey = Optional.empty();
-
+        private Optional<String> machineSecretKey = Optional.empty();
         private Optional<String> audience = Optional.empty();
         private Set<String> authorizedParties = new HashSet<>();
         private long clockSkewInMs = DEFAULT_CLOCK_SKEW_MS;
@@ -128,6 +140,13 @@ public final class VerifyTokenOptions {
             Utils.checkNotNull(jwtKey, "jwtKey");
             Builder builder = new Builder();
             builder.jwtKey = Optional.of(jwtKey);
+            return builder;
+        }
+
+        public static Builder withMachineSecretKey(String machineSecretKey) {
+            Utils.checkNotNull(machineSecretKey, "machineSecretKey");
+            Builder builder = new Builder();
+            builder.machineSecretKey = Optional.of(machineSecretKey);
             return builder;
         }
 
@@ -194,6 +213,7 @@ public final class VerifyTokenOptions {
         public VerifyTokenOptions build() {
             return new VerifyTokenOptions(secretKey,
                     jwtKey,
+                    machineSecretKey,
                     audience,
                     authorizedParties,
                     Optional.of(clockSkewInMs),

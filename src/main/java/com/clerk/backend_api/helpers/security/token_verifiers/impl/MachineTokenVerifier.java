@@ -41,7 +41,7 @@ public class MachineTokenVerifier implements TokenVerifier {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(options.apiUrl() + MACHINE_TOKEN_VERIFICATION_URL))
             .header("Content-Type", "application/json")
-            .header("Authorization", "Bearer " + options.secretKey().get())
+            .header("Authorization", "Bearer " + ( options.secretKey().isPresent() ? options.secretKey().get() : options.machineSecretKey().get()))
             .timeout(Duration.ofSeconds(30))
             .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
             .build();

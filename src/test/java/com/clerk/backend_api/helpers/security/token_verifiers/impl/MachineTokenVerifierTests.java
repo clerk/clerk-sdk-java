@@ -21,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.argThat;
 
 class MachineTokenVerifierTests {
 
@@ -67,6 +69,62 @@ class MachineTokenVerifierTests {
             assertNull(payload.getRevocationReason());
             assertFalse(payload.getExpired());
             assertEquals("admin_user_id", payload.getCreatedBy());
+        }
+    }
+
+    @Test
+    void verify_shouldUseSecretKeyInAuthorizationHeader_whenSecretKeyIsPresent() throws Exception {
+        String token = "mt_test_token";
+        String secretKey = "sk_test_secret_key";
+
+        HttpClient mockClient = mock(HttpClient.class);
+        HttpResponse<String> mockResponse = mock(HttpResponse.class);
+
+        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.body()).thenReturn(getMockResponse());
+        when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenReturn(mockResponse);
+
+        try (MockedStatic<HttpClient> staticHttpClient = mockStatic(HttpClient.class)) {
+            staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
+
+            MachineTokenVerifier verifier = new MachineTokenVerifier();
+            VerifyTokenOptions options = VerifyTokenOptions.secretKey(secretKey).build();
+
+            verifier.verify(token, options);
+
+            // Verify the authorization header contains the secret key
+            verify(mockClient).send(argThat(request -> request.headers().firstValue("Authorization")
+                .map(auth -> auth.equals("Bearer " + secretKey))
+                .orElse(false)), any(HttpResponse.BodyHandler.class));
+        }
+    }
+
+    @Test
+    void verify_shouldUseMachineSecretKeyInAuthorizationHeader_whenMachineSecretKeyIsPresent() throws Exception {
+        String token = "mt_test_token";
+        String machineSecretKey = "msk_test_machine_secret_key";
+
+        HttpClient mockClient = mock(HttpClient.class);
+        HttpResponse<String> mockResponse = mock(HttpResponse.class);
+
+        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.body()).thenReturn(getMockResponse());
+        when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenReturn(mockResponse);
+
+        try (MockedStatic<HttpClient> staticHttpClient = mockStatic(HttpClient.class)) {
+            staticHttpClient.when(HttpClient::newHttpClient).thenReturn(mockClient);
+
+            MachineTokenVerifier verifier = new MachineTokenVerifier();
+            VerifyTokenOptions options = VerifyTokenOptions.machineSecretKey(machineSecretKey).build();
+
+            verifier.verify(token, options);
+
+            // Verify the authorization header contains the machine secret key
+            verify(mockClient).send(argThat(request -> request.headers().firstValue("Authorization")
+                .map(auth -> auth.equals("Bearer " + machineSecretKey))
+                .orElse(false)), any(HttpResponse.BodyHandler.class));
         }
     }
 

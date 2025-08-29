@@ -19,6 +19,7 @@ public final class AuthenticateRequestOptions {
 
     private final Optional<String> secretKey;
     private final Optional<String> jwtKey;
+    private final Optional<String> machineSecretKey;
     private final Optional<String> audience;
     private final Set<String> authorizedParties;
     private final long clockSkewInMs;
@@ -42,6 +43,7 @@ public final class AuthenticateRequestOptions {
     public AuthenticateRequestOptions(
             Optional<String> secretKey,
             Optional<String> jwtKey,
+            Optional<String> machineSecretKey,
             Optional<String> audience,
             Set<String> authorizedParties,
             Optional<Long> clockSkewInMs,
@@ -50,12 +52,14 @@ public final class AuthenticateRequestOptions {
 
         Utils.checkNotNull(secretKey, "secretKey");
         Utils.checkNotNull(jwtKey, "jwtKey");
+        Utils.checkNotNull(machineSecretKey, "machineSecretKey");
         Utils.checkNotNull(audience, "audience");
         Utils.checkNotNull(authorizedParties, "authorizedParties");
         Utils.checkNotNull(clockSkewInMs, "clockSkewInMs");
 
         this.secretKey = secretKey;
         this.jwtKey = jwtKey;
+        this.machineSecretKey = machineSecretKey;
         this.audience = audience;
         this.authorizedParties = authorizedParties;
         this.clockSkewInMs = clockSkewInMs.orElse(DEFAULT_CLOCK_SKEW_MS);
@@ -70,6 +74,10 @@ public final class AuthenticateRequestOptions {
 
     public Optional<String> jwtKey() {
         return jwtKey;
+    }
+
+    public Optional<String> machineSecretKey() {
+        return machineSecretKey;
     }
 
     public Optional<String> audience() {
@@ -105,6 +113,7 @@ public final class AuthenticateRequestOptions {
 
         private Optional<String> secretKey = Optional.empty();
         private Optional<String> jwtKey = Optional.empty();
+        private Optional<String> machineSecretKey = Optional.empty();
         private Optional<String> audience = Optional.empty();
         private Set<String> authorizedParties = new HashSet<>();
         private Optional<List<String>> acceptsToken = Optional.empty();
@@ -123,6 +132,13 @@ public final class AuthenticateRequestOptions {
             Utils.checkNotNull(jwtKey, "jwtKey");
             Builder builder = new Builder();
             builder.jwtKey = Optional.of(jwtKey);
+            return builder;
+        }
+
+        public static Builder withMachineSecretKey(String machineSecretKey) {
+            Utils.checkNotNull(machineSecretKey, "machineSecretKey");
+            Builder builder = new Builder();
+            builder.machineSecretKey = Optional.of(machineSecretKey);
             return builder;
         }
 
@@ -171,6 +187,7 @@ public final class AuthenticateRequestOptions {
         public AuthenticateRequestOptions build() {
             return new AuthenticateRequestOptions(secretKey,
                     jwtKey,
+                    machineSecretKey,
                     audience,
                     authorizedParties,
                     Optional.of(clockSkewInMs),acceptsToken);
