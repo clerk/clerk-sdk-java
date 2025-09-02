@@ -86,7 +86,7 @@ public class UpdateSAMLConnectionRequestBody {
     private JsonNullable<String> organizationId;
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attribute_mapping")
@@ -261,7 +261,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -483,7 +483,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     public UpdateSAMLConnectionRequestBody withAttributeMapping(AttributeMapping attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -492,7 +492,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     public UpdateSAMLConnectionRequestBody withAttributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -864,7 +864,7 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+         * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(AttributeMapping attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -873,7 +873,7 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+         * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");

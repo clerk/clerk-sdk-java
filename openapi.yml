@@ -3681,7 +3681,7 @@ paths:
                   nullable: true
                 "attribute_mapping":
                   type: "object"
-                  description: "Define the atrtibute name mapping between Identity Provider and Clerk's user properties"
+                  description: "Define the attribute name mapping between Identity Provider and Clerk's user properties"
                   nullable: true
                   additionalProperties: false
                   properties:
