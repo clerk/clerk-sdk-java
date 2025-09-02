@@ -4118,7 +4118,7 @@ components:
         "instance_id":
           nullable: true
           type: "string"
-          description: "the id of the instance the template belongs to"
+          description: "the id of the instance to which the template belongs"
         "resource_type":
           type: "string"
           description: "whether this is a system (default) or user overridden) template"
