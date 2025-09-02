@@ -1021,7 +1021,7 @@ paths:
                   nullable: true
                 "password":
                   type: "string"
-                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and can not be in any list of hacked passwords."
+                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and cannot be in any list of hacked passwords."
                   nullable: true
                 "password_digest":
                   type: "string"
@@ -1222,7 +1222,7 @@ paths:
                   nullable: true
                 "password":
                   type: "string"
-                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and can not be in any list of hacked passwords."
+                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and cannot be in any list of hacked passwords."
                   nullable: true
                 "password_digest":
                   type: "string"
