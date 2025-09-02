@@ -37,7 +37,7 @@ public class JwtSessionTokenVerifier {
     /**
      * Verifies a Clerk-generated token signature. Networkless if the options.jwtKey
      * is provided.
-     * Otherwise, permforms a network call to retrieve the JWKS from Clerk's Backend
+     * Otherwise, performs a network call to retrieve the JWKS from Clerk's Backend
      * API.
      *
      * @param token   The token to verify.
