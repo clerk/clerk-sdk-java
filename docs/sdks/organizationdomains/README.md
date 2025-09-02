@@ -164,7 +164,7 @@ public class Application {
 
 | Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `organizationId`                                                                                      | *String*                                                                                              | :heavy_check_mark:                                                                                    | The ID of the organization the domain belongs to                                                      |
+| `organizationId`                                                                                      | *String*                                                                                              | :heavy_check_mark:                                                                                    | The ID of the organization to which the domain belongs                                                |
 | `domainId`                                                                                            | *String*                                                                                              | :heavy_check_mark:                                                                                    | The ID of the domain                                                                                  |
 | `requestBody`                                                                                         | [UpdateOrganizationDomainRequestBody](../../models/operations/UpdateOrganizationDomainRequestBody.md) | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
 
@@ -216,10 +216,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                        | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `organizationId`                                 | *String*                                         | :heavy_check_mark:                               | The ID of the organization the domain belongs to |
-| `domainId`                                       | *String*                                         | :heavy_check_mark:                               | The ID of the domain                             |
+| Parameter                                        | Type                                             | Required                                         | Description                                            |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------------ |
+| `organizationId`                                 | *String*                                         | :heavy_check_mark:                               | The ID of the organization to which the domain belongs |
+| `domainId`                                       | *String*                                         | :heavy_check_mark:                               | The ID of the domain                                   |
 
 ### Response
 
