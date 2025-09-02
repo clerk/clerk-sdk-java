@@ -3088,7 +3088,7 @@ paths:
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       requestBody:
         required: true
         content:
@@ -3126,7 +3126,7 @@ paths:
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       responses:
         "200": { "$ref": "#/components/responses/OrganizationMembership" }
         "400": { "$ref": "#/components/responses/ClerkErrors" }
@@ -3153,7 +3153,7 @@ paths:
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       requestBody:
         required: true
         content:

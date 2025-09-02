@@ -21,7 +21,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
     private String organizationId;
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
@@ -58,7 +58,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
     }
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     @JsonIgnore
     public String userId() {
@@ -86,7 +86,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
     }
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     public UpdateOrganizationMembershipMetadataRequest withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -161,7 +161,7 @@ public class UpdateOrganizationMembershipMetadataRequest {
 
 
         /**
-         * The ID of the user that this membership belongs to
+         * The ID of the user to which this membership belongs
          */
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
