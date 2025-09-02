@@ -196,14 +196,14 @@ public final class RequestBody {
         }
         
         // Detect content type based on file extension
-        String contentType = "application/octet-stream"; // default fallback
+        String contentType = "application/octet-stream"; // default
         try {
             String detectedType = Files.probeContentType(Path.of(fileName));
             if (detectedType != null && !detectedType.isEmpty()) {
                 contentType = detectedType;
             }
         } catch (Exception e) {
-            // If detection fails, use the default fallback
+            // If detection fails, use the default
         }
         
         byte[] cont = content;
