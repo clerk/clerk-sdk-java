@@ -1814,7 +1814,7 @@ paths:
               properties:
                 "identifier":
                   type: "string"
-                  description: "The identifier to be added in the allow-list.\nThis can be an email address, a phone number or a web3 wallet."
+                  description: "The identifier to be added in the allow-list.\nThis can be an email address, a phone number, or a web3 wallet."
                 "notify":
                   type: "boolean"
                   description: "This flag denotes whether the given identifier will receive an invitation to join the application.\nNote that this only works for email address and phone number identifiers."
@@ -1876,7 +1876,7 @@ paths:
               properties:
                 "identifier":
                   type: "string"
-                  description: "The identifier to be added in the block-list.\nThis can be an email address, a phone number or a web3 wallet."
+                  description: "The identifier to be added in the block-list.\nThis can be an email address, a phone number, or a web3 wallet."
               required:
                 - "identifier"
       responses:
