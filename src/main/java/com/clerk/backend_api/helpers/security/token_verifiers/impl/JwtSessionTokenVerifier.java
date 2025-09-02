@@ -222,7 +222,7 @@ public class JwtSessionTokenVerifier {
     }
 
     /**
-     * Retrives the key identifier (kid) from the token header.
+     * Retrieves the key identifier (kid) from the token header.
      *
      * @param token The token to parse.
      * @return The key identifier (kid).
