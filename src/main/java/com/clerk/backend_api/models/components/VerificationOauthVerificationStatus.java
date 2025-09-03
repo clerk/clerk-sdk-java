@@ -28,7 +28,7 @@ import java.util.Optional;
  * <p>Wrapper class for an "open" enum. "Open" enums are those that are expected
  * to evolve (particularly with the addition of enum members over time). If an
  * open enum is used then the appearance of unexpected enum values (say in a 
- * response from an updated an API) will not bring about a runtime error thus 
+ * response from an updated API) will not bring about a runtime error thus 
  * ensuring that non-updated client versions can continue to work without error.
  *
  * <p>Note that instances are immutable and are singletons (an internal thread-safe

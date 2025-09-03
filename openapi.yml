@@ -563,7 +563,7 @@ paths:
       tags:
         - "Sessions"
       summary: "Verify a session"
-      description: "Returns the session if it is authenticated, otherwise returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,\n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens)."
+      description: "Returns the session if it is authenticated; otherwise, returns an error.\nWARNING: This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens,\n         which is implemented transparently in all recent SDK versions (e.g. [NodeJS SDK](https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth)).\n         For more details on how networkless verification works, refer to our [Session Tokens documentation](https://clerk.com/docs/backend-requests/resources/session-tokens)."
       parameters:
         - name: "session_id"
           in: "path"
@@ -1021,7 +1021,7 @@ paths:
                   nullable: true
                 "password":
                   type: "string"
-                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and can not be in any list of hacked passwords."
+                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and cannot be in any list of hacked passwords."
                   nullable: true
                 "password_digest":
                   type: "string"
@@ -1222,7 +1222,7 @@ paths:
                   nullable: true
                 "password":
                   type: "string"
-                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and can not be in any list of hacked passwords."
+                  description: "The plaintext password to give the user.\nMust be at least 8 characters long, and cannot be in any list of hacked passwords."
                   nullable: true
                 "password_digest":
                   type: "string"
@@ -1814,7 +1814,7 @@ paths:
               properties:
                 "identifier":
                   type: "string"
-                  description: "The identifier to be added in the allow-list.\nThis can be an email address, a phone number or a web3 wallet."
+                  description: "The identifier to be added in the allow-list.\nThis can be an email address, a phone number, or a web3 wallet."
                 "notify":
                   type: "boolean"
                   description: "This flag denotes whether the given identifier will receive an invitation to join the application.\nNote that this only works for email address and phone number identifiers."
@@ -1876,7 +1876,7 @@ paths:
               properties:
                 "identifier":
                   type: "string"
-                  description: "The identifier to be added in the block-list.\nThis can be an email address, a phone number or a web3 wallet."
+                  description: "The identifier to be added in the block-list.\nThis can be an email address, a phone number, or a web3 wallet."
               required:
                 - "identifier"
       responses:
@@ -2179,7 +2179,7 @@ paths:
                   type: "array"
                   items:
                     type: "string"
-                  description: "For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.\nFor Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uiid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost."
+                  description: "For browser-like stacks such as browser extensions, Electron, or Capacitor.js the instance allowed origins need to be updated with the request origin value.\nFor Chrome extensions popup, background, or service worker pages the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost."
                 "cookieless_dev":
                   type: "boolean"
                   description: "Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).\nDeprecated: Please use `url_based_session_syncing` instead."
@@ -3082,13 +3082,13 @@ paths:
           name: "organization_id"
           schema:
             type: "string"
-          description: "The ID of the organization the membership belongs to"
+          description: "The ID of the organization to which the membership belongs"
         - in: "path"
           required: true
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       requestBody:
         required: true
         content:
@@ -3120,13 +3120,13 @@ paths:
           name: "organization_id"
           schema:
             type: "string"
-          description: "The ID of the organization the membership belongs to"
+          description: "The ID of the organization to which the membership belongs"
         - in: "path"
           required: true
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       responses:
         "200": { "$ref": "#/components/responses/OrganizationMembership" }
         "400": { "$ref": "#/components/responses/ClerkErrors" }
@@ -3147,13 +3147,13 @@ paths:
           name: "organization_id"
           schema:
             type: "string"
-          description: "The ID of the organization the membership belongs to"
+          description: "The ID of the organization to which the membership belongs"
         - in: "path"
           required: true
           name: "user_id"
           schema:
             type: "string"
-          description: "The ID of the user that this membership belongs to"
+          description: "The ID of the user to which this membership belongs"
       requestBody:
         required: true
         content:
@@ -3681,7 +3681,7 @@ paths:
                   nullable: true
                 "attribute_mapping":
                   type: "object"
-                  description: "Define the atrtibute name mapping between Identity Provider and Clerk's user properties"
+                  description: "Define the attribute name mapping between Identity Provider and Clerk's user properties"
                   nullable: true
                   additionalProperties: false
                   properties:
@@ -4118,7 +4118,7 @@ components:
         "instance_id":
           nullable: true
           type: "string"
-          description: "the id of the instance the template belongs to"
+          description: "the id of the instance to which the template belongs"
         "resource_type":
           type: "string"
           description: "whether this is a system (default) or user overridden) template"

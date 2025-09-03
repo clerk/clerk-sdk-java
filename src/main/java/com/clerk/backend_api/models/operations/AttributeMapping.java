@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * AttributeMapping
  * 
- * <p>Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+ * <p>Define the attribute name mapping between Identity Provider and Clerk's user properties
  */
 public class AttributeMapping {
 

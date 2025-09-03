@@ -163,7 +163,7 @@ public class OrganizationMemberships {
      * <p>Updates the properties of an existing organization membership
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @param requestBody 
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -181,7 +181,7 @@ public class OrganizationMemberships {
      * <p>Updates the properties of an existing organization membership
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
@@ -219,7 +219,7 @@ public class OrganizationMemberships {
      * <p>Removes the given membership from the organization
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -233,7 +233,7 @@ public class OrganizationMemberships {
      * <p>Removes the given membership from the organization
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -273,7 +273,7 @@ public class OrganizationMemberships {
      * You can remove metadata keys at any level by setting their value to `null`.
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -290,7 +290,7 @@ public class OrganizationMemberships {
      * You can remove metadata keys at any level by setting their value to `null`.
      * 
      * @param organizationId The ID of the organization to which the membership belongs
-     * @param userId The ID of the user that this membership belongs to
+     * @param userId The ID of the user to which this membership belongs
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call

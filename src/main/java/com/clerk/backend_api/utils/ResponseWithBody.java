@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * A wrapper for {@link HttpResponse} that allows mappi ng the response body from type {@code R} to type {@code B}.
+ * A wrapper for {@link HttpResponse} that allows mapping the response body from type {@code R} to type {@code B}.
  * <p>
  * This class delegates all methods to the original response, except for {@link #body()}, which returns the mapped body.
  * The mapping is performed using the provided {@code bodyMapper} function at construction time.

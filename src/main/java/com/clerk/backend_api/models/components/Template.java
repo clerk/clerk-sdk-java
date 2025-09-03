@@ -37,7 +37,7 @@ public class Template {
     private Optional<? extends TemplateObject> object;
 
     /**
-     * The id of the instance to which this template belongs
+     * The id of the instance to which the template belongs
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instance_id")
@@ -282,7 +282,7 @@ public class Template {
     }
 
     /**
-     * The id of the instance to which this template belongs
+     * The id of the instance to which the template belongs
      */
     @JsonIgnore
     public JsonNullable<String> instanceId() {
@@ -482,7 +482,7 @@ public class Template {
     }
 
     /**
-     * The id of the instance to which this template belongs
+     * The id of the instance to which the template belongs
      */
     public Template withInstanceId(String instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -491,7 +491,7 @@ public class Template {
     }
 
     /**
-     * The id of the instance to which this template belongs
+     * The id of the instance to which the template belongs
      */
     public Template withInstanceId(JsonNullable<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -1034,7 +1034,7 @@ public class Template {
 
 
         /**
-         * The id of the instance to which this template belongs
+         * The id of the instance to which the template belongs
          */
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
@@ -1043,7 +1043,7 @@ public class Template {
         }
 
         /**
-         * The id of the instance to which this template belongs
+         * The id of the instance to which the template belongs
          */
         public Builder instanceId(JsonNullable<String> instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");

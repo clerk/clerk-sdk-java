@@ -6,7 +6,7 @@
 </div>
 <br></br>
 
-The Clerk Java library provides convenient access to the Clerk REST API from from a Java application. The library includes type definitions for all request params and response fields, and is powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
+The Clerk Java library provides convenient access to the Clerk REST API from a Java application. The library includes type definitions for all request params and response fields, and is powered by [Apache Httpclient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
 
 <!-- Start Summary [summary] -->
 ## Summary
@@ -168,7 +168,7 @@ public class UserAuthentication {
     }
 ```
 
-If the request is correctly authenticated, the token's claims are made available in `requestState.claims()`. Otherwise the reason for the token verification failure is given by `requestState.reason()`.
+If the request is correctly authenticated, the token's claims are made available in `requestState.claims()`. Otherwise, the reason for the token verification failure is given by `requestState.reason()`.
 
 ### Machine Authentication
 
@@ -659,6 +659,6 @@ Another option is to set the System property `-Djdk.httpclient.HttpClient.log=al
 ## Contributions
 
 While we value open-source contributions to this SDK, this library is generated programmatically.
-Feel free to open a PR or a Github issue as a proof of concept and we'll do our best to include it in a future release!
+Feel free to open a PR or a GitHub issue as a proof of concept and we'll do our best to include it in a future release!
 
 ### SDK Created by [Speakeasy](https://docs.speakeasyapi.dev/docs/using-speakeasy/client-sdks)

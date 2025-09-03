@@ -146,7 +146,7 @@ public class OrganizationDomains {
      * 
      * <p>Updates the properties of an existing organization domain.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param requestBody 
      * @return The response from the API call
@@ -164,7 +164,7 @@ public class OrganizationDomains {
      * 
      * <p>Updates the properties of an existing organization domain.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param requestBody 
      * @param options additional options
@@ -202,7 +202,7 @@ public class OrganizationDomains {
      * 
      * <p>Removes the given domain from the organization.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -216,7 +216,7 @@ public class OrganizationDomains {
      * 
      * <p>Removes the given domain from the organization.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param options additional options
      * @return The response from the API call

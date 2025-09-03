@@ -989,7 +989,7 @@ public final class Utils {
      * read from the cached byte array.
      * 
      * <p>
-     * This method is most likely to be used in a diagnostic/logging situtation so
+     * This method is most likely to be used in a diagnostic/logging situation so
      * that the contents of a response can be viewed without affecting processing.
      * Using this method with a very large body may be problematic in
      * terms of memory use.
