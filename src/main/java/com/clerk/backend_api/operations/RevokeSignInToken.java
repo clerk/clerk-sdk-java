@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeSignInToken {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RevokeSignInToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeSignInTokenRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevokeSignInTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/sign_in_tokens/{sign_in_token_id}/revoke",
                     request, null);
@@ -119,7 +117,7 @@ public class RevokeSignInToken {
         }
 
         private HttpRequest onBuildRequest(RevokeSignInTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeSignInTokenRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

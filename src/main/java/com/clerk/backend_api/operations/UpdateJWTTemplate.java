@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpdateJWTTemplate {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UpdateJWTTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpdateJWTTemplateRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpdateJWTTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/jwt_templates/{template_id}",
                     request, null);
@@ -110,8 +108,7 @@ public class UpdateJWTTemplate {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class UpdateJWTTemplate {
         }
 
         private HttpRequest onBuildRequest(UpdateJWTTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpdateJWTTemplateRequest.class, new TypeReference<UpdateJWTTemplateRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

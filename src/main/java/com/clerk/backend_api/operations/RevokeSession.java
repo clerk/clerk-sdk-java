@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeSession {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RevokeSession {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeSessionRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevokeSessionRequest.class,
+                    klass,
                     this.baseUrl,
                     "/sessions/{session_id}/revoke",
                     request, null);
@@ -119,7 +117,7 @@ public class RevokeSession {
         }
 
         private HttpRequest onBuildRequest(RevokeSessionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeSessionRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class VerifyOAuthAccessToken {
 
     static abstract class Base {
@@ -99,8 +98,7 @@ public class VerifyOAuthAccessToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(VerifyOAuthAccessTokenRequestBody request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/oauth_applications/access_tokens/verify");
@@ -108,8 +106,7 @@ public class VerifyOAuthAccessToken {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<VerifyOAuthAccessTokenRequestBody>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "request",
@@ -134,7 +131,7 @@ public class VerifyOAuthAccessToken {
         }
 
         private HttpRequest onBuildRequest(VerifyOAuthAccessTokenRequestBody request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, new TypeReference<VerifyOAuthAccessTokenRequestBody>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

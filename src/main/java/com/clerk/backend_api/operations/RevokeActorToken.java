@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeActorToken {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RevokeActorToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeActorTokenRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevokeActorTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/actor_tokens/{actor_token_id}/revoke",
                     request, null);
@@ -119,7 +117,7 @@ public class RevokeActorToken {
         }
 
         private HttpRequest onBuildRequest(RevokeActorTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeActorTokenRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

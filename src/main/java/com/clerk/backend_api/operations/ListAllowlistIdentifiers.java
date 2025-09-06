@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class ListAllowlistIdentifiers {
 
     static abstract class Base {
@@ -96,8 +95,7 @@ public class ListAllowlistIdentifiers {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(ListAllowlistIdentifiersRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/allowlist_identifiers");
@@ -106,7 +104,7 @@ public class ListAllowlistIdentifiers {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    ListAllowlistIdentifiersRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -122,7 +120,7 @@ public class ListAllowlistIdentifiers {
         }
 
         private HttpRequest onBuildRequest(ListAllowlistIdentifiersRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, ListAllowlistIdentifiersRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

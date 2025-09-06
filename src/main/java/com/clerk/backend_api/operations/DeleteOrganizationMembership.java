@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteOrganizationMembership {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteOrganizationMembership {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteOrganizationMembershipRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteOrganizationMembershipRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/memberships/{user_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteOrganizationMembership {
         }
 
         private HttpRequest onBuildRequest(DeleteOrganizationMembershipRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteOrganizationMembershipRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

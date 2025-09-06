@@ -8,6 +8,9 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBody;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryResponse;
+import com.clerk.backend_api.models.operations.DeleteWaitlistEntryRequest;
+import com.clerk.backend_api.models.operations.DeleteWaitlistEntryRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteWaitlistEntryResponse;
 import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequest;
 import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequestBody;
 import com.clerk.backend_api.models.operations.InviteWaitlistEntryRequestBuilder;
@@ -19,6 +22,7 @@ import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequest;
 import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequestBuilder;
 import com.clerk.backend_api.models.operations.RejectWaitlistEntryResponse;
 import com.clerk.backend_api.operations.CreateWaitlistEntry;
+import com.clerk.backend_api.operations.DeleteWaitlistEntry;
 import com.clerk.backend_api.operations.InviteWaitlistEntry;
 import com.clerk.backend_api.operations.ListWaitlistEntries;
 import com.clerk.backend_api.operations.RejectWaitlistEntry;
@@ -120,6 +124,51 @@ public class WaitlistEntries {
     public CreateWaitlistEntryResponse create(Optional<? extends CreateWaitlistEntryRequestBody> request, Optional<Options> options) throws Exception {
         RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
               = new CreateWaitlistEntry.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete a pending waitlist entry
+     * 
+     * <p>Delete a pending waitlist entry.
+     * 
+     * @return The call builder
+     */
+    public DeleteWaitlistEntryRequestBuilder delete() {
+        return new DeleteWaitlistEntryRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete a pending waitlist entry
+     * 
+     * <p>Delete a pending waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to delete
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteWaitlistEntryResponse delete(String waitlistEntryId) throws Exception {
+        return delete(waitlistEntryId, Optional.empty());
+    }
+
+    /**
+     * Delete a pending waitlist entry
+     * 
+     * <p>Delete a pending waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to delete
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public DeleteWaitlistEntryResponse delete(String waitlistEntryId, Optional<Options> options) throws Exception {
+        DeleteWaitlistEntryRequest request =
+            DeleteWaitlistEntryRequest
+                .builder()
+                .waitlistEntryId(waitlistEntryId)
+                .build();
+        RequestOperation<DeleteWaitlistEntryRequest, DeleteWaitlistEntryResponse> operation
+              = new DeleteWaitlistEntry.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

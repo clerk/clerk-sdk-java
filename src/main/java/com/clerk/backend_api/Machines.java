@@ -27,6 +27,10 @@ import com.clerk.backend_api.models.operations.GetMachineSecretKeyResponse;
 import com.clerk.backend_api.models.operations.ListMachinesRequest;
 import com.clerk.backend_api.models.operations.ListMachinesRequestBuilder;
 import com.clerk.backend_api.models.operations.ListMachinesResponse;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequest;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequestBody;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequestBuilder;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyResponse;
 import com.clerk.backend_api.models.operations.UpdateMachineRequest;
 import com.clerk.backend_api.models.operations.UpdateMachineRequestBody;
 import com.clerk.backend_api.models.operations.UpdateMachineRequestBuilder;
@@ -38,6 +42,7 @@ import com.clerk.backend_api.operations.DeleteMachineScope;
 import com.clerk.backend_api.operations.GetMachine;
 import com.clerk.backend_api.operations.GetMachineSecretKey;
 import com.clerk.backend_api.operations.ListMachines;
+import com.clerk.backend_api.operations.RotateMachineSecretKey;
 import com.clerk.backend_api.operations.UpdateMachine;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Exception;
@@ -344,6 +349,62 @@ public class Machines {
                 .build();
         RequestOperation<GetMachineSecretKeyRequest, GetMachineSecretKeyResponse> operation
               = new GetMachineSecretKey.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl parameter.
+     * 
+     * @return The call builder
+     */
+    public RotateMachineSecretKeyRequestBuilder rotateSecretKey() {
+        return new RotateMachineSecretKeyRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl parameter.
+     * 
+     * @param machineId The ID of the machine to rotate the secret key for
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RotateMachineSecretKeyResponse rotateSecretKey(String machineId, RotateMachineSecretKeyRequestBody requestBody) throws Exception {
+        return rotateSecretKey(machineId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl parameter.
+     * 
+     * @param machineId The ID of the machine to rotate the secret key for
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RotateMachineSecretKeyResponse rotateSecretKey(
+            String machineId, RotateMachineSecretKeyRequestBody requestBody,
+            Optional<Options> options) throws Exception {
+        RotateMachineSecretKeyRequest request =
+            RotateMachineSecretKeyRequest
+                .builder()
+                .machineId(machineId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<RotateMachineSecretKeyRequest, RotateMachineSecretKeyResponse> operation
+              = new RotateMachineSecretKey.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

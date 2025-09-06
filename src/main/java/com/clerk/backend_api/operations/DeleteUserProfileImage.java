@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteUserProfileImage {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteUserProfileImage {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteUserProfileImageRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteUserProfileImageRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/profile_image",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteUserProfileImage {
         }
 
         private HttpRequest onBuildRequest(DeleteUserProfileImageRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteUserProfileImageRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

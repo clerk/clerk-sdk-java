@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetMachineSecretKey {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetMachineSecretKey {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetMachineSecretKeyRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetMachineSecretKeyRequest.class,
+                    klass,
                     this.baseUrl,
                     "/machines/{machine_id}/secret_key",
                     request, null);
@@ -119,7 +117,7 @@ public class GetMachineSecretKey {
         }
 
         private HttpRequest onBuildRequest(GetMachineSecretKeyRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetMachineSecretKeyRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

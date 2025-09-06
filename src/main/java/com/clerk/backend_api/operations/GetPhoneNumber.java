@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetPhoneNumber {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetPhoneNumber {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetPhoneNumberRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetPhoneNumberRequest.class,
+                    klass,
                     this.baseUrl,
                     "/phone_numbers/{phone_number_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetPhoneNumber {
         }
 
         private HttpRequest onBuildRequest(GetPhoneNumberRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetPhoneNumberRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

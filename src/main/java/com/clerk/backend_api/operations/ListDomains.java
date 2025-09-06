@@ -32,7 +32,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class ListDomains {
 
     static abstract class Base {
@@ -94,7 +93,6 @@ public class ListDomains {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
         HttpRequest buildRequest() throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,

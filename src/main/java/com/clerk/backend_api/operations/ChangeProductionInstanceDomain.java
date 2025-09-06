@@ -36,7 +36,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class ChangeProductionInstanceDomain {
 
     static abstract class Base {
@@ -98,8 +97,7 @@ public class ChangeProductionInstanceDomain {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/instance/change_domain");
@@ -107,8 +105,7 @@ public class ChangeProductionInstanceDomain {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Optional<? extends ChangeProductionInstanceDomainRequestBody>>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "request",
@@ -130,7 +127,7 @@ public class ChangeProductionInstanceDomain {
         }
 
         private HttpRequest onBuildRequest(Optional<? extends ChangeProductionInstanceDomainRequestBody> request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, new TypeReference<Optional<? extends ChangeProductionInstanceDomainRequestBody>>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

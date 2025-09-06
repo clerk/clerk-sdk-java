@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpdateSignUp {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UpdateSignUp {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpdateSignUpRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpdateSignUpRequest.class,
+                    klass,
                     this.baseUrl,
                     "/sign_ups/{id}",
                     request, null);
@@ -110,8 +108,7 @@ public class UpdateSignUp {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class UpdateSignUp {
         }
 
         private HttpRequest onBuildRequest(UpdateSignUpRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpdateSignUpRequest.class, new TypeReference<UpdateSignUpRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

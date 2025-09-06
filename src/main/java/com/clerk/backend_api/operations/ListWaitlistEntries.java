@@ -33,7 +33,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class ListWaitlistEntries {
 
     static abstract class Base {
@@ -95,8 +94,7 @@ public class ListWaitlistEntries {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(ListWaitlistEntriesRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/waitlist_entries");
@@ -105,7 +103,7 @@ public class ListWaitlistEntries {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    ListWaitlistEntriesRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -121,7 +119,7 @@ public class ListWaitlistEntries {
         }
 
         private HttpRequest onBuildRequest(ListWaitlistEntriesRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, ListWaitlistEntriesRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpsertTemplate {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UpsertTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpsertTemplateRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpsertTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/templates/{template_type}/{slug}",
                     request, null);
@@ -110,8 +108,7 @@ public class UpsertTemplate {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class UpsertTemplate {
         }
 
         private HttpRequest onBuildRequest(UpsertTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpsertTemplateRequest.class, new TypeReference<UpsertTemplateRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteOrganizationDomain {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteOrganizationDomain {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteOrganizationDomainRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteOrganizationDomainRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/domains/{domain_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteOrganizationDomain {
         }
 
         private HttpRequest onBuildRequest(DeleteOrganizationDomainRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteOrganizationDomainRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

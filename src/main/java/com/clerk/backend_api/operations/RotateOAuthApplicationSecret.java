@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RotateOAuthApplicationSecret {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RotateOAuthApplicationSecret {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RotateOAuthApplicationSecretRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RotateOAuthApplicationSecretRequest.class,
+                    klass,
                     this.baseUrl,
                     "/oauth_applications/{oauth_application_id}/rotate_secret",
                     request, null);
@@ -119,7 +117,7 @@ public class RotateOAuthApplicationSecret {
         }
 
         private HttpRequest onBuildRequest(RotateOAuthApplicationSecretRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RotateOAuthApplicationSecretRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

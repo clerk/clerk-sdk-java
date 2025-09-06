@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetClient {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetClient {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetClientRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetClientRequest.class,
+                    klass,
                     this.baseUrl,
                     "/clients/{client_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetClient {
         }
 
         private HttpRequest onBuildRequest(GetClientRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetClientRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

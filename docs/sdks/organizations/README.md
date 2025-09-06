@@ -381,9 +381,6 @@ public class Application {
                 .organizationId("<id>")
                 .call();
 
-        if (res.organizationWithLogo().isPresent()) {
-            // handle response
-        }
     }
 }
 ```

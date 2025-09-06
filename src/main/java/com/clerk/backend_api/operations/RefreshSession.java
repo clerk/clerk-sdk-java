@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RefreshSession {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class RefreshSession {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RefreshSessionRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    RefreshSessionRequest.class,
+                    klass,
                     this.baseUrl,
                     "/sessions/{session_id}/refresh",
                     request, null);
@@ -110,8 +108,7 @@ public class RefreshSession {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class RefreshSession {
         }
 
         private HttpRequest onBuildRequest(RefreshSessionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RefreshSessionRequest.class, new TypeReference<RefreshSessionRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UsersGetOrganizationInvitations {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class UsersGetOrganizationInvitations {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UsersGetOrganizationInvitationsRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    UsersGetOrganizationInvitationsRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/organization_invitations",
                     request, null);
@@ -108,7 +106,7 @@ public class UsersGetOrganizationInvitations {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    UsersGetOrganizationInvitationsRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -124,7 +122,7 @@ public class UsersGetOrganizationInvitations {
         }
 
         private HttpRequest onBuildRequest(UsersGetOrganizationInvitationsRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UsersGetOrganizationInvitationsRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

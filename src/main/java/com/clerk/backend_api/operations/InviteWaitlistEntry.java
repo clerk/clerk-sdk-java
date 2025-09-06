@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class InviteWaitlistEntry {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class InviteWaitlistEntry {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(InviteWaitlistEntryRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    InviteWaitlistEntryRequest.class,
+                    klass,
                     this.baseUrl,
                     "/waitlist_entries/{waitlist_entry_id}/invite",
                     request, null);
@@ -110,8 +108,7 @@ public class InviteWaitlistEntry {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class InviteWaitlistEntry {
         }
 
         private HttpRequest onBuildRequest(InviteWaitlistEntryRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, InviteWaitlistEntryRequest.class, new TypeReference<InviteWaitlistEntryRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

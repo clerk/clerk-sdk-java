@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpdateInstanceAuthConfig {
 
     static abstract class Base {
@@ -99,8 +98,7 @@ public class UpdateInstanceAuthConfig {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/beta_features/instance_settings");
@@ -108,8 +106,7 @@ public class UpdateInstanceAuthConfig {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Optional<? extends UpdateInstanceAuthConfigRequestBody>>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "request",
@@ -131,7 +128,7 @@ public class UpdateInstanceAuthConfig {
         }
 
         private HttpRequest onBuildRequest(Optional<? extends UpdateInstanceAuthConfigRequestBody> request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, new TypeReference<Optional<? extends UpdateInstanceAuthConfigRequestBody>>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

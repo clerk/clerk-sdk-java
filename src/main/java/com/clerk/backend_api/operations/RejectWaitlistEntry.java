@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RejectWaitlistEntry {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RejectWaitlistEntry {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RejectWaitlistEntryRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RejectWaitlistEntryRequest.class,
+                    klass,
                     this.baseUrl,
                     "/waitlist_entries/{waitlist_entry_id}/reject",
                     request, null);
@@ -119,7 +117,7 @@ public class RejectWaitlistEntry {
         }
 
         private HttpRequest onBuildRequest(RejectWaitlistEntryRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RejectWaitlistEntryRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

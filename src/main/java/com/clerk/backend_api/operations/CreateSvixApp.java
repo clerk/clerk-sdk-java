@@ -33,7 +33,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class CreateSvixApp {
 
     static abstract class Base {
@@ -95,7 +94,6 @@ public class CreateSvixApp {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
         HttpRequest buildRequest() throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,

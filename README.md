@@ -51,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:3.2.0'
+implementation 'com.clerk:backend-api:3.3.0'
 ```
 
 Maven:
@@ -59,7 +59,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>3.2.0</version>
+    <version>3.3.0</version>
 </dependency>
 ```
 
@@ -238,6 +238,7 @@ public class MachineAuthentication {
 * [listPlans](docs/sdks/commerce/README.md#listplans) - List all commerce plans
 * [listSubscriptionItems](docs/sdks/commerce/README.md#listsubscriptionitems) - List all subscription items
 * [cancelSubscriptionItem](docs/sdks/commerce/README.md#cancelsubscriptionitem) - Cancel a subscription item
+* [extendSubscriptionItemFreeTrial](docs/sdks/commerce/README.md#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
 
 ### [domains()](docs/sdks/domains/README.md)
 
@@ -311,6 +312,7 @@ public class MachineAuthentication {
 * [update](docs/sdks/machines/README.md#update) - Update a machine
 * [delete](docs/sdks/machines/README.md#delete) - Delete a machine
 * [getSecretKey](docs/sdks/machines/README.md#getsecretkey) - Retrieve a machine secret key
+* [rotateSecretKey](docs/sdks/machines/README.md#rotatesecretkey) - Rotate a machine's secret key
 * [createScope](docs/sdks/machines/README.md#createscope) - Create a machine scope
 * [deleteScope](docs/sdks/machines/README.md#deletescope) - Delete a machine scope
 
@@ -458,6 +460,7 @@ public class MachineAuthentication {
 
 * [list](docs/sdks/waitlistentries/README.md#list) - List all waitlist entries
 * [create](docs/sdks/waitlistentries/README.md#create) - Create a waitlist entry
+* [delete](docs/sdks/waitlistentries/README.md#delete) - Delete a pending waitlist entry
 * [invite](docs/sdks/waitlistentries/README.md#invite) - Invite a waitlist entry
 * [reject](docs/sdks/waitlistentries/README.md#reject) - Reject a waitlist entry
 

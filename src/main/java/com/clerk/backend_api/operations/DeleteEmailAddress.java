@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteEmailAddress {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteEmailAddress {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteEmailAddressRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteEmailAddressRequest.class,
+                    klass,
                     this.baseUrl,
                     "/email_addresses/{email_address_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteEmailAddress {
         }
 
         private HttpRequest onBuildRequest(DeleteEmailAddressRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteEmailAddressRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

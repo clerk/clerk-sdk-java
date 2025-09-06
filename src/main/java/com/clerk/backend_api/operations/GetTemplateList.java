@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetTemplateList {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetTemplateList {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetTemplateListRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetTemplateListRequest.class,
+                    klass,
                     this.baseUrl,
                     "/templates/{template_type}",
                     request, null);
@@ -108,7 +106,7 @@ public class GetTemplateList {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    GetTemplateListRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -124,7 +122,7 @@ public class GetTemplateList {
         }
 
         private HttpRequest onBuildRequest(GetTemplateListRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetTemplateListRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

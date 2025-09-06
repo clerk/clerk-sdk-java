@@ -1,0 +1,9 @@
+# RotateMachineSecretKeyRequest
+
+
+## Fields
+
+| Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `machineId`                                                                                       | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the machine to rotate the secret key for                                                |
+| `requestBody`                                                                                     | [RotateMachineSecretKeyRequestBody](../../models/operations/RotateMachineSecretKeyRequestBody.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |

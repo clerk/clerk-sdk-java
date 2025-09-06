@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpdateOrganizationDomain {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UpdateOrganizationDomain {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpdateOrganizationDomainRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpdateOrganizationDomainRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/domains/{domain_id}",
                     request, null);
@@ -110,8 +108,7 @@ public class UpdateOrganizationDomain {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -136,7 +133,7 @@ public class UpdateOrganizationDomain {
         }
 
         private HttpRequest onBuildRequest(UpdateOrganizationDomainRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpdateOrganizationDomainRequest.class, new TypeReference<UpdateOrganizationDomainRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
