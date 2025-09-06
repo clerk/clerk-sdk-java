@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetOrganizationBillingSubscription {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetOrganizationBillingSubscription {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetOrganizationBillingSubscriptionRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetOrganizationBillingSubscriptionRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/billing/subscription",
                     request, null);
@@ -119,7 +117,7 @@ public class GetOrganizationBillingSubscription {
         }
 
         private HttpRequest onBuildRequest(GetOrganizationBillingSubscriptionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetOrganizationBillingSubscriptionRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

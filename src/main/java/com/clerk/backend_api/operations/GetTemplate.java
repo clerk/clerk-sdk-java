@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetTemplate {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetTemplateRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/templates/{template_type}/{slug}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetTemplate {
         }
 
         private HttpRequest onBuildRequest(GetTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetTemplateRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

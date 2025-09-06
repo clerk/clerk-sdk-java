@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteAllowlistIdentifier {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteAllowlistIdentifier {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteAllowlistIdentifierRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteAllowlistIdentifierRequest.class,
+                    klass,
                     this.baseUrl,
                     "/allowlist_identifiers/{identifier_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteAllowlistIdentifier {
         }
 
         private HttpRequest onBuildRequest(DeleteAllowlistIdentifierRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteAllowlistIdentifierRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

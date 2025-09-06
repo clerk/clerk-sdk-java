@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetSAMLConnection {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetSAMLConnection {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetSAMLConnectionRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetSAMLConnectionRequest.class,
+                    klass,
                     this.baseUrl,
                     "/saml_connections/{saml_connection_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetSAMLConnection {
         }
 
         private HttpRequest onBuildRequest(GetSAMLConnectionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetSAMLConnectionRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

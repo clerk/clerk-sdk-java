@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UserPasskeyDelete {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class UserPasskeyDelete {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UserPasskeyDeleteRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    UserPasskeyDeleteRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/passkeys/{passkey_identification_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class UserPasskeyDelete {
         }
 
         private HttpRequest onBuildRequest(UserPasskeyDeleteRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UserPasskeyDeleteRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

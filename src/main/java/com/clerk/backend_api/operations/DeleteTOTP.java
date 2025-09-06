@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteTOTP {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteTOTP {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteTOTPRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteTOTPRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/totp",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteTOTP {
         }
 
         private HttpRequest onBuildRequest(DeleteTOTPRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteTOTPRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

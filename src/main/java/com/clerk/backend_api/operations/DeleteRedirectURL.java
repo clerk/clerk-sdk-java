@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteRedirectURL {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteRedirectURL {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteRedirectURLRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteRedirectURLRequest.class,
+                    klass,
                     this.baseUrl,
                     "/redirect_urls/{id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteRedirectURL {
         }
 
         private HttpRequest onBuildRequest(DeleteRedirectURLRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteRedirectURLRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

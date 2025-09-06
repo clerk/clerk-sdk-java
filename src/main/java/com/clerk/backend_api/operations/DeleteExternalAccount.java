@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteExternalAccount {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteExternalAccount {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteExternalAccountRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteExternalAccountRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/external_accounts/{external_account_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteExternalAccount {
         }
 
         private HttpRequest onBuildRequest(DeleteExternalAccountRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteExternalAccountRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

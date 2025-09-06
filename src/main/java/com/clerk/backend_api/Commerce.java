@@ -5,9 +5,13 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.components.ExtendFreeTrialRequest;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequest;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequestBuilder;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemResponse;
+import com.clerk.backend_api.models.operations.ExtendCommerceSubscriptionItemFreeTrialRequest;
+import com.clerk.backend_api.models.operations.ExtendCommerceSubscriptionItemFreeTrialRequestBuilder;
+import com.clerk.backend_api.models.operations.ExtendCommerceSubscriptionItemFreeTrialResponse;
 import com.clerk.backend_api.models.operations.GetCommercePlanListRequest;
 import com.clerk.backend_api.models.operations.GetCommercePlanListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetCommercePlanListResponse;
@@ -16,6 +20,7 @@ import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListRe
 import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListResponse;
 import com.clerk.backend_api.models.operations.PayerType;
 import com.clerk.backend_api.operations.CancelCommerceSubscriptionItem;
+import com.clerk.backend_api.operations.ExtendCommerceSubscriptionItemFreeTrial;
 import com.clerk.backend_api.operations.GetCommercePlanList;
 import com.clerk.backend_api.operations.GetCommerceSubscriptionItemList;
 import com.clerk.backend_api.utils.Options;
@@ -184,6 +189,65 @@ public class Commerce {
                 .build();
         RequestOperation<CancelCommerceSubscriptionItemRequest, CancelCommerceSubscriptionItemResponse> operation
               = new CancelCommerceSubscriptionItem.Sync(sdkConfiguration, options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Extend free trial for a subscription item
+     * 
+     * <p>Extends the free trial period for a specific subscription item to the specified timestamp.
+     * The subscription item must be currently in a free trial period, and the plan must support free trials.
+     * The timestamp must be in the future and not more than 365 days from the end of the current trial period
+     * This operation is idempotent - repeated requests with the same timestamp will not change the trial period.
+     * 
+     * @return The call builder
+     */
+    public ExtendCommerceSubscriptionItemFreeTrialRequestBuilder extendSubscriptionItemFreeTrial() {
+        return new ExtendCommerceSubscriptionItemFreeTrialRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Extend free trial for a subscription item
+     * 
+     * <p>Extends the free trial period for a specific subscription item to the specified timestamp.
+     * The subscription item must be currently in a free trial period, and the plan must support free trials.
+     * The timestamp must be in the future and not more than 365 days from the end of the current trial period
+     * This operation is idempotent - repeated requests with the same timestamp will not change the trial period.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to extend the free trial for
+     * @param extendFreeTrialRequest 
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ExtendCommerceSubscriptionItemFreeTrialResponse extendSubscriptionItemFreeTrial(String subscriptionItemId, ExtendFreeTrialRequest extendFreeTrialRequest) throws Exception {
+        return extendSubscriptionItemFreeTrial(subscriptionItemId, extendFreeTrialRequest, Optional.empty());
+    }
+
+    /**
+     * Extend free trial for a subscription item
+     * 
+     * <p>Extends the free trial period for a specific subscription item to the specified timestamp.
+     * The subscription item must be currently in a free trial period, and the plan must support free trials.
+     * The timestamp must be in the future and not more than 365 days from the end of the current trial period
+     * This operation is idempotent - repeated requests with the same timestamp will not change the trial period.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to extend the free trial for
+     * @param extendFreeTrialRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ExtendCommerceSubscriptionItemFreeTrialResponse extendSubscriptionItemFreeTrial(
+            String subscriptionItemId, ExtendFreeTrialRequest extendFreeTrialRequest,
+            Optional<Options> options) throws Exception {
+        ExtendCommerceSubscriptionItemFreeTrialRequest request =
+            ExtendCommerceSubscriptionItemFreeTrialRequest
+                .builder()
+                .subscriptionItemId(subscriptionItemId)
+                .extendFreeTrialRequest(extendFreeTrialRequest)
+                .build();
+        RequestOperation<ExtendCommerceSubscriptionItemFreeTrialRequest, ExtendCommerceSubscriptionItemFreeTrialResponse> operation
+              = new ExtendCommerceSubscriptionItemFreeTrial.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

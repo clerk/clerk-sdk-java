@@ -31,7 +31,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetPublicInterstitial {
 
     static abstract class Base {
@@ -93,8 +92,7 @@ public class GetPublicInterstitial {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetPublicInterstitialRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/public/interstitial");
@@ -103,7 +101,7 @@ public class GetPublicInterstitial {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    GetPublicInterstitialRequest.class,
+                    klass,
                     request,
                     null));
 
@@ -118,7 +116,7 @@ public class GetPublicInterstitial {
         }
 
         private HttpRequest onBuildRequest(GetPublicInterstitialRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetPublicInterstitialRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

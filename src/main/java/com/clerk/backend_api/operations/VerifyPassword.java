@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class VerifyPassword {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class VerifyPassword {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(VerifyPasswordRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    VerifyPasswordRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/verify_password",
                     request, null);
@@ -110,8 +108,7 @@ public class VerifyPassword {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class VerifyPassword {
         }
 
         private HttpRequest onBuildRequest(VerifyPasswordRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, VerifyPasswordRequest.class, new TypeReference<VerifyPasswordRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

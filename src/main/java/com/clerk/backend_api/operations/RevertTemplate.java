@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevertTemplate {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RevertTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevertTemplateRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevertTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/templates/{template_type}/{slug}/revert",
                     request, null);
@@ -119,7 +117,7 @@ public class RevertTemplate {
         }
 
         private HttpRequest onBuildRequest(RevertTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevertTemplateRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

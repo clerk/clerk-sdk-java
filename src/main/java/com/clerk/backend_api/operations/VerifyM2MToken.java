@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class VerifyM2MToken {
 
     static abstract class Base {
@@ -99,8 +98,7 @@ public class VerifyM2MToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(VerifyM2MTokenRequestBody request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/m2m_tokens/verify");
@@ -108,8 +106,7 @@ public class VerifyM2MToken {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<VerifyM2MTokenRequestBody>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "request",
@@ -134,7 +131,7 @@ public class VerifyM2MToken {
         }
 
         private HttpRequest onBuildRequest(VerifyM2MTokenRequestBody request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, new TypeReference<VerifyM2MTokenRequestBody>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

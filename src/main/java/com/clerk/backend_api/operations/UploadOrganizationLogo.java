@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UploadOrganizationLogo {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UploadOrganizationLogo {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UploadOrganizationLogoRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UploadOrganizationLogoRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/logo",
                     request, null);
@@ -110,8 +108,7 @@ public class UploadOrganizationLogo {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class UploadOrganizationLogo {
         }
 
         private HttpRequest onBuildRequest(UploadOrganizationLogoRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UploadOrganizationLogoRequest.class, new TypeReference<UploadOrganizationLogoRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

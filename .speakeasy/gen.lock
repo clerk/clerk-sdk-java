@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: aa0e8124d4a66a769e20d3dd3f15430c
+  docChecksum: de1405838dc8c6c096e18a9badd21ac2
   docVersion: "2025-04-10"
-  speakeasyVersion: 1.606.9
-  generationVersion: 2.687.13
-  releaseVersion: 3.2.0
-  configChecksum: f3d7042b2bcda60d0654566265e2926c
+  speakeasyVersion: 1.611.0
+  generationVersion: 2.694.1
+  releaseVersion: 3.3.0
+  configChecksum: 33f3d74704ebf2c6c56bf34bd6a861e7
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.46.0
+    core: 3.47.1
     deprecations: 2.81.1
     examples: 2.81.6
     flattening: 2.81.1
@@ -29,6 +29,7 @@ features:
     retries: 0.1.1
     sdkHooks: 1.1.0
     unions: 0.0.6
+    uploadStreams: 0.1.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
@@ -90,6 +91,7 @@ generatedFiles:
   - docs/models/components/Error.md
   - docs/models/components/ErrorClerkError.md
   - docs/models/components/ErrorMeta.md
+  - docs/models/components/ExtendFreeTrialRequest.md
   - docs/models/components/ExternalAccount.md
   - docs/models/components/ExternalAccountWithVerification.md
   - docs/models/components/ExternalAccountWithVerificationObject.md
@@ -450,10 +452,14 @@ generatedFiles:
   - docs/models/operations/DeleteUserProfileImageResponse.md
   - docs/models/operations/DeleteUserRequest.md
   - docs/models/operations/DeleteUserResponse.md
+  - docs/models/operations/DeleteWaitlistEntryRequest.md
+  - docs/models/operations/DeleteWaitlistEntryResponse.md
   - docs/models/operations/DisableMFARequest.md
   - docs/models/operations/DisableMFAResponse.md
   - docs/models/operations/DisableMFAResponseBody.md
   - docs/models/operations/EnrollmentMode.md
+  - docs/models/operations/ExtendCommerceSubscriptionItemFreeTrialRequest.md
+  - docs/models/operations/ExtendCommerceSubscriptionItemFreeTrialResponse.md
   - docs/models/operations/File.md
   - docs/models/operations/Format.md
   - docs/models/operations/GenerateSvixAuthURLResponse.md
@@ -601,6 +607,9 @@ generatedFiles:
   - docs/models/operations/RevokeSessionResponse.md
   - docs/models/operations/RevokeSignInTokenRequest.md
   - docs/models/operations/RevokeSignInTokenResponse.md
+  - docs/models/operations/RotateMachineSecretKeyRequest.md
+  - docs/models/operations/RotateMachineSecretKeyRequestBody.md
+  - docs/models/operations/RotateMachineSecretKeyResponse.md
   - docs/models/operations/RotateOAuthApplicationSecretRequest.md
   - docs/models/operations/RotateOAuthApplicationSecretResponse.md
   - docs/models/operations/SetUserProfileImageRequest.md
@@ -856,6 +865,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Error.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorClerkError.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorMeta.java
+  - src/main/java/com/clerk/backend_api/models/components/ExtendFreeTrialRequest.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccount.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerification.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationObject.java
@@ -1273,11 +1283,17 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/EnrollmentMode.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendCommerceSubscriptionItemFreeTrialRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendCommerceSubscriptionItemFreeTrialRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendCommerceSubscriptionItemFreeTrialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/File.java
   - src/main/java/com/clerk/backend_api/models/operations/Format.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLRequestBuilder.java
@@ -1486,6 +1502,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretResponse.java
@@ -1694,7 +1714,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/DeleteTOTP.java
   - src/main/java/com/clerk/backend_api/operations/DeleteUser.java
   - src/main/java/com/clerk/backend_api/operations/DeleteUserProfileImage.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteWaitlistEntry.java
   - src/main/java/com/clerk/backend_api/operations/DisableMFA.java
+  - src/main/java/com/clerk/backend_api/operations/ExtendCommerceSubscriptionItemFreeTrial.java
   - src/main/java/com/clerk/backend_api/operations/GenerateSvixAuthURL.java
   - src/main/java/com/clerk/backend_api/operations/GetClient.java
   - src/main/java/com/clerk/backend_api/operations/GetClientList.java
@@ -1757,6 +1779,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/RevokeOrganizationInvitation.java
   - src/main/java/com/clerk/backend_api/operations/RevokeSession.java
   - src/main/java/com/clerk/backend_api/operations/RevokeSignInToken.java
+  - src/main/java/com/clerk/backend_api/operations/RotateMachineSecretKey.java
   - src/main/java/com/clerk/backend_api/operations/RotateOAuthApplicationSecret.java
   - src/main/java/com/clerk/backend_api/operations/SetUserProfileImage.java
   - src/main/java/com/clerk/backend_api/operations/ToggleTemplateDelivery.java
@@ -1799,6 +1822,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/BackoffStrategy.java
   - src/main/java/com/clerk/backend_api/utils/BigDecimalString.java
   - src/main/java/com/clerk/backend_api/utils/BigIntegerString.java
+  - src/main/java/com/clerk/backend_api/utils/Blob.java
   - src/main/java/com/clerk/backend_api/utils/BlockingParser.java
   - src/main/java/com/clerk/backend_api/utils/Constants.java
   - src/main/java/com/clerk/backend_api/utils/CopiableInputStream.java
@@ -1847,6 +1871,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/Types.java
   - src/main/java/com/clerk/backend_api/utils/Utf8UrlEncoder.java
   - src/main/java/com/clerk/backend_api/utils/Utils.java
+  - src/main/java/com/clerk/backend_api/utils/reactive/ReactiveUtils.java
 examples:
   GetPublicInterstitial: {}
   GetJWKS:
@@ -3473,6 +3498,47 @@ examples:
           application/json: {"errors": []}
         "404":
           application/json: {"errors": []}
+  RotateMachineSecretKey:
+    speakeasy-default-rotate-machine-secret-key:
+      parameters:
+        path:
+          machine_id: "<id>"
+      requestBody:
+        application/json: {"previous_token_ttl": 632625}
+      responses:
+        "200":
+          application/json: {"object": "machine_secret_key", "secret": "<value>"}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteWaitlistEntry:
+    speakeasy-default-delete-waitlist-entry:
+      parameters:
+        path:
+          waitlist_entry_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": false}
+        "400":
+          application/json: {"errors": []}
+  ExtendCommerceSubscriptionItemFreeTrial:
+    speakeasy-default-extend-commerce-subscription-item-free-trial:
+      parameters:
+        path:
+          subscription_item_id: "<id>"
+      requestBody:
+        application/json: {"extend_to": "2026-01-08T00:00:00Z"}
+      responses:
+        "200":
+          application/json: {"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "incomplete", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 246876, "amount_formatted": "<value>", "currency": "Afghani", "currency_symbol": "kr"}, "annual_monthly_fee": {"amount": 802114, "amount_formatted": "<value>", "currency": "Czech Koruna", "currency_symbol": "£"}, "annual_fee": {"amount": 35560, "amount_formatted": "<value>", "currency": "Lek", "currency_symbol": "$U"}, "amount": 547002, "amount_formatted": "<value>", "annual_monthly_amount": 229468, "annual_monthly_amount_formatted": "<value>", "annual_amount": 799095, "annual_amount_formatted": "<value>", "currency_symbol": "₭", "currency": "Cayman Islands Dollar", "description": "under for anenst finally", "product_id": "<id>", "is_default": false, "is_recurring": false, "publicly_visible": false, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://thorny-monocle.name", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "tiny among all hopelessly sympathetically up scar", "slug": "<value>", "avatar_url": "https://immediate-equal.com/"}]}, "plan_period": "month", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": false, "proration_date": "<value>", "created_at": 518769, "updated_at": 177754}
+        "400":
+          application/json: {"errors": []}
+        "500":
+          application/json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## SDK Changes Detected:\n* `clerk.sessions.createToken()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.update()`: \n  *  `requestbody.domains` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.list()`:  `response.data.[]` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.update()`:  `requestbody` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.create()`:  `request` **Changed** **Breaking** :warning:\n* `clerk.instanceSettings.updateRestrictions()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.organizationInvitations.list()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `error.status[422]` **Added**\n* `clerk.users.updateMetadata()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.deleteProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.setProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unlock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.lock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.ban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.update()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.create()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.list()`:  `response.[]` **Changed** **Breaking** :warning:\n* `clerk.sessions.createTokenFromTemplate()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.m2m.createToken()`: **Added**\n* `clerk.invitations.list()`: \n  *  `request.orderBy` **Changed**\n* `clerk.m2m.verifyToken()`: **Added**\n* `clerk.oauthAccessTokens.verify()`: **Added**\n* `clerk.sessions.verify()`: **Deleted** **Breaking** :warning:\n* `clerk.emailAddresses.create()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.get()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.update()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.create()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.get()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.update()`:  `response.verification` **Changed**\n* `clerk.m2m.listTokens()`: **Added**\n* `clerk.awsCredentials.delete()`: **Added**\n* `clerk.emailSmsTemplates.list()`:  `response.[]` **Changed**\n* `clerk.emailSmsTemplates.get()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.revert()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.toggleTemplateDelivery()`:  `response` **Changed**\n* `clerk.emailAndSmsTemplates.upsert()`:  `response` **Changed**\n* `clerk.commerce.cancelSubscriptionItem()`: **Added**\n* `clerk.commerce.listSubscriptionItems()`: **Added**\n* `clerk.commerce.listPlans()`: **Added**\n* `clerk.waitlistEntries.reject()`: **Added**\n* `clerk.waitlistEntries.invite()`: **Added**\n* `clerk.organizationDomains.listAll()`: **Added**\n* `clerk.organizations.getBillingSubscription()`: **Added**\n* `clerk.machines.deleteScope()`: **Added**\n* `clerk.machines.createScope()`: **Added**\n* `clerk.machines.getSecretKey()`: **Added**\n* `clerk.machines.delete()`: **Added**\n* `clerk.users.getOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.users.getInstanceOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.m2m.revokeToken()`: **Added**\n* `clerk.machines.update()`: **Added**\n* `clerk.machines.get()`: **Added**\n* `clerk.instanceSettings.updateOrganizationSettings()`:  `response.max_allowed_permissions` **Changed**\n* `clerk.machines.create()`: **Added**\n* `clerk.machines.list()`: **Added**\n* `clerk.organizations.list()`:  `response.data.[]` **Changed**\n* `clerk.organizations.create()`:  `response` **Changed**\n* `clerk.organizations.get()`:  `response` **Changed**\n* `clerk.organizations.update()`:  `response` **Changed**\n* `clerk.organizations.mergeMetadata()`:  `response` **Changed**\n* `clerk.organizations.uploadLogo()`:  `response.private_metadata` **Changed**\n* `clerk.organizations.deleteLogo()`:  `response` **Changed**\n* `clerk.organizationMemberships.create()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.list()`:  `response.data.[].organization` **Changed**\n* `clerk.organizationMemberships.update()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.delete()`: \n  *  `response.organization` **Changed**\n  *  `error.status[422]` **Added**\n* `clerk.organizationMemberships.updateMetadata()`:  `response.organization` **Changed**\n* `clerk.organizationDomains.create()`:  `response.public_organization_data` **Added**\n* `clerk.organizationDomains.list()`:  `response.data.[].publicOrganizationData` **Added**\n* `clerk.organizationDomains.update()`:  `response.public_organization_data` **Added**\n* `clerk.oauthApplications.list()`: \n  *  `request` **Changed**\n  *  `response.data.[]` **Changed**\n* `clerk.oauthApplications.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.get()`:  `response` **Changed**\n* `clerk.oauthApplications.update()`: \n  *  `requestbody` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.rotateSecret()`:  `response` **Changed**\n* `clerk.users.getBillingSubscription()`: **Added**\n* `clerk.users.bulkUnban()`: **Added**\n* `clerk.users.bulkBan()`: **Added**\n* `clerk.awsCredentials.update()`: **Added**\n"
+releaseNotes: |
+  ## Java SDK Changes Detected:
+  * `clerk.machines.rotateSecretKey()`: **Added**
+  * `clerk.waitlistEntries.delete()`: **Added**
+  * `clerk.commerce.extendSubscriptionItemFreeTrial()`: **Added**
+  * `clerk.commerce.listSubscriptionItems()`:  `request` **Changed**

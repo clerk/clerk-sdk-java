@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class CancelCommerceSubscriptionItem {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class CancelCommerceSubscriptionItem {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(CancelCommerceSubscriptionItemRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    CancelCommerceSubscriptionItemRequest.class,
+                    klass,
                     this.baseUrl,
                     "/commerce/subscription_items/{subscription_item_id}",
                     request, null);
@@ -108,7 +106,7 @@ public class CancelCommerceSubscriptionItem {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    CancelCommerceSubscriptionItemRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -124,7 +122,7 @@ public class CancelCommerceSubscriptionItem {
         }
 
         private HttpRequest onBuildRequest(CancelCommerceSubscriptionItemRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, CancelCommerceSubscriptionItemRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

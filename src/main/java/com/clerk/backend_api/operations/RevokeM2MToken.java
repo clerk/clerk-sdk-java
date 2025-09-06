@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeM2MToken {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class RevokeM2MToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeM2MTokenRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    RevokeM2MTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/m2m_tokens/{m2m_token_id}/revoke",
                     request, null);
@@ -110,8 +108,7 @@ public class RevokeM2MToken {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -136,7 +133,7 @@ public class RevokeM2MToken {
         }
 
         private HttpRequest onBuildRequest(RevokeM2MTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeM2MTokenRequest.class, new TypeReference<RevokeM2MTokenRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

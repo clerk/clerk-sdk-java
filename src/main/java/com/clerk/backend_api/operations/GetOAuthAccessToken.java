@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetOAuthAccessToken {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetOAuthAccessToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetOAuthAccessTokenRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetOAuthAccessTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/oauth_access_tokens/{provider}",
                     request, null);
@@ -108,7 +106,7 @@ public class GetOAuthAccessToken {
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
 
             req.addQueryParams(Utils.getQueryParams(
-                    GetOAuthAccessTokenRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -124,7 +122,7 @@ public class GetOAuthAccessToken {
         }
 
         private HttpRequest onBuildRequest(GetOAuthAccessTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetOAuthAccessTokenRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

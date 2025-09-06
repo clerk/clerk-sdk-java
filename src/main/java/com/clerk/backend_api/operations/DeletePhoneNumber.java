@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeletePhoneNumber {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeletePhoneNumber {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeletePhoneNumberRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeletePhoneNumberRequest.class,
+                    klass,
                     this.baseUrl,
                     "/phone_numbers/{phone_number_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeletePhoneNumber {
         }
 
         private HttpRequest onBuildRequest(DeletePhoneNumberRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeletePhoneNumberRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

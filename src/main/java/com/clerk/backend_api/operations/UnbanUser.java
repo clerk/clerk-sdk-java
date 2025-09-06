@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UnbanUser {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class UnbanUser {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UnbanUserRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    UnbanUserRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/unban",
                     request, null);
@@ -119,7 +117,7 @@ public class UnbanUser {
         }
 
         private HttpRequest onBuildRequest(UnbanUserRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UnbanUserRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

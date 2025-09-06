@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class UpdateEmailAddress {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class UpdateEmailAddress {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpdateEmailAddressRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpdateEmailAddressRequest.class,
+                    klass,
                     this.baseUrl,
                     "/email_addresses/{email_address_id}",
                     request, null);
@@ -110,8 +108,7 @@ public class UpdateEmailAddress {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class UpdateEmailAddress {
         }
 
         private HttpRequest onBuildRequest(UpdateEmailAddressRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpdateEmailAddressRequest.class, new TypeReference<UpdateEmailAddressRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

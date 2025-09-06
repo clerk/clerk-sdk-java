@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteJWTTemplate {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteJWTTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteJWTTemplateRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteJWTTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/jwt_templates/{template_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteJWTTemplate {
         }
 
         private HttpRequest onBuildRequest(DeleteJWTTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteJWTTemplateRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

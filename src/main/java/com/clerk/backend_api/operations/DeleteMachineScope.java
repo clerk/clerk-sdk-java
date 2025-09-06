@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteMachineScope {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteMachineScope {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteMachineScopeRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteMachineScopeRequest.class,
+                    klass,
                     this.baseUrl,
                     "/machines/{machine_id}/scopes/{other_machine_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteMachineScope {
         }
 
         private HttpRequest onBuildRequest(DeleteMachineScopeRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteMachineScopeRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

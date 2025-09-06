@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeInvitation {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class RevokeInvitation {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeInvitationRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevokeInvitationRequest.class,
+                    klass,
                     this.baseUrl,
                     "/invitations/{invitation_id}/revoke",
                     request, null);
@@ -119,7 +117,7 @@ public class RevokeInvitation {
         }
 
         private HttpRequest onBuildRequest(RevokeInvitationRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeInvitationRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetMachine {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetMachine {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetMachineRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetMachineRequest.class,
+                    klass,
                     this.baseUrl,
                     "/machines/{machine_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetMachine {
         }
 
         private HttpRequest onBuildRequest(GetMachineRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetMachineRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

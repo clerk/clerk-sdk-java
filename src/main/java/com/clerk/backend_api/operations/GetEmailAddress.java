@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetEmailAddress {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetEmailAddress {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetEmailAddressRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetEmailAddressRequest.class,
+                    klass,
                     this.baseUrl,
                     "/email_addresses/{email_address_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetEmailAddress {
         }
 
         private HttpRequest onBuildRequest(GetEmailAddressRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetEmailAddressRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

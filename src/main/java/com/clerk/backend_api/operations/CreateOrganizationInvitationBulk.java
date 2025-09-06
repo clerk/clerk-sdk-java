@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class CreateOrganizationInvitationBulk {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class CreateOrganizationInvitationBulk {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(CreateOrganizationInvitationBulkRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    CreateOrganizationInvitationBulkRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/invitations/bulk",
                     request, null);
@@ -110,8 +108,7 @@ public class CreateOrganizationInvitationBulk {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -136,7 +133,7 @@ public class CreateOrganizationInvitationBulk {
         }
 
         private HttpRequest onBuildRequest(CreateOrganizationInvitationBulkRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, CreateOrganizationInvitationBulkRequest.class, new TypeReference<CreateOrganizationInvitationBulkRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class DeleteOAuthApplication {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class DeleteOAuthApplication {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(DeleteOAuthApplicationRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    DeleteOAuthApplicationRequest.class,
+                    klass,
                     this.baseUrl,
                     "/oauth_applications/{oauth_application_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class DeleteOAuthApplication {
         }
 
         private HttpRequest onBuildRequest(DeleteOAuthApplicationRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, DeleteOAuthApplicationRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

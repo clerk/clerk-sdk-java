@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetJWTTemplate {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetJWTTemplate {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetJWTTemplateRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetJWTTemplateRequest.class,
+                    klass,
                     this.baseUrl,
                     "/jwt_templates/{template_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetJWTTemplate {
         }
 
         private HttpRequest onBuildRequest(GetJWTTemplateRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetJWTTemplateRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

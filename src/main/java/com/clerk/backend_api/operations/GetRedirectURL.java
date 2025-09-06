@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetRedirectURL {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetRedirectURL {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetRedirectURLRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetRedirectURLRequest.class,
+                    klass,
                     this.baseUrl,
                     "/redirect_urls/{id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetRedirectURL {
         }
 
         private HttpRequest onBuildRequest(GetRedirectURLRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetRedirectURLRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class MergeOrganizationMetadata {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class MergeOrganizationMetadata {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(MergeOrganizationMetadataRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    MergeOrganizationMetadataRequest.class,
+                    klass,
                     this.baseUrl,
                     "/organizations/{organization_id}/metadata",
                     request, null);
@@ -110,8 +108,7 @@ public class MergeOrganizationMetadata {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -136,7 +133,7 @@ public class MergeOrganizationMetadata {
         }
 
         private HttpRequest onBuildRequest(MergeOrganizationMetadataRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, MergeOrganizationMetadataRequest.class, new TypeReference<MergeOrganizationMetadataRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

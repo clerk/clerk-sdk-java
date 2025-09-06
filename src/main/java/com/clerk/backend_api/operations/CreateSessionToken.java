@@ -37,7 +37,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class CreateSessionToken {
 
     static abstract class Base {
@@ -99,10 +98,9 @@ public class CreateSessionToken {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(CreateSessionTokenRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    CreateSessionTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/sessions/{session_id}/tokens",
                     request, null);
@@ -110,8 +108,7 @@ public class CreateSessionToken {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
@@ -133,7 +130,7 @@ public class CreateSessionToken {
         }
 
         private HttpRequest onBuildRequest(CreateSessionTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, CreateSessionTokenRequest.class, new TypeReference<CreateSessionTokenRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

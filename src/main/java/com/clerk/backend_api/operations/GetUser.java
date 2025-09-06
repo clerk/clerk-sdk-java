@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class GetUser {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class GetUser {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(GetUserRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    GetUserRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}",
                     request, null);
@@ -119,7 +117,7 @@ public class GetUser {
         }
 
         private HttpRequest onBuildRequest(GetUserRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, GetUserRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

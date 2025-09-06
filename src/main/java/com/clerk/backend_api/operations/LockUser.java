@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class LockUser {
 
     static abstract class Base {
@@ -96,10 +95,9 @@ public class LockUser {
                     java.util.Optional.of(java.util.List.of()),
                     securitySource());
         }
-
-        HttpRequest buildRequest(LockUserRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    LockUserRequest.class,
+                    klass,
                     this.baseUrl,
                     "/users/{user_id}/lock",
                     request, null);
@@ -119,7 +117,7 @@ public class LockUser {
         }
 
         private HttpRequest onBuildRequest(LockUserRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, LockUserRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 

@@ -739,9 +739,6 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.user().isPresent()) {
-            // handle response
-        }
     }
 }
 ```
