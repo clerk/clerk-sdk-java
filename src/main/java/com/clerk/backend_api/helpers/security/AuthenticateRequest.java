@@ -114,7 +114,16 @@ public final class AuthenticateRequest {
                     .authorizedParties(options.authorizedParties()) //
                     .clockSkew(options.clockSkewInMs(), TimeUnit.MILLISECONDS) //
                     .build();
-        } else {
+        }
+        else if (options.machineSecretKey().isPresent()) {
+            return VerifyTokenOptions
+                .machineSecretKey(options.machineSecretKey().get())
+                .audience(options.audience())
+                .authorizedParties(options.authorizedParties())
+                .clockSkew(options.clockSkewInMs(), TimeUnit.MILLISECONDS)
+                .build();
+        }
+        else {
             return new VerifyTokenOptions.Builder().build();
         }
     }
