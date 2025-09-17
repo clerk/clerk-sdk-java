@@ -166,6 +166,7 @@ public class UserAuthentication {
             .build());
         return requestState.isSignedIn();
     }
+}
 ```
 
 If the request is correctly authenticated, the token's claims are made available in `requestState.claims()`. Otherwise the reason for the token verification failure is given by `requestState.reason()`.
