@@ -1,5 +1,6 @@
 package com.clerk.backend_api.helpers.security.token_verifiers.impl;
 
+import com.clerk.backend_api.helpers.security.Cache;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationErrorReason;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationResponse;
@@ -33,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 public class JwtSessionTokenVerifier {
+
+    private static final Cache jwkCache = new Cache();
 
     /**
      * Verifies a Clerk-generated token signature. Networkless if the options.jwtKey
@@ -204,13 +207,26 @@ public class JwtSessionTokenVerifier {
 
         String kid = parseKid(token);
 
+        // Check cache first
+        String cachedPem = jwkCache.get(kid);
+        if (cachedPem != null) {
+            return getLocalJwtKey(cachedPem);
+        }
+
+        // Not in cache, fetch from API
         for (JsonNode node : fetchJwks(options)) {
             if (kid.equals(node.get("kid").asText())) {
                 try {
                     KeyFactory kf = KeyFactory.getInstance("RSA");
                     BigInteger n = new BigInteger(1, Base64.getUrlDecoder().decode(node.get("n").asText()));
                     BigInteger e = new BigInteger(1, Base64.getUrlDecoder().decode(node.get("e").asText()));
-                    return kf.generatePublic(new RSAPublicKeySpec(n, e));
+                    Key key = kf.generatePublic(new RSAPublicKeySpec(n, e));
+
+                    // Convert to PEM format and cache
+                    String pem = keyToPem(key);
+                    jwkCache.set(kid, pem);
+
+                    return key;
 
                 } catch (Exception e) {
                     throw new TokenVerificationException(TokenVerificationErrorReason.JWK_FAILED_TO_RESOLVE, e);
@@ -219,6 +235,18 @@ public class JwtSessionTokenVerifier {
         }
 
         throw new TokenVerificationException(TokenVerificationErrorReason.JWK_KID_MISMATCH);
+    }
+
+    /**
+     * Converts a Key to PEM format.
+     *
+     * @param key The key to convert.
+     * @return The PEM formatted key.
+     */
+    private static String keyToPem(Key key) {
+        byte[] encoded = key.getEncoded();
+        String base64 = Base64.getEncoder().encodeToString(encoded);
+        return "-----BEGIN PUBLIC KEY-----\n" + base64 + "\n-----END PUBLIC KEY-----";
     }
 
     /**
