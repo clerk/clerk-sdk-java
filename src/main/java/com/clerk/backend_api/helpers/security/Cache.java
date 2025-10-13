@@ -1,5 +1,7 @@
 package com.clerk.backend_api.helpers.security;
 
+import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,5 +68,26 @@ public class Cache {
         }
 
         return null;
+    }
+
+    /**
+     * Retrieves a value from the cache if it exists and has not expired.
+     * If the value is not present in the cache, computes it using the provided supplier,
+     * stores it in the cache, and returns it.
+     *
+     * @param key      The cache key.
+     * @param supplier The supplier to compute the value if not present in cache.
+     * @return The cached or computed value.
+     * @throws TokenVerificationException if the supplier throws an exception.
+     */
+    public String getOrCompute(String key, CheckedSupplier<String, TokenVerificationException> supplier) throws TokenVerificationException {
+        String cachedValue = get(key);
+        if (cachedValue != null) {
+            return cachedValue;
+        }
+
+        String computedValue = supplier.get();
+        set(key, computedValue);
+        return computedValue;
     }
 }
