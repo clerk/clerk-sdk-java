@@ -106,6 +106,7 @@ public final class AuthenticateRequest {
                     .audience(options.audience()) //
                     .authorizedParties(options.authorizedParties()) //
                     .clockSkew(options.clockSkewInMs(), TimeUnit.MILLISECONDS) //
+                    .skipJwksCache(options.skipJwksCache()) //
                     .build();
         } else if (options.secretKey().isPresent()) {
             return VerifyTokenOptions //
@@ -113,6 +114,7 @@ public final class AuthenticateRequest {
                     .audience(options.audience()) //
                     .authorizedParties(options.authorizedParties()) //
                     .clockSkew(options.clockSkewInMs(), TimeUnit.MILLISECONDS) //
+                    .skipJwksCache(options.skipJwksCache()) //
                     .build();
         }
         else if (options.machineSecretKey().isPresent()) {
@@ -121,6 +123,7 @@ public final class AuthenticateRequest {
                 .audience(options.audience())
                 .authorizedParties(options.authorizedParties())
                 .clockSkew(options.clockSkewInMs(), TimeUnit.MILLISECONDS)
+                .skipJwksCache(options.skipJwksCache()) //
                 .build();
         }
         else {

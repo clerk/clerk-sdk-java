@@ -207,10 +207,12 @@ public class JwtSessionTokenVerifier {
 
         String kid = parseKid(token);
 
-        // Check cache first
-        String cachedPem = jwkCache.get(kid);
-        if (cachedPem != null) {
-            return getLocalJwtKey(cachedPem);
+        if (!options.skipJwksCache()) {
+            // Check cache first
+            String cachedPem = jwkCache.get(kid);
+            if (cachedPem != null) {
+                return getLocalJwtKey(cachedPem);
+            }
         }
 
         // Not in cache, fetch from API
