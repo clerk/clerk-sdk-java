@@ -2,14 +2,14 @@ package com.clerk.backend_api.helpers.security;
 
 import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * In-memory cache with expiration.
  */
 public class Cache {
-    private final Map<String, CacheEntry> cache = new HashMap<>();
+    private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private final int expirationTimeSeconds = 300; // 5 minutes
 
     private static class CacheEntry {
