@@ -1,5 +1,6 @@
 package com.clerk.backend_api.helpers.security.token_verifiers.impl;
 
+import com.clerk.backend_api.helpers.security.Cache;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationErrorReason;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationException;
 import com.clerk.backend_api.helpers.security.models.TokenVerificationResponse;
@@ -15,6 +16,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.PrematureJwtException;
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.impl.security.ConstantKeyLocator;
+
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URI;
@@ -34,6 +36,8 @@ import java.util.Map;
 
 public class JwtSessionTokenVerifier {
 
+    private static final Cache jwkCache = new Cache();
+
     /**
      * Verifies a Clerk-generated token signature. Networkless if the options.jwtKey
      * is provided.
@@ -43,10 +47,10 @@ public class JwtSessionTokenVerifier {
      * @param token   The token to verify.
      * @param options The options associated with parsing and verifying the JWT.
      * @return Claims (being a map of properties with specialized accessors for
-     *         standard claim properties).
+     * standard claim properties).
      * @throws TokenVerificationException if token does not verify. A
-     *                causing exception if present should not be considered part of
-     *                the public API (subject to change).
+     *                                    causing exception if present should not be considered part of
+     *                                    the public API (subject to change).
      */
     public static TokenVerificationResponse<Claims> verify(String token, VerifyTokenOptions options) throws TokenVerificationException {
 
@@ -55,15 +59,14 @@ public class JwtSessionTokenVerifier {
             key = getLocalJwtKey(options.jwtKey().get());
         } else if (options.secretKey().isPresent()) {
             key = getRemoteJwtKey(token, options);
-        }
-        else {
+        } else {
             throw new TokenVerificationException(TokenVerificationErrorReason.SECRET_KEY_MISSING);
         }
 
         JwtParserBuilder builder = Jwts //
-            .parser() //
-            .clockSkewSeconds(options.clockSkewInMs() / 1000) //
-            .keyLocator(new ConstantKeyLocator(key, null));
+                .parser() //
+                .clockSkewSeconds(options.clockSkewInMs() / 1000) //
+                .keyLocator(new ConstantKeyLocator(key, null));
 
         options.audience().ifPresent(builder::requireAudience);
 
@@ -175,8 +178,8 @@ public class JwtSessionTokenVerifier {
     private static Key getLocalJwtKey(String jwtKey) throws TokenVerificationException {
 
         String pemContent = jwtKey.replace("-----BEGIN PUBLIC KEY-----", "")
-            .replace("-----END PUBLIC KEY-----", "")
-            .replaceAll("\\s", "");
+                .replace("-----END PUBLIC KEY-----", "")
+                .replaceAll("\\s", "");
 
         try {
             byte[] decodedKey = Base64.getDecoder().decode(pemContent);
@@ -190,7 +193,7 @@ public class JwtSessionTokenVerifier {
 
     /**
      * Retrieves the RSA public key used to sign the token from Clerk's Backend API.
-     *
+     * <p>
      * First the key identifier (kid) is parsed from the token header.
      * Then the public key is retrieved from Clerk's JWKS by looking for a matching
      * kid.
@@ -201,24 +204,53 @@ public class JwtSessionTokenVerifier {
      * @throws TokenVerificationException if the public key could not be resolved.
      */
     private static Key getRemoteJwtKey(String token, VerifyTokenOptions options) throws TokenVerificationException {
-
         String kid = parseKid(token);
 
-        for (JsonNode node : fetchJwks(options)) {
-            if (kid.equals(node.get("kid").asText())) {
-                try {
+        if (options.skipJwksCache()) {
+            // Bypass cache, fetch directly from API
+            return getLocalJwtKey(fetchAndConvertJwk(kid, options));
+        }
+
+        // Use cache-aside pattern: check cache, populate if missing
+        String pem = jwkCache.getOrCompute(kid, () -> fetchAndConvertJwk(kid, options));
+        return getLocalJwtKey(pem);
+    }
+
+    /**
+     * Fetches the JWK for the given kid from Clerk's Backend API and converts it to PEM format.
+     *
+     * @param kid     The key identifier to fetch.
+     * @param options The options used for token verification.
+     * @return The public key in PEM format.
+     * @throws TokenVerificationException if the key cannot be fetched.
+     */
+    private static String fetchAndConvertJwk(String kid, VerifyTokenOptions options) throws TokenVerificationException {
+        try {
+            for (JsonNode node : fetchJwks(options)) {
+                if (kid.equals(node.get("kid").asText())) {
                     KeyFactory kf = KeyFactory.getInstance("RSA");
                     BigInteger n = new BigInteger(1, Base64.getUrlDecoder().decode(node.get("n").asText()));
                     BigInteger e = new BigInteger(1, Base64.getUrlDecoder().decode(node.get("e").asText()));
-                    return kf.generatePublic(new RSAPublicKeySpec(n, e));
-
-                } catch (Exception e) {
-                    throw new TokenVerificationException(TokenVerificationErrorReason.JWK_FAILED_TO_RESOLVE, e);
+                    Key key = kf.generatePublic(new RSAPublicKeySpec(n, e));
+                    return keyToPem(key);
                 }
             }
+        } catch (Exception e) {
+            throw new TokenVerificationException(TokenVerificationErrorReason.JWK_FAILED_TO_RESOLVE, e);
         }
-
         throw new TokenVerificationException(TokenVerificationErrorReason.JWK_KID_MISMATCH);
+    }
+
+    /**
+     * Converts a Key to PEM format.
+     *
+     * @param key The key to convert.
+     * @return The PEM formatted key.
+     */
+    private static String keyToPem(Key key) {
+        byte[] encoded = key.getEncoded();
+        String base64 = Base64.getEncoder().encodeToString(encoded);
+        return "-----BEGIN PUBLIC KEY-----\n" + base64 + "\n-----END PUBLIC KEY-----";
     }
 
     /**
@@ -271,10 +303,10 @@ public class JwtSessionTokenVerifier {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(jwksUrl))
-            .header("Accept", "application/json")
-            .header("Authorization", bearerAuth)
-            .build();
+                .uri(URI.create(jwksUrl))
+                .header("Accept", "application/json")
+                .header("Authorization", bearerAuth)
+                .build();
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

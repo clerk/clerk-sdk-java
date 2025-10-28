@@ -25,7 +25,7 @@ public final class VerifyTokenOptions {
     private final long clockSkewInMs;
     private final String apiUrl;
     private final String apiVersion;
-
+    private final boolean skipJwksCache;
     /**
      * Options to configure VerifyToken.
      *
@@ -53,7 +53,8 @@ public final class VerifyTokenOptions {
             Set<String> authorizedParties,
             Optional<Long> clockSkewInMs,
             Optional<String> apiUrl,
-            Optional<String> apiVersion) {
+            Optional<String> apiVersion,
+            boolean skipJwksCache) {
 
         Utils.checkNotNull(audience, "audience");
         Utils.checkNotNull(authorizedParties, "authorizedParties");
@@ -72,6 +73,7 @@ public final class VerifyTokenOptions {
         this.machineSecretKey = machineSecretKey;
         this.apiUrl = apiUrl.orElse(DEFAULT_API_URL);
         this.apiVersion = apiVersion.orElse(DEFAULT_API_VERSION);
+        this.skipJwksCache = skipJwksCache;
     }
 
     public Optional<String> audience() {
@@ -106,6 +108,10 @@ public final class VerifyTokenOptions {
         return apiVersion;
     }
 
+    public boolean skipJwksCache() {
+        return skipJwksCache;
+    }
+
     public static Builder secretKey(String secretKey) {
         return Builder.withSecretKey(secretKey);
     }
@@ -128,7 +134,7 @@ public final class VerifyTokenOptions {
         private long clockSkewInMs = DEFAULT_CLOCK_SKEW_MS;
         private String apiUrl = DEFAULT_API_URL;
         private String apiVersion = DEFAULT_API_VERSION;
-
+        private boolean skipJwksCache = false;
         public static Builder withSecretKey(String secretKey) {
             Utils.checkNotNull(secretKey, "secretKey");
             Builder builder = new Builder();
@@ -210,6 +216,11 @@ public final class VerifyTokenOptions {
             return this;
         }
 
+        public Builder skipJwksCache(boolean skipJwksCache) {
+            this.skipJwksCache = skipJwksCache;
+            return this;
+        }
+
         public VerifyTokenOptions build() {
             return new VerifyTokenOptions(secretKey,
                     jwtKey,
@@ -218,7 +229,8 @@ public final class VerifyTokenOptions {
                     authorizedParties,
                     Optional.of(clockSkewInMs),
                     Optional.of(apiUrl),
-                    Optional.of(apiVersion));
+                    Optional.of(apiVersion),
+                    skipJwksCache);
         }
     }
 }

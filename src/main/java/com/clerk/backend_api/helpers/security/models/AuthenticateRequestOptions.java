@@ -24,6 +24,7 @@ public final class AuthenticateRequestOptions {
     private final Set<String> authorizedParties;
     private final long clockSkewInMs;
     private final List<String> acceptsToken;
+    private final boolean skipJwksCache;
 
     /**
      * Options to configure AuthenticateRequest.
@@ -47,7 +48,8 @@ public final class AuthenticateRequestOptions {
             Optional<String> audience,
             Set<String> authorizedParties,
             Optional<Long> clockSkewInMs,
-            Optional<List<String>> acceptsToken
+            Optional<List<String>> acceptsToken,
+            boolean skipJwksCache
         ) {
 
         Utils.checkNotNull(secretKey, "secretKey");
@@ -66,6 +68,7 @@ public final class AuthenticateRequestOptions {
         this.acceptsToken = acceptsToken.orElse(TokenType.getAllTypes().stream().map(TokenType::getType).collect(
             Collectors.toList())
         );
+        this.skipJwksCache = skipJwksCache;
     }
 
     public Optional<String> secretKey() {
@@ -96,6 +99,10 @@ public final class AuthenticateRequestOptions {
         return acceptsToken;
     }
 
+    public boolean skipJwksCache() {
+        return skipJwksCache;
+    }
+
     public static Builder secretKey(String secretKey) {
         return Builder.withSecretKey(secretKey);
     }
@@ -118,7 +125,7 @@ public final class AuthenticateRequestOptions {
         private Set<String> authorizedParties = new HashSet<>();
         private Optional<List<String>> acceptsToken = Optional.empty();
         private long clockSkewInMs = DEFAULT_CLOCK_SKEW_MS;
-
+        private boolean skipJwksCache = false;
         private Builder() {}
 
         public static Builder withSecretKey(String secretKey) {
@@ -184,13 +191,18 @@ public final class AuthenticateRequestOptions {
             return this;
         }
 
+        public Builder skipJwksCache(boolean skipJwksCache) {
+            this.skipJwksCache = skipJwksCache;
+            return this;
+        }
+
         public AuthenticateRequestOptions build() {
             return new AuthenticateRequestOptions(secretKey,
                     jwtKey,
                     machineSecretKey,
                     audience,
                     authorizedParties,
-                    Optional.of(clockSkewInMs),acceptsToken);
+                    Optional.of(clockSkewInMs),acceptsToken, skipJwksCache);
         }
     }
 }
