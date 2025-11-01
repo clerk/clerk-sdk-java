@@ -13,13 +13,14 @@ import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainReq
 import com.clerk.backend_api.models.operations.UpdateProductionInstanceDomainResponse;
 import com.clerk.backend_api.operations.UpdateInstanceAuthConfig;
 import com.clerk.backend_api.operations.UpdateProductionInstanceDomain;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class BetaFeatures {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     BetaFeatures(SDKConfiguration sdkConfiguration) {
@@ -43,9 +44,9 @@ public class BetaFeatures {
      * <p>Updates the settings of an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceAuthConfigResponse updateInstanceSettingsDirect() throws Exception {
+    public UpdateInstanceAuthConfigResponse updateInstanceSettingsDirect() {
         return updateInstanceSettings(Optional.empty(), Optional.empty());
     }
 
@@ -57,11 +58,11 @@ public class BetaFeatures {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceAuthConfigResponse updateInstanceSettings(Optional<? extends UpdateInstanceAuthConfigRequestBody> request, Optional<Options> options) throws Exception {
+    public UpdateInstanceAuthConfigResponse updateInstanceSettings(Optional<? extends UpdateInstanceAuthConfigRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceAuthConfigRequestBody>, UpdateInstanceAuthConfigResponse> operation
-              = new UpdateInstanceAuthConfig.Sync(sdkConfiguration, options);
+              = new UpdateInstanceAuthConfig.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -70,9 +71,13 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -87,16 +92,20 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomainDirect() throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomainDirect() {
         return updateProductionInstanceDomain(Optional.empty(), Optional.empty());
     }
 
@@ -105,20 +114,24 @@ public class BetaFeatures {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(Optional<? extends UpdateProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
+    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(Optional<? extends UpdateProductionInstanceDomainRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateProductionInstanceDomainRequestBody>, UpdateProductionInstanceDomainResponse> operation
-              = new UpdateProductionInstanceDomain.Sync(sdkConfiguration, options);
+              = new UpdateProductionInstanceDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

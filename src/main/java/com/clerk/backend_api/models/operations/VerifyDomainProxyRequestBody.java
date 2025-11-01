@@ -23,7 +23,8 @@ public class VerifyDomainProxyRequestBody {
     private Optional<String> domainId;
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * e.g. https://example.com/__clerk
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
@@ -52,7 +53,8 @@ public class VerifyDomainProxyRequestBody {
     }
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * e.g. https://example.com/__clerk
      */
     @JsonIgnore
     public Optional<String> proxyUrl() {
@@ -84,7 +86,8 @@ public class VerifyDomainProxyRequestBody {
     }
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * e.g. https://example.com/__clerk
      */
     public VerifyDomainProxyRequestBody withProxyUrl(String proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -94,7 +97,8 @@ public class VerifyDomainProxyRequestBody {
 
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * e.g. https://example.com/__clerk
      */
     public VerifyDomainProxyRequestBody withProxyUrl(Optional<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -161,7 +165,8 @@ public class VerifyDomainProxyRequestBody {
 
 
         /**
-         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+         * e.g. https://example.com/__clerk
          */
         public Builder proxyUrl(String proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -170,7 +175,8 @@ public class VerifyDomainProxyRequestBody {
         }
 
         /**
-         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. e.g. https://example.com/__clerk
+         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+         * e.g. https://example.com/__clerk
          */
         public Builder proxyUrl(Optional<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");

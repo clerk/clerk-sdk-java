@@ -38,27 +38,35 @@ public class DeletedObject {
     @JsonProperty("deleted")
     private boolean deleted;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("external_id")
+    private Optional<String> externalId;
+
     @JsonCreator
     public DeletedObject(
             @JsonProperty("object") String object,
             @JsonProperty("id") Optional<String> id,
             @JsonProperty("slug") Optional<String> slug,
-            @JsonProperty("deleted") boolean deleted) {
+            @JsonProperty("deleted") boolean deleted,
+            @JsonProperty("external_id") Optional<String> externalId) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(deleted, "deleted");
+        Utils.checkNotNull(externalId, "externalId");
         this.object = object;
         this.id = id;
         this.slug = slug;
         this.deleted = deleted;
+        this.externalId = externalId;
     }
     
     public DeletedObject(
             String object,
             boolean deleted) {
         this(object, Optional.empty(), Optional.empty(),
-            deleted);
+            deleted, Optional.empty());
     }
 
     @JsonIgnore
@@ -79,6 +87,11 @@ public class DeletedObject {
     @JsonIgnore
     public boolean deleted() {
         return deleted;
+    }
+
+    @JsonIgnore
+    public Optional<String> externalId() {
+        return externalId;
     }
 
     public static Builder builder() {
@@ -124,6 +137,19 @@ public class DeletedObject {
         return this;
     }
 
+    public DeletedObject withExternalId(String externalId) {
+        Utils.checkNotNull(externalId, "externalId");
+        this.externalId = Optional.ofNullable(externalId);
+        return this;
+    }
+
+
+    public DeletedObject withExternalId(Optional<String> externalId) {
+        Utils.checkNotNull(externalId, "externalId");
+        this.externalId = externalId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -137,14 +163,15 @@ public class DeletedObject {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
-            Utils.enhancedDeepEquals(this.deleted, other.deleted);
+            Utils.enhancedDeepEquals(this.deleted, other.deleted) &&
+            Utils.enhancedDeepEquals(this.externalId, other.externalId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, slug,
-            deleted);
+            deleted, externalId);
     }
     
     @Override
@@ -153,7 +180,8 @@ public class DeletedObject {
                 "object", object,
                 "id", id,
                 "slug", slug,
-                "deleted", deleted);
+                "deleted", deleted,
+                "externalId", externalId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -166,6 +194,8 @@ public class DeletedObject {
         private Optional<String> slug = Optional.empty();
 
         private Boolean deleted;
+
+        private Optional<String> externalId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -211,11 +241,24 @@ public class DeletedObject {
             return this;
         }
 
+
+        public Builder externalId(String externalId) {
+            Utils.checkNotNull(externalId, "externalId");
+            this.externalId = Optional.ofNullable(externalId);
+            return this;
+        }
+
+        public Builder externalId(Optional<String> externalId) {
+            Utils.checkNotNull(externalId, "externalId");
+            this.externalId = externalId;
+            return this;
+        }
+
         public DeletedObject build() {
 
             return new DeletedObject(
                 object, id, slug,
-                deleted);
+                deleted, externalId);
         }
 
     }

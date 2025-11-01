@@ -1,0 +1,35 @@
+description = 'api Spring Boot Auto Configuration'
+
+// Publishing configuration overrides
+ext {
+    publishingConfig = [
+        groupId: rootProject.group,
+        artifactId: 'backend-api-spring-boot-autoconfigure',
+        version: rootProject.version,
+        name: 'My Company Java SDK - Spring Boot Auto Configuration',
+        description: 'Spring Boot auto-configuration for the My Company Java SDK.',
+    ]
+}
+
+dependencies {
+    api project(':')
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    dependsOn 'generatePomFileForMavenPublication'
+    archiveBaseName = 'backend-api-spring-boot-autoconfigure'
+    into("META-INF/maven/com.clerk/backend-api-spring-boot-autoconfigure") {
+        from(layout.buildDirectory.file("pom.xml")) {
+            // Only include if it exists to avoid build ordering issues
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
+    }
+}

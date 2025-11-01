@@ -7,16 +7,17 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.ListDomains;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class ListDomainsRequestBuilder {
 
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public ListDomainsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -34,13 +35,13 @@ public class ListDomainsRequestBuilder {
         return this;
     }
 
-    public ListDomainsResponse call() throws Exception {
+    public ListDomainsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestlessOperation<ListDomainsResponse> operation
-            = new ListDomains.Sync(sdkConfiguration, options);
+            = new ListDomains.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest());
     }

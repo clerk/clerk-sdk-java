@@ -21,14 +21,15 @@ import com.clerk.backend_api.operations.CreateBulkInvitations;
 import com.clerk.backend_api.operations.CreateInvitation;
 import com.clerk.backend_api.operations.ListInvitations;
 import com.clerk.backend_api.operations.RevokeInvitation;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
 
 
 public class Invitations {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Invitations(SDKConfiguration sdkConfiguration) {
@@ -39,8 +40,10 @@ public class Invitations {
      * Create an invitation
      * 
      * <p>Creates a new invitation for the given email address and sends the invitation email.
-     * Keep in mind that you cannot create an invitation if there is already one for the given email address.
-     * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
+     * Keep in mind that you cannot create an invitation if there is already one for the given email
+     * address.
+     * Also, trying to create an invitation for an email address that already exists in your application
+     * will result to an error.
      * 
      * @return The call builder
      */
@@ -52,13 +55,15 @@ public class Invitations {
      * Create an invitation
      * 
      * <p>Creates a new invitation for the given email address and sends the invitation email.
-     * Keep in mind that you cannot create an invitation if there is already one for the given email address.
-     * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
+     * Keep in mind that you cannot create an invitation if there is already one for the given email
+     * address.
+     * Also, trying to create an invitation for an email address that already exists in your application
+     * will result to an error.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateInvitationResponse createDirect() throws Exception {
+    public CreateInvitationResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -66,17 +71,19 @@ public class Invitations {
      * Create an invitation
      * 
      * <p>Creates a new invitation for the given email address and sends the invitation email.
-     * Keep in mind that you cannot create an invitation if there is already one for the given email address.
-     * Also, trying to create an invitation for an email address that already exists in your application will result to an error.
+     * Keep in mind that you cannot create an invitation if there is already one for the given email
+     * address.
+     * Also, trying to create an invitation for an email address that already exists in your application
+     * will result to an error.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateInvitationResponse create(Optional<? extends CreateInvitationRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateInvitationResponse create(Optional<? extends CreateInvitationRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateInvitationRequestBody>, CreateInvitationResponse> operation
-              = new CreateInvitation.Sync(sdkConfiguration, options);
+              = new CreateInvitation.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -98,9 +105,9 @@ public class Invitations {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListInvitationsResponse list(ListInvitationsRequest request) throws Exception {
+    public ListInvitationsResponse list(ListInvitationsRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -112,21 +119,25 @@ public class Invitations {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListInvitationsResponse list(ListInvitationsRequest request, Optional<Options> options) throws Exception {
+    public ListInvitationsResponse list(ListInvitationsRequest request, Optional<Options> options) {
         RequestOperation<ListInvitationsRequest, ListInvitationsResponse> operation
-              = new ListInvitations.Sync(sdkConfiguration, options);
+              = new ListInvitations.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Create multiple invitations
      * 
-     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
-     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
-     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
-     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can
+     * choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing
+     * invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email
+     * addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule
+     * cannot be bypassed.
      * 
      * @return The call builder
      */
@@ -137,34 +148,42 @@ public class Invitations {
     /**
      * Create multiple invitations
      * 
-     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
-     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
-     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
-     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can
+     * choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing
+     * invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email
+     * addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule
+     * cannot be bypassed.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateBulkInvitationsResponse bulkCreateDirect() throws Exception {
+    public CreateBulkInvitationsResponse bulkCreateDirect() {
         return bulkCreate(Optional.empty(), Optional.empty());
     }
 
     /**
      * Create multiple invitations
      * 
-     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can choose to send the
-     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing invitation for any
-     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email addresses. Please
-     * note that there must be no existing user for any of the email addresses you provide, and this rule cannot be bypassed.
+     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can
+     * choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing
+     * invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email
+     * addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule
+     * cannot be bypassed.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) throws Exception {
+    public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) {
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
-              = new CreateBulkInvitations.Sync(sdkConfiguration, options);
+              = new CreateBulkInvitations.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -192,9 +211,9 @@ public class Invitations {
      * 
      * @param invitationId The ID of the invitation to be revoked
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeInvitationResponse revoke(String invitationId) throws Exception {
+    public RevokeInvitationResponse revoke(String invitationId) {
         return revoke(invitationId, Optional.empty());
     }
 
@@ -209,16 +228,16 @@ public class Invitations {
      * @param invitationId The ID of the invitation to be revoked
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeInvitationResponse revoke(String invitationId, Optional<Options> options) throws Exception {
+    public RevokeInvitationResponse revoke(String invitationId, Optional<Options> options) {
         RevokeInvitationRequest request =
             RevokeInvitationRequest
                 .builder()
                 .invitationId(invitationId)
                 .build();
         RequestOperation<RevokeInvitationRequest, RevokeInvitationResponse> operation
-              = new RevokeInvitation.Sync(sdkConfiguration, options);
+              = new RevokeInvitation.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

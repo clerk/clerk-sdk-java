@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UpdateOrganizationMembershipMetadata;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -21,6 +21,7 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
     private Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpdateOrganizationMembershipMetadataRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -72,13 +73,13 @@ public class UpdateOrganizationMembershipMetadataRequestBuilder {
         return request;
     }
 
-    public UpdateOrganizationMembershipMetadataResponse call() throws Exception {
+    public UpdateOrganizationMembershipMetadataResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UpdateOrganizationMembershipMetadataRequest, UpdateOrganizationMembershipMetadataResponse> operation
-              = new UpdateOrganizationMembershipMetadata.Sync(sdkConfiguration, options);
+              = new UpdateOrganizationMembershipMetadata.Sync(sdkConfiguration, options, _headers);
         UpdateOrganizationMembershipMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

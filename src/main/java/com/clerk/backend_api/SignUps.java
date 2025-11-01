@@ -14,13 +14,14 @@ import com.clerk.backend_api.models.operations.UpdateSignUpRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateSignUpResponse;
 import com.clerk.backend_api.operations.GetSignUp;
 import com.clerk.backend_api.operations.UpdateSignUp;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class SignUps {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     SignUps(SDKConfiguration sdkConfiguration) {
@@ -45,9 +46,9 @@ public class SignUps {
      * 
      * @param id The ID of the sign-up to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSignUpResponse get(String id) throws Exception {
+    public GetSignUpResponse get(String id) {
         return get(id, Optional.empty());
     }
 
@@ -59,16 +60,16 @@ public class SignUps {
      * @param id The ID of the sign-up to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSignUpResponse get(String id, Optional<Options> options) throws Exception {
+    public GetSignUpResponse get(String id, Optional<Options> options) {
         GetSignUpRequest request =
             GetSignUpRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<GetSignUpRequest, GetSignUpResponse> operation
-              = new GetSignUp.Sync(sdkConfiguration, options);
+              = new GetSignUp.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -90,9 +91,9 @@ public class SignUps {
      * 
      * @param id The ID of the sign-up to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateSignUpResponse update(String id) throws Exception {
+    public UpdateSignUpResponse update(String id) {
         return update(id, Optional.empty(), Optional.empty());
     }
 
@@ -105,11 +106,11 @@ public class SignUps {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateSignUpResponse update(
             String id, Optional<? extends UpdateSignUpRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateSignUpRequest request =
             UpdateSignUpRequest
                 .builder()
@@ -117,7 +118,7 @@ public class SignUps {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateSignUpRequest, UpdateSignUpResponse> operation
-              = new UpdateSignUp.Sync(sdkConfiguration, options);
+              = new UpdateSignUp.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

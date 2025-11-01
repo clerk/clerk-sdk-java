@@ -22,7 +22,8 @@ public class CNameTarget {
     private String value;
 
     /**
-     * Denotes whether this CNAME target is required to be set in order for the domain to be considered deployed.
+     * Denotes whether this CNAME target is required to be set in order for the domain to be considered
+     * deployed.
      */
     @JsonProperty("required")
     private boolean required;
@@ -51,7 +52,8 @@ public class CNameTarget {
     }
 
     /**
-     * Denotes whether this CNAME target is required to be set in order for the domain to be considered deployed.
+     * Denotes whether this CNAME target is required to be set in order for the domain to be considered
+     * deployed.
      */
     @JsonIgnore
     public boolean required() {
@@ -76,7 +78,8 @@ public class CNameTarget {
     }
 
     /**
-     * Denotes whether this CNAME target is required to be set in order for the domain to be considered deployed.
+     * Denotes whether this CNAME target is required to be set in order for the domain to be considered
+     * deployed.
      */
     public CNameTarget withRequired(boolean required) {
         Utils.checkNotNull(required, "required");
@@ -142,7 +145,8 @@ public class CNameTarget {
 
 
         /**
-         * Denotes whether this CNAME target is required to be set in order for the domain to be considered deployed.
+         * Denotes whether this CNAME target is required to be set in order for the domain to be considered
+         * deployed.
          */
         public Builder required(boolean required) {
             Utils.checkNotNull(required, "required");

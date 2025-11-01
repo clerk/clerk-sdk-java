@@ -3,7 +3,6 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -11,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.lang.String;
 
 @JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
-@JsonSubTypes({
-    @Type(value = VerificationPasskey.class, name="Passkey")})
+@JsonSubTypes({})
 public interface PasskeyVerification {
 
     String object();

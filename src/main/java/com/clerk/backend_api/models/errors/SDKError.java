@@ -3,90 +3,47 @@
  */
 package com.clerk.backend_api.models.errors;
 
+import jakarta.annotation.Nullable;
+import com.clerk.backend_api.utils.Utils;
+
+import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import com.clerk.backend_api.utils.Utils;
 
 /**
  * Thrown by a service call when an error response occurs. Contains details about the response.
  */
 @SuppressWarnings("serial")
-public class SDKError extends Exception {
-
-    private final HttpResponse<InputStream> rawResponse;
-    private final int code;
-    private final String message;
-    private final byte[] body;
+public class SDKError extends ClerkError {
 
     public SDKError(
-            HttpResponse<InputStream> rawResponse,
-            int code,
             String message,
-            byte[] body) {
-        super(message);
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(message, "message");
-        Utils.checkNotNull(body, "body");
-        this.rawResponse = rawResponse;
-        this.code = code;
-        this.message = message;
-        this.body = body;
-    }
-    
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SDKError other = (SDKError) o;
-        return 
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.code, other.code) &&
-            java.util.Objects.deepEquals(this.message, other.message) &&
-            java.util.Objects.deepEquals(this.body, other.body);
-    }
-    
-    @Override
-    public int hashCode() {
-        return java.util.Objects.hash(
-            rawResponse,
-            code,
-            message,
-            body);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(SDKError.class,
-                "requestMethod", rawResponse.request().method(),
-                "requestUri", rawResponse.request().uri(),
-                "code", code,
-                "responseHeaders", rawResponse.headers().map(), 
-                "message", message,
-                "body", bodyAsString());
+            int code,
+            @Nullable byte[] body,
+            HttpResponse<InputStream> rawResponse,
+            @Nullable Throwable cause) {
+        super(message, code, body, rawResponse, cause);
     }
 
+    public static SDKError from(String message, HttpResponse<InputStream> rawResponse) {
+        return from(message, rawResponse, null);
+    }
+
+    public static SDKError from(String message, HttpResponse<InputStream> rawResponse, @Nullable Throwable cause) {
+        try {
+            return new SDKError(
+                    message, rawResponse.statusCode(), Utils.extractByteArrayFromBody(rawResponse), rawResponse, cause);
+        } catch (IOException e) {
+            // Gracefully handle IOExceptions that occur while reading the body
+            // by returning an error without a body.
+            return new SDKError(
+                    message, rawResponse.statusCode(), null, rawResponse, cause);
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
     public HttpResponse<InputStream> rawResponse() {
-        return this.rawResponse;
-    }
-
-    public int code() {
-        return this.code;
-    }
-
-    public String message() {
-        return this.message;
-    }
-
-    public byte[] body() {
-        return this.body;
-    }
-
-    public String bodyAsString() {
-    	return new String(body(), StandardCharsets.UTF_8);
+        return (HttpResponse<InputStream>) super.rawResponse();
     }
 }

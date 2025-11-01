@@ -7,6 +7,7 @@
 
 * [list](#list) - List all waitlist entries
 * [create](#create) - Create a waitlist entry
+* [delete](#delete) - Delete a pending waitlist entry
 * [invite](#invite) - Invite a waitlist entry
 * [reject](#reject) - Reject a waitlist entry
 
@@ -114,6 +115,57 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## delete
+
+Delete a pending waitlist entry.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="DeleteWaitlistEntry" method="delete" path="/waitlist_entries/{waitlist_entry_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.DeleteWaitlistEntryResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        DeleteWaitlistEntryResponse res = sdk.waitlistEntries().delete()
+                .waitlistEntryId("<id>")
+                .call();
+
+        if (res.deletedObject().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                              | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `waitlistEntryId`                      | *String*                               | :heavy_check_mark:                     | The ID of the waitlist entry to delete |
+
+### Response
+
+**[DeleteWaitlistEntryResponse](../../models/operations/DeleteWaitlistEntryResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 404, 409, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## invite

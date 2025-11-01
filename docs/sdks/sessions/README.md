@@ -11,7 +11,7 @@
 * [refresh](#refresh) - Refresh a session
 * [revoke](#revoke) - Revoke a session
 * [createToken](#createtoken) - Create a session token
-* [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a jwt template
+* [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a JWT template
 
 ## list
 
@@ -334,7 +334,7 @@ public class Application {
 
 ## createTokenFromTemplate
 
-Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
+Creates a JSON Web Token (JWT) based on a session and a JWT Template name defined for your instance
 
 ### Example Usage
 
@@ -372,7 +372,7 @@ public class Application {
 | Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `sessionId`                                                                                                                  | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The ID of the session                                                                                                        |
-| `templateName`                                                                                                               | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The name of the JWT Template defined in your instance (e.g. `custom_hasura`).                                                |
+| `templateName`                                                                                                               | *String*                                                                                                                     | :heavy_check_mark:                                                                                                           | The name of the JWT template defined in your instance (e.g. `custom_hasura`).                                                |
 | `requestBody`                                                                                                                | [Optional\<CreateSessionTokenFromTemplateRequestBody>](../../models/operations/CreateSessionTokenFromTemplateRequestBody.md) | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
 
 ### Response

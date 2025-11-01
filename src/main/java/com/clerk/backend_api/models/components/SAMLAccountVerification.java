@@ -3,7 +3,6 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -11,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.lang.String;
 
 @JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
-@JsonSubTypes({
-    @Type(value = VerificationSAML.class, name="SAML"),
-    @Type(value = VerificationTicket.class, name="Ticket")})
+@JsonSubTypes({})
 public interface SAMLAccountVerification {
 
     String object();

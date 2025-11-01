@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateBlocklistIdentifier;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateBlocklistIdentifierRequestBuilder {
@@ -18,6 +18,7 @@ public class CreateBlocklistIdentifierRequestBuilder {
     private Optional<? extends CreateBlocklistIdentifierRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateBlocklistIdentifierRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -47,13 +48,13 @@ public class CreateBlocklistIdentifierRequestBuilder {
         return this;
     }
 
-    public CreateBlocklistIdentifierResponse call() throws Exception {
+    public CreateBlocklistIdentifierResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<Optional<? extends CreateBlocklistIdentifierRequestBody>, CreateBlocklistIdentifierResponse> operation
-              = new CreateBlocklistIdentifier.Sync(sdkConfiguration, options);
+              = new CreateBlocklistIdentifier.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

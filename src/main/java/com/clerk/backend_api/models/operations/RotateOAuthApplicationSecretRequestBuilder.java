@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.RotateOAuthApplicationSecret;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class RotateOAuthApplicationSecretRequestBuilder {
     private String oauthApplicationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public RotateOAuthApplicationSecretRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class RotateOAuthApplicationSecretRequestBuilder {
         return request;
     }
 
-    public RotateOAuthApplicationSecretResponse call() throws Exception {
+    public RotateOAuthApplicationSecretResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
-              = new RotateOAuthApplicationSecret.Sync(sdkConfiguration, options);
+              = new RotateOAuthApplicationSecret.Sync(sdkConfiguration, options, _headers);
         RotateOAuthApplicationSecretRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

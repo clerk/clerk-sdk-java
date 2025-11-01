@@ -8,12 +8,13 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 import com.clerk.backend_api.models.operations.CreateTestingTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateTestingTokenResponse;
 import com.clerk.backend_api.operations.CreateTestingToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class TestingTokens {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     TestingTokens(SDKConfiguration sdkConfiguration) {
@@ -37,9 +38,9 @@ public class TestingTokens {
      * <p>Retrieve a new testing token.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateTestingTokenResponse createDirect() throws Exception {
+    public CreateTestingTokenResponse createDirect() {
         return create(Optional.empty());
     }
 
@@ -50,11 +51,11 @@ public class TestingTokens {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateTestingTokenResponse create(Optional<Options> options) throws Exception {
+    public CreateTestingTokenResponse create(Optional<Options> options) {
         RequestlessOperation<CreateTestingTokenResponse> operation
-            = new CreateTestingToken.Sync(sdkConfiguration, options);
+            = new CreateTestingToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 

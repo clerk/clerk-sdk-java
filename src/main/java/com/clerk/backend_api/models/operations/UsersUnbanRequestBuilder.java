@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UsersUnban;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class UsersUnbanRequestBuilder {
@@ -18,6 +18,7 @@ public class UsersUnbanRequestBuilder {
     private UsersUnbanRequestBody request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UsersUnbanRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -41,13 +42,13 @@ public class UsersUnbanRequestBuilder {
         return this;
     }
 
-    public UsersUnbanResponse call() throws Exception {
+    public UsersUnbanResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UsersUnbanRequestBody, UsersUnbanResponse> operation
-              = new UsersUnban.Sync(sdkConfiguration, options);
+              = new UsersUnban.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

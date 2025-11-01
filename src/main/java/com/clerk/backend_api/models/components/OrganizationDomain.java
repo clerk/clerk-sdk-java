@@ -24,7 +24,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class OrganizationDomain {
     /**
-     * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+     * String representing the object's type. Objects of the same type share the same value. Always
+     * `organization_domain`
      */
     @JsonProperty("object")
     private OrganizationDomainObject object;
@@ -155,7 +156,8 @@ public class OrganizationDomain {
     }
 
     /**
-     * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+     * String representing the object's type. Objects of the same type share the same value. Always
+     * `organization_domain`
      */
     @JsonIgnore
     public OrganizationDomainObject object() {
@@ -258,7 +260,8 @@ public class OrganizationDomain {
 
 
     /**
-     * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+     * String representing the object's type. Objects of the same type share the same value. Always
+     * `organization_domain`
      */
     public OrganizationDomain withObject(OrganizationDomainObject object) {
         Utils.checkNotNull(object, "object");
@@ -477,7 +480,8 @@ public class OrganizationDomain {
 
 
         /**
-         * String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+         * String representing the object's type. Objects of the same type share the same value. Always
+         * `organization_domain`
          */
         public Builder object(OrganizationDomainObject object) {
             Utils.checkNotNull(object, "object");

@@ -12,8 +12,7 @@ import java.lang.String;
 
 @JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
 @JsonSubTypes({
-    @Type(value = Web3Signature.class, name="verification_web3"),
-    @Type(value = VerificationAdminVerificationAdmin.class, name="Admin")})
+    @Type(value = Web3Signature.class, name="verification_web3")})
 public interface Web3WalletVerification {
 
     String object();

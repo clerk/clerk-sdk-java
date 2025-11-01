@@ -44,14 +44,15 @@ import com.clerk.backend_api.operations.ListOrganizations;
 import com.clerk.backend_api.operations.MergeOrganizationMetadata;
 import com.clerk.backend_api.operations.UpdateOrganization;
 import com.clerk.backend_api.operations.UploadOrganizationLogo;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Organizations {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Organizations(SDKConfiguration sdkConfiguration) {
@@ -82,9 +83,9 @@ public class Organizations {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListOrganizationsResponse list(ListOrganizationsRequest request) throws Exception {
+    public ListOrganizationsResponse list(ListOrganizationsRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -99,11 +100,11 @@ public class Organizations {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListOrganizationsResponse list(ListOrganizationsRequest request, Optional<Options> options) throws Exception {
+    public ListOrganizationsResponse list(ListOrganizationsRequest request, Optional<Options> options) {
         RequestOperation<ListOrganizationsRequest, ListOrganizationsResponse> operation
-              = new ListOrganizations.Sync(sdkConfiguration, options);
+              = new ListOrganizations.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -112,14 +113,17 @@ public class Organizations {
      * 
      * <p>Creates a new organization with the given name for an instance.
      * You can specify an optional slug for the new organization.
-     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
+     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and
+     * digits) and the dash "-".
      * Organization slugs must be unique for the instance.
      * You can provide additional metadata for the organization and set any custom attribute you want.
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
-     * The `created_by` user will see this as their [active organization](https://clerk.com/docs/organizations/overview#active-organization)
-     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
+     * The `created_by` user will see this as their [active
+     * organization](https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as
+     * active before then.
      * 
      * @return The call builder
      */
@@ -132,19 +136,22 @@ public class Organizations {
      * 
      * <p>Creates a new organization with the given name for an instance.
      * You can specify an optional slug for the new organization.
-     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
+     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and
+     * digits) and the dash "-".
      * Organization slugs must be unique for the instance.
      * You can provide additional metadata for the organization and set any custom attribute you want.
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
-     * The `created_by` user will see this as their [active organization](https://clerk.com/docs/organizations/overview#active-organization)
-     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
+     * The `created_by` user will see this as their [active
+     * organization](https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as
+     * active before then.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateOrganizationResponse createDirect() throws Exception {
+    public CreateOrganizationResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -153,23 +160,26 @@ public class Organizations {
      * 
      * <p>Creates a new organization with the given name for an instance.
      * You can specify an optional slug for the new organization.
-     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and digits) and the dash "-".
+     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and
+     * digits) and the dash "-".
      * Organization slugs must be unique for the instance.
      * You can provide additional metadata for the organization and set any custom attribute you want.
      * Organizations support private and public metadata.
      * Private metadata can only be accessed from the Backend API.
      * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
-     * The `created_by` user will see this as their [active organization](https://clerk.com/docs/organizations/overview#active-organization)
-     * the next time they create a session, presuming they don't explicitly set a different organization as active before then.
+     * The `created_by` user will see this as their [active
+     * organization](https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as
+     * active before then.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateOrganizationResponse create(Optional<? extends CreateOrganizationRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateOrganizationResponse create(Optional<? extends CreateOrganizationRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateOrganizationRequestBody>, CreateOrganizationResponse> operation
-              = new CreateOrganization.Sync(sdkConfiguration, options);
+              = new CreateOrganization.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -191,9 +201,9 @@ public class Organizations {
      * 
      * @param organizationId The ID or slug of the organization
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetOrganizationResponse get(String organizationId) throws Exception {
+    public GetOrganizationResponse get(String organizationId) {
         return get(organizationId, Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -208,11 +218,11 @@ public class Organizations {
      * @param includeMissingMemberWithElevatedPermissions Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetOrganizationResponse get(
             String organizationId, Optional<Boolean> includeMembersCount,
-            Optional<Boolean> includeMissingMemberWithElevatedPermissions, Optional<Options> options) throws Exception {
+            Optional<Boolean> includeMissingMemberWithElevatedPermissions, Optional<Options> options) {
         GetOrganizationRequest request =
             GetOrganizationRequest
                 .builder()
@@ -221,7 +231,7 @@ public class Organizations {
                 .includeMissingMemberWithElevatedPermissions(includeMissingMemberWithElevatedPermissions)
                 .build();
         RequestOperation<GetOrganizationRequest, GetOrganizationResponse> operation
-              = new GetOrganization.Sync(sdkConfiguration, options);
+              = new GetOrganization.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -244,9 +254,9 @@ public class Organizations {
      * @param organizationId The ID of the organization to update
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateOrganizationResponse update(String organizationId, UpdateOrganizationRequestBody requestBody) throws Exception {
+    public UpdateOrganizationResponse update(String organizationId, UpdateOrganizationRequestBody requestBody) {
         return update(organizationId, requestBody, Optional.empty());
     }
 
@@ -259,11 +269,11 @@ public class Organizations {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateOrganizationResponse update(
             String organizationId, UpdateOrganizationRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateOrganizationRequest request =
             UpdateOrganizationRequest
                 .builder()
@@ -271,7 +281,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationRequest, UpdateOrganizationResponse> operation
-              = new UpdateOrganization.Sync(sdkConfiguration, options);
+              = new UpdateOrganization.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -297,9 +307,9 @@ public class Organizations {
      * 
      * @param organizationId The ID of the organization to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteOrganizationResponse delete(String organizationId) throws Exception {
+    public DeleteOrganizationResponse delete(String organizationId) {
         return delete(organizationId, Optional.empty());
     }
 
@@ -313,16 +323,16 @@ public class Organizations {
      * @param organizationId The ID of the organization to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteOrganizationResponse delete(String organizationId, Optional<Options> options) throws Exception {
+    public DeleteOrganizationResponse delete(String organizationId, Optional<Options> options) {
         DeleteOrganizationRequest request =
             DeleteOrganizationRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         RequestOperation<DeleteOrganizationRequest, DeleteOrganizationResponse> operation
-              = new DeleteOrganization.Sync(sdkConfiguration, options);
+              = new DeleteOrganization.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -351,9 +361,9 @@ public class Organizations {
      * @param organizationId The ID of the organization for which metadata will be merged or updated
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public MergeOrganizationMetadataResponse mergeMetadata(String organizationId, MergeOrganizationMetadataRequestBody requestBody) throws Exception {
+    public MergeOrganizationMetadataResponse mergeMetadata(String organizationId, MergeOrganizationMetadataRequestBody requestBody) {
         return mergeMetadata(organizationId, requestBody, Optional.empty());
     }
 
@@ -369,11 +379,11 @@ public class Organizations {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public MergeOrganizationMetadataResponse mergeMetadata(
             String organizationId, MergeOrganizationMetadataRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         MergeOrganizationMetadataRequest request =
             MergeOrganizationMetadataRequest
                 .builder()
@@ -381,7 +391,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
-              = new MergeOrganizationMetadata.Sync(sdkConfiguration, options);
+              = new MergeOrganizationMetadata.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -391,7 +401,8 @@ public class Organizations {
      * <p>Set or replace an organization's logo, by uploading an image file.
      * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
      * The file size cannot exceed 10MB.
-     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
      * 
      * @return The call builder
      */
@@ -405,13 +416,14 @@ public class Organizations {
      * <p>Set or replace an organization's logo, by uploading an image file.
      * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
      * The file size cannot exceed 10MB.
-     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
      * 
      * @param organizationId The ID of the organization for which to upload a logo
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UploadOrganizationLogoResponse uploadLogo(String organizationId) throws Exception {
+    public UploadOrganizationLogoResponse uploadLogo(String organizationId) {
         return uploadLogo(organizationId, Optional.empty(), Optional.empty());
     }
 
@@ -421,17 +433,18 @@ public class Organizations {
      * <p>Set or replace an organization's logo, by uploading an image file.
      * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
      * The file size cannot exceed 10MB.
-     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
      * 
      * @param organizationId The ID of the organization for which to upload a logo
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UploadOrganizationLogoResponse uploadLogo(
             String organizationId, Optional<? extends UploadOrganizationLogoRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UploadOrganizationLogoRequest request =
             UploadOrganizationLogoRequest
                 .builder()
@@ -439,7 +452,7 @@ public class Organizations {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UploadOrganizationLogoRequest, UploadOrganizationLogoResponse> operation
-              = new UploadOrganizationLogo.Sync(sdkConfiguration, options);
+              = new UploadOrganizationLogo.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -461,9 +474,9 @@ public class Organizations {
      * 
      * @param organizationId The ID of the organization for which the logo will be deleted.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteOrganizationLogoResponse deleteLogo(String organizationId) throws Exception {
+    public DeleteOrganizationLogoResponse deleteLogo(String organizationId) {
         return deleteLogo(organizationId, Optional.empty());
     }
 
@@ -475,16 +488,16 @@ public class Organizations {
      * @param organizationId The ID of the organization for which the logo will be deleted.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteOrganizationLogoResponse deleteLogo(String organizationId, Optional<Options> options) throws Exception {
+    public DeleteOrganizationLogoResponse deleteLogo(String organizationId, Optional<Options> options) {
         DeleteOrganizationLogoRequest request =
             DeleteOrganizationLogoRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
-              = new DeleteOrganizationLogo.Sync(sdkConfiguration, options);
+              = new DeleteOrganizationLogo.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -493,7 +506,8 @@ public class Organizations {
      * 
      * <p>Retrieves the billing subscription for the specified organization.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the organization is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the organization
+     * is subscribed to.
      * 
      * @return The call builder
      */
@@ -506,13 +520,14 @@ public class Organizations {
      * 
      * <p>Retrieves the billing subscription for the specified organization.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the organization is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the organization
+     * is subscribed to.
      * 
      * @param organizationId The ID of the organization whose subscription to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetOrganizationBillingSubscriptionResponse getBillingSubscription(String organizationId) throws Exception {
+    public GetOrganizationBillingSubscriptionResponse getBillingSubscription(String organizationId) {
         return getBillingSubscription(organizationId, Optional.empty());
     }
 
@@ -521,21 +536,22 @@ public class Organizations {
      * 
      * <p>Retrieves the billing subscription for the specified organization.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the organization is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the organization
+     * is subscribed to.
      * 
      * @param organizationId The ID of the organization whose subscription to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetOrganizationBillingSubscriptionResponse getBillingSubscription(String organizationId, Optional<Options> options) throws Exception {
+    public GetOrganizationBillingSubscriptionResponse getBillingSubscription(String organizationId, Optional<Options> options) {
         GetOrganizationBillingSubscriptionRequest request =
             GetOrganizationBillingSubscriptionRequest
                 .builder()
                 .organizationId(organizationId)
                 .build();
         RequestOperation<GetOrganizationBillingSubscriptionRequest, GetOrganizationBillingSubscriptionResponse> operation
-              = new GetOrganizationBillingSubscription.Sync(sdkConfiguration, options);
+              = new GetOrganizationBillingSubscription.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

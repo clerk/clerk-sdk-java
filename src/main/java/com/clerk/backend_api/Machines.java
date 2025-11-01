@@ -27,6 +27,10 @@ import com.clerk.backend_api.models.operations.GetMachineSecretKeyResponse;
 import com.clerk.backend_api.models.operations.ListMachinesRequest;
 import com.clerk.backend_api.models.operations.ListMachinesRequestBuilder;
 import com.clerk.backend_api.models.operations.ListMachinesResponse;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequest;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequestBody;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequestBuilder;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyResponse;
 import com.clerk.backend_api.models.operations.UpdateMachineRequest;
 import com.clerk.backend_api.models.operations.UpdateMachineRequestBody;
 import com.clerk.backend_api.models.operations.UpdateMachineRequestBuilder;
@@ -38,15 +42,17 @@ import com.clerk.backend_api.operations.DeleteMachineScope;
 import com.clerk.backend_api.operations.GetMachine;
 import com.clerk.backend_api.operations.GetMachineSecretKey;
 import com.clerk.backend_api.operations.ListMachines;
+import com.clerk.backend_api.operations.RotateMachineSecretKey;
 import com.clerk.backend_api.operations.UpdateMachine;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Machines {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Machines(SDKConfiguration sdkConfiguration) {
@@ -74,9 +80,9 @@ public class Machines {
      * returned first)
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListMachinesResponse listDirect() throws Exception {
+    public ListMachinesResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
     }
@@ -102,12 +108,12 @@ public class Machines {
      *         Defaults to `-created_at`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ListMachinesResponse list(
             Optional<Long> limit, Optional<Long> offset,
             Optional<String> query, Optional<String> orderBy,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         ListMachinesRequest request =
             ListMachinesRequest
                 .builder()
@@ -117,7 +123,7 @@ public class Machines {
                 .orderBy(orderBy)
                 .build();
         RequestOperation<ListMachinesRequest, ListMachinesResponse> operation
-              = new ListMachines.Sync(sdkConfiguration, options);
+              = new ListMachines.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -138,9 +144,9 @@ public class Machines {
      * <p>Creates a new machine.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateMachineResponse createDirect() throws Exception {
+    public CreateMachineResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -152,11 +158,11 @@ public class Machines {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateMachineResponse create(Optional<? extends CreateMachineRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateMachineResponse create(Optional<? extends CreateMachineRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateMachineRequestBody>, CreateMachineResponse> operation
-              = new CreateMachine.Sync(sdkConfiguration, options);
+              = new CreateMachine.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -178,9 +184,9 @@ public class Machines {
      * 
      * @param machineId The ID of the machine to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetMachineResponse get(String machineId) throws Exception {
+    public GetMachineResponse get(String machineId) {
         return get(machineId, Optional.empty());
     }
 
@@ -192,16 +198,16 @@ public class Machines {
      * @param machineId The ID of the machine to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetMachineResponse get(String machineId, Optional<Options> options) throws Exception {
+    public GetMachineResponse get(String machineId, Optional<Options> options) {
         GetMachineRequest request =
             GetMachineRequest
                 .builder()
                 .machineId(machineId)
                 .build();
         RequestOperation<GetMachineRequest, GetMachineResponse> operation
-              = new GetMachine.Sync(sdkConfiguration, options);
+              = new GetMachine.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -225,9 +231,9 @@ public class Machines {
      * 
      * @param machineId The ID of the machine to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateMachineResponse update(String machineId) throws Exception {
+    public UpdateMachineResponse update(String machineId) {
         return update(machineId, Optional.empty(), Optional.empty());
     }
 
@@ -241,11 +247,11 @@ public class Machines {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateMachineResponse update(
             String machineId, Optional<? extends UpdateMachineRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateMachineRequest request =
             UpdateMachineRequest
                 .builder()
@@ -253,7 +259,7 @@ public class Machines {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateMachineRequest, UpdateMachineResponse> operation
-              = new UpdateMachine.Sync(sdkConfiguration, options);
+              = new UpdateMachine.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -275,9 +281,9 @@ public class Machines {
      * 
      * @param machineId The ID of the machine to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteMachineResponse delete(String machineId) throws Exception {
+    public DeleteMachineResponse delete(String machineId) {
         return delete(machineId, Optional.empty());
     }
 
@@ -289,16 +295,16 @@ public class Machines {
      * @param machineId The ID of the machine to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteMachineResponse delete(String machineId, Optional<Options> options) throws Exception {
+    public DeleteMachineResponse delete(String machineId, Optional<Options> options) {
         DeleteMachineRequest request =
             DeleteMachineRequest
                 .builder()
                 .machineId(machineId)
                 .build();
         RequestOperation<DeleteMachineRequest, DeleteMachineResponse> operation
-              = new DeleteMachine.Sync(sdkConfiguration, options);
+              = new DeleteMachine.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -320,9 +326,9 @@ public class Machines {
      * 
      * @param machineId The ID of the machine to retrieve the secret key for
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetMachineSecretKeyResponse getSecretKey(String machineId) throws Exception {
+    public GetMachineSecretKeyResponse getSecretKey(String machineId) {
         return getSecretKey(machineId, Optional.empty());
     }
 
@@ -334,16 +340,75 @@ public class Machines {
      * @param machineId The ID of the machine to retrieve the secret key for
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetMachineSecretKeyResponse getSecretKey(String machineId, Optional<Options> options) throws Exception {
+    public GetMachineSecretKeyResponse getSecretKey(String machineId, Optional<Options> options) {
         GetMachineSecretKeyRequest request =
             GetMachineSecretKeyRequest
                 .builder()
                 .machineId(machineId)
                 .build();
         RequestOperation<GetMachineSecretKeyRequest, GetMachineSecretKeyResponse> operation
-              = new GetMachineSecretKey.Sync(sdkConfiguration, options);
+              = new GetMachineSecretKey.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl
+     * parameter.
+     * 
+     * @return The call builder
+     */
+    public RotateMachineSecretKeyRequestBuilder rotateSecretKey() {
+        return new RotateMachineSecretKeyRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl
+     * parameter.
+     * 
+     * @param machineId The ID of the machine to rotate the secret key for
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RotateMachineSecretKeyResponse rotateSecretKey(String machineId, RotateMachineSecretKeyRequestBody requestBody) {
+        return rotateSecretKey(machineId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Rotate a machine's secret key
+     * 
+     * <p>Rotates the machine's secret key.
+     * When the secret key is rotated, make sure to update it in your machine/application.
+     * The previous secret key will remain valid for the duration specified by the previous_token_ttl
+     * parameter.
+     * 
+     * @param machineId The ID of the machine to rotate the secret key for
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RotateMachineSecretKeyResponse rotateSecretKey(
+            String machineId, RotateMachineSecretKeyRequestBody requestBody,
+            Optional<Options> options) {
+        RotateMachineSecretKeyRequest request =
+            RotateMachineSecretKeyRequest
+                .builder()
+                .machineId(machineId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<RotateMachineSecretKeyRequest, RotateMachineSecretKeyResponse> operation
+              = new RotateMachineSecretKey.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -367,9 +432,9 @@ public class Machines {
      * 
      * @param machineId The ID of the machine that will have access to another machine
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateMachineScopeResponse createScope(String machineId) throws Exception {
+    public CreateMachineScopeResponse createScope(String machineId) {
         return createScope(machineId, Optional.empty(), Optional.empty());
     }
 
@@ -383,11 +448,11 @@ public class Machines {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateMachineScopeResponse createScope(
             String machineId, Optional<? extends CreateMachineScopeRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CreateMachineScopeRequest request =
             CreateMachineScopeRequest
                 .builder()
@@ -395,7 +460,7 @@ public class Machines {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateMachineScopeRequest, CreateMachineScopeResponse> operation
-              = new CreateMachineScope.Sync(sdkConfiguration, options);
+              = new CreateMachineScope.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -418,9 +483,9 @@ public class Machines {
      * @param machineId The ID of the machine that has access to another machine
      * @param otherMachineId The ID of the machine that is being accessed
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteMachineScopeResponse deleteScope(String machineId, String otherMachineId) throws Exception {
+    public DeleteMachineScopeResponse deleteScope(String machineId, String otherMachineId) {
         return deleteScope(machineId, otherMachineId, Optional.empty());
     }
 
@@ -433,11 +498,11 @@ public class Machines {
      * @param otherMachineId The ID of the machine that is being accessed
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteMachineScopeResponse deleteScope(
             String machineId, String otherMachineId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         DeleteMachineScopeRequest request =
             DeleteMachineScopeRequest
                 .builder()
@@ -445,7 +510,7 @@ public class Machines {
                 .otherMachineId(otherMachineId)
                 .build();
         RequestOperation<DeleteMachineScopeRequest, DeleteMachineScopeResponse> operation
-              = new DeleteMachineScope.Sync(sdkConfiguration, options);
+              = new DeleteMachineScope.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

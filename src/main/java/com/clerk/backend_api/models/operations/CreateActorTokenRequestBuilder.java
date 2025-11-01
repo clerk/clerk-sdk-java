@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateActorToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateActorTokenRequestBuilder {
@@ -18,6 +18,7 @@ public class CreateActorTokenRequestBuilder {
     private Optional<? extends CreateActorTokenRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateActorTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -47,13 +48,13 @@ public class CreateActorTokenRequestBuilder {
         return this;
     }
 
-    public CreateActorTokenResponse call() throws Exception {
+    public CreateActorTokenResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
-              = new CreateActorToken.Sync(sdkConfiguration, options);
+              = new CreateActorToken.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -9,12 +9,13 @@ import com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBody;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyDomainProxyResponse;
 import com.clerk.backend_api.operations.VerifyDomainProxy;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class ProxyChecks {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     ProxyChecks(SDKConfiguration sdkConfiguration) {
@@ -25,13 +26,17 @@ public class ProxyChecks {
      * Verify the proxy configuration for your domain
      * 
      * <p>This endpoint can be used to validate that a proxy-enabled domain is operational.
-     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can reach the Clerk Frontend API.
+     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can
+     * reach the Clerk Frontend API.
      * 
-     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that switching to proxy-based
+     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that
+     * switching to proxy-based
      * configuration will not lead to downtime for your instance.
      * 
-     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on
-     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.
+     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a
+     * proxy URL yet, or operate on
+     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is
+     * already configured to work with a proxy.
      * 
      * @return The call builder
      */
@@ -43,18 +48,22 @@ public class ProxyChecks {
      * Verify the proxy configuration for your domain
      * 
      * <p>This endpoint can be used to validate that a proxy-enabled domain is operational.
-     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can reach the Clerk Frontend API.
+     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can
+     * reach the Clerk Frontend API.
      * 
-     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that switching to proxy-based
+     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that
+     * switching to proxy-based
      * configuration will not lead to downtime for your instance.
      * 
-     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on
-     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.
+     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a
+     * proxy URL yet, or operate on
+     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is
+     * already configured to work with a proxy.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyDomainProxyResponse verifyDirect() throws Exception {
+    public VerifyDomainProxyResponse verifyDirect() {
         return verify(Optional.empty(), Optional.empty());
     }
 
@@ -62,22 +71,26 @@ public class ProxyChecks {
      * Verify the proxy configuration for your domain
      * 
      * <p>This endpoint can be used to validate that a proxy-enabled domain is operational.
-     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can reach the Clerk Frontend API.
+     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can
+     * reach the Clerk Frontend API.
      * 
-     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that switching to proxy-based
+     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that
+     * switching to proxy-based
      * configuration will not lead to downtime for your instance.
      * 
-     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a proxy URL yet, or operate on
-     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is already configured to work with a proxy.
+     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a
+     * proxy URL yet, or operate on
+     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is
+     * already configured to work with a proxy.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyDomainProxyResponse verify(Optional<? extends VerifyDomainProxyRequestBody> request, Optional<Options> options) throws Exception {
+    public VerifyDomainProxyResponse verify(Optional<? extends VerifyDomainProxyRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends VerifyDomainProxyRequestBody>, VerifyDomainProxyResponse> operation
-              = new VerifyDomainProxy.Sync(sdkConfiguration, options);
+              = new VerifyDomainProxy.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

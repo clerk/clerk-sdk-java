@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateRedirectURL;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateRedirectURLRequestBuilder {
@@ -18,6 +18,7 @@ public class CreateRedirectURLRequestBuilder {
     private Optional<? extends CreateRedirectURLRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateRedirectURLRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -47,13 +48,13 @@ public class CreateRedirectURLRequestBuilder {
         return this;
     }
 
-    public CreateRedirectURLResponse call() throws Exception {
+    public CreateRedirectURLResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<Optional<? extends CreateRedirectURLRequestBody>, CreateRedirectURLResponse> operation
-              = new CreateRedirectURL.Sync(sdkConfiguration, options);
+              = new CreateRedirectURL.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

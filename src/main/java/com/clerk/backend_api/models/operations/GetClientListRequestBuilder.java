@@ -7,13 +7,13 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetClientList;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.util.Optional;
 
@@ -30,6 +30,7 @@ public class GetClientListRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetClientListRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -99,13 +100,13 @@ public class GetClientListRequestBuilder {
         return request;
     }
 
-    public GetClientListResponse call() throws Exception {
+    public GetClientListResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetClientListRequest, GetClientListResponse> operation
-              = new GetClientList.Sync(sdkConfiguration, options);
+              = new GetClientList.Sync(sdkConfiguration, options, _headers);
         GetClientListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

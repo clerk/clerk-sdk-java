@@ -20,13 +20,15 @@ import java.util.Optional;
 
 public class ListOrganizationsRequest {
     /**
-     * Flag to denote whether the member counts of each organization should be included in the response or not.
+     * Flag to denote whether the member counts of each organization should be included in the response or
+     * not.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=include_members_count")
     private Optional<Boolean> includeMembersCount;
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=include_missing_member_with_elevated_permissions")
     private Optional<Boolean> includeMissingMemberWithElevatedPermissions;
@@ -39,17 +41,20 @@ public class ListOrganizationsRequest {
     private Optional<String> query;
 
     /**
-     * Returns organizations with the user ids specified. Any user ids not found are ignored.
-     * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+     * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+     * are ignored.
+     * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
      * respective organization should be included or excluded from the result set.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
     private Optional<? extends List<String>> userId;
 
     /**
-     * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-     * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-     * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+     * Returns organizations with the organization IDs specified. Any organization IDs not found are
+     * ignored.
+     * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+     * respective organization should be included or excluded from the result set. Accepts up to 100
+     * organization IDs.
      * Example: ?organization_id=+org_1&amp;organization_id=-org_2
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
@@ -57,9 +62,12 @@ public class ListOrganizationsRequest {
 
     /**
      * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+     * `members_count`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organizations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -116,7 +124,8 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Flag to denote whether the member counts of each organization should be included in the response or not.
+     * Flag to denote whether the member counts of each organization should be included in the response or
+     * not.
      */
     @JsonIgnore
     public Optional<Boolean> includeMembersCount() {
@@ -124,7 +133,8 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     @JsonIgnore
     public Optional<Boolean> includeMissingMemberWithElevatedPermissions() {
@@ -141,8 +151,9 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Returns organizations with the user ids specified. Any user ids not found are ignored.
-     * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+     * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+     * are ignored.
+     * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
      * respective organization should be included or excluded from the result set.
      */
     @SuppressWarnings("unchecked")
@@ -152,9 +163,11 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-     * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-     * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+     * Returns organizations with the organization IDs specified. Any organization IDs not found are
+     * ignored.
+     * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+     * respective organization should be included or excluded from the result set. Accepts up to 100
+     * organization IDs.
      * Example: ?organization_id=+org_1&amp;organization_id=-org_2
      */
     @SuppressWarnings("unchecked")
@@ -165,9 +178,12 @@ public class ListOrganizationsRequest {
 
     /**
      * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+     * `members_count`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organizations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -201,7 +217,8 @@ public class ListOrganizationsRequest {
 
 
     /**
-     * Flag to denote whether the member counts of each organization should be included in the response or not.
+     * Flag to denote whether the member counts of each organization should be included in the response or
+     * not.
      */
     public ListOrganizationsRequest withIncludeMembersCount(boolean includeMembersCount) {
         Utils.checkNotNull(includeMembersCount, "includeMembersCount");
@@ -211,7 +228,8 @@ public class ListOrganizationsRequest {
 
 
     /**
-     * Flag to denote whether the member counts of each organization should be included in the response or not.
+     * Flag to denote whether the member counts of each organization should be included in the response or
+     * not.
      */
     public ListOrganizationsRequest withIncludeMembersCount(Optional<Boolean> includeMembersCount) {
         Utils.checkNotNull(includeMembersCount, "includeMembersCount");
@@ -220,7 +238,8 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     public ListOrganizationsRequest withIncludeMissingMemberWithElevatedPermissions(boolean includeMissingMemberWithElevatedPermissions) {
         Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -230,7 +249,8 @@ public class ListOrganizationsRequest {
 
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     public ListOrganizationsRequest withIncludeMissingMemberWithElevatedPermissions(Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
         Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -260,8 +280,9 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Returns organizations with the user ids specified. Any user ids not found are ignored.
-     * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+     * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+     * are ignored.
+     * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
      * respective organization should be included or excluded from the result set.
      */
     public ListOrganizationsRequest withUserId(List<String> userId) {
@@ -272,8 +293,9 @@ public class ListOrganizationsRequest {
 
 
     /**
-     * Returns organizations with the user ids specified. Any user ids not found are ignored.
-     * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+     * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+     * are ignored.
+     * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
      * respective organization should be included or excluded from the result set.
      */
     public ListOrganizationsRequest withUserId(Optional<? extends List<String>> userId) {
@@ -283,9 +305,11 @@ public class ListOrganizationsRequest {
     }
 
     /**
-     * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-     * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-     * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+     * Returns organizations with the organization IDs specified. Any organization IDs not found are
+     * ignored.
+     * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+     * respective organization should be included or excluded from the result set. Accepts up to 100
+     * organization IDs.
      * Example: ?organization_id=+org_1&amp;organization_id=-org_2
      */
     public ListOrganizationsRequest withOrganizationId(List<String> organizationId) {
@@ -296,9 +320,11 @@ public class ListOrganizationsRequest {
 
 
     /**
-     * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-     * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-     * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+     * Returns organizations with the organization IDs specified. Any organization IDs not found are
+     * ignored.
+     * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+     * respective organization should be included or excluded from the result set. Accepts up to 100
+     * organization IDs.
      * Example: ?organization_id=+org_1&amp;organization_id=-org_2
      */
     public ListOrganizationsRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
@@ -309,9 +335,12 @@ public class ListOrganizationsRequest {
 
     /**
      * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+     * `members_count`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organizations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -324,9 +353,12 @@ public class ListOrganizationsRequest {
 
     /**
      * Allows to return organizations in a particular order.
-     * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+     * `members_count`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organizations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -446,7 +478,8 @@ public class ListOrganizationsRequest {
 
 
         /**
-         * Flag to denote whether the member counts of each organization should be included in the response or not.
+         * Flag to denote whether the member counts of each organization should be included in the response or
+         * not.
          */
         public Builder includeMembersCount(boolean includeMembersCount) {
             Utils.checkNotNull(includeMembersCount, "includeMembersCount");
@@ -455,7 +488,8 @@ public class ListOrganizationsRequest {
         }
 
         /**
-         * Flag to denote whether the member counts of each organization should be included in the response or not.
+         * Flag to denote whether the member counts of each organization should be included in the response or
+         * not.
          */
         public Builder includeMembersCount(Optional<Boolean> includeMembersCount) {
             Utils.checkNotNull(includeMembersCount, "includeMembersCount");
@@ -465,7 +499,8 @@ public class ListOrganizationsRequest {
 
 
         /**
-         * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+         * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+         * member of the organization.
          */
         public Builder includeMissingMemberWithElevatedPermissions(boolean includeMissingMemberWithElevatedPermissions) {
             Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -474,7 +509,8 @@ public class ListOrganizationsRequest {
         }
 
         /**
-         * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+         * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+         * member of the organization.
          */
         public Builder includeMissingMemberWithElevatedPermissions(Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
             Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -505,8 +541,9 @@ public class ListOrganizationsRequest {
 
 
         /**
-         * Returns organizations with the user ids specified. Any user ids not found are ignored.
-         * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+         * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+         * are ignored.
+         * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
          * respective organization should be included or excluded from the result set.
          */
         public Builder userId(List<String> userId) {
@@ -516,8 +553,9 @@ public class ListOrganizationsRequest {
         }
 
         /**
-         * Returns organizations with the user ids specified. Any user ids not found are ignored.
-         * For each user id, the `+` and `-` can be prepended to the id, which denote whether the
+         * Returns organizations that include any of the specified user IDs as members. Any user IDs not found
+         * are ignored.
+         * For each user ID, the `+` and `-` can be prepended to the ID, which denote whether the
          * respective organization should be included or excluded from the result set.
          */
         public Builder userId(Optional<? extends List<String>> userId) {
@@ -528,9 +566,11 @@ public class ListOrganizationsRequest {
 
 
         /**
-         * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-         * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-         * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+         * Returns organizations with the organization IDs specified. Any organization IDs not found are
+         * ignored.
+         * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+         * respective organization should be included or excluded from the result set. Accepts up to 100
+         * organization IDs.
          * Example: ?organization_id=+org_1&amp;organization_id=-org_2
          */
         public Builder organizationId(List<String> organizationId) {
@@ -540,9 +580,11 @@ public class ListOrganizationsRequest {
         }
 
         /**
-         * Returns organizations with the organization ids specified. Any organization ids not found are ignored.
-         * For each organization id, the `+` and `-` can be prepended to the id, which denote whether the
-         * respective organization should be included or excluded from the result set. Accepts up to 100 organization ids.
+         * Returns organizations with the organization IDs specified. Any organization IDs not found are
+         * ignored.
+         * For each organization ID, the `+` and `-` can be prepended to the ID, which denote whether the
+         * respective organization should be included or excluded from the result set. Accepts up to 100
+         * organization IDs.
          * Example: ?organization_id=+org_1&amp;organization_id=-org_2
          */
         public Builder organizationId(Optional<? extends List<String>> organizationId) {
@@ -554,9 +596,12 @@ public class ListOrganizationsRequest {
 
         /**
          * Allows to return organizations in a particular order.
-         * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+         * `members_count`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want organizations to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */
@@ -568,9 +613,12 @@ public class ListOrganizationsRequest {
 
         /**
          * Allows to return organizations in a particular order.
-         * At the moment, you can order the returned organizations either by their `name`, `created_at` or `members_count`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organizations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned organizations either by their `name`, `created_at` or
+         * `members_count`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want organizations to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */

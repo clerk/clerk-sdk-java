@@ -37,13 +37,13 @@ public class GetUserListRequest {
     private Optional<? extends List<String>> phoneNumber;
 
     /**
-     * Returns users with the specified external ids.
-     * For each external id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective external id should be included or
+     * Returns users with the specified external IDs.
+     * For each external ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective external ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=external_id")
     private Optional<? extends List<String>> externalId;
@@ -59,19 +59,19 @@ public class GetUserListRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=web3_wallet")
     private Optional<? extends List<String>> web3Wallet;
 
     /**
-     * Returns users with the user ids specified.
-     * For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective user id should be included or
+     * Returns users with the user IDs specified.
+     * For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective user ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
     private Optional<? extends List<String>> userId;
@@ -79,19 +79,21 @@ public class GetUserListRequest {
     /**
      * Returns users that have memberships to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
     private Optional<? extends List<String>> organizationId;
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
@@ -145,7 +147,8 @@ public class GetUserListRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -185,11 +188,16 @@ public class GetUserListRequest {
 
     /**
      * Allows to return users in a particular order.
-     * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * At the moment, you can order the returned users by their
+     * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want users to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
     private Optional<String> orderBy;
@@ -294,13 +302,13 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users with the specified external ids.
-     * For each external id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective external id should be included or
+     * Returns users with the specified external IDs.
+     * For each external ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective external ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -322,7 +330,7 @@ public class GetUserListRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -331,13 +339,13 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users with the user ids specified.
-     * For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective user id should be included or
+     * Returns users with the user IDs specified.
+     * For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective user ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -348,11 +356,11 @@ public class GetUserListRequest {
     /**
      * Returns users that have memberships to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -362,8 +370,10 @@ public class GetUserListRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -433,7 +443,8 @@ public class GetUserListRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -483,11 +494,16 @@ public class GetUserListRequest {
 
     /**
      * Allows to return users in a particular order.
-     * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * At the moment, you can order the returned users by their
+     * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want users to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
     @JsonIgnore
     public Optional<String> orderBy() {
@@ -546,13 +562,13 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users with the specified external ids.
-     * For each external id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective external id should be included or
+     * Returns users with the specified external IDs.
+     * For each external ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective external ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     public GetUserListRequest withExternalId(List<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -562,13 +578,13 @@ public class GetUserListRequest {
 
 
     /**
-     * Returns users with the specified external ids.
-     * For each external id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective external id should be included or
+     * Returns users with the specified external IDs.
+     * For each external ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective external ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     public GetUserListRequest withExternalId(Optional<? extends List<String>> externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -602,7 +618,7 @@ public class GetUserListRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public GetUserListRequest withWeb3Wallet(List<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -614,7 +630,7 @@ public class GetUserListRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public GetUserListRequest withWeb3Wallet(Optional<? extends List<String>> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -623,13 +639,13 @@ public class GetUserListRequest {
     }
 
     /**
-     * Returns users with the user ids specified.
-     * For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective user id should be included or
+     * Returns users with the user IDs specified.
+     * For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective user ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     public GetUserListRequest withUserId(List<String> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -639,13 +655,13 @@ public class GetUserListRequest {
 
 
     /**
-     * Returns users with the user ids specified.
-     * For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
-     * respective user id should be included or
+     * Returns users with the user IDs specified.
+     * For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
+     * respective user ID should be included or
      * excluded from the result set.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     public GetUserListRequest withUserId(Optional<? extends List<String>> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -656,11 +672,11 @@ public class GetUserListRequest {
     /**
      * Returns users that have memberships to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     public GetUserListRequest withOrganizationId(List<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -672,11 +688,11 @@ public class GetUserListRequest {
     /**
      * Returns users that have memberships to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     public GetUserListRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -686,8 +702,10 @@ public class GetUserListRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public GetUserListRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -698,8 +716,10 @@ public class GetUserListRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public GetUserListRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -852,7 +872,8 @@ public class GetUserListRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -867,7 +888,8 @@ public class GetUserListRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -967,11 +989,16 @@ public class GetUserListRequest {
 
     /**
      * Allows to return users in a particular order.
-     * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * At the moment, you can order the returned users by their
+     * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want users to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
     public GetUserListRequest withOrderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -982,11 +1009,16 @@ public class GetUserListRequest {
 
     /**
      * Allows to return users in a particular order.
-     * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * At the moment, you can order the returned users by their
+     * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want users to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
      */
     public GetUserListRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -1163,13 +1195,13 @@ public class GetUserListRequest {
 
 
         /**
-         * Returns users with the specified external ids.
-         * For each external id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
-         * respective external id should be included or
+         * Returns users with the specified external IDs.
+         * For each external ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
+         * respective external ID should be included or
          * excluded from the result set.
-         * Accepts up to 100 external ids.
-         * Any external ids not found are ignored.
+         * Accepts up to 100 external IDs.
+         * Any external IDs not found are ignored.
          */
         public Builder externalId(List<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -1178,13 +1210,13 @@ public class GetUserListRequest {
         }
 
         /**
-         * Returns users with the specified external ids.
-         * For each external id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
-         * respective external id should be included or
+         * Returns users with the specified external IDs.
+         * For each external ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
+         * respective external ID should be included or
          * excluded from the result set.
-         * Accepts up to 100 external ids.
-         * Any external ids not found are ignored.
+         * Accepts up to 100 external IDs.
+         * Any external IDs not found are ignored.
          */
         public Builder externalId(Optional<? extends List<String>> externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -1219,7 +1251,7 @@ public class GetUserListRequest {
         /**
          * Returns users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(List<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1230,7 +1262,7 @@ public class GetUserListRequest {
         /**
          * Returns users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(Optional<? extends List<String>> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1240,13 +1272,13 @@ public class GetUserListRequest {
 
 
         /**
-         * Returns users with the user ids specified.
-         * For each user id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
-         * respective user id should be included or
+         * Returns users with the user IDs specified.
+         * For each user ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
+         * respective user ID should be included or
          * excluded from the result set.
-         * Accepts up to 100 user ids.
-         * Any user ids not found are ignored.
+         * Accepts up to 100 user IDs.
+         * Any user IDs not found are ignored.
          */
         public Builder userId(List<String> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -1255,13 +1287,13 @@ public class GetUserListRequest {
         }
 
         /**
-         * Returns users with the user ids specified.
-         * For each user id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
-         * respective user id should be included or
+         * Returns users with the user IDs specified.
+         * For each user ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
+         * respective user ID should be included or
          * excluded from the result set.
-         * Accepts up to 100 user ids.
-         * Any user ids not found are ignored.
+         * Accepts up to 100 user IDs.
+         * Any user IDs not found are ignored.
          */
         public Builder userId(Optional<? extends List<String>> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -1273,11 +1305,11 @@ public class GetUserListRequest {
         /**
          * Returns users that have memberships to the
          * given organizations.
-         * For each organization id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
+         * For each organization ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
          * respective organization should be included or
          * excluded from the result set.
-         * Accepts up to 100 organization ids.
+         * Accepts up to 100 organization IDs.
          */
         public Builder organizationId(List<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -1288,11 +1320,11 @@ public class GetUserListRequest {
         /**
          * Returns users that have memberships to the
          * given organizations.
-         * For each organization id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
+         * For each organization ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
          * respective organization should be included or
          * excluded from the result set.
-         * Accepts up to 100 organization ids.
+         * Accepts up to 100 organization IDs.
          */
         public Builder organizationId(Optional<? extends List<String>> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -1303,8 +1335,10 @@ public class GetUserListRequest {
 
         /**
          * Returns users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -1314,8 +1348,10 @@ public class GetUserListRequest {
 
         /**
          * Returns users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
@@ -1469,7 +1505,8 @@ public class GetUserListRequest {
 
         /**
          * Returns users that had session activity since the given date.
-         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+         * current day.
          * Deprecated in favor of `last_active_at_after`.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -1483,7 +1520,8 @@ public class GetUserListRequest {
 
         /**
          * Returns users that had session activity since the given date.
-         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+         * current day.
          * Deprecated in favor of `last_active_at_after`.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -1584,11 +1622,16 @@ public class GetUserListRequest {
 
         /**
          * Allows to return users in a particular order.
-         * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-         * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+         * At the moment, you can order the returned users by their
+         * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want users to be returned in descending order according to their `created_at`
+         * property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+         * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+         * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+         * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
          */
         public Builder orderBy(String orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -1598,11 +1641,16 @@ public class GetUserListRequest {
 
         /**
          * Allows to return users in a particular order.
-         * At the moment, you can order the returned users by their `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want users to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-         * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+         * At the moment, you can order the returned users by their
+         * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want users to be returned in descending order according to their `created_at`
+         * property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+         * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+         * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
+         * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
          */
         public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");

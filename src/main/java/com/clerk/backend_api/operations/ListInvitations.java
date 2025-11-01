@@ -5,6 +5,7 @@ package com.clerk.backend_api.operations;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import static com.clerk.backend_api.utils.Retries.NonRetryableException;
+import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
@@ -15,6 +16,7 @@ import com.clerk.backend_api.models.operations.ListInvitationsResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
@@ -33,7 +35,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class ListInvitations {
 
     static abstract class Base {
@@ -43,9 +44,13 @@ public class ListInvitations {
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
+        final Headers _headers;
 
-        public Base(SDKConfiguration sdkConfiguration, Optional<Options> options) {
+        public Base(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
             this.sdkConfiguration = sdkConfiguration;
+            this._headers =_headers;
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             options
@@ -74,7 +79,7 @@ public class ListInvitations {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "ListInvitations",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -83,7 +88,7 @@ public class ListInvitations {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "ListInvitations",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -92,20 +97,20 @@ public class ListInvitations {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "ListInvitations",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
-
-        HttpRequest buildRequest(ListInvitationsRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/invitations");
             HTTPRequest req = new HTTPRequest(url, "GET");
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
+            _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
 
             req.addQueryParams(Utils.getQueryParams(
-                    ListInvitationsRequest.class,
+                    klass,
                     request,
                     null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -116,12 +121,16 @@ public class ListInvitations {
 
     public static class Sync extends Base
             implements RequestOperation<ListInvitationsRequest, ListInvitationsResponse> {
-        public Sync(SDKConfiguration sdkConfiguration, Optional<Options> options) {
-            super(sdkConfiguration, options);
+        public Sync(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
+            super(
+                  sdkConfiguration, options,
+                  _headers);
         }
 
         private HttpRequest onBuildRequest(ListInvitationsRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, ListInvitationsRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -137,7 +146,7 @@ public class ListInvitations {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(ListInvitationsRequest request) throws Exception {
+        public HttpResponse<InputStream> doRequest(ListInvitationsRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -159,12 +168,12 @@ public class ListInvitations {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public ListInvitationsResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public ListInvitationsResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -180,44 +189,20 @@ public class ListInvitations {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    List<Invitation> out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withInvitationList(out);
-                    return res;
+                    return res.withInvitationList(Utils.unmarshal(response, new TypeReference<List<Invitation>>() {}));
                 } else {
-                    throw new SDKError(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
-            throw new SDKError(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw SDKError.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

@@ -13,7 +13,8 @@ import java.lang.String;
 
 public class CreateRedirectURLRequestBody {
     /**
-     * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
+     * The full URL value prefixed with `https://` or a custom scheme e.g.
+     * `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
     @JsonProperty("url")
     private String url;
@@ -26,7 +27,8 @@ public class CreateRedirectURLRequestBody {
     }
 
     /**
-     * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
+     * The full URL value prefixed with `https://` or a custom scheme e.g.
+     * `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
     @JsonIgnore
     public String url() {
@@ -39,7 +41,8 @@ public class CreateRedirectURLRequestBody {
 
 
     /**
-     * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
+     * The full URL value prefixed with `https://` or a custom scheme e.g.
+     * `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
      */
     public CreateRedirectURLRequestBody withUrl(String url) {
         Utils.checkNotNull(url, "url");
@@ -83,7 +86,8 @@ public class CreateRedirectURLRequestBody {
 
 
         /**
-         * The full url value prefixed with `https://` or a custom scheme e.g. `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
+         * The full URL value prefixed with `https://` or a custom scheme e.g.
+         * `"https://my-app.com/oauth-callback"` or `"my-app://oauth-callback"`
          */
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");

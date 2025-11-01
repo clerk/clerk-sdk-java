@@ -3,30 +3,33 @@
  */
 package com.clerk.backend_api.models.errors;
 
+import java.io.InputStream;
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 /**
  * An exception associated with Authentication or Authorization.
  */
 @SuppressWarnings("serial")
-public class AuthException extends RuntimeException {
+public class AuthException extends ClerkError {
 
-    private final Optional<Integer> statusCode;
-
-    private AuthException(Optional<Integer> statusCode, String message) {
-       super(message);
-       this.statusCode = statusCode;
+    public AuthException(String message, int code, byte[] body, HttpResponse<InputStream> rawResponse) {
+       super(message, code, body, rawResponse, null);
     }
 
-    public AuthException(int statusCode, String message) {
-        this(Optional.of(statusCode), message);
-    }
-    
-    public AuthException(String message) {
-        this(Optional.empty(), message);
-    }
-    
+    /**
+     * Returns the HTTP status code of the response.
+     *
+     * @deprecated Use {@link #code()} instead.
+     */
+    @Deprecated
     public Optional<Integer> statusCode() {
-        return statusCode;
+        return Optional.of(super.code());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public HttpResponse<InputStream> rawResponse() {
+        return (HttpResponse<InputStream>) super.rawResponse();
     }
 }

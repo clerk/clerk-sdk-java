@@ -36,7 +36,8 @@ public class CreateInvitationRequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -44,7 +45,9 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
-     * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+     * This is only required if you have implemented a [custom
+     * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+     * Hosted Pages or Clerk Components.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
@@ -59,14 +62,16 @@ public class CreateInvitationRequestBody {
     private JsonNullable<Boolean> notify_;
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ignore_existing")
     private JsonNullable<Boolean> ignoreExisting;
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_days")
@@ -122,7 +127,8 @@ public class CreateInvitationRequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -132,7 +138,9 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
-     * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+     * This is only required if you have implemented a [custom
+     * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+     * Hosted Pages or Clerk Components.
      */
     @JsonIgnore
     public Optional<String> redirectUrl() {
@@ -149,7 +157,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     @JsonIgnore
     public JsonNullable<Boolean> ignoreExisting() {
@@ -157,7 +166,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInDays() {
@@ -190,7 +200,8 @@ public class CreateInvitationRequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     public CreateInvitationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -202,7 +213,8 @@ public class CreateInvitationRequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     public CreateInvitationRequestBody withPublicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -212,7 +224,9 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
-     * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+     * This is only required if you have implemented a [custom
+     * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+     * Hosted Pages or Clerk Components.
      */
     public CreateInvitationRequestBody withRedirectUrl(String redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -223,7 +237,9 @@ public class CreateInvitationRequestBody {
 
     /**
      * Optional URL which specifies where to redirect the user once they click the invitation link.
-     * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+     * This is only required if you have implemented a [custom
+     * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+     * Hosted Pages or Clerk Components.
      */
     public CreateInvitationRequestBody withRedirectUrl(Optional<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -252,7 +268,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     public CreateInvitationRequestBody withIgnoreExisting(boolean ignoreExisting) {
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -261,7 +278,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     public CreateInvitationRequestBody withIgnoreExisting(JsonNullable<Boolean> ignoreExisting) {
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -270,7 +288,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     public CreateInvitationRequestBody withExpiresInDays(long expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -279,7 +298,8 @@ public class CreateInvitationRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     public CreateInvitationRequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -380,7 +400,8 @@ public class CreateInvitationRequestBody {
         /**
          * Metadata that will be attached to the newly created invitation.
          * The value of this property should be a well-formed JSON object.
-         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+         * metadata.
          */
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -391,7 +412,8 @@ public class CreateInvitationRequestBody {
         /**
          * Metadata that will be attached to the newly created invitation.
          * The value of this property should be a well-formed JSON object.
-         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+         * metadata.
          */
         public Builder publicMetadata(Optional<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -402,7 +424,9 @@ public class CreateInvitationRequestBody {
 
         /**
          * Optional URL which specifies where to redirect the user once they click the invitation link.
-         * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+         * This is only required if you have implemented a [custom
+         * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+         * Hosted Pages or Clerk Components.
          */
         public Builder redirectUrl(String redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -412,7 +436,9 @@ public class CreateInvitationRequestBody {
 
         /**
          * Optional URL which specifies where to redirect the user once they click the invitation link.
-         * This is only required if you have implemented a [custom flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk Hosted Pages or Clerk Components.
+         * This is only required if you have implemented a [custom
+         * flow](https://clerk.com/docs/authentication/invitations#custom-flow) and you're not using Clerk
+         * Hosted Pages or Clerk Components.
          */
         public Builder redirectUrl(Optional<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -443,7 +469,8 @@ public class CreateInvitationRequestBody {
 
 
         /**
-         * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
          */
         public Builder ignoreExisting(boolean ignoreExisting) {
             Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -452,7 +479,8 @@ public class CreateInvitationRequestBody {
         }
 
         /**
-         * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
          */
         public Builder ignoreExisting(JsonNullable<Boolean> ignoreExisting) {
             Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -462,7 +490,8 @@ public class CreateInvitationRequestBody {
 
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30
+         * days.
          */
         public Builder expiresInDays(long expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -471,7 +500,8 @@ public class CreateInvitationRequestBody {
         }
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30
+         * days.
          */
         public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");

@@ -11,6 +11,7 @@
 * [update](#update) - Update a machine
 * [delete](#delete) - Delete a machine
 * [getSecretKey](#getsecretkey) - Retrieve a machine secret key
+* [rotateSecretKey](#rotatesecretkey) - Rotate a machine's secret key
 * [createScope](#createscope) - Create a machine scope
 * [deleteScope](#deletescope) - Delete a machine scope
 
@@ -326,6 +327,64 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 403, 404        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## rotateSecretKey
+
+Rotates the machine's secret key.
+When the secret key is rotated, make sure to update it in your machine/application.
+The previous secret key will remain valid for the duration specified by the previous_token_ttl parameter.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RotateMachineSecretKey" method="post" path="/machines/{machine_id}/secret_key/rotate" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyRequestBody;
+import com.clerk.backend_api.models.operations.RotateMachineSecretKeyResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RotateMachineSecretKeyResponse res = sdk.machines().rotateSecretKey()
+                .machineId("<id>")
+                .requestBody(RotateMachineSecretKeyRequestBody.builder()
+                    .previousTokenTtl(632625L)
+                    .build())
+                .call();
+
+        if (res.machineSecretKey().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `machineId`                                                                                       | *String*                                                                                          | :heavy_check_mark:                                                                                | The ID of the machine to rotate the secret key for                                                |
+| `requestBody`                                                                                     | [RotateMachineSecretKeyRequestBody](../../models/operations/RotateMachineSecretKeyRequestBody.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
+
+### Response
+
+**[RotateMachineSecretKeyResponse](../../models/operations/RotateMachineSecretKeyResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## createScope

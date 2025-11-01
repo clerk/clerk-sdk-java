@@ -72,6 +72,11 @@ public class User {
     @JsonProperty("last_name")
     private Optional<String> lastName;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("locale")
+    private JsonNullable<String> locale;
+
     /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -137,14 +142,16 @@ public class User {
     private boolean backupCodeEnabled;
 
     /**
-     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+     * nullified if MFA is disabled.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("mfa_enabled_at")
     private Optional<Long> mfaEnabledAt;
 
     /**
-     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+     * not nullified if MFA is enabled again.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("mfa_disabled_at")
@@ -178,14 +185,17 @@ public class User {
     private boolean locked;
 
     /**
-     * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+     * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+     * a locked user indicates that lockout never expires.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("lockout_expires_in_seconds")
     private Optional<Long> lockoutExpiresInSeconds;
 
     /**
-     * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+     * The number of verification attempts remaining until the user is locked. Null if account lockout is
+     * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+     * verification attempts remaining.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification_attempts_remaining")
@@ -247,6 +257,7 @@ public class User {
             @JsonProperty("username") Optional<String> username,
             @JsonProperty("first_name") Optional<String> firstName,
             @JsonProperty("last_name") Optional<String> lastName,
+            @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("profile_image_url") Optional<String> profileImageUrl,
             @JsonProperty("image_url") Optional<String> imageUrl,
             @JsonProperty("has_image") boolean hasImage,
@@ -286,6 +297,7 @@ public class User {
         Utils.checkNotNull(username, "username");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
+        Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(profileImageUrl, "profileImageUrl");
         Utils.checkNotNull(imageUrl, "imageUrl");
         Utils.checkNotNull(hasImage, "hasImage");
@@ -326,6 +338,7 @@ public class User {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.locale = locale;
         this.profileImageUrl = profileImageUrl;
         this.imageUrl = imageUrl;
         this.hasImage = hasImage;
@@ -382,16 +395,17 @@ public class User {
         this(id, object, Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), hasImage,
-            publicMetadata, JsonNullable.undefined(), Optional.empty(),
-            emailAddresses, phoneNumbers, web3Wallets,
-            passkeys, passwordEnabled, twoFactorEnabled,
-            totpEnabled, backupCodeEnabled, Optional.empty(),
-            Optional.empty(), externalAccounts, samlAccounts,
-            Optional.empty(), banned, locked,
-            Optional.empty(), Optional.empty(), updatedAt,
-            createdAt, deleteSelfEnabled, createOrganizationEnabled,
-            JsonNullable.undefined(), Optional.empty(), Optional.empty());
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            hasImage, publicMetadata, JsonNullable.undefined(),
+            Optional.empty(), emailAddresses, phoneNumbers,
+            web3Wallets, passkeys, passwordEnabled,
+            twoFactorEnabled, totpEnabled, backupCodeEnabled,
+            Optional.empty(), Optional.empty(), externalAccounts,
+            samlAccounts, Optional.empty(), banned,
+            locked, Optional.empty(), Optional.empty(),
+            updatedAt, createdAt, deleteSelfEnabled,
+            createOrganizationEnabled, JsonNullable.undefined(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -440,6 +454,11 @@ public class User {
     @JsonIgnore
     public Optional<String> lastName() {
         return lastName;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> locale() {
+        return locale;
     }
 
     /**
@@ -520,7 +539,8 @@ public class User {
     }
 
     /**
-     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+     * nullified if MFA is disabled.
      */
     @JsonIgnore
     public Optional<Long> mfaEnabledAt() {
@@ -528,7 +548,8 @@ public class User {
     }
 
     /**
-     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+     * not nullified if MFA is enabled again.
      */
     @JsonIgnore
     public Optional<Long> mfaDisabledAt() {
@@ -570,7 +591,8 @@ public class User {
     }
 
     /**
-     * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+     * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+     * a locked user indicates that lockout never expires.
      */
     @JsonIgnore
     public Optional<Long> lockoutExpiresInSeconds() {
@@ -578,7 +600,9 @@ public class User {
     }
 
     /**
-     * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+     * The number of verification attempts remaining until the user is locked. Null if account lockout is
+     * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+     * verification attempts remaining.
      */
     @JsonIgnore
     public Optional<Long> verificationAttemptsRemaining() {
@@ -752,6 +776,18 @@ public class User {
         return this;
     }
 
+    public User withLocale(String locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = JsonNullable.of(locale);
+        return this;
+    }
+
+    public User withLocale(JsonNullable<String> locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = locale;
+        return this;
+    }
+
     /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -874,7 +910,8 @@ public class User {
     }
 
     /**
-     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+     * nullified if MFA is disabled.
      */
     public User withMfaEnabledAt(long mfaEnabledAt) {
         Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
@@ -884,7 +921,8 @@ public class User {
 
 
     /**
-     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+     * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+     * nullified if MFA is disabled.
      */
     public User withMfaEnabledAt(Optional<Long> mfaEnabledAt) {
         Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
@@ -893,7 +931,8 @@ public class User {
     }
 
     /**
-     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+     * not nullified if MFA is enabled again.
      */
     public User withMfaDisabledAt(long mfaDisabledAt) {
         Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
@@ -903,7 +942,8 @@ public class User {
 
 
     /**
-     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+     * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+     * not nullified if MFA is enabled again.
      */
     public User withMfaDisabledAt(Optional<Long> mfaDisabledAt) {
         Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
@@ -961,7 +1001,8 @@ public class User {
     }
 
     /**
-     * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+     * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+     * a locked user indicates that lockout never expires.
      */
     public User withLockoutExpiresInSeconds(long lockoutExpiresInSeconds) {
         Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
@@ -971,7 +1012,8 @@ public class User {
 
 
     /**
-     * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+     * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+     * a locked user indicates that lockout never expires.
      */
     public User withLockoutExpiresInSeconds(Optional<Long> lockoutExpiresInSeconds) {
         Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
@@ -980,7 +1022,9 @@ public class User {
     }
 
     /**
-     * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+     * The number of verification attempts remaining until the user is locked. Null if account lockout is
+     * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+     * verification attempts remaining.
      */
     public User withVerificationAttemptsRemaining(long verificationAttemptsRemaining) {
         Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
@@ -990,7 +1034,9 @@ public class User {
 
 
     /**
-     * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+     * The number of verification attempts remaining until the user is locked. Null if account lockout is
+     * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+     * verification attempts remaining.
      */
     public User withVerificationAttemptsRemaining(Optional<Long> verificationAttemptsRemaining) {
         Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
@@ -1109,6 +1155,7 @@ public class User {
             Utils.enhancedDeepEquals(this.username, other.username) &&
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.profileImageUrl, other.profileImageUrl) &&
             Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
             Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
@@ -1147,16 +1194,17 @@ public class User {
             id, object, externalId,
             primaryEmailAddressId, primaryPhoneNumberId, primaryWeb3WalletId,
             username, firstName, lastName,
-            profileImageUrl, imageUrl, hasImage,
-            publicMetadata, privateMetadata, unsafeMetadata,
-            emailAddresses, phoneNumbers, web3Wallets,
-            passkeys, passwordEnabled, twoFactorEnabled,
-            totpEnabled, backupCodeEnabled, mfaEnabledAt,
-            mfaDisabledAt, externalAccounts, samlAccounts,
-            lastSignInAt, banned, locked,
-            lockoutExpiresInSeconds, verificationAttemptsRemaining, updatedAt,
-            createdAt, deleteSelfEnabled, createOrganizationEnabled,
-            createOrganizationsLimit, lastActiveAt, legalAcceptedAt);
+            locale, profileImageUrl, imageUrl,
+            hasImage, publicMetadata, privateMetadata,
+            unsafeMetadata, emailAddresses, phoneNumbers,
+            web3Wallets, passkeys, passwordEnabled,
+            twoFactorEnabled, totpEnabled, backupCodeEnabled,
+            mfaEnabledAt, mfaDisabledAt, externalAccounts,
+            samlAccounts, lastSignInAt, banned,
+            locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
+            updatedAt, createdAt, deleteSelfEnabled,
+            createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
+            legalAcceptedAt);
     }
     
     @Override
@@ -1171,6 +1219,7 @@ public class User {
                 "username", username,
                 "firstName", firstName,
                 "lastName", lastName,
+                "locale", locale,
                 "profileImageUrl", profileImageUrl,
                 "imageUrl", imageUrl,
                 "hasImage", hasImage,
@@ -1223,6 +1272,8 @@ public class User {
         private Optional<String> firstName = Optional.empty();
 
         private Optional<String> lastName = Optional.empty();
+
+        private JsonNullable<String> locale = JsonNullable.undefined();
 
         @Deprecated
         private Optional<String> profileImageUrl = Optional.empty();
@@ -1398,6 +1449,19 @@ public class User {
         }
 
 
+        public Builder locale(String locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = JsonNullable.of(locale);
+            return this;
+        }
+
+        public Builder locale(JsonNullable<String> locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = locale;
+            return this;
+        }
+
+
         /**
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -1531,7 +1595,8 @@ public class User {
 
 
         /**
-         * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+         * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+         * nullified if MFA is disabled.
          */
         public Builder mfaEnabledAt(long mfaEnabledAt) {
             Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
@@ -1540,7 +1605,8 @@ public class User {
         }
 
         /**
-         * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not nullified if MFA is disabled.
+         * Unix timestamp of when MFA was last enabled for this user. It should be noted that this field is not
+         * nullified if MFA is disabled.
          */
         public Builder mfaEnabledAt(Optional<Long> mfaEnabledAt) {
             Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
@@ -1550,7 +1616,8 @@ public class User {
 
 
         /**
-         * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+         * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+         * not nullified if MFA is enabled again.
          */
         public Builder mfaDisabledAt(long mfaDisabledAt) {
             Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
@@ -1559,7 +1626,8 @@ public class User {
         }
 
         /**
-         * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is not nullified if MFA is enabled again.
+         * Unix timestamp of when MFA was last disabled for this user. It should be noted that this field is
+         * not nullified if MFA is enabled again.
          */
         public Builder mfaDisabledAt(Optional<Long> mfaDisabledAt) {
             Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
@@ -1622,7 +1690,8 @@ public class User {
 
 
         /**
-         * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+         * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+         * a locked user indicates that lockout never expires.
          */
         public Builder lockoutExpiresInSeconds(long lockoutExpiresInSeconds) {
             Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
@@ -1631,7 +1700,8 @@ public class User {
         }
 
         /**
-         * The number of seconds remaining until the lockout period expires for a locked user. A null value for a locked user indicates that lockout never expires.
+         * The number of seconds remaining until the lockout period expires for a locked user. A null value for
+         * a locked user indicates that lockout never expires.
          */
         public Builder lockoutExpiresInSeconds(Optional<Long> lockoutExpiresInSeconds) {
             Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
@@ -1641,7 +1711,9 @@ public class User {
 
 
         /**
-         * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+         * The number of verification attempts remaining until the user is locked. Null if account lockout is
+         * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+         * verification attempts remaining.
          */
         public Builder verificationAttemptsRemaining(long verificationAttemptsRemaining) {
             Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
@@ -1650,7 +1722,9 @@ public class User {
         }
 
         /**
-         * The number of verification attempts remaining until the user is locked. Null if account lockout is not enabled. Note: if a user is locked explicitly via the Backend API, they may still have verification attempts remaining.
+         * The number of verification attempts remaining until the user is locked. Null if account lockout is
+         * not enabled. Note: if a user is locked explicitly via the Backend API, they may still have
+         * verification attempts remaining.
          */
         public Builder verificationAttemptsRemaining(Optional<Long> verificationAttemptsRemaining) {
             Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
@@ -1761,16 +1835,17 @@ public class User {
                 id, object, externalId,
                 primaryEmailAddressId, primaryPhoneNumberId, primaryWeb3WalletId,
                 username, firstName, lastName,
-                profileImageUrl, imageUrl, hasImage,
-                publicMetadata, privateMetadata, unsafeMetadata,
-                emailAddresses, phoneNumbers, web3Wallets,
-                passkeys, passwordEnabled, twoFactorEnabled,
-                totpEnabled, backupCodeEnabled, mfaEnabledAt,
-                mfaDisabledAt, externalAccounts, samlAccounts,
-                lastSignInAt, banned, locked,
-                lockoutExpiresInSeconds, verificationAttemptsRemaining, updatedAt,
-                createdAt, deleteSelfEnabled, createOrganizationEnabled,
-                createOrganizationsLimit, lastActiveAt, legalAcceptedAt);
+                locale, profileImageUrl, imageUrl,
+                hasImage, publicMetadata, privateMetadata,
+                unsafeMetadata, emailAddresses, phoneNumbers,
+                web3Wallets, passkeys, passwordEnabled,
+                twoFactorEnabled, totpEnabled, backupCodeEnabled,
+                mfaEnabledAt, mfaDisabledAt, externalAccounts,
+                samlAccounts, lastSignInAt, banned,
+                locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
+                updatedAt, createdAt, deleteSelfEnabled,
+                createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
+                legalAcceptedAt);
         }
 
     }

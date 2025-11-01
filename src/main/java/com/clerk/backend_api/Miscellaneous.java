@@ -9,12 +9,13 @@ import com.clerk.backend_api.models.operations.GetPublicInterstitialRequest;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialRequestBuilder;
 import com.clerk.backend_api.models.operations.GetPublicInterstitialResponse;
 import com.clerk.backend_api.operations.GetPublicInterstitial;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class Miscellaneous {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Miscellaneous(SDKConfiguration sdkConfiguration) {
@@ -24,7 +25,8 @@ public class Miscellaneous {
     /**
      * Returns the markup for the interstitial page
      * 
-     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
+     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's
+     * authentication state.
      * It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
      * 
      * @return The call builder
@@ -36,31 +38,33 @@ public class Miscellaneous {
     /**
      * Returns the markup for the interstitial page
      * 
-     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
+     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's
+     * authentication state.
      * It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetPublicInterstitialResponse getPublicInterstitial(GetPublicInterstitialRequest request) throws Exception {
+    public GetPublicInterstitialResponse getPublicInterstitial(GetPublicInterstitialRequest request) {
         return getPublicInterstitial(request, Optional.empty());
     }
 
     /**
      * Returns the markup for the interstitial page
      * 
-     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's authentication state.
+     * <p>The Clerk interstitial endpoint serves an html page that loads clerk.js in order to check the user's
+     * authentication state.
      * It is used by Clerk SDKs when the user's authentication state cannot be immediately determined.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetPublicInterstitialResponse getPublicInterstitial(GetPublicInterstitialRequest request, Optional<Options> options) throws Exception {
+    public GetPublicInterstitialResponse getPublicInterstitial(GetPublicInterstitialRequest request, Optional<Options> options) {
         RequestOperation<GetPublicInterstitialRequest, GetPublicInterstitialResponse> operation
-              = new GetPublicInterstitial.Sync(sdkConfiguration, options);
+              = new GetPublicInterstitial.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -40,7 +40,8 @@ public class CreateActorTokenRequestBody {
     private Optional<Long> expiresInSeconds;
 
     /**
-     * The maximum duration that the session which will be created by the generated actor token should last.
+     * The maximum duration that the session which will be created by the generated actor token should
+     * last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -97,7 +98,8 @@ public class CreateActorTokenRequestBody {
     }
 
     /**
-     * The maximum duration that the session which will be created by the generated actor token should last.
+     * The maximum duration that the session which will be created by the generated actor token should
+     * last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
     @JsonIgnore
@@ -151,7 +153,8 @@ public class CreateActorTokenRequestBody {
     }
 
     /**
-     * The maximum duration that the session which will be created by the generated actor token should last.
+     * The maximum duration that the session which will be created by the generated actor token should
+     * last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
     public CreateActorTokenRequestBody withSessionMaxDurationInSeconds(long sessionMaxDurationInSeconds) {
@@ -162,7 +165,8 @@ public class CreateActorTokenRequestBody {
 
 
     /**
-     * The maximum duration that the session which will be created by the generated actor token should last.
+     * The maximum duration that the session which will be created by the generated actor token should
+     * last.
      * By default, the duration of a session created via an actor token, lasts 30 minutes.
      */
     public CreateActorTokenRequestBody withSessionMaxDurationInSeconds(Optional<Long> sessionMaxDurationInSeconds) {
@@ -262,7 +266,8 @@ public class CreateActorTokenRequestBody {
 
 
         /**
-         * The maximum duration that the session which will be created by the generated actor token should last.
+         * The maximum duration that the session which will be created by the generated actor token should
+         * last.
          * By default, the duration of a session created via an actor token, lasts 30 minutes.
          */
         public Builder sessionMaxDurationInSeconds(long sessionMaxDurationInSeconds) {
@@ -272,7 +277,8 @@ public class CreateActorTokenRequestBody {
         }
 
         /**
-         * The maximum duration that the session which will be created by the generated actor token should last.
+         * The maximum duration that the session which will be created by the generated actor token should
+         * last.
          * By default, the duration of a session created via an actor token, lasts 30 minutes.
          */
         public Builder sessionMaxDurationInSeconds(Optional<Long> sessionMaxDurationInSeconds) {

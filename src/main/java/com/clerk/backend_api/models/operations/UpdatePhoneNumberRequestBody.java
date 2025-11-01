@@ -33,7 +33,8 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * Set this phone number as reserved for multi-factor authentication.
      * The phone number must also be verified.
-     * If there are no other reserved second factors, the phone number will be set as the default second factor.
+     * If there are no other reserved second factors, the phone number will be set as the default second
+     * factor.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reserved_for_second_factor")
@@ -75,7 +76,8 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * Set this phone number as reserved for multi-factor authentication.
      * The phone number must also be verified.
-     * If there are no other reserved second factors, the phone number will be set as the default second factor.
+     * If there are no other reserved second factors, the phone number will be set as the default second
+     * factor.
      */
     @JsonIgnore
     public JsonNullable<Boolean> reservedForSecondFactor() {
@@ -126,7 +128,8 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * Set this phone number as reserved for multi-factor authentication.
      * The phone number must also be verified.
-     * If there are no other reserved second factors, the phone number will be set as the default second factor.
+     * If there are no other reserved second factors, the phone number will be set as the default second
+     * factor.
      */
     public UpdatePhoneNumberRequestBody withReservedForSecondFactor(boolean reservedForSecondFactor) {
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
@@ -137,7 +140,8 @@ public class UpdatePhoneNumberRequestBody {
     /**
      * Set this phone number as reserved for multi-factor authentication.
      * The phone number must also be verified.
-     * If there are no other reserved second factors, the phone number will be set as the default second factor.
+     * If there are no other reserved second factors, the phone number will be set as the default second
+     * factor.
      */
     public UpdatePhoneNumberRequestBody withReservedForSecondFactor(JsonNullable<Boolean> reservedForSecondFactor) {
         Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
@@ -229,7 +233,8 @@ public class UpdatePhoneNumberRequestBody {
         /**
          * Set this phone number as reserved for multi-factor authentication.
          * The phone number must also be verified.
-         * If there are no other reserved second factors, the phone number will be set as the default second factor.
+         * If there are no other reserved second factors, the phone number will be set as the default second
+         * factor.
          */
         public Builder reservedForSecondFactor(boolean reservedForSecondFactor) {
             Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
@@ -240,7 +245,8 @@ public class UpdatePhoneNumberRequestBody {
         /**
          * Set this phone number as reserved for multi-factor authentication.
          * The phone number must also be verified.
-         * If there are no other reserved second factors, the phone number will be set as the default second factor.
+         * If there are no other reserved second factors, the phone number will be set as the default second
+         * factor.
          */
         public Builder reservedForSecondFactor(JsonNullable<Boolean> reservedForSecondFactor) {
             Utils.checkNotNull(reservedForSecondFactor, "reservedForSecondFactor");
