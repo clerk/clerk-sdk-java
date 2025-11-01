@@ -32,7 +32,7 @@ public class RefreshSessionRequestBody {
     private String expiredToken;
 
     /**
-     * The JWT that is sent via the `__session` cookie from your frontend.
+     * The refresh token from the `__refresh` cookie set via FAPI's handshake flow.
      */
     @JsonProperty("refresh_token")
     private String refreshToken;
@@ -104,7 +104,7 @@ public class RefreshSessionRequestBody {
     }
 
     /**
-     * The JWT that is sent via the `__session` cookie from your frontend.
+     * The refresh token from the `__refresh` cookie set via FAPI's handshake flow.
      */
     @JsonIgnore
     public String refreshToken() {
@@ -161,7 +161,7 @@ public class RefreshSessionRequestBody {
     }
 
     /**
-     * The JWT that is sent via the `__session` cookie from your frontend.
+     * The refresh token from the `__refresh` cookie set via FAPI's handshake flow.
      */
     public RefreshSessionRequestBody withRefreshToken(String refreshToken) {
         Utils.checkNotNull(refreshToken, "refreshToken");
@@ -300,7 +300,7 @@ public class RefreshSessionRequestBody {
 
 
         /**
-         * The JWT that is sent via the `__session` cookie from your frontend.
+         * The refresh token from the `__refresh` cookie set via FAPI's handshake flow.
          */
         public Builder refreshToken(String refreshToken) {
             Utils.checkNotNull(refreshToken, "refreshToken");

@@ -21,15 +21,16 @@ import com.clerk.backend_api.operations.CreateRedirectURL;
 import com.clerk.backend_api.operations.DeleteRedirectURL;
 import com.clerk.backend_api.operations.GetRedirectURL;
 import com.clerk.backend_api.operations.ListRedirectURLs;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class RedirectUrls {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     RedirectUrls(SDKConfiguration sdkConfiguration) {
@@ -53,9 +54,9 @@ public class RedirectUrls {
      * <p>Lists all whitelisted redirect_urls for the instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListRedirectURLsResponse listDirect() throws Exception {
+    public ListRedirectURLsResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -75,11 +76,11 @@ public class RedirectUrls {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ListRedirectURLsResponse list(
             Optional<Boolean> paginated, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         ListRedirectURLsRequest request =
             ListRedirectURLsRequest
                 .builder()
@@ -88,7 +89,7 @@ public class RedirectUrls {
                 .offset(offset)
                 .build();
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
-              = new ListRedirectURLs.Sync(sdkConfiguration, options);
+              = new ListRedirectURLs.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -109,9 +110,9 @@ public class RedirectUrls {
      * <p>Create a redirect URL
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateRedirectURLResponse createDirect() throws Exception {
+    public CreateRedirectURLResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -123,11 +124,11 @@ public class RedirectUrls {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateRedirectURLResponse create(Optional<? extends CreateRedirectURLRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateRedirectURLResponse create(Optional<? extends CreateRedirectURLRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateRedirectURLRequestBody>, CreateRedirectURLResponse> operation
-              = new CreateRedirectURL.Sync(sdkConfiguration, options);
+              = new CreateRedirectURL.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -149,9 +150,9 @@ public class RedirectUrls {
      * 
      * @param id The ID of the redirect URL
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetRedirectURLResponse get(String id) throws Exception {
+    public GetRedirectURLResponse get(String id) {
         return get(id, Optional.empty());
     }
 
@@ -163,16 +164,16 @@ public class RedirectUrls {
      * @param id The ID of the redirect URL
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetRedirectURLResponse get(String id, Optional<Options> options) throws Exception {
+    public GetRedirectURLResponse get(String id, Optional<Options> options) {
         GetRedirectURLRequest request =
             GetRedirectURLRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<GetRedirectURLRequest, GetRedirectURLResponse> operation
-              = new GetRedirectURL.Sync(sdkConfiguration, options);
+              = new GetRedirectURL.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -194,9 +195,9 @@ public class RedirectUrls {
      * 
      * @param id The ID of the redirect URL
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteRedirectURLResponse delete(String id) throws Exception {
+    public DeleteRedirectURLResponse delete(String id) {
         return delete(id, Optional.empty());
     }
 
@@ -208,16 +209,16 @@ public class RedirectUrls {
      * @param id The ID of the redirect URL
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteRedirectURLResponse delete(String id, Optional<Options> options) throws Exception {
+    public DeleteRedirectURLResponse delete(String id, Optional<Options> options) {
         DeleteRedirectURLRequest request =
             DeleteRedirectURLRequest
                 .builder()
                 .id(id)
                 .build();
         RequestOperation<DeleteRedirectURLRequest, DeleteRedirectURLResponse> operation
-              = new DeleteRedirectURL.Sync(sdkConfiguration, options);
+              = new DeleteRedirectURL.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -66,11 +66,24 @@ public class GetCommerceSubscriptionItemListRequest {
     private Optional<Boolean> includeFree;
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
+     * Search query to filter subscription items by email, user first name, user last name, or organization
+     * name.
      * Supports partial matching.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
+
+    /**
+     * Filter subscription items by user ID
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
+    private Optional<String> userId;
+
+    /**
+     * Filter subscription items by organization ID
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
+    private Optional<String> organizationId;
 
     @JsonCreator
     public GetCommerceSubscriptionItemListRequest(
@@ -81,7 +94,9 @@ public class GetCommerceSubscriptionItemListRequest {
             Optional<? extends QueryParamPayerType> payerType,
             Optional<String> planId,
             Optional<Boolean> includeFree,
-            Optional<String> query) {
+            Optional<String> query,
+            Optional<String> userId,
+            Optional<String> organizationId) {
         Utils.checkNotNull(paginated, "paginated");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
@@ -90,6 +105,8 @@ public class GetCommerceSubscriptionItemListRequest {
         Utils.checkNotNull(planId, "planId");
         Utils.checkNotNull(includeFree, "includeFree");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(userId, "userId");
+        Utils.checkNotNull(organizationId, "organizationId");
         this.paginated = paginated;
         this.limit = limit;
         this.offset = offset;
@@ -98,12 +115,15 @@ public class GetCommerceSubscriptionItemListRequest {
         this.planId = planId;
         this.includeFree = includeFree;
         this.query = query;
+        this.userId = userId;
+        this.organizationId = organizationId;
     }
     
     public GetCommerceSubscriptionItemListRequest() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -170,12 +190,29 @@ public class GetCommerceSubscriptionItemListRequest {
     }
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
+     * Search query to filter subscription items by email, user first name, user last name, or organization
+     * name.
      * Supports partial matching.
      */
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Filter subscription items by user ID
+     */
+    @JsonIgnore
+    public Optional<String> userId() {
+        return userId;
+    }
+
+    /**
+     * Filter subscription items by organization ID
+     */
+    @JsonIgnore
+    public Optional<String> organizationId() {
+        return organizationId;
     }
 
     public static Builder builder() {
@@ -327,7 +364,8 @@ public class GetCommerceSubscriptionItemListRequest {
     }
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
+     * Search query to filter subscription items by email, user first name, user last name, or organization
+     * name.
      * Supports partial matching.
      */
     public GetCommerceSubscriptionItemListRequest withQuery(String query) {
@@ -338,12 +376,51 @@ public class GetCommerceSubscriptionItemListRequest {
 
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
+     * Search query to filter subscription items by email, user first name, user last name, or organization
+     * name.
      * Supports partial matching.
      */
     public GetCommerceSubscriptionItemListRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
         this.query = query;
+        return this;
+    }
+
+    /**
+     * Filter subscription items by user ID
+     */
+    public GetCommerceSubscriptionItemListRequest withUserId(String userId) {
+        Utils.checkNotNull(userId, "userId");
+        this.userId = Optional.ofNullable(userId);
+        return this;
+    }
+
+
+    /**
+     * Filter subscription items by user ID
+     */
+    public GetCommerceSubscriptionItemListRequest withUserId(Optional<String> userId) {
+        Utils.checkNotNull(userId, "userId");
+        this.userId = userId;
+        return this;
+    }
+
+    /**
+     * Filter subscription items by organization ID
+     */
+    public GetCommerceSubscriptionItemListRequest withOrganizationId(String organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = Optional.ofNullable(organizationId);
+        return this;
+    }
+
+
+    /**
+     * Filter subscription items by organization ID
+     */
+    public GetCommerceSubscriptionItemListRequest withOrganizationId(Optional<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
         return this;
     }
 
@@ -364,7 +441,9 @@ public class GetCommerceSubscriptionItemListRequest {
             Utils.enhancedDeepEquals(this.payerType, other.payerType) &&
             Utils.enhancedDeepEquals(this.planId, other.planId) &&
             Utils.enhancedDeepEquals(this.includeFree, other.includeFree) &&
-            Utils.enhancedDeepEquals(this.query, other.query);
+            Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId);
     }
     
     @Override
@@ -372,7 +451,8 @@ public class GetCommerceSubscriptionItemListRequest {
         return Utils.enhancedHash(
             paginated, limit, offset,
             status, payerType, planId,
-            includeFree, query);
+            includeFree, query, userId,
+            organizationId);
     }
     
     @Override
@@ -385,7 +465,9 @@ public class GetCommerceSubscriptionItemListRequest {
                 "payerType", payerType,
                 "planId", planId,
                 "includeFree", includeFree,
-                "query", query);
+                "query", query,
+                "userId", userId,
+                "organizationId", organizationId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -406,6 +488,10 @@ public class GetCommerceSubscriptionItemListRequest {
         private Optional<Boolean> includeFree;
 
         private Optional<String> query = Optional.empty();
+
+        private Optional<String> userId = Optional.empty();
+
+        private Optional<String> organizationId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -556,7 +642,8 @@ public class GetCommerceSubscriptionItemListRequest {
 
 
         /**
-         * Search query to filter subscription items by email, user first name, user last name, or organization name.
+         * Search query to filter subscription items by email, user first name, user last name, or organization
+         * name.
          * Supports partial matching.
          */
         public Builder query(String query) {
@@ -566,12 +653,51 @@ public class GetCommerceSubscriptionItemListRequest {
         }
 
         /**
-         * Search query to filter subscription items by email, user first name, user last name, or organization name.
+         * Search query to filter subscription items by email, user first name, user last name, or organization
+         * name.
          * Supports partial matching.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
             this.query = query;
+            return this;
+        }
+
+
+        /**
+         * Filter subscription items by user ID
+         */
+        public Builder userId(String userId) {
+            Utils.checkNotNull(userId, "userId");
+            this.userId = Optional.ofNullable(userId);
+            return this;
+        }
+
+        /**
+         * Filter subscription items by user ID
+         */
+        public Builder userId(Optional<String> userId) {
+            Utils.checkNotNull(userId, "userId");
+            this.userId = userId;
+            return this;
+        }
+
+
+        /**
+         * Filter subscription items by organization ID
+         */
+        public Builder organizationId(String organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = Optional.ofNullable(organizationId);
+            return this;
+        }
+
+        /**
+         * Filter subscription items by organization ID
+         */
+        public Builder organizationId(Optional<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
             return this;
         }
 
@@ -589,7 +715,8 @@ public class GetCommerceSubscriptionItemListRequest {
             return new GetCommerceSubscriptionItemListRequest(
                 paginated, limit, offset,
                 status, payerType, planId,
-                includeFree, query);
+                includeFree, query, userId,
+                organizationId);
         }
 
 

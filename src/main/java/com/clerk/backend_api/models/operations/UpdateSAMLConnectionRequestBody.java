@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -44,14 +45,14 @@ public class UpdateSAMLConnectionRequestBody {
     private JsonNullable<? extends List<String>> domains;
 
     /**
-     * The entity id as provided by the IdP
+     * The Entity ID as provided by the IdP
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_entity_id")
     private JsonNullable<String> idpEntityId;
 
     /**
-     * The SSO url as provided by the IdP
+     * The SSO URL as provided by the IdP
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_sso_url")
@@ -65,14 +66,16 @@ public class UpdateSAMLConnectionRequestBody {
     private JsonNullable<String> idpCertificate;
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties and replaces them
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
     private JsonNullable<String> idpMetadataUrl;
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata")
@@ -86,7 +89,7 @@ public class UpdateSAMLConnectionRequestBody {
     private JsonNullable<String> organizationId;
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("attribute_mapping")
@@ -127,6 +130,13 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonProperty("disable_additional_identifications")
     private JsonNullable<Boolean> disableAdditionalIdentifications;
 
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("force_authn")
+    private Optional<Boolean> forceAuthn;
+
     @JsonCreator
     public UpdateSAMLConnectionRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
@@ -143,7 +153,8 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("sync_user_attributes") JsonNullable<Boolean> syncUserAttributes,
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
             @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated,
-            @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications) {
+            @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications,
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(domains, "domains");
@@ -159,6 +170,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
         this.name = name;
         this.domain = domain;
         this.domains = domains;
@@ -174,6 +186,7 @@ public class UpdateSAMLConnectionRequestBody {
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        this.forceAuthn = forceAuthn;
     }
     
     public UpdateSAMLConnectionRequestBody() {
@@ -181,7 +194,8 @@ public class UpdateSAMLConnectionRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     /**
@@ -213,7 +227,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The entity id as provided by the IdP
+     * The Entity ID as provided by the IdP
      */
     @JsonIgnore
     public JsonNullable<String> idpEntityId() {
@@ -221,7 +235,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The SSO url as provided by the IdP
+     * The SSO URL as provided by the IdP
      */
     @JsonIgnore
     public JsonNullable<String> idpSsoUrl() {
@@ -237,7 +251,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties and replaces them
      */
     @JsonIgnore
     public JsonNullable<String> idpMetadataUrl() {
@@ -245,7 +260,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
@@ -261,7 +277,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -307,6 +323,14 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> disableAdditionalIdentifications() {
         return disableAdditionalIdentifications;
+    }
+
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonIgnore
+    public Optional<Boolean> forceAuthn() {
+        return forceAuthn;
     }
 
     public static Builder builder() {
@@ -375,7 +399,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The entity id as provided by the IdP
+     * The Entity ID as provided by the IdP
      */
     public UpdateSAMLConnectionRequestBody withIdpEntityId(String idpEntityId) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -384,7 +408,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The entity id as provided by the IdP
+     * The Entity ID as provided by the IdP
      */
     public UpdateSAMLConnectionRequestBody withIdpEntityId(JsonNullable<String> idpEntityId) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -393,7 +417,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The SSO url as provided by the IdP
+     * The SSO URL as provided by the IdP
      */
     public UpdateSAMLConnectionRequestBody withIdpSsoUrl(String idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
@@ -402,7 +426,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The SSO url as provided by the IdP
+     * The SSO URL as provided by the IdP
      */
     public UpdateSAMLConnectionRequestBody withIdpSsoUrl(JsonNullable<String> idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
@@ -429,7 +453,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties and replaces them
      */
     public UpdateSAMLConnectionRequestBody withIdpMetadataUrl(String idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -438,7 +463,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties and replaces them
      */
     public UpdateSAMLConnectionRequestBody withIdpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -447,7 +473,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     public UpdateSAMLConnectionRequestBody withIdpMetadata(String idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -456,7 +483,8 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     public UpdateSAMLConnectionRequestBody withIdpMetadata(JsonNullable<String> idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -483,7 +511,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     public UpdateSAMLConnectionRequestBody withAttributeMapping(AttributeMapping attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -492,7 +520,7 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
-     * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+     * Define the attribute name mapping between Identity Provider and Clerk's user properties
      */
     public UpdateSAMLConnectionRequestBody withAttributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -590,6 +618,25 @@ public class UpdateSAMLConnectionRequestBody {
         return this;
     }
 
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    public UpdateSAMLConnectionRequestBody withForceAuthn(boolean forceAuthn) {
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
+        this.forceAuthn = Optional.ofNullable(forceAuthn);
+        return this;
+    }
+
+
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    public UpdateSAMLConnectionRequestBody withForceAuthn(Optional<Boolean> forceAuthn) {
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
+        this.forceAuthn = forceAuthn;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -614,7 +661,8 @@ public class UpdateSAMLConnectionRequestBody {
             Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications);
+            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
     }
     
     @Override
@@ -624,7 +672,8 @@ public class UpdateSAMLConnectionRequestBody {
             idpEntityId, idpSsoUrl, idpCertificate,
             idpMetadataUrl, idpMetadata, organizationId,
             attributeMapping, active, syncUserAttributes,
-            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications);
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+            forceAuthn);
     }
     
     @Override
@@ -644,7 +693,8 @@ public class UpdateSAMLConnectionRequestBody {
                 "syncUserAttributes", syncUserAttributes,
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
-                "disableAdditionalIdentifications", disableAdditionalIdentifications);
+                "disableAdditionalIdentifications", disableAdditionalIdentifications,
+                "forceAuthn", forceAuthn);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -680,6 +730,8 @@ public class UpdateSAMLConnectionRequestBody {
         private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();
 
         private JsonNullable<Boolean> disableAdditionalIdentifications = JsonNullable.undefined();
+
+        private Optional<Boolean> forceAuthn = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -750,7 +802,7 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * The entity id as provided by the IdP
+         * The Entity ID as provided by the IdP
          */
         public Builder idpEntityId(String idpEntityId) {
             Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -759,7 +811,7 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * The entity id as provided by the IdP
+         * The Entity ID as provided by the IdP
          */
         public Builder idpEntityId(JsonNullable<String> idpEntityId) {
             Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -769,7 +821,7 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * The SSO url as provided by the IdP
+         * The SSO URL as provided by the IdP
          */
         public Builder idpSsoUrl(String idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
@@ -778,7 +830,7 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * The SSO url as provided by the IdP
+         * The SSO URL as provided by the IdP
          */
         public Builder idpSsoUrl(JsonNullable<String> idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
@@ -807,7 +859,8 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+         * individual properties and replaces them
          */
         public Builder idpMetadataUrl(String idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -816,7 +869,8 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties and replaces them
+         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+         * individual properties and replaces them
          */
         public Builder idpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -826,7 +880,8 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadata(String idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -835,7 +890,8 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadata(JsonNullable<String> idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -864,7 +920,7 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
-         * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+         * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(AttributeMapping attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -873,7 +929,7 @@ public class UpdateSAMLConnectionRequestBody {
         }
 
         /**
-         * Define the atrtibute name mapping between Identity Provider and Clerk's user properties
+         * Define the attribute name mapping between Identity Provider and Clerk's user properties
          */
         public Builder attributeMapping(JsonNullable<? extends AttributeMapping> attributeMapping) {
             Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -976,6 +1032,25 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
+        /**
+         * Enable or deactivate ForceAuthn
+         */
+        public Builder forceAuthn(boolean forceAuthn) {
+            Utils.checkNotNull(forceAuthn, "forceAuthn");
+            this.forceAuthn = Optional.ofNullable(forceAuthn);
+            return this;
+        }
+
+        /**
+         * Enable or deactivate ForceAuthn
+         */
+        public Builder forceAuthn(Optional<Boolean> forceAuthn) {
+            Utils.checkNotNull(forceAuthn, "forceAuthn");
+            this.forceAuthn = forceAuthn;
+            return this;
+        }
+
         public UpdateSAMLConnectionRequestBody build() {
 
             return new UpdateSAMLConnectionRequestBody(
@@ -983,7 +1058,8 @@ public class UpdateSAMLConnectionRequestBody {
                 idpEntityId, idpSsoUrl, idpCertificate,
                 idpMetadataUrl, idpMetadata, organizationId,
                 attributeMapping, active, syncUserAttributes,
-                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications);
+                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+                forceAuthn);
         }
 
     }

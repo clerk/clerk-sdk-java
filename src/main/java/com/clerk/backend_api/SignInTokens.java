@@ -13,13 +13,14 @@ import com.clerk.backend_api.models.operations.RevokeSignInTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeSignInTokenResponse;
 import com.clerk.backend_api.operations.CreateSignInToken;
 import com.clerk.backend_api.operations.RevokeSignInToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class SignInTokens {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     SignInTokens(SDKConfiguration sdkConfiguration) {
@@ -47,9 +48,9 @@ public class SignInTokens {
      * You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSignInTokenResponse createDirect() throws Exception {
+    public CreateSignInTokenResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -63,11 +64,11 @@ public class SignInTokens {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSignInTokenResponse create(Optional<? extends CreateSignInTokenRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateSignInTokenResponse create(Optional<? extends CreateSignInTokenRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateSignInTokenRequestBody>, CreateSignInTokenResponse> operation
-              = new CreateSignInToken.Sync(sdkConfiguration, options);
+              = new CreateSignInToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -89,9 +90,9 @@ public class SignInTokens {
      * 
      * @param signInTokenId The ID of the sign-in token to be revoked
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeSignInTokenResponse revoke(String signInTokenId) throws Exception {
+    public RevokeSignInTokenResponse revoke(String signInTokenId) {
         return revoke(signInTokenId, Optional.empty());
     }
 
@@ -103,16 +104,16 @@ public class SignInTokens {
      * @param signInTokenId The ID of the sign-in token to be revoked
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeSignInTokenResponse revoke(String signInTokenId, Optional<Options> options) throws Exception {
+    public RevokeSignInTokenResponse revoke(String signInTokenId, Optional<Options> options) {
         RevokeSignInTokenRequest request =
             RevokeSignInTokenRequest
                 .builder()
                 .signInTokenId(signInTokenId)
                 .build();
         RequestOperation<RevokeSignInTokenRequest, RevokeSignInTokenResponse> operation
-              = new RevokeSignInToken.Sync(sdkConfiguration, options);
+              = new RevokeSignInToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

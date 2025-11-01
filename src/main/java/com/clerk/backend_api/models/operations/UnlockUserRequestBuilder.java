@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UnlockUser;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class UnlockUserRequestBuilder {
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UnlockUserRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class UnlockUserRequestBuilder {
         return request;
     }
 
-    public UnlockUserResponse call() throws Exception {
+    public UnlockUserResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
-              = new UnlockUser.Sync(sdkConfiguration, options);
+              = new UnlockUser.Sync(sdkConfiguration, options, _headers);
         UnlockUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

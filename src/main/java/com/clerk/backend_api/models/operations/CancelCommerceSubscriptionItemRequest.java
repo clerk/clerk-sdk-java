@@ -23,7 +23,8 @@ public class CancelCommerceSubscriptionItemRequest {
     private String subscriptionItemId;
 
     /**
-     * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+     * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+     * (false, default)
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=end_now")
     private Optional<Boolean> endNow;
@@ -52,7 +53,8 @@ public class CancelCommerceSubscriptionItemRequest {
     }
 
     /**
-     * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+     * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+     * (false, default)
      */
     @JsonIgnore
     public Optional<Boolean> endNow() {
@@ -74,7 +76,8 @@ public class CancelCommerceSubscriptionItemRequest {
     }
 
     /**
-     * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+     * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+     * (false, default)
      */
     public CancelCommerceSubscriptionItemRequest withEndNow(boolean endNow) {
         Utils.checkNotNull(endNow, "endNow");
@@ -84,7 +87,8 @@ public class CancelCommerceSubscriptionItemRequest {
 
 
     /**
-     * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+     * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+     * (false, default)
      */
     public CancelCommerceSubscriptionItemRequest withEndNow(Optional<Boolean> endNow) {
         Utils.checkNotNull(endNow, "endNow");
@@ -142,7 +146,8 @@ public class CancelCommerceSubscriptionItemRequest {
 
 
         /**
-         * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+         * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+         * (false, default)
          */
         public Builder endNow(boolean endNow) {
             Utils.checkNotNull(endNow, "endNow");
@@ -151,7 +156,8 @@ public class CancelCommerceSubscriptionItemRequest {
         }
 
         /**
-         * Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+         * Whether to cancel the subscription immediately (true) or at the end of the current billing period
+         * (false, default)
          */
         public Builder endNow(Optional<Boolean> endNow) {
             Utils.checkNotNull(endNow, "endNow");

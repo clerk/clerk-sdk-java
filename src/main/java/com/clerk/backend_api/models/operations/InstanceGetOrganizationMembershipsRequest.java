@@ -17,7 +17,8 @@ import java.util.Optional;
 
 public class InstanceGetOrganizationMembershipsRequest {
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -57,7 +58,8 @@ public class InstanceGetOrganizationMembershipsRequest {
     }
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -91,7 +93,8 @@ public class InstanceGetOrganizationMembershipsRequest {
 
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -103,7 +106,8 @@ public class InstanceGetOrganizationMembershipsRequest {
 
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -201,7 +205,8 @@ public class InstanceGetOrganizationMembershipsRequest {
 
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
          * By prepending one of those values with + or -,
          * we can choose to sort in ascending (ASC) or descending (DESC) order.
          */
@@ -212,7 +217,8 @@ public class InstanceGetOrganizationMembershipsRequest {
         }
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
          * By prepending one of those values with + or -,
          * we can choose to sort in ascending (ASC) or descending (DESC) order.
          */

@@ -13,20 +13,20 @@ public class Operations {
     * Base interface for all operations
     */
     public interface Operation<ResT> {
-        ResT handleResponse(HttpResponse<InputStream> response) throws Exception;
+        ResT handleResponse(HttpResponse<InputStream> response);
     }
 
     /**
     * Interface for operations that require a request parameter
     */
     public interface RequestOperation<ReqT, ResT> extends Operation<ResT> {
-        HttpResponse<InputStream> doRequest(ReqT request) throws Exception;
+        HttpResponse<InputStream> doRequest(ReqT request);
     }
 
     /**
     * Interface for operations that don't require a request parameter
     */
     public interface RequestlessOperation<ResT> extends Operation<ResT> {
-        HttpResponse<InputStream> doRequest() throws Exception;
+        HttpResponse<InputStream> doRequest();
     }
 }

@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DisableMFA;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class DisableMFARequestBuilder {
     private String userId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DisableMFARequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class DisableMFARequestBuilder {
         return request;
     }
 
-    public DisableMFAResponse call() throws Exception {
+    public DisableMFAResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFA.Sync(sdkConfiguration, options);
+              = new DisableMFA.Sync(sdkConfiguration, options, _headers);
         DisableMFARequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

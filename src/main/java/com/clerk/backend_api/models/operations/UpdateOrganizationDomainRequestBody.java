@@ -17,7 +17,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class UpdateOrganizationDomainRequestBody {
     /**
-     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+     * or `manual_invitation`
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enrollment_mode")
@@ -45,7 +46,8 @@ public class UpdateOrganizationDomainRequestBody {
     }
 
     /**
-     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+     * or `manual_invitation`
      */
     @JsonIgnore
     public JsonNullable<String> enrollmentMode() {
@@ -66,7 +68,8 @@ public class UpdateOrganizationDomainRequestBody {
 
 
     /**
-     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+     * or `manual_invitation`
      */
     public UpdateOrganizationDomainRequestBody withEnrollmentMode(String enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -75,7 +78,8 @@ public class UpdateOrganizationDomainRequestBody {
     }
 
     /**
-     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+     * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+     * or `manual_invitation`
      */
     public UpdateOrganizationDomainRequestBody withEnrollmentMode(JsonNullable<String> enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -141,7 +145,8 @@ public class UpdateOrganizationDomainRequestBody {
 
 
         /**
-         * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+         * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+         * or `manual_invitation`
          */
         public Builder enrollmentMode(String enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -150,7 +155,8 @@ public class UpdateOrganizationDomainRequestBody {
         }
 
         /**
-         * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion` or `manual_invitation`
+         * The enrollment_mode for the new domain. This can be `automatic_invitation`, `automatic_suggestion`
+         * or `manual_invitation`
          */
         public Builder enrollmentMode(JsonNullable<String> enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");

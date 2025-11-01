@@ -45,6 +45,13 @@ public class CreateUserRequestBody {
     private JsonNullable<String> lastName;
 
     /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("locale")
+    private JsonNullable<String> locale;
+
+    /**
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
@@ -88,7 +95,8 @@ public class CreateUserRequestBody {
     private JsonNullable<String> password;
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -99,12 +107,19 @@ public class CreateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_hasher")
@@ -121,15 +136,18 @@ public class CreateUserRequestBody {
 
     /**
      * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-     * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-     * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+     * This is useful when you are trying to create a user that doesn't have a password, in an instance
+     * that is using passwords.
+     * Please note that you cannot use this flag if password is the only way for a user to sign into your
+     * instance.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_password_requirement")
     private JsonNullable<Boolean> skipPasswordRequirement;
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+     * created user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -140,7 +158,8 @@ public class CreateUserRequestBody {
     private JsonNullable<String> totpSecret;
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+     * created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -177,7 +196,8 @@ public class CreateUserRequestBody {
     private JsonNullable<Boolean> deleteSelfEnabled;
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("legal_accepted_at")
@@ -206,7 +226,8 @@ public class CreateUserRequestBody {
     private JsonNullable<Long> createOrganizationsLimit;
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
@@ -217,6 +238,7 @@ public class CreateUserRequestBody {
             @JsonProperty("external_id") JsonNullable<String> externalId,
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("email_address") Optional<? extends List<String>> emailAddress,
             @JsonProperty("phone_number") Optional<? extends List<String>> phoneNumber,
             @JsonProperty("web3_wallet") Optional<? extends List<String>> web3Wallet,
@@ -240,6 +262,7 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
+        Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -263,6 +286,7 @@ public class CreateUserRequestBody {
         this.externalId = externalId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.locale = locale;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.web3Wallet = web3Wallet;
@@ -287,13 +311,13 @@ public class CreateUserRequestBody {
     
     public CreateUserRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -319,6 +343,14 @@ public class CreateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> lastName() {
         return lastName;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    @JsonIgnore
+    public JsonNullable<String> locale() {
+        return locale;
     }
 
     /**
@@ -373,7 +405,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -385,12 +418,19 @@ public class CreateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     @JsonIgnore
     public Optional<String> passwordHasher() {
@@ -409,8 +449,10 @@ public class CreateUserRequestBody {
 
     /**
      * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-     * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-     * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+     * This is useful when you are trying to create a user that doesn't have a password, in an instance
+     * that is using passwords.
+     * Please note that you cannot use this flag if password is the only way for a user to sign into your
+     * instance.
      */
     @JsonIgnore
     public JsonNullable<Boolean> skipPasswordRequirement() {
@@ -418,7 +460,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+     * created user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -430,7 +473,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+     * created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @SuppressWarnings("unchecked")
@@ -476,7 +520,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> legalAcceptedAt() {
@@ -509,7 +554,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> createdAt() {
@@ -574,6 +620,24 @@ public class CreateUserRequestBody {
     public CreateUserRequestBody withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
+        return this;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    public CreateUserRequestBody withLocale(String locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = JsonNullable.of(locale);
+        return this;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    public CreateUserRequestBody withLocale(JsonNullable<String> locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = locale;
         return this;
     }
 
@@ -687,7 +751,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -698,7 +763,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -711,12 +777,19 @@ public class CreateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     public CreateUserRequestBody withPasswordHasher(String passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -728,12 +801,19 @@ public class CreateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     public CreateUserRequestBody withPasswordHasher(Optional<String> passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -765,8 +845,10 @@ public class CreateUserRequestBody {
 
     /**
      * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-     * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-     * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+     * This is useful when you are trying to create a user that doesn't have a password, in an instance
+     * that is using passwords.
+     * Please note that you cannot use this flag if password is the only way for a user to sign into your
+     * instance.
      */
     public CreateUserRequestBody withSkipPasswordRequirement(boolean skipPasswordRequirement) {
         Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
@@ -776,8 +858,10 @@ public class CreateUserRequestBody {
 
     /**
      * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-     * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-     * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+     * This is useful when you are trying to create a user that doesn't have a password, in an instance
+     * that is using passwords.
+     * Please note that you cannot use this flag if password is the only way for a user to sign into your
+     * instance.
      */
     public CreateUserRequestBody withSkipPasswordRequirement(JsonNullable<Boolean> skipPasswordRequirement) {
         Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
@@ -786,7 +870,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+     * created user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -799,7 +884,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+     * created user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -812,7 +898,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+     * created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public CreateUserRequestBody withBackupCodes(List<String> backupCodes) {
@@ -823,7 +910,8 @@ public class CreateUserRequestBody {
 
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+     * created user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public CreateUserRequestBody withBackupCodes(Optional<? extends List<String>> backupCodes) {
@@ -910,7 +998,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public CreateUserRequestBody withLegalAcceptedAt(String legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -919,7 +1008,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public CreateUserRequestBody withLegalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -984,7 +1074,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public CreateUserRequestBody withCreatedAt(String createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -993,7 +1084,8 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public CreateUserRequestBody withCreatedAt(JsonNullable<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -1014,6 +1106,7 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
             Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
             Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
@@ -1040,13 +1133,13 @@ public class CreateUserRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            emailAddress, phoneNumber, web3Wallet,
-            username, password, passwordDigest,
-            passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-            totpSecret, backupCodes, publicMetadata,
-            privateMetadata, unsafeMetadata, deleteSelfEnabled,
-            legalAcceptedAt, skipLegalChecks, createOrganizationEnabled,
-            createOrganizationsLimit, createdAt);
+            locale, emailAddress, phoneNumber,
+            web3Wallet, username, password,
+            passwordDigest, passwordHasher, skipPasswordChecks,
+            skipPasswordRequirement, totpSecret, backupCodes,
+            publicMetadata, privateMetadata, unsafeMetadata,
+            deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
+            createOrganizationEnabled, createOrganizationsLimit, createdAt);
     }
     
     @Override
@@ -1055,6 +1148,7 @@ public class CreateUserRequestBody {
                 "externalId", externalId,
                 "firstName", firstName,
                 "lastName", lastName,
+                "locale", locale,
                 "emailAddress", emailAddress,
                 "phoneNumber", phoneNumber,
                 "web3Wallet", web3Wallet,
@@ -1085,6 +1179,8 @@ public class CreateUserRequestBody {
         private JsonNullable<String> firstName = JsonNullable.undefined();
 
         private JsonNullable<String> lastName = JsonNullable.undefined();
+
+        private JsonNullable<String> locale = JsonNullable.undefined();
 
         private Optional<? extends List<String>> emailAddress = Optional.empty();
 
@@ -1186,6 +1282,25 @@ public class CreateUserRequestBody {
         public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
+            return this;
+        }
+
+
+        /**
+         * The locale to assign to the user (e.g., "en-US", "fr-FR")
+         */
+        public Builder locale(String locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = JsonNullable.of(locale);
+            return this;
+        }
+
+        /**
+         * The locale to assign to the user (e.g., "en-US", "fr-FR")
+         */
+        public Builder locale(JsonNullable<String> locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = locale;
             return this;
         }
 
@@ -1302,7 +1417,8 @@ public class CreateUserRequestBody {
 
 
         /**
-         * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+         * In case you already have the password digests and not the passwords, you can use them for the newly
+         * created user via this property.
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
@@ -1313,7 +1429,8 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+         * In case you already have the password digests and not the passwords, you can use them for the newly
+         * created user via this property.
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
@@ -1327,12 +1444,19 @@ public class CreateUserRequestBody {
         /**
          * The hashing algorithm that was used to generate the password digest.
          * 
-         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+         * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+         * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+         * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+         * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+         * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+         * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
         public Builder passwordHasher(String passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -1343,12 +1467,19 @@ public class CreateUserRequestBody {
         /**
          * The hashing algorithm that was used to generate the password digest.
          * 
-         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+         * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+         * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+         * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+         * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+         * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+         * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
         public Builder passwordHasher(Optional<String> passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -1382,8 +1513,10 @@ public class CreateUserRequestBody {
 
         /**
          * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-         * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-         * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+         * This is useful when you are trying to create a user that doesn't have a password, in an instance
+         * that is using passwords.
+         * Please note that you cannot use this flag if password is the only way for a user to sign into your
+         * instance.
          */
         public Builder skipPasswordRequirement(boolean skipPasswordRequirement) {
             Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
@@ -1393,8 +1526,10 @@ public class CreateUserRequestBody {
 
         /**
          * When set to `true`, `password` is not required anymore when creating the user and can be omitted.
-         * This is useful when you are trying to create a user that doesn't have a password, in an instance that is using passwords.
-         * Please note that you cannot use this flag if password is the only way for a user to sign into your instance.
+         * This is useful when you are trying to create a user that doesn't have a password, in an instance
+         * that is using passwords.
+         * Please note that you cannot use this flag if password is the only way for a user to sign into your
+         * instance.
          */
         public Builder skipPasswordRequirement(JsonNullable<Boolean> skipPasswordRequirement) {
             Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
@@ -1404,7 +1539,8 @@ public class CreateUserRequestBody {
 
 
         /**
-         * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+         * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+         * created user without the need to reset it.
          * Please note that currently the supported options are:
          * * Period: 30 seconds
          * * Code length: 6 digits
@@ -1417,7 +1553,8 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly created user without the need to reset it.
+         * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
+         * created user without the need to reset it.
          * Please note that currently the supported options are:
          * * Period: 30 seconds
          * * Code length: 6 digits
@@ -1431,7 +1568,8 @@ public class CreateUserRequestBody {
 
 
         /**
-         * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+         * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+         * created user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(List<String> backupCodes) {
@@ -1441,7 +1579,8 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * If Backup Codes are configured on the instance, you can provide them to enable it on the newly created user without the need to reset them.
+         * If Backup Codes are configured on the instance, you can provide them to enable it on the newly
+         * created user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(Optional<? extends List<String>> backupCodes) {
@@ -1530,7 +1669,8 @@ public class CreateUserRequestBody {
 
 
         /**
-         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+         * (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder legalAcceptedAt(String legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1539,7 +1679,8 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+         * (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder legalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1608,7 +1749,8 @@ public class CreateUserRequestBody {
 
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+         * format (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(String createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1617,7 +1759,8 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+         * format (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(JsonNullable<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1629,13 +1772,13 @@ public class CreateUserRequestBody {
 
             return new CreateUserRequestBody(
                 externalId, firstName, lastName,
-                emailAddress, phoneNumber, web3Wallet,
-                username, password, passwordDigest,
-                passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-                totpSecret, backupCodes, publicMetadata,
-                privateMetadata, unsafeMetadata, deleteSelfEnabled,
-                legalAcceptedAt, skipLegalChecks, createOrganizationEnabled,
-                createOrganizationsLimit, createdAt);
+                locale, emailAddress, phoneNumber,
+                web3Wallet, username, password,
+                passwordDigest, passwordHasher, skipPasswordChecks,
+                skipPasswordRequirement, totpSecret, backupCodes,
+                publicMetadata, privateMetadata, unsafeMetadata,
+                deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
+                createOrganizationEnabled, createOrganizationsLimit, createdAt);
         }
 
     }

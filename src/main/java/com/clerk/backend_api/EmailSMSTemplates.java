@@ -26,16 +26,17 @@ import com.clerk.backend_api.operations.GetTemplate;
 import com.clerk.backend_api.operations.GetTemplateList;
 import com.clerk.backend_api.operations.RevertTemplate;
 import com.clerk.backend_api.operations.ToggleTemplateDelivery;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class EmailSMSTemplates {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     EmailSMSTemplates(SDKConfiguration sdkConfiguration) {
@@ -64,11 +65,11 @@ public class EmailSMSTemplates {
      * 
      * @param templateType The type of templates to list (email or SMS)
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public GetTemplateListResponse list(TemplateType templateType) throws Exception {
+    public GetTemplateListResponse list(TemplateType templateType) {
         return list(templateType, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
     }
@@ -90,14 +91,14 @@ public class EmailSMSTemplates {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public GetTemplateListResponse list(
             TemplateType templateType, Optional<Boolean> paginated,
             Optional<Long> limit, Optional<Long> offset,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetTemplateListRequest request =
             GetTemplateListRequest
                 .builder()
@@ -107,7 +108,7 @@ public class EmailSMSTemplates {
                 .offset(offset)
                 .build();
         RequestOperation<GetTemplateListRequest, GetTemplateListResponse> operation
-              = new GetTemplateList.Sync(sdkConfiguration, options);
+              = new GetTemplateList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -132,11 +133,11 @@ public class EmailSMSTemplates {
      * @param templateType The type of templates to retrieve (email or SMS)
      * @param slug The slug (i.e. machine-friendly name) of the template to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public GetTemplateResponse get(PathParamTemplateType templateType, String slug) throws Exception {
+    public GetTemplateResponse get(PathParamTemplateType templateType, String slug) {
         return get(templateType, slug, Optional.empty());
     }
 
@@ -149,13 +150,13 @@ public class EmailSMSTemplates {
      * @param slug The slug (i.e. machine-friendly name) of the template to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public GetTemplateResponse get(
             PathParamTemplateType templateType, String slug,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetTemplateRequest request =
             GetTemplateRequest
                 .builder()
@@ -163,7 +164,7 @@ public class EmailSMSTemplates {
                 .slug(slug)
                 .build();
         RequestOperation<GetTemplateRequest, GetTemplateResponse> operation
-              = new GetTemplate.Sync(sdkConfiguration, options);
+              = new GetTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -188,11 +189,11 @@ public class EmailSMSTemplates {
      * @param templateType The type of template to revert
      * @param slug The slug of the template to revert
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public RevertTemplateResponse revert(RevertTemplatePathParamTemplateType templateType, String slug) throws Exception {
+    public RevertTemplateResponse revert(RevertTemplatePathParamTemplateType templateType, String slug) {
         return revert(templateType, slug, Optional.empty());
     }
 
@@ -205,13 +206,13 @@ public class EmailSMSTemplates {
      * @param slug The slug of the template to revert
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public RevertTemplateResponse revert(
             RevertTemplatePathParamTemplateType templateType, String slug,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RevertTemplateRequest request =
             RevertTemplateRequest
                 .builder()
@@ -219,7 +220,7 @@ public class EmailSMSTemplates {
                 .slug(slug)
                 .build();
         RequestOperation<RevertTemplateRequest, RevertTemplateResponse> operation
-              = new RevertTemplate.Sync(sdkConfiguration, options);
+              = new RevertTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -228,7 +229,8 @@ public class EmailSMSTemplates {
      * 
      * <p>Toggles the delivery by Clerk for a template of a given type and slug.
      * If disabled, Clerk will not deliver the resulting email or SMS.
-     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to handle delivery themselves.
+     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to
+     * handle delivery themselves.
      * 
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -243,16 +245,17 @@ public class EmailSMSTemplates {
      * 
      * <p>Toggles the delivery by Clerk for a template of a given type and slug.
      * If disabled, Clerk will not deliver the resulting email or SMS.
-     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to handle delivery themselves.
+     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to
+     * handle delivery themselves.
      * 
      * @param templateType The type of template to toggle delivery for
      * @param slug The slug of the template for which to toggle delivery
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public ToggleTemplateDeliveryResponse toggleTemplateDelivery(ToggleTemplateDeliveryPathParamTemplateType templateType, String slug) throws Exception {
+    public ToggleTemplateDeliveryResponse toggleTemplateDelivery(ToggleTemplateDeliveryPathParamTemplateType templateType, String slug) {
         return toggleTemplateDelivery(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -262,20 +265,21 @@ public class EmailSMSTemplates {
      * 
      * <p>Toggles the delivery by Clerk for a template of a given type and slug.
      * If disabled, Clerk will not deliver the resulting email or SMS.
-     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to handle delivery themselves.
+     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to
+     * handle delivery themselves.
      * 
      * @param templateType The type of template to toggle delivery for
      * @param slug The slug of the template for which to toggle delivery
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public ToggleTemplateDeliveryResponse toggleTemplateDelivery(
             ToggleTemplateDeliveryPathParamTemplateType templateType, String slug,
-            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody, Optional<Options> options) throws Exception {
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody, Optional<Options> options) {
         ToggleTemplateDeliveryRequest request =
             ToggleTemplateDeliveryRequest
                 .builder()
@@ -284,7 +288,7 @@ public class EmailSMSTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<ToggleTemplateDeliveryRequest, ToggleTemplateDeliveryResponse> operation
-              = new ToggleTemplateDelivery.Sync(sdkConfiguration, options);
+              = new ToggleTemplateDelivery.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

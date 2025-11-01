@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.InviteWaitlistEntry;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class InviteWaitlistEntryRequestBuilder {
     private Optional<? extends InviteWaitlistEntryRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public InviteWaitlistEntryRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,13 +65,13 @@ public class InviteWaitlistEntryRequestBuilder {
         return request;
     }
 
-    public InviteWaitlistEntryResponse call() throws Exception {
+    public InviteWaitlistEntryResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<InviteWaitlistEntryRequest, InviteWaitlistEntryResponse> operation
-              = new InviteWaitlistEntry.Sync(sdkConfiguration, options);
+              = new InviteWaitlistEntry.Sync(sdkConfiguration, options, _headers);
         InviteWaitlistEntryRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

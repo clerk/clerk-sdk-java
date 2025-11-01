@@ -36,7 +36,8 @@ public class UpdateInstanceRequestBody {
     private JsonNullable<Boolean> hibp;
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -59,14 +60,20 @@ public class UpdateInstanceRequestBody {
     private JsonNullable<String> developmentOrigin;
 
     /**
-     * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+     * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+     * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+     * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+     * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+     * 
+     * <p>For Capacitor, the origin is capacitor://localhost.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_origins")
     private Optional<? extends List<String>> allowedOrigins;
 
     /**
-     * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+     * Whether the instance should operate in cookieless development mode (i.e. without third-party
+     * cookies).
      * Deprecated: Please use `url_based_session_syncing` instead.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -77,7 +84,8 @@ public class UpdateInstanceRequestBody {
     private JsonNullable<Boolean> cookielessDev;
 
     /**
-     * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+     * Whether the instance should use URL-based session syncing in development mode (i.e. without
+     * third-party cookies).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url_based_session_syncing")
@@ -138,7 +146,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     @JsonIgnore
@@ -162,7 +171,12 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+     * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+     * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+     * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+     * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+     * 
+     * <p>For Capacitor, the origin is capacitor://localhost.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -171,7 +185,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+     * Whether the instance should operate in cookieless development mode (i.e. without third-party
+     * cookies).
      * Deprecated: Please use `url_based_session_syncing` instead.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -183,7 +198,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+     * Whether the instance should use URL-based session syncing in development mode (i.e. without
+     * third-party cookies).
      */
     @JsonIgnore
     public JsonNullable<Boolean> urlBasedSessionSyncing() {
@@ -234,7 +250,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     public UpdateInstanceRequestBody withEnhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
@@ -244,7 +261,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     public UpdateInstanceRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
@@ -290,7 +308,12 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+     * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+     * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+     * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+     * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+     * 
+     * <p>For Capacitor, the origin is capacitor://localhost.
      */
     public UpdateInstanceRequestBody withAllowedOrigins(List<String> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
@@ -300,7 +323,12 @@ public class UpdateInstanceRequestBody {
 
 
     /**
-     * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+     * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+     * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+     * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+     * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+     * 
+     * <p>For Capacitor, the origin is capacitor://localhost.
      */
     public UpdateInstanceRequestBody withAllowedOrigins(Optional<? extends List<String>> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
@@ -309,7 +337,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+     * Whether the instance should operate in cookieless development mode (i.e. without third-party
+     * cookies).
      * Deprecated: Please use `url_based_session_syncing` instead.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -322,7 +351,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+     * Whether the instance should operate in cookieless development mode (i.e. without third-party
+     * cookies).
      * Deprecated: Please use `url_based_session_syncing` instead.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -335,7 +365,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+     * Whether the instance should use URL-based session syncing in development mode (i.e. without
+     * third-party cookies).
      */
     public UpdateInstanceRequestBody withUrlBasedSessionSyncing(boolean urlBasedSessionSyncing) {
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
@@ -344,7 +375,8 @@ public class UpdateInstanceRequestBody {
     }
 
     /**
-     * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+     * Whether the instance should use URL-based session syncing in development mode (i.e. without
+     * third-party cookies).
      */
     public UpdateInstanceRequestBody withUrlBasedSessionSyncing(JsonNullable<Boolean> urlBasedSessionSyncing) {
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
@@ -463,7 +495,8 @@ public class UpdateInstanceRequestBody {
 
 
         /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+         * of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
         public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
@@ -473,7 +506,8 @@ public class UpdateInstanceRequestBody {
         }
 
         /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+         * of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
         public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
@@ -523,7 +557,12 @@ public class UpdateInstanceRequestBody {
 
 
         /**
-         * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+         * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+         * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+         * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+         * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+         * 
+         * <p>For Capacitor, the origin is capacitor://localhost.
          */
         public Builder allowedOrigins(List<String> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
@@ -532,7 +571,12 @@ public class UpdateInstanceRequestBody {
         }
 
         /**
-         * For browser-like stacks such as browser extensions, Electron (not officially supported), or Capacitor.js (not officially supported), the instance allowed origins need to be updated with the request origin value. For Chrome extensions popup, background, or service worker pages, the origin is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000. For Capacitor, the origin is capacitor://localhost.
+         * For browser-like stacks such as browser extensions, Electron (not officially supported), or
+         * Capacitor.js (not officially supported), the instance allowed origins need to be updated with the
+         * request origin value. For Chrome extensions popup, background, or service worker pages, the origin
+         * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
+         * 
+         * <p>For Capacitor, the origin is capacitor://localhost.
          */
         public Builder allowedOrigins(Optional<? extends List<String>> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
@@ -542,7 +586,8 @@ public class UpdateInstanceRequestBody {
 
 
         /**
-         * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+         * Whether the instance should operate in cookieless development mode (i.e. without third-party
+         * cookies).
          * Deprecated: Please use `url_based_session_syncing` instead.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -555,7 +600,8 @@ public class UpdateInstanceRequestBody {
         }
 
         /**
-         * Whether the instance should operate in cookieless development mode (i.e. without third-party cookies).
+         * Whether the instance should operate in cookieless development mode (i.e. without third-party
+         * cookies).
          * Deprecated: Please use `url_based_session_syncing` instead.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -569,7 +615,8 @@ public class UpdateInstanceRequestBody {
 
 
         /**
-         * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+         * Whether the instance should use URL-based session syncing in development mode (i.e. without
+         * third-party cookies).
          */
         public Builder urlBasedSessionSyncing(boolean urlBasedSessionSyncing) {
             Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
@@ -578,7 +625,8 @@ public class UpdateInstanceRequestBody {
         }
 
         /**
-         * Whether the instance should use URL-based session syncing in development mode (i.e. without third-party cookies).
+         * Whether the instance should use URL-based session syncing in development mode (i.e. without
+         * third-party cookies).
          */
         public Builder urlBasedSessionSyncing(JsonNullable<Boolean> urlBasedSessionSyncing) {
             Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");

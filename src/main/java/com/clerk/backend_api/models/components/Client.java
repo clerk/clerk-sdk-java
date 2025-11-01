@@ -25,7 +25,7 @@ public class Client {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
-    private ClientObject object;
+    private Object object;
 
     /**
      * String representing the identifier of the session.
@@ -59,6 +59,13 @@ public class Client {
     private Optional<String> lastActiveSessionId;
 
     /**
+     * The authentication strategy that was last used to authenticate the user on this client.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("last_authentication_strategy")
+    private Optional<String> lastAuthenticationStrategy;
+
+    /**
      * Unix timestamp of last update.
      */
     @JsonProperty("updated_at")
@@ -72,13 +79,14 @@ public class Client {
 
     @JsonCreator
     public Client(
-            @JsonProperty("object") ClientObject object,
+            @JsonProperty("object") Object object,
             @JsonProperty("id") String id,
             @JsonProperty("session_ids") List<String> sessionIds,
             @JsonProperty("sessions") List<Session> sessions,
             @JsonProperty("sign_in_id") Optional<String> signInId,
             @JsonProperty("sign_up_id") Optional<String> signUpId,
             @JsonProperty("last_active_session_id") Optional<String> lastActiveSessionId,
+            @JsonProperty("last_authentication_strategy") Optional<String> lastAuthenticationStrategy,
             @JsonProperty("updated_at") long updatedAt,
             @JsonProperty("created_at") long createdAt) {
         Utils.checkNotNull(object, "object");
@@ -88,6 +96,7 @@ public class Client {
         Utils.checkNotNull(signInId, "signInId");
         Utils.checkNotNull(signUpId, "signUpId");
         Utils.checkNotNull(lastActiveSessionId, "lastActiveSessionId");
+        Utils.checkNotNull(lastAuthenticationStrategy, "lastAuthenticationStrategy");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(createdAt, "createdAt");
         this.object = object;
@@ -97,12 +106,13 @@ public class Client {
         this.signInId = signInId;
         this.signUpId = signUpId;
         this.lastActiveSessionId = lastActiveSessionId;
+        this.lastAuthenticationStrategy = lastAuthenticationStrategy;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
     
     public Client(
-            ClientObject object,
+            Object object,
             String id,
             List<String> sessionIds,
             List<Session> sessions,
@@ -110,14 +120,15 @@ public class Client {
             long createdAt) {
         this(object, id, sessionIds,
             sessions, Optional.empty(), Optional.empty(),
-            Optional.empty(), updatedAt, createdAt);
+            Optional.empty(), Optional.empty(), updatedAt,
+            createdAt);
     }
 
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonIgnore
-    public ClientObject object() {
+    public Object object() {
         return object;
     }
 
@@ -158,6 +169,14 @@ public class Client {
     }
 
     /**
+     * The authentication strategy that was last used to authenticate the user on this client.
+     */
+    @JsonIgnore
+    public Optional<String> lastAuthenticationStrategy() {
+        return lastAuthenticationStrategy;
+    }
+
+    /**
      * Unix timestamp of last update.
      */
     @JsonIgnore
@@ -181,7 +200,7 @@ public class Client {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    public Client withObject(ClientObject object) {
+    public Client withObject(Object object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -254,6 +273,25 @@ public class Client {
     }
 
     /**
+     * The authentication strategy that was last used to authenticate the user on this client.
+     */
+    public Client withLastAuthenticationStrategy(String lastAuthenticationStrategy) {
+        Utils.checkNotNull(lastAuthenticationStrategy, "lastAuthenticationStrategy");
+        this.lastAuthenticationStrategy = Optional.ofNullable(lastAuthenticationStrategy);
+        return this;
+    }
+
+
+    /**
+     * The authentication strategy that was last used to authenticate the user on this client.
+     */
+    public Client withLastAuthenticationStrategy(Optional<String> lastAuthenticationStrategy) {
+        Utils.checkNotNull(lastAuthenticationStrategy, "lastAuthenticationStrategy");
+        this.lastAuthenticationStrategy = lastAuthenticationStrategy;
+        return this;
+    }
+
+    /**
      * Unix timestamp of last update.
      */
     public Client withUpdatedAt(long updatedAt) {
@@ -288,6 +326,7 @@ public class Client {
             Utils.enhancedDeepEquals(this.signInId, other.signInId) &&
             Utils.enhancedDeepEquals(this.signUpId, other.signUpId) &&
             Utils.enhancedDeepEquals(this.lastActiveSessionId, other.lastActiveSessionId) &&
+            Utils.enhancedDeepEquals(this.lastAuthenticationStrategy, other.lastAuthenticationStrategy) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
@@ -297,7 +336,8 @@ public class Client {
         return Utils.enhancedHash(
             object, id, sessionIds,
             sessions, signInId, signUpId,
-            lastActiveSessionId, updatedAt, createdAt);
+            lastActiveSessionId, lastAuthenticationStrategy, updatedAt,
+            createdAt);
     }
     
     @Override
@@ -310,6 +350,7 @@ public class Client {
                 "signInId", signInId,
                 "signUpId", signUpId,
                 "lastActiveSessionId", lastActiveSessionId,
+                "lastAuthenticationStrategy", lastAuthenticationStrategy,
                 "updatedAt", updatedAt,
                 "createdAt", createdAt);
     }
@@ -317,7 +358,7 @@ public class Client {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private ClientObject object;
+        private Object object;
 
         private String id;
 
@@ -331,6 +372,8 @@ public class Client {
 
         private Optional<String> lastActiveSessionId = Optional.empty();
 
+        private Optional<String> lastAuthenticationStrategy = Optional.empty();
+
         private Long updatedAt;
 
         private Long createdAt;
@@ -343,7 +386,7 @@ public class Client {
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
-        public Builder object(ClientObject object) {
+        public Builder object(Object object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
@@ -420,6 +463,25 @@ public class Client {
 
 
         /**
+         * The authentication strategy that was last used to authenticate the user on this client.
+         */
+        public Builder lastAuthenticationStrategy(String lastAuthenticationStrategy) {
+            Utils.checkNotNull(lastAuthenticationStrategy, "lastAuthenticationStrategy");
+            this.lastAuthenticationStrategy = Optional.ofNullable(lastAuthenticationStrategy);
+            return this;
+        }
+
+        /**
+         * The authentication strategy that was last used to authenticate the user on this client.
+         */
+        public Builder lastAuthenticationStrategy(Optional<String> lastAuthenticationStrategy) {
+            Utils.checkNotNull(lastAuthenticationStrategy, "lastAuthenticationStrategy");
+            this.lastAuthenticationStrategy = lastAuthenticationStrategy;
+            return this;
+        }
+
+
+        /**
          * Unix timestamp of last update.
          */
         public Builder updatedAt(long updatedAt) {
@@ -443,7 +505,8 @@ public class Client {
             return new Client(
                 object, id, sessionIds,
                 sessions, signInId, signUpId,
-                lastActiveSessionId, updatedAt, createdAt);
+                lastActiveSessionId, lastAuthenticationStrategy, updatedAt,
+                createdAt);
         }
 
     }

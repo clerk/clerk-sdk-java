@@ -34,13 +34,15 @@ public class ListSAMLConnectionsRequest {
     private Optional<Long> offset;
 
     /**
-     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+     * match.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -50,11 +52,11 @@ public class ListSAMLConnectionsRequest {
     /**
      * Returns SAML connections that have an associated organization ID to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
     private Optional<? extends List<String>> organizationId;
@@ -103,7 +105,8 @@ public class ListSAMLConnectionsRequest {
     }
 
     /**
-     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+     * match.
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -111,7 +114,8 @@ public class ListSAMLConnectionsRequest {
     }
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -123,11 +127,11 @@ public class ListSAMLConnectionsRequest {
     /**
      * Returns SAML connections that have an associated organization ID to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -185,7 +189,8 @@ public class ListSAMLConnectionsRequest {
     }
 
     /**
-     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+     * match.
      */
     public ListSAMLConnectionsRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -195,7 +200,8 @@ public class ListSAMLConnectionsRequest {
 
 
     /**
-     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+     * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+     * match.
      */
     public ListSAMLConnectionsRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -204,7 +210,8 @@ public class ListSAMLConnectionsRequest {
     }
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -216,7 +223,8 @@ public class ListSAMLConnectionsRequest {
 
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
      * By prepending one of those values with + or -,
      * we can choose to sort in ascending (ASC) or descending (DESC) order.
      */
@@ -229,11 +237,11 @@ public class ListSAMLConnectionsRequest {
     /**
      * Returns SAML connections that have an associated organization ID to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     public ListSAMLConnectionsRequest withOrganizationId(List<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -245,11 +253,11 @@ public class ListSAMLConnectionsRequest {
     /**
      * Returns SAML connections that have an associated organization ID to the
      * given organizations.
-     * For each organization id, the `+` and `-` can be
-     * prepended to the id, which denote whether the
+     * For each organization ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the
      * respective organization should be included or
      * excluded from the result set.
-     * Accepts up to 100 organization ids.
+     * Accepts up to 100 organization IDs.
      */
     public ListSAMLConnectionsRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -354,7 +362,8 @@ public class ListSAMLConnectionsRequest {
 
 
         /**
-         * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+         * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+         * match.
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -363,7 +372,8 @@ public class ListSAMLConnectionsRequest {
         }
 
         /**
-         * Returns SAML connections that have a name that matches the given query, via case-insensitive partial match.
+         * Returns SAML connections that have a name that matches the given query, via case-insensitive partial
+         * match.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
@@ -373,7 +383,8 @@ public class ListSAMLConnectionsRequest {
 
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
          * By prepending one of those values with + or -,
          * we can choose to sort in ascending (ASC) or descending (DESC) order.
          */
@@ -384,7 +395,8 @@ public class ListSAMLConnectionsRequest {
         }
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
          * By prepending one of those values with + or -,
          * we can choose to sort in ascending (ASC) or descending (DESC) order.
          */
@@ -398,11 +410,11 @@ public class ListSAMLConnectionsRequest {
         /**
          * Returns SAML connections that have an associated organization ID to the
          * given organizations.
-         * For each organization id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
+         * For each organization ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
          * respective organization should be included or
          * excluded from the result set.
-         * Accepts up to 100 organization ids.
+         * Accepts up to 100 organization IDs.
          */
         public Builder organizationId(List<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -413,11 +425,11 @@ public class ListSAMLConnectionsRequest {
         /**
          * Returns SAML connections that have an associated organization ID to the
          * given organizations.
-         * For each organization id, the `+` and `-` can be
-         * prepended to the id, which denote whether the
+         * For each organization ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the
          * respective organization should be included or
          * excluded from the result set.
-         * Accepts up to 100 organization ids.
+         * Accepts up to 100 organization IDs.
          */
         public Builder organizationId(Optional<? extends List<String>> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");

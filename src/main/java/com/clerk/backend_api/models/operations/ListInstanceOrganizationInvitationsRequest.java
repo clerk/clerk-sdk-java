@@ -19,9 +19,12 @@ import java.util.Optional;
 public class ListInstanceOrganizationInvitationsRequest {
     /**
      * Allows to return organization invitations in a particular order.
-     * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organization invitations either by their `created_at` or
+     * `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organization invitations to be returned in descending order according to
+     * their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -81,9 +84,12 @@ public class ListInstanceOrganizationInvitationsRequest {
 
     /**
      * Allows to return organization invitations in a particular order.
-     * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organization invitations either by their `created_at` or
+     * `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organization invitations to be returned in descending order according to
+     * their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -135,9 +141,12 @@ public class ListInstanceOrganizationInvitationsRequest {
 
     /**
      * Allows to return organization invitations in a particular order.
-     * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organization invitations either by their `created_at` or
+     * `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organization invitations to be returned in descending order according to
+     * their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -150,9 +159,12 @@ public class ListInstanceOrganizationInvitationsRequest {
 
     /**
      * Allows to return organization invitations in a particular order.
-     * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned organization invitations either by their `created_at` or
+     * `email_address`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want organization invitations to be returned in descending order according to
+     * their `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -298,9 +310,12 @@ public class ListInstanceOrganizationInvitationsRequest {
 
         /**
          * Allows to return organization invitations in a particular order.
-         * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned organization invitations either by their `created_at` or
+         * `email_address`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want organization invitations to be returned in descending order according to
+         * their `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */
@@ -312,9 +327,12 @@ public class ListInstanceOrganizationInvitationsRequest {
 
         /**
          * Allows to return organization invitations in a particular order.
-         * At the moment, you can order the returned organization invitations either by their `created_at` or `email_address`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want organization invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned organization invitations either by their `created_at` or
+         * `email_address`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want organization invitations to be returned in descending order according to
+         * their `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */

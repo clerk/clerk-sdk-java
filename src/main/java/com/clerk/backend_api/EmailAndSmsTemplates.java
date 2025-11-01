@@ -11,14 +11,15 @@ import com.clerk.backend_api.models.operations.UpsertTemplateRequestBody;
 import com.clerk.backend_api.models.operations.UpsertTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.UpsertTemplateResponse;
 import com.clerk.backend_api.operations.UpsertTemplate;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class EmailAndSmsTemplates {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     EmailAndSmsTemplates(SDKConfiguration sdkConfiguration) {
@@ -46,11 +47,11 @@ public class EmailAndSmsTemplates {
      * @param templateType The type of template to update
      * @param slug The slug of the template to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public UpsertTemplateResponse upsert(UpsertTemplatePathParamTemplateType templateType, String slug) throws Exception {
+    public UpsertTemplateResponse upsert(UpsertTemplatePathParamTemplateType templateType, String slug) {
         return upsert(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -65,13 +66,13 @@ public class EmailAndSmsTemplates {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public UpsertTemplateResponse upsert(
             UpsertTemplatePathParamTemplateType templateType, String slug,
-            Optional<? extends UpsertTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
+            Optional<? extends UpsertTemplateRequestBody> requestBody, Optional<Options> options) {
         UpsertTemplateRequest request =
             UpsertTemplateRequest
                 .builder()
@@ -80,7 +81,7 @@ public class EmailAndSmsTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
-              = new UpsertTemplate.Sync(sdkConfiguration, options);
+              = new UpsertTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

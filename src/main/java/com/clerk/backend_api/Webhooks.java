@@ -14,12 +14,13 @@ import com.clerk.backend_api.models.operations.GenerateSvixAuthURLResponse;
 import com.clerk.backend_api.operations.CreateSvixApp;
 import com.clerk.backend_api.operations.DeleteSvixApp;
 import com.clerk.backend_api.operations.GenerateSvixAuthURL;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class Webhooks {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Webhooks(SDKConfiguration sdkConfiguration) {
@@ -43,9 +44,9 @@ public class Webhooks {
      * <p>Create a Svix app and associate it with the current instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSvixAppResponse createSvixAppDirect() throws Exception {
+    public CreateSvixAppResponse createSvixAppDirect() {
         return createSvixApp(Optional.empty());
     }
 
@@ -56,11 +57,11 @@ public class Webhooks {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSvixAppResponse createSvixApp(Optional<Options> options) throws Exception {
+    public CreateSvixAppResponse createSvixApp(Optional<Options> options) {
         RequestlessOperation<CreateSvixAppResponse> operation
-            = new CreateSvixApp.Sync(sdkConfiguration, options);
+            = new CreateSvixApp.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -81,9 +82,9 @@ public class Webhooks {
      * <p>Delete a Svix app and disassociate it from the current instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteSvixAppResponse deleteSvixAppDirect() throws Exception {
+    public DeleteSvixAppResponse deleteSvixAppDirect() {
         return deleteSvixApp(Optional.empty());
     }
 
@@ -94,18 +95,18 @@ public class Webhooks {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteSvixAppResponse deleteSvixApp(Optional<Options> options) throws Exception {
+    public DeleteSvixAppResponse deleteSvixApp(Optional<Options> options) {
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixApp.Sync(sdkConfiguration, options);
+            = new DeleteSvixApp.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 
     /**
      * Create a Svix Dashboard URL
      * 
-     * <p>Generate a new url for accessing the Svix's management dashboard for that particular instance
+     * <p>Generate a new URL for accessing the Svix's management dashboard for that particular instance
      * 
      * @return The call builder
      */
@@ -116,27 +117,27 @@ public class Webhooks {
     /**
      * Create a Svix Dashboard URL
      * 
-     * <p>Generate a new url for accessing the Svix's management dashboard for that particular instance
+     * <p>Generate a new URL for accessing the Svix's management dashboard for that particular instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GenerateSvixAuthURLResponse generateSvixAuthURLDirect() throws Exception {
+    public GenerateSvixAuthURLResponse generateSvixAuthURLDirect() {
         return generateSvixAuthURL(Optional.empty());
     }
 
     /**
      * Create a Svix Dashboard URL
      * 
-     * <p>Generate a new url for accessing the Svix's management dashboard for that particular instance
+     * <p>Generate a new URL for accessing the Svix's management dashboard for that particular instance
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GenerateSvixAuthURLResponse generateSvixAuthURL(Optional<Options> options) throws Exception {
+    public GenerateSvixAuthURLResponse generateSvixAuthURL(Optional<Options> options) {
         RequestlessOperation<GenerateSvixAuthURLResponse> operation
-            = new GenerateSvixAuthURL.Sync(sdkConfiguration, options);
+            = new GenerateSvixAuthURL.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 

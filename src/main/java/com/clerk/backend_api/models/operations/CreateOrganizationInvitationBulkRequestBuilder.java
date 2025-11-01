@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateOrganizationInvitationBulk;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +21,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
     private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateOrganizationInvitationBulkRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -59,13 +60,13 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
         return request;
     }
 
-    public CreateOrganizationInvitationBulkResponse call() throws Exception {
+    public CreateOrganizationInvitationBulkResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<CreateOrganizationInvitationBulkRequest, CreateOrganizationInvitationBulkResponse> operation
-              = new CreateOrganizationInvitationBulk.Sync(sdkConfiguration, options);
+              = new CreateOrganizationInvitationBulk.Sync(sdkConfiguration, options, _headers);
         CreateOrganizationInvitationBulkRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

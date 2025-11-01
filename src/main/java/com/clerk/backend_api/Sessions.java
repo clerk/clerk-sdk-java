@@ -36,13 +36,14 @@ import com.clerk.backend_api.operations.GetSession;
 import com.clerk.backend_api.operations.GetSessionList;
 import com.clerk.backend_api.operations.RefreshSession;
 import com.clerk.backend_api.operations.RevokeSession;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Sessions {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Sessions(SDKConfiguration sdkConfiguration) {
@@ -73,9 +74,9 @@ public class Sessions {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSessionListResponse list(GetSessionListRequest request) throws Exception {
+    public GetSessionListResponse list(GetSessionListRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -90,11 +91,11 @@ public class Sessions {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSessionListResponse list(GetSessionListRequest request, Optional<Options> options) throws Exception {
+    public GetSessionListResponse list(GetSessionListRequest request, Optional<Options> options) {
         RequestOperation<GetSessionListRequest, GetSessionListResponse> operation
-              = new GetSessionList.Sync(sdkConfiguration, options);
+              = new GetSessionList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -103,8 +104,11 @@ public class Sessions {
      * 
      * <p>Create a new active session for the provided user ID.
      * 
-     * <p>**This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
-     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * <p>**This operation is intended only for use in testing, and is not available for production
+     * instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in
+     * Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken)
+     * resource instead.
      * 
      * @return The call builder
      */
@@ -117,13 +121,16 @@ public class Sessions {
      * 
      * <p>Create a new active session for the provided user ID.
      * 
-     * <p>**This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
-     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * <p>**This operation is intended only for use in testing, and is not available for production
+     * instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in
+     * Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken)
+     * resource instead.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSessionResponse createDirect() throws Exception {
+    public CreateSessionResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -132,17 +139,20 @@ public class Sessions {
      * 
      * <p>Create a new active session for the provided user ID.
      * 
-     * <p>**This operation is intended only for use in testing, and is not available for production instances.** If you are looking to generate a user session from the backend,
-     * we recommend using the [Sign-in Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken) resource instead.
+     * <p>**This operation is intended only for use in testing, and is not available for production
+     * instances.** If you are looking to generate a user session from the backend,
+     * we recommend using the [Sign-in
+     * Tokens](https://clerk.com/docs/reference/backend-api/tag/Sign-in-Tokens#operation/CreateSignInToken)
+     * resource instead.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSessionResponse create(Optional<? extends CreateSessionRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateSessionResponse create(Optional<? extends CreateSessionRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateSessionRequestBody>, CreateSessionResponse> operation
-              = new CreateSession.Sync(sdkConfiguration, options);
+              = new CreateSession.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -164,9 +174,9 @@ public class Sessions {
      * 
      * @param sessionId The ID of the session
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSessionResponse get(String sessionId) throws Exception {
+    public GetSessionResponse get(String sessionId) {
         return get(sessionId, Optional.empty());
     }
 
@@ -178,16 +188,16 @@ public class Sessions {
      * @param sessionId The ID of the session
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSessionResponse get(String sessionId, Optional<Options> options) throws Exception {
+    public GetSessionResponse get(String sessionId, Optional<Options> options) {
         GetSessionRequest request =
             GetSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<GetSessionRequest, GetSessionResponse> operation
-              = new GetSession.Sync(sdkConfiguration, options);
+              = new GetSession.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -211,9 +221,9 @@ public class Sessions {
      * 
      * @param sessionId The ID of the session
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RefreshSessionResponse refresh(String sessionId) throws Exception {
+    public RefreshSessionResponse refresh(String sessionId) {
         return refresh(sessionId, Optional.empty(), Optional.empty());
     }
 
@@ -227,11 +237,11 @@ public class Sessions {
      * @param requestBody Refresh session parameters
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RefreshSessionResponse refresh(
             String sessionId, Optional<? extends RefreshSessionRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RefreshSessionRequest request =
             RefreshSessionRequest
                 .builder()
@@ -239,7 +249,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
-              = new RefreshSession.Sync(sdkConfiguration, options);
+              = new RefreshSession.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -247,7 +257,8 @@ public class Sessions {
      * Revoke a session
      * 
      * <p>Sets the status of a session as "revoked", which is an unauthenticated state.
-     * In multi-session mode, a revoked session will still be returned along with its client object, however the user will need to sign in again.
+     * In multi-session mode, a revoked session will still be returned along with its client object,
+     * however the user will need to sign in again.
      * 
      * @return The call builder
      */
@@ -259,13 +270,14 @@ public class Sessions {
      * Revoke a session
      * 
      * <p>Sets the status of a session as "revoked", which is an unauthenticated state.
-     * In multi-session mode, a revoked session will still be returned along with its client object, however the user will need to sign in again.
+     * In multi-session mode, a revoked session will still be returned along with its client object,
+     * however the user will need to sign in again.
      * 
      * @param sessionId The ID of the session
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeSessionResponse revoke(String sessionId) throws Exception {
+    public RevokeSessionResponse revoke(String sessionId) {
         return revoke(sessionId, Optional.empty());
     }
 
@@ -273,21 +285,22 @@ public class Sessions {
      * Revoke a session
      * 
      * <p>Sets the status of a session as "revoked", which is an unauthenticated state.
-     * In multi-session mode, a revoked session will still be returned along with its client object, however the user will need to sign in again.
+     * In multi-session mode, a revoked session will still be returned along with its client object,
+     * however the user will need to sign in again.
      * 
      * @param sessionId The ID of the session
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeSessionResponse revoke(String sessionId, Optional<Options> options) throws Exception {
+    public RevokeSessionResponse revoke(String sessionId, Optional<Options> options) {
         RevokeSessionRequest request =
             RevokeSessionRequest
                 .builder()
                 .sessionId(sessionId)
                 .build();
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
-              = new RevokeSession.Sync(sdkConfiguration, options);
+              = new RevokeSession.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -309,9 +322,9 @@ public class Sessions {
      * 
      * @param sessionId The ID of the session
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSessionTokenResponse createToken(String sessionId) throws Exception {
+    public CreateSessionTokenResponse createToken(String sessionId) {
         return createToken(sessionId, Optional.empty(), Optional.empty());
     }
 
@@ -324,11 +337,11 @@ public class Sessions {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateSessionTokenResponse createToken(
             String sessionId, Optional<? extends CreateSessionTokenRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CreateSessionTokenRequest request =
             CreateSessionTokenRequest
                 .builder()
@@ -336,14 +349,14 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenRequest, CreateSessionTokenResponse> operation
-              = new CreateSessionToken.Sync(sdkConfiguration, options);
+              = new CreateSessionToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
-     * Create a session token from a jwt template
+     * Create a session token from a JWT template
      * 
-     * <p>Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
+     * <p>Creates a JSON Web Token (JWT) based on a session and a JWT Template name defined for your instance
      * 
      * @return The call builder
      */
@@ -352,35 +365,35 @@ public class Sessions {
     }
 
     /**
-     * Create a session token from a jwt template
+     * Create a session token from a JWT template
      * 
-     * <p>Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
+     * <p>Creates a JSON Web Token (JWT) based on a session and a JWT Template name defined for your instance
      * 
      * @param sessionId The ID of the session
-     * @param templateName The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * @param templateName The name of the JWT template defined in your instance (e.g. `custom_hasura`).
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(String sessionId, String templateName) throws Exception {
+    public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(String sessionId, String templateName) {
         return createTokenFromTemplate(sessionId, templateName, Optional.empty(),
             Optional.empty());
     }
 
     /**
-     * Create a session token from a jwt template
+     * Create a session token from a JWT template
      * 
-     * <p>Creates a JSON Web Token(JWT) based on a session and a JWT Template name defined for your instance
+     * <p>Creates a JSON Web Token (JWT) based on a session and a JWT Template name defined for your instance
      * 
      * @param sessionId The ID of the session
-     * @param templateName The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * @param templateName The name of the JWT template defined in your instance (e.g. `custom_hasura`).
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateSessionTokenFromTemplateResponse createTokenFromTemplate(
             String sessionId, String templateName,
-            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
+            Optional<? extends CreateSessionTokenFromTemplateRequestBody> requestBody, Optional<Options> options) {
         CreateSessionTokenFromTemplateRequest request =
             CreateSessionTokenFromTemplateRequest
                 .builder()
@@ -389,7 +402,7 @@ public class Sessions {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateSessionTokenFromTemplateRequest, CreateSessionTokenFromTemplateResponse> operation
-              = new CreateSessionTokenFromTemplate.Sync(sdkConfiguration, options);
+              = new CreateSessionTokenFromTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

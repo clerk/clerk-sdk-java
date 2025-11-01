@@ -7,13 +7,13 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetCommercePlanList;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.util.Optional;
 
@@ -31,6 +31,7 @@ public class GetCommercePlanListRequestBuilder {
     private Optional<? extends PayerType> payerType = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetCommercePlanListRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -113,13 +114,13 @@ public class GetCommercePlanListRequestBuilder {
         return request;
     }
 
-    public GetCommercePlanListResponse call() throws Exception {
+    public GetCommercePlanListResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetCommercePlanListRequest, GetCommercePlanListResponse> operation
-              = new GetCommercePlanList.Sync(sdkConfiguration, options);
+              = new GetCommercePlanList.Sync(sdkConfiguration, options, _headers);
         GetCommercePlanListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

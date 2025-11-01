@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UpsertTemplate;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -21,6 +21,7 @@ public class UpsertTemplateRequestBuilder {
     private Optional<? extends UpsertTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpsertTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -72,13 +73,13 @@ public class UpsertTemplateRequestBuilder {
         return request;
     }
 
-    public UpsertTemplateResponse call() throws Exception {
+    public UpsertTemplateResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation
-              = new UpsertTemplate.Sync(sdkConfiguration, options);
+              = new UpsertTemplate.Sync(sdkConfiguration, options, _headers);
         UpsertTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

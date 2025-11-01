@@ -31,14 +31,14 @@ public class CreateJWTTemplateRequestBody {
     private Claims claims;
 
     /**
-     * JWT token lifetime
+     * JWT lifetime
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lifetime")
     private JsonNullable<Long> lifetime;
 
     /**
-     * JWT token allowed clock skew
+     * JWT allowed clock skew
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_clock_skew")
@@ -115,7 +115,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token lifetime
+     * JWT lifetime
      */
     @JsonIgnore
     public JsonNullable<Long> lifetime() {
@@ -123,7 +123,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token allowed clock skew
+     * JWT allowed clock skew
      */
     @JsonIgnore
     public JsonNullable<Long> allowedClockSkew() {
@@ -178,7 +178,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token lifetime
+     * JWT lifetime
      */
     public CreateJWTTemplateRequestBody withLifetime(long lifetime) {
         Utils.checkNotNull(lifetime, "lifetime");
@@ -187,7 +187,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token lifetime
+     * JWT lifetime
      */
     public CreateJWTTemplateRequestBody withLifetime(JsonNullable<Long> lifetime) {
         Utils.checkNotNull(lifetime, "lifetime");
@@ -196,7 +196,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token allowed clock skew
+     * JWT allowed clock skew
      */
     public CreateJWTTemplateRequestBody withAllowedClockSkew(long allowedClockSkew) {
         Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
@@ -205,7 +205,7 @@ public class CreateJWTTemplateRequestBody {
     }
 
     /**
-     * JWT token allowed clock skew
+     * JWT allowed clock skew
      */
     public CreateJWTTemplateRequestBody withAllowedClockSkew(JsonNullable<Long> allowedClockSkew) {
         Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
@@ -350,7 +350,7 @@ public class CreateJWTTemplateRequestBody {
 
 
         /**
-         * JWT token lifetime
+         * JWT lifetime
          */
         public Builder lifetime(long lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
@@ -359,7 +359,7 @@ public class CreateJWTTemplateRequestBody {
         }
 
         /**
-         * JWT token lifetime
+         * JWT lifetime
          */
         public Builder lifetime(JsonNullable<Long> lifetime) {
             Utils.checkNotNull(lifetime, "lifetime");
@@ -369,7 +369,7 @@ public class CreateJWTTemplateRequestBody {
 
 
         /**
-         * JWT token allowed clock skew
+         * JWT allowed clock skew
          */
         public Builder allowedClockSkew(long allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");
@@ -378,7 +378,7 @@ public class CreateJWTTemplateRequestBody {
         }
 
         /**
-         * JWT token allowed clock skew
+         * JWT allowed clock skew
          */
         public Builder allowedClockSkew(JsonNullable<Long> allowedClockSkew) {
             Utils.checkNotNull(allowedClockSkew, "allowedClockSkew");

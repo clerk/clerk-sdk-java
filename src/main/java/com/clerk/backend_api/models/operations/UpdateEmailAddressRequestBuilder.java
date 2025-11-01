@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UpdateEmailAddress;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class UpdateEmailAddressRequestBuilder {
     private Optional<? extends UpdateEmailAddressRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpdateEmailAddressRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,13 +65,13 @@ public class UpdateEmailAddressRequestBuilder {
         return request;
     }
 
-    public UpdateEmailAddressResponse call() throws Exception {
+    public UpdateEmailAddressResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UpdateEmailAddressRequest, UpdateEmailAddressResponse> operation
-              = new UpdateEmailAddress.Sync(sdkConfiguration, options);
+              = new UpdateEmailAddress.Sync(sdkConfiguration, options, _headers);
         UpdateEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

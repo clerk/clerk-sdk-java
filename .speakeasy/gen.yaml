@@ -16,12 +16,15 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 3.2.0
+  version: 3.3.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -31,9 +34,10 @@ java:
   companyName: My Company
   companyURL: www.mycompany.com
   defaultErrorName: SDKError
-  enableAsync: false
   enableCustomCodeRegions: false
+  enableStreamingUploads: false
   flattenGlobalSecurity: true
+  generateSpringBootStarter: true
   githubURL: github.com/owner/repo
   groupID: com.clerk
   imports:

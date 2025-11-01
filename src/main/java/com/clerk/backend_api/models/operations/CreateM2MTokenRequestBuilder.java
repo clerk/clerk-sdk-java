@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateM2MToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateM2MTokenRequestBuilder {
@@ -18,6 +18,7 @@ public class CreateM2MTokenRequestBuilder {
     private CreateM2MTokenRequestBody request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateM2MTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -41,13 +42,13 @@ public class CreateM2MTokenRequestBuilder {
         return this;
     }
 
-    public CreateM2MTokenResponse call() throws Exception {
+    public CreateM2MTokenResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<CreateM2MTokenRequestBody, CreateM2MTokenResponse> operation
-              = new CreateM2MToken.Sync(sdkConfiguration, options);
+              = new CreateM2MToken.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

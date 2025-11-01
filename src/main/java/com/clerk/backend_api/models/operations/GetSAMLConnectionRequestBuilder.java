@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetSAMLConnection;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class GetSAMLConnectionRequestBuilder {
     private String samlConnectionId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetSAMLConnectionRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class GetSAMLConnectionRequestBuilder {
         return request;
     }
 
-    public GetSAMLConnectionResponse call() throws Exception {
+    public GetSAMLConnectionResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetSAMLConnectionRequest, GetSAMLConnectionResponse> operation
-              = new GetSAMLConnection.Sync(sdkConfiguration, options);
+              = new GetSAMLConnection.Sync(sdkConfiguration, options, _headers);
         GetSAMLConnectionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

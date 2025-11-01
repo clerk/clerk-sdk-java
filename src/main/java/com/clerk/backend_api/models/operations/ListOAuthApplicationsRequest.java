@@ -34,16 +34,21 @@ public class ListOAuthApplicationsRequest {
     /**
      * Allows to return OAuth applications in a particular order.
      * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want OAuth applications to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
     private Optional<String> orderBy;
 
     /**
-     * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+     * Returns OAuth applications with names that match the given query, via case-insensitive partial
+     * match.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=name_query")
     private Optional<String> nameQuery;
@@ -91,10 +96,14 @@ public class ListOAuthApplicationsRequest {
     /**
      * Allows to return OAuth applications in a particular order.
      * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want OAuth applications to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
      */
     @JsonIgnore
     public Optional<String> orderBy() {
@@ -102,7 +111,8 @@ public class ListOAuthApplicationsRequest {
     }
 
     /**
-     * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+     * Returns OAuth applications with names that match the given query, via case-insensitive partial
+     * match.
      */
     @JsonIgnore
     public Optional<String> nameQuery() {
@@ -161,10 +171,14 @@ public class ListOAuthApplicationsRequest {
     /**
      * Allows to return OAuth applications in a particular order.
      * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want OAuth applications to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
      */
     public ListOAuthApplicationsRequest withOrderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -176,10 +190,14 @@ public class ListOAuthApplicationsRequest {
     /**
      * Allows to return OAuth applications in a particular order.
      * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want OAuth applications to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
+     * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+     * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+     * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
      */
     public ListOAuthApplicationsRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -188,7 +206,8 @@ public class ListOAuthApplicationsRequest {
     }
 
     /**
-     * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+     * Returns OAuth applications with names that match the given query, via case-insensitive partial
+     * match.
      */
     public ListOAuthApplicationsRequest withNameQuery(String nameQuery) {
         Utils.checkNotNull(nameQuery, "nameQuery");
@@ -198,7 +217,8 @@ public class ListOAuthApplicationsRequest {
 
 
     /**
-     * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+     * Returns OAuth applications with names that match the given query, via case-insensitive partial
+     * match.
      */
     public ListOAuthApplicationsRequest withNameQuery(Optional<String> nameQuery) {
         Utils.checkNotNull(nameQuery, "nameQuery");
@@ -301,10 +321,14 @@ public class ListOAuthApplicationsRequest {
         /**
          * Allows to return OAuth applications in a particular order.
          * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-         * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want OAuth applications to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+         * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+         * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+         * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
          */
         public Builder orderBy(String orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -315,10 +339,14 @@ public class ListOAuthApplicationsRequest {
         /**
          * Allows to return OAuth applications in a particular order.
          * At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
-         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
-         * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want OAuth applications to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
+         * If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if
+         * multiple `order_by` parameters are provided, we will only keep the first one. For example,
+         * if you pass `order_by=name&amp;order_by=created_at`, we will consider only the first `order_by`
+         * parameter, which is `name`. The `created_at` parameter will be ignored in this case.
          */
         public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -328,7 +356,8 @@ public class ListOAuthApplicationsRequest {
 
 
         /**
-         * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+         * Returns OAuth applications with names that match the given query, via case-insensitive partial
+         * match.
          */
         public Builder nameQuery(String nameQuery) {
             Utils.checkNotNull(nameQuery, "nameQuery");
@@ -337,7 +366,8 @@ public class ListOAuthApplicationsRequest {
         }
 
         /**
-         * Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+         * Returns OAuth applications with names that match the given query, via case-insensitive partial
+         * match.
          */
         public Builder nameQuery(Optional<String> nameQuery) {
             Utils.checkNotNull(nameQuery, "nameQuery");

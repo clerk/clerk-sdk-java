@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.VerifyM2MToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class VerifyM2MTokenRequestBuilder {
@@ -18,6 +18,7 @@ public class VerifyM2MTokenRequestBuilder {
     private VerifyM2MTokenRequestBody request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public VerifyM2MTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -41,13 +42,13 @@ public class VerifyM2MTokenRequestBuilder {
         return this;
     }
 
-    public VerifyM2MTokenResponse call() throws Exception {
+    public VerifyM2MTokenResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<VerifyM2MTokenRequestBody, VerifyM2MTokenResponse> operation
-              = new VerifyM2MToken.Sync(sdkConfiguration, options);
+              = new VerifyM2MToken.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DeleteOrganizationDomain;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class DeleteOrganizationDomainRequestBuilder {
     private String domainId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteOrganizationDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -58,13 +59,13 @@ public class DeleteOrganizationDomainRequestBuilder {
         return request;
     }
 
-    public DeleteOrganizationDomainResponse call() throws Exception {
+    public DeleteOrganizationDomainResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
-              = new DeleteOrganizationDomain.Sync(sdkConfiguration, options);
+              = new DeleteOrganizationDomain.Sync(sdkConfiguration, options, _headers);
         DeleteOrganizationDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -8,3 +8,14 @@
  */
 
 rootProject.name = 'backend-api'
+
+include 'backend-api-spring-boot-autoconfigure'
+include 'backend-api-spring-boot-starter'
+
+project(':backend-api-spring-boot-autoconfigure').projectDir = file('spring/backend-api-spring-boot-autoconfigure')
+project(':backend-api-spring-boot-starter').projectDir = file('spring/backend-api-spring-boot-starter')
+
+// Apply additional settings if the file exists
+if (file('settings-extra.gradle').exists()) {
+    apply from: 'settings-extra.gradle'
+}

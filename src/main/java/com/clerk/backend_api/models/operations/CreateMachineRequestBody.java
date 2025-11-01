@@ -34,7 +34,8 @@ public class CreateMachineRequestBody {
     private Optional<? extends List<String>> scopedMachines;
 
     /**
-     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+     * second.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("default_token_ttl")
@@ -76,7 +77,8 @@ public class CreateMachineRequestBody {
     }
 
     /**
-     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+     * second.
      */
     @JsonIgnore
     public Optional<Long> defaultTokenTtl() {
@@ -117,7 +119,8 @@ public class CreateMachineRequestBody {
     }
 
     /**
-     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+     * second.
      */
     public CreateMachineRequestBody withDefaultTokenTtl(long defaultTokenTtl) {
         Utils.checkNotNull(defaultTokenTtl, "defaultTokenTtl");
@@ -127,7 +130,8 @@ public class CreateMachineRequestBody {
 
 
     /**
-     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+     * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+     * second.
      */
     public CreateMachineRequestBody withDefaultTokenTtl(Optional<Long> defaultTokenTtl) {
         Utils.checkNotNull(defaultTokenTtl, "defaultTokenTtl");
@@ -208,7 +212,8 @@ public class CreateMachineRequestBody {
 
 
         /**
-         * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+         * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+         * second.
          */
         public Builder defaultTokenTtl(long defaultTokenTtl) {
             Utils.checkNotNull(defaultTokenTtl, "defaultTokenTtl");
@@ -217,7 +222,8 @@ public class CreateMachineRequestBody {
         }
 
         /**
-         * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1 second.
+         * The default time-to-live (TTL) in seconds for tokens created by this machine. Must be at least 1
+         * second.
          */
         public Builder defaultTokenTtl(Optional<Long> defaultTokenTtl) {
             Utils.checkNotNull(defaultTokenTtl, "defaultTokenTtl");

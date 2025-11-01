@@ -69,6 +69,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import com.clerk.backend_api.models.errors.SDKError;
+
+
 public final class Utils {
     
     private Utils() {
@@ -1408,11 +1411,16 @@ public final class Utils {
     public static <T> T valueOrElse(T value, T valueIfNotPresent) {
         return value != null ? value : valueIfNotPresent;
     }
-        
+
     public static <T> T valueOrElse(Optional<T> value, T valueIfNotPresent) {
+        if (value == null) {
+            // this defensive check is used in custom exception class constructors
+            // to simplify calling code
+            return valueIfNotPresent;
+        }
         return value.orElse(valueIfNotPresent);
     }
-    
+
     public static <T> T valueOrElse(JsonNullable<T> value, T valueIfNotPresent) {
         if (value.isPresent()) {
             return value.get();
@@ -1420,15 +1428,15 @@ public final class Utils {
             return valueIfNotPresent;
         }
     }
-    
+
     public static <T> T valueOrNull(T value) {
         return valueOrElse(value, null);
     }
-    
+
     public static <T> T valueOrNull(Optional<T> value) {
         return valueOrElse(value, null);
     }
-    
+
     public static <T> T valueOrNull(JsonNullable<T> value) {
         return valueOrElse(value, null);
     }
@@ -1595,6 +1603,17 @@ public final class Utils {
         } else {
             // Fallback: treat as double
             return BigDecimal.valueOf(number.doubleValue());
+        }
+    }
+
+        public static <T> T unmarshal(HttpResponse<InputStream> response, TypeReference<T> typeReference) {
+        try {
+            return mapper().readValue(
+                    Utils.extractByteArrayFromBody(response),
+                    typeReference);
+        } catch (Exception e) {
+            throw SDKError.from(
+                    "Error deserializing response body: " + e.getMessage(), response, e);
         }
     }
 }

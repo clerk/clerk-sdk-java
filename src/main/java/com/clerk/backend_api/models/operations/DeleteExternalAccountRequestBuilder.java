@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DeleteExternalAccount;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class DeleteExternalAccountRequestBuilder {
     private String externalAccountId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteExternalAccountRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -58,13 +59,13 @@ public class DeleteExternalAccountRequestBuilder {
         return request;
     }
 
-    public DeleteExternalAccountResponse call() throws Exception {
+    public DeleteExternalAccountResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
-              = new DeleteExternalAccount.Sync(sdkConfiguration, options);
+              = new DeleteExternalAccount.Sync(sdkConfiguration, options, _headers);
         DeleteExternalAccountRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

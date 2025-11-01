@@ -7,13 +7,13 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.ListRedirectURLs;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.util.Optional;
 
@@ -30,6 +30,7 @@ public class ListRedirectURLsRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public ListRedirectURLsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -99,13 +100,13 @@ public class ListRedirectURLsRequestBuilder {
         return request;
     }
 
-    public ListRedirectURLsResponse call() throws Exception {
+    public ListRedirectURLsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation
-              = new ListRedirectURLs.Sync(sdkConfiguration, options);
+              = new ListRedirectURLs.Sync(sdkConfiguration, options, _headers);
         ListRedirectURLsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

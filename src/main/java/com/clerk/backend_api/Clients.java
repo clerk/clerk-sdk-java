@@ -17,16 +17,17 @@ import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import com.clerk.backend_api.operations.GetClient;
 import com.clerk.backend_api.operations.GetClientList;
 import com.clerk.backend_api.operations.VerifyClient;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Clients {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Clients(SDKConfiguration sdkConfiguration) {
@@ -56,11 +57,11 @@ public class Clients {
      * Warning: the endpoint is being deprecated and will be removed in future versions.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public GetClientListResponse listDirect() throws Exception {
+    public GetClientListResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -82,13 +83,13 @@ public class Clients {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public GetClientListResponse list(
             Optional<Boolean> paginated, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         GetClientListRequest request =
             GetClientListRequest
                 .builder()
@@ -97,7 +98,7 @@ public class Clients {
                 .offset(offset)
                 .build();
         RequestOperation<GetClientListRequest, GetClientListResponse> operation
-              = new GetClientList.Sync(sdkConfiguration, options);
+              = new GetClientList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -118,9 +119,9 @@ public class Clients {
      * <p>Verifies the client in the provided token
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyClientResponse verifyDirect() throws Exception {
+    public VerifyClientResponse verifyDirect() {
         return verify(Optional.empty(), Optional.empty());
     }
 
@@ -132,11 +133,11 @@ public class Clients {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyClientResponse verify(Optional<? extends VerifyClientRequestBody> request, Optional<Options> options) throws Exception {
+    public VerifyClientResponse verify(Optional<? extends VerifyClientRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends VerifyClientRequestBody>, VerifyClientResponse> operation
-              = new VerifyClient.Sync(sdkConfiguration, options);
+              = new VerifyClient.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -158,9 +159,9 @@ public class Clients {
      * 
      * @param clientId Client ID.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetClientResponse get(String clientId) throws Exception {
+    public GetClientResponse get(String clientId) {
         return get(clientId, Optional.empty());
     }
 
@@ -172,16 +173,16 @@ public class Clients {
      * @param clientId Client ID.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetClientResponse get(String clientId, Optional<Options> options) throws Exception {
+    public GetClientResponse get(String clientId, Optional<Options> options) {
         GetClientRequest request =
             GetClientRequest
                 .builder()
                 .clientId(clientId)
                 .build();
         RequestOperation<GetClientRequest, GetClientResponse> operation
-              = new GetClient.Sync(sdkConfiguration, options);
+              = new GetClient.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

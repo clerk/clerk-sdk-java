@@ -32,14 +32,17 @@ public class RequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
     private JsonNullable<? extends Map<String, Object>> publicMetadata;
 
     /**
-     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+     * invitation. Required if you have implemented a [custom flow for handling application
+     * invitations](/docs/custom-flows/invitations).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
@@ -62,7 +65,8 @@ public class RequestBody {
     private JsonNullable<Boolean> ignoreExisting;
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_days")
@@ -118,7 +122,8 @@ public class RequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -127,7 +132,9 @@ public class RequestBody {
     }
 
     /**
-     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+     * invitation. Required if you have implemented a [custom flow for handling application
+     * invitations](/docs/custom-flows/invitations).
      */
     @JsonIgnore
     public JsonNullable<String> redirectUrl() {
@@ -153,7 +160,8 @@ public class RequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInDays() {
@@ -186,7 +194,8 @@ public class RequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     public RequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -197,7 +206,8 @@ public class RequestBody {
     /**
      * Metadata that will be attached to the newly created invitation.
      * The value of this property should be a well-formed JSON object.
-     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+     * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+     * metadata.
      */
     public RequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -206,7 +216,9 @@ public class RequestBody {
     }
 
     /**
-     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+     * invitation. Required if you have implemented a [custom flow for handling application
+     * invitations](/docs/custom-flows/invitations).
      */
     public RequestBody withRedirectUrl(String redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -215,7 +227,9 @@ public class RequestBody {
     }
 
     /**
-     * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+     * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+     * invitation. Required if you have implemented a [custom flow for handling application
+     * invitations](/docs/custom-flows/invitations).
      */
     public RequestBody withRedirectUrl(JsonNullable<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -264,7 +278,8 @@ public class RequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     public RequestBody withExpiresInDays(long expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -273,7 +288,8 @@ public class RequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+     * The number of days the invitation will be valid for. By default, the invitation expires after 30
+     * days.
      */
     public RequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -374,7 +390,8 @@ public class RequestBody {
         /**
          * Metadata that will be attached to the newly created invitation.
          * The value of this property should be a well-formed JSON object.
-         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+         * metadata.
          */
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -385,7 +402,8 @@ public class RequestBody {
         /**
          * Metadata that will be attached to the newly created invitation.
          * The value of this property should be a well-formed JSON object.
-         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public metadata.
+         * Once the user accepts the invitation and signs up, these metadata will end up in the user's public
+         * metadata.
          */
         public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -395,7 +413,9 @@ public class RequestBody {
 
 
         /**
-         * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+         * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+         * invitation. Required if you have implemented a [custom flow for handling application
+         * invitations](/docs/custom-flows/invitations).
          */
         public Builder redirectUrl(String redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -404,7 +424,9 @@ public class RequestBody {
         }
 
         /**
-         * The URL where the user is redirected upon visiting the invitation link, where they can accept the invitation. Required if you have implemented a [custom flow for handling application invitations](/docs/custom-flows/invitations).
+         * The URL where the user is redirected upon visiting the invitation link, where they can accept the
+         * invitation. Required if you have implemented a [custom flow for handling application
+         * invitations](/docs/custom-flows/invitations).
          */
         public Builder redirectUrl(JsonNullable<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -456,7 +478,8 @@ public class RequestBody {
 
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30
+         * days.
          */
         public Builder expiresInDays(long expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -465,7 +488,8 @@ public class RequestBody {
         }
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation expires after 30 days.
+         * The number of days the invitation will be valid for. By default, the invitation expires after 30
+         * days.
          */
         public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
