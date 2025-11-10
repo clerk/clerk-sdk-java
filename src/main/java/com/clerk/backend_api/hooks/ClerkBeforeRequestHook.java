@@ -18,7 +18,7 @@ final class ClerkBeforeRequestHook implements BeforeRequest {
         // available then use `Helpers.copy` in the generated `utils` package.
 
         HttpRequest.Builder b = Helpers.copy(request);
-        b.header("Clerk-API-Version", "2024-10-01");
+        b.header("Clerk-API-Version", "2025-11-10");
         return b.build();
     }
 }
