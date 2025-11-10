@@ -21,7 +21,7 @@ public class CreateSessionTokenFromTemplateRequest {
     private String sessionId;
 
     /**
-     * The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * The name of the JWT template defined in your instance (e.g. `custom_hasura`).
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=template_name")
     private String templateName;
@@ -58,7 +58,7 @@ public class CreateSessionTokenFromTemplateRequest {
     }
 
     /**
-     * The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * The name of the JWT template defined in your instance (e.g. `custom_hasura`).
      */
     @JsonIgnore
     public String templateName() {
@@ -86,7 +86,7 @@ public class CreateSessionTokenFromTemplateRequest {
     }
 
     /**
-     * The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+     * The name of the JWT template defined in your instance (e.g. `custom_hasura`).
      */
     public CreateSessionTokenFromTemplateRequest withTemplateName(String templateName) {
         Utils.checkNotNull(templateName, "templateName");
@@ -161,7 +161,7 @@ public class CreateSessionTokenFromTemplateRequest {
 
 
         /**
-         * The name of the JWT Template defined in your instance (e.g. `custom_hasura`).
+         * The name of the JWT template defined in your instance (e.g. `custom_hasura`).
          */
         public Builder templateName(String templateName) {
             Utils.checkNotNull(templateName, "templateName");

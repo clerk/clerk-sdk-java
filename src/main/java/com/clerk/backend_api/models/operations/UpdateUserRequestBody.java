@@ -47,6 +47,13 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> lastName;
 
     /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("locale")
+    private JsonNullable<String> locale;
+
+    /**
      * The ID of the email address to set as primary.
      * It must be verified, and present on the current user.
      */
@@ -102,7 +109,8 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> password;
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -113,33 +121,43 @@ public class UpdateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("password_hasher")
     private Optional<String> passwordHasher;
 
     /**
-     * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+     * Set it to `true` if you're updating the user's password and want to skip any password policy
+     * settings check. This parameter can only be used when providing a `password`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_password_checks")
     private JsonNullable<Boolean> skipPasswordChecks;
 
     /**
-     * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+     * Set to `true` to sign out the user from all their active sessions once their password is updated.
+     * This parameter can only be used when providing a `password`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sign_out_of_other_sessions")
     private JsonNullable<Boolean> signOutOfOtherSessions;
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+     * user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -150,7 +168,8 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> totpSecret;
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+     * user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -194,7 +213,8 @@ public class UpdateUserRequestBody {
     private JsonNullable<Boolean> createOrganizationEnabled;
 
     /**
-     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("legal_accepted_at")
@@ -216,7 +236,8 @@ public class UpdateUserRequestBody {
     private JsonNullable<Long> createOrganizationsLimit;
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
@@ -227,6 +248,7 @@ public class UpdateUserRequestBody {
             @JsonProperty("external_id") JsonNullable<String> externalId,
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
+            @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("primary_email_address_id") JsonNullable<String> primaryEmailAddressId,
             @JsonProperty("notify_primary_email_address_changed") JsonNullable<Boolean> notifyPrimaryEmailAddressChanged,
             @JsonProperty("primary_phone_number_id") JsonNullable<String> primaryPhoneNumberId,
@@ -252,6 +274,7 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
+        Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
         Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
@@ -277,6 +300,7 @@ public class UpdateUserRequestBody {
         this.externalId = externalId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.locale = locale;
         this.primaryEmailAddressId = primaryEmailAddressId;
         this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
         this.primaryPhoneNumberId = primaryPhoneNumberId;
@@ -305,12 +329,12 @@ public class UpdateUserRequestBody {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -336,6 +360,14 @@ public class UpdateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> lastName() {
         return lastName;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    @JsonIgnore
+    public JsonNullable<String> locale() {
+        return locale;
     }
 
     /**
@@ -401,7 +433,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -413,12 +446,19 @@ public class UpdateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     @JsonIgnore
     public Optional<String> passwordHasher() {
@@ -426,7 +466,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+     * Set it to `true` if you're updating the user's password and want to skip any password policy
+     * settings check. This parameter can only be used when providing a `password`.
      */
     @JsonIgnore
     public JsonNullable<Boolean> skipPasswordChecks() {
@@ -434,7 +475,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+     * Set to `true` to sign out the user from all their active sessions once their password is updated.
+     * This parameter can only be used when providing a `password`.
      */
     @JsonIgnore
     public JsonNullable<Boolean> signOutOfOtherSessions() {
@@ -442,7 +484,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+     * user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -454,7 +497,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+     * user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @SuppressWarnings("unchecked")
@@ -508,7 +552,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> legalAcceptedAt() {
@@ -533,7 +578,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> createdAt() {
@@ -598,6 +644,24 @@ public class UpdateUserRequestBody {
     public UpdateUserRequestBody withLastName(JsonNullable<String> lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
+        return this;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    public UpdateUserRequestBody withLocale(String locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = JsonNullable.of(locale);
+        return this;
+    }
+
+    /**
+     * The locale to assign to the user (e.g., "en-US", "fr-FR")
+     */
+    public UpdateUserRequestBody withLocale(JsonNullable<String> locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = locale;
         return this;
     }
 
@@ -740,7 +804,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -752,7 +817,8 @@ public class UpdateUserRequestBody {
 
 
     /**
-     * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+     * In case you already have the password digests and not the passwords, you can use them for the newly
+     * created user via this property.
      * The digests should be generated with one of the supported algorithms.
      * The hashing algorithm can be specified using the `password_hasher` property.
      */
@@ -765,12 +831,19 @@ public class UpdateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     public UpdateUserRequestBody withPasswordHasher(String passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -782,12 +855,19 @@ public class UpdateUserRequestBody {
     /**
      * The hashing algorithm that was used to generate the password digest.
      * 
-     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+     * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+     * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+     * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+     * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+     * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+     * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+     * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+     * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+     * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
      * 
-     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+     * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+     * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
      */
     public UpdateUserRequestBody withPasswordHasher(Optional<String> passwordHasher) {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -796,7 +876,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+     * Set it to `true` if you're updating the user's password and want to skip any password policy
+     * settings check. This parameter can only be used when providing a `password`.
      */
     public UpdateUserRequestBody withSkipPasswordChecks(boolean skipPasswordChecks) {
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
@@ -805,7 +886,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+     * Set it to `true` if you're updating the user's password and want to skip any password policy
+     * settings check. This parameter can only be used when providing a `password`.
      */
     public UpdateUserRequestBody withSkipPasswordChecks(JsonNullable<Boolean> skipPasswordChecks) {
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
@@ -814,7 +896,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+     * Set to `true` to sign out the user from all their active sessions once their password is updated.
+     * This parameter can only be used when providing a `password`.
      */
     public UpdateUserRequestBody withSignOutOfOtherSessions(boolean signOutOfOtherSessions) {
         Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
@@ -823,7 +906,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+     * Set to `true` to sign out the user from all their active sessions once their password is updated.
+     * This parameter can only be used when providing a `password`.
      */
     public UpdateUserRequestBody withSignOutOfOtherSessions(JsonNullable<Boolean> signOutOfOtherSessions) {
         Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
@@ -832,7 +916,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+     * user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -845,7 +930,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+     * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+     * user without the need to reset it.
      * Please note that currently the supported options are:
      * * Period: 30 seconds
      * * Code length: 6 digits
@@ -858,7 +944,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+     * user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public UpdateUserRequestBody withBackupCodes(List<String> backupCodes) {
@@ -869,7 +956,8 @@ public class UpdateUserRequestBody {
 
 
     /**
-     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+     * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+     * user without the need to reset them.
      * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public UpdateUserRequestBody withBackupCodes(Optional<? extends List<String>> backupCodes) {
@@ -971,7 +1059,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public UpdateUserRequestBody withLegalAcceptedAt(String legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -980,7 +1069,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+     * (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public UpdateUserRequestBody withLegalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1027,7 +1117,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public UpdateUserRequestBody withCreatedAt(String createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -1036,7 +1127,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+     * format (e.g. `2012-10-20T07:15:20.902Z`).
      */
     public UpdateUserRequestBody withCreatedAt(JsonNullable<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -1057,6 +1149,7 @@ public class UpdateUserRequestBody {
             Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
+            Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
             Utils.enhancedDeepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged) &&
             Utils.enhancedDeepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
@@ -1085,14 +1178,14 @@ public class UpdateUserRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            primaryEmailAddressId, notifyPrimaryEmailAddressChanged, primaryPhoneNumberId,
-            primaryWeb3WalletId, username, profileImageId,
-            password, passwordDigest, passwordHasher,
-            skipPasswordChecks, signOutOfOtherSessions, totpSecret,
-            backupCodes, publicMetadata, privateMetadata,
-            unsafeMetadata, deleteSelfEnabled, createOrganizationEnabled,
-            legalAcceptedAt, skipLegalChecks, createOrganizationsLimit,
-            createdAt);
+            locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
+            primaryPhoneNumberId, primaryWeb3WalletId, username,
+            profileImageId, password, passwordDigest,
+            passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
+            totpSecret, backupCodes, publicMetadata,
+            privateMetadata, unsafeMetadata, deleteSelfEnabled,
+            createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
+            createOrganizationsLimit, createdAt);
     }
     
     @Override
@@ -1101,6 +1194,7 @@ public class UpdateUserRequestBody {
                 "externalId", externalId,
                 "firstName", firstName,
                 "lastName", lastName,
+                "locale", locale,
                 "primaryEmailAddressId", primaryEmailAddressId,
                 "notifyPrimaryEmailAddressChanged", notifyPrimaryEmailAddressChanged,
                 "primaryPhoneNumberId", primaryPhoneNumberId,
@@ -1133,6 +1227,8 @@ public class UpdateUserRequestBody {
         private JsonNullable<String> firstName = JsonNullable.undefined();
 
         private JsonNullable<String> lastName = JsonNullable.undefined();
+
+        private JsonNullable<String> locale = JsonNullable.undefined();
 
         private JsonNullable<String> primaryEmailAddressId = JsonNullable.undefined();
 
@@ -1238,6 +1334,25 @@ public class UpdateUserRequestBody {
         public Builder lastName(JsonNullable<String> lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
+            return this;
+        }
+
+
+        /**
+         * The locale to assign to the user (e.g., "en-US", "fr-FR")
+         */
+        public Builder locale(String locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = JsonNullable.of(locale);
+            return this;
+        }
+
+        /**
+         * The locale to assign to the user (e.g., "en-US", "fr-FR")
+         */
+        public Builder locale(JsonNullable<String> locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = locale;
             return this;
         }
 
@@ -1388,7 +1503,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+         * In case you already have the password digests and not the passwords, you can use them for the newly
+         * created user via this property.
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
@@ -1399,7 +1515,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * In case you already have the password digests and not the passwords, you can use them for the newly created user via this property.
+         * In case you already have the password digests and not the passwords, you can use them for the newly
+         * created user via this property.
          * The digests should be generated with one of the supported algorithms.
          * The hashing algorithm can be specified using the `password_hasher` property.
          */
@@ -1413,12 +1530,19 @@ public class UpdateUserRequestBody {
         /**
          * The hashing algorithm that was used to generate the password digest.
          * 
-         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+         * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+         * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+         * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+         * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+         * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+         * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
         public Builder passwordHasher(String passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -1429,12 +1553,19 @@ public class UpdateUserRequestBody {
         /**
          * The hashing algorithm that was used to generate the password digest.
          * 
-         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt), [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/), [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`, [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
-         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`, [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
-         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash), [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
-         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
+         * <p>The algorithms we support at the moment are [`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
+         * [`bcrypt_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`md5`](https://en.wikipedia.org/wiki/MD5), `pbkdf2_sha1`, `pbkdf2_sha256`,
+         * [`pbkdf2_sha256_django`](https://docs.djangoproject.com/en/4.0/topics/auth/passwords/),
+         * [`phpass`](https://www.openwall.com/phpass/), `md5_phpass`,
+         * [`scrypt_firebase`](https://firebaseopensource.com/projects/firebase/scrypt/),
+         * [`scrypt_werkzeug`](https://werkzeug.palletsprojects.com/en/3.0.x/utils/#werkzeug.security.generate_password_hash),
+         * [`sha256`](https://en.wikipedia.org/wiki/SHA-2),
+         * [`ldap_ssha`](https://www.openldap.org/faq/data/cache/347.html) and the
+         * [`argon2`](https://argon2.online/) variants: `argon2i` and `argon2id`.
          * 
-         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
+         * <p>Each of the supported hashers expects the incoming digest to be in a particular format. See the
+         * [Clerk docs](https://clerk.com/docs/references/backend/user/create-user) for more information.
          */
         public Builder passwordHasher(Optional<String> passwordHasher) {
             Utils.checkNotNull(passwordHasher, "passwordHasher");
@@ -1444,7 +1575,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+         * Set it to `true` if you're updating the user's password and want to skip any password policy
+         * settings check. This parameter can only be used when providing a `password`.
          */
         public Builder skipPasswordChecks(boolean skipPasswordChecks) {
             Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
@@ -1453,7 +1585,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * Set it to `true` if you're updating the user's password and want to skip any password policy settings check. This parameter can only be used when providing a `password`.
+         * Set it to `true` if you're updating the user's password and want to skip any password policy
+         * settings check. This parameter can only be used when providing a `password`.
          */
         public Builder skipPasswordChecks(JsonNullable<Boolean> skipPasswordChecks) {
             Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
@@ -1463,7 +1596,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+         * Set to `true` to sign out the user from all their active sessions once their password is updated.
+         * This parameter can only be used when providing a `password`.
          */
         public Builder signOutOfOtherSessions(boolean signOutOfOtherSessions) {
             Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
@@ -1472,7 +1606,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * Set to `true` to sign out the user from all their active sessions once their password is updated. This parameter can only be used when providing a `password`.
+         * Set to `true` to sign out the user from all their active sessions once their password is updated.
+         * This parameter can only be used when providing a `password`.
          */
         public Builder signOutOfOtherSessions(JsonNullable<Boolean> signOutOfOtherSessions) {
             Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
@@ -1482,7 +1617,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+         * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+         * user without the need to reset it.
          * Please note that currently the supported options are:
          * * Period: 30 seconds
          * * Code length: 6 digits
@@ -1495,7 +1631,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific user without the need to reset it.
+         * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
+         * user without the need to reset it.
          * Please note that currently the supported options are:
          * * Period: 30 seconds
          * * Code length: 6 digits
@@ -1509,7 +1646,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+         * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+         * user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(List<String> backupCodes) {
@@ -1519,7 +1657,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * If Backup Codes are configured on the instance, you can provide them to enable it on the specific user without the need to reset them.
+         * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
+         * user without the need to reset them.
          * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(Optional<? extends List<String>> backupCodes) {
@@ -1627,7 +1766,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+         * (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder legalAcceptedAt(String legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1636,7 +1776,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * A custom timestamps denoting _when_ the user accepted legal requirements, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
+         * (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder legalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1686,7 +1827,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+         * format (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(String createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1695,7 +1837,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
+         * format (e.g. `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(JsonNullable<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1710,14 +1853,14 @@ public class UpdateUserRequestBody {
 
             return new UpdateUserRequestBody(
                 externalId, firstName, lastName,
-                primaryEmailAddressId, notifyPrimaryEmailAddressChanged, primaryPhoneNumberId,
-                primaryWeb3WalletId, username, profileImageId,
-                password, passwordDigest, passwordHasher,
-                skipPasswordChecks, signOutOfOtherSessions, totpSecret,
-                backupCodes, publicMetadata, privateMetadata,
-                unsafeMetadata, deleteSelfEnabled, createOrganizationEnabled,
-                legalAcceptedAt, skipLegalChecks, createOrganizationsLimit,
-                createdAt);
+                locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
+                primaryPhoneNumberId, primaryWeb3WalletId, username,
+                profileImageId, password, passwordDigest,
+                passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
+                totpSecret, backupCodes, publicMetadata,
+                privateMetadata, unsafeMetadata, deleteSelfEnabled,
+                createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
+                createOrganizationsLimit, createdAt);
         }
 
 

@@ -46,7 +46,9 @@ public class CreateOAuthApplicationRequestBody {
     private JsonNullable<String> callbackUrl;
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
@@ -135,7 +137,9 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     @JsonIgnore
     public JsonNullable<String> scopes() {
@@ -224,7 +228,9 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     public CreateOAuthApplicationRequestBody withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -233,7 +239,9 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     public CreateOAuthApplicationRequestBody withScopes(JsonNullable<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -413,7 +421,9 @@ public class CreateOAuthApplicationRequestBody {
 
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+         * Provide the requested scopes as a string, separated by spaces.
          */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -422,7 +432,9 @@ public class CreateOAuthApplicationRequestBody {
         }
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+         * Provide the requested scopes as a string, separated by spaces.
          */
         public Builder scopes(JsonNullable<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");

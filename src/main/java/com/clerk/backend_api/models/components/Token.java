@@ -19,7 +19,7 @@ public class Token {
     private TokenObject object;
 
     /**
-     * String representing the encoded jwt value.
+     * String representing the encoded JSON Web Token (JWT) value.
      */
     @JsonProperty("jwt")
     private String jwt;
@@ -43,7 +43,7 @@ public class Token {
     }
 
     /**
-     * String representing the encoded jwt value.
+     * String representing the encoded JSON Web Token (JWT) value.
      */
     @JsonIgnore
     public String jwt() {
@@ -65,7 +65,7 @@ public class Token {
     }
 
     /**
-     * String representing the encoded jwt value.
+     * String representing the encoded JSON Web Token (JWT) value.
      */
     public Token withJwt(String jwt) {
         Utils.checkNotNull(jwt, "jwt");
@@ -123,7 +123,7 @@ public class Token {
 
 
         /**
-         * String representing the encoded jwt value.
+         * String representing the encoded JSON Web Token (JWT) value.
          */
         public Builder jwt(String jwt) {
             Utils.checkNotNull(jwt, "jwt");

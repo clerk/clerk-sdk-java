@@ -26,13 +26,14 @@ import com.clerk.backend_api.operations.DeleteSAMLConnection;
 import com.clerk.backend_api.operations.GetSAMLConnection;
 import com.clerk.backend_api.operations.ListSAMLConnections;
 import com.clerk.backend_api.operations.UpdateSAMLConnection;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class SamlConnections {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     SamlConnections(SDKConfiguration sdkConfiguration) {
@@ -44,7 +45,8 @@ public class SamlConnections {
      * 
      * <p>Returns the list of SAML Connections for an instance.
      * Results can be paginated using the optional `limit` and `offset` query parameters.
-     * The SAML Connections are ordered by descending creation date and the most recent will be returned first.
+     * The SAML Connections are ordered by descending creation date and the most recent will be returned
+     * first.
      * 
      * @return The call builder
      */
@@ -57,13 +59,14 @@ public class SamlConnections {
      * 
      * <p>Returns the list of SAML Connections for an instance.
      * Results can be paginated using the optional `limit` and `offset` query parameters.
-     * The SAML Connections are ordered by descending creation date and the most recent will be returned first.
+     * The SAML Connections are ordered by descending creation date and the most recent will be returned
+     * first.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request) throws Exception {
+    public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -72,16 +75,17 @@ public class SamlConnections {
      * 
      * <p>Returns the list of SAML Connections for an instance.
      * Results can be paginated using the optional `limit` and `offset` query parameters.
-     * The SAML Connections are ordered by descending creation date and the most recent will be returned first.
+     * The SAML Connections are ordered by descending creation date and the most recent will be returned
+     * first.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request, Optional<Options> options) throws Exception {
+    public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request, Optional<Options> options) {
         RequestOperation<ListSAMLConnectionsRequest, ListSAMLConnectionsResponse> operation
-              = new ListSAMLConnections.Sync(sdkConfiguration, options);
+              = new ListSAMLConnections.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -102,9 +106,9 @@ public class SamlConnections {
      * <p>Create a new SAML Connection.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSAMLConnectionResponse createDirect() throws Exception {
+    public CreateSAMLConnectionResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -116,11 +120,11 @@ public class SamlConnections {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateSAMLConnectionResponse create(Optional<? extends CreateSAMLConnectionRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateSAMLConnectionResponse create(Optional<? extends CreateSAMLConnectionRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateSAMLConnectionRequestBody>, CreateSAMLConnectionResponse> operation
-              = new CreateSAMLConnection.Sync(sdkConfiguration, options);
+              = new CreateSAMLConnection.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -142,9 +146,9 @@ public class SamlConnections {
      * 
      * @param samlConnectionId The ID of the SAML Connection
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSAMLConnectionResponse get(String samlConnectionId) throws Exception {
+    public GetSAMLConnectionResponse get(String samlConnectionId) {
         return get(samlConnectionId, Optional.empty());
     }
 
@@ -156,16 +160,16 @@ public class SamlConnections {
      * @param samlConnectionId The ID of the SAML Connection
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetSAMLConnectionResponse get(String samlConnectionId, Optional<Options> options) throws Exception {
+    public GetSAMLConnectionResponse get(String samlConnectionId, Optional<Options> options) {
         GetSAMLConnectionRequest request =
             GetSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         RequestOperation<GetSAMLConnectionRequest, GetSAMLConnectionResponse> operation
-              = new GetSAMLConnection.Sync(sdkConfiguration, options);
+              = new GetSAMLConnection.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -188,9 +192,9 @@ public class SamlConnections {
      * @param samlConnectionId The ID of the SAML Connection to update
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateSAMLConnectionResponse update(String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody) throws Exception {
+    public UpdateSAMLConnectionResponse update(String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody) {
         return update(samlConnectionId, requestBody, Optional.empty());
     }
 
@@ -203,11 +207,11 @@ public class SamlConnections {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateSAMLConnectionResponse update(
             String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateSAMLConnectionRequest request =
             UpdateSAMLConnectionRequest
                 .builder()
@@ -215,7 +219,7 @@ public class SamlConnections {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateSAMLConnectionRequest, UpdateSAMLConnectionResponse> operation
-              = new UpdateSAMLConnection.Sync(sdkConfiguration, options);
+              = new UpdateSAMLConnection.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -237,9 +241,9 @@ public class SamlConnections {
      * 
      * @param samlConnectionId The ID of the SAML Connection to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteSAMLConnectionResponse delete(String samlConnectionId) throws Exception {
+    public DeleteSAMLConnectionResponse delete(String samlConnectionId) {
         return delete(samlConnectionId, Optional.empty());
     }
 
@@ -251,16 +255,16 @@ public class SamlConnections {
      * @param samlConnectionId The ID of the SAML Connection to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteSAMLConnectionResponse delete(String samlConnectionId, Optional<Options> options) throws Exception {
+    public DeleteSAMLConnectionResponse delete(String samlConnectionId, Optional<Options> options) {
         DeleteSAMLConnectionRequest request =
             DeleteSAMLConnectionRequest
                 .builder()
                 .samlConnectionId(samlConnectionId)
                 .build();
         RequestOperation<DeleteSAMLConnectionRequest, DeleteSAMLConnectionResponse> operation
-              = new DeleteSAMLConnection.Sync(sdkConfiguration, options);
+              = new DeleteSAMLConnection.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

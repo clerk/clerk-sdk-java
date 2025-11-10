@@ -237,7 +237,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
@@ -381,9 +381,6 @@ public class Application {
                 .organizationId("<id>")
                 .call();
 
-        if (res.organizationWithLogo().isPresent()) {
-            // handle response
-        }
     }
 }
 ```
@@ -476,7 +473,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))

@@ -7,12 +7,12 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.ListMachines;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
@@ -34,6 +34,7 @@ public class ListMachinesRequestBuilder {
                             new TypeReference<Optional<String>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public ListMachinesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -119,13 +120,13 @@ public class ListMachinesRequestBuilder {
         return request;
     }
 
-    public ListMachinesResponse call() throws Exception {
+    public ListMachinesResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<ListMachinesRequest, ListMachinesResponse> operation
-              = new ListMachines.Sync(sdkConfiguration, options);
+              = new ListMachines.Sync(sdkConfiguration, options, _headers);
         ListMachinesRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

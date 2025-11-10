@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UpdateOrganizationDomain;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -21,6 +21,7 @@ public class UpdateOrganizationDomainRequestBuilder {
     private UpdateOrganizationDomainRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpdateOrganizationDomainRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -66,13 +67,13 @@ public class UpdateOrganizationDomainRequestBuilder {
         return request;
     }
 
-    public UpdateOrganizationDomainResponse call() throws Exception {
+    public UpdateOrganizationDomainResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
-              = new UpdateOrganizationDomain.Sync(sdkConfiguration, options);
+              = new UpdateOrganizationDomain.Sync(sdkConfiguration, options, _headers);
         UpdateOrganizationDomainRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

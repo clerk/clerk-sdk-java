@@ -11,7 +11,8 @@ import java.util.Optional;
 /**
  * OrganizationDomainObject
  * 
- * <p>String representing the object's type. Objects of the same type share the same value. Always `organization_domain`
+ * <p>String representing the object's type. Objects of the same type share the same value. Always
+ * `organization_domain`
  */
 public enum OrganizationDomainObject {
     ORGANIZATION_DOMAIN("organization_domain");

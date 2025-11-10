@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.RefreshSession;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class RefreshSessionRequestBuilder {
     private Optional<? extends RefreshSessionRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public RefreshSessionRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,13 +65,13 @@ public class RefreshSessionRequestBuilder {
         return request;
     }
 
-    public RefreshSessionResponse call() throws Exception {
+    public RefreshSessionResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
-              = new RefreshSession.Sync(sdkConfiguration, options);
+              = new RefreshSession.Sync(sdkConfiguration, options, _headers);
         RefreshSessionRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

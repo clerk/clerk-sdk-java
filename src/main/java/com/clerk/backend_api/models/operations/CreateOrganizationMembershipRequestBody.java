@@ -14,7 +14,8 @@ import java.lang.String;
 public class CreateOrganizationMembershipRequestBody {
     /**
      * The ID of the user that will be added as a member in the organization.
-     * The user needs to exist in the same instance as the organization and must not be a member of the given organization already.
+     * The user needs to exist in the same instance as the organization and must not be a member of the
+     * given organization already.
      */
     @JsonProperty("user_id")
     private String userId;
@@ -37,7 +38,8 @@ public class CreateOrganizationMembershipRequestBody {
 
     /**
      * The ID of the user that will be added as a member in the organization.
-     * The user needs to exist in the same instance as the organization and must not be a member of the given organization already.
+     * The user needs to exist in the same instance as the organization and must not be a member of the
+     * given organization already.
      */
     @JsonIgnore
     public String userId() {
@@ -59,7 +61,8 @@ public class CreateOrganizationMembershipRequestBody {
 
     /**
      * The ID of the user that will be added as a member in the organization.
-     * The user needs to exist in the same instance as the organization and must not be a member of the given organization already.
+     * The user needs to exist in the same instance as the organization and must not be a member of the
+     * given organization already.
      */
     public CreateOrganizationMembershipRequestBody withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -117,7 +120,8 @@ public class CreateOrganizationMembershipRequestBody {
 
         /**
          * The ID of the user that will be added as a member in the organization.
-         * The user needs to exist in the same instance as the organization and must not be a member of the given organization already.
+         * The user needs to exist in the same instance as the organization and must not be a member of the
+         * given organization already.
          */
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");

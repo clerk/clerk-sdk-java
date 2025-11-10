@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class SAMLConnectionSAMLConnection {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private SAMLConnectionSAMLConnection(TypedObject value) {
         this.value = value;
@@ -27,12 +27,12 @@ public class SAMLConnectionSAMLConnection {
 
     public static SAMLConnectionSAMLConnection of(SAMLConnection1 value) {
         Utils.checkNotNull(value, "value");
-        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SAMLConnection1>(){}));
+        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static SAMLConnectionSAMLConnection of(SAMLConnection2 value) {
         Utils.checkNotNull(value, "value");
-        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SAMLConnection2>(){}));
+        return new SAMLConnectionSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -55,7 +55,7 @@ public class SAMLConnectionSAMLConnection {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -66,7 +66,7 @@ public class SAMLConnectionSAMLConnection {
             return false;
         }
         SAMLConnectionSAMLConnection other = (SAMLConnectionSAMLConnection) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -89,6 +89,6 @@ public class SAMLConnectionSAMLConnection {
         return Utils.toString(SAMLConnectionSAMLConnection.class,
                 "value", value);
     }
- 
+
 }
 

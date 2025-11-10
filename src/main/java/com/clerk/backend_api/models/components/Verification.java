@@ -3,21 +3,20 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import java.lang.String;
 
-@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
-@JsonSubTypes({
-    @Type(value = Otp.class, name="verification_otp"),
-    @Type(value = Admin.class, name="verification_admin"),
-    @Type(value = FromOAuth.class, name="verification_from_oauth"),
-    @Type(value = Ticket.class, name="verification_ticket"),
-    @Type(value = Saml.class, name="verification_saml"),
-    @Type(value = EmailLink.class, name="verification_email_link")})
+@JsonTypeInfo(
+        use = Id.CUSTOM,
+        property = "object",
+        include = As.EXISTING_PROPERTY,
+        visible = true,
+        defaultImpl = UnknownVerification.class
+)
+@JsonTypeIdResolver(VerificationTypeIdResolver.class)
 public interface Verification {
 
     String object();

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: aa0e8124d4a66a769e20d3dd3f15430c
-  docVersion: "2025-04-10"
-  speakeasyVersion: 1.606.9
-  generationVersion: 2.687.13
-  releaseVersion: 3.2.0
-  configChecksum: f3d7042b2bcda60d0654566265e2926c
+  docChecksum: c7b19e4f00b80e6dabad84e51477fa51
+  docVersion: "2025-11-10"
+  speakeasyVersion: 1.653.0
+  generationVersion: 2.748.0
+  releaseVersion: 4.0.0
+  configChecksum: 0ee86b0cde2c6890f191c5afbb6679c4
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,28 +14,26 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.46.0
+    core: 3.55.1
     deprecations: 2.81.1
     examples: 2.81.6
     flattening: 2.81.1
-    globalSecurity: 2.83.0
+    globalSecurity: 2.83.1
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
-    globalServerURLs: 2.82.2
-    groups: 2.81.2
+    globalServerURLs: 2.83.0
+    groups: 2.81.3
     nameOverrides: 2.81.3
     nullables: 0.1.0
     openEnums: 0.2.0
     retries: 0.1.1
     sdkHooks: 1.1.0
-    unions: 0.0.6
+    unions: 0.3.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
   - build.gradle
-  - docs/models/components/AWSCredential.md
-  - docs/models/components/AccountlessApplication.md
-  - docs/models/components/AccountlessApplicationObject.md
   - docs/models/components/Actor.md
   - docs/models/components/ActorToken.md
   - docs/models/components/ActorTokenActor.md
@@ -45,6 +43,15 @@ generatedFiles:
   - docs/models/components/AllowlistIdentifier.md
   - docs/models/components/AllowlistIdentifierObject.md
   - docs/models/components/Amount.md
+  - docs/models/components/AnnualFee.md
+  - docs/models/components/AnnualMonthlyFee.md
+  - docs/models/components/BillingPaymentAttempt.md
+  - docs/models/components/BillingPaymentAttemptObject.md
+  - docs/models/components/BillingPaymentAttemptStatus.md
+  - docs/models/components/BillingStatement.md
+  - docs/models/components/BillingStatementGroupsObject.md
+  - docs/models/components/BillingStatementObject.md
+  - docs/models/components/BillingStatementStatus.md
   - docs/models/components/BlocklistIdentifier.md
   - docs/models/components/BlocklistIdentifierIdentifierType.md
   - docs/models/components/BlocklistIdentifierObject.md
@@ -57,19 +64,21 @@ generatedFiles:
   - docs/models/components/ClerkErrorErrorMeta.md
   - docs/models/components/ClerkErrorErrorSAMLAccountMeta.md
   - docs/models/components/Client.md
-  - docs/models/components/ClientObject.md
   - docs/models/components/CommerceMoneyResponse.md
+  - docs/models/components/CommercePayerResponse.md
+  - docs/models/components/CommercePayerResponseObject.md
+  - docs/models/components/CommercePaymentMethodResponse.md
+  - docs/models/components/CommercePaymentMethodResponseObject.md
+  - docs/models/components/CommercePaymentMethodResponseStatus.md
   - docs/models/components/CommercePlan.md
   - docs/models/components/CommercePlanObject.md
   - docs/models/components/CommerceSubscription.md
+  - docs/models/components/CommerceSubscriptionCreditResponse.md
   - docs/models/components/CommerceSubscriptionItem.md
   - docs/models/components/CommerceSubscriptionItemAmount.md
-  - docs/models/components/CommerceSubscriptionItemNextInvoiceAmount.md
-  - docs/models/components/CommerceSubscriptionItemNextPaymentAmount.md
+  - docs/models/components/CommerceSubscriptionItemAnnualFee.md
+  - docs/models/components/CommerceSubscriptionItemAnnualMonthlyFee.md
   - docs/models/components/CommerceSubscriptionItemObject.md
-  - docs/models/components/CommerceSubscriptionItemPayerObject.md
-  - docs/models/components/CommerceSubscriptionItemPaymentSourceObject.md
-  - docs/models/components/CommerceSubscriptionItemPaymentSourceStatus.md
   - docs/models/components/CommerceSubscriptionItemPlanObject.md
   - docs/models/components/CommerceSubscriptionItemStatus.md
   - docs/models/components/CommerceSubscriptionNextPayment.md
@@ -90,6 +99,7 @@ generatedFiles:
   - docs/models/components/Error.md
   - docs/models/components/ErrorClerkError.md
   - docs/models/components/ErrorMeta.md
+  - docs/models/components/ExtendFreeTrialRequest.md
   - docs/models/components/ExternalAccount.md
   - docs/models/components/ExternalAccountWithVerification.md
   - docs/models/components/ExternalAccountWithVerificationObject.md
@@ -98,6 +108,7 @@ generatedFiles:
   - docs/models/components/FeatureResponseObject.md
   - docs/models/components/FromOAuth.md
   - docs/models/components/GoogleOneTap.md
+  - docs/models/components/Groups.md
   - docs/models/components/IdentificationLink.md
   - docs/models/components/IdentifierType.md
   - docs/models/components/Instance.md
@@ -173,14 +184,18 @@ generatedFiles:
   - docs/models/components/OrganizationWithLogoObject.md
   - docs/models/components/Organizations.md
   - docs/models/components/Otp.md
+  - docs/models/components/PaginatedBillingPaymentAttemptResponse.md
+  - docs/models/components/PaginatedBillingStatementResponse.md
   - docs/models/components/PaginatedCommercePlanResponse.md
   - docs/models/components/PaginatedCommerceSubscriptionItemResponse.md
   - docs/models/components/Passkey.md
   - docs/models/components/PasskeyObject.md
   - docs/models/components/PasskeyVerification.md
+  - docs/models/components/Payee.md
   - docs/models/components/Payer.md
   - docs/models/components/PaymentMethod.md
   - docs/models/components/PaymentSource.md
+  - docs/models/components/PaymentType.md
   - docs/models/components/PhoneNumber.md
   - docs/models/components/PhoneNumberObject.md
   - docs/models/components/PhoneNumberVerification.md
@@ -201,6 +216,20 @@ generatedFiles:
   - docs/models/components/SAMLConnections.md
   - docs/models/components/Saml.md
   - docs/models/components/SamlConnection.md
+  - docs/models/components/SchemasCommerceSubscriptionItem.md
+  - docs/models/components/SchemasCommerceSubscriptionItemAmount.md
+  - docs/models/components/SchemasCommerceSubscriptionItemCreditAmount.md
+  - docs/models/components/SchemasCommerceSubscriptionItemNextInvoiceAmount.md
+  - docs/models/components/SchemasCommerceSubscriptionItemNextPayment.md
+  - docs/models/components/SchemasCommerceSubscriptionItemNextPaymentAmount.md
+  - docs/models/components/SchemasCommerceSubscriptionItemObject.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPayerObject.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPaymentSourceObject.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPaymentSourceStatus.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPlan.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPlanObject.md
+  - docs/models/components/SchemasCommerceSubscriptionItemPlanPeriod.md
+  - docs/models/components/SchemasCommerceSubscriptionItemStatus.md
   - docs/models/components/SchemasSAMLConnection.md
   - docs/models/components/SchemasSAMLConnection2Object.md
   - docs/models/components/SchemasSAMLConnectionObject.md
@@ -221,6 +250,7 @@ generatedFiles:
   - docs/models/components/SignUpVerifications.md
   - docs/models/components/Status.md
   - docs/models/components/Strategy.md
+  - docs/models/components/SubscriptionItem.md
   - docs/models/components/SvixURL.md
   - docs/models/components/Template.md
   - docs/models/components/TemplateObject.md
@@ -231,6 +261,7 @@ generatedFiles:
   - docs/models/components/TokenObject.md
   - docs/models/components/TotalCount.md
   - docs/models/components/TotalCountObject.md
+  - docs/models/components/Totals.md
   - docs/models/components/Two.md
   - docs/models/components/User.md
   - docs/models/components/UserObject.md
@@ -338,8 +369,6 @@ generatedFiles:
   - docs/models/operations/ChangeProductionInstanceDomainResponse.md
   - docs/models/operations/Claims.md
   - docs/models/operations/CodeType.md
-  - docs/models/operations/CompleteAccountlessApplicationResponse.md
-  - docs/models/operations/CreateAccountlessApplicationResponse.md
   - docs/models/operations/CreateActorTokenRequestBody.md
   - docs/models/operations/CreateActorTokenResponse.md
   - docs/models/operations/CreateAllowlistIdentifierRequestBody.md
@@ -405,8 +434,6 @@ generatedFiles:
   - docs/models/operations/CreateUserResponse.md
   - docs/models/operations/CreateWaitlistEntryRequestBody.md
   - docs/models/operations/CreateWaitlistEntryResponse.md
-  - docs/models/operations/DeleteAWSCredentialRequest.md
-  - docs/models/operations/DeleteAWSCredentialResponse.md
   - docs/models/operations/DeleteAllowlistIdentifierRequest.md
   - docs/models/operations/DeleteAllowlistIdentifierResponse.md
   - docs/models/operations/DeleteBackupCodeRequest.md
@@ -450,13 +477,23 @@ generatedFiles:
   - docs/models/operations/DeleteUserProfileImageResponse.md
   - docs/models/operations/DeleteUserRequest.md
   - docs/models/operations/DeleteUserResponse.md
+  - docs/models/operations/DeleteWaitlistEntryRequest.md
+  - docs/models/operations/DeleteWaitlistEntryResponse.md
   - docs/models/operations/DisableMFARequest.md
   - docs/models/operations/DisableMFAResponse.md
   - docs/models/operations/DisableMFAResponseBody.md
   - docs/models/operations/EnrollmentMode.md
+  - docs/models/operations/ExtendBillingSubscriptionItemFreeTrialRequest.md
+  - docs/models/operations/ExtendBillingSubscriptionItemFreeTrialResponse.md
   - docs/models/operations/File.md
   - docs/models/operations/Format.md
   - docs/models/operations/GenerateSvixAuthURLResponse.md
+  - docs/models/operations/GetBillingStatementListRequest.md
+  - docs/models/operations/GetBillingStatementListResponse.md
+  - docs/models/operations/GetBillingStatementPaymentAttemptsRequest.md
+  - docs/models/operations/GetBillingStatementPaymentAttemptsResponse.md
+  - docs/models/operations/GetBillingStatementRequest.md
+  - docs/models/operations/GetBillingStatementResponse.md
   - docs/models/operations/GetClientListRequest.md
   - docs/models/operations/GetClientListResponse.md
   - docs/models/operations/GetClientRequest.md
@@ -601,6 +638,9 @@ generatedFiles:
   - docs/models/operations/RevokeSessionResponse.md
   - docs/models/operations/RevokeSignInTokenRequest.md
   - docs/models/operations/RevokeSignInTokenResponse.md
+  - docs/models/operations/RotateMachineSecretKeyRequest.md
+  - docs/models/operations/RotateMachineSecretKeyRequestBody.md
+  - docs/models/operations/RotateMachineSecretKeyResponse.md
   - docs/models/operations/RotateOAuthApplicationSecretRequest.md
   - docs/models/operations/RotateOAuthApplicationSecretResponse.md
   - docs/models/operations/SetUserProfileImageRequest.md
@@ -618,9 +658,6 @@ generatedFiles:
   - docs/models/operations/UnbanUserResponse.md
   - docs/models/operations/UnlockUserRequest.md
   - docs/models/operations/UnlockUserResponse.md
-  - docs/models/operations/UpdateAWSCredentialRequest.md
-  - docs/models/operations/UpdateAWSCredentialRequestBody.md
-  - docs/models/operations/UpdateAWSCredentialResponse.md
   - docs/models/operations/UpdateDomainRequest.md
   - docs/models/operations/UpdateDomainRequestBody.md
   - docs/models/operations/UpdateDomainResponse.md
@@ -717,17 +754,15 @@ generatedFiles:
   - docs/models/operations/VerifyTOTPResponseBody.md
   - docs/sdks/actortokens/README.md
   - docs/sdks/allowlistidentifiers/README.md
-  - docs/sdks/awscredentials/README.md
   - docs/sdks/betafeatures/README.md
+  - docs/sdks/billing/README.md
   - docs/sdks/blocklistidentifiers/README.md
-  - docs/sdks/clerk/README.md
   - docs/sdks/clients/README.md
   - docs/sdks/commerce/README.md
   - docs/sdks/domains/README.md
   - docs/sdks/emailaddresses/README.md
   - docs/sdks/emailandsmstemplates/README.md
   - docs/sdks/emailsmstemplates/README.md
-  - docs/sdks/experimentalaccountlessapplications/README.md
   - docs/sdks/instancesettings/README.md
   - docs/sdks/invitations/README.md
   - docs/sdks/jwks/README.md
@@ -758,11 +793,19 @@ generatedFiles:
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
+  - publishing.gradle
   - settings.gradle
+  - spring/backend-api-spring-boot-autoconfigure/build.gradle
+  - spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/BackendApiAutoConfig.java
+  - spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/BackendApiAutoConfigProperties.java
+  - spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/ConditionalOnPropertyPrefix.java
+  - spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/OnPropertyPrefixCondition.java
+  - spring/backend-api-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+  - spring/backend-api-spring-boot-starter/build.gradle
   - src/main/java/com/clerk/backend_api/ActorTokens.java
   - src/main/java/com/clerk/backend_api/AllowlistIdentifiers.java
-  - src/main/java/com/clerk/backend_api/AwsCredentials.java
   - src/main/java/com/clerk/backend_api/BetaFeatures.java
+  - src/main/java/com/clerk/backend_api/Billing.java
   - src/main/java/com/clerk/backend_api/BlocklistIdentifiers.java
   - src/main/java/com/clerk/backend_api/Clerk.java
   - src/main/java/com/clerk/backend_api/Clients.java
@@ -771,7 +814,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/EmailAddresses.java
   - src/main/java/com/clerk/backend_api/EmailAndSmsTemplates.java
   - src/main/java/com/clerk/backend_api/EmailSMSTemplates.java
-  - src/main/java/com/clerk/backend_api/ExperimentalAccountlessApplications.java
   - src/main/java/com/clerk/backend_api/InstanceSettings.java
   - src/main/java/com/clerk/backend_api/Invitations.java
   - src/main/java/com/clerk/backend_api/Jwks.java
@@ -799,9 +841,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/Users.java
   - src/main/java/com/clerk/backend_api/WaitlistEntries.java
   - src/main/java/com/clerk/backend_api/Webhooks.java
-  - src/main/java/com/clerk/backend_api/models/components/AWSCredential.java
-  - src/main/java/com/clerk/backend_api/models/components/AccountlessApplication.java
-  - src/main/java/com/clerk/backend_api/models/components/AccountlessApplicationObject.java
   - src/main/java/com/clerk/backend_api/models/components/Actor.java
   - src/main/java/com/clerk/backend_api/models/components/ActorToken.java
   - src/main/java/com/clerk/backend_api/models/components/ActorTokenActor.java
@@ -811,6 +850,15 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifier.java
   - src/main/java/com/clerk/backend_api/models/components/AllowlistIdentifierObject.java
   - src/main/java/com/clerk/backend_api/models/components/Amount.java
+  - src/main/java/com/clerk/backend_api/models/components/AnnualFee.java
+  - src/main/java/com/clerk/backend_api/models/components/AnnualMonthlyFee.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingPaymentAttempt.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingPaymentAttemptObject.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingPaymentAttemptStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingStatement.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingStatementGroupsObject.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingStatementObject.java
+  - src/main/java/com/clerk/backend_api/models/components/BillingStatementStatus.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifier.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierIdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/BlocklistIdentifierObject.java
@@ -823,19 +871,21 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorSAMLAccountMeta.java
   - src/main/java/com/clerk/backend_api/models/components/Client.java
-  - src/main/java/com/clerk/backend_api/models/components/ClientObject.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceMoneyResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePayerResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePayerResponseObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePaymentMethodResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePaymentMethodResponseObject.java
+  - src/main/java/com/clerk/backend_api/models/components/CommercePaymentMethodResponseStatus.java
   - src/main/java/com/clerk/backend_api/models/components/CommercePlan.java
   - src/main/java/com/clerk/backend_api/models/components/CommercePlanObject.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscription.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionCreditResponse.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItem.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemAmount.java
-  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemNextInvoiceAmount.java
-  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemNextPaymentAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemAnnualFee.java
+  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemAnnualMonthlyFee.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemObject.java
-  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPayerObject.java
-  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPaymentSourceObject.java
-  - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPaymentSourceStatus.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemPlanObject.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionItemStatus.java
   - src/main/java/com/clerk/backend_api/models/components/CommerceSubscriptionNextPayment.java
@@ -856,14 +906,17 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Error.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorClerkError.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorMeta.java
+  - src/main/java/com/clerk/backend_api/models/components/ExtendFreeTrialRequest.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccount.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerification.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/ExternalAccountWithVerificationVerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/FeatureResponse.java
   - src/main/java/com/clerk/backend_api/models/components/FeatureResponseObject.java
   - src/main/java/com/clerk/backend_api/models/components/FromOAuth.java
   - src/main/java/com/clerk/backend_api/models/components/GoogleOneTap.java
+  - src/main/java/com/clerk/backend_api/models/components/Groups.java
   - src/main/java/com/clerk/backend_api/models/components/IdentificationLink.java
   - src/main/java/com/clerk/backend_api/models/components/IdentifierType.java
   - src/main/java/com/clerk/backend_api/models/components/Instance.java
@@ -939,17 +992,23 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/OrganizationWithLogoObject.java
   - src/main/java/com/clerk/backend_api/models/components/Organizations.java
   - src/main/java/com/clerk/backend_api/models/components/Otp.java
+  - src/main/java/com/clerk/backend_api/models/components/PaginatedBillingPaymentAttemptResponse.java
+  - src/main/java/com/clerk/backend_api/models/components/PaginatedBillingStatementResponse.java
   - src/main/java/com/clerk/backend_api/models/components/PaginatedCommercePlanResponse.java
   - src/main/java/com/clerk/backend_api/models/components/PaginatedCommerceSubscriptionItemResponse.java
   - src/main/java/com/clerk/backend_api/models/components/Passkey.java
   - src/main/java/com/clerk/backend_api/models/components/PasskeyObject.java
   - src/main/java/com/clerk/backend_api/models/components/PasskeyVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/PasskeyVerificationTypeIdResolver.java
+  - src/main/java/com/clerk/backend_api/models/components/Payee.java
   - src/main/java/com/clerk/backend_api/models/components/Payer.java
   - src/main/java/com/clerk/backend_api/models/components/PaymentMethod.java
   - src/main/java/com/clerk/backend_api/models/components/PaymentSource.java
+  - src/main/java/com/clerk/backend_api/models/components/PaymentType.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumber.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberObject.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/PhoneNumberVerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/Plan.java
   - src/main/java/com/clerk/backend_api/models/components/PlanPeriod.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheck.java
@@ -960,6 +1019,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccount.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountObject.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/SAMLAccountVerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnection1.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnection2.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnectionAttributeMapping.java
@@ -967,6 +1027,20 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/SAMLConnections.java
   - src/main/java/com/clerk/backend_api/models/components/Saml.java
   - src/main/java/com/clerk/backend_api/models/components/SamlConnection.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItem.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemCreditAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemNextInvoiceAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemNextPayment.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemNextPaymentAmount.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemObject.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPayerObject.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPaymentSourceObject.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPaymentSourceStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPlan.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPlanObject.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemPlanPeriod.java
+  - src/main/java/com/clerk/backend_api/models/components/SchemasCommerceSubscriptionItemStatus.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnection.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnection2Object.java
   - src/main/java/com/clerk/backend_api/models/components/SchemasSAMLConnectionObject.java
@@ -987,6 +1061,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/SignUpVerifications.java
   - src/main/java/com/clerk/backend_api/models/components/Status.java
   - src/main/java/com/clerk/backend_api/models/components/Strategy.java
+  - src/main/java/com/clerk/backend_api/models/components/SubscriptionItem.java
   - src/main/java/com/clerk/backend_api/models/components/SvixURL.java
   - src/main/java/com/clerk/backend_api/models/components/Template.java
   - src/main/java/com/clerk/backend_api/models/components/TemplateObject.java
@@ -997,7 +1072,14 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/TokenObject.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCount.java
   - src/main/java/com/clerk/backend_api/models/components/TotalCountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Totals.java
   - src/main/java/com/clerk/backend_api/models/components/Two.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownExternalAccountWithVerificationVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownPasskeyVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownPhoneNumberVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownSAMLAccountVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownWeb3WalletVerification.java
   - src/main/java/com/clerk/backend_api/models/components/User.java
   - src/main/java/com/clerk/backend_api/models/components/UserObject.java
   - src/main/java/com/clerk/backend_api/models/components/Verification.java
@@ -1054,6 +1136,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationStrategy.java
@@ -1068,7 +1151,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/Web3Wallet.java
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletObject.java
   - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/Web3WalletVerificationTypeIdResolver.java
+  - src/main/java/com/clerk/backend_api/models/errors/AsyncSDKError.java
   - src/main/java/com/clerk/backend_api/models/errors/AuthException.java
+  - src/main/java/com/clerk/backend_api/models/errors/ClerkError.java
   - src/main/java/com/clerk/backend_api/models/errors/ClerkErrors.java
   - src/main/java/com/clerk/backend_api/models/errors/CreateM2MTokenErrors.java
   - src/main/java/com/clerk/backend_api/models/errors/CreateM2MTokenM2mResponseBody.java
@@ -1110,10 +1196,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/ChangeProductionInstanceDomainResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/Claims.java
   - src/main/java/com/clerk/backend_api/models/operations/CodeType.java
-  - src/main/java/com/clerk/backend_api/models/operations/CompleteAccountlessApplicationRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/CompleteAccountlessApplicationResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateAccountlessApplicationRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/CreateAccountlessApplicationResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateActorTokenResponse.java
@@ -1206,9 +1288,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateWaitlistEntryResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/DeleteAWSCredentialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteAllowlistIdentifierResponse.java
@@ -1273,15 +1352,30 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteUserResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteWaitlistEntryResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFARequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DisableMFAResponseBody.java
   - src/main/java/com/clerk/backend_api/models/operations/EnrollmentMode.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendBillingSubscriptionItemFreeTrialRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendBillingSubscriptionItemFreeTrialRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ExtendBillingSubscriptionItemFreeTrialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/File.java
   - src/main/java/com/clerk/backend_api/models/operations/Format.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GenerateSvixAuthURLResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementListRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementListRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementListResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementPaymentAttemptsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementPaymentAttemptsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementPaymentAttemptsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetBillingStatementResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetClientListRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetClientListRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetClientListResponse.java
@@ -1486,6 +1580,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RevokeSignInTokenResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RotateMachineSecretKeyResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RotateOAuthApplicationSecretResponse.java
@@ -1508,10 +1606,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UnlockUserResponse.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequest.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequestBody.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialRequestBuilder.java
-  - src/main/java/com/clerk/backend_api/models/operations/UpdateAWSCredentialResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateDomainRequestBuilder.java
@@ -1643,8 +1737,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/BanUser.java
   - src/main/java/com/clerk/backend_api/operations/CancelCommerceSubscriptionItem.java
   - src/main/java/com/clerk/backend_api/operations/ChangeProductionInstanceDomain.java
-  - src/main/java/com/clerk/backend_api/operations/CompleteAccountlessApplication.java
-  - src/main/java/com/clerk/backend_api/operations/CreateAccountlessApplication.java
   - src/main/java/com/clerk/backend_api/operations/CreateActorToken.java
   - src/main/java/com/clerk/backend_api/operations/CreateAllowlistIdentifier.java
   - src/main/java/com/clerk/backend_api/operations/CreateBlocklistIdentifier.java
@@ -1672,7 +1764,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/CreateTestingToken.java
   - src/main/java/com/clerk/backend_api/operations/CreateUser.java
   - src/main/java/com/clerk/backend_api/operations/CreateWaitlistEntry.java
-  - src/main/java/com/clerk/backend_api/operations/DeleteAWSCredential.java
   - src/main/java/com/clerk/backend_api/operations/DeleteAllowlistIdentifier.java
   - src/main/java/com/clerk/backend_api/operations/DeleteBackupCode.java
   - src/main/java/com/clerk/backend_api/operations/DeleteBlocklistIdentifier.java
@@ -1694,8 +1785,13 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/DeleteTOTP.java
   - src/main/java/com/clerk/backend_api/operations/DeleteUser.java
   - src/main/java/com/clerk/backend_api/operations/DeleteUserProfileImage.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteWaitlistEntry.java
   - src/main/java/com/clerk/backend_api/operations/DisableMFA.java
+  - src/main/java/com/clerk/backend_api/operations/ExtendBillingSubscriptionItemFreeTrial.java
   - src/main/java/com/clerk/backend_api/operations/GenerateSvixAuthURL.java
+  - src/main/java/com/clerk/backend_api/operations/GetBillingStatement.java
+  - src/main/java/com/clerk/backend_api/operations/GetBillingStatementList.java
+  - src/main/java/com/clerk/backend_api/operations/GetBillingStatementPaymentAttempts.java
   - src/main/java/com/clerk/backend_api/operations/GetClient.java
   - src/main/java/com/clerk/backend_api/operations/GetClientList.java
   - src/main/java/com/clerk/backend_api/operations/GetCommercePlanList.java
@@ -1757,12 +1853,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/RevokeOrganizationInvitation.java
   - src/main/java/com/clerk/backend_api/operations/RevokeSession.java
   - src/main/java/com/clerk/backend_api/operations/RevokeSignInToken.java
+  - src/main/java/com/clerk/backend_api/operations/RotateMachineSecretKey.java
   - src/main/java/com/clerk/backend_api/operations/RotateOAuthApplicationSecret.java
   - src/main/java/com/clerk/backend_api/operations/SetUserProfileImage.java
   - src/main/java/com/clerk/backend_api/operations/ToggleTemplateDelivery.java
   - src/main/java/com/clerk/backend_api/operations/UnbanUser.java
   - src/main/java/com/clerk/backend_api/operations/UnlockUser.java
-  - src/main/java/com/clerk/backend_api/operations/UpdateAWSCredential.java
   - src/main/java/com/clerk/backend_api/operations/UpdateDomain.java
   - src/main/java/com/clerk/backend_api/operations/UpdateEmailAddress.java
   - src/main/java/com/clerk/backend_api/operations/UpdateInstance.java
@@ -1799,6 +1895,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/BackoffStrategy.java
   - src/main/java/com/clerk/backend_api/utils/BigDecimalString.java
   - src/main/java/com/clerk/backend_api/utils/BigIntegerString.java
+  - src/main/java/com/clerk/backend_api/utils/Blob.java
   - src/main/java/com/clerk/backend_api/utils/BlockingParser.java
   - src/main/java/com/clerk/backend_api/utils/Constants.java
   - src/main/java/com/clerk/backend_api/utils/CopiableInputStream.java
@@ -1807,11 +1904,13 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/EventStreamMessage.java
   - src/main/java/com/clerk/backend_api/utils/Exceptions.java
   - src/main/java/com/clerk/backend_api/utils/FormMetadata.java
+  - src/main/java/com/clerk/backend_api/utils/GenericTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/utils/Globals.java
   - src/main/java/com/clerk/backend_api/utils/HTTPClient.java
   - src/main/java/com/clerk/backend_api/utils/HTTPRequest.java
   - src/main/java/com/clerk/backend_api/utils/HasSecurity.java
   - src/main/java/com/clerk/backend_api/utils/HeaderMetadata.java
+  - src/main/java/com/clerk/backend_api/utils/Headers.java
   - src/main/java/com/clerk/backend_api/utils/Helpers.java
   - src/main/java/com/clerk/backend_api/utils/Hook.java
   - src/main/java/com/clerk/backend_api/utils/Hooks.java
@@ -1845,8 +1944,10 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/StreamingParser.java
   - src/main/java/com/clerk/backend_api/utils/TypedObject.java
   - src/main/java/com/clerk/backend_api/utils/Types.java
+  - src/main/java/com/clerk/backend_api/utils/UnknownType.java
   - src/main/java/com/clerk/backend_api/utils/Utf8UrlEncoder.java
   - src/main/java/com/clerk/backend_api/utils/Utils.java
+  - src/main/java/com/clerk/backend_api/utils/reactive/ReactiveUtils.java
 examples:
   GetPublicInterstitial: {}
   GetJWKS:
@@ -1862,14 +1963,14 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: [{"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>"], "sessions": [], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 377143, "created_at": 427844}]
+          application/json: [{"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>"], "sessions": [], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "last_authentication_strategy": "<value>", "updated_at": 377143, "created_at": 427844}]
         "400":
           application/json: {"errors": []}
   VerifyClient:
     speakeasy-default-verify-client:
       responses:
         "200":
-          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>", "<value 3>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "active", "last_active_at": 198607, "expire_at": 14645, "abandon_at": 359496, "updated_at": 743022, "created_at": 640186}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 20380, "created_at": 519313}
+          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>", "<value 2>", "<value 3>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "active", "last_active_at": 198607, "expire_at": 14645, "abandon_at": 359496, "updated_at": 743022, "created_at": 640186}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "last_authentication_strategy": "<value>", "updated_at": 20380, "created_at": 519313}
         "400":
           application/json: {"errors": []}
   GetClient:
@@ -1879,7 +1980,7 @@ examples:
           client_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 713614, "expire_at": 138624, "abandon_at": 385833, "updated_at": 271462, "created_at": 817511}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "updated_at": 244694, "created_at": 238487}
+          application/json: {"object": "client", "id": "<id>", "session_ids": ["<value 1>"], "sessions": [{"object": "session", "id": "<id>", "user_id": "<id>", "client_id": "<id>", "status": "removed", "last_active_at": 713614, "expire_at": 138624, "abandon_at": 385833, "updated_at": 271462, "created_at": 817511}], "sign_in_id": "<id>", "sign_up_id": "<id>", "last_active_session_id": "<id>", "last_authentication_strategy": "<value>", "updated_at": 244694, "created_at": 238487}
         "400":
           application/json: {"errors": []}
   CreateEmailAddress:
@@ -3031,7 +3132,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "abandoned", "required_fields": [], "optional_fields": ["<value 1>"], "missing_fields": [], "unverified_fields": ["<value 1>", "<value 2>", "<value 3>"], "verifications": {"email_address": {}, "phone_number": null, "web3_wallet": null, "external_account": {}}, "username": "Jaquelin56", "email_address": "Kacey.Gusikowski@gmail.com", "phone_number": "1-926-581-3039 x878", "web3_wallet": null, "password_enabled": true, "first_name": "Reinhold", "last_name": "Douglas", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "abandoned", "required_fields": [], "optional_fields": ["<value 1>"], "missing_fields": [], "unverified_fields": ["<value 1>", "<value 2>", "<value 3>"], "verifications": {"email_address": {}, "phone_number": null, "web3_wallet": null, "external_account": {}}, "username": "Jaquelin56", "email_address": "Kacey.Gusikowski@gmail.com", "phone_number": "1-926-581-3039 x878", "web3_wallet": null, "password_enabled": true, "first_name": "Reinhold", "last_name": "Douglas", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000, "locale": "en-US"}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateSignUp:
@@ -3041,7 +3142,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "complete", "required_fields": ["<value 1>", "<value 2>", "<value 3>"], "optional_fields": ["<value 1>", "<value 2>", "<value 3>"], "missing_fields": [], "unverified_fields": [], "verifications": {"email_address": {}, "phone_number": {}, "web3_wallet": {}, "external_account": {}}, "username": "Aaliyah56", "email_address": "Colton_Emard@hotmail.com", "phone_number": "977-410-3580 x316", "web3_wallet": "<value>", "password_enabled": false, "first_name": "Mireille", "last_name": "Herman", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"object": "sign_up_attempt", "id": "<id>", "status": "complete", "required_fields": ["<value 1>", "<value 2>", "<value 3>"], "optional_fields": ["<value 1>", "<value 2>", "<value 3>"], "missing_fields": [], "unverified_fields": [], "verifications": {"email_address": {}, "phone_number": {}, "web3_wallet": {}, "external_account": {}}, "username": "Aaliyah56", "email_address": "Colton_Emard@hotmail.com", "phone_number": "977-410-3580 x316", "web3_wallet": "<value>", "password_enabled": false, "first_name": "Mireille", "last_name": "Herman", "custom_action": true, "external_id": "<id>", "created_session_id": "<id>", "created_user_id": "<id>", "abandon_at": 1700690400000, "legal_accepted_at": 1700690400000, "locale": "en-US"}
         "403":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListOAuthApplications:
@@ -3122,7 +3223,7 @@ examples:
     speakeasy-default-create-SAML-connection:
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "untried-mortise.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://sleepy-onset.com", "idp_certificate": "<value>", "acs_url": "https://electric-department.net/", "sp_entity_id": "<id>", "sp_metadata_url": "https://ambitious-handover.name", "active": false, "provider": "<value>", "user_count": 392413, "sync_user_attributes": false, "created_at": 660655, "updated_at": 853312}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domains": ["<value 1>", "<value 2>"], "idp_entity_id": "<id>", "idp_sso_url": "https://sleepy-onset.com", "idp_certificate": "<value>", "acs_url": "https://electric-department.net/", "sp_entity_id": "<id>", "sp_metadata_url": "https://ambitious-handover.name", "active": false, "provider": "<value>", "user_count": 392413, "sync_user_attributes": false, "allow_subdomains": true, "allow_idp_initiated": false, "disable_additional_identifications": true, "force_authn": false, "created_at": 660655, "updated_at": 853312}
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetSAMLConnection:
@@ -3132,7 +3233,7 @@ examples:
           saml_connection_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "blushing-hawk.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://dazzling-numeric.biz/", "idp_certificate": "<value>", "acs_url": "https://hollow-harp.name/", "sp_entity_id": "<id>", "sp_metadata_url": "https://unconscious-pine.net/", "active": false, "provider": "<value>", "user_count": 583235, "sync_user_attributes": false, "created_at": 223312, "updated_at": 905550}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "blushing-hawk.biz", "idp_entity_id": "<id>", "idp_sso_url": "https://dazzling-numeric.biz/", "idp_certificate": "<value>", "acs_url": "https://hollow-harp.name/", "sp_entity_id": "<id>", "sp_metadata_url": "https://unconscious-pine.net/", "active": false, "provider": "<value>", "user_count": 583235, "sync_user_attributes": false, "allow_subdomains": true, "allow_idp_initiated": true, "disable_additional_identifications": true, "force_authn": true, "created_at": 223312, "updated_at": 905550}
         "402":
           application/json: {"errors": []}
   UpdateSAMLConnection:
@@ -3144,7 +3245,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "inborn-turret.net", "idp_entity_id": "<id>", "idp_sso_url": "https://breakable-tuxedo.com/", "idp_certificate": "<value>", "acs_url": "https://informal-hydrolyze.biz/", "sp_entity_id": "<id>", "sp_metadata_url": "https://peaceful-electronics.com/", "active": true, "provider": "<value>", "user_count": 981924, "sync_user_attributes": true, "created_at": 423360, "updated_at": 825888}
+          application/json: {"object": "saml_connection", "id": "<id>", "name": "<value>", "domain": "inborn-turret.net", "idp_entity_id": "<id>", "idp_sso_url": "https://breakable-tuxedo.com/", "idp_certificate": "<value>", "acs_url": "https://informal-hydrolyze.biz/", "sp_entity_id": "<id>", "sp_metadata_url": "https://peaceful-electronics.com/", "active": true, "provider": "<value>", "user_count": 981924, "sync_user_attributes": true, "allow_subdomains": false, "allow_idp_initiated": false, "disable_additional_identifications": false, "force_authn": true, "created_at": 423360, "updated_at": 825888}
         "402":
           application/json: {"errors": []}
   DeleteSAMLConnection:
@@ -3238,7 +3339,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "past_due", "payer_id": "<id>", "created_at": 81691, "updated_at": 772691, "subscription_items": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "past_due", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 297026, "amount_formatted": "<value>", "currency": "Colombian Peso", "currency_symbol": "$"}, "annual_monthly_fee": {"amount": 833905, "amount_formatted": "<value>", "currency": "Brazilian Real", "currency_symbol": "Q"}, "annual_fee": {"amount": 633199, "amount_formatted": "<value>", "currency": "Mauritius Rupee", "currency_symbol": "$"}, "amount": 974826, "amount_formatted": "<value>", "annual_monthly_amount": 913091, "annual_monthly_amount_formatted": "<value>", "annual_amount": 287873, "annual_amount_formatted": "<value>", "currency_symbol": "Kč", "currency": "Rupiah", "description": "drab joshingly definitive", "product_id": "<id>", "is_default": false, "is_recurring": false, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://perfumed-starboard.info", "features": []}, "plan_period": "month", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 750417, "updated_at": 469594}]}
+          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "past_due", "payer_id": "<id>", "created_at": 81691, "updated_at": 772691, "active_at": 81691, "past_due_at": 543079, "subscription_items": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "past_due", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 297026, "amount_formatted": "<value>", "currency": "Colombian Peso", "currency_symbol": "$"}, "annual_monthly_fee": {"amount": 833905, "amount_formatted": "<value>", "currency": "Brazilian Real", "currency_symbol": "Q"}, "annual_fee": {"amount": 633199, "amount_formatted": "<value>", "currency": "Mauritius Rupee", "currency_symbol": "$"}, "description": "drab joshingly definitive", "product_id": "<id>", "is_default": false, "is_recurring": false, "publicly_visible": true, "has_base_fee": true, "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://perfumed-starboard.info", "features": [], "free_trial_enabled": true, "free_trial_days": 297026}, "plan_period": "month", "payer_id": "<id>", "is_free_trial": true, "period_start": 192771, "period_end": 833905, "proration_date": "<value>", "canceled_at": 873617, "past_due_at": 633199, "ended_at": 108991, "created_at": 750417, "updated_at": 469594}]}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
         "500":
@@ -3330,7 +3431,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "payer_id": "<id>", "created_at": 867059, "updated_at": 35040, "subscription_items": []}
+          application/json: {"object": "commerce_subscription", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "payer_id": "<id>", "created_at": 867059, "updated_at": 35040, "active_at": 867059, "past_due_at": null, "subscription_items": []}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
         "500":
@@ -3389,7 +3490,7 @@ examples:
           include_free: false
       responses:
         "200":
-          application/json: {"data": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 692858, "amount_formatted": "<value>", "currency": "New Zealand Dollar", "currency_symbol": "kr"}, "annual_monthly_fee": {"amount": 119895, "amount_formatted": "<value>", "currency": "Brunei Dollar", "currency_symbol": "ден"}, "annual_fee": {"amount": 989424, "amount_formatted": "<value>", "currency": "Kwacha", "currency_symbol": "L"}, "amount": 349721, "amount_formatted": "<value>", "annual_monthly_amount": 405709, "annual_monthly_amount_formatted": "<value>", "annual_amount": 848366, "annual_amount_formatted": "<value>", "currency_symbol": "₪", "currency": "Sri Lanka Rupee", "description": "scrap numb sentimental advertisement pfft cardboard above satirise", "product_id": "<id>", "is_default": false, "is_recurring": true, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://nervous-jump.net", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "intrepid nautical gee judgementally neaten chasuble dimly", "slug": "<value>", "avatar_url": "https://anguished-cheetah.net"}]}, "plan_period": "month", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 52347, "updated_at": 42603}], "total_count": 88070}
+          application/json: {"data": [{"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 692858, "amount_formatted": "<value>", "currency": "New Zealand Dollar", "currency_symbol": "kr"}, "annual_monthly_fee": {"amount": 119895, "amount_formatted": "<value>", "currency": "Brunei Dollar", "currency_symbol": "ден"}, "annual_fee": {"amount": 989424, "amount_formatted": "<value>", "currency": "Kwacha", "currency_symbol": "L"}, "description": "scrap numb sentimental advertisement pfft cardboard above satirise", "product_id": "<id>", "is_default": false, "is_recurring": true, "publicly_visible": true, "has_base_fee": true, "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://nervous-jump.net", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "intrepid nautical gee judgementally neaten chasuble dimly", "slug": "<value>", "avatar_url": "https://anguished-cheetah.net"}], "free_trial_enabled": false, "free_trial_days": 760063}, "plan_period": "month", "payer_id": "<id>", "is_free_trial": true, "period_start": 692858, "period_end": 754794, "proration_date": "<value>", "canceled_at": 115692, "past_due_at": 989424, "ended_at": 348814, "created_at": 52347, "updated_at": 42603}], "total_count": 88070}
         "400":
           application/json: {"errors": []}
         "500":
@@ -3403,7 +3504,7 @@ examples:
           end_now: false
       responses:
         "200":
-          application/json: {"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 106392, "amount_formatted": "<value>", "currency": "Mexican Peso", "currency_symbol": "B/."}, "annual_monthly_fee": {"amount": 662779, "amount_formatted": "<value>", "currency": "Cordoba Oro", "currency_symbol": "₩"}, "annual_fee": {"amount": 16342, "amount_formatted": "<value>", "currency": "Liberian Dollar", "currency_symbol": "L"}, "amount": 592877, "amount_formatted": "<value>", "annual_monthly_amount": 848023, "annual_monthly_amount_formatted": "<value>", "annual_amount": 638223, "annual_amount_formatted": "<value>", "currency_symbol": "¥", "currency": "CFP Franc", "description": "fooey busily possible shudder uncomfortable woot across embalm", "product_id": "<id>", "is_default": true, "is_recurring": true, "publicly_visible": true, "has_base_fee": true, "payer_type": ["<value 1>", "<value 2>", "<value 3>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://classic-clamp.net/", "features": [{"object": "feature", "id": "<id>", "name": "<value>", "description": "drat fatherly geez key", "slug": "<value>", "avatar_url": "https://average-avalanche.name"}]}, "plan_period": "annual", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 44909, "updated_at": 899731}
+          application/json: {"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan_period": "annual", "payer_id": "<id>", "is_free_trial": true, "period_start": 963236, "period_end": 106392, "canceled_at": 649477, "past_due_at": 621775, "ended_at": 16342}
         "400":
           application/json: {"errors": []}
         "500":
@@ -3473,6 +3574,82 @@ examples:
           application/json: {"errors": []}
         "404":
           application/json: {"errors": []}
+  RotateMachineSecretKey:
+    speakeasy-default-rotate-machine-secret-key:
+      parameters:
+        path:
+          machine_id: "<id>"
+      requestBody:
+        application/json: {"previous_token_ttl": 632625}
+      responses:
+        "200":
+          application/json: {"object": "machine_secret_key", "secret": "<value>"}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteWaitlistEntry:
+    speakeasy-default-delete-waitlist-entry:
+      parameters:
+        path:
+          waitlist_entry_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": false}
+        "400":
+          application/json: {"errors": []}
+  ExtendBillingSubscriptionItemFreeTrial:
+    speakeasy-default-extend-billing-subscription-item-free-trial:
+      parameters:
+        path:
+          subscription_item_id: "<id>"
+      requestBody:
+        application/json: {"extend_to": "2026-01-08T00:00:00Z"}
+      responses:
+        "200":
+          application/json: {"object": "commerce_subscription_item", "id": "<id>", "instance_id": "<id>", "status": "abandoned", "plan_id": "<id>", "plan": {"object": "commerce_plan", "id": "<id>", "name": "<value>", "fee": {"amount": 527176, "amount_formatted": "<value>", "currency": "Dominican Peso", "currency_symbol": "$"}, "annual_monthly_fee": {"amount": 669777, "amount_formatted": "<value>", "currency": "Hong Kong Dollar", "currency_symbol": "﷼"}, "annual_fee": {"amount": 233805, "amount_formatted": "<value>", "currency": "Zloty", "currency_symbol": "CHF"}, "amount": 531322, "amount_formatted": "<value>", "annual_monthly_amount": 60602, "annual_monthly_amount_formatted": "<value>", "annual_amount": 280866, "annual_amount_formatted": "<value>", "currency_symbol": "₩", "currency": "Tala", "description": "nearly advertisement very sediment quaver whoever outrun", "product_id": "<id>", "is_default": false, "is_recurring": true, "publicly_visible": false, "has_base_fee": true, "payer_type": ["<value 1>"], "for_payer_type": "<value>", "slug": "<value>", "avatar_url": "https://colorful-saloon.com/", "features": []}, "plan_period": "annual", "payment_source_id": "<id>", "payer_id": "<id>", "is_free_trial": true, "proration_date": "<value>", "created_at": 493551, "updated_at": 415928}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetBillingStatementList:
+    speakeasy-default-get-billing-statement-list:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [{"object": "commerce_statement", "id": "<id>", "instance_id": "<id>", "timestamp": 50264, "payer": {"object": "commerce_payer", "id": "<id>", "instance_id": "<id>"}, "status": "open", "totals": {"grand_total": {"amount": 760764, "amount_formatted": "<value>", "currency": "Canadian Dollar", "currency_symbol": "$"}, "subtotal": {"amount": 314695, "amount_formatted": "<value>", "currency": "Rand", "currency_symbol": "R"}, "tax_total": {"amount": 543358, "amount_formatted": "<value>", "currency": "Uzbekistan Sum", "currency_symbol": "Rbl"}}, "groups": [{"object": "commerce_statement_group", "timestamp": 771365, "items": [{"object": "commerce_payment", "id": "<id>", "payment_id": "<id>", "instance_id": "<id>", "charge_type": "<value>", "payee_id": "<id>", "payee": {}, "payer_id": "<id>", "payer": {"object": "commerce_payer", "id": "<id>", "instance_id": "<id>"}, "amount": {"amount": 447279, "amount_formatted": "<value>", "currency": "Guinea Franc", "currency_symbol": "K"}, "payment_method_id": "<id>", "payment_method": {"object": "commerce_payment_method", "id": "<id>", "payer_id": "<id>", "payment_type": "card", "gateway": "<value>", "gateway_external_id": "<id>", "gateway_external_account_id": "<id>", "last4": "<value>", "status": "disconnected", "card_type": "<value>"}, "statement_id": "<id>", "gateway_external_id": "<id>", "gateway_external_url": "https://advanced-best-seller.com", "status": "paid", "paid_at": 493400, "failed_at": 229350, "created_at": 898664, "updated_at": 18593}]}]}], "total_count": 915932}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetBillingStatement:
+    speakeasy-default-get-billing-statement:
+      parameters:
+        path:
+          statementID: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "commerce_statement", "id": "<id>", "instance_id": "<id>", "timestamp": 21343, "payer": {"object": "commerce_payer", "id": "<id>", "instance_id": "<id>"}, "status": "closed", "totals": {"grand_total": {"amount": 604790, "amount_formatted": "<value>", "currency": "Manat", "currency_symbol": "$"}, "subtotal": {"amount": 338222, "amount_formatted": "<value>", "currency": "Burundi Franc", "currency_symbol": "ман"}, "tax_total": {"amount": 401749, "amount_formatted": "<value>", "currency": "Belarusian Ruble", "currency_symbol": "₴"}}, "groups": [{"object": "commerce_statement_group", "timestamp": 403547, "items": []}]}
+        "400":
+          application/json: {"errors": []}
+        "500":
+          application/json: {"errors": []}
+  GetBillingStatementPaymentAttempts:
+    speakeasy-default-get-billing-statement-payment-attempts:
+      parameters:
+        path:
+          statementID: "<id>"
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [], "total_count": 454767}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+        "500":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## SDK Changes Detected:\n* `clerk.sessions.createToken()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.update()`: \n  *  `requestbody.domains` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.samlConnections.list()`:  `response.data.[]` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.update()`:  `requestbody` **Changed** **Breaking** :warning:\n* `clerk.jwtTemplates.create()`:  `request` **Changed** **Breaking** :warning:\n* `clerk.instanceSettings.updateRestrictions()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `clerk.organizationInvitations.list()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `error.status[422]` **Added**\n* `clerk.users.updateMetadata()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.deleteProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.setProfileImage()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unlock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.lock()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.unban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.ban()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.update()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.get()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.create()`:  `response` **Changed** **Breaking** :warning:\n* `clerk.users.list()`:  `response.[]` **Changed** **Breaking** :warning:\n* `clerk.sessions.createTokenFromTemplate()`: \n  *  `requestbody.expiresInSeconds` **Changed** **Breaking** :warning:\n* `clerk.m2m.createToken()`: **Added**\n* `clerk.invitations.list()`: \n  *  `request.orderBy` **Changed**\n* `clerk.m2m.verifyToken()`: **Added**\n* `clerk.oauthAccessTokens.verify()`: **Added**\n* `clerk.sessions.verify()`: **Deleted** **Breaking** :warning:\n* `clerk.emailAddresses.create()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.get()`:  `response.verification` **Changed**\n* `clerk.emailAddresses.update()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.create()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.get()`:  `response.verification` **Changed**\n* `clerk.phoneNumbers.update()`:  `response.verification` **Changed**\n* `clerk.m2m.listTokens()`: **Added**\n* `clerk.awsCredentials.delete()`: **Added**\n* `clerk.emailSmsTemplates.list()`:  `response.[]` **Changed**\n* `clerk.emailSmsTemplates.get()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.revert()`:  `response` **Changed**\n* `clerk.emailSmsTemplates.toggleTemplateDelivery()`:  `response` **Changed**\n* `clerk.emailAndSmsTemplates.upsert()`:  `response` **Changed**\n* `clerk.commerce.cancelSubscriptionItem()`: **Added**\n* `clerk.commerce.listSubscriptionItems()`: **Added**\n* `clerk.commerce.listPlans()`: **Added**\n* `clerk.waitlistEntries.reject()`: **Added**\n* `clerk.waitlistEntries.invite()`: **Added**\n* `clerk.organizationDomains.listAll()`: **Added**\n* `clerk.organizations.getBillingSubscription()`: **Added**\n* `clerk.machines.deleteScope()`: **Added**\n* `clerk.machines.createScope()`: **Added**\n* `clerk.machines.getSecretKey()`: **Added**\n* `clerk.machines.delete()`: **Added**\n* `clerk.users.getOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.users.getInstanceOrganizationMemberships()`:  `response.data.[].organization` **Changed**\n* `clerk.m2m.revokeToken()`: **Added**\n* `clerk.machines.update()`: **Added**\n* `clerk.machines.get()`: **Added**\n* `clerk.instanceSettings.updateOrganizationSettings()`:  `response.max_allowed_permissions` **Changed**\n* `clerk.machines.create()`: **Added**\n* `clerk.machines.list()`: **Added**\n* `clerk.organizations.list()`:  `response.data.[]` **Changed**\n* `clerk.organizations.create()`:  `response` **Changed**\n* `clerk.organizations.get()`:  `response` **Changed**\n* `clerk.organizations.update()`:  `response` **Changed**\n* `clerk.organizations.mergeMetadata()`:  `response` **Changed**\n* `clerk.organizations.uploadLogo()`:  `response.private_metadata` **Changed**\n* `clerk.organizations.deleteLogo()`:  `response` **Changed**\n* `clerk.organizationMemberships.create()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.list()`:  `response.data.[].organization` **Changed**\n* `clerk.organizationMemberships.update()`:  `response.organization` **Changed**\n* `clerk.organizationMemberships.delete()`: \n  *  `response.organization` **Changed**\n  *  `error.status[422]` **Added**\n* `clerk.organizationMemberships.updateMetadata()`:  `response.organization` **Changed**\n* `clerk.organizationDomains.create()`:  `response.public_organization_data` **Added**\n* `clerk.organizationDomains.list()`:  `response.data.[].publicOrganizationData` **Added**\n* `clerk.organizationDomains.update()`:  `response.public_organization_data` **Added**\n* `clerk.oauthApplications.list()`: \n  *  `request` **Changed**\n  *  `response.data.[]` **Changed**\n* `clerk.oauthApplications.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.get()`:  `response` **Changed**\n* `clerk.oauthApplications.update()`: \n  *  `requestbody` **Changed**\n  *  `response` **Changed**\n* `clerk.oauthApplications.rotateSecret()`:  `response` **Changed**\n* `clerk.users.getBillingSubscription()`: **Added**\n* `clerk.users.bulkUnban()`: **Added**\n* `clerk.users.bulkBan()`: **Added**\n* `clerk.awsCredentials.update()`: **Added**\n"
+releaseNotes: "## Java SDK Changes Detected:\n* `clerk.betaFeatures.updateProductionInstanceDomain()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.get()`: \n  *  `response.last_authentication_strategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.create()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.get()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.cancelSubscriptionItem()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.listSubscriptionItems()`: \n  *  `response.data.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.listPlans()`: \n  *  `response.data.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.reject()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.invite()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.update()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.refresh()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.createToken()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.createTokenFromTemplate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.revert()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.toggleTemplateDelivery()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAndSmsTemplates.upsert()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.templates.preview()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.list()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.create()`: \n  *  `request.locale` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.count()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.get()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.update()`: \n  *  `requestbody.locale` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.list()`: \n  *  `response.[].lastAuthenticationStrategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.unban()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.bulkBan()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.bulkUnban()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.lock()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.unlock()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.setProfileImage()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteProfileImage()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.updateMetadata()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getBillingSubscription()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOAuthAccessToken()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOrganizationMemberships()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOrganizationInvitations()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.verifyPassword()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.verifyTotp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.disableMfa()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteBackupCodes()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deletePasskey()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteWeb3Wallet()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteTotp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteExternalAccount()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getInstanceOrganizationMemberships()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.bulkCreate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.getAll()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.bulkCreate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.listPending()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.updateOrganizationSettings()`: \n  *  `request.slugDisabled` **Added**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.verify()`: \n  *  `response.last_authentication_strategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.ban()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.actorTokens.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.actorTokens.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.add()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.updateRestrictions()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.changeDomain()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.createSvixApp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.deleteSvixApp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.generateSvixAuthUrl()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.betaFeatures.updateInstanceSettings()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.delete()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.getSecretKey()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.createScope()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.deleteScope()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.update()`:  `error` **Changed** **Breaking** :warning:\n* `clerk.organizations.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.mergeMetadata()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.uploadLogo()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.deleteLogo()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.getBillingSubscription()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.create()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.list()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.update()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.delete()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.updateMetadata()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.listAll()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.proxyChecks.verify()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signInTokens.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signInTokens.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signUps.get()`: \n  *  `response.locale` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signUps.update()`: \n  *  `response.locale` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.rotateSecret()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.list()`: \n  *  `response.data.[]` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.get()`: \n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.update()`: \n  *  `requestbody.forceAuthn` **Added**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.billing.getStatement()`: **Added**\n* `clerk.billing.listStatements()`: **Added**\n* `clerk.billing.extendSubscriptionItemFreeTrial()`: **Added**\n* `clerk.waitlistEntries.delete()`: **Added**\n* `clerk.machines.rotateSecretKey()`: **Added**\n* `clerk.billing.getStatementPaymentAttempts()`: **Added**\n* `clerk.awsCredentials.delete()`: **Deleted** **Breaking** :warning:\n* `clerk.awsCredentials.update()`: **Deleted** **Breaking** :warning:\n* `clerk.experimentalAccountlessApplications.create()`: **Deleted** **Breaking** :warning:\n* `clerk.experimentalAccountlessApplications.complete()`: **Deleted** **Breaking** :warning:\n"

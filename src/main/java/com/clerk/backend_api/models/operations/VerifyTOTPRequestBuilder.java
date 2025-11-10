@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.VerifyTOTP;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class VerifyTOTPRequestBuilder {
     private Optional<? extends VerifyTOTPRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public VerifyTOTPRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,13 +65,13 @@ public class VerifyTOTPRequestBuilder {
         return request;
     }
 
-    public VerifyTOTPResponse call() throws Exception {
+    public VerifyTOTPResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTP.Sync(sdkConfiguration, options);
+              = new VerifyTOTP.Sync(sdkConfiguration, options, _headers);
         VerifyTOTPRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

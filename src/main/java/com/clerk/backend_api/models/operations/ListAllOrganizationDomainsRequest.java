@@ -49,8 +49,10 @@ public class ListAllOrganizationDomainsRequest {
     /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-     * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+     * by.
+     * For example, if you want domains to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -144,8 +146,10 @@ public class ListAllOrganizationDomainsRequest {
     /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-     * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+     * by.
+     * For example, if you want domains to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -265,8 +269,10 @@ public class ListAllOrganizationDomainsRequest {
     /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-     * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+     * by.
+     * For example, if you want domains to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -280,8 +286,10 @@ public class ListAllOrganizationDomainsRequest {
     /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-     * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+     * by.
+     * For example, if you want domains to be returned in descending order according to their `created_at`
+     * property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -483,8 +491,10 @@ public class ListAllOrganizationDomainsRequest {
         /**
          * Allows to return organization domains in a particular order.
          * At the moment, you can order the returned domains by their `name` or `created_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-         * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+         * by.
+         * For example, if you want domains to be returned in descending order according to their `created_at`
+         * property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */
@@ -497,8 +507,10 @@ public class ListAllOrganizationDomainsRequest {
         /**
          * Allows to return organization domains in a particular order.
          * At the moment, you can order the returned domains by their `name` or `created_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order by.
-         * For example, if you want domains to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
+         * by.
+         * For example, if you want domains to be returned in descending order according to their `created_at`
+         * property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */

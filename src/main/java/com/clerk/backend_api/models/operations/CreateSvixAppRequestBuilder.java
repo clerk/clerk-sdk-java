@@ -7,16 +7,17 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateSvixApp;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateSvixAppRequestBuilder {
 
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateSvixAppRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -34,13 +35,13 @@ public class CreateSvixAppRequestBuilder {
         return this;
     }
 
-    public CreateSvixAppResponse call() throws Exception {
+    public CreateSvixAppResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestlessOperation<CreateSvixAppResponse> operation
-            = new CreateSvixApp.Sync(sdkConfiguration, options);
+            = new CreateSvixApp.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest());
     }

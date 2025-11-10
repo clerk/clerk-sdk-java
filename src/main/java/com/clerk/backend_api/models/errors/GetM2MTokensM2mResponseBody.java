@@ -6,166 +6,150 @@ package com.clerk.backend_api.models.errors;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * GetM2MTokensM2mResponseBody
- * 
- * <p>403 Forbidden
- */
 @SuppressWarnings("serial")
-public class GetM2MTokensM2mResponseBody extends RuntimeException {
+public class GetM2MTokensM2mResponseBody extends ClerkError {
 
-    @JsonProperty("errors")
-    private List<GetM2MTokensM2mErrors> errors;
+    @Nullable
+    private final Data data;
 
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("RawResponse")
-    private Optional<? extends HttpResponse<InputStream>> rawResponse;
+    @Nullable
+    private final Throwable deserializationException;
 
-    @JsonCreator
     public GetM2MTokensM2mResponseBody(
-            @JsonProperty("errors") List<GetM2MTokensM2mErrors> errors,
-            @JsonProperty("RawResponse") Optional<? extends HttpResponse<InputStream>> rawResponse) {
-        super("API error occurred");
-        Utils.checkNotNull(errors, "errors");
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.errors = errors;
-        this.rawResponse = rawResponse;
-    }
-    
-    public GetM2MTokensM2mResponseBody(
-            List<GetM2MTokensM2mErrors> errors) {
-        this(errors, Optional.empty());
-    }
-
-    @JsonIgnore
-    public List<GetM2MTokensM2mErrors> errors() {
-        return errors;
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
 
     /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<HttpResponse<InputStream>> rawResponse() {
-        return (Optional<HttpResponse<InputStream>>) rawResponse;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public GetM2MTokensM2mResponseBody withErrors(List<GetM2MTokensM2mErrors> errors) {
-        Utils.checkNotNull(errors, "errors");
-        this.errors = errors;
-        return this;
-    }
-
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    public GetM2MTokensM2mResponseBody withRawResponse(HttpResponse<InputStream> rawResponse) {
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.rawResponse = Optional.ofNullable(rawResponse);
-        return this;
-    }
-
-
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    public GetM2MTokensM2mResponseBody withRawResponse(Optional<? extends HttpResponse<InputStream>> rawResponse) {
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.rawResponse = rawResponse;
-        return this;
-    }
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+    * Parse a response into an instance of GetM2MTokensM2mResponseBody. If deserialization of the response body fails,
+    * the resulting GetM2MTokensM2mResponseBody instance will have a null data() value and a non-null deserializationException().
+    */
+    public static GetM2MTokensM2mResponseBody from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new GetM2MTokensM2mResponseBody(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new GetM2MTokensM2mResponseBody(response.statusCode(), null, response, null, e);
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        GetM2MTokensM2mResponseBody other = (GetM2MTokensM2mResponseBody) o;
-        return 
-            Utils.enhancedDeepEquals(this.errors, other.errors) &&
-            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            errors, rawResponse);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(GetM2MTokensM2mResponseBody.class,
-                "errors", errors,
-                "rawResponse", rawResponse);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+    @Deprecated
+    public Optional<List<GetM2MTokensM2mErrors>> errors() {
+        return data().map(Data::errors);
+    }
 
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
+    }
+
+    /**
+     * Returns the exception if an error occurs while deserializing the response body.
+     */
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
+    }
+    /**
+     * Data
+     * 
+     * <p>403 Forbidden
+     */
+    public static class Data {
+
+        @JsonProperty("errors")
         private List<GetM2MTokensM2mErrors> errors;
 
-        private Optional<? extends HttpResponse<InputStream>> rawResponse;
+        @JsonCreator
+        public Data(
+                @JsonProperty("errors") List<GetM2MTokensM2mErrors> errors) {
+            Utils.checkNotNull(errors, "errors");
+            this.errors = errors;
+        }
 
-        private Builder() {
-          // force use of static builder() method
+        @JsonIgnore
+        public List<GetM2MTokensM2mErrors> errors() {
+            return errors;
+        }
+
+        public static Builder builder() {
+            return new Builder();
         }
 
 
-        public Builder errors(List<GetM2MTokensM2mErrors> errors) {
+        public Data withErrors(List<GetM2MTokensM2mErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
         }
 
-
-        /**
-         * Raw HTTP response; suitable for custom response parsing
-         */
-        public Builder rawResponse(HttpResponse<InputStream> rawResponse) {
-            Utils.checkNotNull(rawResponse, "rawResponse");
-            this.rawResponse = Optional.ofNullable(rawResponse);
-            return this;
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.errors, other.errors);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
+                errors);
+        }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "errors", errors);
         }
 
-        /**
-         * Raw HTTP response; suitable for custom response parsing
-         */
-        public Builder rawResponse(Optional<? extends HttpResponse<InputStream>> rawResponse) {
-            Utils.checkNotNull(rawResponse, "rawResponse");
-            this.rawResponse = rawResponse;
-            return this;
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private List<GetM2MTokensM2mErrors> errors;
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            public Builder errors(List<GetM2MTokensM2mErrors> errors) {
+                Utils.checkNotNull(errors, "errors");
+                this.errors = errors;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    errors);
+            }
+
         }
-
-        public GetM2MTokensM2mResponseBody build() {
-
-            return new GetM2MTokensM2mResponseBody(
-                errors, rawResponse);
-        }
-
     }
+
 }
 

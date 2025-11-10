@@ -66,8 +66,7 @@ public class GetCommerceSubscriptionItemListRequest {
     private Optional<Boolean> includeFree;
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
-     * Supports partial matching.
+     * Search query to filter subscription items
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
@@ -170,8 +169,7 @@ public class GetCommerceSubscriptionItemListRequest {
     }
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
-     * Supports partial matching.
+     * Search query to filter subscription items
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -327,8 +325,7 @@ public class GetCommerceSubscriptionItemListRequest {
     }
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
-     * Supports partial matching.
+     * Search query to filter subscription items
      */
     public GetCommerceSubscriptionItemListRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -338,8 +335,7 @@ public class GetCommerceSubscriptionItemListRequest {
 
 
     /**
-     * Search query to filter subscription items by email, user first name, user last name, or organization name.
-     * Supports partial matching.
+     * Search query to filter subscription items
      */
     public GetCommerceSubscriptionItemListRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -556,8 +552,7 @@ public class GetCommerceSubscriptionItemListRequest {
 
 
         /**
-         * Search query to filter subscription items by email, user first name, user last name, or organization name.
-         * Supports partial matching.
+         * Search query to filter subscription items
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -566,8 +561,7 @@ public class GetCommerceSubscriptionItemListRequest {
         }
 
         /**
-         * Search query to filter subscription items by email, user first name, user last name, or organization name.
-         * Supports partial matching.
+         * Search query to filter subscription items
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");

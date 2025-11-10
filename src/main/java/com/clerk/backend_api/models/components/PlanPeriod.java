@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * PlanPeriod
  * 
- * <p>The billing period for this subscription.
+ * <p>The billing period for this subscription item.
  */
 public enum PlanPeriod {
     MONTH("month"),

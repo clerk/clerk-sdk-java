@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class SamlConnection {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private SamlConnection(TypedObject value) {
         this.value = value;
@@ -27,7 +27,7 @@ public class SamlConnection {
 
     public static SamlConnection of(SAMLConnectionSAMLConnection value) {
         Utils.checkNotNull(value, "value");
-        return new SamlConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SAMLConnectionSAMLConnection>(){}));
+        return new SamlConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -49,7 +49,7 @@ public class SamlConnection {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -60,7 +60,7 @@ public class SamlConnection {
             return false;
         }
         SamlConnection other = (SamlConnection) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -82,6 +82,6 @@ public class SamlConnection {
         return Utils.toString(SamlConnection.class,
                 "value", value);
     }
- 
+
 }
 

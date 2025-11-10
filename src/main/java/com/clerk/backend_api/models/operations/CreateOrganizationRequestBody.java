@@ -42,7 +42,8 @@ public class CreateOrganizationRequestBody {
     private JsonNullable<? extends Map<String, Object>> privateMetadata;
 
     /**
-     * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+     * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -52,6 +53,8 @@ public class CreateOrganizationRequestBody {
      * A slug for the new organization.
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
+     * This field should only be included when slugs are enabled in the organization settings, refer to our
+     * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("slug")
@@ -65,7 +68,8 @@ public class CreateOrganizationRequestBody {
     private JsonNullable<Long> maxAllowedMemberships;
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
@@ -131,7 +135,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+     * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -143,6 +148,8 @@ public class CreateOrganizationRequestBody {
      * A slug for the new organization.
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
+     * This field should only be included when slugs are enabled in the organization settings, refer to our
+     * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
      */
     @JsonIgnore
     public JsonNullable<String> slug() {
@@ -158,7 +165,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> createdAt() {
@@ -218,7 +226,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+     * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API
      */
     public CreateOrganizationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -227,7 +236,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+     * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API
      */
     public CreateOrganizationRequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -239,6 +249,8 @@ public class CreateOrganizationRequestBody {
      * A slug for the new organization.
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
+     * This field should only be included when slugs are enabled in the organization settings, refer to our
+     * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
      */
     public CreateOrganizationRequestBody withSlug(String slug) {
         Utils.checkNotNull(slug, "slug");
@@ -250,6 +262,8 @@ public class CreateOrganizationRequestBody {
      * A slug for the new organization.
      * Can contain only lowercase alphanumeric characters and the dash "-".
      * Must be unique for the instance.
+     * This field should only be included when slugs are enabled in the organization settings, refer to our
+     * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
      */
     public CreateOrganizationRequestBody withSlug(JsonNullable<String> slug) {
         Utils.checkNotNull(slug, "slug");
@@ -276,7 +290,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     public CreateOrganizationRequestBody withCreatedAt(String createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -285,7 +300,8 @@ public class CreateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     public CreateOrganizationRequestBody withCreatedAt(JsonNullable<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -405,7 +421,8 @@ public class CreateOrganizationRequestBody {
 
 
         /**
-         * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+         * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+         * (read/write) from the Backend API
          */
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -414,7 +431,8 @@ public class CreateOrganizationRequestBody {
         }
 
         /**
-         * Metadata saved on the organization, read-only from the Frontend API and fully accessible (read/write) from the Backend API
+         * Metadata saved on the organization, read-only from the Frontend API and fully accessible
+         * (read/write) from the Backend API
          */
         public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -427,6 +445,8 @@ public class CreateOrganizationRequestBody {
          * A slug for the new organization.
          * Can contain only lowercase alphanumeric characters and the dash "-".
          * Must be unique for the instance.
+         * This field should only be included when slugs are enabled in the organization settings, refer to our
+         * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
          */
         public Builder slug(String slug) {
             Utils.checkNotNull(slug, "slug");
@@ -438,6 +458,8 @@ public class CreateOrganizationRequestBody {
          * A slug for the new organization.
          * Can contain only lowercase alphanumeric characters and the dash "-".
          * Must be unique for the instance.
+         * This field should only be included when slugs are enabled in the organization settings, refer to our
+         * [documentation](https://clerk.com/docs/guides/organizations/overview#organization-slugs).
          */
         public Builder slug(JsonNullable<String> slug) {
             Utils.checkNotNull(slug, "slug");
@@ -466,7 +488,8 @@ public class CreateOrganizationRequestBody {
 
 
         /**
-         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+         * `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(String createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -475,7 +498,8 @@ public class CreateOrganizationRequestBody {
         }
 
         /**
-         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+         * `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(JsonNullable<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");

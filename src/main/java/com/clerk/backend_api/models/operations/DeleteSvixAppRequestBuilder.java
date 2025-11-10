@@ -7,16 +7,17 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DeleteSvixApp;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class DeleteSvixAppRequestBuilder {
 
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteSvixAppRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -34,13 +35,13 @@ public class DeleteSvixAppRequestBuilder {
         return this;
     }
 
-    public DeleteSvixAppResponse call() throws Exception {
+    public DeleteSvixAppResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestlessOperation<DeleteSvixAppResponse> operation
-            = new DeleteSvixApp.Sync(sdkConfiguration, options);
+            = new DeleteSvixApp.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest());
     }

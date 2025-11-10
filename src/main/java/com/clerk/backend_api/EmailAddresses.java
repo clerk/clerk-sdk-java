@@ -22,13 +22,14 @@ import com.clerk.backend_api.operations.CreateEmailAddress;
 import com.clerk.backend_api.operations.DeleteEmailAddress;
 import com.clerk.backend_api.operations.GetEmailAddress;
 import com.clerk.backend_api.operations.UpdateEmailAddress;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class EmailAddresses {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     EmailAddresses(SDKConfiguration sdkConfiguration) {
@@ -52,9 +53,9 @@ public class EmailAddresses {
      * <p>Create a new email address
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateEmailAddressResponse createDirect() throws Exception {
+    public CreateEmailAddressResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -66,11 +67,11 @@ public class EmailAddresses {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateEmailAddressResponse create(Optional<? extends CreateEmailAddressRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateEmailAddressResponse create(Optional<? extends CreateEmailAddressRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateEmailAddressRequestBody>, CreateEmailAddressResponse> operation
-              = new CreateEmailAddress.Sync(sdkConfiguration, options);
+              = new CreateEmailAddress.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -92,9 +93,9 @@ public class EmailAddresses {
      * 
      * @param emailAddressId The ID of the email address to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetEmailAddressResponse get(String emailAddressId) throws Exception {
+    public GetEmailAddressResponse get(String emailAddressId) {
         return get(emailAddressId, Optional.empty());
     }
 
@@ -106,16 +107,16 @@ public class EmailAddresses {
      * @param emailAddressId The ID of the email address to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetEmailAddressResponse get(String emailAddressId, Optional<Options> options) throws Exception {
+    public GetEmailAddressResponse get(String emailAddressId, Optional<Options> options) {
         GetEmailAddressRequest request =
             GetEmailAddressRequest
                 .builder()
                 .emailAddressId(emailAddressId)
                 .build();
         RequestOperation<GetEmailAddressRequest, GetEmailAddressResponse> operation
-              = new GetEmailAddress.Sync(sdkConfiguration, options);
+              = new GetEmailAddress.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -137,9 +138,9 @@ public class EmailAddresses {
      * 
      * @param emailAddressId The ID of the email address to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteEmailAddressResponse delete(String emailAddressId) throws Exception {
+    public DeleteEmailAddressResponse delete(String emailAddressId) {
         return delete(emailAddressId, Optional.empty());
     }
 
@@ -151,16 +152,16 @@ public class EmailAddresses {
      * @param emailAddressId The ID of the email address to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteEmailAddressResponse delete(String emailAddressId, Optional<Options> options) throws Exception {
+    public DeleteEmailAddressResponse delete(String emailAddressId, Optional<Options> options) {
         DeleteEmailAddressRequest request =
             DeleteEmailAddressRequest
                 .builder()
                 .emailAddressId(emailAddressId)
                 .build();
         RequestOperation<DeleteEmailAddressRequest, DeleteEmailAddressResponse> operation
-              = new DeleteEmailAddress.Sync(sdkConfiguration, options);
+              = new DeleteEmailAddress.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -182,9 +183,9 @@ public class EmailAddresses {
      * 
      * @param emailAddressId The ID of the email address to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateEmailAddressResponse update(String emailAddressId) throws Exception {
+    public UpdateEmailAddressResponse update(String emailAddressId) {
         return update(emailAddressId, Optional.empty(), Optional.empty());
     }
 
@@ -197,11 +198,11 @@ public class EmailAddresses {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateEmailAddressResponse update(
             String emailAddressId, Optional<? extends UpdateEmailAddressRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateEmailAddressRequest request =
             UpdateEmailAddressRequest
                 .builder()
@@ -209,7 +210,7 @@ public class EmailAddresses {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateEmailAddressRequest, UpdateEmailAddressResponse> operation
-              = new UpdateEmailAddress.Sync(sdkConfiguration, options);
+              = new UpdateEmailAddress.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

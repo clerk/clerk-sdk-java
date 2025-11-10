@@ -123,14 +123,15 @@ import com.clerk.backend_api.operations.UsersGetOrganizationMemberships;
 import com.clerk.backend_api.operations.UsersUnban;
 import com.clerk.backend_api.operations.VerifyPassword;
 import com.clerk.backend_api.operations.VerifyTOTP;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Users {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Users(SDKConfiguration sdkConfiguration) {
@@ -157,9 +158,9 @@ public class Users {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserListResponse list(GetUserListRequest request) throws Exception {
+    public GetUserListResponse list(GetUserListRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -172,11 +173,11 @@ public class Users {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserListResponse list(GetUserListRequest request, Optional<Options> options) throws Exception {
+    public GetUserListResponse list(GetUserListRequest request, Optional<Options> options) {
         RequestOperation<GetUserListRequest, GetUserListResponse> operation
-              = new GetUserList.Sync(sdkConfiguration, options);
+              = new GetUserList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -187,9 +188,11 @@ public class Users {
      * 
      * <p>Any email address and phone number created using this method will be marked as verified.
      * 
-     * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
+     * <p>Note: If you are performing a migration, check out our guide on [zero downtime
+     * migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production
+     * instances and 100 requests per 10 seconds for development instances
      * 
      * @return The call builder
      */
@@ -204,15 +207,17 @@ public class Users {
      * 
      * <p>Any email address and phone number created using this method will be marked as verified.
      * 
-     * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
+     * <p>Note: If you are performing a migration, check out our guide on [zero downtime
+     * migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production
+     * instances and 100 requests per 10 seconds for development instances
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateUserResponse create(CreateUserRequestBody request) throws Exception {
+    public CreateUserResponse create(CreateUserRequestBody request) {
         return create(request, Optional.empty());
     }
 
@@ -223,18 +228,20 @@ public class Users {
      * 
      * <p>Any email address and phone number created using this method will be marked as verified.
      * 
-     * <p>Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
+     * <p>Note: If you are performing a migration, check out our guide on [zero downtime
+     * migrations](https://clerk.com/docs/deployments/migrate-overview).
      * 
-     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production instances and 100 requests per 10 seconds for development instances
+     * <p>The following rate limit rules apply to this endpoint: 1000 requests per 10 seconds for production
+     * instances and 100 requests per 10 seconds for development instances
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateUserResponse create(CreateUserRequestBody request, Optional<Options> options) throws Exception {
+    public CreateUserResponse create(CreateUserRequestBody request, Optional<Options> options) {
         RequestOperation<CreateUserRequestBody, CreateUserResponse> operation
-              = new CreateUser.Sync(sdkConfiguration, options);
+              = new CreateUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -256,9 +263,9 @@ public class Users {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUsersCountResponse count(GetUsersCountRequest request) throws Exception {
+    public GetUsersCountResponse count(GetUsersCountRequest request) {
         return count(request, Optional.empty());
     }
 
@@ -270,11 +277,11 @@ public class Users {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUsersCountResponse count(GetUsersCountRequest request, Optional<Options> options) throws Exception {
+    public GetUsersCountResponse count(GetUsersCountRequest request, Optional<Options> options) {
         RequestOperation<GetUsersCountRequest, GetUsersCountResponse> operation
-              = new GetUsersCount.Sync(sdkConfiguration, options);
+              = new GetUsersCount.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -296,9 +303,9 @@ public class Users {
      * 
      * @param userId The ID of the user to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserResponse get(String userId) throws Exception {
+    public GetUserResponse get(String userId) {
         return get(userId, Optional.empty());
     }
 
@@ -310,16 +317,16 @@ public class Users {
      * @param userId The ID of the user to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserResponse get(String userId, Optional<Options> options) throws Exception {
+    public GetUserResponse get(String userId, Optional<Options> options) {
         GetUserRequest request =
             GetUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<GetUserRequest, GetUserResponse> operation
-              = new GetUser.Sync(sdkConfiguration, options);
+              = new GetUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -328,16 +335,21 @@ public class Users {
      * 
      * <p>Update a user's attributes.
      * 
-     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
+     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the
+     * `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
      * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least one other identifier which can be used for authentication.
+     * Usernames can be removed only if they are optional in your instance settings and there's at least
+     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks` parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
+     * have two further options.
+     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
+     * parameter to `true`.
+     * You can also choose to sign the user out of all their active sessions on any device once the
+     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
      * 
      * @return The call builder
      */
@@ -350,23 +362,28 @@ public class Users {
      * 
      * <p>Update a user's attributes.
      * 
-     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
+     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the
+     * `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
      * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least one other identifier which can be used for authentication.
+     * Usernames can be removed only if they are optional in your instance settings and there's at least
+     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks` parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
+     * have two further options.
+     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
+     * parameter to `true`.
+     * You can also choose to sign the user out of all their active sessions on any device once the
+     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
      * 
      * @param userId The ID of the user to update
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateUserResponse update(String userId, UpdateUserRequestBody requestBody) throws Exception {
+    public UpdateUserResponse update(String userId, UpdateUserRequestBody requestBody) {
         return update(userId, requestBody, Optional.empty());
     }
 
@@ -375,26 +392,31 @@ public class Users {
      * 
      * <p>Update a user's attributes.
      * 
-     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
+     * <p>You can set the user's primary contact identifiers (email address and phone numbers) by updating the
+     * `primary_email_address_id` and `primary_phone_number_id` attributes respectively.
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
      * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least one other identifier which can be used for authentication.
+     * Usernames can be removed only if they are optional in your instance settings and there's at least
+     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks` parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
+     * have two further options.
+     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
+     * parameter to `true`.
+     * You can also choose to sign the user out of all their active sessions on any device once the
+     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
      * 
      * @param userId The ID of the user to update
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateUserResponse update(
             String userId, UpdateUserRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateUserRequest request =
             UpdateUserRequest
                 .builder()
@@ -402,7 +424,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation
-              = new UpdateUser.Sync(sdkConfiguration, options);
+              = new UpdateUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -424,9 +446,9 @@ public class Users {
      * 
      * @param userId The ID of the user to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteUserResponse delete(String userId) throws Exception {
+    public DeleteUserResponse delete(String userId) {
         return delete(userId, Optional.empty());
     }
 
@@ -438,23 +460,24 @@ public class Users {
      * @param userId The ID of the user to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteUserResponse delete(String userId, Optional<Options> options) throws Exception {
+    public DeleteUserResponse delete(String userId, Optional<Options> options) {
         DeleteUserRequest request =
             DeleteUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserRequest, DeleteUserResponse> operation
-              = new DeleteUser.Sync(sdkConfiguration, options);
+              = new DeleteUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @return The call builder
      */
@@ -465,34 +488,36 @@ public class Users {
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @param userId The ID of the user to ban
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public BanUserResponse ban(String userId) throws Exception {
+    public BanUserResponse ban(String userId) {
         return ban(userId, Optional.empty());
     }
 
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @param userId The ID of the user to ban
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public BanUserResponse ban(String userId, Optional<Options> options) throws Exception {
+    public BanUserResponse ban(String userId, Optional<Options> options) {
         BanUserRequest request =
             BanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<BanUserRequest, BanUserResponse> operation
-              = new BanUser.Sync(sdkConfiguration, options);
+              = new BanUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -514,9 +539,9 @@ public class Users {
      * 
      * @param userId The ID of the user to unban
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UnbanUserResponse unban(String userId) throws Exception {
+    public UnbanUserResponse unban(String userId) {
         return unban(userId, Optional.empty());
     }
 
@@ -528,23 +553,24 @@ public class Users {
      * @param userId The ID of the user to unban
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UnbanUserResponse unban(String userId, Optional<Options> options) throws Exception {
+    public UnbanUserResponse unban(String userId, Optional<Options> options) {
         UnbanUserRequest request =
             UnbanUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnbanUserRequest, UnbanUserResponse> operation
-              = new UnbanUser.Sync(sdkConfiguration, options);
+              = new UnbanUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Ban multiple users
      * 
-     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @return The call builder
      */
@@ -555,29 +581,31 @@ public class Users {
     /**
      * Ban multiple users
      * 
-     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersBanResponse bulkBan(UsersBanRequestBody request) throws Exception {
+    public UsersBanResponse bulkBan(UsersBanRequestBody request) {
         return bulkBan(request, Optional.empty());
     }
 
     /**
      * Ban multiple users
      * 
-     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not allowed to sign in again.
+     * <p>Marks multiple users as banned, which means that all their sessions are revoked and they are not
+     * allowed to sign in again.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersBanResponse bulkBan(UsersBanRequestBody request, Optional<Options> options) throws Exception {
+    public UsersBanResponse bulkBan(UsersBanRequestBody request, Optional<Options> options) {
         RequestOperation<UsersBanRequestBody, UsersBanResponse> operation
-              = new UsersBan.Sync(sdkConfiguration, options);
+              = new UsersBan.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -599,9 +627,9 @@ public class Users {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request) throws Exception {
+    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request) {
         return bulkUnban(request, Optional.empty());
     }
 
@@ -613,18 +641,19 @@ public class Users {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request, Optional<Options> options) throws Exception {
+    public UsersUnbanResponse bulkUnban(UsersUnbanRequestBody request, Optional<Options> options) {
         RequestOperation<UsersUnbanRequestBody, UsersUnbanResponse> operation
-              = new UsersUnban.Sync(sdkConfiguration, options);
+              = new UsersUnban.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Lock a user
      * 
-     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock expires.
+     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock
+     * expires.
      * Lock duration can be configured in the instance's restrictions settings.
      * 
      * @return The call builder
@@ -636,36 +665,38 @@ public class Users {
     /**
      * Lock a user
      * 
-     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock expires.
+     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock
+     * expires.
      * Lock duration can be configured in the instance's restrictions settings.
      * 
      * @param userId The ID of the user to lock
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public LockUserResponse lock(String userId) throws Exception {
+    public LockUserResponse lock(String userId) {
         return lock(userId, Optional.empty());
     }
 
     /**
      * Lock a user
      * 
-     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock expires.
+     * <p>Marks the given user as locked, which means they are not allowed to sign in again until the lock
+     * expires.
      * Lock duration can be configured in the instance's restrictions settings.
      * 
      * @param userId The ID of the user to lock
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public LockUserResponse lock(String userId, Optional<Options> options) throws Exception {
+    public LockUserResponse lock(String userId, Optional<Options> options) {
         LockUserRequest request =
             LockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<LockUserRequest, LockUserResponse> operation
-              = new LockUser.Sync(sdkConfiguration, options);
+              = new LockUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -687,9 +718,9 @@ public class Users {
      * 
      * @param userId The ID of the user to unlock
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UnlockUserResponse unlock(String userId) throws Exception {
+    public UnlockUserResponse unlock(String userId) {
         return unlock(userId, Optional.empty());
     }
 
@@ -701,16 +732,16 @@ public class Users {
      * @param userId The ID of the user to unlock
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UnlockUserResponse unlock(String userId, Optional<Options> options) throws Exception {
+    public UnlockUserResponse unlock(String userId, Optional<Options> options) {
         UnlockUserRequest request =
             UnlockUserRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
-              = new UnlockUser.Sync(sdkConfiguration, options);
+              = new UnlockUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -733,9 +764,9 @@ public class Users {
      * @param userId The ID of the user to update the profile image for
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public SetUserProfileImageResponse setProfileImage(String userId, SetUserProfileImageRequestBody requestBody) throws Exception {
+    public SetUserProfileImageResponse setProfileImage(String userId, SetUserProfileImageRequestBody requestBody) {
         return setProfileImage(userId, requestBody, Optional.empty());
     }
 
@@ -748,11 +779,11 @@ public class Users {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public SetUserProfileImageResponse setProfileImage(
             String userId, SetUserProfileImageRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         SetUserProfileImageRequest request =
             SetUserProfileImageRequest
                 .builder()
@@ -760,7 +791,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<SetUserProfileImageRequest, SetUserProfileImageResponse> operation
-              = new SetUserProfileImage.Sync(sdkConfiguration, options);
+              = new SetUserProfileImage.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -782,9 +813,9 @@ public class Users {
      * 
      * @param userId The ID of the user to delete the profile image for
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteUserProfileImageResponse deleteProfileImage(String userId) throws Exception {
+    public DeleteUserProfileImageResponse deleteProfileImage(String userId) {
         return deleteProfileImage(userId, Optional.empty());
     }
 
@@ -796,16 +827,16 @@ public class Users {
      * @param userId The ID of the user to delete the profile image for
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteUserProfileImageResponse deleteProfileImage(String userId, Optional<Options> options) throws Exception {
+    public DeleteUserProfileImageResponse deleteProfileImage(String userId, Optional<Options> options) {
         DeleteUserProfileImageRequest request =
             DeleteUserProfileImageRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteUserProfileImageRequest, DeleteUserProfileImageResponse> operation
-              = new DeleteUserProfileImage.Sync(sdkConfiguration, options);
+              = new DeleteUserProfileImage.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -841,9 +872,9 @@ public class Users {
      * 
      * @param userId The ID of the user whose metadata will be updated and merged
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateUserMetadataResponse updateMetadata(String userId) throws Exception {
+    public UpdateUserMetadataResponse updateMetadata(String userId) {
         return updateMetadata(userId, Optional.empty(), Optional.empty());
     }
 
@@ -863,11 +894,11 @@ public class Users {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateUserMetadataResponse updateMetadata(
             String userId, Optional<? extends UpdateUserMetadataRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateUserMetadataRequest request =
             UpdateUserMetadataRequest
                 .builder()
@@ -875,7 +906,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
-              = new UpdateUserMetadata.Sync(sdkConfiguration, options);
+              = new UpdateUserMetadata.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -884,7 +915,8 @@ public class Users {
      * 
      * <p>Retrieves the billing subscription for the specified user.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the user is
+     * subscribed to.
      * 
      * @return The call builder
      */
@@ -897,13 +929,14 @@ public class Users {
      * 
      * <p>Retrieves the billing subscription for the specified user.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the user is
+     * subscribed to.
      * 
      * @param userId The ID of the user whose subscription to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId) throws Exception {
+    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId) {
         return getBillingSubscription(userId, Optional.empty());
     }
 
@@ -912,29 +945,32 @@ public class Users {
      * 
      * <p>Retrieves the billing subscription for the specified user.
      * This includes subscription details, active plans, billing information, and payment status.
-     * The subscription contains subscription items which represent the individual plans the user is subscribed to.
+     * The subscription contains subscription items which represent the individual plans the user is
+     * subscribed to.
      * 
      * @param userId The ID of the user whose subscription to retrieve
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId, Optional<Options> options) throws Exception {
+    public GetUserBillingSubscriptionResponse getBillingSubscription(String userId, Optional<Options> options) {
         GetUserBillingSubscriptionRequest request =
             GetUserBillingSubscriptionRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<GetUserBillingSubscriptionRequest, GetUserBillingSubscriptionResponse> operation
-              = new GetUserBillingSubscription.Sync(sdkConfiguration, options);
+              = new GetUserBillingSubscription.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Retrieve the OAuth access token of a user
      * 
-     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.
-     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
+     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a
+     * particular OAuth provider.
+     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access
+     * token will be refreshed transparently the new one will be returned.
      * 
      * @return The call builder
      */
@@ -945,31 +981,35 @@ public class Users {
     /**
      * Retrieve the OAuth access token of a user
      * 
-     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.
-     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
+     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a
+     * particular OAuth provider.
+     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access
+     * token will be refreshed transparently the new one will be returned.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request) throws Exception {
+    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request) {
         return getOAuthAccessToken(request, Optional.empty());
     }
 
     /**
      * Retrieve the OAuth access token of a user
      * 
-     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a particular OAuth provider.
-     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access token will be refreshed transparently the new one will be returned.
+     * <p>Fetch the corresponding OAuth access token for a user that has previously authenticated with a
+     * particular OAuth provider.
+     * For OAuth 2.0, if the access token has expired and we have a corresponding refresh token, the access
+     * token will be refreshed transparently the new one will be returned.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request, Optional<Options> options) throws Exception {
+    public GetOAuthAccessTokenResponse getOAuthAccessToken(GetOAuthAccessTokenRequest request, Optional<Options> options) {
         RequestOperation<GetOAuthAccessTokenRequest, GetOAuthAccessTokenResponse> operation
-              = new GetOAuthAccessToken.Sync(sdkConfiguration, options);
+              = new GetOAuthAccessToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -991,9 +1031,9 @@ public class Users {
      * 
      * @param userId The ID of the user whose organization memberships we want to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(String userId) throws Exception {
+    public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(String userId) {
         return getOrganizationMemberships(userId, Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -1011,11 +1051,11 @@ public class Users {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UsersGetOrganizationMembershipsResponse getOrganizationMemberships(
             String userId, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         UsersGetOrganizationMembershipsRequest request =
             UsersGetOrganizationMembershipsRequest
                 .builder()
@@ -1024,7 +1064,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<UsersGetOrganizationMembershipsRequest, UsersGetOrganizationMembershipsResponse> operation
-              = new UsersGetOrganizationMemberships.Sync(sdkConfiguration, options);
+              = new UsersGetOrganizationMemberships.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1046,9 +1086,9 @@ public class Users {
      * 
      * @param userId The ID of the user whose organization invitations we want to retrieve
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(String userId) throws Exception {
+    public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(String userId) {
         return getOrganizationInvitations(userId, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
     }
@@ -1067,12 +1107,12 @@ public class Users {
      * @param status Filter organization invitations based on their status
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UsersGetOrganizationInvitationsResponse getOrganizationInvitations(
             String userId, Optional<Long> limit,
             Optional<Long> offset, Optional<? extends QueryParamStatus> status,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UsersGetOrganizationInvitationsRequest request =
             UsersGetOrganizationInvitationsRequest
                 .builder()
@@ -1082,7 +1122,7 @@ public class Users {
                 .status(status)
                 .build();
         RequestOperation<UsersGetOrganizationInvitationsRequest, UsersGetOrganizationInvitationsResponse> operation
-              = new UsersGetOrganizationInvitations.Sync(sdkConfiguration, options);
+              = new UsersGetOrganizationInvitations.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1106,9 +1146,9 @@ public class Users {
      * 
      * @param userId The ID of the user for whom to verify the password
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyPasswordResponse verifyPassword(String userId) throws Exception {
+    public VerifyPasswordResponse verifyPassword(String userId) {
         return verifyPassword(userId, Optional.empty(), Optional.empty());
     }
 
@@ -1122,11 +1162,11 @@ public class Users {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public VerifyPasswordResponse verifyPassword(
             String userId, Optional<? extends VerifyPasswordRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         VerifyPasswordRequest request =
             VerifyPasswordRequest
                 .builder()
@@ -1134,7 +1174,7 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyPasswordRequest, VerifyPasswordResponse> operation
-              = new VerifyPassword.Sync(sdkConfiguration, options);
+              = new VerifyPassword.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1162,9 +1202,9 @@ public class Users {
      * 
      * @param userId The ID of the user for whom to verify the TOTP
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyTOTPResponse verifyTotp(String userId) throws Exception {
+    public VerifyTOTPResponse verifyTotp(String userId) {
         return verifyTotp(userId, Optional.empty(), Optional.empty());
     }
 
@@ -1180,11 +1220,11 @@ public class Users {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public VerifyTOTPResponse verifyTotp(
             String userId, Optional<? extends VerifyTOTPRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         VerifyTOTPRequest request =
             VerifyTOTPRequest
                 .builder()
@@ -1192,14 +1232,15 @@ public class Users {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<VerifyTOTPRequest, VerifyTOTPResponse> operation
-              = new VerifyTOTP.Sync(sdkConfiguration, options);
+              = new VerifyTOTP.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Disable a user's MFA methods
      * 
-     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at once.
+     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at
+     * once.
      * 
      * @return The call builder
      */
@@ -1210,34 +1251,36 @@ public class Users {
     /**
      * Disable a user's MFA methods
      * 
-     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at once.
+     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at
+     * once.
      * 
      * @param userId The ID of the user whose MFA methods are to be disabled
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DisableMFAResponse disableMfa(String userId) throws Exception {
+    public DisableMFAResponse disableMfa(String userId) {
         return disableMfa(userId, Optional.empty());
     }
 
     /**
      * Disable a user's MFA methods
      * 
-     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at once.
+     * <p>Disable all of a user's MFA methods (e.g. OTP sent via SMS, TOTP on their authenticator app) at
+     * once.
      * 
      * @param userId The ID of the user whose MFA methods are to be disabled
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DisableMFAResponse disableMfa(String userId, Optional<Options> options) throws Exception {
+    public DisableMFAResponse disableMfa(String userId, Optional<Options> options) {
         DisableMFARequest request =
             DisableMFARequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DisableMFARequest, DisableMFAResponse> operation
-              = new DisableMFA.Sync(sdkConfiguration, options);
+              = new DisableMFA.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1259,9 +1302,9 @@ public class Users {
      * 
      * @param userId The ID of the user whose backup codes are to be deleted.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteBackupCodeResponse deleteBackupCodes(String userId) throws Exception {
+    public DeleteBackupCodeResponse deleteBackupCodes(String userId) {
         return deleteBackupCodes(userId, Optional.empty());
     }
 
@@ -1273,16 +1316,16 @@ public class Users {
      * @param userId The ID of the user whose backup codes are to be deleted.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteBackupCodeResponse deleteBackupCodes(String userId, Optional<Options> options) throws Exception {
+    public DeleteBackupCodeResponse deleteBackupCodes(String userId, Optional<Options> options) {
         DeleteBackupCodeRequest request =
             DeleteBackupCodeRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteBackupCodeRequest, DeleteBackupCodeResponse> operation
-              = new DeleteBackupCode.Sync(sdkConfiguration, options);
+              = new DeleteBackupCode.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1305,9 +1348,9 @@ public class Users {
      * @param userId The ID of the user that owns the passkey identity
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UserPasskeyDeleteResponse deletePasskey(String userId, String passkeyIdentificationId) throws Exception {
+    public UserPasskeyDeleteResponse deletePasskey(String userId, String passkeyIdentificationId) {
         return deletePasskey(userId, passkeyIdentificationId, Optional.empty());
     }
 
@@ -1320,11 +1363,11 @@ public class Users {
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UserPasskeyDeleteResponse deletePasskey(
             String userId, String passkeyIdentificationId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UserPasskeyDeleteRequest request =
             UserPasskeyDeleteRequest
                 .builder()
@@ -1332,7 +1375,7 @@ public class Users {
                 .passkeyIdentificationId(passkeyIdentificationId)
                 .build();
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDelete.Sync(sdkConfiguration, options);
+              = new UserPasskeyDelete.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1355,9 +1398,9 @@ public class Users {
      * @param userId The ID of the user that owns the web3 wallet
      * @param web3WalletIdentificationId The ID of the web3 wallet identity to be deleted
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(String userId, String web3WalletIdentificationId) throws Exception {
+    public UserWeb3WalletDeleteResponse deleteWeb3Wallet(String userId, String web3WalletIdentificationId) {
         return deleteWeb3Wallet(userId, web3WalletIdentificationId, Optional.empty());
     }
 
@@ -1370,11 +1413,11 @@ public class Users {
      * @param web3WalletIdentificationId The ID of the web3 wallet identity to be deleted
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UserWeb3WalletDeleteResponse deleteWeb3Wallet(
             String userId, String web3WalletIdentificationId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UserWeb3WalletDeleteRequest request =
             UserWeb3WalletDeleteRequest
                 .builder()
@@ -1382,7 +1425,7 @@ public class Users {
                 .web3WalletIdentificationId(web3WalletIdentificationId)
                 .build();
         RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation
-              = new UserWeb3WalletDelete.Sync(sdkConfiguration, options);
+              = new UserWeb3WalletDelete.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1404,9 +1447,9 @@ public class Users {
      * 
      * @param userId The ID of the user whose TOTPs are to be deleted
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteTOTPResponse deleteTOTP(String userId) throws Exception {
+    public DeleteTOTPResponse deleteTOTP(String userId) {
         return deleteTOTP(userId, Optional.empty());
     }
 
@@ -1418,16 +1461,16 @@ public class Users {
      * @param userId The ID of the user whose TOTPs are to be deleted
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteTOTPResponse deleteTOTP(String userId, Optional<Options> options) throws Exception {
+    public DeleteTOTPResponse deleteTOTP(String userId, Optional<Options> options) {
         DeleteTOTPRequest request =
             DeleteTOTPRequest
                 .builder()
                 .userId(userId)
                 .build();
         RequestOperation<DeleteTOTPRequest, DeleteTOTPResponse> operation
-              = new DeleteTOTP.Sync(sdkConfiguration, options);
+              = new DeleteTOTP.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1450,9 +1493,9 @@ public class Users {
      * @param userId The ID of the user's external account
      * @param externalAccountId The ID of the external account to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteExternalAccountResponse deleteExternalAccount(String userId, String externalAccountId) throws Exception {
+    public DeleteExternalAccountResponse deleteExternalAccount(String userId, String externalAccountId) {
         return deleteExternalAccount(userId, externalAccountId, Optional.empty());
     }
 
@@ -1465,11 +1508,11 @@ public class Users {
      * @param externalAccountId The ID of the external account to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteExternalAccountResponse deleteExternalAccount(
             String userId, String externalAccountId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         DeleteExternalAccountRequest request =
             DeleteExternalAccountRequest
                 .builder()
@@ -1477,7 +1520,7 @@ public class Users {
                 .externalAccountId(externalAccountId)
                 .build();
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
-              = new DeleteExternalAccount.Sync(sdkConfiguration, options);
+              = new DeleteExternalAccount.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1498,9 +1541,9 @@ public class Users {
      * <p>Retrieves all organization user memberships for the given instance.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMembershipsDirect() throws Exception {
+    public InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMembershipsDirect() {
         return getInstanceOrganizationMemberships(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -1520,11 +1563,11 @@ public class Users {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public InstanceGetOrganizationMembershipsResponse getInstanceOrganizationMemberships(
             Optional<String> orderBy, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         InstanceGetOrganizationMembershipsRequest request =
             InstanceGetOrganizationMembershipsRequest
                 .builder()
@@ -1533,7 +1576,7 @@ public class Users {
                 .offset(offset)
                 .build();
         RequestOperation<InstanceGetOrganizationMembershipsRequest, InstanceGetOrganizationMembershipsResponse> operation
-              = new InstanceGetOrganizationMemberships.Sync(sdkConfiguration, options);
+              = new InstanceGetOrganizationMemberships.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

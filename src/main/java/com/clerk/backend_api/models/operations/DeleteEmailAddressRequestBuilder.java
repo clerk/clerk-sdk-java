@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DeleteEmailAddress;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class DeleteEmailAddressRequestBuilder {
     private String emailAddressId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteEmailAddressRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class DeleteEmailAddressRequestBuilder {
         return request;
     }
 
-    public DeleteEmailAddressResponse call() throws Exception {
+    public DeleteEmailAddressResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<DeleteEmailAddressRequest, DeleteEmailAddressResponse> operation
-              = new DeleteEmailAddress.Sync(sdkConfiguration, options);
+              = new DeleteEmailAddress.Sync(sdkConfiguration, options, _headers);
         DeleteEmailAddressRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

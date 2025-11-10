@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UserPasskeyDelete;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class UserPasskeyDeleteRequestBuilder {
     private String passkeyIdentificationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UserPasskeyDeleteRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -58,13 +59,13 @@ public class UserPasskeyDeleteRequestBuilder {
         return request;
     }
 
-    public UserPasskeyDeleteResponse call() throws Exception {
+    public UserPasskeyDeleteResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UserPasskeyDeleteRequest, UserPasskeyDeleteResponse> operation
-              = new UserPasskeyDelete.Sync(sdkConfiguration, options);
+              = new UserPasskeyDelete.Sync(sdkConfiguration, options, _headers);
         UserPasskeyDeleteRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

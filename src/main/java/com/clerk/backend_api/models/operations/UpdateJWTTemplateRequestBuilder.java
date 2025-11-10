@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UpdateJWTTemplate;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class UpdateJWTTemplateRequestBuilder {
     private Optional<? extends UpdateJWTTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpdateJWTTemplateRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,13 +65,13 @@ public class UpdateJWTTemplateRequestBuilder {
         return request;
     }
 
-    public UpdateJWTTemplateResponse call() throws Exception {
+    public UpdateJWTTemplateResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UpdateJWTTemplateRequest, UpdateJWTTemplateResponse> operation
-              = new UpdateJWTTemplate.Sync(sdkConfiguration, options);
+              = new UpdateJWTTemplate.Sync(sdkConfiguration, options, _headers);
         UpdateJWTTemplateRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

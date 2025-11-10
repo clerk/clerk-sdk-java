@@ -22,13 +22,14 @@ import com.clerk.backend_api.operations.AddDomain;
 import com.clerk.backend_api.operations.DeleteDomain;
 import com.clerk.backend_api.operations.ListDomains;
 import com.clerk.backend_api.operations.UpdateDomain;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Domains {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Domains(SDKConfiguration sdkConfiguration) {
@@ -39,7 +40,9 @@ public class Domains {
      * List all instance domains
      * 
      * <p>Use this endpoint to get a list of all domains for an instance.
-     * The response will contain the primary domain for the instance and any satellite domains. Each domain in the response contains information about the URLs where Clerk operates and the required CNAME targets.
+     * The response will contain the primary domain for the instance and any satellite domains. Each domain
+     * in the response contains information about the URLs where Clerk operates and the required CNAME
+     * targets.
      * 
      * @return The call builder
      */
@@ -51,12 +54,14 @@ public class Domains {
      * List all instance domains
      * 
      * <p>Use this endpoint to get a list of all domains for an instance.
-     * The response will contain the primary domain for the instance and any satellite domains. Each domain in the response contains information about the URLs where Clerk operates and the required CNAME targets.
+     * The response will contain the primary domain for the instance and any satellite domains. Each domain
+     * in the response contains information about the URLs where Clerk operates and the required CNAME
+     * targets.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListDomainsResponse listDirect() throws Exception {
+    public ListDomainsResponse listDirect() {
         return list(Optional.empty());
     }
 
@@ -64,15 +69,17 @@ public class Domains {
      * List all instance domains
      * 
      * <p>Use this endpoint to get a list of all domains for an instance.
-     * The response will contain the primary domain for the instance and any satellite domains. Each domain in the response contains information about the URLs where Clerk operates and the required CNAME targets.
+     * The response will contain the primary domain for the instance and any satellite domains. Each domain
+     * in the response contains information about the URLs where Clerk operates and the required CNAME
+     * targets.
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListDomainsResponse list(Optional<Options> options) throws Exception {
+    public ListDomainsResponse list(Optional<Options> options) {
         RequestlessOperation<ListDomainsResponse> operation
-            = new ListDomains.Sync(sdkConfiguration, options);
+            = new ListDomains.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -81,9 +88,12 @@ public class Domains {
      * 
      * <p>Add a new domain for your instance.
      * Useful in the case of multi-domain instances, allows adding satellite domains to an instance.
-     * The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
-     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
-     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
+     * The new domain must have a `name`. The domain name can contain the port for development instances,
+     * like `localhost:3000`.
+     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be
+     * set to `true`.
+     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url`
+     * parameter accordingly.
      * 
      * @return The call builder
      */
@@ -96,14 +106,17 @@ public class Domains {
      * 
      * <p>Add a new domain for your instance.
      * Useful in the case of multi-domain instances, allows adding satellite domains to an instance.
-     * The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
-     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
-     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
+     * The new domain must have a `name`. The domain name can contain the port for development instances,
+     * like `localhost:3000`.
+     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be
+     * set to `true`.
+     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url`
+     * parameter accordingly.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public AddDomainResponse addDirect() throws Exception {
+    public AddDomainResponse addDirect() {
         return add(Optional.empty(), Optional.empty());
     }
 
@@ -112,18 +125,21 @@ public class Domains {
      * 
      * <p>Add a new domain for your instance.
      * Useful in the case of multi-domain instances, allows adding satellite domains to an instance.
-     * The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
-     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
-     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
+     * The new domain must have a `name`. The domain name can contain the port for development instances,
+     * like `localhost:3000`.
+     * At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be
+     * set to `true`.
+     * If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url`
+     * parameter accordingly.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public AddDomainResponse add(Optional<? extends AddDomainRequestBody> request, Optional<Options> options) throws Exception {
+    public AddDomainResponse add(Optional<? extends AddDomainRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends AddDomainRequestBody>, AddDomainResponse> operation
-              = new AddDomain.Sync(sdkConfiguration, options);
+              = new AddDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -147,9 +163,9 @@ public class Domains {
      * 
      * @param domainId The ID of the domain that will be deleted. Must be a satellite domain.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteDomainResponse delete(String domainId) throws Exception {
+    public DeleteDomainResponse delete(String domainId) {
         return delete(domainId, Optional.empty());
     }
 
@@ -162,16 +178,16 @@ public class Domains {
      * @param domainId The ID of the domain that will be deleted. Must be a satellite domain.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteDomainResponse delete(String domainId, Optional<Options> options) throws Exception {
+    public DeleteDomainResponse delete(String domainId, Optional<Options> options) {
         DeleteDomainRequest request =
             DeleteDomainRequest
                 .builder()
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteDomainRequest, DeleteDomainResponse> operation
-              = new DeleteDomain.Sync(sdkConfiguration, options);
+              = new DeleteDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -208,9 +224,9 @@ public class Domains {
      * @param domainId The ID of the domain that will be updated.
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateDomainResponse update(String domainId, UpdateDomainRequestBody requestBody) throws Exception {
+    public UpdateDomainResponse update(String domainId, UpdateDomainRequestBody requestBody) {
         return update(domainId, requestBody, Optional.empty());
     }
 
@@ -230,11 +246,11 @@ public class Domains {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateDomainResponse update(
             String domainId, UpdateDomainRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateDomainRequest request =
             UpdateDomainRequest
                 .builder()
@@ -242,7 +258,7 @@ public class Domains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateDomainRequest, UpdateDomainResponse> operation
-              = new UpdateDomain.Sync(sdkConfiguration, options);
+              = new UpdateDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

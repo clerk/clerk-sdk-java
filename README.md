@@ -34,6 +34,7 @@ More information about the API can be found at https://clerk.com/docs
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 * [Development](#development)
   * [Contributions](#contributions)
@@ -51,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:3.2.0'
+implementation 'com.clerk:backend-api:4.0.0'
 ```
 
 Maven:
@@ -59,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>3.2.0</version>
+    <version>4.0.0</version>
 </dependency>
 ```
 
@@ -210,22 +211,23 @@ public class MachineAuthentication {
 * [create](docs/sdks/allowlistidentifiers/README.md#create) - Add identifier to the allow-list
 * [delete](docs/sdks/allowlistidentifiers/README.md#delete) - Delete identifier from allow-list
 
-### [awsCredentials()](docs/sdks/awscredentials/README.md)
-
-* [delete](docs/sdks/awscredentials/README.md#delete) - Delete an AWS Credential
-* [update](docs/sdks/awscredentials/README.md#update) - Update an AWS Credential
-
 ### [betaFeatures()](docs/sdks/betafeatures/README.md)
 
 * [updateInstanceSettings](docs/sdks/betafeatures/README.md#updateinstancesettings) - Update instance settings
 * [~~updateProductionInstanceDomain~~](docs/sdks/betafeatures/README.md#updateproductioninstancedomain) - Update production instance domain :warning: **Deprecated**
+
+### [billing()](docs/sdks/billing/README.md)
+
+* [extendSubscriptionItemFreeTrial](docs/sdks/billing/README.md#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
+* [listStatements](docs/sdks/billing/README.md#liststatements) - List all billing statements
+* [getStatement](docs/sdks/billing/README.md#getstatement) - Retrieve a billing statement
+* [getStatementPaymentAttempts](docs/sdks/billing/README.md#getstatementpaymentattempts) - List payment attempts for a billing statement
 
 ### [blocklistIdentifiers()](docs/sdks/blocklistidentifiers/README.md)
 
 * [list](docs/sdks/blocklistidentifiers/README.md#list) - List all identifiers on the block-list
 * [create](docs/sdks/blocklistidentifiers/README.md#create) - Add identifier to the block-list
 * [delete](docs/sdks/blocklistidentifiers/README.md#delete) - Delete identifier from block-list
-
 
 ### [clients()](docs/sdks/clients/README.md)
 
@@ -263,11 +265,6 @@ public class MachineAuthentication {
 * [~~get~~](docs/sdks/emailsmstemplates/README.md#get) - Retrieve a template :warning: **Deprecated**
 * [~~revert~~](docs/sdks/emailsmstemplates/README.md#revert) - Revert a template :warning: **Deprecated**
 * [~~toggleTemplateDelivery~~](docs/sdks/emailsmstemplates/README.md#toggletemplatedelivery) - Toggle the delivery by Clerk for a template of a given type and slug :warning: **Deprecated**
-
-### [experimentalAccountlessApplications()](docs/sdks/experimentalaccountlessapplications/README.md)
-
-* [create](docs/sdks/experimentalaccountlessapplications/README.md#create) - Create an accountless application [EXPERIMENTAL]
-* [complete](docs/sdks/experimentalaccountlessapplications/README.md#complete) - Complete an accountless application [EXPERIMENTAL]
 
 ### [instanceSettings()](docs/sdks/instancesettings/README.md)
 
@@ -311,6 +308,7 @@ public class MachineAuthentication {
 * [update](docs/sdks/machines/README.md#update) - Update a machine
 * [delete](docs/sdks/machines/README.md#delete) - Delete a machine
 * [getSecretKey](docs/sdks/machines/README.md#getsecretkey) - Retrieve a machine secret key
+* [rotateSecretKey](docs/sdks/machines/README.md#rotatesecretkey) - Rotate a machine's secret key
 * [createScope](docs/sdks/machines/README.md#createscope) - Create a machine scope
 * [deleteScope](docs/sdks/machines/README.md#deletescope) - Delete a machine scope
 
@@ -403,7 +401,7 @@ public class MachineAuthentication {
 * [refresh](docs/sdks/sessions/README.md#refresh) - Refresh a session
 * [revoke](docs/sdks/sessions/README.md#revoke) - Revoke a session
 * [createToken](docs/sdks/sessions/README.md#createtoken) - Create a session token
-* [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a jwt template
+* [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a JWT template
 
 ### [signInTokens()](docs/sdks/signintokens/README.md)
 
@@ -458,6 +456,7 @@ public class MachineAuthentication {
 
 * [list](docs/sdks/waitlistentries/README.md#list) - List all waitlist entries
 * [create](docs/sdks/waitlistentries/README.md#create) - Create a waitlist entry
+* [delete](docs/sdks/waitlistentries/README.md#delete) - Delete a pending waitlist entry
 * [invite](docs/sdks/waitlistentries/README.md#invite) - Invite a waitlist entry
 * [reject](docs/sdks/waitlistentries/README.md#reject) - Reject a waitlist entry
 
@@ -553,22 +552,29 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `delete` method throws the following exceptions:
 
-| Error Type                | Status Code        | Content Type     |
-| ------------------------- | ------------------ | ---------------- |
-| models/errors/ClerkErrors | 400, 401, 403, 404 | application/json |
-| models/errors/SDKError    | 4XX, 5XX           | \*/\*            |
+[`ClerkError`](./src/main/java/models/errors/ClerkError.java) is the base class for all HTTP error responses. It has the following properties:
+
+| Method           | Type                        | Description                                                              |
+| ---------------- | --------------------------- | ------------------------------------------------------------------------ |
+| `message()`      | `String`                    | Error message                                                            |
+| `code()`         | `int`                       | HTTP response status code eg `404`                                       |
+| `headers`        | `Map<String, List<String>>` | HTTP response headers                                                    |
+| `body()`         | `byte[]`                    | HTTP body as a byte array. Can be empty array if no body is returned.    |
+| `bodyAsString()` | `String`                    | HTTP body as a UTF-8 string. Can be empty string if no body is returned. |
+| `rawResponse()`  | `HttpResponse<?>`           | Raw HTTP response (body already read and not available for re-read)      |
 
 ### Example
-
 ```java
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.ClerkErrors;
-import com.clerk.backend_api.models.operations.DeleteAWSCredentialResponse;
+import com.clerk.backend_api.models.errors.*;
+import com.clerk.backend_api.models.operations.VerifyClientResponse;
+import java.io.UncheckedIOException;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Optional;
 
 public class Application {
 
@@ -577,17 +583,81 @@ public class Application {
         Clerk sdk = Clerk.builder()
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
             .build();
+        try {
 
-        DeleteAWSCredentialResponse res = sdk.awsCredentials().delete()
-                .id("<id>")
-                .call();
+            VerifyClientResponse res = sdk.clients().verify()
+                    .call();
 
-        if (res.deletedObject().isPresent()) {
-            // handle response
-        }
-    }
+            if (res.client().isPresent()) {
+                // handle response
+            }
+        } catch (ClerkError ex) { // all SDK exceptions inherit from ClerkError
+
+            // ex.ToString() provides a detailed error message including
+            // HTTP status code, headers, and error payload (if any)
+            System.out.println(ex);
+
+            // Base exception fields
+            var rawResponse = ex.rawResponse();
+            var headers = ex.headers();
+            var contentType = headers.first("Content-Type");
+            int statusCode = ex.code();
+            Optional<byte[]> responseBody = ex.body();
+
+            // different error subclasses may be thrown 
+            // depending on the service call
+            if (ex instanceof ClerkErrors) {
+                var e = (ClerkErrors) ex;
+                // Check error data fields
+                e.data().ifPresent(payload -> {
+                      List<com.clerk.backend_api.models.components.ClerkError> errors = payload.errors();
+                      Optional<Meta> meta = payload.meta();
+                });
+            }
+
+            // An underlying cause may be provided. If the error payload 
+            // cannot be deserialized then the deserialization exception 
+            // will be set as the cause.
+            if (ex.getCause() != null) {
+                var cause = ex.getCause();
+            }
+        } catch (UncheckedIOException ex) {
+            // handle IO error (connection, timeout, etc)
+        }    }
 }
 ```
+
+### Error Classes
+**Primary errors:**
+* [`ClerkError`](./src/main/java/models/errors/ClerkError.java): The base class for HTTP error responses.
+  * [`com.clerk.backend_api.models.errors.ClerkErrors`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.ClerkErrors.java): Request was not successful. *
+
+<details><summary>Less common errors (17)</summary>
+
+<br />
+
+**Network errors:**
+* `java.io.IOException` (always wrapped by `java.io.UncheckedIOException`). Commonly encountered subclasses of
+`IOException` include `java.net.ConnectException`, `java.net.SocketTimeoutException`, `EOFException` (there are
+many more subclasses in the JDK platform).
+
+**Inherit from [`ClerkError`](./src/main/java/models/errors/ClerkError.java)**:
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 158 methods.*
+
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -620,6 +690,131 @@ public class Application {
 ```
 <!-- End Server Selection [server] -->
 
+
+<!-- Start Custom HTTP Client [http-client] -->
+## Custom HTTP Client
+
+The Java SDK makes API calls using an `HTTPClient` that wraps the native
+[HttpClient](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/HttpClient.html). This
+client provides the ability to attach hooks around the request lifecycle that can be used to modify the request or handle
+errors and response.
+
+The `HTTPClient` interface allows you to either use the default `SpeakeasyHTTPClient` that comes with the SDK,
+or provide your own custom implementation with customized configuration such as custom executors, SSL context,
+connection pools, and other HTTP client settings.
+
+The interface provides synchronous (`send`) methods.
+
+The following example shows how to add a custom header and handle errors:
+
+```java
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.utils.HTTPClient;
+import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
+import com.clerk.backend_api.utils.Utils;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.InputStream;
+import java.time.Duration;
+
+public class Application {
+    public static void main(String[] args) {
+        // Create a custom HTTP client with hooks
+        HTTPClient httpClient = new HTTPClient() {
+            private final HTTPClient defaultClient = new SpeakeasyHTTPClient();
+            
+            @Override
+            public HttpResponse<InputStream> send(HttpRequest request) throws IOException, URISyntaxException, InterruptedException {
+                // Add custom header and timeout using Utils.copy()
+                HttpRequest modifiedRequest = Utils.copy(request)
+                    .header("x-custom-header", "custom value")
+                    .timeout(Duration.ofSeconds(30))
+                    .build();
+                    
+                try {
+                    HttpResponse<InputStream> response = defaultClient.send(modifiedRequest);
+                    // Log successful response
+                    System.out.println("Request successful: " + response.statusCode());
+                    return response;
+                } catch (Exception error) {
+                    // Log error
+                    System.err.println("Request failed: " + error.getMessage());
+                    throw error;
+                }
+            }
+        };
+
+        Clerk sdk = Clerk.builder()
+            .client(httpClient)
+            .build();
+    }
+}
+```
+
+<details>
+<summary>Custom HTTP Client Configuration</summary>
+
+You can also provide a completely custom HTTP client with your own configuration:
+
+```java
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.utils.HTTPClient;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.InputStream;
+import java.time.Duration;
+import java.util.concurrent.Executors;
+
+public class Application {
+    public static void main(String[] args) {
+        // Custom HTTP client with custom configuration
+        HTTPClient customHttpClient = new HTTPClient() {
+            private final HttpClient client = HttpClient.newBuilder()
+                .executor(Executors.newFixedThreadPool(10))
+                .connectTimeout(Duration.ofSeconds(30))
+                // .sslContext(customSslContext) // Add custom SSL context if needed
+                .build();
+
+            @Override
+            public HttpResponse<InputStream> send(HttpRequest request) throws IOException, URISyntaxException, InterruptedException {
+                return client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            }
+        };
+
+        Clerk sdk = Clerk.builder()
+            .client(customHttpClient)
+            .build();
+    }
+}
+```
+
+</details>
+
+You can also enable debug logging on the default `SpeakeasyHTTPClient`:
+
+```java
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
+
+public class Application {
+    public static void main(String[] args) {
+        SpeakeasyHTTPClient httpClient = new SpeakeasyHTTPClient();
+        httpClient.enableDebugLogging(true);
+
+        Clerk sdk = Clerk.builder()
+            .client(httpClient)
+            .build();
+    }
+}
+```
+<!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Debugging [debug] -->
 ## Debugging

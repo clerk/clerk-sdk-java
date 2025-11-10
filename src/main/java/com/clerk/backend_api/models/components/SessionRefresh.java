@@ -24,7 +24,7 @@ import java.lang.SuppressWarnings;
 public class SessionRefresh {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private SessionRefresh(TypedObject value) {
         this.value = value;
@@ -32,12 +32,12 @@ public class SessionRefresh {
 
     public static SessionRefresh of(Token value) {
         Utils.checkNotNull(value, "value");
-        return new SessionRefresh(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Token>(){}));
+        return new SessionRefresh(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static SessionRefresh of(Cookies value) {
         Utils.checkNotNull(value, "value");
-        return new SessionRefresh(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Cookies>(){}));
+        return new SessionRefresh(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -60,7 +60,7 @@ public class SessionRefresh {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -71,7 +71,7 @@ public class SessionRefresh {
             return false;
         }
         SessionRefresh other = (SessionRefresh) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -94,6 +94,6 @@ public class SessionRefresh {
         return Utils.toString(SessionRefresh.class,
                 "value", value);
     }
- 
+
 }
 

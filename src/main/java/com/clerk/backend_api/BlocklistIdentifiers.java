@@ -17,13 +17,14 @@ import com.clerk.backend_api.models.operations.ListBlocklistIdentifiersResponse;
 import com.clerk.backend_api.operations.CreateBlocklistIdentifier;
 import com.clerk.backend_api.operations.DeleteBlocklistIdentifier;
 import com.clerk.backend_api.operations.ListBlocklistIdentifiers;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class BlocklistIdentifiers {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     BlocklistIdentifiers(SDKConfiguration sdkConfiguration) {
@@ -47,9 +48,9 @@ public class BlocklistIdentifiers {
      * <p>Get a list of all identifiers which are not allowed to access an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListBlocklistIdentifiersResponse listDirect() throws Exception {
+    public ListBlocklistIdentifiersResponse listDirect() {
         return list(Optional.empty());
     }
 
@@ -60,11 +61,11 @@ public class BlocklistIdentifiers {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListBlocklistIdentifiersResponse list(Optional<Options> options) throws Exception {
+    public ListBlocklistIdentifiersResponse list(Optional<Options> options) {
         RequestlessOperation<ListBlocklistIdentifiersResponse> operation
-            = new ListBlocklistIdentifiers.Sync(sdkConfiguration, options);
+            = new ListBlocklistIdentifiers.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -85,9 +86,9 @@ public class BlocklistIdentifiers {
      * <p>Create an identifier that is blocked from accessing an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateBlocklistIdentifierResponse createDirect() throws Exception {
+    public CreateBlocklistIdentifierResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -99,11 +100,11 @@ public class BlocklistIdentifiers {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateBlocklistIdentifierResponse create(Optional<? extends CreateBlocklistIdentifierRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateBlocklistIdentifierResponse create(Optional<? extends CreateBlocklistIdentifierRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateBlocklistIdentifierRequestBody>, CreateBlocklistIdentifierResponse> operation
-              = new CreateBlocklistIdentifier.Sync(sdkConfiguration, options);
+              = new CreateBlocklistIdentifier.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -125,9 +126,9 @@ public class BlocklistIdentifiers {
      * 
      * @param identifierId The ID of the identifier to delete from the block-list
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteBlocklistIdentifierResponse delete(String identifierId) throws Exception {
+    public DeleteBlocklistIdentifierResponse delete(String identifierId) {
         return delete(identifierId, Optional.empty());
     }
 
@@ -139,16 +140,16 @@ public class BlocklistIdentifiers {
      * @param identifierId The ID of the identifier to delete from the block-list
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteBlocklistIdentifierResponse delete(String identifierId, Optional<Options> options) throws Exception {
+    public DeleteBlocklistIdentifierResponse delete(String identifierId, Optional<Options> options) {
         DeleteBlocklistIdentifierRequest request =
             DeleteBlocklistIdentifierRequest
                 .builder()
                 .identifierId(identifierId)
                 .build();
         RequestOperation<DeleteBlocklistIdentifierRequest, DeleteBlocklistIdentifierResponse> operation
-              = new DeleteBlocklistIdentifier.Sync(sdkConfiguration, options);
+              = new DeleteBlocklistIdentifier.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

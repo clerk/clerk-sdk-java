@@ -14,7 +14,7 @@ import java.lang.String;
 /**
  * CommerceSubscriptionItemAmount
  * 
- * <p>Credit amount.
+ * <p>Amount for the next payment.
  */
 public class CommerceSubscriptionItemAmount {
     /**

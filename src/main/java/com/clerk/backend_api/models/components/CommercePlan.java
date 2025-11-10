@@ -13,9 +13,9 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CommercePlan {
@@ -26,13 +26,13 @@ public class CommercePlan {
     private CommercePlanObject object;
 
     /**
-     * Unique identifier for the commerce plan.
+     * Unique identifier for the plan.
      */
     @JsonProperty("id")
     private String id;
 
     /**
-     * The name of the commerce plan.
+     * The name of the plan.
      */
     @JsonProperty("name")
     private String name;
@@ -42,66 +42,21 @@ public class CommercePlan {
     private CommerceMoneyResponse fee;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("annual_monthly_fee")
-    private CommerceMoneyResponse annualMonthlyFee;
+    private Optional<? extends AnnualMonthlyFee> annualMonthlyFee;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("annual_fee")
-    private CommerceMoneyResponse annualFee;
+    private Optional<? extends AnnualFee> annualFee;
 
     /**
-     * The amount in cents for the plan.
+     * The description of the plan.
      */
-    @JsonProperty("amount")
-    private long amount;
-
-    /**
-     * The formatted amount as a string (e.g., "$49.99").
-     */
-    @JsonProperty("amount_formatted")
-    private String amountFormatted;
-
-    /**
-     * The monthly amount in cents when billed annually.
-     */
-    @JsonProperty("annual_monthly_amount")
-    private long annualMonthlyAmount;
-
-    /**
-     * The formatted annual monthly amount as a string.
-     */
-    @JsonProperty("annual_monthly_amount_formatted")
-    private String annualMonthlyAmountFormatted;
-
-    /**
-     * The total annual amount in cents.
-     */
-    @JsonProperty("annual_amount")
-    private long annualAmount;
-
-    /**
-     * The formatted annual amount as a string.
-     */
-    @JsonProperty("annual_amount_formatted")
-    private String annualAmountFormatted;
-
-    /**
-     * The currency symbol (e.g., "$").
-     */
-    @JsonProperty("currency_symbol")
-    private String currencySymbol;
-
-    /**
-     * The currency code (e.g., "USD").
-     */
-    @JsonProperty("currency")
-    private String currency;
-
-    /**
-     * The description of the commerce plan.
-     */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("description")
-    private String description;
+    private Optional<String> description;
 
     /**
      * The ID of the product this plan belongs to.
@@ -134,12 +89,6 @@ public class CommercePlan {
     private boolean hasBaseFee;
 
     /**
-     * The types of payers that can use this plan.
-     */
-    @JsonProperty("payer_type")
-    private List<String> payerType;
-
-    /**
      * The payer type this plan is designed for.
      */
     @JsonProperty("for_payer_type")
@@ -154,42 +103,29 @@ public class CommercePlan {
     /**
      * The URL of the plan's avatar image.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("avatar_url")
-    private String avatarUrl;
-
-    /**
-     * The billing period for the plan.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("period")
-    private Optional<String> period;
-
-    /**
-     * The billing interval.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("interval")
-    private Optional<Long> interval;
+    private Optional<String> avatarUrl;
 
     /**
      * The features included in this plan.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("features")
-    private List<FeatureResponse> features;
+    private Optional<? extends List<FeatureResponse>> features;
 
     /**
      * Whether free trial is enabled for this plan.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("free_trial_enabled")
-    private Optional<Boolean> freeTrialEnabled;
+    private boolean freeTrialEnabled;
 
     /**
      * Number of free trial days for this plan.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("free_trial_days")
-    private JsonNullable<Long> freeTrialDays;
+    private Optional<Long> freeTrialDays;
 
     @JsonCreator
     public CommercePlan(
@@ -197,57 +133,35 @@ public class CommercePlan {
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("fee") CommerceMoneyResponse fee,
-            @JsonProperty("annual_monthly_fee") CommerceMoneyResponse annualMonthlyFee,
-            @JsonProperty("annual_fee") CommerceMoneyResponse annualFee,
-            @JsonProperty("amount") long amount,
-            @JsonProperty("amount_formatted") String amountFormatted,
-            @JsonProperty("annual_monthly_amount") long annualMonthlyAmount,
-            @JsonProperty("annual_monthly_amount_formatted") String annualMonthlyAmountFormatted,
-            @JsonProperty("annual_amount") long annualAmount,
-            @JsonProperty("annual_amount_formatted") String annualAmountFormatted,
-            @JsonProperty("currency_symbol") String currencySymbol,
-            @JsonProperty("currency") String currency,
-            @JsonProperty("description") String description,
+            @JsonProperty("annual_monthly_fee") Optional<? extends AnnualMonthlyFee> annualMonthlyFee,
+            @JsonProperty("annual_fee") Optional<? extends AnnualFee> annualFee,
+            @JsonProperty("description") Optional<String> description,
             @JsonProperty("product_id") String productId,
             @JsonProperty("is_default") boolean isDefault,
             @JsonProperty("is_recurring") boolean isRecurring,
             @JsonProperty("publicly_visible") boolean publiclyVisible,
             @JsonProperty("has_base_fee") boolean hasBaseFee,
-            @JsonProperty("payer_type") List<String> payerType,
             @JsonProperty("for_payer_type") String forPayerType,
             @JsonProperty("slug") String slug,
-            @JsonProperty("avatar_url") String avatarUrl,
-            @JsonProperty("period") Optional<String> period,
-            @JsonProperty("interval") Optional<Long> interval,
-            @JsonProperty("features") List<FeatureResponse> features,
-            @JsonProperty("free_trial_enabled") Optional<Boolean> freeTrialEnabled,
-            @JsonProperty("free_trial_days") JsonNullable<Long> freeTrialDays) {
+            @JsonProperty("avatar_url") Optional<String> avatarUrl,
+            @JsonProperty("features") Optional<? extends List<FeatureResponse>> features,
+            @JsonProperty("free_trial_enabled") boolean freeTrialEnabled,
+            @JsonProperty("free_trial_days") Optional<Long> freeTrialDays) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(fee, "fee");
         Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
         Utils.checkNotNull(annualFee, "annualFee");
-        Utils.checkNotNull(amount, "amount");
-        Utils.checkNotNull(amountFormatted, "amountFormatted");
-        Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
-        Utils.checkNotNull(annualMonthlyAmountFormatted, "annualMonthlyAmountFormatted");
-        Utils.checkNotNull(annualAmount, "annualAmount");
-        Utils.checkNotNull(annualAmountFormatted, "annualAmountFormatted");
-        Utils.checkNotNull(currencySymbol, "currencySymbol");
-        Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(productId, "productId");
         Utils.checkNotNull(isDefault, "isDefault");
         Utils.checkNotNull(isRecurring, "isRecurring");
         Utils.checkNotNull(publiclyVisible, "publiclyVisible");
         Utils.checkNotNull(hasBaseFee, "hasBaseFee");
-        Utils.checkNotNull(payerType, "payerType");
         Utils.checkNotNull(forPayerType, "forPayerType");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(avatarUrl, "avatarUrl");
-        Utils.checkNotNull(period, "period");
-        Utils.checkNotNull(interval, "interval");
         Utils.checkNotNull(features, "features");
         Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
         Utils.checkNotNull(freeTrialDays, "freeTrialDays");
@@ -257,26 +171,15 @@ public class CommercePlan {
         this.fee = fee;
         this.annualMonthlyFee = annualMonthlyFee;
         this.annualFee = annualFee;
-        this.amount = amount;
-        this.amountFormatted = amountFormatted;
-        this.annualMonthlyAmount = annualMonthlyAmount;
-        this.annualMonthlyAmountFormatted = annualMonthlyAmountFormatted;
-        this.annualAmount = annualAmount;
-        this.annualAmountFormatted = annualAmountFormatted;
-        this.currencySymbol = currencySymbol;
-        this.currency = currency;
         this.description = description;
         this.productId = productId;
         this.isDefault = isDefault;
         this.isRecurring = isRecurring;
         this.publiclyVisible = publiclyVisible;
         this.hasBaseFee = hasBaseFee;
-        this.payerType = payerType;
         this.forPayerType = forPayerType;
         this.slug = slug;
         this.avatarUrl = avatarUrl;
-        this.period = period;
-        this.interval = interval;
         this.features = features;
         this.freeTrialEnabled = freeTrialEnabled;
         this.freeTrialDays = freeTrialDays;
@@ -287,37 +190,20 @@ public class CommercePlan {
             String id,
             String name,
             CommerceMoneyResponse fee,
-            CommerceMoneyResponse annualMonthlyFee,
-            CommerceMoneyResponse annualFee,
-            long amount,
-            String amountFormatted,
-            long annualMonthlyAmount,
-            String annualMonthlyAmountFormatted,
-            long annualAmount,
-            String annualAmountFormatted,
-            String currencySymbol,
-            String currency,
-            String description,
             String productId,
             boolean isDefault,
             boolean isRecurring,
             boolean publiclyVisible,
             boolean hasBaseFee,
-            List<String> payerType,
             String forPayerType,
             String slug,
-            String avatarUrl,
-            List<FeatureResponse> features) {
+            boolean freeTrialEnabled) {
         this(object, id, name,
-            fee, annualMonthlyFee, annualFee,
-            amount, amountFormatted, annualMonthlyAmount,
-            annualMonthlyAmountFormatted, annualAmount, annualAmountFormatted,
-            currencySymbol, currency, description,
-            productId, isDefault, isRecurring,
-            publiclyVisible, hasBaseFee, payerType,
-            forPayerType, slug, avatarUrl,
-            Optional.empty(), Optional.empty(), features,
-            Optional.empty(), JsonNullable.undefined());
+            fee, Optional.empty(), Optional.empty(),
+            Optional.empty(), productId, isDefault,
+            isRecurring, publiclyVisible, hasBaseFee,
+            forPayerType, slug, Optional.empty(),
+            Optional.empty(), freeTrialEnabled, Optional.empty());
     }
 
     /**
@@ -329,7 +215,7 @@ public class CommercePlan {
     }
 
     /**
-     * Unique identifier for the commerce plan.
+     * Unique identifier for the plan.
      */
     @JsonIgnore
     public String id() {
@@ -337,7 +223,7 @@ public class CommercePlan {
     }
 
     /**
-     * The name of the commerce plan.
+     * The name of the plan.
      */
     @JsonIgnore
     public String name() {
@@ -349,85 +235,23 @@ public class CommercePlan {
         return fee;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse annualMonthlyFee() {
-        return annualMonthlyFee;
+    public Optional<AnnualMonthlyFee> annualMonthlyFee() {
+        return (Optional<AnnualMonthlyFee>) annualMonthlyFee;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse annualFee() {
-        return annualFee;
-    }
-
-    /**
-     * The amount in cents for the plan.
-     */
-    @JsonIgnore
-    public long amount() {
-        return amount;
+    public Optional<AnnualFee> annualFee() {
+        return (Optional<AnnualFee>) annualFee;
     }
 
     /**
-     * The formatted amount as a string (e.g., "$49.99").
+     * The description of the plan.
      */
     @JsonIgnore
-    public String amountFormatted() {
-        return amountFormatted;
-    }
-
-    /**
-     * The monthly amount in cents when billed annually.
-     */
-    @JsonIgnore
-    public long annualMonthlyAmount() {
-        return annualMonthlyAmount;
-    }
-
-    /**
-     * The formatted annual monthly amount as a string.
-     */
-    @JsonIgnore
-    public String annualMonthlyAmountFormatted() {
-        return annualMonthlyAmountFormatted;
-    }
-
-    /**
-     * The total annual amount in cents.
-     */
-    @JsonIgnore
-    public long annualAmount() {
-        return annualAmount;
-    }
-
-    /**
-     * The formatted annual amount as a string.
-     */
-    @JsonIgnore
-    public String annualAmountFormatted() {
-        return annualAmountFormatted;
-    }
-
-    /**
-     * The currency symbol (e.g., "$").
-     */
-    @JsonIgnore
-    public String currencySymbol() {
-        return currencySymbol;
-    }
-
-    /**
-     * The currency code (e.g., "USD").
-     */
-    @JsonIgnore
-    public String currency() {
-        return currency;
-    }
-
-    /**
-     * The description of the commerce plan.
-     */
-    @JsonIgnore
-    public String description() {
+    public Optional<String> description() {
         return description;
     }
 
@@ -472,14 +296,6 @@ public class CommercePlan {
     }
 
     /**
-     * The types of payers that can use this plan.
-     */
-    @JsonIgnore
-    public List<String> payerType() {
-        return payerType;
-    }
-
-    /**
      * The payer type this plan is designed for.
      */
     @JsonIgnore
@@ -499,39 +315,24 @@ public class CommercePlan {
      * The URL of the plan's avatar image.
      */
     @JsonIgnore
-    public String avatarUrl() {
+    public Optional<String> avatarUrl() {
         return avatarUrl;
-    }
-
-    /**
-     * The billing period for the plan.
-     */
-    @JsonIgnore
-    public Optional<String> period() {
-        return period;
-    }
-
-    /**
-     * The billing interval.
-     */
-    @JsonIgnore
-    public Optional<Long> interval() {
-        return interval;
     }
 
     /**
      * The features included in this plan.
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public List<FeatureResponse> features() {
-        return features;
+    public Optional<List<FeatureResponse>> features() {
+        return (Optional<List<FeatureResponse>>) features;
     }
 
     /**
      * Whether free trial is enabled for this plan.
      */
     @JsonIgnore
-    public Optional<Boolean> freeTrialEnabled() {
+    public boolean freeTrialEnabled() {
         return freeTrialEnabled;
     }
 
@@ -539,7 +340,7 @@ public class CommercePlan {
      * Number of free trial days for this plan.
      */
     @JsonIgnore
-    public JsonNullable<Long> freeTrialDays() {
+    public Optional<Long> freeTrialDays() {
         return freeTrialDays;
     }
 
@@ -558,7 +359,7 @@ public class CommercePlan {
     }
 
     /**
-     * Unique identifier for the commerce plan.
+     * Unique identifier for the plan.
      */
     public CommercePlan withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -567,7 +368,7 @@ public class CommercePlan {
     }
 
     /**
-     * The name of the commerce plan.
+     * The name of the plan.
      */
     public CommercePlan withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -581,94 +382,46 @@ public class CommercePlan {
         return this;
     }
 
-    public CommercePlan withAnnualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+    public CommercePlan withAnnualMonthlyFee(AnnualMonthlyFee annualMonthlyFee) {
+        Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+        this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+        return this;
+    }
+
+
+    public CommercePlan withAnnualMonthlyFee(Optional<? extends AnnualMonthlyFee> annualMonthlyFee) {
         Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
         this.annualMonthlyFee = annualMonthlyFee;
         return this;
     }
 
-    public CommercePlan withAnnualFee(CommerceMoneyResponse annualFee) {
+    public CommercePlan withAnnualFee(AnnualFee annualFee) {
+        Utils.checkNotNull(annualFee, "annualFee");
+        this.annualFee = Optional.ofNullable(annualFee);
+        return this;
+    }
+
+
+    public CommercePlan withAnnualFee(Optional<? extends AnnualFee> annualFee) {
         Utils.checkNotNull(annualFee, "annualFee");
         this.annualFee = annualFee;
         return this;
     }
 
     /**
-     * The amount in cents for the plan.
-     */
-    public CommercePlan withAmount(long amount) {
-        Utils.checkNotNull(amount, "amount");
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * The formatted amount as a string (e.g., "$49.99").
-     */
-    public CommercePlan withAmountFormatted(String amountFormatted) {
-        Utils.checkNotNull(amountFormatted, "amountFormatted");
-        this.amountFormatted = amountFormatted;
-        return this;
-    }
-
-    /**
-     * The monthly amount in cents when billed annually.
-     */
-    public CommercePlan withAnnualMonthlyAmount(long annualMonthlyAmount) {
-        Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
-        this.annualMonthlyAmount = annualMonthlyAmount;
-        return this;
-    }
-
-    /**
-     * The formatted annual monthly amount as a string.
-     */
-    public CommercePlan withAnnualMonthlyAmountFormatted(String annualMonthlyAmountFormatted) {
-        Utils.checkNotNull(annualMonthlyAmountFormatted, "annualMonthlyAmountFormatted");
-        this.annualMonthlyAmountFormatted = annualMonthlyAmountFormatted;
-        return this;
-    }
-
-    /**
-     * The total annual amount in cents.
-     */
-    public CommercePlan withAnnualAmount(long annualAmount) {
-        Utils.checkNotNull(annualAmount, "annualAmount");
-        this.annualAmount = annualAmount;
-        return this;
-    }
-
-    /**
-     * The formatted annual amount as a string.
-     */
-    public CommercePlan withAnnualAmountFormatted(String annualAmountFormatted) {
-        Utils.checkNotNull(annualAmountFormatted, "annualAmountFormatted");
-        this.annualAmountFormatted = annualAmountFormatted;
-        return this;
-    }
-
-    /**
-     * The currency symbol (e.g., "$").
-     */
-    public CommercePlan withCurrencySymbol(String currencySymbol) {
-        Utils.checkNotNull(currencySymbol, "currencySymbol");
-        this.currencySymbol = currencySymbol;
-        return this;
-    }
-
-    /**
-     * The currency code (e.g., "USD").
-     */
-    public CommercePlan withCurrency(String currency) {
-        Utils.checkNotNull(currency, "currency");
-        this.currency = currency;
-        return this;
-    }
-
-    /**
-     * The description of the commerce plan.
+     * The description of the plan.
      */
     public CommercePlan withDescription(String description) {
+        Utils.checkNotNull(description, "description");
+        this.description = Optional.ofNullable(description);
+        return this;
+    }
+
+
+    /**
+     * The description of the plan.
+     */
+    public CommercePlan withDescription(Optional<String> description) {
         Utils.checkNotNull(description, "description");
         this.description = description;
         return this;
@@ -720,15 +473,6 @@ public class CommercePlan {
     }
 
     /**
-     * The types of payers that can use this plan.
-     */
-    public CommercePlan withPayerType(List<String> payerType) {
-        Utils.checkNotNull(payerType, "payerType");
-        this.payerType = payerType;
-        return this;
-    }
-
-    /**
      * The payer type this plan is designed for.
      */
     public CommercePlan withForPayerType(String forPayerType) {
@@ -751,45 +495,17 @@ public class CommercePlan {
      */
     public CommercePlan withAvatarUrl(String avatarUrl) {
         Utils.checkNotNull(avatarUrl, "avatarUrl");
+        this.avatarUrl = Optional.ofNullable(avatarUrl);
+        return this;
+    }
+
+
+    /**
+     * The URL of the plan's avatar image.
+     */
+    public CommercePlan withAvatarUrl(Optional<String> avatarUrl) {
+        Utils.checkNotNull(avatarUrl, "avatarUrl");
         this.avatarUrl = avatarUrl;
-        return this;
-    }
-
-    /**
-     * The billing period for the plan.
-     */
-    public CommercePlan withPeriod(String period) {
-        Utils.checkNotNull(period, "period");
-        this.period = Optional.ofNullable(period);
-        return this;
-    }
-
-
-    /**
-     * The billing period for the plan.
-     */
-    public CommercePlan withPeriod(Optional<String> period) {
-        Utils.checkNotNull(period, "period");
-        this.period = period;
-        return this;
-    }
-
-    /**
-     * The billing interval.
-     */
-    public CommercePlan withInterval(long interval) {
-        Utils.checkNotNull(interval, "interval");
-        this.interval = Optional.ofNullable(interval);
-        return this;
-    }
-
-
-    /**
-     * The billing interval.
-     */
-    public CommercePlan withInterval(Optional<Long> interval) {
-        Utils.checkNotNull(interval, "interval");
-        this.interval = interval;
         return this;
     }
 
@@ -797,6 +513,16 @@ public class CommercePlan {
      * The features included in this plan.
      */
     public CommercePlan withFeatures(List<FeatureResponse> features) {
+        Utils.checkNotNull(features, "features");
+        this.features = Optional.ofNullable(features);
+        return this;
+    }
+
+
+    /**
+     * The features included in this plan.
+     */
+    public CommercePlan withFeatures(Optional<? extends List<FeatureResponse>> features) {
         Utils.checkNotNull(features, "features");
         this.features = features;
         return this;
@@ -807,16 +533,6 @@ public class CommercePlan {
      */
     public CommercePlan withFreeTrialEnabled(boolean freeTrialEnabled) {
         Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
-        this.freeTrialEnabled = Optional.ofNullable(freeTrialEnabled);
-        return this;
-    }
-
-
-    /**
-     * Whether free trial is enabled for this plan.
-     */
-    public CommercePlan withFreeTrialEnabled(Optional<Boolean> freeTrialEnabled) {
-        Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
         this.freeTrialEnabled = freeTrialEnabled;
         return this;
     }
@@ -826,14 +542,15 @@ public class CommercePlan {
      */
     public CommercePlan withFreeTrialDays(long freeTrialDays) {
         Utils.checkNotNull(freeTrialDays, "freeTrialDays");
-        this.freeTrialDays = JsonNullable.of(freeTrialDays);
+        this.freeTrialDays = Optional.ofNullable(freeTrialDays);
         return this;
     }
+
 
     /**
      * Number of free trial days for this plan.
      */
-    public CommercePlan withFreeTrialDays(JsonNullable<Long> freeTrialDays) {
+    public CommercePlan withFreeTrialDays(Optional<Long> freeTrialDays) {
         Utils.checkNotNull(freeTrialDays, "freeTrialDays");
         this.freeTrialDays = freeTrialDays;
         return this;
@@ -855,26 +572,15 @@ public class CommercePlan {
             Utils.enhancedDeepEquals(this.fee, other.fee) &&
             Utils.enhancedDeepEquals(this.annualMonthlyFee, other.annualMonthlyFee) &&
             Utils.enhancedDeepEquals(this.annualFee, other.annualFee) &&
-            Utils.enhancedDeepEquals(this.amount, other.amount) &&
-            Utils.enhancedDeepEquals(this.amountFormatted, other.amountFormatted) &&
-            Utils.enhancedDeepEquals(this.annualMonthlyAmount, other.annualMonthlyAmount) &&
-            Utils.enhancedDeepEquals(this.annualMonthlyAmountFormatted, other.annualMonthlyAmountFormatted) &&
-            Utils.enhancedDeepEquals(this.annualAmount, other.annualAmount) &&
-            Utils.enhancedDeepEquals(this.annualAmountFormatted, other.annualAmountFormatted) &&
-            Utils.enhancedDeepEquals(this.currencySymbol, other.currencySymbol) &&
-            Utils.enhancedDeepEquals(this.currency, other.currency) &&
             Utils.enhancedDeepEquals(this.description, other.description) &&
             Utils.enhancedDeepEquals(this.productId, other.productId) &&
             Utils.enhancedDeepEquals(this.isDefault, other.isDefault) &&
             Utils.enhancedDeepEquals(this.isRecurring, other.isRecurring) &&
             Utils.enhancedDeepEquals(this.publiclyVisible, other.publiclyVisible) &&
             Utils.enhancedDeepEquals(this.hasBaseFee, other.hasBaseFee) &&
-            Utils.enhancedDeepEquals(this.payerType, other.payerType) &&
             Utils.enhancedDeepEquals(this.forPayerType, other.forPayerType) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
             Utils.enhancedDeepEquals(this.avatarUrl, other.avatarUrl) &&
-            Utils.enhancedDeepEquals(this.period, other.period) &&
-            Utils.enhancedDeepEquals(this.interval, other.interval) &&
             Utils.enhancedDeepEquals(this.features, other.features) &&
             Utils.enhancedDeepEquals(this.freeTrialEnabled, other.freeTrialEnabled) &&
             Utils.enhancedDeepEquals(this.freeTrialDays, other.freeTrialDays);
@@ -885,14 +591,10 @@ public class CommercePlan {
         return Utils.enhancedHash(
             object, id, name,
             fee, annualMonthlyFee, annualFee,
-            amount, amountFormatted, annualMonthlyAmount,
-            annualMonthlyAmountFormatted, annualAmount, annualAmountFormatted,
-            currencySymbol, currency, description,
-            productId, isDefault, isRecurring,
-            publiclyVisible, hasBaseFee, payerType,
+            description, productId, isDefault,
+            isRecurring, publiclyVisible, hasBaseFee,
             forPayerType, slug, avatarUrl,
-            period, interval, features,
-            freeTrialEnabled, freeTrialDays);
+            features, freeTrialEnabled, freeTrialDays);
     }
     
     @Override
@@ -904,26 +606,15 @@ public class CommercePlan {
                 "fee", fee,
                 "annualMonthlyFee", annualMonthlyFee,
                 "annualFee", annualFee,
-                "amount", amount,
-                "amountFormatted", amountFormatted,
-                "annualMonthlyAmount", annualMonthlyAmount,
-                "annualMonthlyAmountFormatted", annualMonthlyAmountFormatted,
-                "annualAmount", annualAmount,
-                "annualAmountFormatted", annualAmountFormatted,
-                "currencySymbol", currencySymbol,
-                "currency", currency,
                 "description", description,
                 "productId", productId,
                 "isDefault", isDefault,
                 "isRecurring", isRecurring,
                 "publiclyVisible", publiclyVisible,
                 "hasBaseFee", hasBaseFee,
-                "payerType", payerType,
                 "forPayerType", forPayerType,
                 "slug", slug,
                 "avatarUrl", avatarUrl,
-                "period", period,
-                "interval", interval,
                 "features", features,
                 "freeTrialEnabled", freeTrialEnabled,
                 "freeTrialDays", freeTrialDays);
@@ -940,27 +631,11 @@ public class CommercePlan {
 
         private CommerceMoneyResponse fee;
 
-        private CommerceMoneyResponse annualMonthlyFee;
+        private Optional<? extends AnnualMonthlyFee> annualMonthlyFee = Optional.empty();
 
-        private CommerceMoneyResponse annualFee;
+        private Optional<? extends AnnualFee> annualFee = Optional.empty();
 
-        private Long amount;
-
-        private String amountFormatted;
-
-        private Long annualMonthlyAmount;
-
-        private String annualMonthlyAmountFormatted;
-
-        private Long annualAmount;
-
-        private String annualAmountFormatted;
-
-        private String currencySymbol;
-
-        private String currency;
-
-        private String description;
+        private Optional<String> description = Optional.empty();
 
         private String productId;
 
@@ -972,23 +647,17 @@ public class CommercePlan {
 
         private Boolean hasBaseFee;
 
-        private List<String> payerType;
-
         private String forPayerType;
 
         private String slug;
 
-        private String avatarUrl;
+        private Optional<String> avatarUrl = Optional.empty();
 
-        private Optional<String> period = Optional.empty();
+        private Optional<? extends List<FeatureResponse>> features = Optional.empty();
 
-        private Optional<Long> interval = Optional.empty();
+        private Boolean freeTrialEnabled;
 
-        private List<FeatureResponse> features;
-
-        private Optional<Boolean> freeTrialEnabled = Optional.empty();
-
-        private JsonNullable<Long> freeTrialDays = JsonNullable.undefined();
+        private Optional<Long> freeTrialDays = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -1006,7 +675,7 @@ public class CommercePlan {
 
 
         /**
-         * Unique identifier for the commerce plan.
+         * Unique identifier for the plan.
          */
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -1016,7 +685,7 @@ public class CommercePlan {
 
 
         /**
-         * The name of the commerce plan.
+         * The name of the plan.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -1032,14 +701,26 @@ public class CommercePlan {
         }
 
 
-        public Builder annualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+        public Builder annualMonthlyFee(AnnualMonthlyFee annualMonthlyFee) {
+            Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+            this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+            return this;
+        }
+
+        public Builder annualMonthlyFee(Optional<? extends AnnualMonthlyFee> annualMonthlyFee) {
             Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
             this.annualMonthlyFee = annualMonthlyFee;
             return this;
         }
 
 
-        public Builder annualFee(CommerceMoneyResponse annualFee) {
+        public Builder annualFee(AnnualFee annualFee) {
+            Utils.checkNotNull(annualFee, "annualFee");
+            this.annualFee = Optional.ofNullable(annualFee);
+            return this;
+        }
+
+        public Builder annualFee(Optional<? extends AnnualFee> annualFee) {
             Utils.checkNotNull(annualFee, "annualFee");
             this.annualFee = annualFee;
             return this;
@@ -1047,89 +728,18 @@ public class CommercePlan {
 
 
         /**
-         * The amount in cents for the plan.
-         */
-        public Builder amount(long amount) {
-            Utils.checkNotNull(amount, "amount");
-            this.amount = amount;
-            return this;
-        }
-
-
-        /**
-         * The formatted amount as a string (e.g., "$49.99").
-         */
-        public Builder amountFormatted(String amountFormatted) {
-            Utils.checkNotNull(amountFormatted, "amountFormatted");
-            this.amountFormatted = amountFormatted;
-            return this;
-        }
-
-
-        /**
-         * The monthly amount in cents when billed annually.
-         */
-        public Builder annualMonthlyAmount(long annualMonthlyAmount) {
-            Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
-            this.annualMonthlyAmount = annualMonthlyAmount;
-            return this;
-        }
-
-
-        /**
-         * The formatted annual monthly amount as a string.
-         */
-        public Builder annualMonthlyAmountFormatted(String annualMonthlyAmountFormatted) {
-            Utils.checkNotNull(annualMonthlyAmountFormatted, "annualMonthlyAmountFormatted");
-            this.annualMonthlyAmountFormatted = annualMonthlyAmountFormatted;
-            return this;
-        }
-
-
-        /**
-         * The total annual amount in cents.
-         */
-        public Builder annualAmount(long annualAmount) {
-            Utils.checkNotNull(annualAmount, "annualAmount");
-            this.annualAmount = annualAmount;
-            return this;
-        }
-
-
-        /**
-         * The formatted annual amount as a string.
-         */
-        public Builder annualAmountFormatted(String annualAmountFormatted) {
-            Utils.checkNotNull(annualAmountFormatted, "annualAmountFormatted");
-            this.annualAmountFormatted = annualAmountFormatted;
-            return this;
-        }
-
-
-        /**
-         * The currency symbol (e.g., "$").
-         */
-        public Builder currencySymbol(String currencySymbol) {
-            Utils.checkNotNull(currencySymbol, "currencySymbol");
-            this.currencySymbol = currencySymbol;
-            return this;
-        }
-
-
-        /**
-         * The currency code (e.g., "USD").
-         */
-        public Builder currency(String currency) {
-            Utils.checkNotNull(currency, "currency");
-            this.currency = currency;
-            return this;
-        }
-
-
-        /**
-         * The description of the commerce plan.
+         * The description of the plan.
          */
         public Builder description(String description) {
+            Utils.checkNotNull(description, "description");
+            this.description = Optional.ofNullable(description);
+            return this;
+        }
+
+        /**
+         * The description of the plan.
+         */
+        public Builder description(Optional<String> description) {
             Utils.checkNotNull(description, "description");
             this.description = description;
             return this;
@@ -1187,16 +797,6 @@ public class CommercePlan {
 
 
         /**
-         * The types of payers that can use this plan.
-         */
-        public Builder payerType(List<String> payerType) {
-            Utils.checkNotNull(payerType, "payerType");
-            this.payerType = payerType;
-            return this;
-        }
-
-
-        /**
          * The payer type this plan is designed for.
          */
         public Builder forPayerType(String forPayerType) {
@@ -1221,45 +821,16 @@ public class CommercePlan {
          */
         public Builder avatarUrl(String avatarUrl) {
             Utils.checkNotNull(avatarUrl, "avatarUrl");
+            this.avatarUrl = Optional.ofNullable(avatarUrl);
+            return this;
+        }
+
+        /**
+         * The URL of the plan's avatar image.
+         */
+        public Builder avatarUrl(Optional<String> avatarUrl) {
+            Utils.checkNotNull(avatarUrl, "avatarUrl");
             this.avatarUrl = avatarUrl;
-            return this;
-        }
-
-
-        /**
-         * The billing period for the plan.
-         */
-        public Builder period(String period) {
-            Utils.checkNotNull(period, "period");
-            this.period = Optional.ofNullable(period);
-            return this;
-        }
-
-        /**
-         * The billing period for the plan.
-         */
-        public Builder period(Optional<String> period) {
-            Utils.checkNotNull(period, "period");
-            this.period = period;
-            return this;
-        }
-
-
-        /**
-         * The billing interval.
-         */
-        public Builder interval(long interval) {
-            Utils.checkNotNull(interval, "interval");
-            this.interval = Optional.ofNullable(interval);
-            return this;
-        }
-
-        /**
-         * The billing interval.
-         */
-        public Builder interval(Optional<Long> interval) {
-            Utils.checkNotNull(interval, "interval");
-            this.interval = interval;
             return this;
         }
 
@@ -1268,6 +839,15 @@ public class CommercePlan {
          * The features included in this plan.
          */
         public Builder features(List<FeatureResponse> features) {
+            Utils.checkNotNull(features, "features");
+            this.features = Optional.ofNullable(features);
+            return this;
+        }
+
+        /**
+         * The features included in this plan.
+         */
+        public Builder features(Optional<? extends List<FeatureResponse>> features) {
             Utils.checkNotNull(features, "features");
             this.features = features;
             return this;
@@ -1279,15 +859,6 @@ public class CommercePlan {
          */
         public Builder freeTrialEnabled(boolean freeTrialEnabled) {
             Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
-            this.freeTrialEnabled = Optional.ofNullable(freeTrialEnabled);
-            return this;
-        }
-
-        /**
-         * Whether free trial is enabled for this plan.
-         */
-        public Builder freeTrialEnabled(Optional<Boolean> freeTrialEnabled) {
-            Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
             this.freeTrialEnabled = freeTrialEnabled;
             return this;
         }
@@ -1298,14 +869,14 @@ public class CommercePlan {
          */
         public Builder freeTrialDays(long freeTrialDays) {
             Utils.checkNotNull(freeTrialDays, "freeTrialDays");
-            this.freeTrialDays = JsonNullable.of(freeTrialDays);
+            this.freeTrialDays = Optional.ofNullable(freeTrialDays);
             return this;
         }
 
         /**
          * Number of free trial days for this plan.
          */
-        public Builder freeTrialDays(JsonNullable<Long> freeTrialDays) {
+        public Builder freeTrialDays(Optional<Long> freeTrialDays) {
             Utils.checkNotNull(freeTrialDays, "freeTrialDays");
             this.freeTrialDays = freeTrialDays;
             return this;
@@ -1316,14 +887,10 @@ public class CommercePlan {
             return new CommercePlan(
                 object, id, name,
                 fee, annualMonthlyFee, annualFee,
-                amount, amountFormatted, annualMonthlyAmount,
-                annualMonthlyAmountFormatted, annualAmount, annualAmountFormatted,
-                currencySymbol, currency, description,
-                productId, isDefault, isRecurring,
-                publiclyVisible, hasBaseFee, payerType,
+                description, productId, isDefault,
+                isRecurring, publiclyVisible, hasBaseFee,
                 forPayerType, slug, avatarUrl,
-                period, interval, features,
-                freeTrialEnabled, freeTrialDays);
+                features, freeTrialEnabled, freeTrialDays);
         }
 
     }

@@ -32,9 +32,12 @@ public class ListInvitationsRequest {
 
     /**
      * Allows to return invitations in a particular order.
-     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+     * or `expires_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want invitations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -110,9 +113,12 @@ public class ListInvitationsRequest {
 
     /**
      * Allows to return invitations in a particular order.
-     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+     * or `expires_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want invitations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -195,9 +201,12 @@ public class ListInvitationsRequest {
 
     /**
      * Allows to return invitations in a particular order.
-     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+     * or `expires_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want invitations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -210,9 +219,12 @@ public class ListInvitationsRequest {
 
     /**
      * Allows to return invitations in a particular order.
-     * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-     * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+     * or `expires_at`.
+     * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+     * by.
+     * For example, if you want invitations to be returned in descending order according to their
+     * `created_at` property, you can use `-created_at`.
      * If you don't use `+` or `-`, then `+` is implied.
      * Defaults to `-created_at`.
      */
@@ -385,9 +397,12 @@ public class ListInvitationsRequest {
 
         /**
          * Allows to return invitations in a particular order.
-         * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+         * or `expires_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want invitations to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */
@@ -399,9 +414,12 @@ public class ListInvitationsRequest {
 
         /**
          * Allows to return invitations in a particular order.
-         * At the moment, you can order the returned invitations either by their `created_at`, `email_address` or `expires_at`.
-         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
-         * For example, if you want invitations to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+         * At the moment, you can order the returned invitations either by their `created_at`, `email_address`
+         * or `expires_at`.
+         * In order to specify the direction, you can use the `+/-` symbols prepended in the property to order
+         * by.
+         * For example, if you want invitations to be returned in descending order according to their
+         * `created_at` property, you can use `-created_at`.
          * If you don't use `+` or `-`, then `+` is implied.
          * Defaults to `-created_at`.
          */

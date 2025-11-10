@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class DeleteOrganizationDomainRequest {
     /**
-     * The ID of the organization the domain belongs to
+     * The ID of the organization to which the domain belongs
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
@@ -35,7 +35,7 @@ public class DeleteOrganizationDomainRequest {
     }
 
     /**
-     * The ID of the organization the domain belongs to
+     * The ID of the organization to which the domain belongs
      */
     @JsonIgnore
     public String organizationId() {
@@ -56,7 +56,7 @@ public class DeleteOrganizationDomainRequest {
 
 
     /**
-     * The ID of the organization the domain belongs to
+     * The ID of the organization to which the domain belongs
      */
     public DeleteOrganizationDomainRequest withOrganizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -113,7 +113,7 @@ public class DeleteOrganizationDomainRequest {
 
 
         /**
-         * The ID of the organization the domain belongs to
+         * The ID of the organization to which the domain belongs
          */
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");

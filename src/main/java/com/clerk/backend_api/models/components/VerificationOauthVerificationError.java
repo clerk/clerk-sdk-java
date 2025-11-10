@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class VerificationOauthVerificationError {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private VerificationOauthVerificationError(TypedObject value) {
         this.value = value;
@@ -27,7 +27,7 @@ public class VerificationOauthVerificationError {
 
     public static VerificationOauthVerificationError of(VerificationOauthErrorClerkError value) {
         Utils.checkNotNull(value, "value");
-        return new VerificationOauthVerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<VerificationOauthErrorClerkError>(){}));
+        return new VerificationOauthVerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -49,7 +49,7 @@ public class VerificationOauthVerificationError {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -60,7 +60,7 @@ public class VerificationOauthVerificationError {
             return false;
         }
         VerificationOauthVerificationError other = (VerificationOauthVerificationError) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -82,6 +82,6 @@ public class VerificationOauthVerificationError {
         return Utils.toString(VerificationOauthVerificationError.class,
                 "value", value);
     }
- 
+
 }
 

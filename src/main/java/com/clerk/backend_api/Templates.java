@@ -10,14 +10,15 @@ import com.clerk.backend_api.models.operations.PreviewTemplateRequestBody;
 import com.clerk.backend_api.models.operations.PreviewTemplateRequestBuilder;
 import com.clerk.backend_api.models.operations.PreviewTemplateResponse;
 import com.clerk.backend_api.operations.PreviewTemplate;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Deprecated;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Templates {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Templates(SDKConfiguration sdkConfiguration) {
@@ -45,11 +46,11 @@ public class Templates {
      * @param templateType The type of template to preview
      * @param slug The slug of the template to preview
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public PreviewTemplateResponse preview(String templateType, String slug) throws Exception {
+    public PreviewTemplateResponse preview(String templateType, String slug) {
         return preview(templateType, slug, Optional.empty(),
             Optional.empty());
     }
@@ -64,13 +65,13 @@ public class Templates {
      * @param requestBody Required parameters
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
     public PreviewTemplateResponse preview(
             String templateType, String slug,
-            Optional<? extends PreviewTemplateRequestBody> requestBody, Optional<Options> options) throws Exception {
+            Optional<? extends PreviewTemplateRequestBody> requestBody, Optional<Options> options) {
         PreviewTemplateRequest request =
             PreviewTemplateRequest
                 .builder()
@@ -79,7 +80,7 @@ public class Templates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<PreviewTemplateRequest, PreviewTemplateResponse> operation
-              = new PreviewTemplate.Sync(sdkConfiguration, options);
+              = new PreviewTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

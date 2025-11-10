@@ -19,30 +19,35 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class UpdateInstanceAuthConfigRequestBody {
     /**
-     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+     * allowlist.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("restricted_to_allowlist")
     private JsonNullable<Boolean> restrictedToAllowlist;
 
     /**
-     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+     * links) will be sent.
      * Only alphanumeric values are allowed.
-     * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+     * Note that this value should contain only the local part of the address (e.g. `foo` for
+     * `foo@example.com`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("from_email_address")
     private JsonNullable<String> fromEmailAddress;
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. Refer to the
+     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("progressive_sign_up")
     private JsonNullable<Boolean> progressiveSignUp;
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -82,7 +87,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+     * allowlist.
      */
     @JsonIgnore
     public JsonNullable<Boolean> restrictedToAllowlist() {
@@ -90,9 +96,11 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+     * links) will be sent.
      * Only alphanumeric values are allowed.
-     * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+     * Note that this value should contain only the local part of the address (e.g. `foo` for
+     * `foo@example.com`).
      */
     @JsonIgnore
     public JsonNullable<String> fromEmailAddress() {
@@ -100,7 +108,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. Refer to the
+     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
     @JsonIgnore
     public JsonNullable<Boolean> progressiveSignUp() {
@@ -108,7 +117,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     @JsonIgnore
@@ -131,7 +141,8 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
     /**
-     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+     * allowlist.
      */
     public UpdateInstanceAuthConfigRequestBody withRestrictedToAllowlist(boolean restrictedToAllowlist) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -140,7 +151,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+     * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+     * allowlist.
      */
     public UpdateInstanceAuthConfigRequestBody withRestrictedToAllowlist(JsonNullable<Boolean> restrictedToAllowlist) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -149,9 +161,11 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+     * links) will be sent.
      * Only alphanumeric values are allowed.
-     * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+     * Note that this value should contain only the local part of the address (e.g. `foo` for
+     * `foo@example.com`).
      */
     public UpdateInstanceAuthConfigRequestBody withFromEmailAddress(String fromEmailAddress) {
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
@@ -160,9 +174,11 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+     * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+     * links) will be sent.
      * Only alphanumeric values are allowed.
-     * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+     * Note that this value should contain only the local part of the address (e.g. `foo` for
+     * `foo@example.com`).
      */
     public UpdateInstanceAuthConfigRequestBody withFromEmailAddress(JsonNullable<String> fromEmailAddress) {
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
@@ -171,7 +187,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. Refer to the
+     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
     public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(boolean progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -180,7 +197,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. Refer to the
+     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
      */
     public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -189,7 +207,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
@@ -199,7 +218,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+     * of your domain.
      * This can be helpful if you do not have a high domain reputation.
      */
     public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
@@ -281,7 +301,8 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+         * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+         * allowlist.
          */
         public Builder restrictedToAllowlist(boolean restrictedToAllowlist) {
             Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -290,7 +311,8 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
 
         /**
-         * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the allowlist.
+         * Whether sign up is restricted to email addresses, phone numbers and usernames that are on the
+         * allowlist.
          */
         public Builder restrictedToAllowlist(JsonNullable<Boolean> restrictedToAllowlist) {
             Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
@@ -300,9 +322,11 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+         * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+         * links) will be sent.
          * Only alphanumeric values are allowed.
-         * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+         * Note that this value should contain only the local part of the address (e.g. `foo` for
+         * `foo@example.com`).
          */
         public Builder fromEmailAddress(String fromEmailAddress) {
             Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
@@ -311,9 +335,11 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
 
         /**
-         * The local part of the email address from which authentication-related emails (e.g. OTP code, magic links) will be sent.
+         * The local part of the email address from which authentication-related emails (e.g. OTP code, magic
+         * links) will be sent.
          * Only alphanumeric values are allowed.
-         * Note that this value should contain only the local part of the address (e.g. `foo` for `foo@example.com`).
+         * Note that this value should contain only the local part of the address (e.g. `foo` for
+         * `foo@example.com`).
          */
         public Builder fromEmailAddress(JsonNullable<String> fromEmailAddress) {
             Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
@@ -323,7 +349,8 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+         * Enable the Progressive Sign Up algorithm. Refer to the
+         * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
          */
         public Builder progressiveSignUp(boolean progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -332,7 +359,8 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
 
         /**
-         * Enable the Progressive Sign Up algorithm. Refer to the [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+         * Enable the Progressive Sign Up algorithm. Refer to the
+         * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
          */
         public Builder progressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -342,7 +370,8 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+         * of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
         public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
@@ -352,7 +381,8 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
 
         /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead of your domain.
+         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
+         * of your domain.
          * This can be helpful if you do not have a high domain reputation.
          */
         public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {

@@ -74,7 +74,7 @@ public class Application {
 ## create
 
 Creates a new OAuth application with the given name and callback URL for an instance.
-The callback URL must be a valid url.
+The callback URL must be a valid URL.
 All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
 
 ### Example Usage

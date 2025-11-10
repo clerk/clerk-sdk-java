@@ -32,7 +32,8 @@ public class ListMachinesRequest {
     private Optional<Long> offset;
 
     /**
-     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+     * partial match for name.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
@@ -89,7 +90,8 @@ public class ListMachinesRequest {
     }
 
     /**
-     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+     * partial match for name.
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -159,7 +161,8 @@ public class ListMachinesRequest {
     }
 
     /**
-     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+     * partial match for name.
      */
     public ListMachinesRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -169,7 +172,8 @@ public class ListMachinesRequest {
 
 
     /**
-     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+     * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+     * partial match for name.
      */
     public ListMachinesRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -299,7 +303,8 @@ public class ListMachinesRequest {
 
 
         /**
-         * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+         * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+         * partial match for name.
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -308,7 +313,8 @@ public class ListMachinesRequest {
         }
 
         /**
-         * Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+         * Returns machines with ID or name that match the given query. Uses exact match for machine ID and
+         * partial match for name.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");

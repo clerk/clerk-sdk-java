@@ -26,15 +26,16 @@ import com.clerk.backend_api.operations.DeleteJWTTemplate;
 import com.clerk.backend_api.operations.GetJWTTemplate;
 import com.clerk.backend_api.operations.ListJWTTemplates;
 import com.clerk.backend_api.operations.UpdateJWTTemplate;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class JwtTemplates {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     JwtTemplates(SDKConfiguration sdkConfiguration) {
@@ -54,9 +55,9 @@ public class JwtTemplates {
      * List all templates
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListJWTTemplatesResponse listDirect() throws Exception {
+    public ListJWTTemplatesResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -74,11 +75,11 @@ public class JwtTemplates {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ListJWTTemplatesResponse list(
             Optional<Boolean> paginated, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         ListJWTTemplatesRequest request =
             ListJWTTemplatesRequest
                 .builder()
@@ -87,7 +88,7 @@ public class JwtTemplates {
                 .offset(offset)
                 .build();
         RequestOperation<ListJWTTemplatesRequest, ListJWTTemplatesResponse> operation
-              = new ListJWTTemplates.Sync(sdkConfiguration, options);
+              = new ListJWTTemplates.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -108,9 +109,9 @@ public class JwtTemplates {
      * <p>Create a new JWT template
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateJWTTemplateResponse createDirect() throws Exception {
+    public CreateJWTTemplateResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -122,11 +123,11 @@ public class JwtTemplates {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateJWTTemplateResponse create(Optional<? extends CreateJWTTemplateRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateJWTTemplateResponse create(Optional<? extends CreateJWTTemplateRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateJWTTemplateRequestBody>, CreateJWTTemplateResponse> operation
-              = new CreateJWTTemplate.Sync(sdkConfiguration, options);
+              = new CreateJWTTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -148,9 +149,9 @@ public class JwtTemplates {
      * 
      * @param templateId JWT Template ID
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetJWTTemplateResponse get(String templateId) throws Exception {
+    public GetJWTTemplateResponse get(String templateId) {
         return get(templateId, Optional.empty());
     }
 
@@ -162,16 +163,16 @@ public class JwtTemplates {
      * @param templateId JWT Template ID
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetJWTTemplateResponse get(String templateId, Optional<Options> options) throws Exception {
+    public GetJWTTemplateResponse get(String templateId, Optional<Options> options) {
         GetJWTTemplateRequest request =
             GetJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         RequestOperation<GetJWTTemplateRequest, GetJWTTemplateResponse> operation
-              = new GetJWTTemplate.Sync(sdkConfiguration, options);
+              = new GetJWTTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -193,9 +194,9 @@ public class JwtTemplates {
      * 
      * @param templateId The ID of the JWT template to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateJWTTemplateResponse update(String templateId) throws Exception {
+    public UpdateJWTTemplateResponse update(String templateId) {
         return update(templateId, Optional.empty(), Optional.empty());
     }
 
@@ -208,11 +209,11 @@ public class JwtTemplates {
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateJWTTemplateResponse update(
             String templateId, Optional<? extends UpdateJWTTemplateRequestBody> requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateJWTTemplateRequest request =
             UpdateJWTTemplateRequest
                 .builder()
@@ -220,7 +221,7 @@ public class JwtTemplates {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateJWTTemplateRequest, UpdateJWTTemplateResponse> operation
-              = new UpdateJWTTemplate.Sync(sdkConfiguration, options);
+              = new UpdateJWTTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -238,9 +239,9 @@ public class JwtTemplates {
      * 
      * @param templateId JWT Template ID
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteJWTTemplateResponse delete(String templateId) throws Exception {
+    public DeleteJWTTemplateResponse delete(String templateId) {
         return delete(templateId, Optional.empty());
     }
 
@@ -250,16 +251,16 @@ public class JwtTemplates {
      * @param templateId JWT Template ID
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteJWTTemplateResponse delete(String templateId, Optional<Options> options) throws Exception {
+    public DeleteJWTTemplateResponse delete(String templateId, Optional<Options> options) {
         DeleteJWTTemplateRequest request =
             DeleteJWTTemplateRequest
                 .builder()
                 .templateId(templateId)
                 .build();
         RequestOperation<DeleteJWTTemplateRequest, DeleteJWTTemplateResponse> operation
-              = new DeleteJWTTemplate.Sync(sdkConfiguration, options);
+              = new DeleteJWTTemplate.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

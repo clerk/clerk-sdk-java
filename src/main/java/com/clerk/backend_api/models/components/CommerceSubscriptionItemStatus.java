@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public enum CommerceSubscriptionItemStatus {
     ACTIVE("active"),
+    CANCELED("canceled"),
+    EXPIRED("expired"),
     ENDED("ended"),
     PAST_DUE("past_due"),
     UPCOMING("upcoming"),

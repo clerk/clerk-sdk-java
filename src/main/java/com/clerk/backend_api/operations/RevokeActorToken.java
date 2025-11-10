@@ -5,6 +5,7 @@ package com.clerk.backend_api.operations;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import static com.clerk.backend_api.utils.Retries.NonRetryableException;
+import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
@@ -16,6 +17,7 @@ import com.clerk.backend_api.models.operations.RevokeActorTokenResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
@@ -34,7 +36,6 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class RevokeActorToken {
 
     static abstract class Base {
@@ -44,9 +45,13 @@ public class RevokeActorToken {
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
+        final Headers _headers;
 
-        public Base(SDKConfiguration sdkConfiguration, Optional<Options> options) {
+        public Base(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
             this.sdkConfiguration = sdkConfiguration;
+            this._headers =_headers;
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             options
@@ -75,7 +80,7 @@ public class RevokeActorToken {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "RevokeActorToken",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -84,7 +89,7 @@ public class RevokeActorToken {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "RevokeActorToken",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -93,19 +98,19 @@ public class RevokeActorToken {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "RevokeActorToken",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
-
-        HttpRequest buildRequest(RevokeActorTokenRequest request) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
-                    RevokeActorTokenRequest.class,
+                    klass,
                     this.baseUrl,
                     "/actor_tokens/{actor_token_id}/revoke",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "POST");
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
+            _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
 
             return req.build();
@@ -114,12 +119,16 @@ public class RevokeActorToken {
 
     public static class Sync extends Base
             implements RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> {
-        public Sync(SDKConfiguration sdkConfiguration, Optional<Options> options) {
-            super(sdkConfiguration, options);
+        public Sync(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
+            super(
+                  sdkConfiguration, options,
+                  _headers);
         }
 
         private HttpRequest onBuildRequest(RevokeActorTokenRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, RevokeActorTokenRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -135,7 +144,7 @@ public class RevokeActorToken {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(RevokeActorTokenRequest request) throws Exception {
+        public HttpResponse<InputStream> doRequest(RevokeActorTokenRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -157,12 +166,12 @@ public class RevokeActorToken {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public RevokeActorTokenResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public RevokeActorTokenResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -178,60 +187,27 @@ public class RevokeActorToken {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    ActorToken out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withActorToken(out);
-                    return res;
+                    return res.withActorToken(Utils.unmarshal(response, new TypeReference<ActorToken>() {}));
                 } else {
-                    throw new SDKError(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "400", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    ClerkErrors out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw ClerkErrors.from(response);
                 } else {
-                    throw new SDKError(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
-            throw new SDKError(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw SDKError.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

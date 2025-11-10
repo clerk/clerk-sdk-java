@@ -16,6 +16,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * OrganizationSettings
@@ -68,6 +69,11 @@ public class OrganizationSettings {
     private boolean domainsEnabled;
 
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("slug_disabled")
+    private Optional<Boolean> slugDisabled;
+
+
     @JsonProperty("domains_enrollment_modes")
     private List<DomainsEnrollmentModes> domainsEnrollmentModes;
 
@@ -76,6 +82,13 @@ public class OrganizationSettings {
      */
     @JsonProperty("domains_default_role")
     private String domainsDefaultRole;
+
+    /**
+     * The role set key that it will be used to create new organizations.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("initial_role_set_key")
+    private JsonNullable<String> initialRoleSetKey;
 
     @JsonCreator
     public OrganizationSettings(
@@ -87,8 +100,10 @@ public class OrganizationSettings {
             @JsonProperty("creator_role") String creatorRole,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
             @JsonProperty("domains_enabled") boolean domainsEnabled,
+            @JsonProperty("slug_disabled") Optional<Boolean> slugDisabled,
             @JsonProperty("domains_enrollment_modes") List<DomainsEnrollmentModes> domainsEnrollmentModes,
-            @JsonProperty("domains_default_role") String domainsDefaultRole) {
+            @JsonProperty("domains_default_role") String domainsDefaultRole,
+            @JsonProperty("initial_role_set_key") JsonNullable<String> initialRoleSetKey) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(enabled, "enabled");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
@@ -97,8 +112,10 @@ public class OrganizationSettings {
         Utils.checkNotNull(creatorRole, "creatorRole");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         Utils.checkNotNull(domainsEnabled, "domainsEnabled");
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
         Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
         Utils.checkNotNull(domainsDefaultRole, "domainsDefaultRole");
+        Utils.checkNotNull(initialRoleSetKey, "initialRoleSetKey");
         this.object = object;
         this.enabled = enabled;
         this.maxAllowedMemberships = maxAllowedMemberships;
@@ -107,8 +124,10 @@ public class OrganizationSettings {
         this.creatorRole = creatorRole;
         this.adminDeleteEnabled = adminDeleteEnabled;
         this.domainsEnabled = domainsEnabled;
+        this.slugDisabled = slugDisabled;
         this.domainsEnrollmentModes = domainsEnrollmentModes;
         this.domainsDefaultRole = domainsDefaultRole;
+        this.initialRoleSetKey = initialRoleSetKey;
     }
     
     public OrganizationSettings(
@@ -123,8 +142,8 @@ public class OrganizationSettings {
             String domainsDefaultRole) {
         this(object, enabled, maxAllowedMemberships,
             maxAllowedRoles, Optional.empty(), creatorRole,
-            adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
-            domainsDefaultRole);
+            adminDeleteEnabled, domainsEnabled, Optional.empty(),
+            domainsEnrollmentModes, domainsDefaultRole, JsonNullable.undefined());
     }
 
     /**
@@ -183,6 +202,11 @@ public class OrganizationSettings {
     }
 
     @JsonIgnore
+    public Optional<Boolean> slugDisabled() {
+        return slugDisabled;
+    }
+
+    @JsonIgnore
     public List<DomainsEnrollmentModes> domainsEnrollmentModes() {
         return domainsEnrollmentModes;
     }
@@ -193,6 +217,14 @@ public class OrganizationSettings {
     @JsonIgnore
     public String domainsDefaultRole() {
         return domainsDefaultRole;
+    }
+
+    /**
+     * The role set key that it will be used to create new organizations.
+     */
+    @JsonIgnore
+    public JsonNullable<String> initialRoleSetKey() {
+        return initialRoleSetKey;
     }
 
     public static Builder builder() {
@@ -276,6 +308,19 @@ public class OrganizationSettings {
         return this;
     }
 
+    public OrganizationSettings withSlugDisabled(boolean slugDisabled) {
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
+        this.slugDisabled = Optional.ofNullable(slugDisabled);
+        return this;
+    }
+
+
+    public OrganizationSettings withSlugDisabled(Optional<Boolean> slugDisabled) {
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
+        this.slugDisabled = slugDisabled;
+        return this;
+    }
+
     public OrganizationSettings withDomainsEnrollmentModes(List<DomainsEnrollmentModes> domainsEnrollmentModes) {
         Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
         this.domainsEnrollmentModes = domainsEnrollmentModes;
@@ -288,6 +333,24 @@ public class OrganizationSettings {
     public OrganizationSettings withDomainsDefaultRole(String domainsDefaultRole) {
         Utils.checkNotNull(domainsDefaultRole, "domainsDefaultRole");
         this.domainsDefaultRole = domainsDefaultRole;
+        return this;
+    }
+
+    /**
+     * The role set key that it will be used to create new organizations.
+     */
+    public OrganizationSettings withInitialRoleSetKey(String initialRoleSetKey) {
+        Utils.checkNotNull(initialRoleSetKey, "initialRoleSetKey");
+        this.initialRoleSetKey = JsonNullable.of(initialRoleSetKey);
+        return this;
+    }
+
+    /**
+     * The role set key that it will be used to create new organizations.
+     */
+    public OrganizationSettings withInitialRoleSetKey(JsonNullable<String> initialRoleSetKey) {
+        Utils.checkNotNull(initialRoleSetKey, "initialRoleSetKey");
+        this.initialRoleSetKey = initialRoleSetKey;
         return this;
     }
 
@@ -309,8 +372,10 @@ public class OrganizationSettings {
             Utils.enhancedDeepEquals(this.creatorRole, other.creatorRole) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
             Utils.enhancedDeepEquals(this.domainsEnabled, other.domainsEnabled) &&
+            Utils.enhancedDeepEquals(this.slugDisabled, other.slugDisabled) &&
             Utils.enhancedDeepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
-            Utils.enhancedDeepEquals(this.domainsDefaultRole, other.domainsDefaultRole);
+            Utils.enhancedDeepEquals(this.domainsDefaultRole, other.domainsDefaultRole) &&
+            Utils.enhancedDeepEquals(this.initialRoleSetKey, other.initialRoleSetKey);
     }
     
     @Override
@@ -318,8 +383,8 @@ public class OrganizationSettings {
         return Utils.enhancedHash(
             object, enabled, maxAllowedMemberships,
             maxAllowedRoles, maxAllowedPermissions, creatorRole,
-            adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
-            domainsDefaultRole);
+            adminDeleteEnabled, domainsEnabled, slugDisabled,
+            domainsEnrollmentModes, domainsDefaultRole, initialRoleSetKey);
     }
     
     @Override
@@ -333,8 +398,10 @@ public class OrganizationSettings {
                 "creatorRole", creatorRole,
                 "adminDeleteEnabled", adminDeleteEnabled,
                 "domainsEnabled", domainsEnabled,
+                "slugDisabled", slugDisabled,
                 "domainsEnrollmentModes", domainsEnrollmentModes,
-                "domainsDefaultRole", domainsDefaultRole);
+                "domainsDefaultRole", domainsDefaultRole,
+                "initialRoleSetKey", initialRoleSetKey);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -357,9 +424,13 @@ public class OrganizationSettings {
 
         private Boolean domainsEnabled;
 
+        private Optional<Boolean> slugDisabled = Optional.empty();
+
         private List<DomainsEnrollmentModes> domainsEnrollmentModes;
 
         private String domainsDefaultRole;
+
+        private JsonNullable<String> initialRoleSetKey = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -449,6 +520,19 @@ public class OrganizationSettings {
         }
 
 
+        public Builder slugDisabled(boolean slugDisabled) {
+            Utils.checkNotNull(slugDisabled, "slugDisabled");
+            this.slugDisabled = Optional.ofNullable(slugDisabled);
+            return this;
+        }
+
+        public Builder slugDisabled(Optional<Boolean> slugDisabled) {
+            Utils.checkNotNull(slugDisabled, "slugDisabled");
+            this.slugDisabled = slugDisabled;
+            return this;
+        }
+
+
         public Builder domainsEnrollmentModes(List<DomainsEnrollmentModes> domainsEnrollmentModes) {
             Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
             this.domainsEnrollmentModes = domainsEnrollmentModes;
@@ -465,13 +549,32 @@ public class OrganizationSettings {
             return this;
         }
 
+
+        /**
+         * The role set key that it will be used to create new organizations.
+         */
+        public Builder initialRoleSetKey(String initialRoleSetKey) {
+            Utils.checkNotNull(initialRoleSetKey, "initialRoleSetKey");
+            this.initialRoleSetKey = JsonNullable.of(initialRoleSetKey);
+            return this;
+        }
+
+        /**
+         * The role set key that it will be used to create new organizations.
+         */
+        public Builder initialRoleSetKey(JsonNullable<String> initialRoleSetKey) {
+            Utils.checkNotNull(initialRoleSetKey, "initialRoleSetKey");
+            this.initialRoleSetKey = initialRoleSetKey;
+            return this;
+        }
+
         public OrganizationSettings build() {
 
             return new OrganizationSettings(
                 object, enabled, maxAllowedMemberships,
                 maxAllowedRoles, maxAllowedPermissions, creatorRole,
-                adminDeleteEnabled, domainsEnabled, domainsEnrollmentModes,
-                domainsDefaultRole);
+                adminDeleteEnabled, domainsEnabled, slugDisabled,
+                domainsEnrollmentModes, domainsDefaultRole, initialRoleSetKey);
         }
 
     }

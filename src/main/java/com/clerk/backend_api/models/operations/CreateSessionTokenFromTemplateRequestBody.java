@@ -17,7 +17,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class CreateSessionTokenFromTemplateRequestBody {
     /**
-     * Use this parameter to override the JWT token lifetime.
+     * Use this parameter to override the JWT lifetime.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_seconds")
@@ -35,7 +35,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
     }
 
     /**
-     * Use this parameter to override the JWT token lifetime.
+     * Use this parameter to override the JWT lifetime.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInSeconds() {
@@ -48,7 +48,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
 
 
     /**
-     * Use this parameter to override the JWT token lifetime.
+     * Use this parameter to override the JWT lifetime.
      */
     public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(long expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -57,7 +57,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
     }
 
     /**
-     * Use this parameter to override the JWT token lifetime.
+     * Use this parameter to override the JWT lifetime.
      */
     public CreateSessionTokenFromTemplateRequestBody withExpiresInSeconds(JsonNullable<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -101,7 +101,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
 
 
         /**
-         * Use this parameter to override the JWT token lifetime.
+         * Use this parameter to override the JWT lifetime.
          */
         public Builder expiresInSeconds(long expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -110,7 +110,7 @@ public class CreateSessionTokenFromTemplateRequestBody {
         }
 
         /**
-         * Use this parameter to override the JWT token lifetime.
+         * Use this parameter to override the JWT lifetime.
          */
         public Builder expiresInSeconds(JsonNullable<Long> expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");

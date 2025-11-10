@@ -3,17 +3,20 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import java.lang.String;
 
-@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
-@JsonSubTypes({
-    @Type(value = Oauth.class, name="verification_oauth"),
-    @Type(value = GoogleOneTap.class, name="verification_google_one_tap")})
+@JsonTypeInfo(
+        use = Id.CUSTOM,
+        property = "object",
+        include = As.EXISTING_PROPERTY,
+        visible = true,
+        defaultImpl = UnknownExternalAccountWithVerificationVerification.class
+)
+@JsonTypeIdResolver(ExternalAccountWithVerificationVerificationTypeIdResolver.class)
 public interface ExternalAccountWithVerificationVerification {
 
     String object();

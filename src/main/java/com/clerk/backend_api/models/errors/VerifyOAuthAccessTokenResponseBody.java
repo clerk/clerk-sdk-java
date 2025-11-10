@@ -6,166 +6,150 @@ package com.clerk.backend_api.models.errors;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * VerifyOAuthAccessTokenResponseBody
- * 
- * <p>400 Bad Request
- */
 @SuppressWarnings("serial")
-public class VerifyOAuthAccessTokenResponseBody extends RuntimeException {
+public class VerifyOAuthAccessTokenResponseBody extends ClerkError {
 
-    @JsonProperty("errors")
-    private List<VerifyOAuthAccessTokenErrors> errors;
+    @Nullable
+    private final Data data;
 
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("RawResponse")
-    private Optional<? extends HttpResponse<InputStream>> rawResponse;
+    @Nullable
+    private final Throwable deserializationException;
 
-    @JsonCreator
     public VerifyOAuthAccessTokenResponseBody(
-            @JsonProperty("errors") List<VerifyOAuthAccessTokenErrors> errors,
-            @JsonProperty("RawResponse") Optional<? extends HttpResponse<InputStream>> rawResponse) {
-        super("API error occurred");
-        Utils.checkNotNull(errors, "errors");
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.errors = errors;
-        this.rawResponse = rawResponse;
-    }
-    
-    public VerifyOAuthAccessTokenResponseBody(
-            List<VerifyOAuthAccessTokenErrors> errors) {
-        this(errors, Optional.empty());
-    }
-
-    @JsonIgnore
-    public List<VerifyOAuthAccessTokenErrors> errors() {
-        return errors;
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
 
     /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<HttpResponse<InputStream>> rawResponse() {
-        return (Optional<HttpResponse<InputStream>>) rawResponse;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public VerifyOAuthAccessTokenResponseBody withErrors(List<VerifyOAuthAccessTokenErrors> errors) {
-        Utils.checkNotNull(errors, "errors");
-        this.errors = errors;
-        return this;
-    }
-
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    public VerifyOAuthAccessTokenResponseBody withRawResponse(HttpResponse<InputStream> rawResponse) {
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.rawResponse = Optional.ofNullable(rawResponse);
-        return this;
-    }
-
-
-    /**
-     * Raw HTTP response; suitable for custom response parsing
-     */
-    public VerifyOAuthAccessTokenResponseBody withRawResponse(Optional<? extends HttpResponse<InputStream>> rawResponse) {
-        Utils.checkNotNull(rawResponse, "rawResponse");
-        this.rawResponse = rawResponse;
-        return this;
-    }
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+    * Parse a response into an instance of VerifyOAuthAccessTokenResponseBody. If deserialization of the response body fails,
+    * the resulting VerifyOAuthAccessTokenResponseBody instance will have a null data() value and a non-null deserializationException().
+    */
+    public static VerifyOAuthAccessTokenResponseBody from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new VerifyOAuthAccessTokenResponseBody(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new VerifyOAuthAccessTokenResponseBody(response.statusCode(), null, response, null, e);
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        VerifyOAuthAccessTokenResponseBody other = (VerifyOAuthAccessTokenResponseBody) o;
-        return 
-            Utils.enhancedDeepEquals(this.errors, other.errors) &&
-            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            errors, rawResponse);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(VerifyOAuthAccessTokenResponseBody.class,
-                "errors", errors,
-                "rawResponse", rawResponse);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+    @Deprecated
+    public Optional<List<VerifyOAuthAccessTokenErrors>> errors() {
+        return data().map(Data::errors);
+    }
 
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
+    }
+
+    /**
+     * Returns the exception if an error occurs while deserializing the response body.
+     */
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
+    }
+    /**
+     * Data
+     * 
+     * <p>400 Bad Request
+     */
+    public static class Data {
+
+        @JsonProperty("errors")
         private List<VerifyOAuthAccessTokenErrors> errors;
 
-        private Optional<? extends HttpResponse<InputStream>> rawResponse;
+        @JsonCreator
+        public Data(
+                @JsonProperty("errors") List<VerifyOAuthAccessTokenErrors> errors) {
+            Utils.checkNotNull(errors, "errors");
+            this.errors = errors;
+        }
 
-        private Builder() {
-          // force use of static builder() method
+        @JsonIgnore
+        public List<VerifyOAuthAccessTokenErrors> errors() {
+            return errors;
+        }
+
+        public static Builder builder() {
+            return new Builder();
         }
 
 
-        public Builder errors(List<VerifyOAuthAccessTokenErrors> errors) {
+        public Data withErrors(List<VerifyOAuthAccessTokenErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
         }
 
-
-        /**
-         * Raw HTTP response; suitable for custom response parsing
-         */
-        public Builder rawResponse(HttpResponse<InputStream> rawResponse) {
-            Utils.checkNotNull(rawResponse, "rawResponse");
-            this.rawResponse = Optional.ofNullable(rawResponse);
-            return this;
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.errors, other.errors);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
+                errors);
+        }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "errors", errors);
         }
 
-        /**
-         * Raw HTTP response; suitable for custom response parsing
-         */
-        public Builder rawResponse(Optional<? extends HttpResponse<InputStream>> rawResponse) {
-            Utils.checkNotNull(rawResponse, "rawResponse");
-            this.rawResponse = rawResponse;
-            return this;
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private List<VerifyOAuthAccessTokenErrors> errors;
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            public Builder errors(List<VerifyOAuthAccessTokenErrors> errors) {
+                Utils.checkNotNull(errors, "errors");
+                this.errors = errors;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    errors);
+            }
+
         }
-
-        public VerifyOAuthAccessTokenResponseBody build() {
-
-            return new VerifyOAuthAccessTokenResponseBody(
-                errors, rawResponse);
-        }
-
     }
+
 }
 

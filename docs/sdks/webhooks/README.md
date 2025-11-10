@@ -97,7 +97,7 @@ public class Application {
 
 ## generateSvixAuthURL
 
-Generate a new url for accessing the Svix's management dashboard for that particular instance
+Generate a new URL for accessing the Svix's management dashboard for that particular instance
 
 ### Example Usage
 

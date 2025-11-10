@@ -19,6 +19,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * SignUp
@@ -135,6 +136,13 @@ public class SignUp {
     private Optional<Long> legalAcceptedAt;
 
     /**
+     * The user locale preference for the sign-up specified as a BCP-47 language tag.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("locale")
+    private JsonNullable<String> locale;
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -168,6 +176,7 @@ public class SignUp {
             @JsonProperty("created_user_id") Optional<String> createdUserId,
             @JsonProperty("abandon_at") long abandonAt,
             @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt,
+            @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("external_account") Optional<? extends SignUpExternalAccount> externalAccount) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -192,6 +201,7 @@ public class SignUp {
         Utils.checkNotNull(createdUserId, "createdUserId");
         Utils.checkNotNull(abandonAt, "abandonAt");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(externalAccount, "externalAccount");
         this.object = object;
         this.id = id;
@@ -216,6 +226,7 @@ public class SignUp {
         this.createdUserId = createdUserId;
         this.abandonAt = abandonAt;
         this.legalAcceptedAt = legalAcceptedAt;
+        this.locale = locale;
         this.externalAccount = externalAccount;
     }
     
@@ -238,7 +249,8 @@ public class SignUp {
             passwordEnabled, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), customAction,
             Optional.empty(), Optional.empty(), Optional.empty(),
-            abandonAt, Optional.empty(), Optional.empty());
+            abandonAt, Optional.empty(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -362,6 +374,14 @@ public class SignUp {
     @JsonIgnore
     public Optional<Long> legalAcceptedAt() {
         return legalAcceptedAt;
+    }
+
+    /**
+     * The user locale preference for the sign-up specified as a BCP-47 language tag.
+     */
+    @JsonIgnore
+    public JsonNullable<String> locale() {
+        return locale;
     }
 
     /**
@@ -612,6 +632,24 @@ public class SignUp {
     }
 
     /**
+     * The user locale preference for the sign-up specified as a BCP-47 language tag.
+     */
+    public SignUp withLocale(String locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = JsonNullable.of(locale);
+        return this;
+    }
+
+    /**
+     * The user locale preference for the sign-up specified as a BCP-47 language tag.
+     */
+    public SignUp withLocale(JsonNullable<String> locale) {
+        Utils.checkNotNull(locale, "locale");
+        this.locale = locale;
+        return this;
+    }
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -667,6 +705,7 @@ public class SignUp {
             Utils.enhancedDeepEquals(this.createdUserId, other.createdUserId) &&
             Utils.enhancedDeepEquals(this.abandonAt, other.abandonAt) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.externalAccount, other.externalAccount);
     }
     
@@ -680,7 +719,8 @@ public class SignUp {
             passwordEnabled, firstName, lastName,
             unsafeMetadata, publicMetadata, customAction,
             externalId, createdSessionId, createdUserId,
-            abandonAt, legalAcceptedAt, externalAccount);
+            abandonAt, legalAcceptedAt, locale,
+            externalAccount);
     }
     
     @Override
@@ -709,6 +749,7 @@ public class SignUp {
                 "createdUserId", createdUserId,
                 "abandonAt", abandonAt,
                 "legalAcceptedAt", legalAcceptedAt,
+                "locale", locale,
                 "externalAccount", externalAccount);
     }
 
@@ -760,6 +801,8 @@ public class SignUp {
         private Long abandonAt;
 
         private Optional<Long> legalAcceptedAt = Optional.empty();
+
+        private JsonNullable<String> locale = JsonNullable.undefined();
 
         @Deprecated
         private Optional<? extends SignUpExternalAccount> externalAccount = Optional.empty();
@@ -1012,6 +1055,25 @@ public class SignUp {
 
 
         /**
+         * The user locale preference for the sign-up specified as a BCP-47 language tag.
+         */
+        public Builder locale(String locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = JsonNullable.of(locale);
+            return this;
+        }
+
+        /**
+         * The user locale preference for the sign-up specified as a BCP-47 language tag.
+         */
+        public Builder locale(JsonNullable<String> locale) {
+            Utils.checkNotNull(locale, "locale");
+            this.locale = locale;
+            return this;
+        }
+
+
+        /**
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
@@ -1043,7 +1105,8 @@ public class SignUp {
                 passwordEnabled, firstName, lastName,
                 unsafeMetadata, publicMetadata, customAction,
                 externalId, createdSessionId, createdUserId,
-                abandonAt, legalAcceptedAt, externalAccount);
+                abandonAt, legalAcceptedAt, locale,
+                externalAccount);
         }
 
     }

@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.DeleteOrganizationLogo;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class DeleteOrganizationLogoRequestBuilder {
     private String organizationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteOrganizationLogoRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class DeleteOrganizationLogoRequestBuilder {
         return request;
     }
 
-    public DeleteOrganizationLogoResponse call() throws Exception {
+    public DeleteOrganizationLogoResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<DeleteOrganizationLogoRequest, DeleteOrganizationLogoResponse> operation
-              = new DeleteOrganizationLogo.Sync(sdkConfiguration, options);
+              = new DeleteOrganizationLogo.Sync(sdkConfiguration, options, _headers);
         DeleteOrganizationLogoRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

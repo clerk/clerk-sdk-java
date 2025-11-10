@@ -22,13 +22,14 @@ import com.clerk.backend_api.operations.CreateM2MToken;
 import com.clerk.backend_api.operations.GetM2MTokens;
 import com.clerk.backend_api.operations.RevokeM2MToken;
 import com.clerk.backend_api.operations.VerifyM2MToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class M2m {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     M2m(SDKConfiguration sdkConfiguration) {
@@ -53,9 +54,9 @@ public class M2m {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateM2MTokenResponse createToken(CreateM2MTokenRequestBody request) throws Exception {
+    public CreateM2MTokenResponse createToken(CreateM2MTokenRequestBody request) {
         return createToken(request, Optional.empty());
     }
 
@@ -67,11 +68,11 @@ public class M2m {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateM2MTokenResponse createToken(CreateM2MTokenRequestBody request, Optional<Options> options) throws Exception {
+    public CreateM2MTokenResponse createToken(CreateM2MTokenRequestBody request, Optional<Options> options) {
         RequestOperation<CreateM2MTokenRequestBody, CreateM2MTokenResponse> operation
-              = new CreateM2MToken.Sync(sdkConfiguration, options);
+              = new CreateM2MToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -82,8 +83,10 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated machine can be retrieved.
-     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be retrieved.
+     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated
+     * machine can be retrieved.
+     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be
+     * retrieved.
      * 
      * @return The call builder
      */
@@ -98,14 +101,16 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated machine can be retrieved.
-     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be retrieved.
+     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated
+     * machine can be retrieved.
+     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be
+     * retrieved.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetM2MTokensResponse listTokens(GetM2MTokensRequest request) throws Exception {
+    public GetM2MTokensResponse listTokens(GetM2MTokensRequest request) {
         return listTokens(request, Optional.empty());
     }
 
@@ -116,17 +121,19 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated machine can be retrieved.
-     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be retrieved.
+     * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated
+     * machine can be retrieved.
+     * - When fetching M2M tokens with a Clerk Secret Key, tokens for any machine in the instance can be
+     * retrieved.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetM2MTokensResponse listTokens(GetM2MTokensRequest request, Optional<Options> options) throws Exception {
+    public GetM2MTokensResponse listTokens(GetM2MTokensRequest request, Optional<Options> options) {
         RequestOperation<GetM2MTokensRequest, GetM2MTokensResponse> operation
-              = new GetM2MTokens.Sync(sdkConfiguration, options);
+              = new GetM2MTokens.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -137,7 +144,8 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine associated with the Machine Secret Key.
+     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine
+     * associated with the Machine Secret Key.
      * - When revoking a M2M Token with a Clerk Secret Key, any token on the Instance can be revoked.
      * 
      * @return The call builder
@@ -153,15 +161,16 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine associated with the Machine Secret Key.
+     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine
+     * associated with the Machine Secret Key.
      * - When revoking a M2M Token with a Clerk Secret Key, any token on the Instance can be revoked.
      * 
      * @param m2mTokenId 
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeM2MTokenResponse revokeToken(String m2mTokenId, RevokeM2MTokenRequestBody requestBody) throws Exception {
+    public RevokeM2MTokenResponse revokeToken(String m2mTokenId, RevokeM2MTokenRequestBody requestBody) {
         return revokeToken(m2mTokenId, requestBody, Optional.empty());
     }
 
@@ -172,18 +181,19 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine associated with the Machine Secret Key.
+     * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine
+     * associated with the Machine Secret Key.
      * - When revoking a M2M Token with a Clerk Secret Key, any token on the Instance can be revoked.
      * 
      * @param m2mTokenId 
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RevokeM2MTokenResponse revokeToken(
             String m2mTokenId, RevokeM2MTokenRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RevokeM2MTokenRequest request =
             RevokeM2MTokenRequest
                 .builder()
@@ -191,7 +201,7 @@ public class M2m {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<RevokeM2MTokenRequest, RevokeM2MTokenResponse> operation
-              = new RevokeM2MToken.Sync(sdkConfiguration, options);
+              = new RevokeM2MToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -202,7 +212,8 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the Machine associated with the Machine Secret Key.
+     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the
+     * Machine associated with the Machine Secret Key.
      * - When verifying a M2M Token with a Clerk Secret Key, any token on the Instance can be verified.
      * 
      * @return The call builder
@@ -218,14 +229,15 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the Machine associated with the Machine Secret Key.
+     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the
+     * Machine associated with the Machine Secret Key.
      * - When verifying a M2M Token with a Clerk Secret Key, any token on the Instance can be verified.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyM2MTokenResponse verifyToken(VerifyM2MTokenRequestBody request) throws Exception {
+    public VerifyM2MTokenResponse verifyToken(VerifyM2MTokenRequestBody request) {
         return verifyToken(request, Optional.empty());
     }
 
@@ -236,17 +248,18 @@ public class M2m {
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
-     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the Machine associated with the Machine Secret Key.
+     * <p>- When verifying a M2M Token with a Machine Secret Key, the token must be granted access to the
+     * Machine associated with the Machine Secret Key.
      * - When verifying a M2M Token with a Clerk Secret Key, any token on the Instance can be verified.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyM2MTokenResponse verifyToken(VerifyM2MTokenRequestBody request, Optional<Options> options) throws Exception {
+    public VerifyM2MTokenResponse verifyToken(VerifyM2MTokenRequestBody request, Optional<Options> options) {
         RequestOperation<VerifyM2MTokenRequestBody, VerifyM2MTokenResponse> operation
-              = new VerifyM2MToken.Sync(sdkConfiguration, options);
+              = new VerifyM2MToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

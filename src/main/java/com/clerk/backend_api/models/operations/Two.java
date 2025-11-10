@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
@@ -26,7 +27,8 @@ public class Two {
     private String name;
 
     /**
-     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+     * Connection.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -36,7 +38,8 @@ public class Two {
     private Optional<String> domain;
 
     /**
-     * The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
+     * The domains of your organization. Sign in flows using an email with one of these domains, will use
+     * this SAML Connection.
      */
     @JsonProperty("domains")
     private List<String> domains;
@@ -69,14 +72,16 @@ public class Two {
     private JsonNullable<String> idpCertificate;
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
     private JsonNullable<String> idpMetadataUrl;
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata")
@@ -96,6 +101,13 @@ public class Two {
     @JsonProperty("attribute_mapping")
     private JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping;
 
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("force_authn")
+    private Optional<Boolean> forceAuthn;
+
     @JsonCreator
     public Two(
             @JsonProperty("name") String name,
@@ -108,7 +120,8 @@ public class Two {
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("organization_id") JsonNullable<String> organizationId,
-            @JsonProperty("attribute_mapping") JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping) {
+            @JsonProperty("attribute_mapping") JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping,
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(domains, "domains");
@@ -120,6 +133,7 @@ public class Two {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
         this.name = name;
         this.domain = domain;
         this.domains = domains;
@@ -131,6 +145,7 @@ public class Two {
         this.idpMetadata = idpMetadata;
         this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
+        this.forceAuthn = forceAuthn;
     }
     
     public Two(
@@ -140,7 +155,7 @@ public class Two {
         this(name, Optional.empty(), domains,
             provider, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -152,7 +167,8 @@ public class Two {
     }
 
     /**
-     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+     * Connection.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -163,7 +179,8 @@ public class Two {
     }
 
     /**
-     * The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
+     * The domains of your organization. Sign in flows using an email with one of these domains, will use
+     * this SAML Connection.
      */
     @JsonIgnore
     public List<String> domains() {
@@ -203,7 +220,8 @@ public class Two {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonIgnore
     public JsonNullable<String> idpMetadataUrl() {
@@ -211,7 +229,8 @@ public class Two {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     @JsonIgnore
     public JsonNullable<String> idpMetadata() {
@@ -235,6 +254,14 @@ public class Two {
         return (JsonNullable<RequestBodyAttributeMapping>) attributeMapping;
     }
 
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonIgnore
+    public Optional<Boolean> forceAuthn() {
+        return forceAuthn;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -250,7 +277,8 @@ public class Two {
     }
 
     /**
-     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+     * Connection.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -263,7 +291,8 @@ public class Two {
 
 
     /**
-     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+     * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+     * Connection.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -275,7 +304,8 @@ public class Two {
     }
 
     /**
-     * The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
+     * The domains of your organization. Sign in flows using an email with one of these domains, will use
+     * this SAML Connection.
      */
     public Two withDomains(List<String> domains) {
         Utils.checkNotNull(domains, "domains");
@@ -347,7 +377,8 @@ public class Two {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties
      */
     public Two withIdpMetadataUrl(String idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -356,7 +387,8 @@ public class Two {
     }
 
     /**
-     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+     * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+     * individual properties
      */
     public Two withIdpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -365,7 +397,8 @@ public class Two {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     public Two withIdpMetadata(String idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -374,7 +407,8 @@ public class Two {
     }
 
     /**
-     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+     * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+     * individual properties
      */
     public Two withIdpMetadata(JsonNullable<String> idpMetadata) {
         Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -418,6 +452,25 @@ public class Two {
         return this;
     }
 
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    public Two withForceAuthn(boolean forceAuthn) {
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
+        this.forceAuthn = Optional.ofNullable(forceAuthn);
+        return this;
+    }
+
+
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    public Two withForceAuthn(Optional<Boolean> forceAuthn) {
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
+        this.forceAuthn = forceAuthn;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -438,7 +491,8 @@ public class Two {
             Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
-            Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping);
+            Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
     }
     
     @Override
@@ -447,7 +501,7 @@ public class Two {
             name, domain, domains,
             provider, idpEntityId, idpSsoUrl,
             idpCertificate, idpMetadataUrl, idpMetadata,
-            organizationId, attributeMapping);
+            organizationId, attributeMapping, forceAuthn);
     }
     
     @Override
@@ -463,7 +517,8 @@ public class Two {
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
                 "organizationId", organizationId,
-                "attributeMapping", attributeMapping);
+                "attributeMapping", attributeMapping,
+                "forceAuthn", forceAuthn);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -492,6 +547,8 @@ public class Two {
 
         private JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping = JsonNullable.undefined();
 
+        private Optional<Boolean> forceAuthn = Optional.empty();
+
         private Builder() {
           // force use of static builder() method
         }
@@ -508,7 +565,8 @@ public class Two {
 
 
         /**
-         * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+         * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+         * Connection.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
@@ -520,7 +578,8 @@ public class Two {
         }
 
         /**
-         * The domain of your organization. Sign in flows using an email with this domain, will use this SAML Connection.
+         * The domain of your organization. Sign in flows using an email with this domain, will use this SAML
+         * Connection.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
@@ -533,7 +592,8 @@ public class Two {
 
 
         /**
-         * The domains of your organization. Sign in flows using an email with one of these domains, will use this SAML Connection.
+         * The domains of your organization. Sign in flows using an email with one of these domains, will use
+         * this SAML Connection.
          */
         public Builder domains(List<String> domains) {
             Utils.checkNotNull(domains, "domains");
@@ -610,7 +670,8 @@ public class Two {
 
 
         /**
-         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadataUrl(String idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -619,7 +680,8 @@ public class Two {
         }
 
         /**
-         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding individual properties
+         * The URL which serves the IdP metadata. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadataUrl(JsonNullable<String> idpMetadataUrl) {
             Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
@@ -629,7 +691,8 @@ public class Two {
 
 
         /**
-         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadata(String idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -638,7 +701,8 @@ public class Two {
         }
 
         /**
-         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding individual properties
+         * The XML content of the IdP metadata file. If present, it takes priority over the corresponding
+         * individual properties
          */
         public Builder idpMetadata(JsonNullable<String> idpMetadata) {
             Utils.checkNotNull(idpMetadata, "idpMetadata");
@@ -684,13 +748,32 @@ public class Two {
             return this;
         }
 
+
+        /**
+         * Enable or deactivate ForceAuthn
+         */
+        public Builder forceAuthn(boolean forceAuthn) {
+            Utils.checkNotNull(forceAuthn, "forceAuthn");
+            this.forceAuthn = Optional.ofNullable(forceAuthn);
+            return this;
+        }
+
+        /**
+         * Enable or deactivate ForceAuthn
+         */
+        public Builder forceAuthn(Optional<Boolean> forceAuthn) {
+            Utils.checkNotNull(forceAuthn, "forceAuthn");
+            this.forceAuthn = forceAuthn;
+            return this;
+        }
+
         public Two build() {
 
             return new Two(
                 name, domain, domains,
                 provider, idpEntityId, idpSsoUrl,
                 idpCertificate, idpMetadataUrl, idpMetadata,
-                organizationId, attributeMapping);
+                organizationId, attributeMapping, forceAuthn);
         }
 
     }

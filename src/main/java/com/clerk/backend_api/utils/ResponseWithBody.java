@@ -39,6 +39,19 @@ public class ResponseWithBody<R, B> implements HttpResponse<B> {
         this.body = bodyMapper.apply(original.body());
     }
 
+    /**
+     * Constructs a new {@code ResponseWithBody} by wrapping an existing {@link HttpResponse} with
+     * a pre-computed body value.
+     *
+     * @param original the original response to wrap
+     * @param body     the pre-computed body value
+     */
+    public ResponseWithBody(HttpResponse<R> original, B body) {
+        this.original = original;
+        this.body = body;
+        this.bodyMapper = null;
+    }
+
     @Override
     public int statusCode() {
         return original.statusCode();

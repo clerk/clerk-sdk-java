@@ -5,6 +5,7 @@ package com.clerk.backend_api.operations;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import static com.clerk.backend_api.utils.Retries.NonRetryableException;
+import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
@@ -16,6 +17,7 @@ import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Hook.AfterErrorContextImpl;
 import com.clerk.backend_api.utils.Hook.AfterSuccessContextImpl;
 import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
@@ -28,6 +30,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
+import java.lang.IllegalArgumentException;
 import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
@@ -35,7 +38,6 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 
 
 public class UpdateOAuthApplication {
@@ -47,9 +49,13 @@ public class UpdateOAuthApplication {
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
+        final Headers _headers;
 
-        public Base(SDKConfiguration sdkConfiguration, Optional<Options> options) {
+        public Base(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
             this.sdkConfiguration = sdkConfiguration;
+            this._headers =_headers;
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             options
@@ -78,7 +84,7 @@ public class UpdateOAuthApplication {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "UpdateOAuthApplication",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -87,7 +93,7 @@ public class UpdateOAuthApplication {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "UpdateOAuthApplication",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -96,13 +102,12 @@ public class UpdateOAuthApplication {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "UpdateOAuthApplication",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
-
-        HttpRequest buildRequest(UpdateOAuthApplicationRequest request) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
-                    UpdateOAuthApplicationRequest.class,
+                    klass,
                     this.baseUrl,
                     "/oauth_applications/{oauth_application_id}",
                     request, null);
@@ -110,19 +115,19 @@ public class UpdateOAuthApplication {
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
-                    new TypeReference<Object>() {
-                    });
+                    typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
                     "requestBody",
                     "json",
                     false);
             if (serializedRequestBody == null) {
-                throw new Exception("Request body is required");
+                throw new IllegalArgumentException("Request body is required");
             }
             req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
+            _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
 
             return req.build();
@@ -131,12 +136,16 @@ public class UpdateOAuthApplication {
 
     public static class Sync extends Base
             implements RequestOperation<UpdateOAuthApplicationRequest, UpdateOAuthApplicationResponse> {
-        public Sync(SDKConfiguration sdkConfiguration, Optional<Options> options) {
-            super(sdkConfiguration, options);
+        public Sync(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
+            super(
+                  sdkConfiguration, options,
+                  _headers);
         }
 
         private HttpRequest onBuildRequest(UpdateOAuthApplicationRequest request) throws Exception {
-            HttpRequest req = buildRequest(request);
+            HttpRequest req = buildRequest(request, UpdateOAuthApplicationRequest.class, new TypeReference<UpdateOAuthApplicationRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -152,7 +161,7 @@ public class UpdateOAuthApplication {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(UpdateOAuthApplicationRequest request) throws Exception {
+        public HttpResponse<InputStream> doRequest(UpdateOAuthApplicationRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -174,12 +183,12 @@ public class UpdateOAuthApplication {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public UpdateOAuthApplicationResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public UpdateOAuthApplicationResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -195,60 +204,27 @@ public class UpdateOAuthApplication {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    OAuthApplication out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withOAuthApplication(out);
-                    return res;
+                    return res.withOAuthApplication(Utils.unmarshal(response, new TypeReference<OAuthApplication>() {}));
                 } else {
-                    throw new SDKError(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404", "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    ClerkErrors out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw ClerkErrors.from(response);
                 } else {
-                    throw new SDKError(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new SDKError(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw SDKError.from("API error occurred", response);
             }
-            
-            throw new SDKError(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw SDKError.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

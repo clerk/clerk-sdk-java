@@ -24,7 +24,7 @@ public class Payer {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
-    private CommerceSubscriptionItemPayerObject object;
+    private SchemasCommerceSubscriptionItemPayerObject object;
 
     /**
      * Unique identifier for the payer.
@@ -97,7 +97,7 @@ public class Payer {
 
     @JsonCreator
     public Payer(
-            @JsonProperty("object") CommerceSubscriptionItemPayerObject object,
+            @JsonProperty("object") SchemasCommerceSubscriptionItemPayerObject object,
             @JsonProperty("id") String id,
             @JsonProperty("instance_id") String instanceId,
             @JsonProperty("user_id") Optional<String> userId,
@@ -136,7 +136,7 @@ public class Payer {
     }
     
     public Payer(
-            CommerceSubscriptionItemPayerObject object,
+            SchemasCommerceSubscriptionItemPayerObject object,
             String id,
             String instanceId,
             String firstName,
@@ -155,7 +155,7 @@ public class Payer {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonIgnore
-    public CommerceSubscriptionItemPayerObject object() {
+    public SchemasCommerceSubscriptionItemPayerObject object() {
         return object;
     }
 
@@ -255,7 +255,7 @@ public class Payer {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    public Payer withObject(CommerceSubscriptionItemPayerObject object) {
+    public Payer withObject(SchemasCommerceSubscriptionItemPayerObject object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -443,7 +443,7 @@ public class Payer {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private CommerceSubscriptionItemPayerObject object;
+        private SchemasCommerceSubscriptionItemPayerObject object;
 
         private String id;
 
@@ -475,7 +475,7 @@ public class Payer {
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
-        public Builder object(CommerceSubscriptionItemPayerObject object) {
+        public Builder object(SchemasCommerceSubscriptionItemPayerObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
