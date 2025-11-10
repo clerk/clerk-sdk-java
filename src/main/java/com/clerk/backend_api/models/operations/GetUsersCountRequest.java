@@ -35,9 +35,9 @@ public class GetUsersCountRequest {
     private Optional<? extends List<String>> phoneNumber;
 
     /**
-     * Counts users with the specified external ids.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Counts users with the specified external IDs.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=external_id")
     private Optional<? extends List<String>> externalId;
@@ -53,31 +53,34 @@ public class GetUsersCountRequest {
     /**
      * Counts users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=web3_wallet")
     private Optional<? extends List<String>> web3Wallet;
 
     /**
-     * Counts users with the user ids specified.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Counts users with the user IDs specified.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
     private Optional<? extends List<String>> userId;
 
     /**
-     * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-     * can be prepended to the id, which denote whether the respective organization should be included or
-     * excluded from the result set. Accepts up to 100 organization ids.
+     * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+     * and `-`
+     * can be prepended to the ID, which denote whether the respective organization should be included or
+     * excluded from the result set. Accepts up to 100 organization IDs.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=organization_id")
     private Optional<? extends List<String>> organizationId;
 
     /**
      * Counts users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
@@ -134,7 +137,8 @@ public class GetUsersCountRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -247,9 +251,9 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Counts users with the specified external ids.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Counts users with the specified external IDs.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -271,7 +275,7 @@ public class GetUsersCountRequest {
     /**
      * Counts users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -280,9 +284,9 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Counts users with the user ids specified.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Counts users with the user IDs specified.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -291,9 +295,10 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-     * can be prepended to the id, which denote whether the respective organization should be included or
-     * excluded from the result set. Accepts up to 100 organization ids.
+     * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+     * and `-`
+     * can be prepended to the ID, which denote whether the respective organization should be included or
+     * excluded from the result set. Accepts up to 100 organization IDs.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -303,8 +308,10 @@ public class GetUsersCountRequest {
 
     /**
      * Counts users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -377,7 +384,8 @@ public class GetUsersCountRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -458,9 +466,9 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Counts users with the specified external ids.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Counts users with the specified external IDs.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     public GetUsersCountRequest withExternalId(List<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -470,9 +478,9 @@ public class GetUsersCountRequest {
 
 
     /**
-     * Counts users with the specified external ids.
-     * Accepts up to 100 external ids.
-     * Any external ids not found are ignored.
+     * Counts users with the specified external IDs.
+     * Accepts up to 100 external IDs.
+     * Any external IDs not found are ignored.
      */
     public GetUsersCountRequest withExternalId(Optional<? extends List<String>> externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -506,7 +514,7 @@ public class GetUsersCountRequest {
     /**
      * Counts users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public GetUsersCountRequest withWeb3Wallet(List<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -518,7 +526,7 @@ public class GetUsersCountRequest {
     /**
      * Counts users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public GetUsersCountRequest withWeb3Wallet(Optional<? extends List<String>> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -527,9 +535,9 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Counts users with the user ids specified.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Counts users with the user IDs specified.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     public GetUsersCountRequest withUserId(List<String> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -539,9 +547,9 @@ public class GetUsersCountRequest {
 
 
     /**
-     * Counts users with the user ids specified.
-     * Accepts up to 100 user ids.
-     * Any user ids not found are ignored.
+     * Counts users with the user IDs specified.
+     * Accepts up to 100 user IDs.
+     * Any user IDs not found are ignored.
      */
     public GetUsersCountRequest withUserId(Optional<? extends List<String>> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -550,9 +558,10 @@ public class GetUsersCountRequest {
     }
 
     /**
-     * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-     * can be prepended to the id, which denote whether the respective organization should be included or
-     * excluded from the result set. Accepts up to 100 organization ids.
+     * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+     * and `-`
+     * can be prepended to the ID, which denote whether the respective organization should be included or
+     * excluded from the result set. Accepts up to 100 organization IDs.
      */
     public GetUsersCountRequest withOrganizationId(List<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -562,9 +571,10 @@ public class GetUsersCountRequest {
 
 
     /**
-     * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-     * can be prepended to the id, which denote whether the respective organization should be included or
-     * excluded from the result set. Accepts up to 100 organization ids.
+     * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+     * and `-`
+     * can be prepended to the ID, which denote whether the respective organization should be included or
+     * excluded from the result set. Accepts up to 100 organization IDs.
      */
     public GetUsersCountRequest withOrganizationId(Optional<? extends List<String>> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -574,8 +584,10 @@ public class GetUsersCountRequest {
 
     /**
      * Counts users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public GetUsersCountRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -586,8 +598,10 @@ public class GetUsersCountRequest {
 
     /**
      * Counts users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public GetUsersCountRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -746,7 +760,8 @@ public class GetUsersCountRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -761,7 +776,8 @@ public class GetUsersCountRequest {
 
     /**
      * Returns users that had session activity since the given date.
-     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+     * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+     * current day.
      * Deprecated in favor of `last_active_at_after`.
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -971,9 +987,9 @@ public class GetUsersCountRequest {
 
 
         /**
-         * Counts users with the specified external ids.
-         * Accepts up to 100 external ids.
-         * Any external ids not found are ignored.
+         * Counts users with the specified external IDs.
+         * Accepts up to 100 external IDs.
+         * Any external IDs not found are ignored.
          */
         public Builder externalId(List<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -982,9 +998,9 @@ public class GetUsersCountRequest {
         }
 
         /**
-         * Counts users with the specified external ids.
-         * Accepts up to 100 external ids.
-         * Any external ids not found are ignored.
+         * Counts users with the specified external IDs.
+         * Accepts up to 100 external IDs.
+         * Any external IDs not found are ignored.
          */
         public Builder externalId(Optional<? extends List<String>> externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -1019,7 +1035,7 @@ public class GetUsersCountRequest {
         /**
          * Counts users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(List<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1030,7 +1046,7 @@ public class GetUsersCountRequest {
         /**
          * Counts users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(Optional<? extends List<String>> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1040,9 +1056,9 @@ public class GetUsersCountRequest {
 
 
         /**
-         * Counts users with the user ids specified.
-         * Accepts up to 100 user ids.
-         * Any user ids not found are ignored.
+         * Counts users with the user IDs specified.
+         * Accepts up to 100 user IDs.
+         * Any user IDs not found are ignored.
          */
         public Builder userId(List<String> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -1051,9 +1067,9 @@ public class GetUsersCountRequest {
         }
 
         /**
-         * Counts users with the user ids specified.
-         * Accepts up to 100 user ids.
-         * Any user ids not found are ignored.
+         * Counts users with the user IDs specified.
+         * Accepts up to 100 user IDs.
+         * Any user IDs not found are ignored.
          */
         public Builder userId(Optional<? extends List<String>> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -1063,9 +1079,10 @@ public class GetUsersCountRequest {
 
 
         /**
-         * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-         * can be prepended to the id, which denote whether the respective organization should be included or
-         * excluded from the result set. Accepts up to 100 organization ids.
+         * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+         * and `-`
+         * can be prepended to the ID, which denote whether the respective organization should be included or
+         * excluded from the result set. Accepts up to 100 organization IDs.
          */
         public Builder organizationId(List<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -1074,9 +1091,10 @@ public class GetUsersCountRequest {
         }
 
         /**
-         * Returns users that have memberships to the given organizations. For each organization id, the `+` and `-`
-         * can be prepended to the id, which denote whether the respective organization should be included or
-         * excluded from the result set. Accepts up to 100 organization ids.
+         * Returns users that have memberships to the given organizations. For each organization ID, the `+`
+         * and `-`
+         * can be prepended to the ID, which denote whether the respective organization should be included or
+         * excluded from the result set. Accepts up to 100 organization IDs.
          */
         public Builder organizationId(Optional<? extends List<String>> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -1087,8 +1105,10 @@ public class GetUsersCountRequest {
 
         /**
          * Counts users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -1098,8 +1118,10 @@ public class GetUsersCountRequest {
 
         /**
          * Counts users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
@@ -1259,7 +1281,8 @@ public class GetUsersCountRequest {
 
         /**
          * Returns users that had session activity since the given date.
-         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+         * current day.
          * Deprecated in favor of `last_active_at_after`.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -1273,7 +1296,8 @@ public class GetUsersCountRequest {
 
         /**
          * Returns users that had session activity since the given date.
-         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the current day.
+         * Example: use 1700690400000 to retrieve users that had session activity from 2023-11-23 until the
+         * current day.
          * Deprecated in favor of `last_active_at_after`.
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.

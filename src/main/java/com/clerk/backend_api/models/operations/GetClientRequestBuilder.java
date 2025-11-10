@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetClient;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -19,6 +19,7 @@ public class GetClientRequestBuilder {
     private String clientId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetClientRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -50,13 +51,13 @@ public class GetClientRequestBuilder {
         return request;
     }
 
-    public GetClientResponse call() throws Exception {
+    public GetClientResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetClientRequest, GetClientResponse> operation
-              = new GetClient.Sync(sdkConfiguration, options);
+              = new GetClient.Sync(sdkConfiguration, options, _headers);
         GetClientRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

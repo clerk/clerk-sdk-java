@@ -27,7 +27,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
@@ -85,7 +85,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
@@ -140,7 +140,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ClerkErrors, ClerkErrors, Exception {
+    public static void main(String[] args) throws ClerkErrors, Exception {
 
         Clerk sdk = Clerk.builder()
                 .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))

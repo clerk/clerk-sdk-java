@@ -8,12 +8,13 @@ import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 import com.clerk.backend_api.models.operations.GetJWKSRequestBuilder;
 import com.clerk.backend_api.models.operations.GetJWKSResponse;
 import com.clerk.backend_api.operations.GetJWKS;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class Jwks {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Jwks(SDKConfiguration sdkConfiguration) {
@@ -37,9 +38,9 @@ public class Jwks {
      * <p>Retrieve the JSON Web Key Set of the instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetJWKSResponse getJWKSDirect() throws Exception {
+    public GetJWKSResponse getJWKSDirect() {
         return getJWKS(Optional.empty());
     }
 
@@ -50,11 +51,11 @@ public class Jwks {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetJWKSResponse getJWKS(Optional<Options> options) throws Exception {
+    public GetJWKSResponse getJWKS(Optional<Options> options) {
         RequestlessOperation<GetJWKSResponse> operation
-            = new GetJWKS.Sync(sdkConfiguration, options);
+            = new GetJWKS.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 

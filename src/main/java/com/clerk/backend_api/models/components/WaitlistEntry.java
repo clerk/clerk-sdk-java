@@ -36,7 +36,8 @@ public class WaitlistEntry {
     private WaitlistEntryStatus status;
 
     /**
-     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+     * are unavailable for other actions.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("is_locked")
@@ -120,7 +121,8 @@ public class WaitlistEntry {
     }
 
     /**
-     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+     * are unavailable for other actions.
      */
     @JsonIgnore
     public Optional<Boolean> isLocked() {
@@ -179,7 +181,8 @@ public class WaitlistEntry {
     }
 
     /**
-     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+     * are unavailable for other actions.
      */
     public WaitlistEntry withIsLocked(boolean isLocked) {
         Utils.checkNotNull(isLocked, "isLocked");
@@ -189,7 +192,8 @@ public class WaitlistEntry {
 
 
     /**
-     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+     * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+     * are unavailable for other actions.
      */
     public WaitlistEntry withIsLocked(Optional<Boolean> isLocked) {
         Utils.checkNotNull(isLocked, "isLocked");
@@ -321,7 +325,8 @@ public class WaitlistEntry {
 
 
         /**
-         * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+         * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+         * are unavailable for other actions.
          */
         public Builder isLocked(boolean isLocked) {
             Utils.checkNotNull(isLocked, "isLocked");
@@ -330,7 +335,8 @@ public class WaitlistEntry {
         }
 
         /**
-         * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and are unavailable for other actions.
+         * Indicates if the waitlist entry is locked. Locked entries are being processed in a batch action and
+         * are unavailable for other actions.
          */
         public Builder isLocked(Optional<Boolean> isLocked) {
             Utils.checkNotNull(isLocked, "isLocked");

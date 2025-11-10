@@ -27,13 +27,14 @@ import com.clerk.backend_api.operations.DeleteOrganizationDomain;
 import com.clerk.backend_api.operations.ListAllOrganizationDomains;
 import com.clerk.backend_api.operations.ListOrganizationDomains;
 import com.clerk.backend_api.operations.UpdateOrganizationDomain;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class OrganizationDomains {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     OrganizationDomains(SDKConfiguration sdkConfiguration) {
@@ -43,7 +44,8 @@ public class OrganizationDomains {
     /**
      * Create a new organization domain.
      * 
-     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to unverified.
+     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to
+     * unverified.
      * 
      * @return The call builder
      */
@@ -54,31 +56,33 @@ public class OrganizationDomains {
     /**
      * Create a new organization domain.
      * 
-     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to unverified.
+     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to
+     * unverified.
      * 
      * @param organizationId The ID of the organization where the new domain will be created.
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateOrganizationDomainResponse create(String organizationId, CreateOrganizationDomainRequestBody requestBody) throws Exception {
+    public CreateOrganizationDomainResponse create(String organizationId, CreateOrganizationDomainRequestBody requestBody) {
         return create(organizationId, requestBody, Optional.empty());
     }
 
     /**
      * Create a new organization domain.
      * 
-     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to unverified.
+     * <p>Creates a new organization domain. By default the domain is verified, but can be optionally set to
+     * unverified.
      * 
      * @param organizationId The ID of the organization where the new domain will be created.
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateOrganizationDomainResponse create(
             String organizationId, CreateOrganizationDomainRequestBody requestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CreateOrganizationDomainRequest request =
             CreateOrganizationDomainRequest
                 .builder()
@@ -86,7 +90,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<CreateOrganizationDomainRequest, CreateOrganizationDomainResponse> operation
-              = new CreateOrganizationDomain.Sync(sdkConfiguration, options);
+              = new CreateOrganizationDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -108,9 +112,9 @@ public class OrganizationDomains {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request) throws Exception {
+    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request) {
         return list(request, Optional.empty());
     }
 
@@ -122,11 +126,11 @@ public class OrganizationDomains {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request, Optional<Options> options) throws Exception {
+    public ListOrganizationDomainsResponse list(ListOrganizationDomainsRequest request, Optional<Options> options) {
         RequestOperation<ListOrganizationDomainsRequest, ListOrganizationDomainsResponse> operation
-              = new ListOrganizationDomains.Sync(sdkConfiguration, options);
+              = new ListOrganizationDomains.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -146,15 +150,15 @@ public class OrganizationDomains {
      * 
      * <p>Updates the properties of an existing organization domain.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param requestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
             String organizationId, String domainId,
-            UpdateOrganizationDomainRequestBody requestBody) throws Exception {
+            UpdateOrganizationDomainRequestBody requestBody) {
         return update(organizationId, domainId, requestBody,
             Optional.empty());
     }
@@ -164,16 +168,16 @@ public class OrganizationDomains {
      * 
      * <p>Updates the properties of an existing organization domain.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateOrganizationDomainResponse update(
             String organizationId, String domainId,
-            UpdateOrganizationDomainRequestBody requestBody, Optional<Options> options) throws Exception {
+            UpdateOrganizationDomainRequestBody requestBody, Optional<Options> options) {
         UpdateOrganizationDomainRequest request =
             UpdateOrganizationDomainRequest
                 .builder()
@@ -182,7 +186,7 @@ public class OrganizationDomains {
                 .requestBody(requestBody)
                 .build();
         RequestOperation<UpdateOrganizationDomainRequest, UpdateOrganizationDomainResponse> operation
-              = new UpdateOrganizationDomain.Sync(sdkConfiguration, options);
+              = new UpdateOrganizationDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -202,12 +206,12 @@ public class OrganizationDomains {
      * 
      * <p>Removes the given domain from the organization.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteOrganizationDomainResponse delete(String organizationId, String domainId) throws Exception {
+    public DeleteOrganizationDomainResponse delete(String organizationId, String domainId) {
         return delete(organizationId, domainId, Optional.empty());
     }
 
@@ -216,15 +220,15 @@ public class OrganizationDomains {
      * 
      * <p>Removes the given domain from the organization.
      * 
-     * @param organizationId The ID of the organization the domain belongs to
+     * @param organizationId The ID of the organization to which the domain belongs
      * @param domainId The ID of the domain
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteOrganizationDomainResponse delete(
             String organizationId, String domainId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         DeleteOrganizationDomainRequest request =
             DeleteOrganizationDomainRequest
                 .builder()
@@ -232,7 +236,7 @@ public class OrganizationDomains {
                 .domainId(domainId)
                 .build();
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
-              = new DeleteOrganizationDomain.Sync(sdkConfiguration, options);
+              = new DeleteOrganizationDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -264,9 +268,9 @@ public class OrganizationDomains {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request) throws Exception {
+    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request) {
         return listAll(request, Optional.empty());
     }
 
@@ -283,11 +287,11 @@ public class OrganizationDomains {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request, Optional<Options> options) throws Exception {
+    public ListAllOrganizationDomainsResponse listAll(ListAllOrganizationDomainsRequest request, Optional<Options> options) {
         RequestOperation<ListAllOrganizationDomainsRequest, ListAllOrganizationDomainsResponse> operation
-              = new ListAllOrganizationDomains.Sync(sdkConfiguration, options);
+              = new ListAllOrganizationDomains.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -14,6 +14,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -43,65 +44,40 @@ public class CommerceSubscriptionItem {
     @JsonProperty("status")
     private CommerceSubscriptionItemStatus status;
 
-    /**
-     * Credit information (only available in PaymentAttempt events).
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credit")
-    private JsonNullable<? extends Credit> credit;
+    private Optional<? extends CommerceSubscriptionCreditResponse> credit;
 
     /**
      * Unique identifier for the associated plan.
      */
-    @JsonProperty("plan_id")
-    private String planId;
-
-    /**
-     * The associated commerce plan.
-     */
     @JsonInclude(Include.ALWAYS)
-    @JsonProperty("plan")
-    private Optional<? extends Plan> plan;
+    @JsonProperty("plan_id")
+    private Optional<String> planId;
 
     /**
-     * The billing period for this subscription.
+     * The associated plan.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("plan")
+    private JsonNullable<? extends Plan> plan;
+
+    /**
+     * The billing period for this subscription item.
      */
     @JsonProperty("plan_period")
     private PlanPeriod planPeriod;
 
-    /**
-     * Unique identifier for the payment source.
-     */
-    @JsonProperty("payment_source_id")
-    private String paymentSourceId;
 
-    /**
-     * The payment source associated with this subscription.
-     */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("payment_source")
-    private JsonNullable<? extends PaymentSource> paymentSource;
+    @JsonProperty("payment_method")
+    private Optional<? extends CommercePaymentMethodResponse> paymentMethod;
 
-    /**
-     * Total amount paid over the lifetime of this subscription.
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lifetime_paid")
-    private JsonNullable<? extends LifetimePaid> lifetimePaid;
-
-    /**
-     * Current amount for this subscription.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("amount")
-    private JsonNullable<? extends Amount> amount;
-
-    /**
-     * Information about the next invoice.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("next_invoice")
-    private JsonNullable<? extends NextInvoice> nextInvoice;
+    private Optional<? extends CommerceMoneyResponse> lifetimePaid;
 
     /**
      * Information about the next payment.
@@ -116,15 +92,13 @@ public class CommerceSubscriptionItem {
     @JsonProperty("payer_id")
     private String payerId;
 
-    /**
-     * The payer associated with this subscription.
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payer")
-    private JsonNullable<? extends Payer> payer;
+    private Optional<? extends CommercePayerResponse> payer;
 
     /**
-     * Whether this subscription is currently on a free trial.
+     * Whether this subscription item includes a free trial.
      */
     @JsonProperty("is_free_trial")
     private boolean isFreeTrial;
@@ -132,55 +106,57 @@ public class CommerceSubscriptionItem {
     /**
      * Unix timestamp (in milliseconds) when the current period started.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("period_start")
-    private JsonNullable<Long> periodStart;
+    private long periodStart;
 
     /**
      * Unix timestamp (in milliseconds) when the current period ends.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("period_end")
-    private JsonNullable<Long> periodEnd;
+    private Optional<Long> periodEnd;
 
     /**
-     * Date used for proration calculations.
+     * The day the subscription item was prorated from. Only available in some responses.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proration_date")
-    private String prorationDate;
+    private Optional<LocalDate> prorationDate;
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was canceled.
+     * Unix timestamp (in milliseconds) when the subscription item was canceled.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("canceled_at")
-    private JsonNullable<Long> canceledAt;
+    private Optional<Long> canceledAt;
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription became past due.
+     * Unix timestamp (in milliseconds) when the subscription item became past due.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("past_due_at")
-    private JsonNullable<Long> pastDueAt;
+    private Optional<Long> pastDueAt;
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription ended.
+     * Unix timestamp (in milliseconds) when the subscription item ended.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("ended_at")
+    private Optional<Long> endedAt;
+
+    /**
+     * Unix timestamp (in milliseconds) when the subscription item was created.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("ended_at")
-    private JsonNullable<Long> endedAt;
-
-    /**
-     * Unix timestamp (in milliseconds) when the subscription was created.
-     */
     @JsonProperty("created_at")
-    private long createdAt;
+    private Optional<Long> createdAt;
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was last updated.
+     * Unix timestamp (in milliseconds) when the subscription item was last updated.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("updated_at")
-    private long updatedAt;
+    private Optional<Long> updatedAt;
 
     @JsonCreator
     public CommerceSubscriptionItem(
@@ -188,27 +164,24 @@ public class CommerceSubscriptionItem {
             @JsonProperty("id") String id,
             @JsonProperty("instance_id") String instanceId,
             @JsonProperty("status") CommerceSubscriptionItemStatus status,
-            @JsonProperty("credit") JsonNullable<? extends Credit> credit,
-            @JsonProperty("plan_id") String planId,
-            @JsonProperty("plan") Optional<? extends Plan> plan,
+            @JsonProperty("credit") Optional<? extends CommerceSubscriptionCreditResponse> credit,
+            @JsonProperty("plan_id") Optional<String> planId,
+            @JsonProperty("plan") JsonNullable<? extends Plan> plan,
             @JsonProperty("plan_period") PlanPeriod planPeriod,
-            @JsonProperty("payment_source_id") String paymentSourceId,
-            @JsonProperty("payment_source") JsonNullable<? extends PaymentSource> paymentSource,
-            @JsonProperty("lifetime_paid") JsonNullable<? extends LifetimePaid> lifetimePaid,
-            @JsonProperty("amount") JsonNullable<? extends Amount> amount,
-            @JsonProperty("next_invoice") JsonNullable<? extends NextInvoice> nextInvoice,
+            @JsonProperty("payment_method") Optional<? extends CommercePaymentMethodResponse> paymentMethod,
+            @JsonProperty("lifetime_paid") Optional<? extends CommerceMoneyResponse> lifetimePaid,
             @JsonProperty("next_payment") JsonNullable<? extends NextPayment> nextPayment,
             @JsonProperty("payer_id") String payerId,
-            @JsonProperty("payer") JsonNullable<? extends Payer> payer,
+            @JsonProperty("payer") Optional<? extends CommercePayerResponse> payer,
             @JsonProperty("is_free_trial") boolean isFreeTrial,
-            @JsonProperty("period_start") JsonNullable<Long> periodStart,
-            @JsonProperty("period_end") JsonNullable<Long> periodEnd,
-            @JsonProperty("proration_date") String prorationDate,
-            @JsonProperty("canceled_at") JsonNullable<Long> canceledAt,
-            @JsonProperty("past_due_at") JsonNullable<Long> pastDueAt,
-            @JsonProperty("ended_at") JsonNullable<Long> endedAt,
-            @JsonProperty("created_at") long createdAt,
-            @JsonProperty("updated_at") long updatedAt) {
+            @JsonProperty("period_start") long periodStart,
+            @JsonProperty("period_end") Optional<Long> periodEnd,
+            @JsonProperty("proration_date") Optional<LocalDate> prorationDate,
+            @JsonProperty("canceled_at") Optional<Long> canceledAt,
+            @JsonProperty("past_due_at") Optional<Long> pastDueAt,
+            @JsonProperty("ended_at") Optional<Long> endedAt,
+            @JsonProperty("created_at") Optional<Long> createdAt,
+            @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(instanceId, "instanceId");
@@ -217,11 +190,8 @@ public class CommerceSubscriptionItem {
         Utils.checkNotNull(planId, "planId");
         Utils.checkNotNull(plan, "plan");
         Utils.checkNotNull(planPeriod, "planPeriod");
-        Utils.checkNotNull(paymentSourceId, "paymentSourceId");
-        Utils.checkNotNull(paymentSource, "paymentSource");
+        Utils.checkNotNull(paymentMethod, "paymentMethod");
         Utils.checkNotNull(lifetimePaid, "lifetimePaid");
-        Utils.checkNotNull(amount, "amount");
-        Utils.checkNotNull(nextInvoice, "nextInvoice");
         Utils.checkNotNull(nextPayment, "nextPayment");
         Utils.checkNotNull(payerId, "payerId");
         Utils.checkNotNull(payer, "payer");
@@ -242,11 +212,8 @@ public class CommerceSubscriptionItem {
         this.planId = planId;
         this.plan = plan;
         this.planPeriod = planPeriod;
-        this.paymentSourceId = paymentSourceId;
-        this.paymentSource = paymentSource;
+        this.paymentMethod = paymentMethod;
         this.lifetimePaid = lifetimePaid;
-        this.amount = amount;
-        this.nextInvoice = nextInvoice;
         this.nextPayment = nextPayment;
         this.payerId = payerId;
         this.payer = payer;
@@ -266,23 +233,18 @@ public class CommerceSubscriptionItem {
             String id,
             String instanceId,
             CommerceSubscriptionItemStatus status,
-            String planId,
             PlanPeriod planPeriod,
-            String paymentSourceId,
             String payerId,
             boolean isFreeTrial,
-            String prorationDate,
-            long createdAt,
-            long updatedAt) {
+            long periodStart) {
         this(object, id, instanceId,
-            status, JsonNullable.undefined(), planId,
-            Optional.empty(), planPeriod, paymentSourceId,
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), payerId,
-            JsonNullable.undefined(), isFreeTrial, JsonNullable.undefined(),
-            JsonNullable.undefined(), prorationDate, JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), createdAt,
-            updatedAt);
+            status, Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), planPeriod, Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), payerId,
+            Optional.empty(), isFreeTrial, periodStart,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -317,82 +279,47 @@ public class CommerceSubscriptionItem {
         return status;
     }
 
-    /**
-     * Credit information (only available in PaymentAttempt events).
-     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<Credit> credit() {
-        return (JsonNullable<Credit>) credit;
+    public Optional<CommerceSubscriptionCreditResponse> credit() {
+        return (Optional<CommerceSubscriptionCreditResponse>) credit;
     }
 
     /**
      * Unique identifier for the associated plan.
      */
     @JsonIgnore
-    public String planId() {
+    public Optional<String> planId() {
         return planId;
     }
 
     /**
-     * The associated commerce plan.
+     * The associated plan.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Plan> plan() {
-        return (Optional<Plan>) plan;
+    public JsonNullable<Plan> plan() {
+        return (JsonNullable<Plan>) plan;
     }
 
     /**
-     * The billing period for this subscription.
+     * The billing period for this subscription item.
      */
     @JsonIgnore
     public PlanPeriod planPeriod() {
         return planPeriod;
     }
 
-    /**
-     * Unique identifier for the payment source.
-     */
-    @JsonIgnore
-    public String paymentSourceId() {
-        return paymentSourceId;
-    }
-
-    /**
-     * The payment source associated with this subscription.
-     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<PaymentSource> paymentSource() {
-        return (JsonNullable<PaymentSource>) paymentSource;
+    public Optional<CommercePaymentMethodResponse> paymentMethod() {
+        return (Optional<CommercePaymentMethodResponse>) paymentMethod;
     }
 
-    /**
-     * Total amount paid over the lifetime of this subscription.
-     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<LifetimePaid> lifetimePaid() {
-        return (JsonNullable<LifetimePaid>) lifetimePaid;
-    }
-
-    /**
-     * Current amount for this subscription.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Amount> amount() {
-        return (JsonNullable<Amount>) amount;
-    }
-
-    /**
-     * Information about the next invoice.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<NextInvoice> nextInvoice() {
-        return (JsonNullable<NextInvoice>) nextInvoice;
+    public Optional<CommerceMoneyResponse> lifetimePaid() {
+        return (Optional<CommerceMoneyResponse>) lifetimePaid;
     }
 
     /**
@@ -412,17 +339,14 @@ public class CommerceSubscriptionItem {
         return payerId;
     }
 
-    /**
-     * The payer associated with this subscription.
-     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<Payer> payer() {
-        return (JsonNullable<Payer>) payer;
+    public Optional<CommercePayerResponse> payer() {
+        return (Optional<CommercePayerResponse>) payer;
     }
 
     /**
-     * Whether this subscription is currently on a free trial.
+     * Whether this subscription item includes a free trial.
      */
     @JsonIgnore
     public boolean isFreeTrial() {
@@ -433,7 +357,7 @@ public class CommerceSubscriptionItem {
      * Unix timestamp (in milliseconds) when the current period started.
      */
     @JsonIgnore
-    public JsonNullable<Long> periodStart() {
+    public long periodStart() {
         return periodStart;
     }
 
@@ -441,55 +365,55 @@ public class CommerceSubscriptionItem {
      * Unix timestamp (in milliseconds) when the current period ends.
      */
     @JsonIgnore
-    public JsonNullable<Long> periodEnd() {
+    public Optional<Long> periodEnd() {
         return periodEnd;
     }
 
     /**
-     * Date used for proration calculations.
+     * The day the subscription item was prorated from. Only available in some responses.
      */
     @JsonIgnore
-    public String prorationDate() {
+    public Optional<LocalDate> prorationDate() {
         return prorationDate;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was canceled.
+     * Unix timestamp (in milliseconds) when the subscription item was canceled.
      */
     @JsonIgnore
-    public JsonNullable<Long> canceledAt() {
+    public Optional<Long> canceledAt() {
         return canceledAt;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription became past due.
+     * Unix timestamp (in milliseconds) when the subscription item became past due.
      */
     @JsonIgnore
-    public JsonNullable<Long> pastDueAt() {
+    public Optional<Long> pastDueAt() {
         return pastDueAt;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription ended.
+     * Unix timestamp (in milliseconds) when the subscription item ended.
      */
     @JsonIgnore
-    public JsonNullable<Long> endedAt() {
+    public Optional<Long> endedAt() {
         return endedAt;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was created.
+     * Unix timestamp (in milliseconds) when the subscription item was created.
      */
     @JsonIgnore
-    public long createdAt() {
+    public Optional<Long> createdAt() {
         return createdAt;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was last updated.
+     * Unix timestamp (in milliseconds) when the subscription item was last updated.
      */
     @JsonIgnore
-    public long updatedAt() {
+    public Optional<Long> updatedAt() {
         return updatedAt;
     }
 
@@ -534,19 +458,14 @@ public class CommerceSubscriptionItem {
         return this;
     }
 
-    /**
-     * Credit information (only available in PaymentAttempt events).
-     */
-    public CommerceSubscriptionItem withCredit(Credit credit) {
+    public CommerceSubscriptionItem withCredit(CommerceSubscriptionCreditResponse credit) {
         Utils.checkNotNull(credit, "credit");
-        this.credit = JsonNullable.of(credit);
+        this.credit = Optional.ofNullable(credit);
         return this;
     }
 
-    /**
-     * Credit information (only available in PaymentAttempt events).
-     */
-    public CommerceSubscriptionItem withCredit(JsonNullable<? extends Credit> credit) {
+
+    public CommerceSubscriptionItem withCredit(Optional<? extends CommerceSubscriptionCreditResponse> credit) {
         Utils.checkNotNull(credit, "credit");
         this.credit = credit;
         return this;
@@ -557,31 +476,40 @@ public class CommerceSubscriptionItem {
      */
     public CommerceSubscriptionItem withPlanId(String planId) {
         Utils.checkNotNull(planId, "planId");
+        this.planId = Optional.ofNullable(planId);
+        return this;
+    }
+
+
+    /**
+     * Unique identifier for the associated plan.
+     */
+    public CommerceSubscriptionItem withPlanId(Optional<String> planId) {
+        Utils.checkNotNull(planId, "planId");
         this.planId = planId;
         return this;
     }
 
     /**
-     * The associated commerce plan.
+     * The associated plan.
      */
     public CommerceSubscriptionItem withPlan(Plan plan) {
         Utils.checkNotNull(plan, "plan");
-        this.plan = Optional.ofNullable(plan);
+        this.plan = JsonNullable.of(plan);
         return this;
     }
 
-
     /**
-     * The associated commerce plan.
+     * The associated plan.
      */
-    public CommerceSubscriptionItem withPlan(Optional<? extends Plan> plan) {
+    public CommerceSubscriptionItem withPlan(JsonNullable<? extends Plan> plan) {
         Utils.checkNotNull(plan, "plan");
         this.plan = plan;
         return this;
     }
 
     /**
-     * The billing period for this subscription.
+     * The billing period for this subscription item.
      */
     public CommerceSubscriptionItem withPlanPeriod(PlanPeriod planPeriod) {
         Utils.checkNotNull(planPeriod, "planPeriod");
@@ -589,84 +517,29 @@ public class CommerceSubscriptionItem {
         return this;
     }
 
-    /**
-     * Unique identifier for the payment source.
-     */
-    public CommerceSubscriptionItem withPaymentSourceId(String paymentSourceId) {
-        Utils.checkNotNull(paymentSourceId, "paymentSourceId");
-        this.paymentSourceId = paymentSourceId;
+    public CommerceSubscriptionItem withPaymentMethod(CommercePaymentMethodResponse paymentMethod) {
+        Utils.checkNotNull(paymentMethod, "paymentMethod");
+        this.paymentMethod = Optional.ofNullable(paymentMethod);
         return this;
     }
 
-    /**
-     * The payment source associated with this subscription.
-     */
-    public CommerceSubscriptionItem withPaymentSource(PaymentSource paymentSource) {
-        Utils.checkNotNull(paymentSource, "paymentSource");
-        this.paymentSource = JsonNullable.of(paymentSource);
+
+    public CommerceSubscriptionItem withPaymentMethod(Optional<? extends CommercePaymentMethodResponse> paymentMethod) {
+        Utils.checkNotNull(paymentMethod, "paymentMethod");
+        this.paymentMethod = paymentMethod;
         return this;
     }
 
-    /**
-     * The payment source associated with this subscription.
-     */
-    public CommerceSubscriptionItem withPaymentSource(JsonNullable<? extends PaymentSource> paymentSource) {
-        Utils.checkNotNull(paymentSource, "paymentSource");
-        this.paymentSource = paymentSource;
-        return this;
-    }
-
-    /**
-     * Total amount paid over the lifetime of this subscription.
-     */
-    public CommerceSubscriptionItem withLifetimePaid(LifetimePaid lifetimePaid) {
+    public CommerceSubscriptionItem withLifetimePaid(CommerceMoneyResponse lifetimePaid) {
         Utils.checkNotNull(lifetimePaid, "lifetimePaid");
-        this.lifetimePaid = JsonNullable.of(lifetimePaid);
+        this.lifetimePaid = Optional.ofNullable(lifetimePaid);
         return this;
     }
 
-    /**
-     * Total amount paid over the lifetime of this subscription.
-     */
-    public CommerceSubscriptionItem withLifetimePaid(JsonNullable<? extends LifetimePaid> lifetimePaid) {
+
+    public CommerceSubscriptionItem withLifetimePaid(Optional<? extends CommerceMoneyResponse> lifetimePaid) {
         Utils.checkNotNull(lifetimePaid, "lifetimePaid");
         this.lifetimePaid = lifetimePaid;
-        return this;
-    }
-
-    /**
-     * Current amount for this subscription.
-     */
-    public CommerceSubscriptionItem withAmount(Amount amount) {
-        Utils.checkNotNull(amount, "amount");
-        this.amount = JsonNullable.of(amount);
-        return this;
-    }
-
-    /**
-     * Current amount for this subscription.
-     */
-    public CommerceSubscriptionItem withAmount(JsonNullable<? extends Amount> amount) {
-        Utils.checkNotNull(amount, "amount");
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * Information about the next invoice.
-     */
-    public CommerceSubscriptionItem withNextInvoice(NextInvoice nextInvoice) {
-        Utils.checkNotNull(nextInvoice, "nextInvoice");
-        this.nextInvoice = JsonNullable.of(nextInvoice);
-        return this;
-    }
-
-    /**
-     * Information about the next invoice.
-     */
-    public CommerceSubscriptionItem withNextInvoice(JsonNullable<? extends NextInvoice> nextInvoice) {
-        Utils.checkNotNull(nextInvoice, "nextInvoice");
-        this.nextInvoice = nextInvoice;
         return this;
     }
 
@@ -697,26 +570,21 @@ public class CommerceSubscriptionItem {
         return this;
     }
 
-    /**
-     * The payer associated with this subscription.
-     */
-    public CommerceSubscriptionItem withPayer(Payer payer) {
+    public CommerceSubscriptionItem withPayer(CommercePayerResponse payer) {
         Utils.checkNotNull(payer, "payer");
-        this.payer = JsonNullable.of(payer);
+        this.payer = Optional.ofNullable(payer);
         return this;
     }
 
-    /**
-     * The payer associated with this subscription.
-     */
-    public CommerceSubscriptionItem withPayer(JsonNullable<? extends Payer> payer) {
+
+    public CommerceSubscriptionItem withPayer(Optional<? extends CommercePayerResponse> payer) {
         Utils.checkNotNull(payer, "payer");
         this.payer = payer;
         return this;
     }
 
     /**
-     * Whether this subscription is currently on a free trial.
+     * Whether this subscription item includes a free trial.
      */
     public CommerceSubscriptionItem withIsFreeTrial(boolean isFreeTrial) {
         Utils.checkNotNull(isFreeTrial, "isFreeTrial");
@@ -729,15 +597,6 @@ public class CommerceSubscriptionItem {
      */
     public CommerceSubscriptionItem withPeriodStart(long periodStart) {
         Utils.checkNotNull(periodStart, "periodStart");
-        this.periodStart = JsonNullable.of(periodStart);
-        return this;
-    }
-
-    /**
-     * Unix timestamp (in milliseconds) when the current period started.
-     */
-    public CommerceSubscriptionItem withPeriodStart(JsonNullable<Long> periodStart) {
-        Utils.checkNotNull(periodStart, "periodStart");
         this.periodStart = periodStart;
         return this;
     }
@@ -747,95 +606,129 @@ public class CommerceSubscriptionItem {
      */
     public CommerceSubscriptionItem withPeriodEnd(long periodEnd) {
         Utils.checkNotNull(periodEnd, "periodEnd");
-        this.periodEnd = JsonNullable.of(periodEnd);
+        this.periodEnd = Optional.ofNullable(periodEnd);
         return this;
     }
+
 
     /**
      * Unix timestamp (in milliseconds) when the current period ends.
      */
-    public CommerceSubscriptionItem withPeriodEnd(JsonNullable<Long> periodEnd) {
+    public CommerceSubscriptionItem withPeriodEnd(Optional<Long> periodEnd) {
         Utils.checkNotNull(periodEnd, "periodEnd");
         this.periodEnd = periodEnd;
         return this;
     }
 
     /**
-     * Date used for proration calculations.
+     * The day the subscription item was prorated from. Only available in some responses.
      */
-    public CommerceSubscriptionItem withProrationDate(String prorationDate) {
+    public CommerceSubscriptionItem withProrationDate(LocalDate prorationDate) {
+        Utils.checkNotNull(prorationDate, "prorationDate");
+        this.prorationDate = Optional.ofNullable(prorationDate);
+        return this;
+    }
+
+
+    /**
+     * The day the subscription item was prorated from. Only available in some responses.
+     */
+    public CommerceSubscriptionItem withProrationDate(Optional<LocalDate> prorationDate) {
         Utils.checkNotNull(prorationDate, "prorationDate");
         this.prorationDate = prorationDate;
         return this;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was canceled.
+     * Unix timestamp (in milliseconds) when the subscription item was canceled.
      */
     public CommerceSubscriptionItem withCanceledAt(long canceledAt) {
         Utils.checkNotNull(canceledAt, "canceledAt");
-        this.canceledAt = JsonNullable.of(canceledAt);
+        this.canceledAt = Optional.ofNullable(canceledAt);
         return this;
     }
 
+
     /**
-     * Unix timestamp (in milliseconds) when the subscription was canceled.
+     * Unix timestamp (in milliseconds) when the subscription item was canceled.
      */
-    public CommerceSubscriptionItem withCanceledAt(JsonNullable<Long> canceledAt) {
+    public CommerceSubscriptionItem withCanceledAt(Optional<Long> canceledAt) {
         Utils.checkNotNull(canceledAt, "canceledAt");
         this.canceledAt = canceledAt;
         return this;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription became past due.
+     * Unix timestamp (in milliseconds) when the subscription item became past due.
      */
     public CommerceSubscriptionItem withPastDueAt(long pastDueAt) {
         Utils.checkNotNull(pastDueAt, "pastDueAt");
-        this.pastDueAt = JsonNullable.of(pastDueAt);
+        this.pastDueAt = Optional.ofNullable(pastDueAt);
         return this;
     }
 
+
     /**
-     * Unix timestamp (in milliseconds) when the subscription became past due.
+     * Unix timestamp (in milliseconds) when the subscription item became past due.
      */
-    public CommerceSubscriptionItem withPastDueAt(JsonNullable<Long> pastDueAt) {
+    public CommerceSubscriptionItem withPastDueAt(Optional<Long> pastDueAt) {
         Utils.checkNotNull(pastDueAt, "pastDueAt");
         this.pastDueAt = pastDueAt;
         return this;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription ended.
+     * Unix timestamp (in milliseconds) when the subscription item ended.
      */
     public CommerceSubscriptionItem withEndedAt(long endedAt) {
         Utils.checkNotNull(endedAt, "endedAt");
-        this.endedAt = JsonNullable.of(endedAt);
+        this.endedAt = Optional.ofNullable(endedAt);
         return this;
     }
 
+
     /**
-     * Unix timestamp (in milliseconds) when the subscription ended.
+     * Unix timestamp (in milliseconds) when the subscription item ended.
      */
-    public CommerceSubscriptionItem withEndedAt(JsonNullable<Long> endedAt) {
+    public CommerceSubscriptionItem withEndedAt(Optional<Long> endedAt) {
         Utils.checkNotNull(endedAt, "endedAt");
         this.endedAt = endedAt;
         return this;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was created.
+     * Unix timestamp (in milliseconds) when the subscription item was created.
      */
     public CommerceSubscriptionItem withCreatedAt(long createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = Optional.ofNullable(createdAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp (in milliseconds) when the subscription item was created.
+     */
+    public CommerceSubscriptionItem withCreatedAt(Optional<Long> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
     }
 
     /**
-     * Unix timestamp (in milliseconds) when the subscription was last updated.
+     * Unix timestamp (in milliseconds) when the subscription item was last updated.
      */
     public CommerceSubscriptionItem withUpdatedAt(long updatedAt) {
+        Utils.checkNotNull(updatedAt, "updatedAt");
+        this.updatedAt = Optional.ofNullable(updatedAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp (in milliseconds) when the subscription item was last updated.
+     */
+    public CommerceSubscriptionItem withUpdatedAt(Optional<Long> updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
         return this;
@@ -859,11 +752,8 @@ public class CommerceSubscriptionItem {
             Utils.enhancedDeepEquals(this.planId, other.planId) &&
             Utils.enhancedDeepEquals(this.plan, other.plan) &&
             Utils.enhancedDeepEquals(this.planPeriod, other.planPeriod) &&
-            Utils.enhancedDeepEquals(this.paymentSourceId, other.paymentSourceId) &&
-            Utils.enhancedDeepEquals(this.paymentSource, other.paymentSource) &&
+            Utils.enhancedDeepEquals(this.paymentMethod, other.paymentMethod) &&
             Utils.enhancedDeepEquals(this.lifetimePaid, other.lifetimePaid) &&
-            Utils.enhancedDeepEquals(this.amount, other.amount) &&
-            Utils.enhancedDeepEquals(this.nextInvoice, other.nextInvoice) &&
             Utils.enhancedDeepEquals(this.nextPayment, other.nextPayment) &&
             Utils.enhancedDeepEquals(this.payerId, other.payerId) &&
             Utils.enhancedDeepEquals(this.payer, other.payer) &&
@@ -883,9 +773,8 @@ public class CommerceSubscriptionItem {
         return Utils.enhancedHash(
             object, id, instanceId,
             status, credit, planId,
-            plan, planPeriod, paymentSourceId,
-            paymentSource, lifetimePaid, amount,
-            nextInvoice, nextPayment, payerId,
+            plan, planPeriod, paymentMethod,
+            lifetimePaid, nextPayment, payerId,
             payer, isFreeTrial, periodStart,
             periodEnd, prorationDate, canceledAt,
             pastDueAt, endedAt, createdAt,
@@ -903,11 +792,8 @@ public class CommerceSubscriptionItem {
                 "planId", planId,
                 "plan", plan,
                 "planPeriod", planPeriod,
-                "paymentSourceId", paymentSourceId,
-                "paymentSource", paymentSource,
+                "paymentMethod", paymentMethod,
                 "lifetimePaid", lifetimePaid,
-                "amount", amount,
-                "nextInvoice", nextInvoice,
                 "nextPayment", nextPayment,
                 "payerId", payerId,
                 "payer", payer,
@@ -933,47 +819,41 @@ public class CommerceSubscriptionItem {
 
         private CommerceSubscriptionItemStatus status;
 
-        private JsonNullable<? extends Credit> credit = JsonNullable.undefined();
+        private Optional<? extends CommerceSubscriptionCreditResponse> credit = Optional.empty();
 
-        private String planId;
+        private Optional<String> planId = Optional.empty();
 
-        private Optional<? extends Plan> plan = Optional.empty();
+        private JsonNullable<? extends Plan> plan = JsonNullable.undefined();
 
         private PlanPeriod planPeriod;
 
-        private String paymentSourceId;
+        private Optional<? extends CommercePaymentMethodResponse> paymentMethod = Optional.empty();
 
-        private JsonNullable<? extends PaymentSource> paymentSource = JsonNullable.undefined();
-
-        private JsonNullable<? extends LifetimePaid> lifetimePaid = JsonNullable.undefined();
-
-        private JsonNullable<? extends Amount> amount = JsonNullable.undefined();
-
-        private JsonNullable<? extends NextInvoice> nextInvoice = JsonNullable.undefined();
+        private Optional<? extends CommerceMoneyResponse> lifetimePaid = Optional.empty();
 
         private JsonNullable<? extends NextPayment> nextPayment = JsonNullable.undefined();
 
         private String payerId;
 
-        private JsonNullable<? extends Payer> payer = JsonNullable.undefined();
+        private Optional<? extends CommercePayerResponse> payer = Optional.empty();
 
         private Boolean isFreeTrial;
 
-        private JsonNullable<Long> periodStart = JsonNullable.undefined();
+        private Long periodStart;
 
-        private JsonNullable<Long> periodEnd = JsonNullable.undefined();
+        private Optional<Long> periodEnd = Optional.empty();
 
-        private String prorationDate;
+        private Optional<LocalDate> prorationDate = Optional.empty();
 
-        private JsonNullable<Long> canceledAt = JsonNullable.undefined();
+        private Optional<Long> canceledAt = Optional.empty();
 
-        private JsonNullable<Long> pastDueAt = JsonNullable.undefined();
+        private Optional<Long> pastDueAt = Optional.empty();
 
-        private JsonNullable<Long> endedAt = JsonNullable.undefined();
+        private Optional<Long> endedAt = Optional.empty();
 
-        private Long createdAt;
+        private Optional<Long> createdAt = Optional.empty();
 
-        private Long updatedAt;
+        private Optional<Long> updatedAt = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -1020,19 +900,13 @@ public class CommerceSubscriptionItem {
         }
 
 
-        /**
-         * Credit information (only available in PaymentAttempt events).
-         */
-        public Builder credit(Credit credit) {
+        public Builder credit(CommerceSubscriptionCreditResponse credit) {
             Utils.checkNotNull(credit, "credit");
-            this.credit = JsonNullable.of(credit);
+            this.credit = Optional.ofNullable(credit);
             return this;
         }
 
-        /**
-         * Credit information (only available in PaymentAttempt events).
-         */
-        public Builder credit(JsonNullable<? extends Credit> credit) {
+        public Builder credit(Optional<? extends CommerceSubscriptionCreditResponse> credit) {
             Utils.checkNotNull(credit, "credit");
             this.credit = credit;
             return this;
@@ -1044,24 +918,33 @@ public class CommerceSubscriptionItem {
          */
         public Builder planId(String planId) {
             Utils.checkNotNull(planId, "planId");
+            this.planId = Optional.ofNullable(planId);
+            return this;
+        }
+
+        /**
+         * Unique identifier for the associated plan.
+         */
+        public Builder planId(Optional<String> planId) {
+            Utils.checkNotNull(planId, "planId");
             this.planId = planId;
             return this;
         }
 
 
         /**
-         * The associated commerce plan.
+         * The associated plan.
          */
         public Builder plan(Plan plan) {
             Utils.checkNotNull(plan, "plan");
-            this.plan = Optional.ofNullable(plan);
+            this.plan = JsonNullable.of(plan);
             return this;
         }
 
         /**
-         * The associated commerce plan.
+         * The associated plan.
          */
-        public Builder plan(Optional<? extends Plan> plan) {
+        public Builder plan(JsonNullable<? extends Plan> plan) {
             Utils.checkNotNull(plan, "plan");
             this.plan = plan;
             return this;
@@ -1069,7 +952,7 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * The billing period for this subscription.
+         * The billing period for this subscription item.
          */
         public Builder planPeriod(PlanPeriod planPeriod) {
             Utils.checkNotNull(planPeriod, "planPeriod");
@@ -1078,88 +961,28 @@ public class CommerceSubscriptionItem {
         }
 
 
-        /**
-         * Unique identifier for the payment source.
-         */
-        public Builder paymentSourceId(String paymentSourceId) {
-            Utils.checkNotNull(paymentSourceId, "paymentSourceId");
-            this.paymentSourceId = paymentSourceId;
+        public Builder paymentMethod(CommercePaymentMethodResponse paymentMethod) {
+            Utils.checkNotNull(paymentMethod, "paymentMethod");
+            this.paymentMethod = Optional.ofNullable(paymentMethod);
+            return this;
+        }
+
+        public Builder paymentMethod(Optional<? extends CommercePaymentMethodResponse> paymentMethod) {
+            Utils.checkNotNull(paymentMethod, "paymentMethod");
+            this.paymentMethod = paymentMethod;
             return this;
         }
 
 
-        /**
-         * The payment source associated with this subscription.
-         */
-        public Builder paymentSource(PaymentSource paymentSource) {
-            Utils.checkNotNull(paymentSource, "paymentSource");
-            this.paymentSource = JsonNullable.of(paymentSource);
-            return this;
-        }
-
-        /**
-         * The payment source associated with this subscription.
-         */
-        public Builder paymentSource(JsonNullable<? extends PaymentSource> paymentSource) {
-            Utils.checkNotNull(paymentSource, "paymentSource");
-            this.paymentSource = paymentSource;
-            return this;
-        }
-
-
-        /**
-         * Total amount paid over the lifetime of this subscription.
-         */
-        public Builder lifetimePaid(LifetimePaid lifetimePaid) {
+        public Builder lifetimePaid(CommerceMoneyResponse lifetimePaid) {
             Utils.checkNotNull(lifetimePaid, "lifetimePaid");
-            this.lifetimePaid = JsonNullable.of(lifetimePaid);
+            this.lifetimePaid = Optional.ofNullable(lifetimePaid);
             return this;
         }
 
-        /**
-         * Total amount paid over the lifetime of this subscription.
-         */
-        public Builder lifetimePaid(JsonNullable<? extends LifetimePaid> lifetimePaid) {
+        public Builder lifetimePaid(Optional<? extends CommerceMoneyResponse> lifetimePaid) {
             Utils.checkNotNull(lifetimePaid, "lifetimePaid");
             this.lifetimePaid = lifetimePaid;
-            return this;
-        }
-
-
-        /**
-         * Current amount for this subscription.
-         */
-        public Builder amount(Amount amount) {
-            Utils.checkNotNull(amount, "amount");
-            this.amount = JsonNullable.of(amount);
-            return this;
-        }
-
-        /**
-         * Current amount for this subscription.
-         */
-        public Builder amount(JsonNullable<? extends Amount> amount) {
-            Utils.checkNotNull(amount, "amount");
-            this.amount = amount;
-            return this;
-        }
-
-
-        /**
-         * Information about the next invoice.
-         */
-        public Builder nextInvoice(NextInvoice nextInvoice) {
-            Utils.checkNotNull(nextInvoice, "nextInvoice");
-            this.nextInvoice = JsonNullable.of(nextInvoice);
-            return this;
-        }
-
-        /**
-         * Information about the next invoice.
-         */
-        public Builder nextInvoice(JsonNullable<? extends NextInvoice> nextInvoice) {
-            Utils.checkNotNull(nextInvoice, "nextInvoice");
-            this.nextInvoice = nextInvoice;
             return this;
         }
 
@@ -1193,19 +1016,13 @@ public class CommerceSubscriptionItem {
         }
 
 
-        /**
-         * The payer associated with this subscription.
-         */
-        public Builder payer(Payer payer) {
+        public Builder payer(CommercePayerResponse payer) {
             Utils.checkNotNull(payer, "payer");
-            this.payer = JsonNullable.of(payer);
+            this.payer = Optional.ofNullable(payer);
             return this;
         }
 
-        /**
-         * The payer associated with this subscription.
-         */
-        public Builder payer(JsonNullable<? extends Payer> payer) {
+        public Builder payer(Optional<? extends CommercePayerResponse> payer) {
             Utils.checkNotNull(payer, "payer");
             this.payer = payer;
             return this;
@@ -1213,7 +1030,7 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Whether this subscription is currently on a free trial.
+         * Whether this subscription item includes a free trial.
          */
         public Builder isFreeTrial(boolean isFreeTrial) {
             Utils.checkNotNull(isFreeTrial, "isFreeTrial");
@@ -1227,15 +1044,6 @@ public class CommerceSubscriptionItem {
          */
         public Builder periodStart(long periodStart) {
             Utils.checkNotNull(periodStart, "periodStart");
-            this.periodStart = JsonNullable.of(periodStart);
-            return this;
-        }
-
-        /**
-         * Unix timestamp (in milliseconds) when the current period started.
-         */
-        public Builder periodStart(JsonNullable<Long> periodStart) {
-            Utils.checkNotNull(periodStart, "periodStart");
             this.periodStart = periodStart;
             return this;
         }
@@ -1246,14 +1054,14 @@ public class CommerceSubscriptionItem {
          */
         public Builder periodEnd(long periodEnd) {
             Utils.checkNotNull(periodEnd, "periodEnd");
-            this.periodEnd = JsonNullable.of(periodEnd);
+            this.periodEnd = Optional.ofNullable(periodEnd);
             return this;
         }
 
         /**
          * Unix timestamp (in milliseconds) when the current period ends.
          */
-        public Builder periodEnd(JsonNullable<Long> periodEnd) {
+        public Builder periodEnd(Optional<Long> periodEnd) {
             Utils.checkNotNull(periodEnd, "periodEnd");
             this.periodEnd = periodEnd;
             return this;
@@ -1261,9 +1069,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Date used for proration calculations.
+         * The day the subscription item was prorated from. Only available in some responses.
          */
-        public Builder prorationDate(String prorationDate) {
+        public Builder prorationDate(LocalDate prorationDate) {
+            Utils.checkNotNull(prorationDate, "prorationDate");
+            this.prorationDate = Optional.ofNullable(prorationDate);
+            return this;
+        }
+
+        /**
+         * The day the subscription item was prorated from. Only available in some responses.
+         */
+        public Builder prorationDate(Optional<LocalDate> prorationDate) {
             Utils.checkNotNull(prorationDate, "prorationDate");
             this.prorationDate = prorationDate;
             return this;
@@ -1271,18 +1088,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription was canceled.
+         * Unix timestamp (in milliseconds) when the subscription item was canceled.
          */
         public Builder canceledAt(long canceledAt) {
             Utils.checkNotNull(canceledAt, "canceledAt");
-            this.canceledAt = JsonNullable.of(canceledAt);
+            this.canceledAt = Optional.ofNullable(canceledAt);
             return this;
         }
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription was canceled.
+         * Unix timestamp (in milliseconds) when the subscription item was canceled.
          */
-        public Builder canceledAt(JsonNullable<Long> canceledAt) {
+        public Builder canceledAt(Optional<Long> canceledAt) {
             Utils.checkNotNull(canceledAt, "canceledAt");
             this.canceledAt = canceledAt;
             return this;
@@ -1290,18 +1107,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription became past due.
+         * Unix timestamp (in milliseconds) when the subscription item became past due.
          */
         public Builder pastDueAt(long pastDueAt) {
             Utils.checkNotNull(pastDueAt, "pastDueAt");
-            this.pastDueAt = JsonNullable.of(pastDueAt);
+            this.pastDueAt = Optional.ofNullable(pastDueAt);
             return this;
         }
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription became past due.
+         * Unix timestamp (in milliseconds) when the subscription item became past due.
          */
-        public Builder pastDueAt(JsonNullable<Long> pastDueAt) {
+        public Builder pastDueAt(Optional<Long> pastDueAt) {
             Utils.checkNotNull(pastDueAt, "pastDueAt");
             this.pastDueAt = pastDueAt;
             return this;
@@ -1309,18 +1126,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription ended.
+         * Unix timestamp (in milliseconds) when the subscription item ended.
          */
         public Builder endedAt(long endedAt) {
             Utils.checkNotNull(endedAt, "endedAt");
-            this.endedAt = JsonNullable.of(endedAt);
+            this.endedAt = Optional.ofNullable(endedAt);
             return this;
         }
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription ended.
+         * Unix timestamp (in milliseconds) when the subscription item ended.
          */
-        public Builder endedAt(JsonNullable<Long> endedAt) {
+        public Builder endedAt(Optional<Long> endedAt) {
             Utils.checkNotNull(endedAt, "endedAt");
             this.endedAt = endedAt;
             return this;
@@ -1328,9 +1145,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription was created.
+         * Unix timestamp (in milliseconds) when the subscription item was created.
          */
         public Builder createdAt(long createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (in milliseconds) when the subscription item was created.
+         */
+        public Builder createdAt(Optional<Long> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
             return this;
@@ -1338,9 +1164,18 @@ public class CommerceSubscriptionItem {
 
 
         /**
-         * Unix timestamp (in milliseconds) when the subscription was last updated.
+         * Unix timestamp (in milliseconds) when the subscription item was last updated.
          */
         public Builder updatedAt(long updatedAt) {
+            Utils.checkNotNull(updatedAt, "updatedAt");
+            this.updatedAt = Optional.ofNullable(updatedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (in milliseconds) when the subscription item was last updated.
+         */
+        public Builder updatedAt(Optional<Long> updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;
             return this;
@@ -1351,9 +1186,8 @@ public class CommerceSubscriptionItem {
             return new CommerceSubscriptionItem(
                 object, id, instanceId,
                 status, credit, planId,
-                plan, planPeriod, paymentSourceId,
-                paymentSource, lifetimePaid, amount,
-                nextInvoice, nextPayment, payerId,
+                plan, planPeriod, paymentMethod,
+                lifetimePaid, nextPayment, payerId,
                 payer, isFreeTrial, periodStart,
                 periodEnd, prorationDate, canceledAt,
                 pastDueAt, endedAt, createdAt,

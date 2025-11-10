@@ -25,28 +25,32 @@ public class ListOrganizationMembershipsRequest {
     private String organizationId;
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
+     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+     * descending (DESC) order."
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
     private Optional<String> orderBy;
 
     /**
-     * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the respective user id should be included or
-     * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+     * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the respective user ID should be included or
+     * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=user_id")
     private Optional<? extends List<String>> userId;
 
     /**
-     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+     * addresses not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address")
     private Optional<? extends List<String>> emailAddress;
 
     /**
-     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+     * not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=phone_number")
     private Optional<? extends List<String>> phoneNumber;
@@ -62,7 +66,7 @@ public class ListOrganizationMembershipsRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=web3_wallet")
     private Optional<? extends List<String>> web3Wallet;
@@ -75,8 +79,10 @@ public class ListOrganizationMembershipsRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
@@ -232,8 +238,10 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
+     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+     * descending (DESC) order."
      */
     @JsonIgnore
     public Optional<String> orderBy() {
@@ -241,9 +249,9 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the respective user id should be included or
-     * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+     * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the respective user ID should be included or
+     * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -252,7 +260,8 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+     * addresses not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -261,7 +270,8 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+     * not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -283,7 +293,7 @@ public class ListOrganizationMembershipsRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -302,8 +312,10 @@ public class ListOrganizationMembershipsRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     @JsonIgnore
     public Optional<String> query() {
@@ -415,8 +427,10 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
+     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+     * descending (DESC) order."
      */
     public ListOrganizationMembershipsRequest withOrderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -426,8 +440,10 @@ public class ListOrganizationMembershipsRequest {
 
 
     /**
-     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+     * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+     * username.
+     * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+     * descending (DESC) order."
      */
     public ListOrganizationMembershipsRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -436,9 +452,9 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the respective user id should be included or
-     * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+     * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the respective user ID should be included or
+     * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
      */
     public ListOrganizationMembershipsRequest withUserId(List<String> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -448,9 +464,9 @@ public class ListOrganizationMembershipsRequest {
 
 
     /**
-     * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-     * prepended to the id, which denote whether the respective user id should be included or
-     * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+     * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+     * prepended to the ID, which denote whether the respective user ID should be included or
+     * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
      */
     public ListOrganizationMembershipsRequest withUserId(Optional<? extends List<String>> userId) {
         Utils.checkNotNull(userId, "userId");
@@ -459,7 +475,8 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+     * addresses not found are ignored.
      */
     public ListOrganizationMembershipsRequest withEmailAddress(List<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -469,7 +486,8 @@ public class ListOrganizationMembershipsRequest {
 
 
     /**
-     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+     * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+     * addresses not found are ignored.
      */
     public ListOrganizationMembershipsRequest withEmailAddress(Optional<? extends List<String>> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -478,7 +496,8 @@ public class ListOrganizationMembershipsRequest {
     }
 
     /**
-     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+     * not found are ignored.
      */
     public ListOrganizationMembershipsRequest withPhoneNumber(List<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -488,7 +507,8 @@ public class ListOrganizationMembershipsRequest {
 
 
     /**
-     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+     * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+     * not found are ignored.
      */
     public ListOrganizationMembershipsRequest withPhoneNumber(Optional<? extends List<String>> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -522,7 +542,7 @@ public class ListOrganizationMembershipsRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public ListOrganizationMembershipsRequest withWeb3Wallet(List<String> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -534,7 +554,7 @@ public class ListOrganizationMembershipsRequest {
     /**
      * Returns users with the specified web3 wallet addresses.
      * Accepts up to 100 web3 wallet addresses.
-     * Any web3 wallet addressed not found are ignored.
+     * Any web3 wallet addresses not found are ignored.
      */
     public ListOrganizationMembershipsRequest withWeb3Wallet(Optional<? extends List<String>> web3Wallet) {
         Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -563,8 +583,10 @@ public class ListOrganizationMembershipsRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public ListOrganizationMembershipsRequest withQuery(String query) {
         Utils.checkNotNull(query, "query");
@@ -575,8 +597,10 @@ public class ListOrganizationMembershipsRequest {
 
     /**
      * Returns users that match the given query.
-     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-     * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+     * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+     * IDs, first and last names.
+     * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+     * matches as well.
      */
     public ListOrganizationMembershipsRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
@@ -918,8 +942,10 @@ public class ListOrganizationMembershipsRequest {
 
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-         * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
+         * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+         * descending (DESC) order."
          */
         public Builder orderBy(String orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -928,8 +954,10 @@ public class ListOrganizationMembershipsRequest {
         }
 
         /**
-         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or username.
-         * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or descending (DESC) order."
+         * Sorts organizations memberships by phone_number, email_address, created_at, first_name, last_name or
+         * username.
+         * By prepending one of those values with + or -, we can choose to sort in ascending (ASC) or
+         * descending (DESC) order."
          */
         public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -939,9 +967,9 @@ public class ListOrganizationMembershipsRequest {
 
 
         /**
-         * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-         * prepended to the id, which denote whether the respective user id should be included or
-         * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+         * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the respective user ID should be included or
+         * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
          */
         public Builder userId(List<String> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -950,9 +978,9 @@ public class ListOrganizationMembershipsRequest {
         }
 
         /**
-         * Returns users with the user ids specified. For each user id, the `+` and `-` can be
-         * prepended to the id, which denote whether the respective user id should be included or
-         * excluded from the result set. Accepts up to 100 user ids. Any user ids not found are ignored.
+         * Returns users with the user IDs specified. For each user ID, the `+` and `-` can be
+         * prepended to the ID, which denote whether the respective user ID should be included or
+         * excluded from the result set. Accepts up to 100 user IDs. Any user IDs not found are ignored.
          */
         public Builder userId(Optional<? extends List<String>> userId) {
             Utils.checkNotNull(userId, "userId");
@@ -962,7 +990,8 @@ public class ListOrganizationMembershipsRequest {
 
 
         /**
-         * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+         * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+         * addresses not found are ignored.
          */
         public Builder emailAddress(List<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -971,7 +1000,8 @@ public class ListOrganizationMembershipsRequest {
         }
 
         /**
-         * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email addresses not found are ignored.
+         * Returns users with the specified email addresses. Accepts up to 100 email addresses. Any email
+         * addresses not found are ignored.
          */
         public Builder emailAddress(Optional<? extends List<String>> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -981,7 +1011,8 @@ public class ListOrganizationMembershipsRequest {
 
 
         /**
-         * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+         * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+         * not found are ignored.
          */
         public Builder phoneNumber(List<String> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -990,7 +1021,8 @@ public class ListOrganizationMembershipsRequest {
         }
 
         /**
-         * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers not found are ignored.
+         * Returns users with the specified phone numbers. Accepts up to 100 phone numbers. Any phone numbers
+         * not found are ignored.
          */
         public Builder phoneNumber(Optional<? extends List<String>> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -1025,7 +1057,7 @@ public class ListOrganizationMembershipsRequest {
         /**
          * Returns users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(List<String> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1036,7 +1068,7 @@ public class ListOrganizationMembershipsRequest {
         /**
          * Returns users with the specified web3 wallet addresses.
          * Accepts up to 100 web3 wallet addresses.
-         * Any web3 wallet addressed not found are ignored.
+         * Any web3 wallet addresses not found are ignored.
          */
         public Builder web3Wallet(Optional<? extends List<String>> web3Wallet) {
             Utils.checkNotNull(web3Wallet, "web3Wallet");
@@ -1066,8 +1098,10 @@ public class ListOrganizationMembershipsRequest {
 
         /**
          * Returns users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(String query) {
             Utils.checkNotNull(query, "query");
@@ -1077,8 +1111,10 @@ public class ListOrganizationMembershipsRequest {
 
         /**
          * Returns users that match the given query.
-         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user ids, first and last names.
-         * The query value doesn't need to match the exact value you are looking for, it is capable of partial matches as well.
+         * For possible matches, we check the email addresses, phone numbers, usernames, web3 wallets, user
+         * IDs, first and last names.
+         * The query value doesn't need to match the exact value you are looking for, it is capable of partial
+         * matches as well.
          */
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");

@@ -14,7 +14,7 @@ import java.lang.String;
 /**
  * Amount
  * 
- * <p>Current amount for this subscription.
+ * <p>Credit amount.
  */
 public class Amount {
     /**

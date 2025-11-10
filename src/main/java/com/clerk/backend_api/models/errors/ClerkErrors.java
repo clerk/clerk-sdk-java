@@ -3,151 +3,209 @@
  */
 package com.clerk.backend_api.models.errors;
 
-import com.clerk.backend_api.models.components.ClerkError;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * ClerkErrors
- * 
- * <p>Request was not successful
- */
 @SuppressWarnings("serial")
-public class ClerkErrors extends RuntimeException {
+public class ClerkErrors extends ClerkError {
 
-    @JsonProperty("errors")
-    private List<ClerkError> errors;
+    @Nullable
+    private final Data data;
 
+    @Nullable
+    private final Throwable deserializationException;
 
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("meta")
-    private Optional<? extends Meta> meta;
-
-    @JsonCreator
     public ClerkErrors(
-            @JsonProperty("errors") List<ClerkError> errors,
-            @JsonProperty("meta") Optional<? extends Meta> meta) {
-        super("API error occurred");
-        Utils.checkNotNull(errors, "errors");
-        Utils.checkNotNull(meta, "meta");
-        this.errors = errors;
-        this.meta = meta;
-    }
-    
-    public ClerkErrors(
-            List<ClerkError> errors) {
-        this(errors, Optional.empty());
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
 
-    @JsonIgnore
-    public List<ClerkError> errors() {
-        return errors;
+    /**
+    * Parse a response into an instance of ClerkErrors. If deserialization of the response body fails,
+    * the resulting ClerkErrors instance will have a null data() value and a non-null deserializationException().
+    */
+    public static ClerkErrors from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new ClerkErrors(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new ClerkErrors(response.statusCode(), null, response, null, e);
+        }
     }
 
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
+    @Deprecated
+    public Optional<List<com.clerk.backend_api.models.components.ClerkError>> errors() {
+        return data().map(Data::errors);
+    }
+
+    @Deprecated
     public Optional<Meta> meta() {
-        return (Optional<Meta>) meta;
+        return data().flatMap(Data::meta);
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
     }
 
-
-    public ClerkErrors withErrors(List<ClerkError> errors) {
-        Utils.checkNotNull(errors, "errors");
-        this.errors = errors;
-        return this;
+    /**
+     * Returns the exception if an error occurs while deserializing the response body.
+     */
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
     }
+    /**
+     * Data
+     * 
+     * <p>Request was not successful
+     */
+    public static class Data {
 
-    public ClerkErrors withMeta(Meta meta) {
-        Utils.checkNotNull(meta, "meta");
-        this.meta = Optional.ofNullable(meta);
-        return this;
-    }
+        @JsonProperty("errors")
+        private List<com.clerk.backend_api.models.components.ClerkError> errors;
 
 
-    public ClerkErrors withMeta(Optional<? extends Meta> meta) {
-        Utils.checkNotNull(meta, "meta");
-        this.meta = meta;
-        return this;
-    }
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("meta")
+        private Optional<? extends Meta> meta;
 
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+        @JsonCreator
+        public Data(
+                @JsonProperty("errors") List<com.clerk.backend_api.models.components.ClerkError> errors,
+                @JsonProperty("meta") Optional<? extends Meta> meta) {
+            Utils.checkNotNull(errors, "errors");
+            Utils.checkNotNull(meta, "meta");
+            this.errors = errors;
+            this.meta = meta;
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+        
+        public Data(
+                List<com.clerk.backend_api.models.components.ClerkError> errors) {
+            this(errors, Optional.empty());
         }
-        ClerkErrors other = (ClerkErrors) o;
-        return 
-            Utils.enhancedDeepEquals(this.errors, other.errors) &&
-            Utils.enhancedDeepEquals(this.meta, other.meta);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            errors, meta);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(ClerkErrors.class,
-                "errors", errors,
-                "meta", meta);
-    }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+        @JsonIgnore
+        public List<com.clerk.backend_api.models.components.ClerkError> errors() {
+            return errors;
+        }
 
-        private List<ClerkError> errors;
+        @SuppressWarnings("unchecked")
+        @JsonIgnore
+        public Optional<Meta> meta() {
+            return (Optional<Meta>) meta;
+        }
 
-        private Optional<? extends Meta> meta = Optional.empty();
-
-        private Builder() {
-          // force use of static builder() method
+        public static Builder builder() {
+            return new Builder();
         }
 
 
-        public Builder errors(List<ClerkError> errors) {
+        public Data withErrors(List<com.clerk.backend_api.models.components.ClerkError> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
         }
 
-
-        public Builder meta(Meta meta) {
+        public Data withMeta(Meta meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = Optional.ofNullable(meta);
             return this;
         }
 
-        public Builder meta(Optional<? extends Meta> meta) {
+
+        public Data withMeta(Optional<? extends Meta> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = meta;
             return this;
         }
 
-        public ClerkErrors build() {
-
-            return new ClerkErrors(
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.errors, other.errors) &&
+                Utils.enhancedDeepEquals(this.meta, other.meta);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
                 errors, meta);
         }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "errors", errors,
+                    "meta", meta);
+        }
 
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private List<com.clerk.backend_api.models.components.ClerkError> errors;
+
+            private Optional<? extends Meta> meta = Optional.empty();
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            public Builder errors(List<com.clerk.backend_api.models.components.ClerkError> errors) {
+                Utils.checkNotNull(errors, "errors");
+                this.errors = errors;
+                return this;
+            }
+
+
+            public Builder meta(Meta meta) {
+                Utils.checkNotNull(meta, "meta");
+                this.meta = Optional.ofNullable(meta);
+                return this;
+            }
+
+            public Builder meta(Optional<? extends Meta> meta) {
+                Utils.checkNotNull(meta, "meta");
+                this.meta = meta;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    errors, meta);
+            }
+
+        }
     }
+
 }
 

@@ -14,12 +14,6 @@ import java.lang.String;
 
 public class CommerceSubscriptionNextPayment {
     /**
-     * Unix timestamp (milliseconds) of the next payment.
-     */
-    @JsonProperty("time")
-    private long time;
-
-    /**
      * Unix timestamp (milliseconds) of the next payment date.
      */
     @JsonProperty("date")
@@ -31,23 +25,12 @@ public class CommerceSubscriptionNextPayment {
 
     @JsonCreator
     public CommerceSubscriptionNextPayment(
-            @JsonProperty("time") long time,
             @JsonProperty("date") long date,
             @JsonProperty("amount") CommerceMoneyResponse amount) {
-        Utils.checkNotNull(time, "time");
         Utils.checkNotNull(date, "date");
         Utils.checkNotNull(amount, "amount");
-        this.time = time;
         this.date = date;
         this.amount = amount;
-    }
-
-    /**
-     * Unix timestamp (milliseconds) of the next payment.
-     */
-    @JsonIgnore
-    public long time() {
-        return time;
     }
 
     /**
@@ -67,15 +50,6 @@ public class CommerceSubscriptionNextPayment {
         return new Builder();
     }
 
-
-    /**
-     * Unix timestamp (milliseconds) of the next payment.
-     */
-    public CommerceSubscriptionNextPayment withTime(long time) {
-        Utils.checkNotNull(time, "time");
-        this.time = time;
-        return this;
-    }
 
     /**
      * Unix timestamp (milliseconds) of the next payment date.
@@ -102,7 +76,6 @@ public class CommerceSubscriptionNextPayment {
         }
         CommerceSubscriptionNextPayment other = (CommerceSubscriptionNextPayment) o;
         return 
-            Utils.enhancedDeepEquals(this.time, other.time) &&
             Utils.enhancedDeepEquals(this.date, other.date) &&
             Utils.enhancedDeepEquals(this.amount, other.amount);
     }
@@ -110,13 +83,12 @@ public class CommerceSubscriptionNextPayment {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            time, date, amount);
+            date, amount);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CommerceSubscriptionNextPayment.class,
-                "time", time,
                 "date", date,
                 "amount", amount);
     }
@@ -124,24 +96,12 @@ public class CommerceSubscriptionNextPayment {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Long time;
-
         private Long date;
 
         private CommerceMoneyResponse amount;
 
         private Builder() {
           // force use of static builder() method
-        }
-
-
-        /**
-         * Unix timestamp (milliseconds) of the next payment.
-         */
-        public Builder time(long time) {
-            Utils.checkNotNull(time, "time");
-            this.time = time;
-            return this;
         }
 
 
@@ -164,7 +124,7 @@ public class CommerceSubscriptionNextPayment {
         public CommerceSubscriptionNextPayment build() {
 
             return new CommerceSubscriptionNextPayment(
-                time, date, amount);
+                date, amount);
         }
 
     }

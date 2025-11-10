@@ -40,30 +40,36 @@ public class CreateOrganizationInvitationBulkRequestBody {
     private String role;
 
     /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
     private JsonNullable<? extends Map<String, Object>> publicMetadata;
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+     * but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("private_metadata")
     private JsonNullable<? extends Map<String, Object>> privateMetadata;
 
     /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+     * join link in the invitation email.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("redirect_url")
     private JsonNullable<String> redirectUrl;
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+     * expire.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_days")
@@ -128,8 +134,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -138,8 +146,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+     * but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -148,7 +158,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+     * join link in the invitation email.
      */
     @JsonIgnore
     public JsonNullable<String> redirectUrl() {
@@ -156,7 +167,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+     * expire.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInDays() {
@@ -207,8 +219,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     public CreateOrganizationInvitationBulkRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -217,8 +231,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+     * (read/write) from the Backend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     public CreateOrganizationInvitationBulkRequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -227,8 +243,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+     * but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     public CreateOrganizationInvitationBulkRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -237,8 +255,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-     * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+     * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+     * but not visible from the Frontend API.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
      */
     public CreateOrganizationInvitationBulkRequestBody withPrivateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -247,7 +267,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+     * join link in the invitation email.
      */
     public CreateOrganizationInvitationBulkRequestBody withRedirectUrl(String redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -256,7 +277,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+     * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+     * join link in the invitation email.
      */
     public CreateOrganizationInvitationBulkRequestBody withRedirectUrl(JsonNullable<String> redirectUrl) {
         Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -265,7 +287,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+     * expire.
      */
     public CreateOrganizationInvitationBulkRequestBody withExpiresInDays(long expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -274,7 +297,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
     }
 
     /**
-     * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+     * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+     * expire.
      */
     public CreateOrganizationInvitationBulkRequestBody withExpiresInDays(JsonNullable<Long> expiresInDays) {
         Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -385,8 +409,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
 
 
         /**
-         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+         * (read/write) from the Backend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created
+         * organization membership.
          */
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -395,8 +421,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
         }
 
         /**
-         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible (read/write) from the Backend API.
-         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+         * Metadata saved on the organization invitation, read-only from the Frontend API and fully accessible
+         * (read/write) from the Backend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created
+         * organization membership.
          */
         public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -406,8 +434,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
 
 
         /**
-         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+         * but not visible from the Frontend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created
+         * organization membership.
          */
         public Builder privateMetadata(Map<String, Object> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -416,8 +446,10 @@ public class CreateOrganizationInvitationBulkRequestBody {
         }
 
         /**
-         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API but not visible from the Frontend API.
-         * When the organization invitation is accepted, the metadata will be transferred to the newly created organization membership.
+         * Metadata saved on the organization invitation, fully accessible (read/write) from the Backend API
+         * but not visible from the Frontend API.
+         * When the organization invitation is accepted, the metadata will be transferred to the newly created
+         * organization membership.
          */
         public Builder privateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
             Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -427,7 +459,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
 
 
         /**
-         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+         * join link in the invitation email.
          */
         public Builder redirectUrl(String redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -436,7 +469,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
         }
 
         /**
-         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the join link in the invitation email.
+         * Optional URL that the invitee will be redirected to once they accept the invitation by clicking the
+         * join link in the invitation email.
          */
         public Builder redirectUrl(JsonNullable<String> redirectUrl) {
             Utils.checkNotNull(redirectUrl, "redirectUrl");
@@ -446,7 +480,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
 
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+         * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+         * expire.
          */
         public Builder expiresInDays(long expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");
@@ -455,7 +490,8 @@ public class CreateOrganizationInvitationBulkRequestBody {
         }
 
         /**
-         * The number of days the invitation will be valid for. By default, the invitation has a 30 days expire.
+         * The number of days the invitation will be valid for. By default, the invitation has a 30 days
+         * expire.
          */
         public Builder expiresInDays(JsonNullable<Long> expiresInDays) {
             Utils.checkNotNull(expiresInDays, "expiresInDays");

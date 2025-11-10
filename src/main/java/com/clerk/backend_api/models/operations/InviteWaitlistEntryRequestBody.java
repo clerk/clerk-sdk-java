@@ -19,7 +19,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class InviteWaitlistEntryRequestBody {
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ignore_existing")
@@ -37,7 +38,8 @@ public class InviteWaitlistEntryRequestBody {
     }
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     @JsonIgnore
     public JsonNullable<Boolean> ignoreExisting() {
@@ -50,7 +52,8 @@ public class InviteWaitlistEntryRequestBody {
 
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     public InviteWaitlistEntryRequestBody withIgnoreExisting(boolean ignoreExisting) {
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -59,7 +62,8 @@ public class InviteWaitlistEntryRequestBody {
     }
 
     /**
-     * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+     * Whether an invitation should be created if there is already an existing invitation for this email
+     * address, or it's claimed by another user.
      */
     public InviteWaitlistEntryRequestBody withIgnoreExisting(JsonNullable<Boolean> ignoreExisting) {
         Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -103,7 +107,8 @@ public class InviteWaitlistEntryRequestBody {
 
 
         /**
-         * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
          */
         public Builder ignoreExisting(boolean ignoreExisting) {
             Utils.checkNotNull(ignoreExisting, "ignoreExisting");
@@ -112,7 +117,8 @@ public class InviteWaitlistEntryRequestBody {
         }
 
         /**
-         * Whether an invitation should be created if there is already an existing invitation for this email address, or it's claimed by another user.
+         * Whether an invitation should be created if there is already an existing invitation for this email
+         * address, or it's claimed by another user.
          */
         public Builder ignoreExisting(JsonNullable<Boolean> ignoreExisting) {
             Utils.checkNotNull(ignoreExisting, "ignoreExisting");

@@ -27,7 +27,8 @@ public class GetOrganizationRequest {
     private Optional<Boolean> includeMembersCount;
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=include_missing_member_with_elevated_permissions")
     private Optional<Boolean> includeMissingMemberWithElevatedPermissions;
@@ -67,7 +68,8 @@ public class GetOrganizationRequest {
     }
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     @JsonIgnore
     public Optional<Boolean> includeMissingMemberWithElevatedPermissions() {
@@ -108,7 +110,8 @@ public class GetOrganizationRequest {
     }
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     public GetOrganizationRequest withIncludeMissingMemberWithElevatedPermissions(boolean includeMissingMemberWithElevatedPermissions) {
         Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -118,7 +121,8 @@ public class GetOrganizationRequest {
 
 
     /**
-     * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+     * member of the organization.
      */
     public GetOrganizationRequest withIncludeMissingMemberWithElevatedPermissions(Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
         Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -199,7 +203,8 @@ public class GetOrganizationRequest {
 
 
         /**
-         * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+         * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+         * member of the organization.
          */
         public Builder includeMissingMemberWithElevatedPermissions(boolean includeMissingMemberWithElevatedPermissions) {
             Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");
@@ -208,7 +213,8 @@ public class GetOrganizationRequest {
         }
 
         /**
-         * Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+         * Flag to denote whether or not to include a member with elevated permissions who is not currently a
+         * member of the organization.
          */
         public Builder includeMissingMemberWithElevatedPermissions(Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
             Utils.checkNotNull(includeMissingMemberWithElevatedPermissions, "includeMissingMemberWithElevatedPermissions");

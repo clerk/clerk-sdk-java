@@ -9,12 +9,13 @@ import com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenRequestBody
 import com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenResponse;
 import com.clerk.backend_api.operations.VerifyOAuthAccessToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class OauthAccessTokens {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     OauthAccessTokens(SDKConfiguration sdkConfiguration) {
@@ -35,9 +36,9 @@ public class OauthAccessTokens {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyOAuthAccessTokenResponse verify(VerifyOAuthAccessTokenRequestBody request) throws Exception {
+    public VerifyOAuthAccessTokenResponse verify(VerifyOAuthAccessTokenRequestBody request) {
         return verify(request, Optional.empty());
     }
 
@@ -47,11 +48,11 @@ public class OauthAccessTokens {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public VerifyOAuthAccessTokenResponse verify(VerifyOAuthAccessTokenRequestBody request, Optional<Options> options) throws Exception {
+    public VerifyOAuthAccessTokenResponse verify(VerifyOAuthAccessTokenRequestBody request, Optional<Options> options) {
         RequestOperation<VerifyOAuthAccessTokenRequestBody, VerifyOAuthAccessTokenResponse> operation
-              = new VerifyOAuthAccessToken.Sync(sdkConfiguration, options);
+              = new VerifyOAuthAccessToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

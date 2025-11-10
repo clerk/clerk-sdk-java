@@ -19,13 +19,13 @@ import java.util.List;
  */
 public class PaginatedCommercePlanResponse {
     /**
-     * Array of commerce plans.
+     * Array of plans.
      */
     @JsonProperty("data")
     private List<CommercePlan> data;
 
     /**
-     * Total number of commerce plans.
+     * Total number of plans.
      */
     @JsonProperty("total_count")
     private long totalCount;
@@ -41,7 +41,7 @@ public class PaginatedCommercePlanResponse {
     }
 
     /**
-     * Array of commerce plans.
+     * Array of plans.
      */
     @JsonIgnore
     public List<CommercePlan> data() {
@@ -49,7 +49,7 @@ public class PaginatedCommercePlanResponse {
     }
 
     /**
-     * Total number of commerce plans.
+     * Total number of plans.
      */
     @JsonIgnore
     public long totalCount() {
@@ -62,7 +62,7 @@ public class PaginatedCommercePlanResponse {
 
 
     /**
-     * Array of commerce plans.
+     * Array of plans.
      */
     public PaginatedCommercePlanResponse withData(List<CommercePlan> data) {
         Utils.checkNotNull(data, "data");
@@ -71,7 +71,7 @@ public class PaginatedCommercePlanResponse {
     }
 
     /**
-     * Total number of commerce plans.
+     * Total number of plans.
      */
     public PaginatedCommercePlanResponse withTotalCount(long totalCount) {
         Utils.checkNotNull(totalCount, "totalCount");
@@ -119,7 +119,7 @@ public class PaginatedCommercePlanResponse {
 
 
         /**
-         * Array of commerce plans.
+         * Array of plans.
          */
         public Builder data(List<CommercePlan> data) {
             Utils.checkNotNull(data, "data");
@@ -129,7 +129,7 @@ public class PaginatedCommercePlanResponse {
 
 
         /**
-         * Total number of commerce plans.
+         * Total number of plans.
          */
         public Builder totalCount(long totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");

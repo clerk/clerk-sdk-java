@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -57,6 +58,13 @@ public class SAMLAccount {
     @JsonProperty("provider_user_id")
     private JsonNullable<String> providerUserId;
 
+    /**
+     * Unix timestamp of last authentication.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("last_authenticated_at")
+    private JsonNullable<Long> lastAuthenticatedAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("public_metadata")
@@ -82,6 +90,7 @@ public class SAMLAccount {
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("provider_user_id") JsonNullable<String> providerUserId,
+            @JsonProperty("last_authenticated_at") JsonNullable<Long> lastAuthenticatedAt,
             @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification,
             @JsonProperty("saml_connection") JsonNullable<? extends SamlConnection> samlConnection) {
@@ -93,6 +102,7 @@ public class SAMLAccount {
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(providerUserId, "providerUserId");
+        Utils.checkNotNull(lastAuthenticatedAt, "lastAuthenticatedAt");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(verification, "verification");
         Utils.checkNotNull(samlConnection, "samlConnection");
@@ -104,6 +114,7 @@ public class SAMLAccount {
         this.firstName = firstName;
         this.lastName = lastName;
         this.providerUserId = providerUserId;
+        this.lastAuthenticatedAt = lastAuthenticatedAt;
         this.publicMetadata = publicMetadata;
         this.verification = verification;
         this.samlConnection = samlConnection;
@@ -117,8 +128,8 @@ public class SAMLAccount {
             String emailAddress) {
         this(id, object, provider,
             active, emailAddress, JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -162,6 +173,14 @@ public class SAMLAccount {
     @JsonIgnore
     public JsonNullable<String> providerUserId() {
         return providerUserId;
+    }
+
+    /**
+     * Unix timestamp of last authentication.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> lastAuthenticatedAt() {
+        return lastAuthenticatedAt;
     }
 
     @SuppressWarnings("unchecked")
@@ -256,6 +275,24 @@ public class SAMLAccount {
         return this;
     }
 
+    /**
+     * Unix timestamp of last authentication.
+     */
+    public SAMLAccount withLastAuthenticatedAt(long lastAuthenticatedAt) {
+        Utils.checkNotNull(lastAuthenticatedAt, "lastAuthenticatedAt");
+        this.lastAuthenticatedAt = JsonNullable.of(lastAuthenticatedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of last authentication.
+     */
+    public SAMLAccount withLastAuthenticatedAt(JsonNullable<Long> lastAuthenticatedAt) {
+        Utils.checkNotNull(lastAuthenticatedAt, "lastAuthenticatedAt");
+        this.lastAuthenticatedAt = lastAuthenticatedAt;
+        return this;
+    }
+
     public SAMLAccount withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = Optional.ofNullable(publicMetadata);
@@ -312,6 +349,7 @@ public class SAMLAccount {
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
+            Utils.enhancedDeepEquals(this.lastAuthenticatedAt, other.lastAuthenticatedAt) &&
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.verification, other.verification) &&
             Utils.enhancedDeepEquals(this.samlConnection, other.samlConnection);
@@ -322,8 +360,8 @@ public class SAMLAccount {
         return Utils.enhancedHash(
             id, object, provider,
             active, emailAddress, firstName,
-            lastName, providerUserId, publicMetadata,
-            verification, samlConnection);
+            lastName, providerUserId, lastAuthenticatedAt,
+            publicMetadata, verification, samlConnection);
     }
     
     @Override
@@ -337,6 +375,7 @@ public class SAMLAccount {
                 "firstName", firstName,
                 "lastName", lastName,
                 "providerUserId", providerUserId,
+                "lastAuthenticatedAt", lastAuthenticatedAt,
                 "publicMetadata", publicMetadata,
                 "verification", verification,
                 "samlConnection", samlConnection);
@@ -360,6 +399,8 @@ public class SAMLAccount {
         private JsonNullable<String> lastName = JsonNullable.undefined();
 
         private JsonNullable<String> providerUserId = JsonNullable.undefined();
+
+        private JsonNullable<Long> lastAuthenticatedAt = JsonNullable.undefined();
 
         private Optional<? extends Map<String, Object>> publicMetadata = Optional.empty();
 
@@ -449,6 +490,25 @@ public class SAMLAccount {
         }
 
 
+        /**
+         * Unix timestamp of last authentication.
+         */
+        public Builder lastAuthenticatedAt(long lastAuthenticatedAt) {
+            Utils.checkNotNull(lastAuthenticatedAt, "lastAuthenticatedAt");
+            this.lastAuthenticatedAt = JsonNullable.of(lastAuthenticatedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of last authentication.
+         */
+        public Builder lastAuthenticatedAt(JsonNullable<Long> lastAuthenticatedAt) {
+            Utils.checkNotNull(lastAuthenticatedAt, "lastAuthenticatedAt");
+            this.lastAuthenticatedAt = lastAuthenticatedAt;
+            return this;
+        }
+
+
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = Optional.ofNullable(publicMetadata);
@@ -492,8 +552,8 @@ public class SAMLAccount {
             return new SAMLAccount(
                 id, object, provider,
                 active, emailAddress, firstName,
-                lastName, providerUserId, publicMetadata,
-                verification, samlConnection);
+                lastName, providerUserId, lastAuthenticatedAt,
+                publicMetadata, verification, samlConnection);
         }
 
     }

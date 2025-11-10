@@ -22,7 +22,8 @@ public class TestingToken {
     private TestingTokenObject object;
 
     /**
-     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
+     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter
+     * with requests to the Frontend API.
      */
     @JsonProperty("token")
     private String token;
@@ -52,7 +53,8 @@ public class TestingToken {
     }
 
     /**
-     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
+     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter
+     * with requests to the Frontend API.
      */
     @JsonIgnore
     public String token() {
@@ -79,7 +81,8 @@ public class TestingToken {
     }
 
     /**
-     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
+     * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter
+     * with requests to the Frontend API.
      */
     public TestingToken withToken(String token) {
         Utils.checkNotNull(token, "token");
@@ -147,7 +150,8 @@ public class TestingToken {
 
 
         /**
-         * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter with requests to the Frontend API.
+         * The actual token. This value is meant to be passed in the `__clerk_testing_token` query parameter
+         * with requests to the Frontend API.
          */
         public Builder token(String token) {
             Utils.checkNotNull(token, "token");

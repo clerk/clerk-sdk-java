@@ -11,3 +11,4 @@ Deleted Object
 | `id`                | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
 | `slug`              | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |
 | `deleted`           | *boolean*           | :heavy_check_mark:  | N/A                 |
+| `externalId`        | *Optional\<String>* | :heavy_minus_sign:  | N/A                 |

@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class SchemasSAMLConnection {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private SchemasSAMLConnection(TypedObject value) {
         this.value = value;
@@ -27,12 +27,12 @@ public class SchemasSAMLConnection {
 
     public static SchemasSAMLConnection of(One value) {
         Utils.checkNotNull(value, "value");
-        return new SchemasSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<One>(){}));
+        return new SchemasSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static SchemasSAMLConnection of(Two value) {
         Utils.checkNotNull(value, "value");
-        return new SchemasSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Two>(){}));
+        return new SchemasSAMLConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -55,7 +55,7 @@ public class SchemasSAMLConnection {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -66,7 +66,7 @@ public class SchemasSAMLConnection {
             return false;
         }
         SchemasSAMLConnection other = (SchemasSAMLConnection) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -89,6 +89,6 @@ public class SchemasSAMLConnection {
         return Utils.toString(SchemasSAMLConnection.class,
                 "value", value);
     }
- 
+
 }
 

@@ -7,12 +7,12 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.UsersGetOrganizationMemberships;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
@@ -30,6 +30,7 @@ public class UsersGetOrganizationMembershipsRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UsersGetOrganizationMembershipsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -93,13 +94,13 @@ public class UsersGetOrganizationMembershipsRequestBuilder {
         return request;
     }
 
-    public UsersGetOrganizationMembershipsResponse call() throws Exception {
+    public UsersGetOrganizationMembershipsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<UsersGetOrganizationMembershipsRequest, UsersGetOrganizationMembershipsResponse> operation
-              = new UsersGetOrganizationMemberships.Sync(sdkConfiguration, options);
+              = new UsersGetOrganizationMemberships.Sync(sdkConfiguration, options, _headers);
         UsersGetOrganizationMembershipsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

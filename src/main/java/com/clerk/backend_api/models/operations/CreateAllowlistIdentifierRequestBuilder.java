@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.CreateAllowlistIdentifier;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class CreateAllowlistIdentifierRequestBuilder {
@@ -18,6 +18,7 @@ public class CreateAllowlistIdentifierRequestBuilder {
     private Optional<? extends CreateAllowlistIdentifierRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateAllowlistIdentifierRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -47,13 +48,13 @@ public class CreateAllowlistIdentifierRequestBuilder {
         return this;
     }
 
-    public CreateAllowlistIdentifierResponse call() throws Exception {
+    public CreateAllowlistIdentifierResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<Optional<? extends CreateAllowlistIdentifierRequestBody>, CreateAllowlistIdentifierResponse> operation
-              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options);
+              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

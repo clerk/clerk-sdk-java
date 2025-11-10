@@ -65,7 +65,8 @@ public class UpdateOrganizationRequestBody {
     private JsonNullable<Boolean> adminDeleteEnabled;
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
@@ -155,7 +156,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     @JsonIgnore
     public JsonNullable<String> createdAt() {
@@ -280,7 +282,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     public UpdateOrganizationRequestBody withCreatedAt(String createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -289,7 +292,8 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+     * `2012-10-20T07:15:20.902Z`).
      */
     public UpdateOrganizationRequestBody withCreatedAt(JsonNullable<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -477,7 +481,8 @@ public class UpdateOrganizationRequestBody {
 
 
         /**
-         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+         * `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(String createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -486,7 +491,8 @@ public class UpdateOrganizationRequestBody {
         }
 
         /**
-         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
+         * `2012-10-20T07:15:20.902Z`).
          */
         public Builder createdAt(JsonNullable<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");

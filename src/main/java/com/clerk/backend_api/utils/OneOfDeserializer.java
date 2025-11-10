@@ -5,6 +5,7 @@ package com.clerk.backend_api.utils;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,12 +13,17 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
@@ -34,47 +40,35 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
 
     private static final long serialVersionUID = -1;
 
-    private final transient List<TypeReferenceWithShape> typeReferences; // oneOf subschemas 
+    private final transient List<TypeReferenceWithShape> typeReferences; // oneOf subschemas
     private final Class<T> cls;
-    private final boolean strict;
     private final ObjectMapper mapper;
 
     /**
      * Constructor.
-     * 
+     *
      * @param cls            oneOf type
-     * @param strict         if true then when multiple matches encountered an
-     *                       exception is thrown. If false then when multiple
-     *                       matches encountered the first match from the
-     *                       typeReferences array is used as deserialization result.
-     * @param typeReferences the types of the oneOf subschemas. When strict is false
-     *                       the first matching member of this array will be the
-     *                       type of the deserialization result.
+     * @param strict         deprecated parameter, no longer used (kept for backward compatibility)
+     * @param typeReferences the types of the oneOf subschemas
      */
     protected OneOfDeserializer(Class<T> cls, boolean strict, TypeReferenceWithShape... typeReferences) {
         super(cls);
-        this.typeReferences= Arrays.asList(typeReferences);
+        this.typeReferences = Arrays.asList(typeReferences);
         this.cls = cls;
-        this.strict = strict;
         this.mapper = JSON.getMapper();
     }
 
     @Override
     public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        return deserializeOneOf(mapper, p, ctxt, typeReferences, cls, strict);
+        TreeNode tree = p.getCodec().readTree(p);
+        return deserializeOneOf(mapper, tree, typeReferences, cls);
     }
 
-    private static <T> T deserializeOneOf(ObjectMapper mapper, JsonParser p, DeserializationContext ctxt,
-            List<TypeReferenceWithShape> typeReferences, Class<T> cls, boolean strict) throws IOException {
-        TreeNode tree = p.getCodec().readTree(p);
+    private static <T> T deserializeOneOf(ObjectMapper mapper, TreeNode tree,
+            List<TypeReferenceWithShape> typeReferences, Class<T> cls) throws JsonProcessingException {
         // TODO don't have to generate json because can use tree.traverse to get a
         // parser to read value, perf advantage and can stop plugging in ObjectMapper
         String json = mapper.writeValueAsString(tree);
-        return deserializeOneOf(mapper, json, typeReferences, cls, ctxt, strict);
-    }
-
-    private static <T> T deserializeOneOf(ObjectMapper mapper, String json, List<TypeReferenceWithShape> typeReferences, Class<T> cls,
-            DeserializationContext ctxt, boolean strict) throws JsonProcessingException {
         List<Match<T>> matches = new ArrayList<>();
         for (TypeReferenceWithShape c : typeReferences) {
             // try to deserialize with each of the member classes
@@ -88,37 +82,265 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
                     @SuppressWarnings("unchecked")
                     TypedObject typed = TypedObject.of(o, c.shape(), (TypeReference<Object>) c.typeReference());
                     T v = newInstance(cls, typed);
-                    matches.add(new Match<>(c, v));
+                    matches.add(new Match<>(c, v, tree));
                 }
-            } catch (DatabindException e) {} // NOPMD
+            } catch (DatabindException ignored) {} // NOPMD
             // @formatter:on
         }
-        matches = applyMatchPreferences(matches, json);
+        // Short-circuit if single match
         if (matches.size() == 1) {
             return matches.get(0).value;
-        } else if (matches.size() > 1) {
-            if (strict) {
-                throw JsonMappingException.from(ctxt,
-                        "json matched more than one of the possible type references, matches are: " 
-                        + typeNames(matches) + " - json=\n" + json);
-            } else {
-                // return first match
-                return matches.get(0).value;
-            }
-        } else {
-            throw JsonMappingException.from(ctxt,
-                "json did not match any of the possible type references: " + typeReferenceNames(typeReferences) + ", json=\n" + json);
         }
+
+        matches = applyMatchPreferences(matches, json);
+
+        if (!matches.isEmpty()) {
+            return matches.get(0).value;
+        }
+        
+        // No types matched - fall back to JsonNode
+        // TreeNode is already parsed, just cast to JsonNode
+        JsonNode node;
+        if (tree instanceof JsonNode) {
+            node = (JsonNode) tree;
+        } else {
+            // Shouldn't happen with Jackson's default implementation, but handle gracefully
+            node = mapper.readTree(json);
+        }
+        
+        // Wrap JsonNode in TypedObject and create union instance
+        TypedObject typed = TypedObject.of(node, Utils.JsonShape.DEFAULT,
+            new TypeReference<JsonNode>() {});
+        return newInstance(cls, typed);
     }
-    
-    private static final class Match<T> {
+    /**
+     * Represents a candidate deserialization result for oneOf schema matching.
+     * Candidates are compared using a multi-level tie-breaking strategy to determine
+     * the best match when multiple schemas successfully deserialize the input.
+     */
+    private static final class Match<T> implements Comparable<Match<T>> {
         final TypeReferenceWithShape typeReference;
         final T value;
-        
-        Match(TypeReferenceWithShape typeReference, T value) {
+        private final TreeNode tree;
+
+        Match(TypeReferenceWithShape typeReference, T value, TreeNode tree) {
             this.typeReference = typeReference;
             this.value = value;
+            this.tree = tree;
         }
+
+        private int getMappedFields() {
+            try {
+                Object unwrapped = unwrapValue(value);
+                JsonNode jsonNode = tree instanceof JsonNode ? (JsonNode) tree : null;
+                return (jsonNode != null) ? countMappedFields(unwrapped, jsonNode) : 0;
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+
+        private int getMappedEnumFields() {
+            try {
+                Object unwrapped = unwrapValue(value);
+                JsonNode jsonNode = tree instanceof JsonNode ? (JsonNode) tree : null;
+                return (jsonNode != null) ? countMappedEnumFields(unwrapped, jsonNode) : 0;
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+
+        /**
+         * Compares candidates using a multi-level tie-breaking strategy:
+         * <pre>
+         * 1. Number of mapped fields (higher is better)
+         * 2. Number of mapped enum fields (higher is better)
+         * 3. Size of serialized JSON (larger is better)
+         * </pre>
+         * This natural ordering is used to select the best candidate when multiple
+         * oneOf schemas successfully deserialize the input.
+         */
+        @Override
+        public int compareTo(Match<T> other) {
+            // Primary: number of mapped fields (higher is better)
+            int fieldComparison = Integer.compare(this.getMappedFields(), other.getMappedFields());
+            if (fieldComparison != 0) {
+                return fieldComparison;
+            }
+
+            // Secondary: number of mapped enum fields (higher is better)
+            int enumFieldComparison = Integer.compare(this.getMappedEnumFields(), other.getMappedEnumFields());
+            if (enumFieldComparison != 0) {
+                return enumFieldComparison;
+            }
+
+            // Tertiary: JSON size (larger is better)
+            try {
+                String thisJson = JSON.getMapper().writeValueAsString(unwrapValue(this.value));
+                String otherJson = JSON.getMapper().writeValueAsString(unwrapValue(other.value));
+                return Integer.compare(thisJson.length(), otherJson.length());
+            } catch (Exception e) {
+                return 0; // Equal if serialization fails
+            }
+        }
+    }
+
+    /**
+     * Unwraps the actual deserialized object from a union wrapper.
+     * Union wrappers have a TypedObject field annotated with @JsonValue.
+     * This method extracts that field and unwraps the TypedObject to get the actual value.
+     *
+     * @param wrapper the union wrapper instance
+     * @return the actual deserialized object
+     */
+    private static Object unwrapValue(Object wrapper) {
+        if (wrapper == null) {
+            return null;
+        }
+
+        // Extract the @JsonValue field from wrapper union classes
+        // Wrapper classes have a TypedObject field annotated with @JsonValue
+        try {
+            for (Field field : wrapper.getClass().getDeclaredFields()) {
+                if (field.isAnnotationPresent(com.fasterxml.jackson.annotation.JsonValue.class)) {
+                    field.setAccessible(true);
+                    Object fieldValue = field.get(wrapper);
+                    // Unwrap the TypedObject to get the actual value
+                    if (fieldValue instanceof TypedObject) {
+                        return ((TypedObject) fieldValue).value();
+                    }
+                    return fieldValue;
+                }
+            }
+        } catch (Exception e) {
+            // Fall through to return as-is
+        }
+
+        return wrapper;
+    }
+
+    @FunctionalInterface
+    private interface ObjectMatcher {
+        boolean test(Object obj, JsonNode jsonNode);
+    }
+
+    /**
+     * Generic recursive counter that walks the object graph based on JSON structure.
+     * Only counts elements that exist in both the object AND the JSON.
+     *
+     * @param obj the deserialized object to traverse
+     * @param jsonNode the corresponding JSON node
+     * @param matcher predicate that determines what to count (returns true if matched)
+     * @return count of matching elements that were present in the JSON
+     */
+    private static int countMatching(Object obj, JsonNode jsonNode, ObjectMatcher matcher) {
+        if (obj == null || jsonNode == null) {
+            return 0;
+        }
+
+        // Baseline: test if this object matches our criteria
+        if (matcher.test(obj, jsonNode)) {
+            return 1;
+        }
+
+        // Early exit for primitives that don't match
+        if (isPrimitiveOrString(obj)) {
+            return 0;
+        }
+
+        try {
+            // Recurse through collections
+            if (obj instanceof Collection && jsonNode.isArray()) {
+                int count = 0;
+                int index = 0;
+                for (Object element : (Collection<?>) obj) {
+                    if (element != null && index < jsonNode.size()) {
+                        JsonNode elementNode = jsonNode.get(index);
+                        count += countMatching(element, elementNode, matcher);
+                    }
+                    index++;
+                }
+                return count;
+            }
+
+            // Recurse through maps
+            if (obj instanceof Map && jsonNode.isObject()) {
+                int count = 0;
+                for (Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
+                    if (entry.getKey() != null && entry.getValue() != null) {
+                        String key = entry.getKey().toString();
+                        if (jsonNode.has(key)) {
+                            JsonNode valueNode = jsonNode.get(key);
+                            count += countMatching(entry.getValue(), valueNode, matcher);
+                        }
+                    }
+                }
+                return count;
+            }
+
+            // Recurse through object fields - only count fields present in JSON
+            if (jsonNode.isObject() && !(obj instanceof Map)) {
+                int count = 0;
+                for (Field field : obj.getClass().getDeclaredFields()) {
+                    if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
+
+                    field.setAccessible(true);
+                    Object fieldValue = field.get(obj);
+                    String fieldName = field.getName();
+
+                    if (fieldValue != null && jsonNode.has(fieldName)) {
+                        JsonNode fieldNode = jsonNode.get(fieldName);
+                        count += countMatching(fieldValue, fieldNode, matcher);
+                    }
+                }
+                return count;
+            }
+
+            return 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Counts all primitive/string fields that were mapped from JSON.
+     */
+    private static int countMappedFields(Object obj, JsonNode jsonNode) {
+        return countMatching(obj, jsonNode, (o, ignored) -> isPrimitiveOrString(o));
+    }
+
+    /**
+     * Counts all enum fields that were mapped from JSON.
+     * Verifies that the JSON value matches the enum's value.
+     * TODO: Count "Open Enums" as well (which are wrapped in a class)
+     */
+    private static int countMappedEnumFields(Object obj, JsonNode jsonNode) {
+        return countMatching(obj, jsonNode, (o, node) -> {
+            if (!o.getClass().isEnum()) {
+                return false;
+            }
+            // Verify that the JSON value matches the enum's string representation
+            if (node != null && node.isTextual()) {
+                String enumValue = ((Enum<?>) o).name();
+                String jsonValue = node.asText();
+                return enumValue.equals(jsonValue);
+            }
+            return false;
+        });
+    }
+
+    private static boolean isPrimitiveOrString(Object obj) {
+        Class<?> clazz = obj.getClass();
+        return clazz.isPrimitive() ||
+                clazz == String.class ||
+                clazz == Integer.class ||
+                clazz == Long.class ||
+                clazz == Double.class ||
+                clazz == Float.class ||
+                clazz == Boolean.class ||
+                clazz == BigDecimal.class ||
+                clazz == BigInteger.class ||
+                clazz == OffsetDateTime.class ||
+                clazz == LocalDate.class;
     }
     
     private static final Set<String> NUMERIC_CLASSES = Set.of(
@@ -171,34 +393,40 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
     private static boolean isDoubleQuoted(String s) {
         return s.length() >=2 && s.startsWith("\"") && s.endsWith("\"");
     }
-
+    /**
+     * Applies candidate preference rules to resolve multiple matches.
+     * Uses legacy type-specific preferences for backward compatibility, then applies
+     * smart scoring using field mapping analysis for enhanced resolution.
+     */
     // VisibleForTesting
     public static <T> List<Match<T>> applyMatchPreferences(List<Match<T>> matches, String json) {
         if (matches.size() <= 1) {
             return matches;
-        } else if (allNumeric(matches)) {
+        }
+
+        // Apply legacy type-specific preferences for backward compatibility
+        if (allNumeric(matches)) {
             List<Match<T>> decimalMatches = decimalMatches(matches);
             List<Match<T>> integerMatches = integerMatches(matches);
             if (!decimalMatches.isEmpty() && !integerMatches.isEmpty()) {
-                if (json.contains("e")|| json.contains(".")) {
-                    return decimalMatches;
-                } else {
-                    return integerMatches;
-                }
+                matches = json.contains("e") || json.contains(".") ? decimalMatches : integerMatches;
             } else if (!decimalMatches.isEmpty()) {
-                return decimalMatches;
+                matches = decimalMatches;
             } else {
-                return integerMatches;
+                matches = integerMatches;
             }
-        } if (allDateTime(matches)) {
-            if (json.contains("T")) {
-                return filter(matches, OffsetDateTime.class);
-            } else {
-                return filter(matches, LocalDate.class);
-            }
-        } else {
-            return matches;
+        } else if (allDateTime(matches)) {
+            matches = json.contains("T") ? filter(matches, OffsetDateTime.class) : filter(matches, LocalDate.class);
         }
+
+        // Apply smart scoring using natural ordering if still multiple candidates
+        if (matches.size() > 1) {
+            return matches.stream()
+                    .sorted(Comparator.reverseOrder()) // Best candidates first (highest scores)
+                    .collect(Collectors.toList());
+        }
+
+        return matches;
     }
 
     private static <T> List<Match<T>> filter(List<Match<T>> matches, Class<?> filterByClass) {
@@ -267,4 +495,5 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
             throw new RuntimeException(e);
         }
     }
+    
 }

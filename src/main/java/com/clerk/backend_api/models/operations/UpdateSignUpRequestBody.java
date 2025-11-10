@@ -17,7 +17,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class UpdateSignUpRequestBody {
     /**
-     * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+     * The ID of the guest attempting to sign up as used in your external systems or your previous
+     * authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -46,7 +47,8 @@ public class UpdateSignUpRequestBody {
     }
 
     /**
-     * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+     * The ID of the guest attempting to sign up as used in your external systems or your previous
+     * authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
     @JsonIgnore
@@ -68,7 +70,8 @@ public class UpdateSignUpRequestBody {
 
 
     /**
-     * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+     * The ID of the guest attempting to sign up as used in your external systems or your previous
+     * authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
     public UpdateSignUpRequestBody withExternalId(String externalId) {
@@ -78,7 +81,8 @@ public class UpdateSignUpRequestBody {
     }
 
     /**
-     * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+     * The ID of the guest attempting to sign up as used in your external systems or your previous
+     * authentication solution.
      * This will be copied to the resulting user when the sign-up is completed.
      */
     public UpdateSignUpRequestBody withExternalId(JsonNullable<String> externalId) {
@@ -145,7 +149,8 @@ public class UpdateSignUpRequestBody {
 
 
         /**
-         * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+         * The ID of the guest attempting to sign up as used in your external systems or your previous
+         * authentication solution.
          * This will be copied to the resulting user when the sign-up is completed.
          */
         public Builder externalId(String externalId) {
@@ -155,7 +160,8 @@ public class UpdateSignUpRequestBody {
         }
 
         /**
-         * The ID of the guest attempting to sign up as used in your external systems or your previous authentication solution.
+         * The ID of the guest attempting to sign up as used in your external systems or your previous
+         * authentication solution.
          * This will be copied to the resulting user when the sign-up is completed.
          */
         public Builder externalId(JsonNullable<String> externalId) {

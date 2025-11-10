@@ -17,15 +17,16 @@ import com.clerk.backend_api.models.operations.ListAllowlistIdentifiersResponse;
 import com.clerk.backend_api.operations.CreateAllowlistIdentifier;
 import com.clerk.backend_api.operations.DeleteAllowlistIdentifier;
 import com.clerk.backend_api.operations.ListAllowlistIdentifiers;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class AllowlistIdentifiers {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     AllowlistIdentifiers(SDKConfiguration sdkConfiguration) {
@@ -49,9 +50,9 @@ public class AllowlistIdentifiers {
      * <p>Get a list of all identifiers allowed to sign up to an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ListAllowlistIdentifiersResponse listDirect() throws Exception {
+    public ListAllowlistIdentifiersResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -71,11 +72,11 @@ public class AllowlistIdentifiers {
      *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ListAllowlistIdentifiersResponse list(
             Optional<Boolean> paginated, Optional<Long> limit,
-            Optional<Long> offset, Optional<Options> options) throws Exception {
+            Optional<Long> offset, Optional<Options> options) {
         ListAllowlistIdentifiersRequest request =
             ListAllowlistIdentifiersRequest
                 .builder()
@@ -84,7 +85,7 @@ public class AllowlistIdentifiers {
                 .offset(offset)
                 .build();
         RequestOperation<ListAllowlistIdentifiersRequest, ListAllowlistIdentifiersResponse> operation
-              = new ListAllowlistIdentifiers.Sync(sdkConfiguration, options);
+              = new ListAllowlistIdentifiers.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -105,9 +106,9 @@ public class AllowlistIdentifiers {
      * <p>Create an identifier allowed to sign up to an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateAllowlistIdentifierResponse createDirect() throws Exception {
+    public CreateAllowlistIdentifierResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -119,11 +120,11 @@ public class AllowlistIdentifiers {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateAllowlistIdentifierResponse create(Optional<? extends CreateAllowlistIdentifierRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateAllowlistIdentifierResponse create(Optional<? extends CreateAllowlistIdentifierRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateAllowlistIdentifierRequestBody>, CreateAllowlistIdentifierResponse> operation
-              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options);
+              = new CreateAllowlistIdentifier.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -145,9 +146,9 @@ public class AllowlistIdentifiers {
      * 
      * @param identifierId The ID of the identifier to delete from the allow-list
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteAllowlistIdentifierResponse delete(String identifierId) throws Exception {
+    public DeleteAllowlistIdentifierResponse delete(String identifierId) {
         return delete(identifierId, Optional.empty());
     }
 
@@ -159,16 +160,16 @@ public class AllowlistIdentifiers {
      * @param identifierId The ID of the identifier to delete from the allow-list
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteAllowlistIdentifierResponse delete(String identifierId, Optional<Options> options) throws Exception {
+    public DeleteAllowlistIdentifierResponse delete(String identifierId, Optional<Options> options) {
         DeleteAllowlistIdentifierRequest request =
             DeleteAllowlistIdentifierRequest
                 .builder()
                 .identifierId(identifierId)
                 .build();
         RequestOperation<DeleteAllowlistIdentifierRequest, DeleteAllowlistIdentifierResponse> operation
-              = new DeleteAllowlistIdentifier.Sync(sdkConfiguration, options);
+              = new DeleteAllowlistIdentifier.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

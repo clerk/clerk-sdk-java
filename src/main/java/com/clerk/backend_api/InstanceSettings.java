@@ -25,12 +25,13 @@ import com.clerk.backend_api.operations.GetInstance;
 import com.clerk.backend_api.operations.UpdateInstance;
 import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettings;
 import com.clerk.backend_api.operations.UpdateInstanceRestrictions;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.util.Optional;
 
 
 public class InstanceSettings {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     InstanceSettings(SDKConfiguration sdkConfiguration) {
@@ -54,9 +55,9 @@ public class InstanceSettings {
      * <p>Fetches the current instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetInstanceResponse getDirect() throws Exception {
+    public GetInstanceResponse getDirect() {
         return get(Optional.empty());
     }
 
@@ -67,11 +68,11 @@ public class InstanceSettings {
      * 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetInstanceResponse get(Optional<Options> options) throws Exception {
+    public GetInstanceResponse get(Optional<Options> options) {
         RequestlessOperation<GetInstanceResponse> operation
-            = new GetInstance.Sync(sdkConfiguration, options);
+            = new GetInstance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest());
     }
 
@@ -92,9 +93,9 @@ public class InstanceSettings {
      * <p>Updates the settings of an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceResponse updateDirect() throws Exception {
+    public UpdateInstanceResponse updateDirect() {
         return update(Optional.empty(), Optional.empty());
     }
 
@@ -106,11 +107,11 @@ public class InstanceSettings {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceResponse update(Optional<? extends UpdateInstanceRequestBody> request, Optional<Options> options) throws Exception {
+    public UpdateInstanceResponse update(Optional<? extends UpdateInstanceRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceRequestBody>, UpdateInstanceResponse> operation
-              = new UpdateInstance.Sync(sdkConfiguration, options);
+              = new UpdateInstance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -131,9 +132,9 @@ public class InstanceSettings {
      * <p>Updates the restriction settings of an instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() {
         return updateRestrictions(Optional.empty(), Optional.empty());
     }
 
@@ -145,11 +146,11 @@ public class InstanceSettings {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) throws Exception {
+    public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
-              = new UpdateInstanceRestrictions.Sync(sdkConfiguration, options);
+              = new UpdateInstanceRestrictions.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -158,9 +159,13 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @return The call builder
      */
@@ -173,14 +178,18 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ChangeProductionInstanceDomainResponse changeDomainDirect() throws Exception {
+    public ChangeProductionInstanceDomainResponse changeDomainDirect() {
         return changeDomain(Optional.empty(), Optional.empty());
     }
 
@@ -189,18 +198,22 @@ public class InstanceSettings {
      * 
      * <p>Change the domain of a production instance.
      * 
-     * <p>Changing the domain requires updating the [DNS records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social Connection's redirect URLs and setting the new keys in your code.
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
      * 
-     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ChangeProductionInstanceDomainResponse changeDomain(Optional<? extends ChangeProductionInstanceDomainRequestBody> request, Optional<Options> options) throws Exception {
+    public ChangeProductionInstanceDomainResponse changeDomain(Optional<? extends ChangeProductionInstanceDomainRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends ChangeProductionInstanceDomainRequestBody>, ChangeProductionInstanceDomainResponse> operation
-              = new ChangeProductionInstanceDomain.Sync(sdkConfiguration, options);
+              = new ChangeProductionInstanceDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -221,9 +234,9 @@ public class InstanceSettings {
      * <p>Updates the organization settings of the instance
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettingsDirect() {
         return updateOrganizationSettings(Optional.empty(), Optional.empty());
     }
 
@@ -235,11 +248,11 @@ public class InstanceSettings {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request, Optional<Options> options) throws Exception {
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
-              = new UpdateInstanceOrganizationSettings.Sync(sdkConfiguration, options);
+              = new UpdateInstanceOrganizationSettings.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

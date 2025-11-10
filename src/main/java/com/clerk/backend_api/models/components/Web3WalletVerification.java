@@ -3,17 +3,20 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import java.lang.String;
 
-@JsonTypeInfo(use = Id.NAME, property = "object", include = As.EXISTING_PROPERTY, visible = true)
-@JsonSubTypes({
-    @Type(value = Web3Signature.class, name="verification_web3"),
-    @Type(value = VerificationAdminVerificationAdmin.class, name="Admin")})
+@JsonTypeInfo(
+        use = Id.CUSTOM,
+        property = "object",
+        include = As.EXISTING_PROPERTY,
+        visible = true,
+        defaultImpl = UnknownWeb3WalletVerification.class
+)
+@JsonTypeIdResolver(Web3WalletVerificationTypeIdResolver.class)
 public interface Web3WalletVerification {
 
     String object();

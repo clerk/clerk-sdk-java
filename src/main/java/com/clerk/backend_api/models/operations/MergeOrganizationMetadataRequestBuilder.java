@@ -7,10 +7,10 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.MergeOrganizationMetadata;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public class MergeOrganizationMetadataRequestBuilder {
     private MergeOrganizationMetadataRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public MergeOrganizationMetadataRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -58,13 +59,13 @@ public class MergeOrganizationMetadataRequestBuilder {
         return request;
     }
 
-    public MergeOrganizationMetadataResponse call() throws Exception {
+    public MergeOrganizationMetadataResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
-              = new MergeOrganizationMetadata.Sync(sdkConfiguration, options);
+              = new MergeOrganizationMetadata.Sync(sdkConfiguration, options, _headers);
         MergeOrganizationMetadataRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

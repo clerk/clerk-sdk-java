@@ -47,14 +47,17 @@ public class UpdateOAuthApplicationRequestBody {
     private JsonNullable<String> callbackUrl;
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
     private JsonNullable<String> scopes;
 
     /**
-     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+     * dynamically registered OAuth Applications.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("consent_screen_enabled")
@@ -135,7 +138,9 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     @JsonIgnore
     public JsonNullable<String> scopes() {
@@ -143,7 +148,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+     * dynamically registered OAuth Applications.
      */
     @JsonIgnore
     public JsonNullable<Boolean> consentScreenEnabled() {
@@ -234,7 +240,9 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     public UpdateOAuthApplicationRequestBody withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -243,7 +251,9 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+     * Provide the requested scopes as a string, separated by spaces.
      */
     public UpdateOAuthApplicationRequestBody withScopes(JsonNullable<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -252,7 +262,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+     * dynamically registered OAuth Applications.
      */
     public UpdateOAuthApplicationRequestBody withConsentScreenEnabled(boolean consentScreenEnabled) {
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
@@ -261,7 +272,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+     * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+     * dynamically registered OAuth Applications.
      */
     public UpdateOAuthApplicationRequestBody withConsentScreenEnabled(JsonNullable<Boolean> consentScreenEnabled) {
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
@@ -433,7 +445,9 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+         * Provide the requested scopes as a string, separated by spaces.
          */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -442,7 +456,9 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`. Provide the requested scopes as a string, separated by spaces.
+         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
+         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
+         * Provide the requested scopes as a string, separated by spaces.
          */
         public Builder scopes(JsonNullable<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -452,7 +468,8 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
-         * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+         * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+         * dynamically registered OAuth Applications.
          */
         public Builder consentScreenEnabled(boolean consentScreenEnabled) {
             Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
@@ -461,7 +478,8 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         /**
-         * True to enable a consent screen to display in the authentication flow. This cannot be disabled for dynamically registered OAuth Applications.
+         * True to enable a consent screen to display in the authentication flow. This cannot be disabled for
+         * dynamically registered OAuth Applications.
          */
         public Builder consentScreenEnabled(JsonNullable<Boolean> consentScreenEnabled) {
             Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");

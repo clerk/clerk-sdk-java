@@ -26,7 +26,7 @@ public class NextInvoice {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
-    private JsonNullable<? extends CommerceSubscriptionItemNextInvoiceAmount> amount;
+    private JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount;
 
     /**
      * Unix timestamp (in milliseconds) for the next payment date.
@@ -37,7 +37,7 @@ public class NextInvoice {
 
     @JsonCreator
     public NextInvoice(
-            @JsonProperty("amount") JsonNullable<? extends CommerceSubscriptionItemNextInvoiceAmount> amount,
+            @JsonProperty("amount") JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount,
             @JsonProperty("date") JsonNullable<Long> date) {
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(date, "date");
@@ -54,8 +54,8 @@ public class NextInvoice {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<CommerceSubscriptionItemNextInvoiceAmount> amount() {
-        return (JsonNullable<CommerceSubscriptionItemNextInvoiceAmount>) amount;
+    public JsonNullable<SchemasCommerceSubscriptionItemNextInvoiceAmount> amount() {
+        return (JsonNullable<SchemasCommerceSubscriptionItemNextInvoiceAmount>) amount;
     }
 
     /**
@@ -74,7 +74,7 @@ public class NextInvoice {
     /**
      * Amount for the next payment.
      */
-    public NextInvoice withAmount(CommerceSubscriptionItemNextInvoiceAmount amount) {
+    public NextInvoice withAmount(SchemasCommerceSubscriptionItemNextInvoiceAmount amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = JsonNullable.of(amount);
         return this;
@@ -83,7 +83,7 @@ public class NextInvoice {
     /**
      * Amount for the next payment.
      */
-    public NextInvoice withAmount(JsonNullable<? extends CommerceSubscriptionItemNextInvoiceAmount> amount) {
+    public NextInvoice withAmount(JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
@@ -137,7 +137,7 @@ public class NextInvoice {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private JsonNullable<? extends CommerceSubscriptionItemNextInvoiceAmount> amount = JsonNullable.undefined();
+        private JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount = JsonNullable.undefined();
 
         private JsonNullable<Long> date = JsonNullable.undefined();
 
@@ -149,7 +149,7 @@ public class NextInvoice {
         /**
          * Amount for the next payment.
          */
-        public Builder amount(CommerceSubscriptionItemNextInvoiceAmount amount) {
+        public Builder amount(SchemasCommerceSubscriptionItemNextInvoiceAmount amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = JsonNullable.of(amount);
             return this;
@@ -158,7 +158,7 @@ public class NextInvoice {
         /**
          * Amount for the next payment.
          */
-        public Builder amount(JsonNullable<? extends CommerceSubscriptionItemNextInvoiceAmount> amount) {
+        public Builder amount(JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;

@@ -16,12 +16,16 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 3.2.0
+  version: 4.0.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -31,9 +35,12 @@ java:
   companyName: My Company
   companyURL: www.mycompany.com
   defaultErrorName: SDKError
-  enableAsync: false
   enableCustomCodeRegions: false
+  enableStreamingUploads: false
+  enhancedUnionMemberResolution: true
   flattenGlobalSecurity: true
+  generateOptionalUnionAccessors: false
+  generateSpringBootStarter: true
   githubURL: github.com/owner/repo
   groupID: com.clerk
   imports:
@@ -52,6 +59,7 @@ java:
     url: https://mit-license.org/
   maxMethodParams: 4
   nullFriendlyParameters: false
+  openUnions: true
   outputModelSuffix: output
   projectName: api
   templateVersion: v2

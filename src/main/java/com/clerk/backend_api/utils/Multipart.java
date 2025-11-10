@@ -3,26 +3,25 @@
  */
 package com.clerk.backend_api.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.net.http.HttpRequest;
+import com.clerk.backend_api.utils.reactive.ReactiveUtils;
+
+import java.net.URLEncoder;
 import java.net.http.HttpRequest.BodyPublisher;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.concurrent.Flow;
 
 public final class Multipart {
 
-    private final static String DASHES = "--";
-    private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
+    private static final String CRLF = "\r\n";
+    private static final String DASHES = "--";
+    private static final Charset HDR_CS = StandardCharsets.ISO_8859_1; // headers
+    private static final Charset TXT_CS = StandardCharsets.UTF_8;      // text fields
+    private static final String DEFAULT_FILE_CT = "application/octet-stream";
+    public static final String DEFAULT_TEXT_CT = "text/plain; charset=UTF-8";
 
     private final BodyPublisher bodyPublisher;
     private final String boundary;
@@ -36,27 +35,35 @@ public final class Multipart {
         return bodyPublisher;
     }
 
+    /**
+     * Visible for tests.
+     */
+    public String boundary() {
+        return boundary;
+    }
+
+    /**
+     * RFC 7578: no charset parameter at the multipart level.
+     */
     public String contentType() {
-        return "multipart/form-data; charset=" + StandardCharsets.ISO_8859_1.name() + "; boundary=" + boundary;
+        return "multipart/form-data; boundary=" + boundary;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    // -------------------------------------------------------
+    // Builder
+    // -------------------------------------------------------
     public static final class Builder {
-
         private final List<Part> parts = new ArrayList<>();
         private final String boundary = UUID.randomUUID().toString();
 
         public Builder addPart(String name, String value) {
             Utils.checkNotNull(name, "name");
             Utils.checkNotNull(value, "value");
-            Part p = new Part();
-            p.type = PartType.STRING;
-            p.name = name;
-            p.value = value;
-            parts.add(p);
+            parts.add(new FormField(name, value, DEFAULT_TEXT_CT));
             return this;
         }
 
@@ -64,146 +71,155 @@ public final class Multipart {
             Utils.checkNotNull(name, "name");
             Utils.checkNotNull(value, "value");
             Utils.checkNotNull(contentType, "contentType");
-            Part p = new Part();
-            p.type = PartType.STRING;
-            p.name = name;
-            p.value = value;
-            p.contentType = contentType;
-            parts.add(p);
+            parts.add(new FormField(name, value, contentType));
             return this;
         }
 
-        public Builder addPart(String name, Supplier<InputStream> stream, String filename,
-                Optional<String> contentType) {
+        public Builder addPart(String name, byte[] bytes, String filename, String contentType) {
+            return addPart(name, Blob.from(bytes), filename, contentType);
+        }
+
+        public Builder addPart(String name, Blob blob, String filename, String contentType) {
             Utils.checkNotNull(name, "name");
-            Utils.checkNotNull(stream, "stream");
+            Utils.checkNotNull(blob, "blob");
             Utils.checkNotNull(filename, "filename");
-            Utils.checkNotNull(contentType, "contentType");
-            Part p = new Part();
-            p.type = PartType.STREAM;
-            p.name = name;
-            p.stream = stream;
-            p.filename = filename;
-            p.contentType = contentType.orElse(null);
-            parts.add(p);
+            parts.add(new FilePart(name, blob, filename,
+                    Optional.ofNullable(contentType).orElse(DEFAULT_FILE_CT)));
             return this;
-        }
-
-        private void addFinalBoundaryPart() {
-            Part p = new Part();
-            p.type = PartType.FINAL_BOUNDARY;
-            p.value = DASHES + boundary + DASHES;
-            parts.add(p);
         }
 
         public Multipart build() {
-            if (parts.size() == 0) {
+            if (parts.isEmpty()) {
                 throw new IllegalStateException("Must have at least one part to build multipart message.");
             }
-            addFinalBoundaryPart();
-            BodyPublisher bp = HttpRequest.BodyPublishers.ofByteArrays( //
-                    () -> new PartsIterator(parts, boundary));
-            return new Multipart(bp, boundary);
+
+            // Build publishers for each part plus the closing boundary.
+            List<BodyPublisher> pubs = new ArrayList<>(parts.size() + 1);
+            for (Part p : parts) {
+                pubs.add(p.toPublisher(boundary));
+            }
+            pubs.add(BodyPublishers.ofString(DASHES + boundary + DASHES + CRLF, HDR_CS));
+
+            BodyPublisher multipart = concat(pubs);
+            return new Multipart(multipart, boundary);
         }
     }
 
-    public enum PartType {
-        STRING, STREAM, FINAL_BOUNDARY
+    // -------------------------------------------------------
+    // Part model
+    // -------------------------------------------------------
+    interface Part {
+        BodyPublisher toPublisher(String boundary);
     }
 
-    static final class Part {
+    /**
+     * Text form field.
+     */
+    static final class FormField implements Part {
+        private final String name;
+        private final String value;
+        private final String contentType;
 
-        // type is the only mandatory field. Not keen on
-        // a whole bunch of nullable fields but not public api
-        // so will forego the noise of chained builders and
-        // Optional use
-
-        PartType type;
-        String name;
-        String value;
-        Supplier<InputStream> stream;
-        String filename;
-        String contentType;
-
-    }
-
-    private static final class PartsIterator implements Iterator<byte[]> {
-
-        private final Iterator<Part> iter;
-        private final String boundary;
-
-        private InputStream currentFileInput;
-        private boolean done;
-        private byte[] next;
-
-        PartsIterator(List<Part> parts, String boundary) {
-            this.iter = parts.iterator();
-            this.boundary = boundary;
+        FormField(String name, String value, String contentType) {
+            this.name = name;
+            this.value = value;
+            this.contentType = contentType != null ? contentType : "text/plain; charset=UTF-8";
         }
 
         @Override
-        public boolean hasNext() {
-            if (done)
-                return false;
-            if (next != null)
-                return true;
-            try {
-                next = computeNext();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-            if (next == null) {
-                done = true;
-                return false;
-            }
-            return true;
+        public BodyPublisher toPublisher(String boundary) {
+            String header = DASHES + boundary + CRLF +
+                    "Content-Disposition: form-data; name=\"" + escapeQuoted(name) + "\"" + CRLF +
+                    "Content-Type: " + contentType + CRLF +
+                    CRLF;
+
+            BodyPublisher h = BodyPublishers.ofString(header, HDR_CS);
+            BodyPublisher b = BodyPublishers.ofString(value, TXT_CS);
+            BodyPublisher t = BodyPublishers.ofString(CRLF, HDR_CS);
+
+            return concat(h, b, t);
+        }
+    }
+
+    /**
+     * File / blob upload.
+     */
+    static final class FilePart implements Part {
+        private final String name;
+        private final String filename;
+        private final String contentType;
+        private final Blob blob;
+
+        FilePart(String name, Blob blob, String filename, String contentType) {
+            this.name = name;
+            this.filename = filename;
+            this.contentType = contentType != null ? contentType : DEFAULT_FILE_CT;
+            this.blob = blob;
         }
 
         @Override
-        public byte[] next() {
-            if (!hasNext())
-                throw new NoSuchElementException();
-            byte[] res = next;
-            next = null;
-            return res;
-        }
+        public BodyPublisher toPublisher(String boundary) {
+            String cd = contentDispositionWithFilename(name, filename);
+            String header = DASHES + boundary + CRLF +
+                    "Content-Disposition: " + cd + CRLF +
+                    "Content-Type: " + contentType + CRLF +
+                    CRLF;
 
-        private byte[] computeNext() throws IOException {
-            if (currentFileInput == null) {
-                if (!iter.hasNext())
-                    return null;
-                Part nextPart = iter.next();
-                if (PartType.STRING.equals(nextPart.type)) {
-                    String part = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name=\"" + nextPart.name
-                            + "\"\r\n" + "Content-Type: text/plain; charset=UTF-8\r\n\r\n" + nextPart.value + "\r\n";
-                    return part.getBytes(StandardCharsets.UTF_8);
-                } else if (PartType.FINAL_BOUNDARY.equals(nextPart.type)) {
-                    return nextPart.value.getBytes(StandardCharsets.UTF_8);
-                } else {
-                    String filename = nextPart.filename;
-                    String contentType = nextPart.contentType;
-                    if (contentType == null) {
-                        contentType = APPLICATION_OCTET_STREAM;
-                    }
-                    currentFileInput = nextPart.stream.get();
-                    String partHeader = DASHES + boundary + "\r\n" + "Content-Disposition: form-data; name=\""
-                            + nextPart.name + "\"; filename=\"" + filename + "\"\r\n" + "Content-Type: " + contentType
-                            + "\r\n\r\n";
-                    return partHeader.getBytes(StandardCharsets.UTF_8);
-                }
-            } else {
-                byte[] buf = new byte[8192];
-                int r = currentFileInput.read(buf);
-                if (r > 0) {
-                    byte[] actualBytes = new byte[r];
-                    System.arraycopy(buf, 0, actualBytes, 0, r);
-                    return actualBytes;
-                } else {
-                    currentFileInput.close();
-                    currentFileInput = null;
-                    return "\r\n".getBytes(StandardCharsets.UTF_8);
-                }
-            }
+            BodyPublisher h = BodyPublishers.ofString(header, HDR_CS);
+            BodyPublisher c = BodyPublishers.fromPublisher(blob.asPublisher()); // streaming
+            BodyPublisher t = BodyPublishers.ofString(CRLF, HDR_CS);
+
+            return concat(h, c, t);
         }
     }
+
+    // -------------------------------------------------------
+    // Helpers
+    // -------------------------------------------------------
+    private static String escapeQuoted(String s) {
+        Objects.requireNonNull(s, "quoted string");
+        StringBuilder out = new StringBuilder(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '"' || c == '\\') out.append('\\').append(c);
+            else if (c == '\r' || c == '\n') out.append(' ');
+            else out.append(c);
+        }
+        return out.toString();
+    }
+
+    /**
+     * RFC 5987 filename* with ASCII fallback.
+     */
+    private static String contentDispositionWithFilename(String name, String filename) {
+        String safeName = escapeQuoted(name);
+        String fallback = escapeQuoted(asAsciiFilenameFallback(filename));
+        String encoded;
+        try {
+            encoded = URLEncoder.encode(filename, TXT_CS).replace("+", "%20");
+        } catch (Exception e) {
+            encoded = fallback;
+        }
+        return "form-data; name=\"" + safeName + "\"; filename=\"" + fallback + "\"; filename*=UTF-8''" + encoded;
+    }
+
+    private static String asAsciiFilenameFallback(String filename) {
+        StringBuilder sb = new StringBuilder(filename.length());
+        for (int i = 0; i < filename.length(); i++) {
+            char c = filename.charAt(i);
+            if (c >= 0x20 && c <= 0x7E && c != '"' && c != '\\') sb.append(c);
+            else sb.append('_');
+        }
+        return sb.toString();
+    }
+
+    private static BodyPublisher concat(BodyPublisher... publishers) {
+        return BodyPublishers.fromPublisher(ReactiveUtils.concat(List.of(publishers)));
+    }
+
+    private static BodyPublisher concat(List<BodyPublisher> publishers) {
+        List<Flow.Publisher<ByteBuffer>> bufferPublishers = List.copyOf(publishers);
+        return BodyPublishers.fromPublisher(ReactiveUtils.concat(bufferPublishers));
+    }
+
 }

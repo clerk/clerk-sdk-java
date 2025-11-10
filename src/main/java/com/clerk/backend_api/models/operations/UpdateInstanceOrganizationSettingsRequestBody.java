@@ -40,6 +40,11 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     @JsonProperty("domains_enabled")
     private JsonNullable<Boolean> domainsEnabled;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("slug_disabled")
+    private JsonNullable<Boolean> slugDisabled;
+
     /**
      * Specify which enrollment modes to enable for your Organization Domains.
      * Supported modes are 'automatic_invitation' &amp; 'automatic_suggestion'.
@@ -68,6 +73,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled,
             @JsonProperty("domains_enabled") JsonNullable<Boolean> domainsEnabled,
+            @JsonProperty("slug_disabled") JsonNullable<Boolean> slugDisabled,
             @JsonProperty("domains_enrollment_modes") Optional<? extends List<String>> domainsEnrollmentModes,
             @JsonProperty("creator_role_id") JsonNullable<String> creatorRoleId,
             @JsonProperty("domains_default_role_id") JsonNullable<String> domainsDefaultRoleId) {
@@ -75,6 +81,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         Utils.checkNotNull(domainsEnabled, "domainsEnabled");
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
         Utils.checkNotNull(domainsEnrollmentModes, "domainsEnrollmentModes");
         Utils.checkNotNull(creatorRoleId, "creatorRoleId");
         Utils.checkNotNull(domainsDefaultRoleId, "domainsDefaultRoleId");
@@ -82,6 +89,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.adminDeleteEnabled = adminDeleteEnabled;
         this.domainsEnabled = domainsEnabled;
+        this.slugDisabled = slugDisabled;
         this.domainsEnrollmentModes = domainsEnrollmentModes;
         this.creatorRoleId = creatorRoleId;
         this.domainsDefaultRoleId = domainsDefaultRoleId;
@@ -89,8 +97,8 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     
     public UpdateInstanceOrganizationSettingsRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -111,6 +119,11 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> domainsEnabled() {
         return domainsEnabled;
+    }
+
+    @JsonIgnore
+    public JsonNullable<Boolean> slugDisabled() {
+        return slugDisabled;
     }
 
     /**
@@ -192,6 +205,18 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         return this;
     }
 
+    public UpdateInstanceOrganizationSettingsRequestBody withSlugDisabled(boolean slugDisabled) {
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
+        this.slugDisabled = JsonNullable.of(slugDisabled);
+        return this;
+    }
+
+    public UpdateInstanceOrganizationSettingsRequestBody withSlugDisabled(JsonNullable<Boolean> slugDisabled) {
+        Utils.checkNotNull(slugDisabled, "slugDisabled");
+        this.slugDisabled = slugDisabled;
+        return this;
+    }
+
     /**
      * Specify which enrollment modes to enable for your Organization Domains.
      * Supported modes are 'automatic_invitation' &amp; 'automatic_suggestion'.
@@ -263,6 +288,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
             Utils.enhancedDeepEquals(this.domainsEnabled, other.domainsEnabled) &&
+            Utils.enhancedDeepEquals(this.slugDisabled, other.slugDisabled) &&
             Utils.enhancedDeepEquals(this.domainsEnrollmentModes, other.domainsEnrollmentModes) &&
             Utils.enhancedDeepEquals(this.creatorRoleId, other.creatorRoleId) &&
             Utils.enhancedDeepEquals(this.domainsDefaultRoleId, other.domainsDefaultRoleId);
@@ -272,8 +298,8 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             enabled, maxAllowedMemberships, adminDeleteEnabled,
-            domainsEnabled, domainsEnrollmentModes, creatorRoleId,
-            domainsDefaultRoleId);
+            domainsEnabled, slugDisabled, domainsEnrollmentModes,
+            creatorRoleId, domainsDefaultRoleId);
     }
     
     @Override
@@ -283,6 +309,7 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "adminDeleteEnabled", adminDeleteEnabled,
                 "domainsEnabled", domainsEnabled,
+                "slugDisabled", slugDisabled,
                 "domainsEnrollmentModes", domainsEnrollmentModes,
                 "creatorRoleId", creatorRoleId,
                 "domainsDefaultRoleId", domainsDefaultRoleId);
@@ -298,6 +325,8 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();
 
         private JsonNullable<Boolean> domainsEnabled = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> slugDisabled = JsonNullable.undefined();
 
         private Optional<? extends List<String>> domainsEnrollmentModes = Optional.empty();
 
@@ -358,6 +387,19 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
         public Builder domainsEnabled(JsonNullable<Boolean> domainsEnabled) {
             Utils.checkNotNull(domainsEnabled, "domainsEnabled");
             this.domainsEnabled = domainsEnabled;
+            return this;
+        }
+
+
+        public Builder slugDisabled(boolean slugDisabled) {
+            Utils.checkNotNull(slugDisabled, "slugDisabled");
+            this.slugDisabled = JsonNullable.of(slugDisabled);
+            return this;
+        }
+
+        public Builder slugDisabled(JsonNullable<Boolean> slugDisabled) {
+            Utils.checkNotNull(slugDisabled, "slugDisabled");
+            this.slugDisabled = slugDisabled;
             return this;
         }
 
@@ -424,8 +466,8 @@ public class UpdateInstanceOrganizationSettingsRequestBody {
 
             return new UpdateInstanceOrganizationSettingsRequestBody(
                 enabled, maxAllowedMemberships, adminDeleteEnabled,
-                domainsEnabled, domainsEnrollmentModes, creatorRoleId,
-                domainsDefaultRoleId);
+                domainsEnabled, slugDisabled, domainsEnrollmentModes,
+                creatorRoleId, domainsDefaultRoleId);
         }
 
     }

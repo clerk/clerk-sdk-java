@@ -1,21 +1,21 @@
-speakeasyVersion: 1.606.9
+speakeasyVersion: 1.653.0
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:50ec69cb208a504bcf1098f28817af6691e8e924eb4349d141989a927680dfe8
-        sourceBlobDigest: sha256:f8e89b57ae783aa6cc659bdc7c1d7955947b0c989a2224290169d25eb18c65df
+        sourceRevisionDigest: sha256:4cdfbca5fe446f5440ef5a91053cdec7dd86d4b1c296a30cec61e1f46e1c3bf0
+        sourceBlobDigest: sha256:667192662fbf3ee62bd9f4d3e67323b7b6777054d7d08b383e2db721e2911354
         tags:
             - latest
-            - speakeasy-sdk-regen-1753143080
-            - "2025-04-10"
+            - speakeasy-sdk-regen-1756771797
+            - "2025-11-10"
 targets:
     clerk-java:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:50ec69cb208a504bcf1098f28817af6691e8e924eb4349d141989a927680dfe8
-        sourceBlobDigest: sha256:f8e89b57ae783aa6cc659bdc7c1d7955947b0c989a2224290169d25eb18c65df
+        sourceRevisionDigest: sha256:4cdfbca5fe446f5440ef5a91053cdec7dd86d4b1c296a30cec61e1f46e1c3bf0
+        sourceBlobDigest: sha256:667192662fbf3ee62bd9f4d3e67323b7b6777054d7d08b383e2db721e2911354
         codeSamplesNamespace: clerk-java-sdk-code-samples
-        codeSamplesRevisionDigest: sha256:ce2a259ab2e8d16332425f8ffa3e5d352574ad828ec574b02ed47ab8c262a028
+        codeSamplesRevisionDigest: sha256:ec10b689b7835ba5566ba1569f14e7b197a7dcba7dd11c0753c62de6d3f072c4
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
@@ -27,7 +27,7 @@ workflow:
     sources:
         clerk-java-sdk:
             inputs:
-                - location: https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2025-04-10.yml
+                - location: https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/bapi/2025-11-10.yml
             overlays:
                 - location: https://raw.githubusercontent.com/clerk/openapi-specs/refs/heads/main/.speakeasy/bapi/fixes.yml
             registry:

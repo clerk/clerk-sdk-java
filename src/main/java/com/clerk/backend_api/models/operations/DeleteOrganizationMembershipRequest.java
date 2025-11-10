@@ -13,13 +13,13 @@ import java.lang.String;
 
 public class DeleteOrganizationMembershipRequest {
     /**
-     * The ID of the organization to which the membership belongs
+     * The ID of the organization to which this membership belongs
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=organization_id")
     private String organizationId;
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=user_id")
     private String userId;
@@ -35,7 +35,7 @@ public class DeleteOrganizationMembershipRequest {
     }
 
     /**
-     * The ID of the organization to which the membership belongs
+     * The ID of the organization to which this membership belongs
      */
     @JsonIgnore
     public String organizationId() {
@@ -43,7 +43,7 @@ public class DeleteOrganizationMembershipRequest {
     }
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     @JsonIgnore
     public String userId() {
@@ -56,7 +56,7 @@ public class DeleteOrganizationMembershipRequest {
 
 
     /**
-     * The ID of the organization to which the membership belongs
+     * The ID of the organization to which this membership belongs
      */
     public DeleteOrganizationMembershipRequest withOrganizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -65,7 +65,7 @@ public class DeleteOrganizationMembershipRequest {
     }
 
     /**
-     * The ID of the user that this membership belongs to
+     * The ID of the user to which this membership belongs
      */
     public DeleteOrganizationMembershipRequest withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
@@ -113,7 +113,7 @@ public class DeleteOrganizationMembershipRequest {
 
 
         /**
-         * The ID of the organization to which the membership belongs
+         * The ID of the organization to which this membership belongs
          */
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -123,7 +123,7 @@ public class DeleteOrganizationMembershipRequest {
 
 
         /**
-         * The ID of the user that this membership belongs to
+         * The ID of the user to which this membership belongs
          */
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");

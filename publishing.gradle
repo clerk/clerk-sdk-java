@@ -1,0 +1,114 @@
+afterEvaluate {
+    if (!project.ext.has('publishingConfig') 
+        || !project.ext.publishingConfig instanceof Map) {
+        return
+    }
+
+    def config = project.ext.publishingConfig
+    sonatypeCentralUpload {
+        username = System.getenv("SONATYPE_USERNAME") ?: "test-user"
+        password = System.getenv("SONATYPE_PASSWORD") ?: "test-password"
+        
+        // Use the actual generated artifact files
+        archives = provider {
+            def libsDir = layout.buildDirectory.dir("libs").get()
+            def artifactId = config.artifactId
+            def version = config.version
+            
+            files(
+                libsDir.file("${artifactId}-${version}.jar"),
+                libsDir.file("${artifactId}-${version}-sources.jar"),
+                libsDir.file("${artifactId}-${version}-javadoc.jar")
+            )
+        }
+        
+        pom = layout.buildDirectory.file("pom.xml").get().asFile
+        // This is your PGP private key. This is required to sign your files
+        signingKey = System.getenv("SONATYPE_SIGNING_KEY") ?: ""
+        // This is your PGP private key passphrase to decrypt your private key
+        signingKeyPassphrase = System.getenv("SIGNING_KEY_PASSPHRASE") ?: ""
+    }
+    publishing {
+
+        publications {
+            create("maven", MavenPublication) {
+                from(components["java"] as SoftwareComponent)
+
+                groupId = config.groupId
+                artifactId = config.artifactId
+                version = config.version
+
+                pom {
+                    properties = [
+                            'maven.compiler.source': '11',
+                            'maven.compiler.target': '11',
+                    ]
+                    name = config.name
+                    description = config.description
+                    url = 'https://github.com/owner/repo'
+                    scm {
+                        url = 'github.com/owner/repo'
+                        connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                    }
+                    licenses {
+                        license {
+                            name = 'The MIT License (MIT)'
+                            url = 'https://mit-license.org/'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = 'My Company'
+                            organization = 'My Company'
+                            email = 'info@mycompany.com'
+                        }
+                    }
+                    organization {
+                        name = 'My Company'
+                        url = 'www.mycompany.com'
+                    }
+                }
+            }
+        }
+
+        if (!project.hasProperty('skip.signing')) {
+            signing {
+                def signingKey = findProperty("signingKey")
+                def signingPassphrase = findProperty("signingPassphrase")
+                useInMemoryPgpKeys(signingKey, signingPassphrase)
+                sign publishing.publications.getByName("maven")
+            }
+        }
+    }
+
+    
+
+    // Configure POM file generation task after publishing is configured
+    tasks.named("generatePomFileForMavenPublication") {
+        destination = file(layout.buildDirectory.file("pom.xml"))
+        jar.dependsOn('generatePomFileForMavenPublication')
+    }
+}
+
+// Debug task to log publishing properties before publish tasks
+tasks.register('logPublishingProperties') {
+    doLast {
+        if (project.ext.has('publishingConfig')) {
+            def config = project.ext.publishingConfig
+            logger.quiet("Publishing properties for project '${project.name}':")
+            logger.quiet("  groupId: ${config.groupId}")
+            logger.quiet("  artifactId: ${config.artifactId}")
+            logger.quiet("  version: ${config.version}")
+            logger.quiet("  name: ${config.name}")
+            logger.quiet("  description: ${config.description}")
+            logger.quiet("  publicationName: maven")
+        }
+    }
+}
+
+// Make all publish tasks depend on the logging task and POM generation
+tasks.matching { it.name.startsWith('publish') 
+        || it.name.contains('sonatypeCentralUpload') }.configureEach {
+    dependsOn logPublishingProperties
+    dependsOn 'generatePomFileForMavenPublication'
+}

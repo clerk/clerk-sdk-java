@@ -7,11 +7,11 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetOrganization;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -22,6 +22,7 @@ public class GetOrganizationRequestBuilder {
     private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetOrganizationRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -79,13 +80,13 @@ public class GetOrganizationRequestBuilder {
         return request;
     }
 
-    public GetOrganizationResponse call() throws Exception {
+    public GetOrganizationResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetOrganizationRequest, GetOrganizationResponse> operation
-              = new GetOrganization.Sync(sdkConfiguration, options);
+              = new GetOrganization.Sync(sdkConfiguration, options, _headers);
         GetOrganizationRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

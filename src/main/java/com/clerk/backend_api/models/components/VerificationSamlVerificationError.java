@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class VerificationSamlVerificationError {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private VerificationSamlVerificationError(TypedObject value) {
         this.value = value;
@@ -27,7 +27,7 @@ public class VerificationSamlVerificationError {
 
     public static VerificationSamlVerificationError of(VerificationSAMLErrorSAMLAccountClerkError value) {
         Utils.checkNotNull(value, "value");
-        return new VerificationSamlVerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<VerificationSAMLErrorSAMLAccountClerkError>(){}));
+        return new VerificationSamlVerificationError(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -49,7 +49,7 @@ public class VerificationSamlVerificationError {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -60,7 +60,7 @@ public class VerificationSamlVerificationError {
             return false;
         }
         VerificationSamlVerificationError other = (VerificationSamlVerificationError) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -82,6 +82,6 @@ public class VerificationSamlVerificationError {
         return Utils.toString(VerificationSamlVerificationError.class,
                 "value", value);
     }
- 
+
 }
 

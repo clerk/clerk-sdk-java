@@ -16,7 +16,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * CommerceSubscription
@@ -69,16 +68,16 @@ public class CommerceSubscription {
     /**
      * Unix timestamp (milliseconds) when the subscription became active.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("active_at")
-    private JsonNullable<Long> activeAt;
+    private Optional<Long> activeAt;
 
     /**
      * Unix timestamp (milliseconds) when the subscription became past due.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("past_due_at")
-    private JsonNullable<Long> pastDueAt;
+    private Optional<Long> pastDueAt;
 
     /**
      * Array of subscription items in this subscription.
@@ -96,7 +95,7 @@ public class CommerceSubscription {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("eligible_for_free_trial")
-    private JsonNullable<Boolean> eligibleForFreeTrial;
+    private Optional<Boolean> eligibleForFreeTrial;
 
     @JsonCreator
     public CommerceSubscription(
@@ -107,11 +106,11 @@ public class CommerceSubscription {
             @JsonProperty("payer_id") String payerId,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("active_at") JsonNullable<Long> activeAt,
-            @JsonProperty("past_due_at") JsonNullable<Long> pastDueAt,
+            @JsonProperty("active_at") Optional<Long> activeAt,
+            @JsonProperty("past_due_at") Optional<Long> pastDueAt,
             @JsonProperty("subscription_items") List<CommerceSubscriptionItem> subscriptionItems,
             @JsonProperty("next_payment") Optional<? extends CommerceSubscriptionNextPayment> nextPayment,
-            @JsonProperty("eligible_for_free_trial") JsonNullable<Boolean> eligibleForFreeTrial) {
+            @JsonProperty("eligible_for_free_trial") Optional<Boolean> eligibleForFreeTrial) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(instanceId, "instanceId");
@@ -149,8 +148,8 @@ public class CommerceSubscription {
             List<CommerceSubscriptionItem> subscriptionItems) {
         this(object, id, instanceId,
             status, payerId, createdAt,
-            updatedAt, JsonNullable.undefined(), JsonNullable.undefined(),
-            subscriptionItems, Optional.empty(), JsonNullable.undefined());
+            updatedAt, Optional.empty(), Optional.empty(),
+            subscriptionItems, Optional.empty(), Optional.empty());
     }
 
     /**
@@ -213,7 +212,7 @@ public class CommerceSubscription {
      * Unix timestamp (milliseconds) when the subscription became active.
      */
     @JsonIgnore
-    public JsonNullable<Long> activeAt() {
+    public Optional<Long> activeAt() {
         return activeAt;
     }
 
@@ -221,7 +220,7 @@ public class CommerceSubscription {
      * Unix timestamp (milliseconds) when the subscription became past due.
      */
     @JsonIgnore
-    public JsonNullable<Long> pastDueAt() {
+    public Optional<Long> pastDueAt() {
         return pastDueAt;
     }
 
@@ -243,7 +242,7 @@ public class CommerceSubscription {
      * Whether the payer is eligible for a free trial.
      */
     @JsonIgnore
-    public JsonNullable<Boolean> eligibleForFreeTrial() {
+    public Optional<Boolean> eligibleForFreeTrial() {
         return eligibleForFreeTrial;
     }
 
@@ -320,14 +319,15 @@ public class CommerceSubscription {
      */
     public CommerceSubscription withActiveAt(long activeAt) {
         Utils.checkNotNull(activeAt, "activeAt");
-        this.activeAt = JsonNullable.of(activeAt);
+        this.activeAt = Optional.ofNullable(activeAt);
         return this;
     }
+
 
     /**
      * Unix timestamp (milliseconds) when the subscription became active.
      */
-    public CommerceSubscription withActiveAt(JsonNullable<Long> activeAt) {
+    public CommerceSubscription withActiveAt(Optional<Long> activeAt) {
         Utils.checkNotNull(activeAt, "activeAt");
         this.activeAt = activeAt;
         return this;
@@ -338,14 +338,15 @@ public class CommerceSubscription {
      */
     public CommerceSubscription withPastDueAt(long pastDueAt) {
         Utils.checkNotNull(pastDueAt, "pastDueAt");
-        this.pastDueAt = JsonNullable.of(pastDueAt);
+        this.pastDueAt = Optional.ofNullable(pastDueAt);
         return this;
     }
+
 
     /**
      * Unix timestamp (milliseconds) when the subscription became past due.
      */
-    public CommerceSubscription withPastDueAt(JsonNullable<Long> pastDueAt) {
+    public CommerceSubscription withPastDueAt(Optional<Long> pastDueAt) {
         Utils.checkNotNull(pastDueAt, "pastDueAt");
         this.pastDueAt = pastDueAt;
         return this;
@@ -378,14 +379,15 @@ public class CommerceSubscription {
      */
     public CommerceSubscription withEligibleForFreeTrial(boolean eligibleForFreeTrial) {
         Utils.checkNotNull(eligibleForFreeTrial, "eligibleForFreeTrial");
-        this.eligibleForFreeTrial = JsonNullable.of(eligibleForFreeTrial);
+        this.eligibleForFreeTrial = Optional.ofNullable(eligibleForFreeTrial);
         return this;
     }
+
 
     /**
      * Whether the payer is eligible for a free trial.
      */
-    public CommerceSubscription withEligibleForFreeTrial(JsonNullable<Boolean> eligibleForFreeTrial) {
+    public CommerceSubscription withEligibleForFreeTrial(Optional<Boolean> eligibleForFreeTrial) {
         Utils.checkNotNull(eligibleForFreeTrial, "eligibleForFreeTrial");
         this.eligibleForFreeTrial = eligibleForFreeTrial;
         return this;
@@ -458,15 +460,15 @@ public class CommerceSubscription {
 
         private Long updatedAt;
 
-        private JsonNullable<Long> activeAt = JsonNullable.undefined();
+        private Optional<Long> activeAt = Optional.empty();
 
-        private JsonNullable<Long> pastDueAt = JsonNullable.undefined();
+        private Optional<Long> pastDueAt = Optional.empty();
 
         private List<CommerceSubscriptionItem> subscriptionItems;
 
         private Optional<? extends CommerceSubscriptionNextPayment> nextPayment = Optional.empty();
 
-        private JsonNullable<Boolean> eligibleForFreeTrial = JsonNullable.undefined();
+        private Optional<Boolean> eligibleForFreeTrial = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -548,14 +550,14 @@ public class CommerceSubscription {
          */
         public Builder activeAt(long activeAt) {
             Utils.checkNotNull(activeAt, "activeAt");
-            this.activeAt = JsonNullable.of(activeAt);
+            this.activeAt = Optional.ofNullable(activeAt);
             return this;
         }
 
         /**
          * Unix timestamp (milliseconds) when the subscription became active.
          */
-        public Builder activeAt(JsonNullable<Long> activeAt) {
+        public Builder activeAt(Optional<Long> activeAt) {
             Utils.checkNotNull(activeAt, "activeAt");
             this.activeAt = activeAt;
             return this;
@@ -567,14 +569,14 @@ public class CommerceSubscription {
          */
         public Builder pastDueAt(long pastDueAt) {
             Utils.checkNotNull(pastDueAt, "pastDueAt");
-            this.pastDueAt = JsonNullable.of(pastDueAt);
+            this.pastDueAt = Optional.ofNullable(pastDueAt);
             return this;
         }
 
         /**
          * Unix timestamp (milliseconds) when the subscription became past due.
          */
-        public Builder pastDueAt(JsonNullable<Long> pastDueAt) {
+        public Builder pastDueAt(Optional<Long> pastDueAt) {
             Utils.checkNotNull(pastDueAt, "pastDueAt");
             this.pastDueAt = pastDueAt;
             return this;
@@ -609,14 +611,14 @@ public class CommerceSubscription {
          */
         public Builder eligibleForFreeTrial(boolean eligibleForFreeTrial) {
             Utils.checkNotNull(eligibleForFreeTrial, "eligibleForFreeTrial");
-            this.eligibleForFreeTrial = JsonNullable.of(eligibleForFreeTrial);
+            this.eligibleForFreeTrial = Optional.ofNullable(eligibleForFreeTrial);
             return this;
         }
 
         /**
          * Whether the payer is eligible for a free trial.
          */
-        public Builder eligibleForFreeTrial(JsonNullable<Boolean> eligibleForFreeTrial) {
+        public Builder eligibleForFreeTrial(Optional<Boolean> eligibleForFreeTrial) {
             Utils.checkNotNull(eligibleForFreeTrial, "eligibleForFreeTrial");
             this.eligibleForFreeTrial = eligibleForFreeTrial;
             return this;

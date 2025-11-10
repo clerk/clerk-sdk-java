@@ -19,13 +19,13 @@ import java.util.List;
  */
 public class PaginatedCommerceSubscriptionItemResponse {
     /**
-     * Array of commerce subscription items.
+     * Array of subscription items.
      */
     @JsonProperty("data")
     private List<CommerceSubscriptionItem> data;
 
     /**
-     * Total number of commerce subscription items.
+     * Total number of subscription items.
      */
     @JsonProperty("total_count")
     private long totalCount;
@@ -41,7 +41,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
     }
 
     /**
-     * Array of commerce subscription items.
+     * Array of subscription items.
      */
     @JsonIgnore
     public List<CommerceSubscriptionItem> data() {
@@ -49,7 +49,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
     }
 
     /**
-     * Total number of commerce subscription items.
+     * Total number of subscription items.
      */
     @JsonIgnore
     public long totalCount() {
@@ -62,7 +62,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
 
 
     /**
-     * Array of commerce subscription items.
+     * Array of subscription items.
      */
     public PaginatedCommerceSubscriptionItemResponse withData(List<CommerceSubscriptionItem> data) {
         Utils.checkNotNull(data, "data");
@@ -71,7 +71,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
     }
 
     /**
-     * Total number of commerce subscription items.
+     * Total number of subscription items.
      */
     public PaginatedCommerceSubscriptionItemResponse withTotalCount(long totalCount) {
         Utils.checkNotNull(totalCount, "totalCount");
@@ -119,7 +119,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
 
 
         /**
-         * Array of commerce subscription items.
+         * Array of subscription items.
          */
         public Builder data(List<CommerceSubscriptionItem> data) {
             Utils.checkNotNull(data, "data");
@@ -129,7 +129,7 @@ public class PaginatedCommerceSubscriptionItemResponse {
 
 
         /**
-         * Total number of commerce subscription items.
+         * Total number of subscription items.
          */
         public Builder totalCount(long totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");

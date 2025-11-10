@@ -19,7 +19,7 @@ import java.lang.SuppressWarnings;
 public class Error {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private Error(TypedObject value) {
         this.value = value;
@@ -27,7 +27,7 @@ public class Error {
 
     public static Error of(ErrorClerkError value) {
         Utils.checkNotNull(value, "value");
-        return new Error(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<ErrorClerkError>(){}));
+        return new Error(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -49,7 +49,7 @@ public class Error {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -60,7 +60,7 @@ public class Error {
             return false;
         }
         Error other = (Error) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -82,6 +82,6 @@ public class Error {
         return Utils.toString(Error.class,
                 "value", value);
     }
- 
+
 }
 

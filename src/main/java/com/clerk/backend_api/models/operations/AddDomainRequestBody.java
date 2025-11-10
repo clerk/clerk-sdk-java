@@ -29,7 +29,8 @@ public class AddDomainRequestBody {
     private boolean isSatellite;
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * Applicable only to production instances.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("proxy_url")
@@ -71,7 +72,8 @@ public class AddDomainRequestBody {
     }
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * Applicable only to production instances.
      */
     @JsonIgnore
     public JsonNullable<String> proxyUrl() {
@@ -102,7 +104,8 @@ public class AddDomainRequestBody {
     }
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * Applicable only to production instances.
      */
     public AddDomainRequestBody withProxyUrl(String proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -111,7 +114,8 @@ public class AddDomainRequestBody {
     }
 
     /**
-     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+     * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+     * Applicable only to production instances.
      */
     public AddDomainRequestBody withProxyUrl(JsonNullable<String> proxyUrl) {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -183,7 +187,8 @@ public class AddDomainRequestBody {
 
 
         /**
-         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+         * Applicable only to production instances.
          */
         public Builder proxyUrl(String proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");
@@ -192,7 +197,8 @@ public class AddDomainRequestBody {
         }
 
         /**
-         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain. Applicable only to production instances.
+         * The full URL of the proxy which will forward requests to the Clerk Frontend API for this domain.
+         * Applicable only to production instances.
          */
         public Builder proxyUrl(JsonNullable<String> proxyUrl) {
             Utils.checkNotNull(proxyUrl, "proxyUrl");

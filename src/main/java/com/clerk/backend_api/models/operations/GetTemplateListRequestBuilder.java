@@ -7,13 +7,13 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.operations.GetTemplateList;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.util.Optional;
 
@@ -31,6 +31,7 @@ public class GetTemplateListRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetTemplateListRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -107,13 +108,13 @@ public class GetTemplateListRequestBuilder {
         return request;
     }
 
-    public GetTemplateListResponse call() throws Exception {
+    public GetTemplateListResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());
 
         RequestOperation<GetTemplateListRequest, GetTemplateListResponse> operation
-              = new GetTemplateList.Sync(sdkConfiguration, options);
+              = new GetTemplateList.Sync(sdkConfiguration, options, _headers);
         GetTemplateListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -13,13 +13,14 @@ import com.clerk.backend_api.models.operations.RevokeActorTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeActorTokenResponse;
 import com.clerk.backend_api.operations.CreateActorToken;
 import com.clerk.backend_api.operations.RevokeActorToken;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class ActorTokens {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     ActorTokens(SDKConfiguration sdkConfiguration) {
@@ -30,7 +31,8 @@ public class ActorTokens {
      * Create actor token
      * 
      * <p>Create an actor token that can be used to impersonate the given user.
-     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor (impersonating) user.
+     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor
+     * (impersonating) user.
      * 
      * @return The call builder
      */
@@ -42,12 +44,13 @@ public class ActorTokens {
      * Create actor token
      * 
      * <p>Create an actor token that can be used to impersonate the given user.
-     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor (impersonating) user.
+     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor
+     * (impersonating) user.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateActorTokenResponse createDirect() throws Exception {
+    public CreateActorTokenResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
 
@@ -55,16 +58,17 @@ public class ActorTokens {
      * Create actor token
      * 
      * <p>Create an actor token that can be used to impersonate the given user.
-     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor (impersonating) user.
+     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor
+     * (impersonating) user.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateActorTokenResponse create(Optional<? extends CreateActorTokenRequestBody> request, Optional<Options> options) throws Exception {
+    public CreateActorTokenResponse create(Optional<? extends CreateActorTokenRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateActorTokenRequestBody>, CreateActorTokenResponse> operation
-              = new CreateActorToken.Sync(sdkConfiguration, options);
+              = new CreateActorToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -86,9 +90,9 @@ public class ActorTokens {
      * 
      * @param actorTokenId The ID of the actor token to be revoked.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeActorTokenResponse revoke(String actorTokenId) throws Exception {
+    public RevokeActorTokenResponse revoke(String actorTokenId) {
         return revoke(actorTokenId, Optional.empty());
     }
 
@@ -100,16 +104,16 @@ public class ActorTokens {
      * @param actorTokenId The ID of the actor token to be revoked.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeActorTokenResponse revoke(String actorTokenId, Optional<Options> options) throws Exception {
+    public RevokeActorTokenResponse revoke(String actorTokenId, Optional<Options> options) {
         RevokeActorTokenRequest request =
             RevokeActorTokenRequest
                 .builder()
                 .actorTokenId(actorTokenId)
                 .build();
         RequestOperation<RevokeActorTokenRequest, RevokeActorTokenResponse> operation
-              = new RevokeActorToken.Sync(sdkConfiguration, options);
+              = new RevokeActorToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

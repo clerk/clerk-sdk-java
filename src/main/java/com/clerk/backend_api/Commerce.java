@@ -18,15 +18,16 @@ import com.clerk.backend_api.models.operations.PayerType;
 import com.clerk.backend_api.operations.CancelCommerceSubscriptionItem;
 import com.clerk.backend_api.operations.GetCommercePlanList;
 import com.clerk.backend_api.operations.GetCommerceSubscriptionItemList;
+import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
-import java.lang.Exception;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class Commerce {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Commerce(SDKConfiguration sdkConfiguration) {
@@ -36,8 +37,10 @@ public class Commerce {
     /**
      * List all commerce plans
      * 
-     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation date,
-     * with the newest plans appearing first. This includes both free and paid plans. Pagination is supported.
+     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation
+     * date,
+     * with the newest plans appearing first. This includes both free and paid plans. Pagination is
+     * supported.
      * 
      * @return The call builder
      */
@@ -48,13 +51,15 @@ public class Commerce {
     /**
      * List all commerce plans
      * 
-     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation date,
-     * with the newest plans appearing first. This includes both free and paid plans. Pagination is supported.
+     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation
+     * date,
+     * with the newest plans appearing first. This includes both free and paid plans. Pagination is
+     * supported.
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetCommercePlanListResponse listPlansDirect() throws Exception {
+    public GetCommercePlanListResponse listPlansDirect() {
         return listPlans(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
     }
@@ -62,8 +67,10 @@ public class Commerce {
     /**
      * List all commerce plans
      * 
-     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation date,
-     * with the newest plans appearing first. This includes both free and paid plans. Pagination is supported.
+     * <p>Returns a list of all commerce plans for the instance. The plans are returned sorted by creation
+     * date,
+     * with the newest plans appearing first. This includes both free and paid plans. Pagination is
+     * supported.
      * 
      * @param paginated Whether to paginate the results.
      *         If true, the results will be paginated.
@@ -76,12 +83,12 @@ public class Commerce {
      * @param payerType Filter plans by payer type
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetCommercePlanListResponse listPlans(
             Optional<Boolean> paginated, Optional<Long> limit,
             Optional<Long> offset, Optional<? extends PayerType> payerType,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetCommercePlanListRequest request =
             GetCommercePlanListRequest
                 .builder()
@@ -91,15 +98,17 @@ public class Commerce {
                 .payerType(payerType)
                 .build();
         RequestOperation<GetCommercePlanListRequest, GetCommercePlanListResponse> operation
-              = new GetCommercePlanList.Sync(sdkConfiguration, options);
+              = new GetCommercePlanList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * List all subscription items
      * 
-     * <p>Returns a list of all subscription items for the instance. The subscription items are returned sorted by creation date,
-     * with the newest appearing first. This includes subscriptions for both users and organizations. Pagination is supported.
+     * <p>Returns a list of all subscription items for the instance. The subscription items are returned
+     * sorted by creation date,
+     * with the newest appearing first. This includes subscriptions for both users and organizations.
+     * Pagination is supported.
      * 
      * @return The call builder
      */
@@ -110,38 +119,43 @@ public class Commerce {
     /**
      * List all subscription items
      * 
-     * <p>Returns a list of all subscription items for the instance. The subscription items are returned sorted by creation date,
-     * with the newest appearing first. This includes subscriptions for both users and organizations. Pagination is supported.
+     * <p>Returns a list of all subscription items for the instance. The subscription items are returned
+     * sorted by creation date,
+     * with the newest appearing first. This includes subscriptions for both users and organizations.
+     * Pagination is supported.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetCommerceSubscriptionItemListResponse listSubscriptionItems(GetCommerceSubscriptionItemListRequest request) throws Exception {
+    public GetCommerceSubscriptionItemListResponse listSubscriptionItems(GetCommerceSubscriptionItemListRequest request) {
         return listSubscriptionItems(request, Optional.empty());
     }
 
     /**
      * List all subscription items
      * 
-     * <p>Returns a list of all subscription items for the instance. The subscription items are returned sorted by creation date,
-     * with the newest appearing first. This includes subscriptions for both users and organizations. Pagination is supported.
+     * <p>Returns a list of all subscription items for the instance. The subscription items are returned
+     * sorted by creation date,
+     * with the newest appearing first. This includes subscriptions for both users and organizations.
+     * Pagination is supported.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetCommerceSubscriptionItemListResponse listSubscriptionItems(GetCommerceSubscriptionItemListRequest request, Optional<Options> options) throws Exception {
+    public GetCommerceSubscriptionItemListResponse listSubscriptionItems(GetCommerceSubscriptionItemListRequest request, Optional<Options> options) {
         RequestOperation<GetCommerceSubscriptionItemListRequest, GetCommerceSubscriptionItemListResponse> operation
-              = new GetCommerceSubscriptionItemList.Sync(sdkConfiguration, options);
+              = new GetCommerceSubscriptionItemList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Cancel a subscription item
      * 
-     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end of the current billing period.
+     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end
+     * of the current billing period.
      * 
      * @return The call builder
      */
@@ -152,30 +166,32 @@ public class Commerce {
     /**
      * Cancel a subscription item
      * 
-     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end of the current billing period.
+     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end
+     * of the current billing period.
      * 
      * @param subscriptionItemId The ID of the subscription item to cancel
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CancelCommerceSubscriptionItemResponse cancelSubscriptionItem(String subscriptionItemId) throws Exception {
+    public CancelCommerceSubscriptionItemResponse cancelSubscriptionItem(String subscriptionItemId) {
         return cancelSubscriptionItem(subscriptionItemId, Optional.empty(), Optional.empty());
     }
 
     /**
      * Cancel a subscription item
      * 
-     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end of the current billing period.
+     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end
+     * of the current billing period.
      * 
      * @param subscriptionItemId The ID of the subscription item to cancel
      * @param endNow Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CancelCommerceSubscriptionItemResponse cancelSubscriptionItem(
             String subscriptionItemId, Optional<Boolean> endNow,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CancelCommerceSubscriptionItemRequest request =
             CancelCommerceSubscriptionItemRequest
                 .builder()
@@ -183,7 +199,7 @@ public class Commerce {
                 .endNow(endNow)
                 .build();
         RequestOperation<CancelCommerceSubscriptionItemRequest, CancelCommerceSubscriptionItemResponse> operation
-              = new CancelCommerceSubscriptionItem.Sync(sdkConfiguration, options);
+              = new CancelCommerceSubscriptionItem.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

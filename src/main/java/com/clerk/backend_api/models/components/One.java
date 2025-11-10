@@ -110,19 +110,22 @@ public class One {
     private boolean syncUserAttributes;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_subdomains")
-    private Optional<Boolean> allowSubdomains;
+    private boolean allowSubdomains;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allow_idp_initiated")
-    private Optional<Boolean> allowIdpInitiated;
+    private boolean allowIdpInitiated;
 
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("disable_additional_identifications")
-    private Optional<Boolean> disableAdditionalIdentifications;
+    private boolean disableAdditionalIdentifications;
+
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonProperty("force_authn")
+    private boolean forceAuthn;
 
     /**
      * Unix timestamp of creation.
@@ -157,9 +160,10 @@ public class One {
             @JsonProperty("provider") String provider,
             @JsonProperty("user_count") long userCount,
             @JsonProperty("sync_user_attributes") boolean syncUserAttributes,
-            @JsonProperty("allow_subdomains") Optional<Boolean> allowSubdomains,
-            @JsonProperty("allow_idp_initiated") Optional<Boolean> allowIdpInitiated,
-            @JsonProperty("disable_additional_identifications") Optional<Boolean> disableAdditionalIdentifications,
+            @JsonProperty("allow_subdomains") boolean allowSubdomains,
+            @JsonProperty("allow_idp_initiated") boolean allowIdpInitiated,
+            @JsonProperty("disable_additional_identifications") boolean disableAdditionalIdentifications,
+            @JsonProperty("force_authn") boolean forceAuthn,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -184,6 +188,7 @@ public class One {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -208,6 +213,7 @@ public class One {
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        this.forceAuthn = forceAuthn;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -224,6 +230,10 @@ public class One {
             String provider,
             long userCount,
             boolean syncUserAttributes,
+            boolean allowSubdomains,
+            boolean allowIdpInitiated,
+            boolean disableAdditionalIdentifications,
+            boolean forceAuthn,
             long createdAt,
             long updatedAt) {
         this(object, id, name,
@@ -232,8 +242,9 @@ public class One {
             JsonNullable.undefined(), acsUrl, spEntityId,
             spMetadataUrl, JsonNullable.undefined(), Optional.empty(),
             active, provider, userCount,
-            syncUserAttributes, Optional.empty(), Optional.empty(),
-            Optional.empty(), createdAt, updatedAt);
+            syncUserAttributes, allowSubdomains, allowIdpInitiated,
+            disableAdditionalIdentifications, forceAuthn, createdAt,
+            updatedAt);
     }
 
     @JsonIgnore
@@ -339,18 +350,26 @@ public class One {
     }
 
     @JsonIgnore
-    public Optional<Boolean> allowSubdomains() {
+    public boolean allowSubdomains() {
         return allowSubdomains;
     }
 
     @JsonIgnore
-    public Optional<Boolean> allowIdpInitiated() {
+    public boolean allowIdpInitiated() {
         return allowIdpInitiated;
     }
 
     @JsonIgnore
-    public Optional<Boolean> disableAdditionalIdentifications() {
+    public boolean disableAdditionalIdentifications() {
         return disableAdditionalIdentifications;
+    }
+
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    @JsonIgnore
+    public boolean forceAuthn() {
+        return forceAuthn;
     }
 
     /**
@@ -548,25 +567,11 @@ public class One {
 
     public One withAllowSubdomains(boolean allowSubdomains) {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-        this.allowSubdomains = Optional.ofNullable(allowSubdomains);
-        return this;
-    }
-
-
-    public One withAllowSubdomains(Optional<Boolean> allowSubdomains) {
-        Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         this.allowSubdomains = allowSubdomains;
         return this;
     }
 
     public One withAllowIdpInitiated(boolean allowIdpInitiated) {
-        Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-        this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
-        return this;
-    }
-
-
-    public One withAllowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         this.allowIdpInitiated = allowIdpInitiated;
         return this;
@@ -574,14 +579,16 @@ public class One {
 
     public One withDisableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-        this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
+        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
         return this;
     }
 
-
-    public One withDisableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
-        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+    /**
+     * Enable or deactivate ForceAuthn
+     */
+    public One withForceAuthn(boolean forceAuthn) {
+        Utils.checkNotNull(forceAuthn, "forceAuthn");
+        this.forceAuthn = forceAuthn;
         return this;
     }
 
@@ -635,6 +642,7 @@ public class One {
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -649,7 +657,8 @@ public class One {
             spMetadataUrl, organizationId, attributeMapping,
             active, provider, userCount,
             syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, createdAt, updatedAt);
+            disableAdditionalIdentifications, forceAuthn, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -677,6 +686,7 @@ public class One {
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
+                "forceAuthn", forceAuthn,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -723,11 +733,13 @@ public class One {
 
         private Boolean syncUserAttributes;
 
-        private Optional<Boolean> allowSubdomains = Optional.empty();
+        private Boolean allowSubdomains;
 
-        private Optional<Boolean> allowIdpInitiated = Optional.empty();
+        private Boolean allowIdpInitiated;
 
-        private Optional<Boolean> disableAdditionalIdentifications = Optional.empty();
+        private Boolean disableAdditionalIdentifications;
+
+        private Boolean forceAuthn;
 
         private Long createdAt;
 
@@ -926,24 +938,12 @@ public class One {
 
         public Builder allowSubdomains(boolean allowSubdomains) {
             Utils.checkNotNull(allowSubdomains, "allowSubdomains");
-            this.allowSubdomains = Optional.ofNullable(allowSubdomains);
-            return this;
-        }
-
-        public Builder allowSubdomains(Optional<Boolean> allowSubdomains) {
-            Utils.checkNotNull(allowSubdomains, "allowSubdomains");
             this.allowSubdomains = allowSubdomains;
             return this;
         }
 
 
         public Builder allowIdpInitiated(boolean allowIdpInitiated) {
-            Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
-            this.allowIdpInitiated = Optional.ofNullable(allowIdpInitiated);
-            return this;
-        }
-
-        public Builder allowIdpInitiated(Optional<Boolean> allowIdpInitiated) {
             Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
             this.allowIdpInitiated = allowIdpInitiated;
             return this;
@@ -952,13 +952,17 @@ public class One {
 
         public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
             Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-            this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
+            this.disableAdditionalIdentifications = disableAdditionalIdentifications;
             return this;
         }
 
-        public Builder disableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
-            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
-            this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+
+        /**
+         * Enable or deactivate ForceAuthn
+         */
+        public Builder forceAuthn(boolean forceAuthn) {
+            Utils.checkNotNull(forceAuthn, "forceAuthn");
+            this.forceAuthn = forceAuthn;
             return this;
         }
 
@@ -992,7 +996,8 @@ public class One {
                 spMetadataUrl, organizationId, attributeMapping,
                 active, provider, userCount,
                 syncUserAttributes, allowSubdomains, allowIdpInitiated,
-                disableAdditionalIdentifications, createdAt, updatedAt);
+                disableAdditionalIdentifications, forceAuthn, createdAt,
+                updatedAt);
         }
 
     }
