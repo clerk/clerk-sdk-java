@@ -548,17 +548,6 @@ public class BackendApiAutoConfig {
         return clerk.waitlistEntries();
     }
     /**
-     * Creates a Commerce sub-SDK bean if none exists.
-     *
-     * @param clerk the main SDK instance
-     * @return A configured Commerce instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public Commerce commerce(Clerk clerk) {
-        return clerk.commerce();
-    }
-    /**
      * Creates a Billing sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance
