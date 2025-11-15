@@ -139,9 +139,6 @@ public class Clerk {
     private final WaitlistEntries waitlistEntries;
 
 
-    private final Commerce commerce;
-
-
     private final Billing billing;
 
 
@@ -308,11 +305,6 @@ public class Clerk {
 
     public WaitlistEntries waitlistEntries() {
         return waitlistEntries;
-    }
-
-
-    public Commerce commerce() {
-        return commerce;
     }
 
 
@@ -510,7 +502,6 @@ public class Clerk {
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
-        this.commerce = new Commerce(sdkConfiguration);
         this.billing = new Billing(sdkConfiguration);
         this.m2m = new M2m(sdkConfiguration);
         this.oauthAccessTokens = new OauthAccessTokens(sdkConfiguration);
