@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -60,8 +61,11 @@ public class CommercePlan {
 
     /**
      * The ID of the product this plan belongs to.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonProperty("product_id")
+    @Deprecated
     private String productId;
 
     /**
@@ -257,7 +261,10 @@ public class CommercePlan {
 
     /**
      * The ID of the product this plan belongs to.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     @JsonIgnore
     public String productId() {
         return productId;
@@ -429,7 +436,10 @@ public class CommercePlan {
 
     /**
      * The ID of the product this plan belongs to.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CommercePlan withProductId(String productId) {
         Utils.checkNotNull(productId, "productId");
         this.productId = productId;
@@ -637,6 +647,7 @@ public class CommercePlan {
 
         private Optional<String> description = Optional.empty();
 
+        @Deprecated
         private String productId;
 
         private Boolean isDefault;
@@ -748,7 +759,10 @@ public class CommercePlan {
 
         /**
          * The ID of the product this plan belongs to.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder productId(String productId) {
             Utils.checkNotNull(productId, "productId");
             this.productId = productId;

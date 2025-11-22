@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:4.0.0'
+implementation 'com.clerk:backend-api:4.0.1'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 </dependency>
 ```
 
@@ -218,6 +218,9 @@ public class MachineAuthentication {
 
 ### [billing()](docs/sdks/billing/README.md)
 
+* [listPlans](docs/sdks/billing/README.md#listplans) - List all billing plans
+* [listSubscriptionItems](docs/sdks/billing/README.md#listsubscriptionitems) - List all subscription items
+* [cancelSubscriptionItem](docs/sdks/billing/README.md#cancelsubscriptionitem) - Cancel a subscription item
 * [extendSubscriptionItemFreeTrial](docs/sdks/billing/README.md#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
 * [listStatements](docs/sdks/billing/README.md#liststatements) - List all billing statements
 * [getStatement](docs/sdks/billing/README.md#getstatement) - Retrieve a billing statement
@@ -234,12 +237,6 @@ public class MachineAuthentication {
 * [~~list~~](docs/sdks/clients/README.md#list) - List all clients :warning: **Deprecated**
 * [verify](docs/sdks/clients/README.md#verify) - Verify a client
 * [get](docs/sdks/clients/README.md#get) - Get a client
-
-### [commerce()](docs/sdks/commerce/README.md)
-
-* [listPlans](docs/sdks/commerce/README.md#listplans) - List all commerce plans
-* [listSubscriptionItems](docs/sdks/commerce/README.md#listsubscriptionitems) - List all subscription items
-* [cancelSubscriptionItem](docs/sdks/commerce/README.md#cancelsubscriptionitem) - Cancel a subscription item
 
 ### [domains()](docs/sdks/domains/README.md)
 
@@ -820,9 +817,11 @@ public class Application {
 ## Debugging
 
 ### Debug
+
 You can setup your SDK to emit debug logs for SDK requests and responses.
 
 For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
+
 ```java
 SDK.builder()
     .enableHTTPDebugLogging(true)
@@ -840,9 +839,10 @@ Response body:
   "token": "global"
 }
 ```
-__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+__WARNING__: This logging should only be used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
 
 __NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
+
 
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
 <!-- End Debugging [debug] -->

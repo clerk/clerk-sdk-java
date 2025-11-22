@@ -67,6 +67,9 @@ import java.util.stream.StreamSupport;
  * @param <T> the type that SSE {@code data} fields will be deserialized into
  */
 public final class EventStream<T> implements Iterable<T>, AutoCloseable {
+
+    private static final SpeakeasyLogger logger = SpeakeasyLogger.getLogger(EventStream.class);
+
     private final BlockingParser<EventStreamMessage> parser;
     private final TypeReference<T> typeReference;
     private final ObjectMapper mapper;
@@ -79,6 +82,7 @@ public final class EventStream<T> implements Iterable<T>, AutoCloseable {
         this.typeReference = typeReference;
         this.mapper = mapper;
         this.terminalMessage = terminalMessage;
+        logger.debug("EventStream initialized for type: {}", typeReference.getType().getTypeName());
     }
 
     /**
@@ -89,10 +93,20 @@ public final class EventStream<T> implements Iterable<T>, AutoCloseable {
      * @throws IOException when parsing the next message.
      */
     public Optional<T> next() throws IOException {
-        return parser.next() //
-                .filter(x ->
-                        terminalMessage.map(sentinel -> !sentinel.equals(x.data())).orElse(true))
+        Optional<T> result = parser.next() //
+                .filter(x -> {
+                    boolean isTerminal = terminalMessage.map(sentinel -> sentinel.equals(x.data())).orElse(false);
+                    if (isTerminal && logger.isTraceEnabled()) {
+                        logger.trace("Terminal message encountered in EventStream");
+                    }
+                    return !isTerminal;
+                })
                 .map(x -> Utils.asType(x, mapper, typeReference));
+        
+        if (logger.isTraceEnabled() && result.isPresent()) {
+            logger.trace("EventStream item processed");
+        }
+        return result;
     }
 
     /**
@@ -148,6 +162,7 @@ public final class EventStream<T> implements Iterable<T>, AutoCloseable {
 
     @Override
     public void close() throws IOException {
+        logger.debug("EventStream closed");
         parser.close();
     }
 

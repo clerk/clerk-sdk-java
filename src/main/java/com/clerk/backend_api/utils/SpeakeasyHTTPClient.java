@@ -89,20 +89,20 @@ public class SpeakeasyHTTPClient implements HTTPClient {
     public HttpResponse<InputStream> send(HttpRequest request)
             throws IOException, InterruptedException, URISyntaxException {
         if (isDebugLoggingEnabled()) {
-            request = logRequest(request);
+            request = logRequest(request, true);
         }
         var response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
         if (isDebugLoggingEnabled()) {
-            response = logResponse(response);
+            response = logResponse(response, true);
         }
         return response;
     }
 
-    private HttpRequest logRequest(HttpRequest request) {
+    private HttpRequest logRequest(HttpRequest request, boolean logBody) {
         log("Sending request: " + request);
         log("Request headers: " + redactHeaders(request.headers()));
-        // only log the body if it is present and the content type is JSON
-        if (request.bodyPublisher().isPresent() && request.headers() //
+        // only log the body if logBody is true and the body is present and the content type is JSON
+        if (logBody && request.bodyPublisher().isPresent() && request.headers() //
                 .firstValue("Content-Type") //
                 .filter(x -> x.equals("application/json") || x.equals("text/plain")).isPresent()) {
             // we read the body and ensure that the BodyPublisher is rebuilt to pass to the
@@ -120,14 +120,14 @@ public class SpeakeasyHTTPClient implements HTTPClient {
         return request;
     }
 
-    private static HttpResponse<InputStream> logResponse(HttpResponse<InputStream> response) throws IOException {
+    private static HttpResponse<InputStream> logResponse(HttpResponse<InputStream> response, boolean logBody) throws IOException {
         // make the response re-readable by loading the response body into a byte array
         // and allowing the InputStream to be read many times
         response = Utils.cache(response);
         log("Received response: " + response);
         log("Response headers: " + redactHeaders(response.headers()));
-        // only log the response body if it is present and the content type is JSON or plain text
-        if (response.headers() //
+        // only log the response body if logBody is true and the content type is JSON or plain text
+        if (logBody && response.headers() //
                 .firstValue("Content-Type") //
                 .filter(x -> x.equals("application/json") || x.equals("text/plain")) //
                 .isPresent()) {
