@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 4.0.0
+  version: 4.0.1
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -36,8 +36,8 @@ java:
   companyURL: www.mycompany.com
   defaultErrorName: SDKError
   enableCustomCodeRegions: false
+  enableSlf4jLogging: false
   enableStreamingUploads: false
-  enhancedUnionMemberResolution: true
   flattenGlobalSecurity: true
   generateOptionalUnionAccessors: false
   generateSpringBootStarter: true
@@ -60,6 +60,8 @@ java:
   maxMethodParams: 4
   nullFriendlyParameters: false
   openUnions: true
+  operationScopedParams: true
   outputModelSuffix: output
   projectName: api
   templateVersion: v2
+  unionStrategy: populated-fields

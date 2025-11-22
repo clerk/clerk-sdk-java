@@ -35,15 +35,6 @@ public class UpdateInstanceRequestBody {
     @JsonProperty("hibp")
     private JsonNullable<Boolean> hibp;
 
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("enhanced_email_deliverability")
-    private JsonNullable<Boolean> enhancedEmailDeliverability;
-
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("support_email")
@@ -95,7 +86,6 @@ public class UpdateInstanceRequestBody {
     public UpdateInstanceRequestBody(
             @JsonProperty("test_mode") JsonNullable<Boolean> testMode,
             @JsonProperty("hibp") JsonNullable<Boolean> hibp,
-            @JsonProperty("enhanced_email_deliverability") JsonNullable<Boolean> enhancedEmailDeliverability,
             @JsonProperty("support_email") JsonNullable<String> supportEmail,
             @JsonProperty("clerk_js_version") JsonNullable<String> clerkJsVersion,
             @JsonProperty("development_origin") JsonNullable<String> developmentOrigin,
@@ -104,7 +94,6 @@ public class UpdateInstanceRequestBody {
             @JsonProperty("url_based_session_syncing") JsonNullable<Boolean> urlBasedSessionSyncing) {
         Utils.checkNotNull(testMode, "testMode");
         Utils.checkNotNull(hibp, "hibp");
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         Utils.checkNotNull(supportEmail, "supportEmail");
         Utils.checkNotNull(clerkJsVersion, "clerkJsVersion");
         Utils.checkNotNull(developmentOrigin, "developmentOrigin");
@@ -113,7 +102,6 @@ public class UpdateInstanceRequestBody {
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
         this.testMode = testMode;
         this.hibp = hibp;
-        this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         this.supportEmail = supportEmail;
         this.clerkJsVersion = clerkJsVersion;
         this.developmentOrigin = developmentOrigin;
@@ -124,8 +112,8 @@ public class UpdateInstanceRequestBody {
     
     public UpdateInstanceRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -143,16 +131,6 @@ public class UpdateInstanceRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> hibp() {
         return hibp;
-    }
-
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    @JsonIgnore
-    public JsonNullable<Boolean> enhancedEmailDeliverability() {
-        return enhancedEmailDeliverability;
     }
 
     @JsonIgnore
@@ -246,28 +224,6 @@ public class UpdateInstanceRequestBody {
     public UpdateInstanceRequestBody withHibp(JsonNullable<Boolean> hibp) {
         Utils.checkNotNull(hibp, "hibp");
         this.hibp = hibp;
-        return this;
-    }
-
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    public UpdateInstanceRequestBody withEnhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-        this.enhancedEmailDeliverability = JsonNullable.of(enhancedEmailDeliverability);
-        return this;
-    }
-
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    public UpdateInstanceRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-        this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         return this;
     }
 
@@ -396,7 +352,6 @@ public class UpdateInstanceRequestBody {
         return 
             Utils.enhancedDeepEquals(this.testMode, other.testMode) &&
             Utils.enhancedDeepEquals(this.hibp, other.hibp) &&
-            Utils.enhancedDeepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
             Utils.enhancedDeepEquals(this.supportEmail, other.supportEmail) &&
             Utils.enhancedDeepEquals(this.clerkJsVersion, other.clerkJsVersion) &&
             Utils.enhancedDeepEquals(this.developmentOrigin, other.developmentOrigin) &&
@@ -408,9 +363,9 @@ public class UpdateInstanceRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            testMode, hibp, enhancedEmailDeliverability,
-            supportEmail, clerkJsVersion, developmentOrigin,
-            allowedOrigins, cookielessDev, urlBasedSessionSyncing);
+            testMode, hibp, supportEmail,
+            clerkJsVersion, developmentOrigin, allowedOrigins,
+            cookielessDev, urlBasedSessionSyncing);
     }
     
     @Override
@@ -418,7 +373,6 @@ public class UpdateInstanceRequestBody {
         return Utils.toString(UpdateInstanceRequestBody.class,
                 "testMode", testMode,
                 "hibp", hibp,
-                "enhancedEmailDeliverability", enhancedEmailDeliverability,
                 "supportEmail", supportEmail,
                 "clerkJsVersion", clerkJsVersion,
                 "developmentOrigin", developmentOrigin,
@@ -433,8 +387,6 @@ public class UpdateInstanceRequestBody {
         private JsonNullable<Boolean> testMode = JsonNullable.undefined();
 
         private JsonNullable<Boolean> hibp = JsonNullable.undefined();
-
-        private JsonNullable<Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
 
         private JsonNullable<String> supportEmail = JsonNullable.undefined();
 
@@ -490,29 +442,6 @@ public class UpdateInstanceRequestBody {
         public Builder hibp(JsonNullable<Boolean> hibp) {
             Utils.checkNotNull(hibp, "hibp");
             this.hibp = hibp;
-            return this;
-        }
-
-
-        /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-         * of your domain.
-         * This can be helpful if you do not have a high domain reputation.
-         */
-        public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
-            Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-            this.enhancedEmailDeliverability = JsonNullable.of(enhancedEmailDeliverability);
-            return this;
-        }
-
-        /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-         * of your domain.
-         * This can be helpful if you do not have a high domain reputation.
-         */
-        public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
-            Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-            this.enhancedEmailDeliverability = enhancedEmailDeliverability;
             return this;
         }
 
@@ -637,9 +566,9 @@ public class UpdateInstanceRequestBody {
         public UpdateInstanceRequestBody build() {
 
             return new UpdateInstanceRequestBody(
-                testMode, hibp, enhancedEmailDeliverability,
-                supportEmail, clerkJsVersion, developmentOrigin,
-                allowedOrigins, cookielessDev, urlBasedSessionSyncing);
+                testMode, hibp, supportEmail,
+                clerkJsVersion, developmentOrigin, allowedOrigins,
+                cookielessDev, urlBasedSessionSyncing);
         }
 
     }

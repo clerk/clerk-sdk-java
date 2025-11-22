@@ -70,7 +70,6 @@ public class BackendApiAutoConfig {
         // Default retry config for other strategies
         return RetryConfig.builder().build();
     }
-
     /**
      * Creates a {@code Consumer<String>} bean for HTTP debug logging if none exists.
      * This logger is used by the SpeakeasyHTTPClient for debug output when debug logging is enabled.
@@ -83,7 +82,6 @@ public class BackendApiAutoConfig {
     public Consumer<String> httpLogger() {
         return System.out::println;
     }
-
     /**
      * Creates an HTTPClient bean if none exists.
      *
@@ -546,17 +544,6 @@ public class BackendApiAutoConfig {
     @ConditionalOnMissingBean
     public WaitlistEntries waitlistEntries(Clerk clerk) {
         return clerk.waitlistEntries();
-    }
-    /**
-     * Creates a Commerce sub-SDK bean if none exists.
-     *
-     * @param clerk the main SDK instance
-     * @return A configured Commerce instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public Commerce commerce(Clerk clerk) {
-        return clerk.commerce();
     }
     /**
      * Creates a Billing sub-SDK bean if none exists.
