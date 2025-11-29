@@ -46,15 +46,6 @@ public class UpdateInstanceAuthConfigRequestBody {
     private JsonNullable<Boolean> progressiveSignUp;
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("enhanced_email_deliverability")
-    private JsonNullable<Boolean> enhancedEmailDeliverability;
-
-    /**
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
@@ -67,23 +58,20 @@ public class UpdateInstanceAuthConfigRequestBody {
             @JsonProperty("restricted_to_allowlist") JsonNullable<Boolean> restrictedToAllowlist,
             @JsonProperty("from_email_address") JsonNullable<String> fromEmailAddress,
             @JsonProperty("progressive_sign_up") JsonNullable<Boolean> progressiveSignUp,
-            @JsonProperty("enhanced_email_deliverability") JsonNullable<Boolean> enhancedEmailDeliverability,
             @JsonProperty("test_mode") JsonNullable<Boolean> testMode) {
         Utils.checkNotNull(restrictedToAllowlist, "restrictedToAllowlist");
         Utils.checkNotNull(fromEmailAddress, "fromEmailAddress");
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         Utils.checkNotNull(testMode, "testMode");
         this.restrictedToAllowlist = restrictedToAllowlist;
         this.fromEmailAddress = fromEmailAddress;
         this.progressiveSignUp = progressiveSignUp;
-        this.enhancedEmailDeliverability = enhancedEmailDeliverability;
         this.testMode = testMode;
     }
     
     public UpdateInstanceAuthConfigRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined());
     }
 
     /**
@@ -114,16 +102,6 @@ public class UpdateInstanceAuthConfigRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> progressiveSignUp() {
         return progressiveSignUp;
-    }
-
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    @JsonIgnore
-    public JsonNullable<Boolean> enhancedEmailDeliverability() {
-        return enhancedEmailDeliverability;
     }
 
     /**
@@ -207,28 +185,6 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-        this.enhancedEmailDeliverability = JsonNullable.of(enhancedEmailDeliverability);
-        return this;
-    }
-
-    /**
-     * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-     * of your domain.
-     * This can be helpful if you do not have a high domain reputation.
-     */
-    public UpdateInstanceAuthConfigRequestBody withEnhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
-        Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-        this.enhancedEmailDeliverability = enhancedEmailDeliverability;
-        return this;
-    }
-
-    /**
      * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
      * Defaults to true for development instances.
      */
@@ -261,7 +217,6 @@ public class UpdateInstanceAuthConfigRequestBody {
             Utils.enhancedDeepEquals(this.restrictedToAllowlist, other.restrictedToAllowlist) &&
             Utils.enhancedDeepEquals(this.fromEmailAddress, other.fromEmailAddress) &&
             Utils.enhancedDeepEquals(this.progressiveSignUp, other.progressiveSignUp) &&
-            Utils.enhancedDeepEquals(this.enhancedEmailDeliverability, other.enhancedEmailDeliverability) &&
             Utils.enhancedDeepEquals(this.testMode, other.testMode);
     }
     
@@ -269,7 +224,7 @@ public class UpdateInstanceAuthConfigRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             restrictedToAllowlist, fromEmailAddress, progressiveSignUp,
-            enhancedEmailDeliverability, testMode);
+            testMode);
     }
     
     @Override
@@ -278,7 +233,6 @@ public class UpdateInstanceAuthConfigRequestBody {
                 "restrictedToAllowlist", restrictedToAllowlist,
                 "fromEmailAddress", fromEmailAddress,
                 "progressiveSignUp", progressiveSignUp,
-                "enhancedEmailDeliverability", enhancedEmailDeliverability,
                 "testMode", testMode);
     }
 
@@ -290,8 +244,6 @@ public class UpdateInstanceAuthConfigRequestBody {
         private JsonNullable<String> fromEmailAddress = JsonNullable.undefined();
 
         private JsonNullable<Boolean> progressiveSignUp = JsonNullable.undefined();
-
-        private JsonNullable<Boolean> enhancedEmailDeliverability = JsonNullable.undefined();
 
         private JsonNullable<Boolean> testMode = JsonNullable.undefined();
 
@@ -370,29 +322,6 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-         * of your domain.
-         * This can be helpful if you do not have a high domain reputation.
-         */
-        public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
-            Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-            this.enhancedEmailDeliverability = JsonNullable.of(enhancedEmailDeliverability);
-            return this;
-        }
-
-        /**
-         * The "enhanced_email_deliverability" feature will send emails from "verifications@clerk.dev" instead
-         * of your domain.
-         * This can be helpful if you do not have a high domain reputation.
-         */
-        public Builder enhancedEmailDeliverability(JsonNullable<Boolean> enhancedEmailDeliverability) {
-            Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
-            this.enhancedEmailDeliverability = enhancedEmailDeliverability;
-            return this;
-        }
-
-
-        /**
          * Toggles test mode for this instance, allowing the use of test email addresses and phone numbers.
          * Defaults to true for development instances.
          */
@@ -419,7 +348,7 @@ public class UpdateInstanceAuthConfigRequestBody {
 
             return new UpdateInstanceAuthConfigRequestBody(
                 restrictedToAllowlist, fromEmailAddress, progressiveSignUp,
-                enhancedEmailDeliverability, testMode);
+                testMode);
         }
 
 

@@ -70,7 +70,6 @@ public class BackendApiAutoConfig {
         // Default retry config for other strategies
         return RetryConfig.builder().build();
     }
-
     /**
      * Creates a {@code Consumer<String>} bean for HTTP debug logging if none exists.
      * This logger is used by the SpeakeasyHTTPClient for debug output when debug logging is enabled.
@@ -83,7 +82,6 @@ public class BackendApiAutoConfig {
     public Consumer<String> httpLogger() {
         return System.out::println;
     }
-
     /**
      * Creates an HTTPClient bean if none exists.
      *
@@ -438,6 +436,17 @@ public class BackendApiAutoConfig {
         return clerk.organizations();
     }
     /**
+     * Creates a OrganizationRoles sub-SDK bean if none exists.
+     *
+     * @param clerk the main SDK instance
+     * @return A configured OrganizationRoles instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public OrganizationRoles organizationRoles(Clerk clerk) {
+        return clerk.organizationRoles();
+    }
+    /**
      * Creates a OrganizationMemberships sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance
@@ -548,17 +557,6 @@ public class BackendApiAutoConfig {
         return clerk.waitlistEntries();
     }
     /**
-     * Creates a Commerce sub-SDK bean if none exists.
-     *
-     * @param clerk the main SDK instance
-     * @return A configured Commerce instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public Commerce commerce(Clerk clerk) {
-        return clerk.commerce();
-    }
-    /**
      * Creates a Billing sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance
@@ -568,6 +566,17 @@ public class BackendApiAutoConfig {
     @ConditionalOnMissingBean
     public Billing billing(Clerk clerk) {
         return clerk.billing();
+    }
+    /**
+     * Creates a OrganizationPermissions sub-SDK bean if none exists.
+     *
+     * @param clerk the main SDK instance
+     * @return A configured OrganizationPermissions instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public OrganizationPermissions organizationPermissions(Clerk clerk) {
+        return clerk.organizationPermissions();
     }
     /**
      * Creates a M2m sub-SDK bean if none exists.

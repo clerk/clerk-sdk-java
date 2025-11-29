@@ -36,6 +36,8 @@ import com.clerk.backend_api.utils.Hook.SdkInitData;
 // ThreadSafe
 public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
 
+    private static final SpeakeasyLogger logger = SpeakeasyLogger.getLogger(Hooks.class);
+
     // we use CopyOnWriteArrayList for thread safety
     private final List<BeforeRequest> beforeRequestHooks = new CopyOnWriteArrayList<>();
     private final List<AfterSuccess> afterSuccessHooks = new CopyOnWriteArrayList<>();
@@ -61,6 +63,7 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     public Hooks registerBeforeRequest(BeforeRequest beforeRequest) {
         Utils.checkNotNull(beforeRequest, "beforeRequest");
         this.beforeRequestHooks.add(beforeRequest);
+        logger.debug("Registered BeforeRequest hook: {} (total: {})", beforeRequest.getClass().getSimpleName(), beforeRequestHooks.size());
         return this;
     }
 
@@ -77,6 +80,7 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     public Hooks registerAfterSuccess(AfterSuccess afterSuccess) {
         Utils.checkNotNull(afterSuccess, "afterSuccess");
         this.afterSuccessHooks.add(afterSuccess);
+        logger.debug("Registered AfterSuccess hook: {} (total: {})", afterSuccess.getClass().getSimpleName(), afterSuccessHooks.size());
         return this;
     }
 
@@ -94,6 +98,7 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     public Hooks registerAfterError(AfterError afterError) {
         Utils.checkNotNull(afterError, "afterError");
         this.afterErrorHooks.add(afterError);
+        logger.debug("Registered AfterError hook: {} (total: {})", afterError.getClass().getSimpleName(), afterErrorHooks.size());
         return this;
     }
 
@@ -107,6 +112,7 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     public Hooks registerSdkInit(SdkInit SdkInit) {
         Utils.checkNotNull(SdkInit, "SdkInit");
         this.SdkInitHooks.add(SdkInit);
+        logger.debug("Registered SdkInit hook: {} (total: {})", SdkInit.getClass().getSimpleName(), SdkInitHooks.size());
         return this;
     }
     
@@ -114,6 +120,9 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     public HttpRequest beforeRequest(BeforeRequestContext context, HttpRequest request) throws Exception {
         Utils.checkNotNull(context, "context");
         Utils.checkNotNull(request, "request");
+        if (logger.isTraceEnabled() && !beforeRequestHooks.isEmpty()) {
+            logger.trace("Executing {} beforeRequest hook(s) for operation: {}", beforeRequestHooks.size(), context.operationId());
+        }
         for (BeforeRequest hook : beforeRequestHooks) {
             request = hook.beforeRequest(context, request);
         }
@@ -126,6 +135,9 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
         Utils.checkNotNull(context, "context");
         Utils.checkNotNull(response, "response");
 
+        if (logger.isTraceEnabled() && !afterSuccessHooks.isEmpty()) {
+            logger.trace("Executing {} afterSuccess hook(s) for operation: {}", afterSuccessHooks.size(), context.operationId());
+        }
         for (AfterSuccess hook : afterSuccessHooks) {
             response = hook.afterSuccess(context, response);
             if (response == null) {
@@ -137,23 +149,26 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
 
     @Override
     public HttpResponse<InputStream> afterError(
-            AfterErrorContext context, 
-            Optional<HttpResponse<InputStream>> response, 
+            AfterErrorContext context,
+            Optional<HttpResponse<InputStream>> response,
             Optional<Exception> error) throws Exception {
         Utils.checkNotNull(context, "context");
         Utils.checkNotNull(response, "response");
         Utils.checkNotNull(error, "error");
         Utils.checkArgument(
                response.isPresent() ^ error.isPresent(),
-               "one and only one of response or error must be present");     
-                 
+               "one and only one of response or error must be present");
+        
+        if (logger.isTraceEnabled() && !afterErrorHooks.isEmpty()) {
+            logger.trace("Executing {} afterError hook(s) for operation: {}", afterErrorHooks.size(), context.operationId());
+        }
         for (AfterError hook : afterErrorHooks) {
             try {
                 response = Optional.ofNullable(hook.afterError(context, response, error));
                 if (!response.isPresent()) {
                     throw new IllegalStateException(
                             "afterError must either throw an exception or return a non-null response");
-                } 
+                }
              } catch (FailEarlyException e) {
                  Throwable cause = e.getCause();
                  if (cause instanceof Exception) {
@@ -161,8 +176,9 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
                  } else {
                      // must be an Error
                      throw (Error) cause;
-                 } 
+                 }
              } catch (Exception e) {
+                 logger.debug("Hook threw exception: {}", e.getClass().getSimpleName());
                  error = Optional.of(e);
                  response = Optional.empty();
              }
@@ -177,6 +193,9 @@ public class Hooks implements BeforeRequest, AfterSuccess, AfterError, SdkInit {
     @Override
     public SdkInitData sdkInit(SdkInitData data) {
         Utils.checkNotNull(data, "data");
+        if (logger.isDebugEnabled() && !SdkInitHooks.isEmpty()) {
+            logger.debug("Executing {} sdkInit hook(s)", SdkInitHooks.size());
+        }
         for (SdkInit hook : SdkInitHooks) {
             data = hook.sdkInit(data);
             if (data == null) {

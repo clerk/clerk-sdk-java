@@ -6,9 +6,12 @@ package com.clerk.backend_api.models.operations;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class CreateSessionRequestBody {
@@ -18,11 +21,26 @@ public class CreateSessionRequestBody {
     @JsonProperty("user_id")
     private String userId;
 
+    /**
+     * The ID of the organization to set as active for this session
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("active_organization_id")
+    private Optional<String> activeOrganizationId;
+
     @JsonCreator
     public CreateSessionRequestBody(
-            @JsonProperty("user_id") String userId) {
+            @JsonProperty("user_id") String userId,
+            @JsonProperty("active_organization_id") Optional<String> activeOrganizationId) {
         Utils.checkNotNull(userId, "userId");
+        Utils.checkNotNull(activeOrganizationId, "activeOrganizationId");
         this.userId = userId;
+        this.activeOrganizationId = activeOrganizationId;
+    }
+    
+    public CreateSessionRequestBody(
+            String userId) {
+        this(userId, Optional.empty());
     }
 
     /**
@@ -31,6 +49,14 @@ public class CreateSessionRequestBody {
     @JsonIgnore
     public String userId() {
         return userId;
+    }
+
+    /**
+     * The ID of the organization to set as active for this session
+     */
+    @JsonIgnore
+    public Optional<String> activeOrganizationId() {
+        return activeOrganizationId;
     }
 
     public static Builder builder() {
@@ -47,6 +73,25 @@ public class CreateSessionRequestBody {
         return this;
     }
 
+    /**
+     * The ID of the organization to set as active for this session
+     */
+    public CreateSessionRequestBody withActiveOrganizationId(String activeOrganizationId) {
+        Utils.checkNotNull(activeOrganizationId, "activeOrganizationId");
+        this.activeOrganizationId = Optional.ofNullable(activeOrganizationId);
+        return this;
+    }
+
+
+    /**
+     * The ID of the organization to set as active for this session
+     */
+    public CreateSessionRequestBody withActiveOrganizationId(Optional<String> activeOrganizationId) {
+        Utils.checkNotNull(activeOrganizationId, "activeOrganizationId");
+        this.activeOrganizationId = activeOrganizationId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -57,25 +102,29 @@ public class CreateSessionRequestBody {
         }
         CreateSessionRequestBody other = (CreateSessionRequestBody) o;
         return 
-            Utils.enhancedDeepEquals(this.userId, other.userId);
+            Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.activeOrganizationId, other.activeOrganizationId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            userId);
+            userId, activeOrganizationId);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateSessionRequestBody.class,
-                "userId", userId);
+                "userId", userId,
+                "activeOrganizationId", activeOrganizationId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String userId;
+
+        private Optional<String> activeOrganizationId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -91,10 +140,29 @@ public class CreateSessionRequestBody {
             return this;
         }
 
+
+        /**
+         * The ID of the organization to set as active for this session
+         */
+        public Builder activeOrganizationId(String activeOrganizationId) {
+            Utils.checkNotNull(activeOrganizationId, "activeOrganizationId");
+            this.activeOrganizationId = Optional.ofNullable(activeOrganizationId);
+            return this;
+        }
+
+        /**
+         * The ID of the organization to set as active for this session
+         */
+        public Builder activeOrganizationId(Optional<String> activeOrganizationId) {
+            Utils.checkNotNull(activeOrganizationId, "activeOrganizationId");
+            this.activeOrganizationId = activeOrganizationId;
+            return this;
+        }
+
         public CreateSessionRequestBody build() {
 
             return new CreateSessionRequestBody(
-                userId);
+                userId, activeOrganizationId);
         }
 
     }

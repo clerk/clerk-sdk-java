@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: c7b19e4f00b80e6dabad84e51477fa51
+  docChecksum: ef4a170eccac1b723d90d649c1aff0b0
   docVersion: "2025-11-10"
-  speakeasyVersion: 1.653.0
-  generationVersion: 2.748.0
-  releaseVersion: 4.0.0
-  configChecksum: 0ee86b0cde2c6890f191c5afbb6679c4
+  speakeasyVersion: 1.665.0
+  generationVersion: 2.767.2
+  releaseVersion: 4.1.0
+  configChecksum: 487430609f9655e1f55ce52c4de9b1cf
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.55.1
+    core: 3.55.5
     deprecations: 2.81.1
     examples: 2.81.6
     flattening: 2.81.1
@@ -27,7 +27,7 @@ features:
     nullables: 0.1.0
     openEnums: 0.2.0
     retries: 0.1.1
-    sdkHooks: 1.1.0
+    sdkHooks: 1.2.0
     unions: 0.3.0
     uploadStreams: 0.1.0
 generatedFiles:
@@ -59,6 +59,8 @@ generatedFiles:
   - docs/models/components/CNameTarget.md
   - docs/models/components/Claims.md
   - docs/models/components/ClerkError.md
+  - docs/models/components/ClerkErrorErrorEnterpriseAccountMeta.md
+  - docs/models/components/ClerkErrorErrorEnterpriseAccountVerificationMeta.md
   - docs/models/components/ClerkErrorErrorExternalAccountWithVerificationMeta.md
   - docs/models/components/ClerkErrorErrorExternalAccountWithVerificationVerificationMeta.md
   - docs/models/components/ClerkErrorErrorMeta.md
@@ -96,6 +98,13 @@ generatedFiles:
   - docs/models/components/EmailAddressObject.md
   - docs/models/components/EmailLink.md
   - docs/models/components/EnrollmentMode.md
+  - docs/models/components/EnterpriseAccount.md
+  - docs/models/components/EnterpriseAccountObject.md
+  - docs/models/components/EnterpriseAccountVerification.md
+  - docs/models/components/EnterpriseConnection.md
+  - docs/models/components/EnterpriseConnection1.md
+  - docs/models/components/EnterpriseConnection2.md
+  - docs/models/components/EnterpriseConnectionEnterpriseConnection.md
   - docs/models/components/Error.md
   - docs/models/components/ErrorClerkError.md
   - docs/models/components/ErrorMeta.md
@@ -196,16 +205,23 @@ generatedFiles:
   - docs/models/components/PaymentMethod.md
   - docs/models/components/PaymentSource.md
   - docs/models/components/PaymentType.md
+  - docs/models/components/Permission.md
+  - docs/models/components/PermissionObject.md
+  - docs/models/components/Permissions.md
   - docs/models/components/PhoneNumber.md
   - docs/models/components/PhoneNumberObject.md
   - docs/models/components/PhoneNumberVerification.md
   - docs/models/components/Plan.md
   - docs/models/components/PlanPeriod.md
+  - docs/models/components/Protocol.md
   - docs/models/components/ProxyCheck.md
   - docs/models/components/ProxyCheckObject.md
   - docs/models/components/PublicOrganizationData.md
   - docs/models/components/RedirectURL.md
   - docs/models/components/RedirectURLObject.md
+  - docs/models/components/Role.md
+  - docs/models/components/RoleObject.md
+  - docs/models/components/Roles.md
   - docs/models/components/SAMLAccount.md
   - docs/models/components/SAMLAccountObject.md
   - docs/models/components/SAMLAccountVerification.md
@@ -288,7 +304,12 @@ generatedFiles:
   - docs/models/components/VerificationGoogleOneTapVerificationStatus.md
   - docs/models/components/VerificationGoogleOneTapVerificationStrategy.md
   - docs/models/components/VerificationOTP.md
+  - docs/models/components/VerificationOauth.md
   - docs/models/components/VerificationOauthErrorClerkError.md
+  - docs/models/components/VerificationOauthErrorEnterpriseAccountClerkError.md
+  - docs/models/components/VerificationOauthVerificationEnterpriseAccountError.md
+  - docs/models/components/VerificationOauthVerificationEnterpriseAccountObject.md
+  - docs/models/components/VerificationOauthVerificationEnterpriseAccountStatus.md
   - docs/models/components/VerificationOauthVerificationError.md
   - docs/models/components/VerificationOauthVerificationObject.md
   - docs/models/components/VerificationOauthVerificationStatus.md
@@ -302,10 +323,16 @@ generatedFiles:
   - docs/models/components/VerificationPasskeyVerificationStrategy.md
   - docs/models/components/VerificationSAML.md
   - docs/models/components/VerificationSAMLErrorSAMLAccountClerkError.md
+  - docs/models/components/VerificationSAMLVerificationSAML.md
   - docs/models/components/VerificationSAMLVerificationSAMLAccountObject.md
   - docs/models/components/VerificationSAMLVerificationSAMLAccountStatus.md
   - docs/models/components/VerificationSAMLVerificationSAMLAccountStrategy.md
   - docs/models/components/VerificationSamlErrorClerkError.md
+  - docs/models/components/VerificationSamlErrorEnterpriseAccountClerkError.md
+  - docs/models/components/VerificationSamlVerificationEnterpriseAccountError.md
+  - docs/models/components/VerificationSamlVerificationEnterpriseAccountObject.md
+  - docs/models/components/VerificationSamlVerificationEnterpriseAccountStatus.md
+  - docs/models/components/VerificationSamlVerificationEnterpriseAccountStrategy.md
   - docs/models/components/VerificationSamlVerificationError.md
   - docs/models/components/VerificationSamlVerificationObject.md
   - docs/models/components/VerificationSamlVerificationStatus.md
@@ -313,12 +340,16 @@ generatedFiles:
   - docs/models/components/VerificationStatus.md
   - docs/models/components/VerificationStrategy.md
   - docs/models/components/VerificationTicket.md
+  - docs/models/components/VerificationTicketVerificationEnterpriseAccountObject.md
+  - docs/models/components/VerificationTicketVerificationEnterpriseAccountStatus.md
+  - docs/models/components/VerificationTicketVerificationEnterpriseAccountStrategy.md
   - docs/models/components/VerificationTicketVerificationObject.md
   - docs/models/components/VerificationTicketVerificationSAMLAccountObject.md
   - docs/models/components/VerificationTicketVerificationSAMLAccountStatus.md
   - docs/models/components/VerificationTicketVerificationSAMLAccountStrategy.md
   - docs/models/components/VerificationTicketVerificationStatus.md
   - docs/models/components/VerificationTicketVerificationStrategy.md
+  - docs/models/components/VerificationTicketVerificationTicket.md
   - docs/models/components/VerificationWeb3VerificationObject.md
   - docs/models/components/VerificationWeb3VerificationStatus.md
   - docs/models/components/VerificationWeb3VerificationStrategy.md
@@ -360,6 +391,8 @@ generatedFiles:
   - docs/models/operations/Actor.md
   - docs/models/operations/AddDomainRequestBody.md
   - docs/models/operations/AddDomainResponse.md
+  - docs/models/operations/AssignPermissionToOrganizationRoleRequest.md
+  - docs/models/operations/AssignPermissionToOrganizationRoleResponse.md
   - docs/models/operations/AttributeMapping.md
   - docs/models/operations/BanUserRequest.md
   - docs/models/operations/BanUserResponse.md
@@ -406,8 +439,12 @@ generatedFiles:
   - docs/models/operations/CreateOrganizationMembershipRequest.md
   - docs/models/operations/CreateOrganizationMembershipRequestBody.md
   - docs/models/operations/CreateOrganizationMembershipResponse.md
+  - docs/models/operations/CreateOrganizationPermissionRequestBody.md
+  - docs/models/operations/CreateOrganizationPermissionResponse.md
   - docs/models/operations/CreateOrganizationRequestBody.md
   - docs/models/operations/CreateOrganizationResponse.md
+  - docs/models/operations/CreateOrganizationRoleRequestBody.md
+  - docs/models/operations/CreateOrganizationRoleResponse.md
   - docs/models/operations/CreatePhoneNumberRequestBody.md
   - docs/models/operations/CreatePhoneNumberResponse.md
   - docs/models/operations/CreateRedirectURLRequestBody.md
@@ -461,8 +498,12 @@ generatedFiles:
   - docs/models/operations/DeleteOrganizationLogoResponse.md
   - docs/models/operations/DeleteOrganizationMembershipRequest.md
   - docs/models/operations/DeleteOrganizationMembershipResponse.md
+  - docs/models/operations/DeleteOrganizationPermissionRequest.md
+  - docs/models/operations/DeleteOrganizationPermissionResponse.md
   - docs/models/operations/DeleteOrganizationRequest.md
   - docs/models/operations/DeleteOrganizationResponse.md
+  - docs/models/operations/DeleteOrganizationRoleRequest.md
+  - docs/models/operations/DeleteOrganizationRoleResponse.md
   - docs/models/operations/DeletePhoneNumberRequest.md
   - docs/models/operations/DeletePhoneNumberResponse.md
   - docs/models/operations/DeleteRedirectURLRequest.md
@@ -525,8 +566,12 @@ generatedFiles:
   - docs/models/operations/GetOrganizationBillingSubscriptionResponse.md
   - docs/models/operations/GetOrganizationInvitationRequest.md
   - docs/models/operations/GetOrganizationInvitationResponse.md
+  - docs/models/operations/GetOrganizationPermissionRequest.md
+  - docs/models/operations/GetOrganizationPermissionResponse.md
   - docs/models/operations/GetOrganizationRequest.md
   - docs/models/operations/GetOrganizationResponse.md
+  - docs/models/operations/GetOrganizationRoleRequest.md
+  - docs/models/operations/GetOrganizationRoleResponse.md
   - docs/models/operations/GetPhoneNumberRequest.md
   - docs/models/operations/GetPhoneNumberResponse.md
   - docs/models/operations/GetPublicInterstitialRequest.md
@@ -583,6 +628,10 @@ generatedFiles:
   - docs/models/operations/ListOrganizationInvitationsResponse.md
   - docs/models/operations/ListOrganizationMembershipsRequest.md
   - docs/models/operations/ListOrganizationMembershipsResponse.md
+  - docs/models/operations/ListOrganizationPermissionsRequest.md
+  - docs/models/operations/ListOrganizationPermissionsResponse.md
+  - docs/models/operations/ListOrganizationRolesRequest.md
+  - docs/models/operations/ListOrganizationRolesResponse.md
   - docs/models/operations/ListOrganizationsRequest.md
   - docs/models/operations/ListOrganizationsResponse.md
   - docs/models/operations/ListPendingOrganizationInvitationsRequest.md
@@ -616,6 +665,8 @@ generatedFiles:
   - docs/models/operations/RefreshSessionResponse.md
   - docs/models/operations/RejectWaitlistEntryRequest.md
   - docs/models/operations/RejectWaitlistEntryResponse.md
+  - docs/models/operations/RemovePermissionFromOrganizationRoleRequest.md
+  - docs/models/operations/RemovePermissionFromOrganizationRoleResponse.md
   - docs/models/operations/RequestBody.md
   - docs/models/operations/RequestBodyAttributeMapping.md
   - docs/models/operations/RequestBodyProvider.md
@@ -691,9 +742,15 @@ generatedFiles:
   - docs/models/operations/UpdateOrganizationMembershipRequest.md
   - docs/models/operations/UpdateOrganizationMembershipRequestBody.md
   - docs/models/operations/UpdateOrganizationMembershipResponse.md
+  - docs/models/operations/UpdateOrganizationPermissionRequest.md
+  - docs/models/operations/UpdateOrganizationPermissionRequestBody.md
+  - docs/models/operations/UpdateOrganizationPermissionResponse.md
   - docs/models/operations/UpdateOrganizationRequest.md
   - docs/models/operations/UpdateOrganizationRequestBody.md
   - docs/models/operations/UpdateOrganizationResponse.md
+  - docs/models/operations/UpdateOrganizationRoleRequest.md
+  - docs/models/operations/UpdateOrganizationRoleRequestBody.md
+  - docs/models/operations/UpdateOrganizationRoleResponse.md
   - docs/models/operations/UpdatePhoneNumberRequest.md
   - docs/models/operations/UpdatePhoneNumberRequestBody.md
   - docs/models/operations/UpdatePhoneNumberResponse.md
@@ -758,7 +815,6 @@ generatedFiles:
   - docs/sdks/billing/README.md
   - docs/sdks/blocklistidentifiers/README.md
   - docs/sdks/clients/README.md
-  - docs/sdks/commerce/README.md
   - docs/sdks/domains/README.md
   - docs/sdks/emailaddresses/README.md
   - docs/sdks/emailandsmstemplates/README.md
@@ -775,6 +831,8 @@ generatedFiles:
   - docs/sdks/organizationdomains/README.md
   - docs/sdks/organizationinvitations/README.md
   - docs/sdks/organizationmemberships/README.md
+  - docs/sdks/organizationpermissions/README.md
+  - docs/sdks/organizationroles/README.md
   - docs/sdks/organizations/README.md
   - docs/sdks/phonenumbers/README.md
   - docs/sdks/proxychecks/README.md
@@ -809,7 +867,6 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/BlocklistIdentifiers.java
   - src/main/java/com/clerk/backend_api/Clerk.java
   - src/main/java/com/clerk/backend_api/Clients.java
-  - src/main/java/com/clerk/backend_api/Commerce.java
   - src/main/java/com/clerk/backend_api/Domains.java
   - src/main/java/com/clerk/backend_api/EmailAddresses.java
   - src/main/java/com/clerk/backend_api/EmailAndSmsTemplates.java
@@ -826,6 +883,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/OrganizationDomains.java
   - src/main/java/com/clerk/backend_api/OrganizationInvitations.java
   - src/main/java/com/clerk/backend_api/OrganizationMemberships.java
+  - src/main/java/com/clerk/backend_api/OrganizationPermissions.java
+  - src/main/java/com/clerk/backend_api/OrganizationRoles.java
   - src/main/java/com/clerk/backend_api/Organizations.java
   - src/main/java/com/clerk/backend_api/PhoneNumbers.java
   - src/main/java/com/clerk/backend_api/ProxyChecks.java
@@ -866,6 +925,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/CNameTarget.java
   - src/main/java/com/clerk/backend_api/models/components/Claims.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorEnterpriseAccountMeta.java
+  - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorEnterpriseAccountVerificationMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorExternalAccountWithVerificationMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorExternalAccountWithVerificationVerificationMeta.java
   - src/main/java/com/clerk/backend_api/models/components/ClerkErrorErrorMeta.java
@@ -903,6 +964,14 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/EmailAddressObject.java
   - src/main/java/com/clerk/backend_api/models/components/EmailLink.java
   - src/main/java/com/clerk/backend_api/models/components/EnrollmentMode.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseAccount.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseAccountVerification.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseAccountVerificationTypeIdResolver.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseConnection.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseConnection1.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseConnection2.java
+  - src/main/java/com/clerk/backend_api/models/components/EnterpriseConnectionEnterpriseConnection.java
   - src/main/java/com/clerk/backend_api/models/components/Error.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorClerkError.java
   - src/main/java/com/clerk/backend_api/models/components/ErrorMeta.java
@@ -1005,17 +1074,24 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/PaymentMethod.java
   - src/main/java/com/clerk/backend_api/models/components/PaymentSource.java
   - src/main/java/com/clerk/backend_api/models/components/PaymentType.java
+  - src/main/java/com/clerk/backend_api/models/components/Permission.java
+  - src/main/java/com/clerk/backend_api/models/components/PermissionObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Permissions.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumber.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberObject.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberVerification.java
   - src/main/java/com/clerk/backend_api/models/components/PhoneNumberVerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/Plan.java
   - src/main/java/com/clerk/backend_api/models/components/PlanPeriod.java
+  - src/main/java/com/clerk/backend_api/models/components/Protocol.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheck.java
   - src/main/java/com/clerk/backend_api/models/components/ProxyCheckObject.java
   - src/main/java/com/clerk/backend_api/models/components/PublicOrganizationData.java
   - src/main/java/com/clerk/backend_api/models/components/RedirectURL.java
   - src/main/java/com/clerk/backend_api/models/components/RedirectURLObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Role.java
+  - src/main/java/com/clerk/backend_api/models/components/RoleObject.java
+  - src/main/java/com/clerk/backend_api/models/components/Roles.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccount.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountObject.java
   - src/main/java/com/clerk/backend_api/models/components/SAMLAccountVerification.java
@@ -1074,6 +1150,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/TotalCountObject.java
   - src/main/java/com/clerk/backend_api/models/components/Totals.java
   - src/main/java/com/clerk/backend_api/models/components/Two.java
+  - src/main/java/com/clerk/backend_api/models/components/UnknownEnterpriseAccountVerification.java
   - src/main/java/com/clerk/backend_api/models/components/UnknownExternalAccountWithVerificationVerification.java
   - src/main/java/com/clerk/backend_api/models/components/UnknownPasskeyVerification.java
   - src/main/java/com/clerk/backend_api/models/components/UnknownPhoneNumberVerification.java
@@ -1105,7 +1182,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationGoogleOneTapVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOTP.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauth.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOauthErrorClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthErrorEnterpriseAccountClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationEnterpriseAccountError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationEnterpriseAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationEnterpriseAccountStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationError.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationOauthVerificationStatus.java
@@ -1119,10 +1201,16 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/VerificationPasskeyVerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSAML.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLErrorSAMLAccountClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAML.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSAMLVerificationSAMLAccountStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSamlErrorClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlErrorEnterpriseAccountClerkError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationEnterpriseAccountError.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationEnterpriseAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationEnterpriseAccountStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationEnterpriseAccountStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationError.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationSamlVerificationStatus.java
@@ -1130,12 +1218,16 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/components/VerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicket.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationEnterpriseAccountObject.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationEnterpriseAccountStatus.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationEnterpriseAccountStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationSAMLAccountStrategy.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStatus.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationStrategy.java
+  - src/main/java/com/clerk/backend_api/models/components/VerificationTicketVerificationTicket.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationTypeIdResolver.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationObject.java
   - src/main/java/com/clerk/backend_api/models/components/VerificationWeb3VerificationStatus.java
@@ -1184,6 +1276,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/AddDomainResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/AssignPermissionToOrganizationRoleRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/AssignPermissionToOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/AssignPermissionToOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/AttributeMapping.java
   - src/main/java/com/clerk/backend_api/models/operations/BanUserRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/BanUserRequestBuilder.java
@@ -1248,9 +1343,15 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationMembershipResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationPermissionRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationPermissionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationPermissionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationRoleRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/CreateOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/CreatePhoneNumberRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/CreatePhoneNumberRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/CreatePhoneNumberResponse.java
@@ -1328,9 +1429,15 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationMembershipRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationMembershipResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationPermissionRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationPermissionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationPermissionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationRoleRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/DeleteOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/DeletePhoneNumberRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/DeletePhoneNumberRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/DeletePhoneNumberResponse.java
@@ -1422,9 +1529,15 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationInvitationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationPermissionRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationPermissionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationPermissionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationRoleRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/GetOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/GetPhoneNumberRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/GetPhoneNumberRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/GetPhoneNumberResponse.java
@@ -1508,6 +1621,12 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationMembershipsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationMembershipsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationMembershipsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationPermissionsRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationPermissionsRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationPermissionsResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationRolesRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationRolesRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationRolesResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationsRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationsRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/ListOrganizationsResponse.java
@@ -1551,6 +1670,9 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/RejectWaitlistEntryResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/RemovePermissionFromOrganizationRoleRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/RemovePermissionFromOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/RemovePermissionFromOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/RequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/RequestBodyAttributeMapping.java
   - src/main/java/com/clerk/backend_api/models/operations/RequestBodyProvider.java
@@ -1651,10 +1773,18 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationMembershipResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationPermissionRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationPermissionRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationPermissionRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationPermissionResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRequestBuilder.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationResponse.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRoleRequest.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRoleRequestBody.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRoleRequestBuilder.java
+  - src/main/java/com/clerk/backend_api/models/operations/UpdateOrganizationRoleResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdatePhoneNumberRequest.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdatePhoneNumberRequestBody.java
   - src/main/java/com/clerk/backend_api/models/operations/UpdatePhoneNumberRequestBuilder.java
@@ -1734,6 +1864,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponse.java
   - src/main/java/com/clerk/backend_api/models/operations/VerifyTOTPResponseBody.java
   - src/main/java/com/clerk/backend_api/operations/AddDomain.java
+  - src/main/java/com/clerk/backend_api/operations/AssignPermissionToOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/BanUser.java
   - src/main/java/com/clerk/backend_api/operations/CancelCommerceSubscriptionItem.java
   - src/main/java/com/clerk/backend_api/operations/ChangeProductionInstanceDomain.java
@@ -1753,6 +1884,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitation.java
   - src/main/java/com/clerk/backend_api/operations/CreateOrganizationInvitationBulk.java
   - src/main/java/com/clerk/backend_api/operations/CreateOrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationPermission.java
+  - src/main/java/com/clerk/backend_api/operations/CreateOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/CreatePhoneNumber.java
   - src/main/java/com/clerk/backend_api/operations/CreateRedirectURL.java
   - src/main/java/com/clerk/backend_api/operations/CreateSAMLConnection.java
@@ -1778,6 +1911,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationDomain.java
   - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationLogo.java
   - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationMembership.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationPermission.java
+  - src/main/java/com/clerk/backend_api/operations/DeleteOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/DeletePhoneNumber.java
   - src/main/java/com/clerk/backend_api/operations/DeleteRedirectURL.java
   - src/main/java/com/clerk/backend_api/operations/DeleteSAMLConnection.java
@@ -1808,6 +1943,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/GetOrganization.java
   - src/main/java/com/clerk/backend_api/operations/GetOrganizationBillingSubscription.java
   - src/main/java/com/clerk/backend_api/operations/GetOrganizationInvitation.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationPermission.java
+  - src/main/java/com/clerk/backend_api/operations/GetOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/GetPhoneNumber.java
   - src/main/java/com/clerk/backend_api/operations/GetPublicInterstitial.java
   - src/main/java/com/clerk/backend_api/operations/GetRedirectURL.java
@@ -1835,6 +1972,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/ListOrganizationDomains.java
   - src/main/java/com/clerk/backend_api/operations/ListOrganizationInvitations.java
   - src/main/java/com/clerk/backend_api/operations/ListOrganizationMemberships.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationPermissions.java
+  - src/main/java/com/clerk/backend_api/operations/ListOrganizationRoles.java
   - src/main/java/com/clerk/backend_api/operations/ListOrganizations.java
   - src/main/java/com/clerk/backend_api/operations/ListPendingOrganizationInvitations.java
   - src/main/java/com/clerk/backend_api/operations/ListRedirectURLs.java
@@ -1846,6 +1985,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/PreviewTemplate.java
   - src/main/java/com/clerk/backend_api/operations/RefreshSession.java
   - src/main/java/com/clerk/backend_api/operations/RejectWaitlistEntry.java
+  - src/main/java/com/clerk/backend_api/operations/RemovePermissionFromOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/RevertTemplate.java
   - src/main/java/com/clerk/backend_api/operations/RevokeActorToken.java
   - src/main/java/com/clerk/backend_api/operations/RevokeInvitation.java
@@ -1872,6 +2012,8 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationDomain.java
   - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembership.java
   - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationMembershipMetadata.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationPermission.java
+  - src/main/java/com/clerk/backend_api/operations/UpdateOrganizationRole.java
   - src/main/java/com/clerk/backend_api/operations/UpdatePhoneNumber.java
   - src/main/java/com/clerk/backend_api/operations/UpdateProductionInstanceDomain.java
   - src/main/java/com/clerk/backend_api/operations/UpdateSAMLConnection.java
@@ -1940,6 +2082,7 @@ generatedFiles:
   - src/main/java/com/clerk/backend_api/utils/SerializedBody.java
   - src/main/java/com/clerk/backend_api/utils/SessionManager.java
   - src/main/java/com/clerk/backend_api/utils/SpeakeasyHTTPClient.java
+  - src/main/java/com/clerk/backend_api/utils/SpeakeasyLogger.java
   - src/main/java/com/clerk/backend_api/utils/SpeakeasyMetadata.java
   - src/main/java/com/clerk/backend_api/utils/StreamingParser.java
   - src/main/java/com/clerk/backend_api/utils/TypedObject.java
@@ -2233,7 +2376,7 @@ examples:
           order_by: "-created_at"
       responses:
         "200":
-          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Margie23", "first_name": "Kendall", "last_name": "Armstrong", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Linnea_Herzog@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "unverified", "strategy": "email_link", "attempts": 171073, "expire_at": 208253}, "linked_to": [], "created_at": 280885, "updated_at": 470136}], "phone_numbers": [{"object": "phone_number", "phone_number": "(825) 228-5341 x019", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": null, "expire_at": 682430}, "linked_to": [], "created_at": 419582, "updated_at": 365714}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": null, "created_at": 103773, "updated_at": 320938}], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 435647, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 757692, "expire_at": 419762}}], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 36065, "mfa_disabled_at": 187325, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Luz_Roob@hotmail.com", "first_name": "Rosendo", "last_name": "Zemlak", "public_metadata": {}, "created_at": 728522, "updated_at": 40651, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 657035, "attempts": 157386}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Peggie_Rice@hotmail.com", "verification": null}], "last_sign_in_at": 970002, "banned": true, "locked": false, "lockout_expires_in_seconds": 275825, "verification_attempts_remaining": 812188, "updated_at": 623168, "created_at": 51668, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Margie23", "first_name": "Kendall", "last_name": "Armstrong", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Linnea_Herzog@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "unverified", "strategy": "email_link", "attempts": 171073, "expire_at": 208253}, "linked_to": [], "created_at": 280885, "updated_at": 470136}], "phone_numbers": [{"object": "phone_number", "phone_number": "(825) 228-5341 x019", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": null, "expire_at": 682430}, "linked_to": [], "created_at": 419582, "updated_at": 365714}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": null, "created_at": 103773, "updated_at": 320938}], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 435647, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 757692, "expire_at": 419762}}], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 36065, "mfa_disabled_at": 187325, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Luz_Roob@hotmail.com", "first_name": "Rosendo", "last_name": "Zemlak", "public_metadata": {}, "created_at": 728522, "updated_at": 40651, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 657035, "attempts": 157386}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Peggie_Rice@hotmail.com", "verification": null}], "enterprise_accounts": [], "last_sign_in_at": 970002, "banned": true, "locked": false, "lockout_expires_in_seconds": 275825, "verification_attempts_remaining": 812188, "updated_at": 623168, "created_at": 51668, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
           application/json: {"errors": []}
   CreateUser:
@@ -2242,7 +2385,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Alford_Bode", "first_name": "Rowland", "last_name": "Mante", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kendrick48@yahoo.com", "reserved": false, "verification": null, "linked_to": [], "created_at": 570870, "updated_at": 793877}], "phone_numbers": [{"object": "phone_number", "phone_number": "709-601-1972", "reserved": true, "verification": {"object": "verification_otp", "status": "expired", "strategy": "phone_code", "attempts": 283286, "expire_at": 622304}, "linked_to": [], "created_at": 869610, "updated_at": 476222}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "verified", "strategy": "web3_okx_wallet_signature", "attempts": 894102, "expire_at": 541064}, "created_at": 88493, "updated_at": 396087}], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 161636, "mfa_disabled_at": 346920, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kade_Mante@yahoo.com", "first_name": "Aiyana", "last_name": "Wuckert", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 949233, "updated_at": 396112, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 154446, "attempts": 857359}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Leatha50@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 74699}}], "last_sign_in_at": 873253, "banned": false, "locked": false, "lockout_expires_in_seconds": 385134, "verification_attempts_remaining": 327762, "updated_at": 173353, "created_at": 493210, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Alford_Bode", "first_name": "Rowland", "last_name": "Mante", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kendrick48@yahoo.com", "reserved": false, "verification": null, "linked_to": [], "created_at": 570870, "updated_at": 793877}], "phone_numbers": [{"object": "phone_number", "phone_number": "709-601-1972", "reserved": true, "verification": {"object": "verification_otp", "status": "expired", "strategy": "phone_code", "attempts": 283286, "expire_at": 622304}, "linked_to": [], "created_at": 869610, "updated_at": 476222}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "verified", "strategy": "web3_okx_wallet_signature", "attempts": 894102, "expire_at": 541064}, "created_at": 88493, "updated_at": 396087}], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 161636, "mfa_disabled_at": 346920, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kade_Mante@yahoo.com", "first_name": "Aiyana", "last_name": "Wuckert", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 949233, "updated_at": 396112, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 154446, "attempts": 857359}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Leatha50@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 74699}}], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": true, "email_address": "Lilyan8@yahoo.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 963304}}], "last_sign_in_at": 873253, "banned": false, "locked": false, "lockout_expires_in_seconds": 385134, "verification_attempts_remaining": 327762, "updated_at": 173353, "created_at": 493210, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetUsersCount:
@@ -2278,7 +2421,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Ned.Nicolas", "first_name": "Vinnie", "last_name": "Casper", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_coinbase_wallet_signature", "attempts": null, "expire_at": 707537}, "created_at": 706654, "updated_at": 870907}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 879970, "mfa_disabled_at": null, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Rosalyn54@gmail.com", "first_name": "Blaze", "last_name": "Hintz", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 664608, "updated_at": 57580, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 283892, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Aniya_Dare@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 459440}}], "last_sign_in_at": 28584, "banned": false, "locked": false, "lockout_expires_in_seconds": 62016, "verification_attempts_remaining": null, "updated_at": 84483, "created_at": 969449, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Ned.Nicolas", "first_name": "Vinnie", "last_name": "Casper", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_coinbase_wallet_signature", "attempts": null, "expire_at": 707537}, "created_at": 706654, "updated_at": 870907}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": 879970, "mfa_disabled_at": null, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Rosalyn54@gmail.com", "first_name": "Blaze", "last_name": "Hintz", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 664608, "updated_at": 57580, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 283892, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Aniya_Dare@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 459440}}], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": false, "email_address": "Katheryn_Rogahn63@hotmail.com", "verification": {"object": "verification_saml", "status": "failed", "strategy": "saml", "attempts": 960027}}], "last_sign_in_at": 28584, "banned": false, "locked": false, "lockout_expires_in_seconds": 62016, "verification_attempts_remaining": null, "updated_at": 84483, "created_at": 969449, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUser:
@@ -2290,7 +2433,7 @@ examples:
         application/json: {"notify_primary_email_address_changed": false}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Katheryn_Schuppe20", "first_name": "Olen", "last_name": "Hermiston", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kenyon22@gmail.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "expired", "strategy": "email_link", "attempts": 671573, "expire_at": 428976}, "linked_to": [], "created_at": 954996, "updated_at": 606432}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 954036, "expire_at": 477428}, "created_at": 713891, "updated_at": 906707}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 940474, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Una_Bartell73@hotmail.com", "first_name": "Veronica", "last_name": "Reichel", "public_metadata": {"key": "<value>"}, "created_at": 141525, "updated_at": 920530, "verification": {"object": "verification_google_one_tap", "status": "verified", "strategy": "google_one_tap", "expire_at": 829477, "attempts": 355623}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Herminia82@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 694777}}], "last_sign_in_at": 269889, "banned": true, "locked": true, "lockout_expires_in_seconds": 240444, "verification_attempts_remaining": 630714, "updated_at": 894867, "created_at": 897464, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Katheryn_Schuppe20", "first_name": "Olen", "last_name": "Hermiston", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Kenyon22@gmail.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "expired", "strategy": "email_link", "attempts": 671573, "expire_at": 428976}, "linked_to": [], "created_at": 954996, "updated_at": 606432}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 954036, "expire_at": 477428}, "created_at": 713891, "updated_at": 906707}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 940474, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Una_Bartell73@hotmail.com", "first_name": "Veronica", "last_name": "Reichel", "public_metadata": {"key": "<value>"}, "created_at": 141525, "updated_at": 920530, "verification": {"object": "verification_google_one_tap", "status": "verified", "strategy": "google_one_tap", "expire_at": 829477, "attempts": 355623}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Herminia82@hotmail.com", "verification": {"object": "verification_saml", "status": "verified", "strategy": "saml", "attempts": 694777}}], "enterprise_accounts": [], "last_sign_in_at": 269889, "banned": true, "locked": true, "lockout_expires_in_seconds": 240444, "verification_attempts_remaining": 630714, "updated_at": 894867, "created_at": 897464, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": []}
   DeleteUser:
@@ -2310,7 +2453,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Dameon_McKenzie1", "first_name": "Cyrus", "last_name": "Emmerich", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 383637, "expire_at": 230067}, "created_at": 427369, "updated_at": 15811}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 27551, "mfa_disabled_at": 198918, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Halie.Armstrong@gmail.com", "first_name": "Glennie", "last_name": "Conroy", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 829365, "updated_at": 679400, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": null, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Randi76@hotmail.com", "verification": {"object": "verification_saml", "status": "transferable", "strategy": "saml", "attempts": 814743}}], "last_sign_in_at": 704966, "banned": true, "locked": true, "lockout_expires_in_seconds": 417872, "verification_attempts_remaining": null, "updated_at": 139828, "created_at": 285155, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": null, "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Dameon_McKenzie1", "first_name": "Cyrus", "last_name": "Emmerich", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 383637, "expire_at": 230067}, "created_at": 427369, "updated_at": 15811}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 27551, "mfa_disabled_at": 198918, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Halie.Armstrong@gmail.com", "first_name": "Glennie", "last_name": "Conroy", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 829365, "updated_at": 679400, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": null, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Randi76@hotmail.com", "verification": {"object": "verification_saml", "status": "transferable", "strategy": "saml", "attempts": 814743}}], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": true, "email_address": "Beverly58@yahoo.com", "verification": null}], "last_sign_in_at": 704966, "banned": true, "locked": true, "lockout_expires_in_seconds": 417872, "verification_attempts_remaining": null, "updated_at": 139828, "created_at": 285155, "delete_self_enabled": false, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UnbanUser:
@@ -2320,7 +2463,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Deion_Shanahan88", "first_name": "Willa", "last_name": "O'Kon", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Cristobal_Yost-Schinner31@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": 371956, "expire_at": 430959}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 554894, "updated_at": 590282}], "phone_numbers": [{"object": "phone_number", "phone_number": "1-554-571-5107 x820", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 217884, "expire_at": 946029}, "linked_to": [], "created_at": 550147, "updated_at": 57122}], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 494862, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kaleb88@gmail.com", "first_name": "Denis", "last_name": "Roob", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 427350, "updated_at": 917270, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 900437, "attempts": 57266}}], "saml_accounts": [], "last_sign_in_at": 345903, "banned": true, "locked": false, "lockout_expires_in_seconds": 183404, "verification_attempts_remaining": 520280, "updated_at": 835720, "created_at": 556936, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Deion_Shanahan88", "first_name": "Willa", "last_name": "O'Kon", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Cristobal_Yost-Schinner31@gmail.com", "reserved": false, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": 371956, "expire_at": 430959}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 554894, "updated_at": 590282}], "phone_numbers": [{"object": "phone_number", "phone_number": "1-554-571-5107 x820", "reserved": true, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 217884, "expire_at": 946029}, "linked_to": [], "created_at": 550147, "updated_at": 57122}], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 494862, "external_accounts": [{"object": "facebook_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kaleb88@gmail.com", "first_name": "Denis", "last_name": "Roob", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 427350, "updated_at": 917270, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 900437, "attempts": 57266}}], "saml_accounts": [], "enterprise_accounts": [], "last_sign_in_at": 345903, "banned": true, "locked": false, "lockout_expires_in_seconds": 183404, "verification_attempts_remaining": 520280, "updated_at": 835720, "created_at": 556936, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "402":
           application/json: {"errors": []}
   LockUser:
@@ -2330,7 +2473,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Paige_Keeling", "first_name": "Danny", "last_name": "West", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 529039, "expire_at": 323423}, "created_at": 612221, "updated_at": 958342}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 869240, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Jamie_Harris11@hotmail.com", "first_name": "Terrill", "last_name": "McKenzie", "public_metadata": {}, "created_at": 799820, "updated_at": 825654, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 408253, "attempts": 360777}}], "saml_accounts": [], "last_sign_in_at": 840821, "banned": false, "locked": true, "lockout_expires_in_seconds": null, "verification_attempts_remaining": 353855, "updated_at": 766507, "created_at": 26564, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Paige_Keeling", "first_name": "Danny", "last_name": "West", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 529039, "expire_at": 323423}, "created_at": 612221, "updated_at": 958342}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": null, "mfa_disabled_at": 869240, "external_accounts": [{"object": "google_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Jamie_Harris11@hotmail.com", "first_name": "Terrill", "last_name": "McKenzie", "public_metadata": {}, "created_at": 799820, "updated_at": 825654, "verification": {"object": "verification_oauth", "status": "failed", "strategy": "<value>", "expire_at": 408253, "attempts": 360777}}], "saml_accounts": [], "enterprise_accounts": [], "last_sign_in_at": 840821, "banned": false, "locked": true, "lockout_expires_in_seconds": null, "verification_attempts_remaining": 353855, "updated_at": 766507, "created_at": 26564, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
           application/json: {"errors": []}
   UnlockUser:
@@ -2340,7 +2483,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Trisha_Schimmel", "first_name": "Golden", "last_name": "Bechtelar-Bartoletti", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 99223, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 621194, "expire_at": 883397}}], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 982099, "mfa_disabled_at": 365844, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": true, "email_address": "Rosina_Considine@gmail.com", "verification": {"object": "verification_ticket", "status": "verified", "strategy": "ticket", "attempts": 453080, "expire_at": null}}], "last_sign_in_at": 780728, "banned": false, "locked": false, "lockout_expires_in_seconds": 436504, "verification_attempts_remaining": 686618, "updated_at": 478655, "created_at": 716859, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Trisha_Schimmel", "first_name": "Golden", "last_name": "Bechtelar-Bartoletti", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 99223, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 621194, "expire_at": 883397}}], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 982099, "mfa_disabled_at": 365844, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": true, "email_address": "Rosina_Considine@gmail.com", "verification": {"object": "verification_ticket", "status": "verified", "strategy": "ticket", "attempts": 453080, "expire_at": null}}], "enterprise_accounts": [], "last_sign_in_at": 780728, "banned": false, "locked": false, "lockout_expires_in_seconds": 436504, "verification_attempts_remaining": 686618, "updated_at": 478655, "created_at": 716859, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "403":
           application/json: {"errors": []}
   SetUserProfileImage:
@@ -2352,7 +2495,7 @@ examples:
         multipart/form-data: {}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Anita.McCullough", "first_name": "Evalyn", "last_name": "Buckridge", "has_image": true, "public_metadata": {}, "email_addresses": [{"object": "email_address", "email_address": "Josefina_Leffler@yahoo.com", "reserved": false, "verification": {"object": "verification_from_oauth", "status": "verified", "strategy": "<value>", "expire_at": 674502, "attempts": 795457}, "linked_to": [], "created_at": 663113, "updated_at": 947362}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 625839, "mfa_disabled_at": 655961, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Shawna_Labadie15@hotmail.com", "first_name": "Cassidy", "last_name": "Keeling", "public_metadata": {}, "created_at": 492807, "updated_at": 540171, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 547177, "attempts": 229980}}], "saml_accounts": [], "last_sign_in_at": 379079, "banned": false, "locked": false, "lockout_expires_in_seconds": 232012, "verification_attempts_remaining": 273070, "updated_at": 243972, "created_at": 59747, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Anita.McCullough", "first_name": "Evalyn", "last_name": "Buckridge", "has_image": true, "public_metadata": {}, "email_addresses": [{"object": "email_address", "email_address": "Josefina_Leffler@yahoo.com", "reserved": false, "verification": {"object": "verification_from_oauth", "status": "verified", "strategy": "<value>", "expire_at": 674502, "attempts": 795457}, "linked_to": [], "created_at": 663113, "updated_at": 947362}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 625839, "mfa_disabled_at": 655961, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Shawna_Labadie15@hotmail.com", "first_name": "Cassidy", "last_name": "Keeling", "public_metadata": {}, "created_at": 492807, "updated_at": 540171, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 547177, "attempts": 229980}}], "saml_accounts": [], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": false, "email_address": "Raquel_Bergnaum58@gmail.com", "verification": {"object": "verification_saml", "status": "expired", "strategy": "saml", "attempts": 976448}}], "last_sign_in_at": 379079, "banned": false, "locked": false, "lockout_expires_in_seconds": 232012, "verification_attempts_remaining": 273070, "updated_at": 243972, "created_at": 59747, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   DeleteUserProfileImage:
@@ -2362,7 +2505,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Troy90", "first_name": "Tess", "last_name": "Feeney", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Marian.Wolf25@hotmail.com", "reserved": true, "verification": {"object": "verification_ticket", "status": "unverified", "strategy": "ticket", "attempts": 711911, "expire_at": 613422}, "linked_to": [], "created_at": 464532, "updated_at": 558346}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_metamask_signature", "attempts": 776566, "expire_at": null}, "created_at": 143938, "updated_at": 864712}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": null, "mfa_disabled_at": 819643, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kory92@hotmail.com", "first_name": "Lilliana", "last_name": "Toy", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 498460, "updated_at": 472188, "verification": {"object": "verification_oauth", "status": "verified", "strategy": "<value>", "expire_at": 84430, "attempts": 555452}}], "saml_accounts": [], "last_sign_in_at": 878536, "banned": true, "locked": true, "lockout_expires_in_seconds": 608359, "verification_attempts_remaining": null, "updated_at": 770154, "created_at": 421918, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Troy90", "first_name": "Tess", "last_name": "Feeney", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Marian.Wolf25@hotmail.com", "reserved": true, "verification": {"object": "verification_ticket", "status": "unverified", "strategy": "ticket", "attempts": 711911, "expire_at": 613422}, "linked_to": [], "created_at": 464532, "updated_at": 558346}], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_metamask_signature", "attempts": 776566, "expire_at": null}, "created_at": 143938, "updated_at": 864712}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": null, "mfa_disabled_at": 819643, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Kory92@hotmail.com", "first_name": "Lilliana", "last_name": "Toy", "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "created_at": 498460, "updated_at": 472188, "verification": {"object": "verification_oauth", "status": "verified", "strategy": "<value>", "expire_at": 84430, "attempts": 555452}}], "saml_accounts": [], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": true, "email_address": "Cayla7@hotmail.com", "verification": {"object": "verification_oauth", "status": "expired", "strategy": "<value>", "expire_at": 918977, "attempts": 437499}}], "last_sign_in_at": 878536, "banned": true, "locked": true, "lockout_expires_in_seconds": 608359, "verification_attempts_remaining": null, "updated_at": 770154, "created_at": 421918, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "404":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UpdateUserMetadata:
@@ -2372,7 +2515,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Sylvia89", "first_name": "Mya", "last_name": "Torphy", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Lucas.Effertz@yahoo.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": null, "expire_at": 590543}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 596616, "updated_at": 533152}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 569522, "mfa_disabled_at": 665231, "external_accounts": [], "saml_accounts": [], "last_sign_in_at": 101183, "banned": false, "locked": true, "lockout_expires_in_seconds": 346858, "verification_attempts_remaining": null, "updated_at": 30684, "created_at": 26864, "delete_self_enabled": true, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Sylvia89", "first_name": "Mya", "last_name": "Torphy", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Lucas.Effertz@yahoo.com", "reserved": true, "verification": {"object": "verification_email_link", "status": "verified", "strategy": "email_link", "attempts": null, "expire_at": 590543}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 596616, "updated_at": 533152}], "phone_numbers": [], "web3_wallets": [], "passkeys": [], "password_enabled": false, "two_factor_enabled": false, "totp_enabled": true, "backup_code_enabled": true, "mfa_enabled_at": 569522, "mfa_disabled_at": 665231, "external_accounts": [], "saml_accounts": [], "enterprise_accounts": [], "last_sign_in_at": 101183, "banned": false, "locked": true, "lockout_expires_in_seconds": 346858, "verification_attempts_remaining": null, "updated_at": 30684, "created_at": 26864, "delete_self_enabled": true, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}
         "400":
           application/json: {"errors": []}
   GetOAuthAccessToken:
@@ -2578,7 +2721,7 @@ examples:
           organization_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Paige_Runte@yahoo.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": null, "expires_at": 54824, "created_at": 152560, "updated_at": 458990}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Paige_Runte@yahoo.com", "role": "<value>", "role_name": "<value>", "inviter_id": "<id>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": null, "expires_at": 54824, "created_at": 152560, "updated_at": 458990}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListOrganizationInvitations:
@@ -2604,7 +2747,7 @@ examples:
         application/json: [{"email_address": "Jeffrey.Skiles27@hotmail.com", "role": "<value>"}]
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Elfrieda26@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>"}, "url": "https://webbed-cheese.net", "expires_at": 448093, "created_at": 418732, "updated_at": 613756}], "total_count": 624986}
+          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Elfrieda26@hotmail.com", "role": "<value>", "role_name": "<value>", "inviter_id": "<id>", "public_metadata": {"key": "<value>"}, "url": "https://webbed-cheese.net", "expires_at": 448093, "created_at": 418732, "updated_at": 613756}], "total_count": 624986}
         "400":
           application/json: {"errors": []}
   ListPendingOrganizationInvitations:
@@ -2617,7 +2760,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Isabell71@hotmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": "https://oblong-developmental.name", "expires_at": 275664, "created_at": 686578, "updated_at": 100588}], "total_count": 561428}
+          application/json: {"data": [{"object": "organization_invitation", "id": "<id>", "email_address": "Isabell71@hotmail.com", "role": "<value>", "role_name": "<value>", "inviter_id": "<id>", "public_metadata": {"key": "<value>", "key1": "<value>"}, "url": "https://oblong-developmental.name", "expires_at": 275664, "created_at": 686578, "updated_at": 100588}], "total_count": 561428}
         "400":
           application/json: {"errors": []}
   GetOrganizationInvitation:
@@ -2628,7 +2771,7 @@ examples:
           invitation_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Afton_Kessler@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": null, "expires_at": 671934, "created_at": 431642, "updated_at": 688044}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Afton_Kessler@gmail.com", "role": "<value>", "role_name": "<value>", "inviter_id": "<id>", "public_metadata": {}, "url": null, "expires_at": 671934, "created_at": 431642, "updated_at": 688044}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   RevokeOrganizationInvitation:
@@ -2639,7 +2782,7 @@ examples:
           invitation_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Gordon.Kautzer71@gmail.com", "role": "<value>", "role_name": "<value>", "public_metadata": {}, "url": "https://electric-antelope.net", "expires_at": 460138, "created_at": 30676, "updated_at": 995864}
+          application/json: {"object": "organization_invitation", "id": "<id>", "email_address": "Gordon.Kautzer71@gmail.com", "role": "<value>", "role_name": "<value>", "inviter_id": null, "public_metadata": {}, "url": "https://electric-antelope.net", "expires_at": 460138, "created_at": 30676, "updated_at": 995864}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   ListAllowlistIdentifiers:
@@ -3320,7 +3463,7 @@ examples:
         application/json: {"user_ids": ["<value 1>", "<value 2>", "<value 3>"]}
       responses:
         "200":
-          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": null, "username": "Melody48", "first_name": "Felicia", "last_name": "Jakubowski", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_okx_wallet_signature", "attempts": 598545, "expire_at": 959813}, "created_at": 243637, "updated_at": 33571}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 620490, "mfa_disabled_at": 725618, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Abdullah.Wisozk-Schmitt93@gmail.com", "verification": {"object": "verification_saml", "status": "unverified", "strategy": "saml", "attempts": 62911}}], "last_sign_in_at": 765569, "banned": false, "locked": true, "lockout_expires_in_seconds": 305814, "verification_attempts_remaining": 276631, "updated_at": 15742, "created_at": 356726, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": null, "username": "Melody48", "first_name": "Felicia", "last_name": "Jakubowski", "has_image": true, "public_metadata": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_web3", "status": "failed", "strategy": "web3_okx_wallet_signature", "attempts": 598545, "expire_at": 959813}, "created_at": 243637, "updated_at": 33571}], "passkeys": [], "password_enabled": false, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 620490, "mfa_disabled_at": 725618, "external_accounts": [], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Abdullah.Wisozk-Schmitt93@gmail.com", "verification": {"object": "verification_saml", "status": "unverified", "strategy": "saml", "attempts": 62911}}], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": false, "email_address": "Horacio_Gutkowski3@yahoo.com", "verification": null}], "last_sign_in_at": 765569, "banned": false, "locked": true, "lockout_expires_in_seconds": 305814, "verification_attempts_remaining": 276631, "updated_at": 15742, "created_at": 356726, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   UsersUnban:
@@ -3329,7 +3472,7 @@ examples:
         application/json: {"user_ids": ["<value 1>", "<value 2>", "<value 3>"]}
       responses:
         "200":
-          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": null, "first_name": "Estella", "last_name": "Abbott", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 602166, "expire_at": 755931}, "created_at": 138607, "updated_at": 872873}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 787261, "mfa_disabled_at": 532670, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Buddy.Davis32@yahoo.com", "first_name": "Jon", "last_name": "Aufderhar", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 288253, "updated_at": 486887, "verification": {"object": "verification_oauth", "status": "expired", "strategy": "<value>", "expire_at": 129576, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Ola.Koch@hotmail.com", "verification": {"object": "verification_saml", "status": "expired", "strategy": "saml", "attempts": 321485}}], "last_sign_in_at": 235112, "banned": true, "locked": true, "lockout_expires_in_seconds": 486916, "verification_attempts_remaining": 632513, "updated_at": 604095, "created_at": 459828, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
+          application/json: [{"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": null, "first_name": "Estella", "last_name": "Abbott", "has_image": true, "public_metadata": {"key": "<value>"}, "email_addresses": [], "phone_numbers": [], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 602166, "expire_at": 755931}, "created_at": 138607, "updated_at": 872873}], "passkeys": [], "password_enabled": true, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 787261, "mfa_disabled_at": 532670, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Buddy.Davis32@yahoo.com", "first_name": "Jon", "last_name": "Aufderhar", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 288253, "updated_at": 486887, "verification": {"object": "verification_oauth", "status": "expired", "strategy": "<value>", "expire_at": 129576, "attempts": null}}], "saml_accounts": [{"id": "<id>", "object": "saml_account", "provider": "<value>", "active": false, "email_address": "Ola.Koch@hotmail.com", "verification": {"object": "verification_saml", "status": "expired", "strategy": "saml", "attempts": 321485}}], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": true, "email_address": "Toni_Baumbach33@yahoo.com", "verification": {"object": "verification_ticket", "status": "unverified", "strategy": "ticket", "attempts": 332407, "expire_at": 503363}}], "last_sign_in_at": 235112, "banned": true, "locked": true, "lockout_expires_in_seconds": 486916, "verification_attempts_remaining": 632513, "updated_at": 604095, "created_at": 459828, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000}]
         "400":
           application/json: {"errors": []}
   GetUserBillingSubscription:
@@ -3650,6 +3793,133 @@ examples:
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
         "500":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  ListOrganizationRoles:
+    speakeasy-default-list-organization-roles:
+      parameters:
+        query:
+          order_by: "-created_at"
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [{"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": "oh zowie hmph writ hence quarrel frizz that why", "is_creator_eligible": false, "permissions": [], "created_at": 194338, "updated_at": 321738}], "total_count": 825827}
+        "400":
+          application/json: {"errors": []}
+  CreateOrganizationRole:
+    speakeasy-default-create-organization-role:
+      requestBody:
+        application/json: {"name": "<value>", "key": "<key>"}
+      responses:
+        "200":
+          application/json: {"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": null, "is_creator_eligible": true, "permissions": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "concentration because artistic phew", "type": "<value>", "created_at": 550874, "updated_at": 81669}], "created_at": 260585, "updated_at": 937993}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  GetOrganizationRole:
+    speakeasy-default-get-organization-role:
+      parameters:
+        path:
+          organization_role_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": "reapply unsightly to", "is_creator_eligible": false, "permissions": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "tightly gah vacantly", "type": "<value>", "created_at": 397058, "updated_at": 333597}], "created_at": 919999, "updated_at": 840898}
+        "401":
+          application/json: {"errors": []}
+  UpdateOrganizationRole:
+    speakeasy-default-update-organization-role:
+      parameters:
+        path:
+          organization_role_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": "pricey terribly topsail", "is_creator_eligible": true, "permissions": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "minus amendment zowie from finally polarisation unsightly", "type": "<value>", "created_at": 112204, "updated_at": 385324}], "created_at": 741873, "updated_at": 771959}
+        "400":
+          application/json: {"errors": []}
+  DeleteOrganizationRole:
+    speakeasy-default-delete-organization-role:
+      parameters:
+        path:
+          organization_role_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": true}
+        "401":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  AssignPermissionToOrganizationRole:
+    speakeasy-default-assign-permission-to-organization-role:
+      parameters:
+        path:
+          organization_role_id: "<id>"
+          permission_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": "sanity likely smooth jaggedly across yuck hungrily whoa maintainer", "is_creator_eligible": false, "permissions": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "after opposite phooey yet floss unto", "type": "<value>", "created_at": 23570, "updated_at": 24655}], "created_at": 575134, "updated_at": 255370}
+        "401":
+          application/json: {"errors": []}
+  RemovePermissionFromOrganizationRole:
+    speakeasy-default-remove-permission-from-organization-role:
+      parameters:
+        path:
+          organization_role_id: "<id>"
+          permission_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "role", "id": "<id>", "name": "<value>", "key": "<key>", "description": "up sunny mechanically pish", "is_creator_eligible": true, "permissions": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "furthermore individual scope selfishly intently degenerate supposing", "type": "<value>", "created_at": 980881, "updated_at": 32956}], "created_at": 586902, "updated_at": 267150}
+        "401":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  ListOrganizationPermissions:
+    speakeasy-default-list-organization-permissions:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [{"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "altruistic selfishly yowza lawful distinct", "type": "<value>", "created_at": 317621, "updated_at": 992384}], "total_count": 994443}
+        "401":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  CreateOrganizationPermission:
+    speakeasy-default-create-organization-permission:
+      requestBody:
+        application/json: {"name": "<value>", "key": "<key>"}
+      responses:
+        "200":
+          application/json: {"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "descent information whereas settler while publicity like", "type": "<value>", "created_at": 352062, "updated_at": 214747}
+        "400":
+          application/json: {"errors": []}
+  GetOrganizationPermission:
+    speakeasy-default-get-organization-permission:
+      parameters:
+        path:
+          permission_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "duh instead among amongst monumental", "type": "<value>", "created_at": 871460, "updated_at": 548281}
+        "401":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  UpdateOrganizationPermission:
+    speakeasy-default-update-organization-permission:
+      parameters:
+        path:
+          permission_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"object": "permission", "id": "<id>", "name": "<value>", "key": "<key>", "description": "nor that save before oof and far inside", "type": "<value>", "created_at": 124, "updated_at": 695047}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteOrganizationPermission:
+    speakeasy-default-delete-organization-permission:
+      parameters:
+        path:
+          permission_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": false}
+        "401":
+          application/json: {"errors": []}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Java SDK Changes Detected:\n* `clerk.betaFeatures.updateProductionInstanceDomain()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.get()`: \n  *  `response.last_authentication_strategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.create()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.get()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.cancelSubscriptionItem()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.listSubscriptionItems()`: \n  *  `response.data.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.commerce.listPlans()`: \n  *  `response.data.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.reject()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.invite()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAddresses.update()`: \n  *  `response.verification` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.phoneNumbers.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.refresh()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.createToken()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.sessions.createTokenFromTemplate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.revert()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailSmsTemplates.toggleTemplateDelivery()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.emailAndSmsTemplates.upsert()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.templates.preview()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.list()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.create()`: \n  *  `request.locale` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.count()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.get()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.update()`: \n  *  `requestbody.locale` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.list()`: \n  *  `response.[].lastAuthenticationStrategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.unban()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.bulkBan()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.bulkUnban()`: \n  *  `response.[]` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.lock()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.unlock()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.setProfileImage()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteProfileImage()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.updateMetadata()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getBillingSubscription()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOAuthAccessToken()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOrganizationMemberships()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getOrganizationInvitations()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.verifyPassword()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.verifyTotp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.disableMfa()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteBackupCodes()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deletePasskey()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteWeb3Wallet()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteTotp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.deleteExternalAccount()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.getInstanceOrganizationMemberships()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.bulkCreate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.invitations.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.getAll()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.bulkCreate()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.listPending()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationInvitations.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.allowlistIdentifiers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.updateOrganizationSettings()`: \n  *  `request.slugDisabled` **Added**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.clients.verify()`: \n  *  `response.last_authentication_strategy` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.users.ban()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.actorTokens.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.actorTokens.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.add()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.domains.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.updateRestrictions()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.changeDomain()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.blocklistIdentifiers.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.createSvixApp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.deleteSvixApp()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.webhooks.generateSvixAuthUrl()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.jwtTemplates.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.betaFeatures.updateInstanceSettings()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.delete()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.getSecretKey()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.createScope()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.machines.deleteScope()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.update()`:  `error` **Changed** **Breaking** :warning:\n* `clerk.organizations.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.mergeMetadata()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.uploadLogo()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.deleteLogo()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizations.getBillingSubscription()`: \n  *  `response` **Changed** **Breaking** :warning:\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.create()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.list()`: \n  *  `response.data.[].publicUserData.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.update()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.delete()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationMemberships.updateMetadata()`: \n  *  `response.public_user_data.username` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.organizationDomains.listAll()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.proxyChecks.verify()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.redirectUrls.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signInTokens.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signInTokens.revoke()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signUps.get()`: \n  *  `response.locale` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.signUps.update()`: \n  *  `response.locale` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.list()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.get()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.update()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.oauthApplications.rotateSecret()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.list()`: \n  *  `response.data.[]` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.get()`: \n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.update()`: \n  *  `requestbody.forceAuthn` **Added**\n  *  `response` **Changed**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.samlConnections.delete()`: \n  *  `response.external_id` **Added**\n  *  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.waitlistEntries.create()`:  `errors.[].clerkTraceId` **Removed** **Breaking** :warning:\n* `clerk.billing.getStatement()`: **Added**\n* `clerk.billing.listStatements()`: **Added**\n* `clerk.billing.extendSubscriptionItemFreeTrial()`: **Added**\n* `clerk.waitlistEntries.delete()`: **Added**\n* `clerk.machines.rotateSecretKey()`: **Added**\n* `clerk.billing.getStatementPaymentAttempts()`: **Added**\n* `clerk.awsCredentials.delete()`: **Deleted** **Breaking** :warning:\n* `clerk.awsCredentials.update()`: **Deleted** **Breaking** :warning:\n* `clerk.experimentalAccountlessApplications.create()`: **Deleted** **Breaking** :warning:\n* `clerk.experimentalAccountlessApplications.complete()`: **Deleted** **Breaking** :warning:\n"
+releaseNotes: "## Java SDK Changes:\n* `clerk.betaFeatures.updateInstanceSettings()`: \n  *  `request.enhancedEmailDeliverability` **Removed** **Breaking** :warning:\n* `clerk.instanceSettings.update()`: \n  *  `request.enhancedEmailDeliverability` **Removed** **Breaking** :warning:\n* `clerk.organizationPermissions.delete()`: **Added**\n* `clerk.organizations.update()`:  `response.last_active_at` **Added**\n* `clerk.organizationRoles.delete()`: **Added**\n* `clerk.organizationRoles.assignPermission()`: **Added**\n* `clerk.organizationRoles.removePermission()`: **Added**\n* `clerk.billing.listPlans()`: **Added**\n* `clerk.billing.listSubscriptionItems()`: **Added**\n* `clerk.users.deleteProfileImage()`:  `response` **Changed**\n* `clerk.organizationPermissions.list()`: **Added**\n* `clerk.organizationPermissions.create()`: **Added**\n* `clerk.organizationPermissions.get()`: **Added**\n* `clerk.organizationPermissions.update()`: **Added**\n* `clerk.organizationRoles.list()`: **Added**\n* `clerk.commerce.listPlans()`: **Deleted** **Breaking** :warning:\n* `clerk.commerce.listSubscriptionItems()`: **Deleted** **Breaking** :warning:\n* `clerk.commerce.cancelSubscriptionItem()`: **Deleted** **Breaking** :warning:\n* `clerk.sessions.create()`: \n  *  `request.activeOrganizationId` **Added**\n* `clerk.users.list()`:  `response.[]` **Changed**\n* `clerk.users.create()`:  `response` **Changed**\n* `clerk.users.get()`:  `response` **Changed**\n* `clerk.users.update()`:  `response` **Changed**\n* `clerk.users.ban()`:  `response` **Changed**\n* `clerk.users.unban()`:  `response` **Changed**\n* `clerk.users.bulkBan()`:  `response.[]` **Changed**\n* `clerk.users.bulkUnban()`:  `response.[]` **Changed**\n* `clerk.users.lock()`:  `response` **Changed**\n* `clerk.organizationRoles.update()`: **Added**\n* `clerk.users.unlock()`:  `response` **Changed**\n* `clerk.billing.cancelSubscriptionItem()`: **Added**\n* `clerk.users.updateMetadata()`:  `response` **Changed**\n* `clerk.users.getOrganizationMemberships()`:  `response.data.[].organization.lastActiveAt` **Added**\n* `clerk.users.getOrganizationInvitations()`:  `response.data.[].inviterId` **Added**\n* `clerk.users.getInstanceOrganizationMemberships()`:  `response.data.[].organization.lastActiveAt` **Added**\n* `clerk.organizationInvitations.getAll()`:  `response.data.[].inviterId` **Added**\n* `clerk.organizationInvitations.create()`:  `response.inviter_id` **Added**\n* `clerk.organizationInvitations.list()`:  `response.data.[].inviterId` **Added**\n* `clerk.organizationInvitations.bulkCreate()`:  `response.data.[].inviterId` **Added**\n* `clerk.organizationInvitations.listPending()`:  `response.data.[].inviterId` **Added**\n* `clerk.organizationInvitations.get()`:  `response.inviter_id` **Added**\n* `clerk.organizationInvitations.revoke()`:  `response.inviter_id` **Added**\n* `clerk.organizationRoles.get()`: **Added**\n* `clerk.organizationRoles.create()`: **Added**\n* `clerk.instanceSettings.updateOrganizationSettings()`:  `response.max_role_sets_allowed` **Added**\n* `clerk.organizations.list()`:  `response.data.[].lastActiveAt` **Added**\n* `clerk.organizations.create()`:  `response.last_active_at` **Added**\n* `clerk.organizations.get()`:  `response.last_active_at` **Added**\n* `clerk.users.setProfileImage()`:  `response` **Changed**\n* `clerk.organizations.mergeMetadata()`:  `response.last_active_at` **Added**\n* `clerk.organizations.uploadLogo()`:  `response.last_active_at` **Added**\n* `clerk.organizations.deleteLogo()`:  `response.last_active_at` **Added**\n* `clerk.organizationMemberships.create()`:  `response.organization.lastActiveAt` **Added**\n* `clerk.organizationMemberships.list()`:  `response.data.[].organization.lastActiveAt` **Added**\n* `clerk.organizationMemberships.update()`:  `response.organization.lastActiveAt` **Added**\n* `clerk.organizationMemberships.delete()`:  `response.organization.lastActiveAt` **Added**\n* `clerk.organizationMemberships.updateMetadata()`:  `response.organization.lastActiveAt` **Added**\n"

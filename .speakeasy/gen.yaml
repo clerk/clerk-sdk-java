@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 4.0.0
+  version: 4.1.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -36,8 +36,8 @@ java:
   companyURL: www.mycompany.com
   defaultErrorName: SDKError
   enableCustomCodeRegions: false
+  enableSlf4jLogging: false
   enableStreamingUploads: false
-  enhancedUnionMemberResolution: true
   flattenGlobalSecurity: true
   generateOptionalUnionAccessors: false
   generateSpringBootStarter: true
@@ -51,6 +51,7 @@ java:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
+  inferUnionDiscriminators: false
   inputModelSuffix: input
   languageVersion: 11
   license:
@@ -58,8 +59,11 @@ java:
     shortName: MIT
     url: https://mit-license.org/
   maxMethodParams: 4
+  multipartArrayFormat: legacy
   nullFriendlyParameters: false
   openUnions: true
+  operationScopedParams: true
   outputModelSuffix: output
   projectName: api
   templateVersion: v2
+  unionStrategy: populated-fields

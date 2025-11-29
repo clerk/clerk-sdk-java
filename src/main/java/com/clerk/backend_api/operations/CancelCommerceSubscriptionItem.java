@@ -105,7 +105,7 @@ public class CancelCommerceSubscriptionItem {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
-                    "/commerce/subscription_items/{subscription_item_id}",
+                    "/billing/subscription_items/{subscription_item_id}",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "DELETE");
             req.addHeader("Accept", "application/json")

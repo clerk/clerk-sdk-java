@@ -292,6 +292,9 @@ public class Organizations {
      * Please note that deleting an organization will also delete all memberships and invitations.
      * This is not reversible.
      * 
+     * <p>After the organization is deleted, any user's active sessions that contain the deleted
+     * organization will be cleared.
+     * 
      * @return The call builder
      */
     public DeleteOrganizationRequestBuilder delete() {
@@ -304,6 +307,9 @@ public class Organizations {
      * <p>Deletes the given organization.
      * Please note that deleting an organization will also delete all memberships and invitations.
      * This is not reversible.
+     * 
+     * <p>After the organization is deleted, any user's active sessions that contain the deleted
+     * organization will be cleared.
      * 
      * @param organizationId The ID of the organization to delete
      * @return The response from the API call
@@ -319,6 +325,9 @@ public class Organizations {
      * <p>Deletes the given organization.
      * Please note that deleting an organization will also delete all memberships and invitations.
      * This is not reversible.
+     * 
+     * <p>After the organization is deleted, any user's active sessions that contain the deleted
+     * organization will be cleared.
      * 
      * @param organizationId The ID of the organization to delete
      * @param options additional options

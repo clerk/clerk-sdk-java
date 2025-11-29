@@ -342,7 +342,7 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
                 clazz == OffsetDateTime.class ||
                 clazz == LocalDate.class;
     }
-    
+
     private static final Set<String> NUMERIC_CLASSES = Set.of(
             Integer.class.getCanonicalName(),
             Long.class.getCanonicalName(),

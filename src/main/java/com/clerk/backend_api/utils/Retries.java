@@ -13,6 +13,8 @@ import java.util.List;
 
 public class Retries {
 
+    private static final SpeakeasyLogger logger = SpeakeasyLogger.getLogger(Retries.class);
+
     private final Callable<HttpResponse<InputStream>> action;
     private final RetryConfig retryConfig;
     private final List<String> statusCodes;
@@ -128,12 +130,17 @@ public class Retries {
 
         while(true) {
             try {
+                if (numAttempts > 0) {
+                    logger.debug("Retry attempt {} after backoff", numAttempts);
+                }
                 return getResponse(retryConnectError, retryReadTimeoutError);
             } catch(NonRetryableException e) {
+                logger.debug("Non-retryable exception encountered: {}", e.exception().getClass().getSimpleName());
                 throw e.exception();
             } catch(IOException | RetryableException e) {
                 long nowMs = System.currentTimeMillis();
                 if (nowMs - startMs > backoff.maxElapsedTimeMs()) {
+                    logger.debug("Retry exhausted after {}ms, {} attempts", nowMs - startMs, numAttempts + 1);
                     if ( e instanceof RetryableException ) {
                         return ((RetryableException)e).response();
                     }
@@ -150,6 +157,12 @@ public class Retries {
                 }
 
                 long sleepMs = (long) intervalMs;
+                if (logger.isTraceEnabled()) {
+                    String reason = e instanceof RetryableException
+                        ? "status " + ((RetryableException)e).response().statusCode()
+                        : e.getClass().getSimpleName();
+                    logger.trace("Retrying due to {} - waiting {}ms before attempt {}", reason, sleepMs, numAttempts + 1);
+                }
                 TimeUnit.MILLISECONDS.sleep(sleepMs);
                 numAttempts += 1;
             }

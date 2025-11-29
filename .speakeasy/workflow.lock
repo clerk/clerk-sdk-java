@@ -1,21 +1,21 @@
-speakeasyVersion: 1.653.0
+speakeasyVersion: 1.665.0
 sources:
     clerk-java-sdk:
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:4cdfbca5fe446f5440ef5a91053cdec7dd86d4b1c296a30cec61e1f46e1c3bf0
-        sourceBlobDigest: sha256:667192662fbf3ee62bd9f4d3e67323b7b6777054d7d08b383e2db721e2911354
+        sourceRevisionDigest: sha256:e049605104f8420705eeb95805e1598bb4c6c9b8452c26dd11e0b5fec460505a
+        sourceBlobDigest: sha256:3bef08a77b6f96bde3202eea57e59365d8064a479eaee1bf86c25f953cf74690
         tags:
             - latest
-            - speakeasy-sdk-regen-1756771797
+            - speakeasy-sdk-regen-1762906246
             - "2025-11-10"
 targets:
     clerk-java:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk
-        sourceRevisionDigest: sha256:4cdfbca5fe446f5440ef5a91053cdec7dd86d4b1c296a30cec61e1f46e1c3bf0
-        sourceBlobDigest: sha256:667192662fbf3ee62bd9f4d3e67323b7b6777054d7d08b383e2db721e2911354
+        sourceRevisionDigest: sha256:e049605104f8420705eeb95805e1598bb4c6c9b8452c26dd11e0b5fec460505a
+        sourceBlobDigest: sha256:3bef08a77b6f96bde3202eea57e59365d8064a479eaee1bf86c25f953cf74690
         codeSamplesNamespace: clerk-java-sdk-code-samples
-        codeSamplesRevisionDigest: sha256:ec10b689b7835ba5566ba1569f14e7b197a7dcba7dd11c0753c62de6d3f072c4
+        codeSamplesRevisionDigest: sha256:db82e151c50c92efaa43d5b348b3c786549c46b056ded4239973bf48af45d5b9
     my-first-target:
         source: clerk-java-sdk
         sourceNamespace: clerk-java-sdk

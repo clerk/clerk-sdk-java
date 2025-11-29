@@ -139,6 +139,9 @@ public class Invitations {
      * note that there must be no existing user for any of the email addresses you provide, and this rule
      * cannot be bypassed.
      * 
+     * <p>This endpoint is limited to a maximum of 10 invitations per API call. If you need to send more
+     * invitations, please make multiple requests.
+     * 
      * @return The call builder
      */
     public CreateBulkInvitationsRequestBuilder bulkCreate() {
@@ -156,6 +159,9 @@ public class Invitations {
      * addresses. Please
      * note that there must be no existing user for any of the email addresses you provide, and this rule
      * cannot be bypassed.
+     * 
+     * <p>This endpoint is limited to a maximum of 10 invitations per API call. If you need to send more
+     * invitations, please make multiple requests.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -175,6 +181,9 @@ public class Invitations {
      * addresses. Please
      * note that there must be no existing user for any of the email addresses you provide, and this rule
      * cannot be bypassed.
+     * 
+     * <p>This endpoint is limited to a maximum of 10 invitations per API call. If you need to send more
+     * invitations, please make multiple requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
