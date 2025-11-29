@@ -109,6 +109,9 @@ public class Clerk {
     private final Organizations organizations;
 
 
+    private final OrganizationRoles organizationRoles;
+
+
     private final OrganizationMemberships organizationMemberships;
 
 
@@ -139,10 +142,10 @@ public class Clerk {
     private final WaitlistEntries waitlistEntries;
 
 
-    private final Commerce commerce;
-
-
     private final Billing billing;
+
+
+    private final OrganizationPermissions organizationPermissions;
 
 
     private final M2m m2m;
@@ -261,6 +264,11 @@ public class Clerk {
     }
 
 
+    public OrganizationRoles organizationRoles() {
+        return organizationRoles;
+    }
+
+
     public OrganizationMemberships organizationMemberships() {
         return organizationMemberships;
     }
@@ -311,13 +319,13 @@ public class Clerk {
     }
 
 
-    public Commerce commerce() {
-        return commerce;
+    public Billing billing() {
+        return billing;
     }
 
 
-    public Billing billing() {
-        return billing;
+    public OrganizationPermissions organizationPermissions() {
+        return organizationPermissions;
     }
 
 
@@ -500,6 +508,7 @@ public class Clerk {
         this.jwtTemplates = new JwtTemplates(sdkConfiguration);
         this.machines = new Machines(sdkConfiguration);
         this.organizations = new Organizations(sdkConfiguration);
+        this.organizationRoles = new OrganizationRoles(sdkConfiguration);
         this.organizationMemberships = new OrganizationMemberships(sdkConfiguration);
         this.organizationDomains = new OrganizationDomains(sdkConfiguration);
         this.proxyChecks = new ProxyChecks(sdkConfiguration);
@@ -510,8 +519,8 @@ public class Clerk {
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
-        this.commerce = new Commerce(sdkConfiguration);
         this.billing = new Billing(sdkConfiguration);
+        this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
         this.m2m = new M2m(sdkConfiguration);
         this.oauthAccessTokens = new OauthAccessTokens(sdkConfiguration);
         SdkInitData data = sdkConfiguration.hooks().sdkInit(

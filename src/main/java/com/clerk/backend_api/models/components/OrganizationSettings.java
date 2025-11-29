@@ -42,6 +42,11 @@ public class OrganizationSettings {
     @JsonProperty("max_allowed_roles")
     private long maxAllowedRoles;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("max_role_sets_allowed")
+    private Optional<Long> maxRoleSetsAllowed;
+
     /**
      * max_allowed_permissions is now a no-op, as permissions are now unlimited
      * 
@@ -96,6 +101,7 @@ public class OrganizationSettings {
             @JsonProperty("enabled") boolean enabled,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("max_allowed_roles") long maxAllowedRoles,
+            @JsonProperty("max_role_sets_allowed") Optional<Long> maxRoleSetsAllowed,
             @JsonProperty("max_allowed_permissions") Optional<Long> maxAllowedPermissions,
             @JsonProperty("creator_role") String creatorRole,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
@@ -108,6 +114,7 @@ public class OrganizationSettings {
         Utils.checkNotNull(enabled, "enabled");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
+        Utils.checkNotNull(maxRoleSetsAllowed, "maxRoleSetsAllowed");
         Utils.checkNotNull(maxAllowedPermissions, "maxAllowedPermissions");
         Utils.checkNotNull(creatorRole, "creatorRole");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
@@ -120,6 +127,7 @@ public class OrganizationSettings {
         this.enabled = enabled;
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.maxAllowedRoles = maxAllowedRoles;
+        this.maxRoleSetsAllowed = maxRoleSetsAllowed;
         this.maxAllowedPermissions = maxAllowedPermissions;
         this.creatorRole = creatorRole;
         this.adminDeleteEnabled = adminDeleteEnabled;
@@ -141,9 +149,10 @@ public class OrganizationSettings {
             List<DomainsEnrollmentModes> domainsEnrollmentModes,
             String domainsDefaultRole) {
         this(object, enabled, maxAllowedMemberships,
-            maxAllowedRoles, Optional.empty(), creatorRole,
-            adminDeleteEnabled, domainsEnabled, Optional.empty(),
-            domainsEnrollmentModes, domainsDefaultRole, JsonNullable.undefined());
+            maxAllowedRoles, Optional.empty(), Optional.empty(),
+            creatorRole, adminDeleteEnabled, domainsEnabled,
+            Optional.empty(), domainsEnrollmentModes, domainsDefaultRole,
+            JsonNullable.undefined());
     }
 
     /**
@@ -167,6 +176,11 @@ public class OrganizationSettings {
     @JsonIgnore
     public long maxAllowedRoles() {
         return maxAllowedRoles;
+    }
+
+    @JsonIgnore
+    public Optional<Long> maxRoleSetsAllowed() {
+        return maxRoleSetsAllowed;
     }
 
     /**
@@ -256,6 +270,19 @@ public class OrganizationSettings {
     public OrganizationSettings withMaxAllowedRoles(long maxAllowedRoles) {
         Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
         this.maxAllowedRoles = maxAllowedRoles;
+        return this;
+    }
+
+    public OrganizationSettings withMaxRoleSetsAllowed(long maxRoleSetsAllowed) {
+        Utils.checkNotNull(maxRoleSetsAllowed, "maxRoleSetsAllowed");
+        this.maxRoleSetsAllowed = Optional.ofNullable(maxRoleSetsAllowed);
+        return this;
+    }
+
+
+    public OrganizationSettings withMaxRoleSetsAllowed(Optional<Long> maxRoleSetsAllowed) {
+        Utils.checkNotNull(maxRoleSetsAllowed, "maxRoleSetsAllowed");
+        this.maxRoleSetsAllowed = maxRoleSetsAllowed;
         return this;
     }
 
@@ -368,6 +395,7 @@ public class OrganizationSettings {
             Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
             Utils.enhancedDeepEquals(this.maxAllowedRoles, other.maxAllowedRoles) &&
+            Utils.enhancedDeepEquals(this.maxRoleSetsAllowed, other.maxRoleSetsAllowed) &&
             Utils.enhancedDeepEquals(this.maxAllowedPermissions, other.maxAllowedPermissions) &&
             Utils.enhancedDeepEquals(this.creatorRole, other.creatorRole) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
@@ -382,9 +410,10 @@ public class OrganizationSettings {
     public int hashCode() {
         return Utils.enhancedHash(
             object, enabled, maxAllowedMemberships,
-            maxAllowedRoles, maxAllowedPermissions, creatorRole,
-            adminDeleteEnabled, domainsEnabled, slugDisabled,
-            domainsEnrollmentModes, domainsDefaultRole, initialRoleSetKey);
+            maxAllowedRoles, maxRoleSetsAllowed, maxAllowedPermissions,
+            creatorRole, adminDeleteEnabled, domainsEnabled,
+            slugDisabled, domainsEnrollmentModes, domainsDefaultRole,
+            initialRoleSetKey);
     }
     
     @Override
@@ -394,6 +423,7 @@ public class OrganizationSettings {
                 "enabled", enabled,
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "maxAllowedRoles", maxAllowedRoles,
+                "maxRoleSetsAllowed", maxRoleSetsAllowed,
                 "maxAllowedPermissions", maxAllowedPermissions,
                 "creatorRole", creatorRole,
                 "adminDeleteEnabled", adminDeleteEnabled,
@@ -414,6 +444,8 @@ public class OrganizationSettings {
         private Long maxAllowedMemberships;
 
         private Long maxAllowedRoles;
+
+        private Optional<Long> maxRoleSetsAllowed = Optional.empty();
 
         @Deprecated
         private Optional<Long> maxAllowedPermissions = Optional.empty();
@@ -464,6 +496,19 @@ public class OrganizationSettings {
         public Builder maxAllowedRoles(long maxAllowedRoles) {
             Utils.checkNotNull(maxAllowedRoles, "maxAllowedRoles");
             this.maxAllowedRoles = maxAllowedRoles;
+            return this;
+        }
+
+
+        public Builder maxRoleSetsAllowed(long maxRoleSetsAllowed) {
+            Utils.checkNotNull(maxRoleSetsAllowed, "maxRoleSetsAllowed");
+            this.maxRoleSetsAllowed = Optional.ofNullable(maxRoleSetsAllowed);
+            return this;
+        }
+
+        public Builder maxRoleSetsAllowed(Optional<Long> maxRoleSetsAllowed) {
+            Utils.checkNotNull(maxRoleSetsAllowed, "maxRoleSetsAllowed");
+            this.maxRoleSetsAllowed = maxRoleSetsAllowed;
             return this;
         }
 
@@ -572,9 +617,10 @@ public class OrganizationSettings {
 
             return new OrganizationSettings(
                 object, enabled, maxAllowedMemberships,
-                maxAllowedRoles, maxAllowedPermissions, creatorRole,
-                adminDeleteEnabled, domainsEnabled, slugDisabled,
-                domainsEnrollmentModes, domainsDefaultRole, initialRoleSetKey);
+                maxAllowedRoles, maxRoleSetsAllowed, maxAllowedPermissions,
+                creatorRole, adminDeleteEnabled, domainsEnabled,
+                slugDisabled, domainsEnrollmentModes, domainsDefaultRole,
+                initialRoleSetKey);
         }
 
     }
