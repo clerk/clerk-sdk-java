@@ -130,8 +130,8 @@ ext {
         groupId: group,
         artifactId: artifactId,
         version: version,
-        name: "My Company Java SDK",
-        description: "SDK enabling Java developers to easily integrate with the My Company API.",
+        name: "Clerk Backend API",
+        description: "The Clerk REST Backend API, meant to be accessed by backend servers.",
         publicationName: "maven"
     ]
 }

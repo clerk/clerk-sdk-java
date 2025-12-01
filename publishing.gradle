@@ -45,27 +45,23 @@ afterEvaluate {
                     ]
                     name = config.name
                     description = config.description
-                    url = 'https://github.com/owner/repo'
+                    url = 'https://github.com/clerk/clerk-sdk-java'
                     scm {
-                        url = 'github.com/owner/repo'
-                        connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                        url = 'https://github.com/clerk/clerk-sdk-java'
+                        connection = 'scm:git:ssh://git@github.com/clerk/clerk-sdk-java.git'
                     }
                     licenses {
                         license {
-                            name = 'The MIT License (MIT)'
-                            url = 'https://mit-license.org/'
+                            name = 'MIT License'
+                            url = 'https://github.com/clerk/clerk-sdk-java/blob/main/LICENSE'
                         }
                     }
                     developers {
                         developer {
-                            name = 'My Company'
-                            organization = 'My Company'
-                            email = 'info@mycompany.com'
+                            id = 'clerk'
+                            name = 'Clerk'
+                            url = 'https://clerk.com'
                         }
-                    }
-                    organization {
-                        name = 'My Company'
-                        url = 'www.mycompany.com'
                     }
                 }
             }
