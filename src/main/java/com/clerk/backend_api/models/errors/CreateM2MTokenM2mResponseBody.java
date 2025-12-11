@@ -54,7 +54,7 @@ public class CreateM2MTokenM2mResponseBody extends ClerkError {
     }
 
     @Deprecated
-    public Optional<List<CreateM2MTokenErrors>> errors() {
+    public Optional<List<CreateM2MTokenM2mErrors>> errors() {
         return data().map(Data::errors);
     }
 
@@ -76,17 +76,17 @@ public class CreateM2MTokenM2mResponseBody extends ClerkError {
     public static class Data {
 
         @JsonProperty("errors")
-        private List<CreateM2MTokenErrors> errors;
+        private List<CreateM2MTokenM2mErrors> errors;
 
         @JsonCreator
         public Data(
-                @JsonProperty("errors") List<CreateM2MTokenErrors> errors) {
+                @JsonProperty("errors") List<CreateM2MTokenM2mErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
         }
 
         @JsonIgnore
-        public List<CreateM2MTokenErrors> errors() {
+        public List<CreateM2MTokenM2mErrors> errors() {
             return errors;
         }
 
@@ -95,7 +95,7 @@ public class CreateM2MTokenM2mResponseBody extends ClerkError {
         }
 
 
-        public Data withErrors(List<CreateM2MTokenErrors> errors) {
+        public Data withErrors(List<CreateM2MTokenM2mErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
@@ -129,14 +129,14 @@ public class CreateM2MTokenM2mResponseBody extends ClerkError {
         @SuppressWarnings("UnusedReturnValue")
         public final static class Builder {
 
-            private List<CreateM2MTokenErrors> errors;
+            private List<CreateM2MTokenM2mErrors> errors;
 
             private Builder() {
               // force use of static builder() method
             }
 
 
-            public Builder errors(List<CreateM2MTokenErrors> errors) {
+            public Builder errors(List<CreateM2MTokenM2mErrors> errors) {
                 Utils.checkNotNull(errors, "errors");
                 this.errors = errors;
                 return this;

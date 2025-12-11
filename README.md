@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:4.0.0'
+implementation 'com.clerk:backend-api:4.1.0'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
 </dependency>
 ```
 
@@ -201,73 +201,81 @@ public class MachineAuthentication {
 <details open>
 <summary>Available methods</summary>
 
-### [actorTokens()](docs/sdks/actortokens/README.md)
+### [ActorTokens](docs/sdks/actortokens/README.md)
 
 * [create](docs/sdks/actortokens/README.md#create) - Create actor token
 * [revoke](docs/sdks/actortokens/README.md#revoke) - Revoke actor token
 
-### [allowlistIdentifiers()](docs/sdks/allowlistidentifiers/README.md)
+### [AllowlistIdentifiers](docs/sdks/allowlistidentifiers/README.md)
 
 * [list](docs/sdks/allowlistidentifiers/README.md#list) - List all identifiers on the allow-list
 * [create](docs/sdks/allowlistidentifiers/README.md#create) - Add identifier to the allow-list
 * [delete](docs/sdks/allowlistidentifiers/README.md#delete) - Delete identifier from allow-list
 
-### [betaFeatures()](docs/sdks/betafeatures/README.md)
+### [APIKeys](docs/sdks/apikeys/README.md)
+
+* [createApiKey](docs/sdks/apikeys/README.md#createapikey) - Create an API Key
+* [getApiKeys](docs/sdks/apikeys/README.md#getapikeys) - Get API Keys
+* [getApiKey](docs/sdks/apikeys/README.md#getapikey) - Get an API Key by ID
+* [updateApiKey](docs/sdks/apikeys/README.md#updateapikey) - Update an API Key
+* [deleteApiKey](docs/sdks/apikeys/README.md#deleteapikey) - Delete an API Key
+* [getApiKeySecret](docs/sdks/apikeys/README.md#getapikeysecret) - Get an API Key Secret
+* [revokeApiKey](docs/sdks/apikeys/README.md#revokeapikey) - Revoke an API Key
+* [verifyApiKey](docs/sdks/apikeys/README.md#verifyapikey) - Verify an API Key
+
+### [BetaFeatures](docs/sdks/betafeatures/README.md)
 
 * [updateInstanceSettings](docs/sdks/betafeatures/README.md#updateinstancesettings) - Update instance settings
 * [~~updateProductionInstanceDomain~~](docs/sdks/betafeatures/README.md#updateproductioninstancedomain) - Update production instance domain :warning: **Deprecated**
 
-### [billing()](docs/sdks/billing/README.md)
+### [Billing](docs/sdks/billing/README.md)
 
+* [listPlans](docs/sdks/billing/README.md#listplans) - List all billing plans
+* [listSubscriptionItems](docs/sdks/billing/README.md#listsubscriptionitems) - List all subscription items
+* [cancelSubscriptionItem](docs/sdks/billing/README.md#cancelsubscriptionitem) - Cancel a subscription item
 * [extendSubscriptionItemFreeTrial](docs/sdks/billing/README.md#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
 * [listStatements](docs/sdks/billing/README.md#liststatements) - List all billing statements
 * [getStatement](docs/sdks/billing/README.md#getstatement) - Retrieve a billing statement
 * [getStatementPaymentAttempts](docs/sdks/billing/README.md#getstatementpaymentattempts) - List payment attempts for a billing statement
 
-### [blocklistIdentifiers()](docs/sdks/blocklistidentifiers/README.md)
+### [BlocklistIdentifiers](docs/sdks/blocklistidentifiers/README.md)
 
 * [list](docs/sdks/blocklistidentifiers/README.md#list) - List all identifiers on the block-list
 * [create](docs/sdks/blocklistidentifiers/README.md#create) - Add identifier to the block-list
 * [delete](docs/sdks/blocklistidentifiers/README.md#delete) - Delete identifier from block-list
 
-### [clients()](docs/sdks/clients/README.md)
+### [Clients](docs/sdks/clients/README.md)
 
 * [~~list~~](docs/sdks/clients/README.md#list) - List all clients :warning: **Deprecated**
 * [verify](docs/sdks/clients/README.md#verify) - Verify a client
 * [get](docs/sdks/clients/README.md#get) - Get a client
 
-### [commerce()](docs/sdks/commerce/README.md)
-
-* [listPlans](docs/sdks/commerce/README.md#listplans) - List all commerce plans
-* [listSubscriptionItems](docs/sdks/commerce/README.md#listsubscriptionitems) - List all subscription items
-* [cancelSubscriptionItem](docs/sdks/commerce/README.md#cancelsubscriptionitem) - Cancel a subscription item
-
-### [domains()](docs/sdks/domains/README.md)
+### [Domains](docs/sdks/domains/README.md)
 
 * [list](docs/sdks/domains/README.md#list) - List all instance domains
 * [add](docs/sdks/domains/README.md#add) - Add a domain
 * [delete](docs/sdks/domains/README.md#delete) - Delete a satellite domain
 * [update](docs/sdks/domains/README.md#update) - Update a domain
 
-### [emailAddresses()](docs/sdks/emailaddresses/README.md)
+### [EmailAddresses](docs/sdks/emailaddresses/README.md)
 
 * [create](docs/sdks/emailaddresses/README.md#create) - Create an email address
 * [get](docs/sdks/emailaddresses/README.md#get) - Retrieve an email address
 * [delete](docs/sdks/emailaddresses/README.md#delete) - Delete an email address
 * [update](docs/sdks/emailaddresses/README.md#update) - Update an email address
 
-### [~~emailAndSmsTemplates()~~](docs/sdks/emailandsmstemplates/README.md)
+### [~~EmailAndSmsTemplates~~](docs/sdks/emailandsmstemplates/README.md)
 
 * [~~upsert~~](docs/sdks/emailandsmstemplates/README.md#upsert) - Update a template for a given type and slug :warning: **Deprecated**
 
-### [~~emailSMSTemplates()~~](docs/sdks/emailsmstemplates/README.md)
+### [~~EmailSMSTemplates~~](docs/sdks/emailsmstemplates/README.md)
 
 * [~~list~~](docs/sdks/emailsmstemplates/README.md#list) - List all templates :warning: **Deprecated**
 * [~~get~~](docs/sdks/emailsmstemplates/README.md#get) - Retrieve a template :warning: **Deprecated**
 * [~~revert~~](docs/sdks/emailsmstemplates/README.md#revert) - Revert a template :warning: **Deprecated**
 * [~~toggleTemplateDelivery~~](docs/sdks/emailsmstemplates/README.md#toggletemplatedelivery) - Toggle the delivery by Clerk for a template of a given type and slug :warning: **Deprecated**
 
-### [instanceSettings()](docs/sdks/instancesettings/README.md)
+### [InstanceSettings](docs/sdks/instancesettings/README.md)
 
 * [get](docs/sdks/instancesettings/README.md#get) - Fetch the current instance
 * [update](docs/sdks/instancesettings/README.md#update) - Update instance settings
@@ -275,18 +283,18 @@ public class MachineAuthentication {
 * [changeDomain](docs/sdks/instancesettings/README.md#changedomain) - Update production instance domain
 * [updateOrganizationSettings](docs/sdks/instancesettings/README.md#updateorganizationsettings) - Update instance organization settings
 
-### [invitations()](docs/sdks/invitations/README.md)
+### [Invitations](docs/sdks/invitations/README.md)
 
 * [create](docs/sdks/invitations/README.md#create) - Create an invitation
 * [list](docs/sdks/invitations/README.md#list) - List all invitations
 * [bulkCreate](docs/sdks/invitations/README.md#bulkcreate) - Create multiple invitations
 * [revoke](docs/sdks/invitations/README.md#revoke) - Revokes an invitation
 
-### [jwks()](docs/sdks/jwks/README.md)
+### [Jwks](docs/sdks/jwks/README.md)
 
 * [getJWKS](docs/sdks/jwks/README.md#getjwks) - Retrieve the JSON Web Key Set of the instance
 
-### [jwtTemplates()](docs/sdks/jwttemplates/README.md)
+### [JwtTemplates](docs/sdks/jwttemplates/README.md)
 
 * [list](docs/sdks/jwttemplates/README.md#list) - List all templates
 * [create](docs/sdks/jwttemplates/README.md#create) - Create a JWT template
@@ -294,14 +302,14 @@ public class MachineAuthentication {
 * [update](docs/sdks/jwttemplates/README.md#update) - Update a JWT template
 * [delete](docs/sdks/jwttemplates/README.md#delete) - Delete a Template
 
-### [m2m()](docs/sdks/m2m/README.md)
+### [M2m](docs/sdks/m2m/README.md)
 
 * [createToken](docs/sdks/m2m/README.md#createtoken) - Create a M2M Token
 * [listTokens](docs/sdks/m2m/README.md#listtokens) - Get M2M Tokens
 * [revokeToken](docs/sdks/m2m/README.md#revoketoken) - Revoke a M2M Token
 * [verifyToken](docs/sdks/m2m/README.md#verifytoken) - Verify a M2M Token
 
-### [machines()](docs/sdks/machines/README.md)
+### [Machines](docs/sdks/machines/README.md)
 
 * [list](docs/sdks/machines/README.md#list) - Get a list of machines for an instance
 * [create](docs/sdks/machines/README.md#create) - Create a machine
@@ -313,15 +321,15 @@ public class MachineAuthentication {
 * [createScope](docs/sdks/machines/README.md#createscope) - Create a machine scope
 * [deleteScope](docs/sdks/machines/README.md#deletescope) - Delete a machine scope
 
-### [miscellaneous()](docs/sdks/miscellaneous/README.md)
+### [Miscellaneous](docs/sdks/miscellaneous/README.md)
 
 * [getPublicInterstitial](docs/sdks/miscellaneous/README.md#getpublicinterstitial) - Returns the markup for the interstitial page
 
-### [oauthAccessTokens()](docs/sdks/oauthaccesstokens/README.md)
+### [OauthAccessTokens](docs/sdks/oauthaccesstokens/README.md)
 
 * [verify](docs/sdks/oauthaccesstokens/README.md#verify) - Verify an OAuth Access Token
 
-### [oauthApplications()](docs/sdks/oauthapplications/README.md)
+### [OauthApplications](docs/sdks/oauthapplications/README.md)
 
 * [list](docs/sdks/oauthapplications/README.md#list) - Get a list of OAuth applications for an instance
 * [create](docs/sdks/oauthapplications/README.md#create) - Create an OAuth application
@@ -330,7 +338,7 @@ public class MachineAuthentication {
 * [delete](docs/sdks/oauthapplications/README.md#delete) - Delete an OAuth application
 * [rotateSecret](docs/sdks/oauthapplications/README.md#rotatesecret) - Rotate the client secret of the given OAuth application
 
-### [organizationDomains()](docs/sdks/organizationdomains/README.md)
+### [OrganizationDomains](docs/sdks/organizationdomains/README.md)
 
 * [create](docs/sdks/organizationdomains/README.md#create) - Create a new organization domain.
 * [list](docs/sdks/organizationdomains/README.md#list) - Get a list of all domains of an organization.
@@ -338,7 +346,7 @@ public class MachineAuthentication {
 * [delete](docs/sdks/organizationdomains/README.md#delete) - Remove a domain from an organization.
 * [listAll](docs/sdks/organizationdomains/README.md#listall) - List all organization domains
 
-### [organizationInvitations()](docs/sdks/organizationinvitations/README.md)
+### [OrganizationInvitations](docs/sdks/organizationinvitations/README.md)
 
 * [getAll](docs/sdks/organizationinvitations/README.md#getall) - Get a list of organization invitations for the current instance
 * [create](docs/sdks/organizationinvitations/README.md#create) - Create and send an organization invitation
@@ -348,7 +356,7 @@ public class MachineAuthentication {
 * [get](docs/sdks/organizationinvitations/README.md#get) - Retrieve an organization invitation by ID
 * [revoke](docs/sdks/organizationinvitations/README.md#revoke) - Revoke a pending organization invitation
 
-### [organizationMemberships()](docs/sdks/organizationmemberships/README.md)
+### [OrganizationMemberships](docs/sdks/organizationmemberships/README.md)
 
 * [create](docs/sdks/organizationmemberships/README.md#create) - Create a new organization membership
 * [list](docs/sdks/organizationmemberships/README.md#list) - Get a list of all members of an organization
@@ -356,7 +364,25 @@ public class MachineAuthentication {
 * [delete](docs/sdks/organizationmemberships/README.md#delete) - Remove a member from an organization
 * [updateMetadata](docs/sdks/organizationmemberships/README.md#updatemetadata) - Merge and update organization membership metadata
 
-### [organizations()](docs/sdks/organizations/README.md)
+### [OrganizationPermissions](docs/sdks/organizationpermissions/README.md)
+
+* [list](docs/sdks/organizationpermissions/README.md#list) - Get a list of all organization permissions
+* [create](docs/sdks/organizationpermissions/README.md#create) - Create a new organization permission
+* [get](docs/sdks/organizationpermissions/README.md#get) - Get an organization permission
+* [update](docs/sdks/organizationpermissions/README.md#update) - Update an organization permission
+* [delete](docs/sdks/organizationpermissions/README.md#delete) - Delete an organization permission
+
+### [OrganizationRoles](docs/sdks/organizationroles/README.md)
+
+* [list](docs/sdks/organizationroles/README.md#list) - Get a list of organization roles
+* [create](docs/sdks/organizationroles/README.md#create) - Create an organization role
+* [get](docs/sdks/organizationroles/README.md#get) - Retrieve an organization role
+* [update](docs/sdks/organizationroles/README.md#update) - Update an organization role
+* [delete](docs/sdks/organizationroles/README.md#delete) - Delete an organization role
+* [assignPermission](docs/sdks/organizationroles/README.md#assignpermission) - Assign a permission to an organization role
+* [removePermission](docs/sdks/organizationroles/README.md#removepermission) - Remove a permission from an organization role
+
+### [Organizations](docs/sdks/organizations/README.md)
 
 * [list](docs/sdks/organizations/README.md#list) - Get a list of organizations for an instance
 * [create](docs/sdks/organizations/README.md#create) - Create an organization
@@ -368,25 +394,25 @@ public class MachineAuthentication {
 * [deleteLogo](docs/sdks/organizations/README.md#deletelogo) - Delete the organization's logo.
 * [getBillingSubscription](docs/sdks/organizations/README.md#getbillingsubscription) - Retrieve an organization's billing subscription
 
-### [phoneNumbers()](docs/sdks/phonenumbers/README.md)
+### [PhoneNumbers](docs/sdks/phonenumbers/README.md)
 
 * [create](docs/sdks/phonenumbers/README.md#create) - Create a phone number
 * [get](docs/sdks/phonenumbers/README.md#get) - Retrieve a phone number
 * [delete](docs/sdks/phonenumbers/README.md#delete) - Delete a phone number
 * [update](docs/sdks/phonenumbers/README.md#update) - Update a phone number
 
-### [proxyChecks()](docs/sdks/proxychecks/README.md)
+### [ProxyChecks](docs/sdks/proxychecks/README.md)
 
 * [verify](docs/sdks/proxychecks/README.md#verify) - Verify the proxy configuration for your domain
 
-### [redirectUrls()](docs/sdks/redirecturls/README.md)
+### [RedirectUrls](docs/sdks/redirecturls/README.md)
 
 * [list](docs/sdks/redirecturls/README.md#list) - List all redirect URLs
 * [create](docs/sdks/redirecturls/README.md#create) - Create a redirect URL
 * [get](docs/sdks/redirecturls/README.md#get) - Retrieve a redirect URL
 * [delete](docs/sdks/redirecturls/README.md#delete) - Delete a redirect URL
 
-### [samlConnections()](docs/sdks/samlconnections/README.md)
+### [SamlConnections](docs/sdks/samlconnections/README.md)
 
 * [list](docs/sdks/samlconnections/README.md#list) - Get a list of SAML Connections for an instance
 * [create](docs/sdks/samlconnections/README.md#create) - Create a SAML Connection
@@ -394,7 +420,7 @@ public class MachineAuthentication {
 * [update](docs/sdks/samlconnections/README.md#update) - Update a SAML Connection
 * [delete](docs/sdks/samlconnections/README.md#delete) - Delete a SAML Connection
 
-### [sessions()](docs/sdks/sessions/README.md)
+### [Sessions](docs/sdks/sessions/README.md)
 
 * [list](docs/sdks/sessions/README.md#list) - List all sessions
 * [create](docs/sdks/sessions/README.md#create) - Create a new active session
@@ -404,25 +430,25 @@ public class MachineAuthentication {
 * [createToken](docs/sdks/sessions/README.md#createtoken) - Create a session token
 * [createTokenFromTemplate](docs/sdks/sessions/README.md#createtokenfromtemplate) - Create a session token from a JWT template
 
-### [signInTokens()](docs/sdks/signintokens/README.md)
+### [SignInTokens](docs/sdks/signintokens/README.md)
 
 * [create](docs/sdks/signintokens/README.md#create) - Create sign-in token
 * [revoke](docs/sdks/signintokens/README.md#revoke) - Revoke the given sign-in token
 
-### [signUps()](docs/sdks/signups/README.md)
+### [SignUps](docs/sdks/signups/README.md)
 
 * [get](docs/sdks/signups/README.md#get) - Retrieve a sign-up by ID
 * [update](docs/sdks/signups/README.md#update) - Update a sign-up
 
-### [~~templates()~~](docs/sdks/templates/README.md)
+### [~~Templates~~](docs/sdks/templates/README.md)
 
 * [~~preview~~](docs/sdks/templates/README.md#preview) - Preview changes to a template :warning: **Deprecated**
 
-### [testingTokens()](docs/sdks/testingtokens/README.md)
+### [TestingTokens](docs/sdks/testingtokens/README.md)
 
 * [create](docs/sdks/testingtokens/README.md#create) - Retrieve a new testing token
 
-### [users()](docs/sdks/users/README.md)
+### [Users](docs/sdks/users/README.md)
 
 * [list](docs/sdks/users/README.md#list) - List all users
 * [create](docs/sdks/users/README.md#create) - Create a new user
@@ -453,7 +479,7 @@ public class MachineAuthentication {
 * [deleteExternalAccount](docs/sdks/users/README.md#deleteexternalaccount) - Delete External Account
 * [getInstanceOrganizationMemberships](docs/sdks/users/README.md#getinstanceorganizationmemberships) - Get a list of all organization memberships within an instance.
 
-### [waitlistEntries()](docs/sdks/waitlistentries/README.md)
+### [WaitlistEntries](docs/sdks/waitlistentries/README.md)
 
 * [list](docs/sdks/waitlistentries/README.md#list) - List all waitlist entries
 * [create](docs/sdks/waitlistentries/README.md#create) - Create a waitlist entry
@@ -461,7 +487,7 @@ public class MachineAuthentication {
 * [invite](docs/sdks/waitlistentries/README.md#invite) - Invite a waitlist entry
 * [reject](docs/sdks/waitlistentries/README.md#reject) - Reject a waitlist entry
 
-### [webhooks()](docs/sdks/webhooks/README.md)
+### [Webhooks](docs/sdks/webhooks/README.md)
 
 * [createSvixApp](docs/sdks/webhooks/README.md#createsvixapp) - Create a Svix app
 * [deleteSvixApp](docs/sdks/webhooks/README.md#deletesvixapp) - Delete a Svix app
@@ -633,7 +659,7 @@ public class Application {
 * [`ClerkError`](./src/main/java/models/errors/ClerkError.java): The base class for HTTP error responses.
   * [`com.clerk.backend_api.models.errors.ClerkErrors`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.ClerkErrors.java): Request was not successful. *
 
-<details><summary>Less common errors (17)</summary>
+<details><summary>Less common errors (33)</summary>
 
 <br />
 
@@ -643,17 +669,33 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`ClerkError`](./src/main/java/models/errors/ClerkError.java)**:
-* [`com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 158 methods.*
-* [`com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 158 methods.*
+* [`com.clerk.backend_api.models.errors.CreateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeysResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 178 methods.*
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 178 methods.*
 
 
 </details>
@@ -821,9 +863,11 @@ public class Application {
 ## Debugging
 
 ### Debug
+
 You can setup your SDK to emit debug logs for SDK requests and responses.
 
 For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
+
 ```java
 SDK.builder()
     .enableHTTPDebugLogging(true)
@@ -841,9 +885,10 @@ Response body:
   "token": "global"
 }
 ```
-__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+__WARNING__: This logging should only be used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
 
 __NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
+
 
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
 <!-- End Debugging [debug] -->

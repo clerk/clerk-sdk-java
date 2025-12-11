@@ -233,6 +233,13 @@ public class CreateUserRequestBody {
     @JsonProperty("created_at")
     private JsonNullable<String> createdAt;
 
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bypass_client_trust")
+    private JsonNullable<Boolean> bypassClientTrust;
+
     @JsonCreator
     public CreateUserRequestBody(
             @JsonProperty("external_id") JsonNullable<String> externalId,
@@ -258,7 +265,8 @@ public class CreateUserRequestBody {
             @JsonProperty("skip_legal_checks") JsonNullable<Boolean> skipLegalChecks,
             @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
-            @JsonProperty("created_at") JsonNullable<String> createdAt) {
+            @JsonProperty("created_at") JsonNullable<String> createdAt,
+            @JsonProperty("bypass_client_trust") JsonNullable<Boolean> bypassClientTrust) {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
@@ -283,6 +291,7 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
         Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(createdAt, "createdAt");
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
         this.externalId = externalId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -307,6 +316,7 @@ public class CreateUserRequestBody {
         this.createOrganizationEnabled = createOrganizationEnabled;
         this.createOrganizationsLimit = createOrganizationsLimit;
         this.createdAt = createdAt;
+        this.bypassClientTrust = bypassClientTrust;
     }
     
     public CreateUserRequestBody() {
@@ -317,7 +327,8 @@ public class CreateUserRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -560,6 +571,14 @@ public class CreateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> createdAt() {
         return createdAt;
+    }
+
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> bypassClientTrust() {
+        return bypassClientTrust;
     }
 
     public static Builder builder() {
@@ -1093,6 +1112,24 @@ public class CreateUserRequestBody {
         return this;
     }
 
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    public CreateUserRequestBody withBypassClientTrust(boolean bypassClientTrust) {
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        this.bypassClientTrust = JsonNullable.of(bypassClientTrust);
+        return this;
+    }
+
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    public CreateUserRequestBody withBypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        this.bypassClientTrust = bypassClientTrust;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1126,7 +1163,8 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.skipLegalChecks, other.skipLegalChecks) &&
             Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
             Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
-            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust);
     }
     
     @Override
@@ -1139,7 +1177,8 @@ public class CreateUserRequestBody {
             skipPasswordRequirement, totpSecret, backupCodes,
             publicMetadata, privateMetadata, unsafeMetadata,
             deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-            createOrganizationEnabled, createOrganizationsLimit, createdAt);
+            createOrganizationEnabled, createOrganizationsLimit, createdAt,
+            bypassClientTrust);
     }
     
     @Override
@@ -1168,7 +1207,8 @@ public class CreateUserRequestBody {
                 "skipLegalChecks", skipLegalChecks,
                 "createOrganizationEnabled", createOrganizationEnabled,
                 "createOrganizationsLimit", createOrganizationsLimit,
-                "createdAt", createdAt);
+                "createdAt", createdAt,
+                "bypassClientTrust", bypassClientTrust);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1221,6 +1261,8 @@ public class CreateUserRequestBody {
         private JsonNullable<Long> createOrganizationsLimit = JsonNullable.undefined();
 
         private JsonNullable<String> createdAt = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> bypassClientTrust = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -1768,6 +1810,25 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
+        /**
+         * When set to `true`, the user will bypass client trust checks during sign-in.
+         */
+        public Builder bypassClientTrust(boolean bypassClientTrust) {
+            Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+            this.bypassClientTrust = JsonNullable.of(bypassClientTrust);
+            return this;
+        }
+
+        /**
+         * When set to `true`, the user will bypass client trust checks during sign-in.
+         */
+        public Builder bypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
+            Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+            this.bypassClientTrust = bypassClientTrust;
+            return this;
+        }
+
         public CreateUserRequestBody build() {
 
             return new CreateUserRequestBody(
@@ -1778,7 +1839,8 @@ public class CreateUserRequestBody {
                 skipPasswordRequirement, totpSecret, backupCodes,
                 publicMetadata, privateMetadata, unsafeMetadata,
                 deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-                createOrganizationEnabled, createOrganizationsLimit, createdAt);
+                createOrganizationEnabled, createOrganizationsLimit, createdAt,
+                bypassClientTrust);
         }
 
     }

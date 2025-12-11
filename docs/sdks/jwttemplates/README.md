@@ -1,5 +1,4 @@
 # JwtTemplates
-(*jwtTemplates()*)
 
 ## Overview
 

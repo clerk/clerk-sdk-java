@@ -61,15 +61,15 @@ public class QueryParameters {
             }
         }
 
-        // include all global params in pathParams if not already present
+        // include all global params in query params if not already present
         if (globals != null) {
             Set<String> allParamNames = allParams.stream()
                 .map(QueryParameter::name)
                 .collect(Collectors.toSet());
             globals.queryParamsAsStream()
                 .filter(entry -> !allParamNames.contains(entry.getKey()))
-                .forEach(entry ->      
-                        allParams.add(QueryParameter.of(entry.getKey(), 
+                .forEach(entry ->
+                        allParams.add(QueryParameter.of(entry.getKey(),
                             entry.getValue(), false)));
         }
         

@@ -1,5 +1,4 @@
 # BlocklistIdentifiers
-(*blocklistIdentifiers()*)
 
 ## Overview
 

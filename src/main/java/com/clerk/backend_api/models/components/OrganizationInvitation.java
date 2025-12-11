@@ -51,6 +51,18 @@ public class OrganizationInvitation {
     private Optional<String> organizationId;
 
 
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("inviter_id")
+    private Optional<String> inviterId;
+
+    /**
+     * An organization inviter's public user data
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("public_inviter_data")
+    private Optional<? extends OrganizationInvitationPublicUserData> publicInviterData;
+
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
     private Optional<String> status;
@@ -96,6 +108,8 @@ public class OrganizationInvitation {
             @JsonProperty("role") String role,
             @JsonProperty("role_name") String roleName,
             @JsonProperty("organization_id") Optional<String> organizationId,
+            @JsonProperty("inviter_id") Optional<String> inviterId,
+            @JsonProperty("public_inviter_data") Optional<? extends OrganizationInvitationPublicUserData> publicInviterData,
             @JsonProperty("status") Optional<String> status,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
@@ -109,6 +123,8 @@ public class OrganizationInvitation {
         Utils.checkNotNull(role, "role");
         Utils.checkNotNull(roleName, "roleName");
         Utils.checkNotNull(organizationId, "organizationId");
+        Utils.checkNotNull(inviterId, "inviterId");
+        Utils.checkNotNull(publicInviterData, "publicInviterData");
         Utils.checkNotNull(status, "status");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -123,6 +139,8 @@ public class OrganizationInvitation {
         this.role = role;
         this.roleName = roleName;
         this.organizationId = organizationId;
+        this.inviterId = inviterId;
+        this.publicInviterData = publicInviterData;
         this.status = status;
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
@@ -143,9 +161,9 @@ public class OrganizationInvitation {
             long updatedAt) {
         this(object, id, emailAddress,
             role, roleName, Optional.empty(),
-            Optional.empty(), publicMetadata, Optional.empty(),
-            Optional.empty(), Optional.empty(), createdAt,
-            updatedAt);
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            publicMetadata, Optional.empty(), Optional.empty(),
+            Optional.empty(), createdAt, updatedAt);
     }
 
     /**
@@ -179,6 +197,20 @@ public class OrganizationInvitation {
     @JsonIgnore
     public Optional<String> organizationId() {
         return organizationId;
+    }
+
+    @JsonIgnore
+    public Optional<String> inviterId() {
+        return inviterId;
+    }
+
+    /**
+     * An organization inviter's public user data
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<OrganizationInvitationPublicUserData> publicInviterData() {
+        return (Optional<OrganizationInvitationPublicUserData>) publicInviterData;
     }
 
     @JsonIgnore
@@ -274,6 +306,38 @@ public class OrganizationInvitation {
     public OrganizationInvitation withOrganizationId(Optional<String> organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
         this.organizationId = organizationId;
+        return this;
+    }
+
+    public OrganizationInvitation withInviterId(String inviterId) {
+        Utils.checkNotNull(inviterId, "inviterId");
+        this.inviterId = Optional.ofNullable(inviterId);
+        return this;
+    }
+
+
+    public OrganizationInvitation withInviterId(Optional<String> inviterId) {
+        Utils.checkNotNull(inviterId, "inviterId");
+        this.inviterId = inviterId;
+        return this;
+    }
+
+    /**
+     * An organization inviter's public user data
+     */
+    public OrganizationInvitation withPublicInviterData(OrganizationInvitationPublicUserData publicInviterData) {
+        Utils.checkNotNull(publicInviterData, "publicInviterData");
+        this.publicInviterData = Optional.ofNullable(publicInviterData);
+        return this;
+    }
+
+
+    /**
+     * An organization inviter's public user data
+     */
+    public OrganizationInvitation withPublicInviterData(Optional<? extends OrganizationInvitationPublicUserData> publicInviterData) {
+        Utils.checkNotNull(publicInviterData, "publicInviterData");
+        this.publicInviterData = publicInviterData;
         return this;
     }
 
@@ -375,6 +439,8 @@ public class OrganizationInvitation {
             Utils.enhancedDeepEquals(this.role, other.role) &&
             Utils.enhancedDeepEquals(this.roleName, other.roleName) &&
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.inviterId, other.inviterId) &&
+            Utils.enhancedDeepEquals(this.publicInviterData, other.publicInviterData) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
@@ -389,9 +455,9 @@ public class OrganizationInvitation {
         return Utils.enhancedHash(
             object, id, emailAddress,
             role, roleName, organizationId,
-            status, publicMetadata, privateMetadata,
-            url, expiresAt, createdAt,
-            updatedAt);
+            inviterId, publicInviterData, status,
+            publicMetadata, privateMetadata, url,
+            expiresAt, createdAt, updatedAt);
     }
     
     @Override
@@ -403,6 +469,8 @@ public class OrganizationInvitation {
                 "role", role,
                 "roleName", roleName,
                 "organizationId", organizationId,
+                "inviterId", inviterId,
+                "publicInviterData", publicInviterData,
                 "status", status,
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
@@ -426,6 +494,10 @@ public class OrganizationInvitation {
         private String roleName;
 
         private Optional<String> organizationId = Optional.empty();
+
+        private Optional<String> inviterId = Optional.empty();
+
+        private Optional<? extends OrganizationInvitationPublicUserData> publicInviterData = Optional.empty();
 
         private Optional<String> status = Optional.empty();
 
@@ -493,6 +565,38 @@ public class OrganizationInvitation {
         public Builder organizationId(Optional<String> organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
             this.organizationId = organizationId;
+            return this;
+        }
+
+
+        public Builder inviterId(String inviterId) {
+            Utils.checkNotNull(inviterId, "inviterId");
+            this.inviterId = Optional.ofNullable(inviterId);
+            return this;
+        }
+
+        public Builder inviterId(Optional<String> inviterId) {
+            Utils.checkNotNull(inviterId, "inviterId");
+            this.inviterId = inviterId;
+            return this;
+        }
+
+
+        /**
+         * An organization inviter's public user data
+         */
+        public Builder publicInviterData(OrganizationInvitationPublicUserData publicInviterData) {
+            Utils.checkNotNull(publicInviterData, "publicInviterData");
+            this.publicInviterData = Optional.ofNullable(publicInviterData);
+            return this;
+        }
+
+        /**
+         * An organization inviter's public user data
+         */
+        public Builder publicInviterData(Optional<? extends OrganizationInvitationPublicUserData> publicInviterData) {
+            Utils.checkNotNull(publicInviterData, "publicInviterData");
+            this.publicInviterData = publicInviterData;
             return this;
         }
 
@@ -586,9 +690,9 @@ public class OrganizationInvitation {
             return new OrganizationInvitation(
                 object, id, emailAddress,
                 role, roleName, organizationId,
-                status, publicMetadata, privateMetadata,
-                url, expiresAt, createdAt,
-                updatedAt);
+                inviterId, publicInviterData, status,
+                publicMetadata, privateMetadata, url,
+                expiresAt, createdAt, updatedAt);
         }
 
     }

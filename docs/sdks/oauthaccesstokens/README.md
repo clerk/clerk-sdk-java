@@ -1,5 +1,4 @@
 # OauthAccessTokens
-(*oauthAccessTokens()*)
 
 ## Overview
 
@@ -40,7 +39,7 @@ public class Application {
                 .request(req)
                 .call();
 
-        if (res.object().isPresent()) {
+        if (res.oneOf().isPresent()) {
             // handle response
         }
     }

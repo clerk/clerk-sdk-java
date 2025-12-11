@@ -3,12 +3,14 @@
  */
 package com.clerk.backend_api.models.components;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Long;
@@ -157,6 +159,13 @@ public class User {
     @JsonProperty("mfa_disabled_at")
     private Optional<Long> mfaDisabledAt;
 
+    /**
+     * Unix timestamp of when the user's password was last updated.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("password_last_updated_at")
+    private JsonNullable<Long> passwordLastUpdatedAt;
+
 
     @JsonProperty("external_accounts")
     private List<ExternalAccountWithVerification> externalAccounts;
@@ -164,6 +173,15 @@ public class User {
 
     @JsonProperty("saml_accounts")
     private List<SAMLAccount> samlAccounts;
+
+
+    @JsonProperty("enterprise_accounts")
+    private List<EnterpriseAccount> enterpriseAccounts;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("organization_memberships")
+    private Optional<? extends List<OrganizationMembership>> organizationMemberships;
 
     /**
      * Unix timestamp of last sign-in.
@@ -246,6 +264,13 @@ public class User {
     @JsonProperty("legal_accepted_at")
     private Optional<Long> legalAcceptedAt;
 
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bypass_client_trust")
+    private Optional<Boolean> bypassClientTrust;
+
     @JsonCreator
     public User(
             @JsonProperty("id") String id,
@@ -274,8 +299,11 @@ public class User {
             @JsonProperty("backup_code_enabled") boolean backupCodeEnabled,
             @JsonProperty("mfa_enabled_at") Optional<Long> mfaEnabledAt,
             @JsonProperty("mfa_disabled_at") Optional<Long> mfaDisabledAt,
+            @JsonProperty("password_last_updated_at") JsonNullable<Long> passwordLastUpdatedAt,
             @JsonProperty("external_accounts") List<ExternalAccountWithVerification> externalAccounts,
             @JsonProperty("saml_accounts") List<SAMLAccount> samlAccounts,
+            @JsonProperty("enterprise_accounts") List<EnterpriseAccount> enterpriseAccounts,
+            @JsonProperty("organization_memberships") Optional<? extends List<OrganizationMembership>> organizationMemberships,
             @JsonProperty("last_sign_in_at") Optional<Long> lastSignInAt,
             @JsonProperty("banned") boolean banned,
             @JsonProperty("locked") boolean locked,
@@ -287,7 +315,8 @@ public class User {
             @JsonProperty("create_organization_enabled") boolean createOrganizationEnabled,
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
             @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
-            @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt) {
+            @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt,
+            @JsonProperty("bypass_client_trust") Optional<Boolean> bypassClientTrust) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalId, "externalId");
@@ -315,8 +344,11 @@ public class User {
         Utils.checkNotNull(backupCodeEnabled, "backupCodeEnabled");
         Utils.checkNotNull(mfaEnabledAt, "mfaEnabledAt");
         Utils.checkNotNull(mfaDisabledAt, "mfaDisabledAt");
+        Utils.checkNotNull(passwordLastUpdatedAt, "passwordLastUpdatedAt");
         Utils.checkNotNull(externalAccounts, "externalAccounts");
         Utils.checkNotNull(samlAccounts, "samlAccounts");
+        Utils.checkNotNull(enterpriseAccounts, "enterpriseAccounts");
+        Utils.checkNotNull(organizationMemberships, "organizationMemberships");
         Utils.checkNotNull(lastSignInAt, "lastSignInAt");
         Utils.checkNotNull(banned, "banned");
         Utils.checkNotNull(locked, "locked");
@@ -329,6 +361,7 @@ public class User {
         Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
         this.id = id;
         this.object = object;
         this.externalId = externalId;
@@ -355,8 +388,11 @@ public class User {
         this.backupCodeEnabled = backupCodeEnabled;
         this.mfaEnabledAt = mfaEnabledAt;
         this.mfaDisabledAt = mfaDisabledAt;
+        this.passwordLastUpdatedAt = passwordLastUpdatedAt;
         this.externalAccounts = externalAccounts;
         this.samlAccounts = samlAccounts;
+        this.enterpriseAccounts = enterpriseAccounts;
+        this.organizationMemberships = organizationMemberships;
         this.lastSignInAt = lastSignInAt;
         this.banned = banned;
         this.locked = locked;
@@ -369,6 +405,7 @@ public class User {
         this.createOrganizationsLimit = createOrganizationsLimit;
         this.lastActiveAt = lastActiveAt;
         this.legalAcceptedAt = legalAcceptedAt;
+        this.bypassClientTrust = bypassClientTrust;
     }
     
     public User(
@@ -386,6 +423,7 @@ public class User {
             boolean backupCodeEnabled,
             List<ExternalAccountWithVerification> externalAccounts,
             List<SAMLAccount> samlAccounts,
+            List<EnterpriseAccount> enterpriseAccounts,
             boolean banned,
             boolean locked,
             long updatedAt,
@@ -400,12 +438,13 @@ public class User {
             Optional.empty(), emailAddresses, phoneNumbers,
             web3Wallets, passkeys, passwordEnabled,
             twoFactorEnabled, totpEnabled, backupCodeEnabled,
-            Optional.empty(), Optional.empty(), externalAccounts,
-            samlAccounts, Optional.empty(), banned,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            externalAccounts, samlAccounts, enterpriseAccounts,
+            Optional.empty(), Optional.empty(), banned,
             locked, Optional.empty(), Optional.empty(),
             updatedAt, createdAt, deleteSelfEnabled,
             createOrganizationEnabled, JsonNullable.undefined(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -556,6 +595,14 @@ public class User {
         return mfaDisabledAt;
     }
 
+    /**
+     * Unix timestamp of when the user's password was last updated.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> passwordLastUpdatedAt() {
+        return passwordLastUpdatedAt;
+    }
+
     @JsonIgnore
     public List<ExternalAccountWithVerification> externalAccounts() {
         return externalAccounts;
@@ -564,6 +611,17 @@ public class User {
     @JsonIgnore
     public List<SAMLAccount> samlAccounts() {
         return samlAccounts;
+    }
+
+    @JsonIgnore
+    public List<EnterpriseAccount> enterpriseAccounts() {
+        return enterpriseAccounts;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<OrganizationMembership>> organizationMemberships() {
+        return (Optional<List<OrganizationMembership>>) organizationMemberships;
     }
 
     /**
@@ -663,6 +721,14 @@ public class User {
     @JsonIgnore
     public Optional<Long> legalAcceptedAt() {
         return legalAcceptedAt;
+    }
+
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    @JsonIgnore
+    public Optional<Boolean> bypassClientTrust() {
+        return bypassClientTrust;
     }
 
     public static Builder builder() {
@@ -951,6 +1017,24 @@ public class User {
         return this;
     }
 
+    /**
+     * Unix timestamp of when the user's password was last updated.
+     */
+    public User withPasswordLastUpdatedAt(long passwordLastUpdatedAt) {
+        Utils.checkNotNull(passwordLastUpdatedAt, "passwordLastUpdatedAt");
+        this.passwordLastUpdatedAt = JsonNullable.of(passwordLastUpdatedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp of when the user's password was last updated.
+     */
+    public User withPasswordLastUpdatedAt(JsonNullable<Long> passwordLastUpdatedAt) {
+        Utils.checkNotNull(passwordLastUpdatedAt, "passwordLastUpdatedAt");
+        this.passwordLastUpdatedAt = passwordLastUpdatedAt;
+        return this;
+    }
+
     public User withExternalAccounts(List<ExternalAccountWithVerification> externalAccounts) {
         Utils.checkNotNull(externalAccounts, "externalAccounts");
         this.externalAccounts = externalAccounts;
@@ -960,6 +1044,25 @@ public class User {
     public User withSamlAccounts(List<SAMLAccount> samlAccounts) {
         Utils.checkNotNull(samlAccounts, "samlAccounts");
         this.samlAccounts = samlAccounts;
+        return this;
+    }
+
+    public User withEnterpriseAccounts(List<EnterpriseAccount> enterpriseAccounts) {
+        Utils.checkNotNull(enterpriseAccounts, "enterpriseAccounts");
+        this.enterpriseAccounts = enterpriseAccounts;
+        return this;
+    }
+
+    public User withOrganizationMemberships(List<OrganizationMembership> organizationMemberships) {
+        Utils.checkNotNull(organizationMemberships, "organizationMemberships");
+        this.organizationMemberships = Optional.ofNullable(organizationMemberships);
+        return this;
+    }
+
+
+    public User withOrganizationMemberships(Optional<? extends List<OrganizationMembership>> organizationMemberships) {
+        Utils.checkNotNull(organizationMemberships, "organizationMemberships");
+        this.organizationMemberships = organizationMemberships;
         return this;
     }
 
@@ -1136,6 +1239,25 @@ public class User {
         return this;
     }
 
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    public User withBypassClientTrust(boolean bypassClientTrust) {
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        this.bypassClientTrust = Optional.ofNullable(bypassClientTrust);
+        return this;
+    }
+
+
+    /**
+     * When set to `true`, the user will bypass client trust checks during sign-in.
+     */
+    public User withBypassClientTrust(Optional<Boolean> bypassClientTrust) {
+        Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        this.bypassClientTrust = bypassClientTrust;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1172,8 +1294,11 @@ public class User {
             Utils.enhancedDeepEquals(this.backupCodeEnabled, other.backupCodeEnabled) &&
             Utils.enhancedDeepEquals(this.mfaEnabledAt, other.mfaEnabledAt) &&
             Utils.enhancedDeepEquals(this.mfaDisabledAt, other.mfaDisabledAt) &&
+            Utils.enhancedDeepEquals(this.passwordLastUpdatedAt, other.passwordLastUpdatedAt) &&
             Utils.enhancedDeepEquals(this.externalAccounts, other.externalAccounts) &&
             Utils.enhancedDeepEquals(this.samlAccounts, other.samlAccounts) &&
+            Utils.enhancedDeepEquals(this.enterpriseAccounts, other.enterpriseAccounts) &&
+            Utils.enhancedDeepEquals(this.organizationMemberships, other.organizationMemberships) &&
             Utils.enhancedDeepEquals(this.lastSignInAt, other.lastSignInAt) &&
             Utils.enhancedDeepEquals(this.banned, other.banned) &&
             Utils.enhancedDeepEquals(this.locked, other.locked) &&
@@ -1185,7 +1310,8 @@ public class User {
             Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
             Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
             Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
-            Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt);
+            Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust);
     }
     
     @Override
@@ -1199,12 +1325,13 @@ public class User {
             unsafeMetadata, emailAddresses, phoneNumbers,
             web3Wallets, passkeys, passwordEnabled,
             twoFactorEnabled, totpEnabled, backupCodeEnabled,
-            mfaEnabledAt, mfaDisabledAt, externalAccounts,
-            samlAccounts, lastSignInAt, banned,
+            mfaEnabledAt, mfaDisabledAt, passwordLastUpdatedAt,
+            externalAccounts, samlAccounts, enterpriseAccounts,
+            organizationMemberships, lastSignInAt, banned,
             locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
             updatedAt, createdAt, deleteSelfEnabled,
             createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
-            legalAcceptedAt);
+            legalAcceptedAt, bypassClientTrust);
     }
     
     @Override
@@ -1236,8 +1363,11 @@ public class User {
                 "backupCodeEnabled", backupCodeEnabled,
                 "mfaEnabledAt", mfaEnabledAt,
                 "mfaDisabledAt", mfaDisabledAt,
+                "passwordLastUpdatedAt", passwordLastUpdatedAt,
                 "externalAccounts", externalAccounts,
                 "samlAccounts", samlAccounts,
+                "enterpriseAccounts", enterpriseAccounts,
+                "organizationMemberships", organizationMemberships,
                 "lastSignInAt", lastSignInAt,
                 "banned", banned,
                 "locked", locked,
@@ -1249,7 +1379,8 @@ public class User {
                 "createOrganizationEnabled", createOrganizationEnabled,
                 "createOrganizationsLimit", createOrganizationsLimit,
                 "lastActiveAt", lastActiveAt,
-                "legalAcceptedAt", legalAcceptedAt);
+                "legalAcceptedAt", legalAcceptedAt,
+                "bypassClientTrust", bypassClientTrust);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1308,9 +1439,15 @@ public class User {
 
         private Optional<Long> mfaDisabledAt = Optional.empty();
 
+        private JsonNullable<Long> passwordLastUpdatedAt = JsonNullable.undefined();
+
         private List<ExternalAccountWithVerification> externalAccounts;
 
         private List<SAMLAccount> samlAccounts;
+
+        private List<EnterpriseAccount> enterpriseAccounts;
+
+        private Optional<? extends List<OrganizationMembership>> organizationMemberships = Optional.empty();
 
         private Optional<Long> lastSignInAt = Optional.empty();
 
@@ -1335,6 +1472,8 @@ public class User {
         private Optional<Long> lastActiveAt = Optional.empty();
 
         private Optional<Long> legalAcceptedAt = Optional.empty();
+
+        private Optional<Boolean> bypassClientTrust;
 
         private Builder() {
           // force use of static builder() method
@@ -1636,6 +1775,25 @@ public class User {
         }
 
 
+        /**
+         * Unix timestamp of when the user's password was last updated.
+         */
+        public Builder passwordLastUpdatedAt(long passwordLastUpdatedAt) {
+            Utils.checkNotNull(passwordLastUpdatedAt, "passwordLastUpdatedAt");
+            this.passwordLastUpdatedAt = JsonNullable.of(passwordLastUpdatedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of when the user's password was last updated.
+         */
+        public Builder passwordLastUpdatedAt(JsonNullable<Long> passwordLastUpdatedAt) {
+            Utils.checkNotNull(passwordLastUpdatedAt, "passwordLastUpdatedAt");
+            this.passwordLastUpdatedAt = passwordLastUpdatedAt;
+            return this;
+        }
+
+
         public Builder externalAccounts(List<ExternalAccountWithVerification> externalAccounts) {
             Utils.checkNotNull(externalAccounts, "externalAccounts");
             this.externalAccounts = externalAccounts;
@@ -1646,6 +1804,26 @@ public class User {
         public Builder samlAccounts(List<SAMLAccount> samlAccounts) {
             Utils.checkNotNull(samlAccounts, "samlAccounts");
             this.samlAccounts = samlAccounts;
+            return this;
+        }
+
+
+        public Builder enterpriseAccounts(List<EnterpriseAccount> enterpriseAccounts) {
+            Utils.checkNotNull(enterpriseAccounts, "enterpriseAccounts");
+            this.enterpriseAccounts = enterpriseAccounts;
+            return this;
+        }
+
+
+        public Builder organizationMemberships(List<OrganizationMembership> organizationMemberships) {
+            Utils.checkNotNull(organizationMemberships, "organizationMemberships");
+            this.organizationMemberships = Optional.ofNullable(organizationMemberships);
+            return this;
+        }
+
+        public Builder organizationMemberships(Optional<? extends List<OrganizationMembership>> organizationMemberships) {
+            Utils.checkNotNull(organizationMemberships, "organizationMemberships");
+            this.organizationMemberships = organizationMemberships;
             return this;
         }
 
@@ -1829,7 +2007,29 @@ public class User {
             return this;
         }
 
+
+        /**
+         * When set to `true`, the user will bypass client trust checks during sign-in.
+         */
+        public Builder bypassClientTrust(boolean bypassClientTrust) {
+            Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+            this.bypassClientTrust = Optional.ofNullable(bypassClientTrust);
+            return this;
+        }
+
+        /**
+         * When set to `true`, the user will bypass client trust checks during sign-in.
+         */
+        public Builder bypassClientTrust(Optional<Boolean> bypassClientTrust) {
+            Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+            this.bypassClientTrust = bypassClientTrust;
+            return this;
+        }
+
         public User build() {
+            if (bypassClientTrust == null) {
+                bypassClientTrust = _SINGLETON_VALUE_BypassClientTrust.value();
+            }
 
             return new User(
                 id, object, externalId,
@@ -1840,13 +2040,20 @@ public class User {
                 unsafeMetadata, emailAddresses, phoneNumbers,
                 web3Wallets, passkeys, passwordEnabled,
                 twoFactorEnabled, totpEnabled, backupCodeEnabled,
-                mfaEnabledAt, mfaDisabledAt, externalAccounts,
-                samlAccounts, lastSignInAt, banned,
+                mfaEnabledAt, mfaDisabledAt, passwordLastUpdatedAt,
+                externalAccounts, samlAccounts, enterpriseAccounts,
+                organizationMemberships, lastSignInAt, banned,
                 locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
                 updatedAt, createdAt, deleteSelfEnabled,
                 createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
-                legalAcceptedAt);
+                legalAcceptedAt, bypassClientTrust);
         }
 
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_BypassClientTrust =
+                new LazySingletonValue<>(
+                        "bypass_client_trust",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

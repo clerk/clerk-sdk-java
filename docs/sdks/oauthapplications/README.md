@@ -1,5 +1,4 @@
 # OauthApplications
-(*oauthApplications()*)
 
 ## Overview
 

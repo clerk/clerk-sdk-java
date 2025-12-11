@@ -35,22 +35,22 @@ public class VerifyOAuthAccessTokenResponse implements Response {
     /**
      * 200 OK
      */
-    private Optional<? extends VerifyOAuthAccessTokenResponseBody> object;
+    private Optional<? extends VerifyOAuthAccessTokenResponseBody> oneOf;
 
     @JsonCreator
     public VerifyOAuthAccessTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends VerifyOAuthAccessTokenResponseBody> object) {
+            Optional<? extends VerifyOAuthAccessTokenResponseBody> oneOf) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(oneOf, "oneOf");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.oneOf = oneOf;
     }
     
     public VerifyOAuthAccessTokenResponse(
@@ -90,8 +90,8 @@ public class VerifyOAuthAccessTokenResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VerifyOAuthAccessTokenResponseBody> object() {
-        return (Optional<VerifyOAuthAccessTokenResponseBody>) object;
+    public Optional<VerifyOAuthAccessTokenResponseBody> oneOf() {
+        return (Optional<VerifyOAuthAccessTokenResponseBody>) oneOf;
     }
 
     public static Builder builder() {
@@ -129,9 +129,9 @@ public class VerifyOAuthAccessTokenResponse implements Response {
     /**
      * 200 OK
      */
-    public VerifyOAuthAccessTokenResponse withObject(VerifyOAuthAccessTokenResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public VerifyOAuthAccessTokenResponse withOneOf(VerifyOAuthAccessTokenResponseBody oneOf) {
+        Utils.checkNotNull(oneOf, "oneOf");
+        this.oneOf = Optional.ofNullable(oneOf);
         return this;
     }
 
@@ -139,9 +139,9 @@ public class VerifyOAuthAccessTokenResponse implements Response {
     /**
      * 200 OK
      */
-    public VerifyOAuthAccessTokenResponse withObject(Optional<? extends VerifyOAuthAccessTokenResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public VerifyOAuthAccessTokenResponse withOneOf(Optional<? extends VerifyOAuthAccessTokenResponseBody> oneOf) {
+        Utils.checkNotNull(oneOf, "oneOf");
+        this.oneOf = oneOf;
         return this;
     }
 
@@ -158,14 +158,14 @@ public class VerifyOAuthAccessTokenResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.oneOf, other.oneOf);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            oneOf);
     }
     
     @Override
@@ -174,7 +174,7 @@ public class VerifyOAuthAccessTokenResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "oneOf", oneOf);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +186,7 @@ public class VerifyOAuthAccessTokenResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends VerifyOAuthAccessTokenResponseBody> object = Optional.empty();
+        private Optional<? extends VerifyOAuthAccessTokenResponseBody> oneOf = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,18 +226,18 @@ public class VerifyOAuthAccessTokenResponse implements Response {
         /**
          * 200 OK
          */
-        public Builder object(VerifyOAuthAccessTokenResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder oneOf(VerifyOAuthAccessTokenResponseBody oneOf) {
+            Utils.checkNotNull(oneOf, "oneOf");
+            this.oneOf = Optional.ofNullable(oneOf);
             return this;
         }
 
         /**
          * 200 OK
          */
-        public Builder object(Optional<? extends VerifyOAuthAccessTokenResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder oneOf(Optional<? extends VerifyOAuthAccessTokenResponseBody> oneOf) {
+            Utils.checkNotNull(oneOf, "oneOf");
+            this.oneOf = oneOf;
             return this;
         }
 
@@ -245,7 +245,7 @@ public class VerifyOAuthAccessTokenResponse implements Response {
 
             return new VerifyOAuthAccessTokenResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                oneOf);
         }
 
     }

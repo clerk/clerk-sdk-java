@@ -1,5 +1,4 @@
 # SamlConnections
-(*samlConnections()*)
 
 ## Overview
 
