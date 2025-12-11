@@ -1,5 +1,4 @@
 # InstanceSettings
-(*instanceSettings()*)
 
 ## Overview
 

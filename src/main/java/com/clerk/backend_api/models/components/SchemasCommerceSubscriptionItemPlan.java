@@ -179,7 +179,7 @@ public class SchemasCommerceSubscriptionItemPlan {
      * The features included in this plan.
      */
     @JsonProperty("features")
-    private List<FeatureResponse> features;
+    private List<SchemasFeatureResponse> features;
 
     /**
      * Whether free trial is enabled for this plan.
@@ -223,7 +223,7 @@ public class SchemasCommerceSubscriptionItemPlan {
             @JsonProperty("avatar_url") String avatarUrl,
             @JsonProperty("period") Optional<String> period,
             @JsonProperty("interval") Optional<Long> interval,
-            @JsonProperty("features") List<FeatureResponse> features,
+            @JsonProperty("features") List<SchemasFeatureResponse> features,
             @JsonProperty("free_trial_enabled") Optional<Boolean> freeTrialEnabled,
             @JsonProperty("free_trial_days") JsonNullable<Long> freeTrialDays) {
         Utils.checkNotNull(object, "object");
@@ -311,7 +311,7 @@ public class SchemasCommerceSubscriptionItemPlan {
             String forPayerType,
             String slug,
             String avatarUrl,
-            List<FeatureResponse> features) {
+            List<SchemasFeatureResponse> features) {
         this(object, id, name,
             fee, annualMonthlyFee, annualFee,
             amount, amountFormatted, annualMonthlyAmount,
@@ -527,7 +527,7 @@ public class SchemasCommerceSubscriptionItemPlan {
      * The features included in this plan.
      */
     @JsonIgnore
-    public List<FeatureResponse> features() {
+    public List<SchemasFeatureResponse> features() {
         return features;
     }
 
@@ -800,7 +800,7 @@ public class SchemasCommerceSubscriptionItemPlan {
     /**
      * The features included in this plan.
      */
-    public SchemasCommerceSubscriptionItemPlan withFeatures(List<FeatureResponse> features) {
+    public SchemasCommerceSubscriptionItemPlan withFeatures(List<SchemasFeatureResponse> features) {
         Utils.checkNotNull(features, "features");
         this.features = features;
         return this;
@@ -988,7 +988,7 @@ public class SchemasCommerceSubscriptionItemPlan {
 
         private Optional<Long> interval = Optional.empty();
 
-        private List<FeatureResponse> features;
+        private List<SchemasFeatureResponse> features;
 
         private Optional<Boolean> freeTrialEnabled = Optional.empty();
 
@@ -1271,7 +1271,7 @@ public class SchemasCommerceSubscriptionItemPlan {
         /**
          * The features included in this plan.
          */
-        public Builder features(List<FeatureResponse> features) {
+        public Builder features(List<SchemasFeatureResponse> features) {
             Utils.checkNotNull(features, "features");
             this.features = features;
             return this;

@@ -6,9 +6,12 @@ package com.clerk.backend_api.models.components;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class FeatureResponse {
@@ -33,8 +36,9 @@ public class FeatureResponse {
     /**
      * The description of the feature.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("description")
-    private String description;
+    private Optional<String> description;
 
     /**
      * The URL-friendly slug for the feature.
@@ -45,17 +49,18 @@ public class FeatureResponse {
     /**
      * The URL of the feature's avatar image.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("avatar_url")
-    private String avatarUrl;
+    private Optional<String> avatarUrl;
 
     @JsonCreator
     public FeatureResponse(
             @JsonProperty("object") FeatureResponseObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
-            @JsonProperty("description") String description,
+            @JsonProperty("description") Optional<String> description,
             @JsonProperty("slug") String slug,
-            @JsonProperty("avatar_url") String avatarUrl) {
+            @JsonProperty("avatar_url") Optional<String> avatarUrl) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -68,6 +73,15 @@ public class FeatureResponse {
         this.description = description;
         this.slug = slug;
         this.avatarUrl = avatarUrl;
+    }
+    
+    public FeatureResponse(
+            FeatureResponseObject object,
+            String id,
+            String name,
+            String slug) {
+        this(object, id, name,
+            Optional.empty(), slug, Optional.empty());
     }
 
     /**
@@ -98,7 +112,7 @@ public class FeatureResponse {
      * The description of the feature.
      */
     @JsonIgnore
-    public String description() {
+    public Optional<String> description() {
         return description;
     }
 
@@ -114,7 +128,7 @@ public class FeatureResponse {
      * The URL of the feature's avatar image.
      */
     @JsonIgnore
-    public String avatarUrl() {
+    public Optional<String> avatarUrl() {
         return avatarUrl;
     }
 
@@ -155,6 +169,16 @@ public class FeatureResponse {
      */
     public FeatureResponse withDescription(String description) {
         Utils.checkNotNull(description, "description");
+        this.description = Optional.ofNullable(description);
+        return this;
+    }
+
+
+    /**
+     * The description of the feature.
+     */
+    public FeatureResponse withDescription(Optional<String> description) {
+        Utils.checkNotNull(description, "description");
         this.description = description;
         return this;
     }
@@ -172,6 +196,16 @@ public class FeatureResponse {
      * The URL of the feature's avatar image.
      */
     public FeatureResponse withAvatarUrl(String avatarUrl) {
+        Utils.checkNotNull(avatarUrl, "avatarUrl");
+        this.avatarUrl = Optional.ofNullable(avatarUrl);
+        return this;
+    }
+
+
+    /**
+     * The URL of the feature's avatar image.
+     */
+    public FeatureResponse withAvatarUrl(Optional<String> avatarUrl) {
         Utils.checkNotNull(avatarUrl, "avatarUrl");
         this.avatarUrl = avatarUrl;
         return this;
@@ -222,11 +256,11 @@ public class FeatureResponse {
 
         private String name;
 
-        private String description;
+        private Optional<String> description = Optional.empty();
 
         private String slug;
 
-        private String avatarUrl;
+        private Optional<String> avatarUrl = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -268,6 +302,15 @@ public class FeatureResponse {
          */
         public Builder description(String description) {
             Utils.checkNotNull(description, "description");
+            this.description = Optional.ofNullable(description);
+            return this;
+        }
+
+        /**
+         * The description of the feature.
+         */
+        public Builder description(Optional<String> description) {
+            Utils.checkNotNull(description, "description");
             this.description = description;
             return this;
         }
@@ -287,6 +330,15 @@ public class FeatureResponse {
          * The URL of the feature's avatar image.
          */
         public Builder avatarUrl(String avatarUrl) {
+            Utils.checkNotNull(avatarUrl, "avatarUrl");
+            this.avatarUrl = Optional.ofNullable(avatarUrl);
+            return this;
+        }
+
+        /**
+         * The URL of the feature's avatar image.
+         */
+        public Builder avatarUrl(Optional<String> avatarUrl) {
             Utils.checkNotNull(avatarUrl, "avatarUrl");
             this.avatarUrl = avatarUrl;
             return this;

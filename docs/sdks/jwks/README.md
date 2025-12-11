@@ -1,5 +1,4 @@
 # Jwks
-(*jwks()*)
 
 ## Overview
 

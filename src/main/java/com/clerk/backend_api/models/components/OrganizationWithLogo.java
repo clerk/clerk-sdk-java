@@ -95,6 +95,13 @@ public class OrganizationWithLogo {
     private long updatedAt;
 
     /**
+     * Unix timestamp of last activity.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("last_active_at")
+    private Optional<Long> lastActiveAt;
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -121,6 +128,7 @@ public class OrganizationWithLogo {
             @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
+            @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
             @JsonProperty("logo_url") Optional<String> logoUrl) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -139,6 +147,7 @@ public class OrganizationWithLogo {
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         Utils.checkNotNull(logoUrl, "logoUrl");
         this.object = object;
         this.id = id;
@@ -156,6 +165,7 @@ public class OrganizationWithLogo {
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.lastActiveAt = lastActiveAt;
         this.logoUrl = logoUrl;
     }
     
@@ -176,7 +186,7 @@ public class OrganizationWithLogo {
             Optional.empty(), Optional.empty(), Optional.empty(),
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             Optional.empty(), Optional.empty(), createdAt,
-            updatedAt, Optional.empty());
+            updatedAt, Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -264,6 +274,14 @@ public class OrganizationWithLogo {
     @JsonIgnore
     public long updatedAt() {
         return updatedAt;
+    }
+
+    /**
+     * Unix timestamp of last activity.
+     */
+    @JsonIgnore
+    public Optional<Long> lastActiveAt() {
+        return lastActiveAt;
     }
 
     /**
@@ -419,6 +437,25 @@ public class OrganizationWithLogo {
     }
 
     /**
+     * Unix timestamp of last activity.
+     */
+    public OrganizationWithLogo withLastActiveAt(long lastActiveAt) {
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        this.lastActiveAt = Optional.ofNullable(lastActiveAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp of last activity.
+     */
+    public OrganizationWithLogo withLastActiveAt(Optional<Long> lastActiveAt) {
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        this.lastActiveAt = lastActiveAt;
+        return this;
+    }
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -467,6 +504,7 @@ public class OrganizationWithLogo {
             Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
             Utils.enhancedDeepEquals(this.logoUrl, other.logoUrl);
     }
     
@@ -478,7 +516,7 @@ public class OrganizationWithLogo {
             membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             privateMetadata, createdBy, createdAt,
-            updatedAt, logoUrl);
+            updatedAt, lastActiveAt, logoUrl);
     }
     
     @Override
@@ -500,6 +538,7 @@ public class OrganizationWithLogo {
                 "createdBy", createdBy,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt,
+                "lastActiveAt", lastActiveAt,
                 "logoUrl", logoUrl);
     }
 
@@ -537,6 +576,8 @@ public class OrganizationWithLogo {
         private Long createdAt;
 
         private Long updatedAt;
+
+        private Optional<Long> lastActiveAt = Optional.empty();
 
         @Deprecated
         private Optional<String> logoUrl = Optional.empty();
@@ -695,6 +736,25 @@ public class OrganizationWithLogo {
 
 
         /**
+         * Unix timestamp of last activity.
+         */
+        public Builder lastActiveAt(long lastActiveAt) {
+            Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+            this.lastActiveAt = Optional.ofNullable(lastActiveAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of last activity.
+         */
+        public Builder lastActiveAt(Optional<Long> lastActiveAt) {
+            Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+            this.lastActiveAt = lastActiveAt;
+            return this;
+        }
+
+
+        /**
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
@@ -724,7 +784,7 @@ public class OrganizationWithLogo {
                 membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
                 maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
                 privateMetadata, createdBy, createdAt,
-                updatedAt, logoUrl);
+                updatedAt, lastActiveAt, logoUrl);
         }
 
     }

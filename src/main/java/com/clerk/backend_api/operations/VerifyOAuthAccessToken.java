@@ -202,7 +202,7 @@ public class VerifyOAuthAccessToken {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withObject(Utils.unmarshal(response, new TypeReference<VerifyOAuthAccessTokenResponseBody>() {}));
+                    return res.withOneOf(Utils.unmarshal(response, new TypeReference<VerifyOAuthAccessTokenResponseBody>() {}));
                 } else {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }

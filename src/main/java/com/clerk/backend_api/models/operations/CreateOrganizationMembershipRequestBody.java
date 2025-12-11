@@ -6,9 +6,15 @@ package com.clerk.backend_api.models.operations;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Map;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CreateOrganizationMembershipRequestBody {
@@ -26,14 +32,41 @@ public class CreateOrganizationMembershipRequestBody {
     @JsonProperty("role")
     private String role;
 
+    /**
+     * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("public_metadata")
+    private JsonNullable<? extends Map<String, Object>> publicMetadata;
+
+    /**
+     * Metadata saved on the organization membership that is only visible to your backend.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("private_metadata")
+    private JsonNullable<? extends Map<String, Object>> privateMetadata;
+
     @JsonCreator
     public CreateOrganizationMembershipRequestBody(
             @JsonProperty("user_id") String userId,
-            @JsonProperty("role") String role) {
+            @JsonProperty("role") String role,
+            @JsonProperty("public_metadata") JsonNullable<? extends Map<String, Object>> publicMetadata,
+            @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(role, "role");
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
         this.userId = userId;
         this.role = role;
+        this.publicMetadata = publicMetadata;
+        this.privateMetadata = privateMetadata;
+    }
+    
+    public CreateOrganizationMembershipRequestBody(
+            String userId,
+            String role) {
+        this(userId, role, JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -52,6 +85,24 @@ public class CreateOrganizationMembershipRequestBody {
     @JsonIgnore
     public String role() {
         return role;
+    }
+
+    /**
+     * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Map<String, Object>> publicMetadata() {
+        return (JsonNullable<Map<String, Object>>) publicMetadata;
+    }
+
+    /**
+     * Metadata saved on the organization membership that is only visible to your backend.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Map<String, Object>> privateMetadata() {
+        return (JsonNullable<Map<String, Object>>) privateMetadata;
     }
 
     public static Builder builder() {
@@ -79,6 +130,42 @@ public class CreateOrganizationMembershipRequestBody {
         return this;
     }
 
+    /**
+     * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+     */
+    public CreateOrganizationMembershipRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
+        this.publicMetadata = JsonNullable.of(publicMetadata);
+        return this;
+    }
+
+    /**
+     * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+     */
+    public CreateOrganizationMembershipRequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
+        Utils.checkNotNull(publicMetadata, "publicMetadata");
+        this.publicMetadata = publicMetadata;
+        return this;
+    }
+
+    /**
+     * Metadata saved on the organization membership that is only visible to your backend.
+     */
+    public CreateOrganizationMembershipRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
+        this.privateMetadata = JsonNullable.of(privateMetadata);
+        return this;
+    }
+
+    /**
+     * Metadata saved on the organization membership that is only visible to your backend.
+     */
+    public CreateOrganizationMembershipRequestBody withPrivateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
+        Utils.checkNotNull(privateMetadata, "privateMetadata");
+        this.privateMetadata = privateMetadata;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -90,20 +177,25 @@ public class CreateOrganizationMembershipRequestBody {
         CreateOrganizationMembershipRequestBody other = (CreateOrganizationMembershipRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.userId, other.userId) &&
-            Utils.enhancedDeepEquals(this.role, other.role);
+            Utils.enhancedDeepEquals(this.role, other.role) &&
+            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
+            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            userId, role);
+            userId, role, publicMetadata,
+            privateMetadata);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateOrganizationMembershipRequestBody.class,
                 "userId", userId,
-                "role", role);
+                "role", role,
+                "publicMetadata", publicMetadata,
+                "privateMetadata", privateMetadata);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -112,6 +204,10 @@ public class CreateOrganizationMembershipRequestBody {
         private String userId;
 
         private String role;
+
+        private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
+
+        private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -139,10 +235,49 @@ public class CreateOrganizationMembershipRequestBody {
             return this;
         }
 
+
+        /**
+         * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+         */
+        public Builder publicMetadata(Map<String, Object> publicMetadata) {
+            Utils.checkNotNull(publicMetadata, "publicMetadata");
+            this.publicMetadata = JsonNullable.of(publicMetadata);
+            return this;
+        }
+
+        /**
+         * Metadata saved on the organization membership, that is visible to both your frontend and backend.
+         */
+        public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
+            Utils.checkNotNull(publicMetadata, "publicMetadata");
+            this.publicMetadata = publicMetadata;
+            return this;
+        }
+
+
+        /**
+         * Metadata saved on the organization membership that is only visible to your backend.
+         */
+        public Builder privateMetadata(Map<String, Object> privateMetadata) {
+            Utils.checkNotNull(privateMetadata, "privateMetadata");
+            this.privateMetadata = JsonNullable.of(privateMetadata);
+            return this;
+        }
+
+        /**
+         * Metadata saved on the organization membership that is only visible to your backend.
+         */
+        public Builder privateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
+            Utils.checkNotNull(privateMetadata, "privateMetadata");
+            this.privateMetadata = privateMetadata;
+            return this;
+        }
+
         public CreateOrganizationMembershipRequestBody build() {
 
             return new CreateOrganizationMembershipRequestBody(
-                userId, role);
+                userId, role, publicMetadata,
+                privateMetadata);
         }
 
     }

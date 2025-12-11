@@ -1,5 +1,4 @@
 # OrganizationMemberships
-(*organizationMemberships()*)
 
 ## Overview
 

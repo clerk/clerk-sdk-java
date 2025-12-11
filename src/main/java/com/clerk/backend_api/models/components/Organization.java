@@ -94,6 +94,13 @@ public class Organization {
     @JsonProperty("updated_at")
     private long updatedAt;
 
+    /**
+     * Unix timestamp of last activity.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("last_active_at")
+    private Optional<Long> lastActiveAt;
+
     @JsonCreator
     public Organization(
             @JsonProperty("object") OrganizationObject object,
@@ -111,7 +118,8 @@ public class Organization {
             @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
-            @JsonProperty("updated_at") long updatedAt) {
+            @JsonProperty("updated_at") long updatedAt,
+            @JsonProperty("last_active_at") Optional<Long> lastActiveAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -129,6 +137,7 @@ public class Organization {
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         this.object = object;
         this.id = id;
         this.name = name;
@@ -145,6 +154,7 @@ public class Organization {
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.lastActiveAt = lastActiveAt;
     }
     
     public Organization(
@@ -163,7 +173,7 @@ public class Organization {
             Optional.empty(), Optional.empty(), Optional.empty(),
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             Optional.empty(), Optional.empty(), createdAt,
-            updatedAt);
+            updatedAt, Optional.empty());
     }
 
     @JsonIgnore
@@ -251,6 +261,14 @@ public class Organization {
     @JsonIgnore
     public long updatedAt() {
         return updatedAt;
+    }
+
+    /**
+     * Unix timestamp of last activity.
+     */
+    @JsonIgnore
+    public Optional<Long> lastActiveAt() {
+        return lastActiveAt;
     }
 
     public static Builder builder() {
@@ -402,6 +420,25 @@ public class Organization {
         return this;
     }
 
+    /**
+     * Unix timestamp of last activity.
+     */
+    public Organization withLastActiveAt(long lastActiveAt) {
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        this.lastActiveAt = Optional.ofNullable(lastActiveAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp of last activity.
+     */
+    public Organization withLastActiveAt(Optional<Long> lastActiveAt) {
+        Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        this.lastActiveAt = lastActiveAt;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -427,7 +464,8 @@ public class Organization {
             Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
             Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
-            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt);
     }
     
     @Override
@@ -438,7 +476,7 @@ public class Organization {
             membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             privateMetadata, createdBy, createdAt,
-            updatedAt);
+            updatedAt, lastActiveAt);
     }
     
     @Override
@@ -459,7 +497,8 @@ public class Organization {
                 "privateMetadata", privateMetadata,
                 "createdBy", createdBy,
                 "createdAt", createdAt,
-                "updatedAt", updatedAt);
+                "updatedAt", updatedAt,
+                "lastActiveAt", lastActiveAt);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -496,6 +535,8 @@ public class Organization {
         private Long createdAt;
 
         private Long updatedAt;
+
+        private Optional<Long> lastActiveAt = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -655,6 +696,25 @@ public class Organization {
             return this;
         }
 
+
+        /**
+         * Unix timestamp of last activity.
+         */
+        public Builder lastActiveAt(long lastActiveAt) {
+            Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+            this.lastActiveAt = Optional.ofNullable(lastActiveAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of last activity.
+         */
+        public Builder lastActiveAt(Optional<Long> lastActiveAt) {
+            Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+            this.lastActiveAt = lastActiveAt;
+            return this;
+        }
+
         public Organization build() {
 
             return new Organization(
@@ -663,7 +723,7 @@ public class Organization {
                 membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
                 maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
                 privateMetadata, createdBy, createdAt,
-                updatedAt);
+                updatedAt, lastActiveAt);
         }
 
     }

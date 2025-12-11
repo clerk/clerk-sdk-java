@@ -127,6 +127,11 @@ public class One {
     @JsonProperty("force_authn")
     private boolean forceAuthn;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("enterprise_connection_id")
+    private JsonNullable<String> enterpriseConnectionId;
+
     /**
      * Unix timestamp of creation.
      */
@@ -164,6 +169,7 @@ public class One {
             @JsonProperty("allow_idp_initiated") boolean allowIdpInitiated,
             @JsonProperty("disable_additional_identifications") boolean disableAdditionalIdentifications,
             @JsonProperty("force_authn") boolean forceAuthn,
+            @JsonProperty("enterprise_connection_id") JsonNullable<String> enterpriseConnectionId,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -189,6 +195,7 @@ public class One {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -214,6 +221,7 @@ public class One {
         this.allowIdpInitiated = allowIdpInitiated;
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
         this.forceAuthn = forceAuthn;
+        this.enterpriseConnectionId = enterpriseConnectionId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -243,8 +251,8 @@ public class One {
             spMetadataUrl, JsonNullable.undefined(), Optional.empty(),
             active, provider, userCount,
             syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, forceAuthn, createdAt,
-            updatedAt);
+            disableAdditionalIdentifications, forceAuthn, JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -370,6 +378,11 @@ public class One {
     @JsonIgnore
     public boolean forceAuthn() {
         return forceAuthn;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> enterpriseConnectionId() {
+        return enterpriseConnectionId;
     }
 
     /**
@@ -592,6 +605,18 @@ public class One {
         return this;
     }
 
+    public One withEnterpriseConnectionId(String enterpriseConnectionId) {
+        Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
+        this.enterpriseConnectionId = JsonNullable.of(enterpriseConnectionId);
+        return this;
+    }
+
+    public One withEnterpriseConnectionId(JsonNullable<String> enterpriseConnectionId) {
+        Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
+        this.enterpriseConnectionId = enterpriseConnectionId;
+        return this;
+    }
+
     /**
      * Unix timestamp of creation.
      */
@@ -643,6 +668,7 @@ public class One {
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
             Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.enterpriseConnectionId, other.enterpriseConnectionId) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -657,8 +683,8 @@ public class One {
             spMetadataUrl, organizationId, attributeMapping,
             active, provider, userCount,
             syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, forceAuthn, createdAt,
-            updatedAt);
+            disableAdditionalIdentifications, forceAuthn, enterpriseConnectionId,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -687,6 +713,7 @@ public class One {
                 "allowIdpInitiated", allowIdpInitiated,
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
                 "forceAuthn", forceAuthn,
+                "enterpriseConnectionId", enterpriseConnectionId,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -740,6 +767,8 @@ public class One {
         private Boolean disableAdditionalIdentifications;
 
         private Boolean forceAuthn;
+
+        private JsonNullable<String> enterpriseConnectionId = JsonNullable.undefined();
 
         private Long createdAt;
 
@@ -967,6 +996,19 @@ public class One {
         }
 
 
+        public Builder enterpriseConnectionId(String enterpriseConnectionId) {
+            Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
+            this.enterpriseConnectionId = JsonNullable.of(enterpriseConnectionId);
+            return this;
+        }
+
+        public Builder enterpriseConnectionId(JsonNullable<String> enterpriseConnectionId) {
+            Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
+            this.enterpriseConnectionId = enterpriseConnectionId;
+            return this;
+        }
+
+
         /**
          * Unix timestamp of creation.
          */
@@ -996,8 +1038,8 @@ public class One {
                 spMetadataUrl, organizationId, attributeMapping,
                 active, provider, userCount,
                 syncUserAttributes, allowSubdomains, allowIdpInitiated,
-                disableAdditionalIdentifications, forceAuthn, createdAt,
-                updatedAt);
+                disableAdditionalIdentifications, forceAuthn, enterpriseConnectionId,
+                createdAt, updatedAt);
         }
 
     }

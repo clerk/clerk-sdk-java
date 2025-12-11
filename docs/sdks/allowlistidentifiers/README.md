@@ -1,5 +1,4 @@
 # AllowlistIdentifiers
-(*allowlistIdentifiers()*)
 
 ## Overview
 

@@ -1,5 +1,4 @@
 # WaitlistEntries
-(*waitlistEntries()*)
 
 ## Overview
 
