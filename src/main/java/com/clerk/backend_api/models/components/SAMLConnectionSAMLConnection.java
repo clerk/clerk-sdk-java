@@ -79,8 +79,8 @@ public class SAMLConnectionSAMLConnection {
 
         public _Deserializer() {
             super(SAMLConnectionSAMLConnection.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection2>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection1>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection1>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<SAMLConnection2>() {}, JsonShape.DEFAULT));
         }
     }
     

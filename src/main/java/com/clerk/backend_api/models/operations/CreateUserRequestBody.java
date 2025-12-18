@@ -212,6 +212,18 @@ public class CreateUserRequestBody {
     private JsonNullable<Boolean> skipLegalChecks;
 
     /**
+     * When set to `true`, identification types are not enforced.
+     * At least one identification type must be enabled and provided on your instance (email, phone, web3
+     * wallet, or username).
+     * Users created without required identification types cannot use those authentication strategies
+     * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+     * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("skip_user_requirement")
+    private JsonNullable<Boolean> skipUserRequirement;
+
+    /**
      * If enabled, user can create organizations via FAPI.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -263,6 +275,7 @@ public class CreateUserRequestBody {
             @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
             @JsonProperty("legal_accepted_at") JsonNullable<String> legalAcceptedAt,
             @JsonProperty("skip_legal_checks") JsonNullable<Boolean> skipLegalChecks,
+            @JsonProperty("skip_user_requirement") JsonNullable<Boolean> skipUserRequirement,
             @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
             @JsonProperty("created_at") JsonNullable<String> createdAt,
@@ -288,6 +301,7 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
+        Utils.checkNotNull(skipUserRequirement, "skipUserRequirement");
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
         Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(createdAt, "createdAt");
@@ -313,6 +327,7 @@ public class CreateUserRequestBody {
         this.deleteSelfEnabled = deleteSelfEnabled;
         this.legalAcceptedAt = legalAcceptedAt;
         this.skipLegalChecks = skipLegalChecks;
+        this.skipUserRequirement = skipUserRequirement;
         this.createOrganizationEnabled = createOrganizationEnabled;
         this.createOrganizationsLimit = createOrganizationsLimit;
         this.createdAt = createdAt;
@@ -328,7 +343,7 @@ public class CreateUserRequestBody {
             Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -546,6 +561,19 @@ public class CreateUserRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> skipLegalChecks() {
         return skipLegalChecks;
+    }
+
+    /**
+     * When set to `true`, identification types are not enforced.
+     * At least one identification type must be enabled and provided on your instance (email, phone, web3
+     * wallet, or username).
+     * Users created without required identification types cannot use those authentication strategies
+     * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+     * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> skipUserRequirement() {
+        return skipUserRequirement;
     }
 
     /**
@@ -1057,6 +1085,34 @@ public class CreateUserRequestBody {
     }
 
     /**
+     * When set to `true`, identification types are not enforced.
+     * At least one identification type must be enabled and provided on your instance (email, phone, web3
+     * wallet, or username).
+     * Users created without required identification types cannot use those authentication strategies
+     * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+     * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+     */
+    public CreateUserRequestBody withSkipUserRequirement(boolean skipUserRequirement) {
+        Utils.checkNotNull(skipUserRequirement, "skipUserRequirement");
+        this.skipUserRequirement = JsonNullable.of(skipUserRequirement);
+        return this;
+    }
+
+    /**
+     * When set to `true`, identification types are not enforced.
+     * At least one identification type must be enabled and provided on your instance (email, phone, web3
+     * wallet, or username).
+     * Users created without required identification types cannot use those authentication strategies
+     * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+     * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+     */
+    public CreateUserRequestBody withSkipUserRequirement(JsonNullable<Boolean> skipUserRequirement) {
+        Utils.checkNotNull(skipUserRequirement, "skipUserRequirement");
+        this.skipUserRequirement = skipUserRequirement;
+        return this;
+    }
+
+    /**
      * If enabled, user can create organizations via FAPI.
      */
     public CreateUserRequestBody withCreateOrganizationEnabled(boolean createOrganizationEnabled) {
@@ -1161,6 +1217,7 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
             Utils.enhancedDeepEquals(this.skipLegalChecks, other.skipLegalChecks) &&
+            Utils.enhancedDeepEquals(this.skipUserRequirement, other.skipUserRequirement) &&
             Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
             Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
@@ -1177,8 +1234,8 @@ public class CreateUserRequestBody {
             skipPasswordRequirement, totpSecret, backupCodes,
             publicMetadata, privateMetadata, unsafeMetadata,
             deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-            createOrganizationEnabled, createOrganizationsLimit, createdAt,
-            bypassClientTrust);
+            skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
+            createdAt, bypassClientTrust);
     }
     
     @Override
@@ -1205,6 +1262,7 @@ public class CreateUserRequestBody {
                 "deleteSelfEnabled", deleteSelfEnabled,
                 "legalAcceptedAt", legalAcceptedAt,
                 "skipLegalChecks", skipLegalChecks,
+                "skipUserRequirement", skipUserRequirement,
                 "createOrganizationEnabled", createOrganizationEnabled,
                 "createOrganizationsLimit", createOrganizationsLimit,
                 "createdAt", createdAt,
@@ -1255,6 +1313,8 @@ public class CreateUserRequestBody {
         private JsonNullable<String> legalAcceptedAt = JsonNullable.undefined();
 
         private JsonNullable<Boolean> skipLegalChecks = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> skipUserRequirement = JsonNullable.undefined();
 
         private JsonNullable<Boolean> createOrganizationEnabled = JsonNullable.undefined();
 
@@ -1753,6 +1813,35 @@ public class CreateUserRequestBody {
 
 
         /**
+         * When set to `true`, identification types are not enforced.
+         * At least one identification type must be enabled and provided on your instance (email, phone, web3
+         * wallet, or username).
+         * Users created without required identification types cannot use those authentication strategies
+         * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+         * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+         */
+        public Builder skipUserRequirement(boolean skipUserRequirement) {
+            Utils.checkNotNull(skipUserRequirement, "skipUserRequirement");
+            this.skipUserRequirement = JsonNullable.of(skipUserRequirement);
+            return this;
+        }
+
+        /**
+         * When set to `true`, identification types are not enforced.
+         * At least one identification type must be enabled and provided on your instance (email, phone, web3
+         * wallet, or username).
+         * Users created without required identification types cannot use those authentication strategies
+         * It is not recommended to use this flag unless you need to allow Clerk UI components to prompt for
+         * required fields while BAPI creates users with minimal data, or for migration a user to Clerk.
+         */
+        public Builder skipUserRequirement(JsonNullable<Boolean> skipUserRequirement) {
+            Utils.checkNotNull(skipUserRequirement, "skipUserRequirement");
+            this.skipUserRequirement = skipUserRequirement;
+            return this;
+        }
+
+
+        /**
          * If enabled, user can create organizations via FAPI.
          */
         public Builder createOrganizationEnabled(boolean createOrganizationEnabled) {
@@ -1839,8 +1928,8 @@ public class CreateUserRequestBody {
                 skipPasswordRequirement, totpSecret, backupCodes,
                 publicMetadata, privateMetadata, unsafeMetadata,
                 deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-                createOrganizationEnabled, createOrganizationsLimit, createdAt,
-                bypassClientTrust);
+                skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
+                createdAt, bypassClientTrust);
         }
 
     }

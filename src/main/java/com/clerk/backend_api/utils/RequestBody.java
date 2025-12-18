@@ -254,6 +254,13 @@ public final class RequestBody {
                 } else {
                     switch (Types.getType(val.getClass())) {
                     case OBJECT: {
+                        // Check if it's an enum wrapper first
+                        Optional<?> unwrappedEnumValue = Reflections.getUnwrappedEnumValue(val.getClass(), val);
+                        if (unwrappedEnumValue.isPresent()) {
+                            params.add(new NameValue(metadata.name, Utils.valToString(unwrappedEnumValue.get())));
+                            break;
+                        }
+                        
                         if (!Utils.allowIntrospection(val.getClass())) {
                             params.add(new NameValue(metadata.name, String.valueOf(val)));
                         } else {

@@ -143,9 +143,9 @@ public class QueryParameters {
                     params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(value), queryParamsMetadata.allowReserved));
                     break;
                 }
-                Optional<?> openEnumValue = Reflections.getOpenEnumValue(value.getClass(), value);
-                if (openEnumValue.isPresent()) {
-                    params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(openEnumValue.get()), queryParamsMetadata.allowReserved));
+                Optional<?> unwrappedEnumValue = Reflections.getUnwrappedEnumValue(value.getClass(), value);
+                if (unwrappedEnumValue.isPresent()) {
+                    params.add(QueryParameter.of(queryParamsMetadata.name, Utils.valToString(unwrappedEnumValue.get()), queryParamsMetadata.allowReserved));
                     break;
                 }
                 Field[] fields = value.getClass().getDeclaredFields();

@@ -389,7 +389,7 @@ public class Application {
 ## createScope
 
 Creates a new machine scope, allowing the specified machine to access another machine.
-Maximum of 25 scopes per machine.
+Maximum of 150 scopes per machine.
 
 ### Example Usage
 

@@ -17,11 +17,12 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
+
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.core.JsonParser;
@@ -122,6 +123,9 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
         final TypeReferenceWithShape typeReference;
         final T value;
         private final TreeNode tree;
+        private int matched = 0;    // Count of matched fields (includes inexact)
+        private int inexact = 0;    // Count of fields with unknown/unrecognized enum values
+        private int unmatched = 0;  // Count of struct fields not found in raw JSON
 
         Match(TypeReferenceWithShape typeReference, T value, TreeNode tree) {
             this.typeReference = typeReference;
@@ -129,68 +133,198 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
             this.tree = tree;
         }
 
-        private int getMappedFields() {
+        /**
+         * Populates the matched, inexact, and unmatched field counts by recursively
+         * analyzing the deserialized value against the JSON structure.
+         */
+        private void countFields() {
             try {
                 Object unwrapped = unwrapValue(value);
                 JsonNode jsonNode = tree instanceof JsonNode ? (JsonNode) tree : null;
-                return (jsonNode != null) ? countMappedFields(unwrapped, jsonNode) : 0;
+                if (jsonNode != null) {
+                    countFieldsRecursive(unwrapped, jsonNode);
+                }
             } catch (Exception e) {
-                return 0;
+                // Keep counts at 0 on error
             }
         }
 
-        private int getMappedEnumFields() {
-            try {
-                Object unwrapped = unwrapValue(value);
-                JsonNode jsonNode = tree instanceof JsonNode ? (JsonNode) tree : null;
-                return (jsonNode != null) ? countMappedEnumFields(unwrapped, jsonNode) : 0;
-            } catch (Exception e) {
-                return 0;
+        /**
+         * Recursively counts matched, inexact, and unmatched fields by walking the object
+         * graph based on JSON structure.
+         *
+         * @param obj the deserialized object to traverse
+         * @param jsonNode the corresponding JSON node
+         */
+        private void countFieldsRecursive(Object obj, JsonNode jsonNode) {
+            // Unwrap union wrappers to get the active variant value
+            obj = unwrapValue(obj);
+
+            // Handle null JSON value
+            if (jsonNode != null && jsonNode.isNull()) {
+                // Null JSON value matches null object or JsonNullable containing null
+                matched++;
+                return;
             }
+
+            if (obj == null || jsonNode == null) {
+                return;
+            }
+
+            // Unwrap JsonNullable fields
+            if (isJsonNullable(obj)) {
+                Object unwrapped = unwrapJsonNullable(obj);
+                if (unwrapped != null) {
+                    countFieldsRecursive(unwrapped, jsonNode);
+                    return;
+                }
+                // JsonNullable is present but contains null - already handled above
+                return;
+            }
+
+            // Handle primitives and strings
+            if (isPrimitiveOrString(obj)) {
+                matched++;
+                return;
+            }
+
+            // Handle standard Java enums and enum wrappers
+            if (obj.getClass().isEnum() || Reflections.isEnumWrapper(obj)) {
+                matched++;
+                try {
+                    // Check if it's an unknown enum value (only for enum wrappers)
+                    if (Reflections.isEnumWrapper(obj)) {
+                        java.lang.reflect.Method isKnownMethod = obj.getClass().getMethod("isKnown");
+                        Boolean isKnown = (Boolean) isKnownMethod.invoke(obj);
+                        if (isKnown != null && !isKnown) {
+                            inexact++;
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    // If value() method doesn't exist or fails, treat as exact
+                }
+                return;
+            }
+
+            try {
+                // Recurse through collections
+                if (obj instanceof Collection && jsonNode.isArray()) {
+                    int index = 0;
+                    for (Object element : (Collection<?>) obj) {
+                        if (element != null && index < jsonNode.size()) {
+                            JsonNode elementNode = jsonNode.get(index);
+                            countFieldsRecursive(element, elementNode);
+                        }
+                        index++;
+                    }
+                    return;
+                }
+
+                // Recurse through maps
+                if (obj instanceof Map && jsonNode.isObject()) {
+                    for (Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
+                        if (entry.getKey() != null && entry.getValue() != null) {
+                            String key = entry.getKey().toString();
+                            if (jsonNode.has(key)) {
+                                JsonNode valueNode = jsonNode.get(key);
+                                countFieldsRecursive(entry.getValue(), valueNode);
+                            }
+                        }
+                    }
+                    return;
+                }
+
+                // Recurse through object fields
+                if (jsonNode.isObject() && !(obj instanceof Map)) {
+                    for (Field field : obj.getClass().getDeclaredFields()) {
+                        if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
+
+                        field.setAccessible(true);
+                        Object fieldValue = field.get(obj);
+                        String fieldName = getJsonFieldName(field);
+                        
+                        if (fieldName == null) {
+                            continue; // Skip fields marked with @JsonIgnore or json:"-"
+                        }
+
+                        if (!jsonNode.has(fieldName)) {
+                            // Field exists in struct but not in JSON
+                            unmatched++;
+                            continue;
+                        }
+
+                        // Recurse into field regardless of whether it's null
+                        // (null fields with null JSON values should be counted as matched)
+                        JsonNode fieldNode = jsonNode.get(fieldName);
+                        countFieldsRecursive(fieldValue, fieldNode);
+                    }
+                }
+            } catch (Exception e) {
+                // Ignore errors during recursion
+            }
+        }
+
+        /**
+         * Gets the JSON field name for a Java field, respecting @JsonProperty annotations.
+         * Returns null if the field should be skipped (e.g., @JsonIgnore or no Jackson annotations).
+         */
+        private String getJsonFieldName(Field field) {
+            // Check for @JsonIgnore
+            if (field.isAnnotationPresent(com.fasterxml.jackson.annotation.JsonIgnore.class)) {
+                return null;
+            }
+
+            // Check for @JsonProperty - only include fields with Jackson annotations
+            if (field.isAnnotationPresent(com.fasterxml.jackson.annotation.JsonProperty.class)) {
+                com.fasterxml.jackson.annotation.JsonProperty prop =
+                    field.getAnnotation(com.fasterxml.jackson.annotation.JsonProperty.class);
+                String value = prop.value();
+                if (value != null && !value.isEmpty()) {
+                    return value;
+                }
+                // If @JsonProperty is present but value is empty, use field name
+                return field.getName();
+            }
+
+            // Skip fields without Jackson annotations
+            return null;
         }
 
         /**
          * Compares candidates using a multi-level tie-breaking strategy:
          * <pre>
-         * 1. Number of mapped fields (higher is better)
-         * 2. Number of mapped enum fields (higher is better)
-         * 3. Size of serialized JSON (larger is better)
+         * 1. Matched count (higher is better)
+         * 2. Inexact count (lower is better)
+         * 3. Unmatched count (lower is better - fewer zero defaulted values)
          * </pre>
-         * This natural ordering is used to select the best candidate when multiple
-         * oneOf schemas successfully deserialize the input.
          */
         @Override
         public int compareTo(Match<T> other) {
-            // Primary: number of mapped fields (higher is better)
-            int fieldComparison = Integer.compare(this.getMappedFields(), other.getMappedFields());
-            if (fieldComparison != 0) {
-                return fieldComparison;
+            // Primary: number of matched fields (higher is better)
+            int matchedComparison = Integer.compare(this.matched, other.matched);
+            if (matchedComparison != 0) {
+                return matchedComparison;
             }
 
-            // Secondary: number of mapped enum fields (higher is better)
-            int enumFieldComparison = Integer.compare(this.getMappedEnumFields(), other.getMappedEnumFields());
-            if (enumFieldComparison != 0) {
-                return enumFieldComparison;
+            // Secondary: number of inexact fields (lower is better, prefer exactness)
+            int inexactComparison = Integer.compare(other.inexact, this.inexact);
+            if (inexactComparison != 0) {
+                return inexactComparison;
             }
 
-            // Tertiary: JSON size (larger is better)
-            try {
-                String thisJson = JSON.getMapper().writeValueAsString(unwrapValue(this.value));
-                String otherJson = JSON.getMapper().writeValueAsString(unwrapValue(other.value));
-                return Integer.compare(thisJson.length(), otherJson.length());
-            } catch (Exception e) {
-                return 0; // Equal if serialization fails
-            }
+            // Tertiary: unmatched count (lower is better)
+            return Integer.compare(other.unmatched, this.unmatched);
         }
     }
 
     /**
-     * Unwraps the actual deserialized object from a union wrapper.
-     * Union wrappers have a TypedObject field annotated with @JsonValue.
-     * This method extracts that field and unwraps the TypedObject to get the actual value.
+     * Unwraps union wrappers to extract the active variant value.
+     * Union wrappers contain a TypedObject field annotated with @JsonValue.
+     * This ensures field counting only considers the active variant, not all union members.
      *
      * @param wrapper the union wrapper instance
-     * @return the actual deserialized object
+     * @return the actual deserialized value, or wrapper unchanged if not a union
      */
     private static Object unwrapValue(Object wrapper) {
         if (wrapper == null) {
@@ -218,114 +352,23 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
         return wrapper;
     }
 
-    @FunctionalInterface
-    private interface ObjectMatcher {
-        boolean test(Object obj, JsonNode jsonNode);
+    /**
+     * Checks if an object is a JsonNullable wrapper.
+     */
+    private static boolean isJsonNullable(Object obj) {
+        return obj instanceof JsonNullable;
     }
 
     /**
-     * Generic recursive counter that walks the object graph based on JSON structure.
-     * Only counts elements that exist in both the object AND the JSON.
-     *
-     * @param obj the deserialized object to traverse
-     * @param jsonNode the corresponding JSON node
-     * @param matcher predicate that determines what to count (returns true if matched)
-     * @return count of matching elements that were present in the JSON
+     * Unwraps a JsonNullable object to get its contained value.
+     * Returns null if the JsonNullable is not present or contains null.
      */
-    private static int countMatching(Object obj, JsonNode jsonNode, ObjectMatcher matcher) {
-        if (obj == null || jsonNode == null) {
-            return 0;
+    private static Object unwrapJsonNullable(Object obj) {
+        if (!(obj instanceof JsonNullable)) {
+            return null;
         }
-
-        // Baseline: test if this object matches our criteria
-        if (matcher.test(obj, jsonNode)) {
-            return 1;
-        }
-
-        // Early exit for primitives that don't match
-        if (isPrimitiveOrString(obj)) {
-            return 0;
-        }
-
-        try {
-            // Recurse through collections
-            if (obj instanceof Collection && jsonNode.isArray()) {
-                int count = 0;
-                int index = 0;
-                for (Object element : (Collection<?>) obj) {
-                    if (element != null && index < jsonNode.size()) {
-                        JsonNode elementNode = jsonNode.get(index);
-                        count += countMatching(element, elementNode, matcher);
-                    }
-                    index++;
-                }
-                return count;
-            }
-
-            // Recurse through maps
-            if (obj instanceof Map && jsonNode.isObject()) {
-                int count = 0;
-                for (Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
-                    if (entry.getKey() != null && entry.getValue() != null) {
-                        String key = entry.getKey().toString();
-                        if (jsonNode.has(key)) {
-                            JsonNode valueNode = jsonNode.get(key);
-                            count += countMatching(entry.getValue(), valueNode, matcher);
-                        }
-                    }
-                }
-                return count;
-            }
-
-            // Recurse through object fields - only count fields present in JSON
-            if (jsonNode.isObject() && !(obj instanceof Map)) {
-                int count = 0;
-                for (Field field : obj.getClass().getDeclaredFields()) {
-                    if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
-
-                    field.setAccessible(true);
-                    Object fieldValue = field.get(obj);
-                    String fieldName = field.getName();
-
-                    if (fieldValue != null && jsonNode.has(fieldName)) {
-                        JsonNode fieldNode = jsonNode.get(fieldName);
-                        count += countMatching(fieldValue, fieldNode, matcher);
-                    }
-                }
-                return count;
-            }
-
-            return 0;
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    /**
-     * Counts all primitive/string fields that were mapped from JSON.
-     */
-    private static int countMappedFields(Object obj, JsonNode jsonNode) {
-        return countMatching(obj, jsonNode, (o, ignored) -> isPrimitiveOrString(o));
-    }
-
-    /**
-     * Counts all enum fields that were mapped from JSON.
-     * Verifies that the JSON value matches the enum's value.
-     * TODO: Count "Open Enums" as well (which are wrapped in a class)
-     */
-    private static int countMappedEnumFields(Object obj, JsonNode jsonNode) {
-        return countMatching(obj, jsonNode, (o, node) -> {
-            if (!o.getClass().isEnum()) {
-                return false;
-            }
-            // Verify that the JSON value matches the enum's string representation
-            if (node != null && node.isTextual()) {
-                String enumValue = ((Enum<?>) o).name();
-                String jsonValue = node.asText();
-                return enumValue.equals(jsonValue);
-            }
-            return false;
-        });
+        JsonNullable<?> nullable = (JsonNullable<?>) obj;
+        return nullable.isPresent() ? nullable.get() : null;
     }
 
     private static boolean isPrimitiveOrString(Object obj) {
@@ -391,7 +434,7 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
     }
     
     private static boolean isDoubleQuoted(String s) {
-        return s.length() >=2 && s.startsWith("\"") && s.endsWith("\"");
+        return s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"");
     }
     /**
      * Applies candidate preference rules to resolve multiple matches.
@@ -421,6 +464,11 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
 
         // Apply smart scoring using natural ordering if still multiple candidates
         if (matches.size() > 1) {
+            // Count fields for each match before sorting
+            for (Match<T> match : matches) {
+                match.countFields();
+            }
+            
             return matches.stream()
                     .sorted(Comparator.reverseOrder()) // Best candidates first (highest scores)
                     .collect(Collectors.toList());
