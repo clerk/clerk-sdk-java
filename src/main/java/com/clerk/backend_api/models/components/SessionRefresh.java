@@ -84,8 +84,8 @@ public class SessionRefresh {
 
         public _Deserializer() {
             super(SessionRefresh.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<Cookies>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Token>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Token>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Cookies>() {}, JsonShape.DEFAULT));
         }
     }
     

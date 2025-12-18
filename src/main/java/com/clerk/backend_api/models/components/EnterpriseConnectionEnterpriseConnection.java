@@ -79,8 +79,8 @@ public class EnterpriseConnectionEnterpriseConnection {
 
         public _Deserializer() {
             super(EnterpriseConnectionEnterpriseConnection.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<EnterpriseConnection2>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<EnterpriseConnection1>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<EnterpriseConnection1>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<EnterpriseConnection2>() {}, JsonShape.DEFAULT));
         }
     }
     

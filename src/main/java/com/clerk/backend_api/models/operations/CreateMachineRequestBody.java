@@ -27,7 +27,7 @@ public class CreateMachineRequestBody {
     private String name;
 
     /**
-     * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+     * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scoped_machines")
@@ -68,7 +68,7 @@ public class CreateMachineRequestBody {
     }
 
     /**
-     * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+     * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -100,7 +100,7 @@ public class CreateMachineRequestBody {
     }
 
     /**
-     * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+     * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
      */
     public CreateMachineRequestBody withScopedMachines(List<String> scopedMachines) {
         Utils.checkNotNull(scopedMachines, "scopedMachines");
@@ -110,7 +110,7 @@ public class CreateMachineRequestBody {
 
 
     /**
-     * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+     * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
      */
     public CreateMachineRequestBody withScopedMachines(Optional<? extends List<String>> scopedMachines) {
         Utils.checkNotNull(scopedMachines, "scopedMachines");
@@ -193,7 +193,7 @@ public class CreateMachineRequestBody {
 
 
         /**
-         * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+         * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
          */
         public Builder scopedMachines(List<String> scopedMachines) {
             Utils.checkNotNull(scopedMachines, "scopedMachines");
@@ -202,7 +202,7 @@ public class CreateMachineRequestBody {
         }
 
         /**
-         * Array of machine IDs that this machine will have access to. Maximum of 25 scopes per machine.
+         * Array of machine IDs that this machine will have access to. Maximum of 150 scopes per machine.
          */
         public Builder scopedMachines(Optional<? extends List<String>> scopedMachines) {
             Utils.checkNotNull(scopedMachines, "scopedMachines");

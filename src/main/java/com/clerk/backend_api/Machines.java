@@ -416,7 +416,7 @@ public class Machines {
      * Create a machine scope
      * 
      * <p>Creates a new machine scope, allowing the specified machine to access another machine.
-     * Maximum of 25 scopes per machine.
+     * Maximum of 150 scopes per machine.
      * 
      * @return The call builder
      */
@@ -428,7 +428,7 @@ public class Machines {
      * Create a machine scope
      * 
      * <p>Creates a new machine scope, allowing the specified machine to access another machine.
-     * Maximum of 25 scopes per machine.
+     * Maximum of 150 scopes per machine.
      * 
      * @param machineId The ID of the machine that will have access to another machine
      * @return The response from the API call
@@ -442,7 +442,7 @@ public class Machines {
      * Create a machine scope
      * 
      * <p>Creates a new machine scope, allowing the specified machine to access another machine.
-     * Maximum of 25 scopes per machine.
+     * Maximum of 150 scopes per machine.
      * 
      * @param machineId The ID of the machine that will have access to another machine
      * @param requestBody 

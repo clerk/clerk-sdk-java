@@ -79,8 +79,8 @@ public class CreateSAMLConnectionRequestBody {
 
         public _Deserializer() {
             super(CreateSAMLConnectionRequestBody.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<Two>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<One>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<One>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Two>() {}, JsonShape.DEFAULT));
         }
     }
     

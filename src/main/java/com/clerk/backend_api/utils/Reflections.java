@@ -16,13 +16,13 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Reflections {
 
     /**
-     * Extracts the underlying value from an open enum instance if the class follows the open enum pattern.
+     * Extracts the underlying value from an enum wrapper instance if the class follows the enum wrapper pattern.
      *
-     * <p>An open enum is a class that emulates enum behavior but can handle unknown values
+     * <p>An enum wrapper is a class that emulates enum behavior but can handle unknown values
      * without runtime errors. This pattern is commonly used for API responses where new
      * enum values might be added over time.
      *
-     * <p>The method validates that the class follows the open enum pattern by checking for:
+     * <p>The method validates that the class follows the enum wrapper pattern by checking for:
      * <ul>
      *   <li>A static factory method {@code of(String)} or {@code of(Integer)} that returns the class type</li>
      *   <li>An instance method {@code value()} returning String or Integer</li>
@@ -32,12 +32,12 @@ public class Reflections {
      * <p>If all validation passes, the method invokes the {@code value()} method on the provided instance
      * and returns the result.
      *
-     * @param clazz    the class to examine for open enum pattern
-     * @param instance the instance of the open enum class from which to extract the value
+     * @param clazz    the class to examine for enum wrapper pattern
+     * @param instance the instance of the enum wrapper class from which to extract the value
      * @return {@code Optional<?>} containing the extracted value (String or Integer) if the class
-     * follows the open enum pattern and the value extraction succeeds, {@code Optional.empty()} otherwise
+     * follows the enum wrapper pattern and the value extraction succeeds, {@code Optional.empty()} otherwise
      */
-    public static Optional<?> getOpenEnumValue(Class<?> clazz, Object instance) {
+    public static Optional<?> getUnwrappedEnumValue(Class<?> clazz, Object instance) {
         Objects.requireNonNull(clazz, "Class cannot be null");
 
         try {
@@ -66,6 +66,59 @@ public class Reflections {
         }
     }
 
+    /**
+     * Checks if the given class is an enum wrapper.
+     *
+     * <p>An enum wrapper is a class that emulates enum behavior but can handle unknown values
+     * without runtime errors. This pattern is commonly used for API responses where new
+     * enum values might be added over time.
+     *
+     * <p>The method validates that the class follows the enum wrapper pattern by checking for:
+     * <ul>
+     *   <li>A static factory method {@code of(String)} or {@code of(Integer)} that returns the class type</li>
+     *   <li>An instance method {@code value()} returning String or Integer</li>
+     *   <li>At least one public static final field of the same class type (predefined constants)</li>
+     * </ul>
+     *
+     * @param clazz the class to examine for enum wrapper pattern
+     * @return true if the class is an enum wrapper, false otherwise
+     */
+    public static boolean isEnumWrapper(Class<?> clazz) {
+        if (clazz == null) {
+            return false;
+        }
+
+        try {
+            // Check for factory method of(String) or of(Integer)
+            boolean hasFactoryMethod = Arrays.stream(clazz.getDeclaredMethods())
+                    .anyMatch(method -> isValidFactoryMethod(method, clazz));
+            if (!hasFactoryMethod) {
+                return false;
+            }
+
+            // Check for at least one static constant of same type
+            if (!hasStaticConstants(clazz)) {
+                return false;
+            }
+
+            // Check for value() method returning String or Integer
+            Method valueMethod = clazz.getMethod("value");
+            return isValidValueMethod(valueMethod);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the given object is an instance of an enum wrapper class.
+     *
+     * @param obj the object to check
+     * @return true if the object is an instance of an enum wrapper class, false otherwise
+     */
+    public static boolean isEnumWrapper(Object obj) {
+        return obj != null && isEnumWrapper(obj.getClass());
+    }
+
     private static boolean isNumericType(Class<?> type) {
         // Primitive numeric types
         if (type.isPrimitive()) {
@@ -84,7 +137,7 @@ public class Reflections {
     }
 
     /**
-     * Checks if the given method is a valid factory method for an open enum.
+     * Checks if the given method is a valid factory method for an enum wrapper.
      *
      * @param method the method to check
      * @param clazz  the class that should be returned by the factory method
@@ -108,7 +161,7 @@ public class Reflections {
     }
 
     /**
-     * Checks if the given method is a valid value() method for an open enum.
+     * Checks if the given method is a valid value() method for an enum wrapper.
      *
      * @param method the value() method to validate
      * @return true if valid value method
