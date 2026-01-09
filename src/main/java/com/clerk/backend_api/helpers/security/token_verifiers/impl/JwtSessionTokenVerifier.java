@@ -235,6 +235,9 @@ public class JwtSessionTokenVerifier {
                     return keyToPem(key);
                 }
             }
+        } catch (TokenVerificationException e) {
+            // Re-throw TokenVerificationException as-is to preserve the original error reason
+            throw e;
         } catch (Exception e) {
             throw new TokenVerificationException(TokenVerificationErrorReason.JWK_FAILED_TO_RESOLVE, e);
         }
