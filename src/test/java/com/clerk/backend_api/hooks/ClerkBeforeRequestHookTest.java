@@ -34,6 +34,6 @@ class ClerkBeforeRequestHookTest {
         HttpRequest modifiedRequest = hook.beforeRequest(context, originalRequest);
 
         // Assert
-        assertEquals("2024-10-01", modifiedRequest.headers().firstValue("Clerk-API-Version").orElse(null));
+        assertEquals("2025-11-10", modifiedRequest.headers().firstValue("Clerk-API-Version").orElse(null));
     }
 }
