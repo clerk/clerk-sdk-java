@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: df679d5e03f75c9f80489dc8867152ae
+  docChecksum: a1658dfd9fa1364cbd552a6d259d7ec4
   docVersion: "2025-11-10"
-  speakeasyVersion: 1.680.1
-  generationVersion: 2.788.5
-  releaseVersion: 4.1.1
-  configChecksum: 4ff1359909dc8f86eab0cb670358955e
+  speakeasyVersion: 1.684.0
+  generationVersion: 2.793.0
+  releaseVersion: 4.1.2
+  configChecksum: 1f383245beac17e3e2d62eb92ee36c13
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   published: true
 persistentEdits:
-  generation_id: 7d5ee645-dede-4ffe-8a3e-c7b3195da190
-  pristine_commit_hash: 40b281a731c84b448d903a557e96d62e60ea8ab9
-  pristine_tree_hash: 955f2e78aa93f12da21f16de64ff19e9e3566ad7
+  generation_id: 295bb08d-23df-4a27-b7bf-d043f55d9f5c
+  pristine_commit_hash: 279ac93bb15604ab7d3e66177ed7cf95fb49fda1
+  pristine_tree_hash: a2f9df2b26b030da2f7c0a4399b5cf9eecbc80d9
 features:
   java:
     additionalDependencies: 0.1.0
@@ -2943,6 +2943,18 @@ trackedFiles:
     id: e9cc72f12824
     last_write_checksum: sha1:aed20e03d5f8e9d6481d0cf4d89a00cc0aacf67a
     pristine_git_object: 9d5dea39dae93ad1992665fc11532d560823e5e2
+  docs/models/operations/SetUserPasswordCompromisedRequest.md:
+    id: 887ca7c0a4f1
+    last_write_checksum: sha1:b281a3ad578f7c71b5117d3b81ec5f1c582ec17a
+    pristine_git_object: 5331490c9c0dd213eabac8d5dda5b4408a743df6
+  docs/models/operations/SetUserPasswordCompromisedRequestBody.md:
+    id: a7ff251738d4
+    last_write_checksum: sha1:3de0d3e84d8f4ed858333f1c7a0d92dca853efe0
+    pristine_git_object: 0c7a75a6d051e3643590a677bfe6f2f06d9b24e5
+  docs/models/operations/SetUserPasswordCompromisedResponse.md:
+    id: 3a44dc10ba7e
+    last_write_checksum: sha1:44643a40dcb27abf2c874d83dc0a57ec3daf601f
+    pristine_git_object: f5e6fe1c48cbc37483cbaa7ef8bd5a5787ca8d0c
   docs/models/operations/SetUserProfileImageRequest.md:
     id: 96bf22b37bc0
     last_write_checksum: sha1:cbffca0ca97e6d14bb179026f0d60ca38954fa30
@@ -3003,6 +3015,14 @@ trackedFiles:
     id: 03fd182c996a
     last_write_checksum: sha1:cf5b399a3556281fcafec020d4690be257490342
     pristine_git_object: 407d3833d32ab0fe190b4004921889170f1df8cb
+  docs/models/operations/UnsetUserPasswordCompromisedRequest.md:
+    id: 5f0589a2abf9
+    last_write_checksum: sha1:76d1de431660c02f7a1c47fe5c7dc4277b65cd02
+    pristine_git_object: 1df8e0d1819d995633403acf5769845b20a85d18
+  docs/models/operations/UnsetUserPasswordCompromisedResponse.md:
+    id: d4307033716e
+    last_write_checksum: sha1:0a48c24958b116f7bcbb4f7dd0628e90d655570a
+    pristine_git_object: b991ae2b2f77e34d083e163bc49e9ac28da263f4
   docs/models/operations/UpdateApiKeyObject.md:
     id: a66a989d3b75
     last_write_checksum: sha1:00b268125b3126f0d1bfb55e4ffe7e902fc18ed2
@@ -3577,8 +3597,8 @@ trackedFiles:
     pristine_git_object: 0f8a9034335e082c15beb7d5603853644dd25e19
   docs/sdks/users/README.md:
     id: 5d80027045fe
-    last_write_checksum: sha1:ca9de817b7c974a645a19d82511314622502fb5d
-    pristine_git_object: 506a6c9a67dff1c6a96a2145de144035387a41ae
+    last_write_checksum: sha1:48d1f47951a4b9d11e9454c1a4dcd46c80138f52
+    pristine_git_object: 326835a96057a9718835e49c8a92c205d3b90c20
   docs/sdks/waitlistentries/README.md:
     id: a4b511c18a9a
     last_write_checksum: sha1:14eba19cc9e81e8ed6b156e28c683e82181b9365
@@ -3589,8 +3609,8 @@ trackedFiles:
     pristine_git_object: 2eb6a8df863d54e480b111ad26807dbe10879aca
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:1e48629606a4b87f58d1081c3d4407077d404317
-    pristine_git_object: f3ee154361c3b31e213738cd48aab75ab19dc96f
+    last_write_checksum: sha1:77714aa86f365ea1281da8579433e7d781a1cebf
+    pristine_git_object: c1ab7d9040224599d0a98192d57e6824a8c9a827
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -3765,8 +3785,8 @@ trackedFiles:
     pristine_git_object: 6e478efa3ad5fb1c12ff49bc496e04a57e061fa2
   src/main/java/com/clerk/backend_api/SDKConfiguration.java:
     id: 02084533ec5b
-    last_write_checksum: sha1:b6c7c6a4ef1f961a81ec4f4efcad24b33d3611d7
-    pristine_git_object: 097c972177a2d8864943eb99e6eeb59ffd0625a9
+    last_write_checksum: sha1:528430ac6472c55adcef6adb17b0872951f36fc1
+    pristine_git_object: 16c5d211149631a3c4cfc76b9e3b5fb6380796c6
   src/main/java/com/clerk/backend_api/SamlConnections.java:
     id: 4bbf4e5d0a3c
     last_write_checksum: sha1:649526a6ae41f1558fd7992eaa80434663f0b3e3
@@ -3797,8 +3817,8 @@ trackedFiles:
     pristine_git_object: 2d6d35e80ad878256a7a1a71c241668889c0e0e6
   src/main/java/com/clerk/backend_api/Users.java:
     id: 25ce71c73baa
-    last_write_checksum: sha1:4ce013cd07cf4c8f079d490c25fcc03756507fd6
-    pristine_git_object: d815c2690c712d45852e954871e9b4b00aee7802
+    last_write_checksum: sha1:4ba51db0dea3ba36a146beeb1b074176897a2d74
+    pristine_git_object: 86ae115d2c122eecdb2cefef16b47bbace4a7b42
   src/main/java/com/clerk/backend_api/WaitlistEntries.java:
     id: 5008ff59b95b
     last_write_checksum: sha1:a4aca378ee93fc3eca77e68e193bc1c263786126
@@ -7323,6 +7343,22 @@ trackedFiles:
     id: a482243e59ef
     last_write_checksum: sha1:1b74124164e8b7a8b58a3092034e05491f929201
     pristine_git_object: 22b038dda3f23bda3ecff657e61197699739c63e
+  src/main/java/com/clerk/backend_api/models/operations/SetUserPasswordCompromisedRequest.java:
+    id: "653826163e99"
+    last_write_checksum: sha1:111d5e7a41a5376d14ec20e5b8e28d3d3c8000f8
+    pristine_git_object: a190715e0ca2ec25bfe5b96f11d6ca424b245aa6
+  src/main/java/com/clerk/backend_api/models/operations/SetUserPasswordCompromisedRequestBody.java:
+    id: e7ecda2d53bf
+    last_write_checksum: sha1:1d40edc1ab6f9976a195d9f2d846c3d7f251c77b
+    pristine_git_object: c998efab66aeb568a48039265b48c32a88e1eb5d
+  src/main/java/com/clerk/backend_api/models/operations/SetUserPasswordCompromisedRequestBuilder.java:
+    id: 848ea72747c0
+    last_write_checksum: sha1:9d6b8c09972b14efe25907d722d7da9751157a15
+    pristine_git_object: 0029374952529381440ef3d7979ecf2ad2b65bc7
+  src/main/java/com/clerk/backend_api/models/operations/SetUserPasswordCompromisedResponse.java:
+    id: 896a9cd60ae1
+    last_write_checksum: sha1:b046ad030cbf57dbb1a44a66aba71ac041584bcb
+    pristine_git_object: 0e019ef9635a7823cf78cd9a214ddf16b3bf156c
   src/main/java/com/clerk/backend_api/models/operations/SetUserProfileImageRequest.java:
     id: b9dcc5ff8ff3
     last_write_checksum: sha1:941bb994b27819282dd4ae12a0333fbec4d0e724
@@ -7399,6 +7435,18 @@ trackedFiles:
     id: 20ec2f65f6b9
     last_write_checksum: sha1:4fd3cc82092643e33ca3b6b5c37f394be3547cfd
     pristine_git_object: 2c2b8999b9bf992bcc2275be06f8d56352a94458
+  src/main/java/com/clerk/backend_api/models/operations/UnsetUserPasswordCompromisedRequest.java:
+    id: 5a6f2dd5130f
+    last_write_checksum: sha1:6523b0b9390927a4d2947ea33c113a6d629c7057
+    pristine_git_object: 38152caeac132d7475a50caf38016c92c4faeb53
+  src/main/java/com/clerk/backend_api/models/operations/UnsetUserPasswordCompromisedRequestBuilder.java:
+    id: 57d963cc3750
+    last_write_checksum: sha1:760b97fd479bd1d5cd237bfe7159e26587bf0093
+    pristine_git_object: 1b6d6a293f511a47be4e1e94949590079e85a88c
+  src/main/java/com/clerk/backend_api/models/operations/UnsetUserPasswordCompromisedResponse.java:
+    id: 53e826b781e0
+    last_write_checksum: sha1:5d1c2f3aed2857cba4f98bdb00c3779ce74c028f
+    pristine_git_object: 1b2ca9ffe030195c947d093df54f3ad3eef76462
   src/main/java/com/clerk/backend_api/models/operations/UpdateApiKeyObject.java:
     id: 92d2ab28f734
     last_write_checksum: sha1:4f64cca4fc2f111cbabe389e62798dad5be2912e
@@ -8531,6 +8579,10 @@ trackedFiles:
     id: a47ec79458f3
     last_write_checksum: sha1:26551faec222a0aadfa0910d74d29ff145ca7717
     pristine_git_object: 87a9e902c79c8c3053d6649e91f341f917443df1
+  src/main/java/com/clerk/backend_api/operations/SetUserPasswordCompromised.java:
+    id: ee1a563f1165
+    last_write_checksum: sha1:bbb25696049a95f857c0b0b57275e1b088c259ac
+    pristine_git_object: ea10f5ede9c00024c025ab0c2e7fc467243e1c63
   src/main/java/com/clerk/backend_api/operations/SetUserProfileImage.java:
     id: 372f53e404c8
     last_write_checksum: sha1:fad785d068b492b637f73125684434469c85e24d
@@ -8547,6 +8599,10 @@ trackedFiles:
     id: c575cae13fbd
     last_write_checksum: sha1:8a8d91e50f5dea7a77b4396c927f1cff475fe92f
     pristine_git_object: added5130f346b5e7fef37e2ff5490b42ae6a49f
+  src/main/java/com/clerk/backend_api/operations/UnsetUserPasswordCompromised.java:
+    id: 1809195adbab
+    last_write_checksum: sha1:8b8f8d229c17fdadfc61b78f38af062ff17c293a
+    pristine_git_object: aeb5763c57ba6b29ac382bf34b9b0c7dbdf29754
   src/main/java/com/clerk/backend_api/operations/UpdateApiKey.java:
     id: bf7c60346f02
     last_write_checksum: sha1:6f3d7febf34dc95d863e14b8cd717e051bf689b6
@@ -10854,9 +10910,32 @@ examples:
           application/json: {"errors": [{"message": "Bad Request", "long_message": "Invalid 'url_parameter.example': Failed regex check", "code": "bad_request"}]}
         "404":
           application/json: {"errors": [{"message": "some details about the error", "long_message": "some details about the error", "code": "some_error_code"}]}
+  SetUserPasswordCompromised:
+    speakeasy-default-set-user-password-compromised:
+      parameters:
+        path:
+          user_id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Bert_Treutel-Keeling", "first_name": "Tressa", "last_name": null, "has_image": false, "public_metadata": {}, "email_addresses": [], "phone_numbers": [{"object": "phone_number", "phone_number": "(784) 761-2489 x738", "reserved": true, "verification": {"object": "verification_otp", "status": "unverified", "strategy": "reset_password_email_code", "attempts": 428803, "expire_at": 525669}, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 144077, "updated_at": 244444}], "web3_wallets": [], "passkeys": [], "password_enabled": true, "two_factor_enabled": true, "totp_enabled": false, "backup_code_enabled": false, "mfa_enabled_at": 391760, "mfa_disabled_at": 520664, "external_accounts": [], "saml_accounts": [], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": false, "email_address": "Cory.Jast69@yahoo.com", "verification": {"object": "verification_oauth", "status": "unverified", "strategy": "<value>", "expire_at": 457585, "attempts": 135842}}], "last_sign_in_at": 194930, "banned": true, "locked": false, "lockout_expires_in_seconds": 940574, "verification_attempts_remaining": 806772, "updated_at": 643274, "created_at": 355606, "delete_self_enabled": true, "create_organization_enabled": true, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000, "bypass_client_trust": false}
+        "400":
+          application/json: {"errors": []}
+  UnsetUserPasswordCompromised:
+    speakeasy-default-unset-user-password-compromised:
+      parameters:
+        path:
+          user_id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "object": "user", "external_id": "<id>", "primary_email_address_id": "<id>", "primary_phone_number_id": "<id>", "primary_web3_wallet_id": "<id>", "username": "Keyon25", "first_name": "Green", "last_name": "Roberts", "has_image": false, "public_metadata": {"key": "<value>", "key1": "<value>"}, "email_addresses": [{"object": "email_address", "email_address": "Makayla.Bahringer8@hotmail.com", "reserved": true, "verification": null, "linked_to": [{"type": "<value>", "id": "<id>"}], "created_at": 124531, "updated_at": 595629}], "phone_numbers": [{"object": "phone_number", "phone_number": "(336) 507-9277 x14267", "reserved": false, "verification": {"object": "verification_admin", "status": "verified", "strategy": "admin", "attempts": 547696, "expire_at": 724914}, "linked_to": [], "created_at": 853958, "updated_at": 344895}], "web3_wallets": [{"object": "web3_wallet", "web3_wallet": "<value>", "verification": null, "created_at": 722089, "updated_at": 63919}], "passkeys": [{"object": "passkey", "name": "<value>", "last_used_at": 485713, "verification": {"object": "verification_passkey", "status": "verified", "strategy": "passkey", "attempts": 696079, "expire_at": 80007}}], "password_enabled": false, "two_factor_enabled": false, "totp_enabled": false, "backup_code_enabled": true, "mfa_enabled_at": 369447, "mfa_disabled_at": 408237, "external_accounts": [{"object": "external_account", "id": "<id>", "provider": "<value>", "identification_id": "<id>", "provider_user_id": "<id>", "approved_scopes": "<value>", "email_address": "Nikki.Cartwright@yahoo.com", "first_name": "Cullen", "last_name": "Kulas", "public_metadata": {"key": "<value>", "key1": "<value>"}, "created_at": 759500, "updated_at": 498500, "verification": {"object": "verification_google_one_tap", "status": "unverified", "strategy": "google_one_tap", "expire_at": 609173, "attempts": 447768}}], "saml_accounts": [], "enterprise_accounts": [{"id": "<id>", "object": "enterprise_account", "provider": "<value>", "active": true, "email_address": "Raegan_Kuvalis62@yahoo.com", "verification": {"object": "verification_ticket", "status": "verified", "strategy": "ticket", "attempts": 405093, "expire_at": null}}], "last_sign_in_at": 971808, "banned": false, "locked": false, "lockout_expires_in_seconds": 680624, "verification_attempts_remaining": 836084, "updated_at": 104398, "created_at": 810180, "delete_self_enabled": false, "create_organization_enabled": false, "last_active_at": 1700690400000, "legal_accepted_at": 1700690400000, "bypass_client_trust": false}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Java SDK Changes:\n* `clerk.users.create()`: \n  *  `request.skipUserRequirement` **Added**\n"
+releaseNotes: |
+  ## Java SDK Changes:
+  * `clerk.users.setPasswordCompromised()`: **Added**
+  * `clerk.users.unsetPasswordCompromised()`: **Added**
 generatedFiles:
   - .gitattributes
   - USAGE.md

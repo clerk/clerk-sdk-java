@@ -51,6 +51,10 @@ import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
 import com.clerk.backend_api.models.operations.QueryParamStatus;
+import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequest;
+import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBody;
+import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBuilder;
+import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedResponse;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequest;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBody;
 import com.clerk.backend_api.models.operations.SetUserProfileImageRequestBuilder;
@@ -61,6 +65,9 @@ import com.clerk.backend_api.models.operations.UnbanUserResponse;
 import com.clerk.backend_api.models.operations.UnlockUserRequest;
 import com.clerk.backend_api.models.operations.UnlockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.UnlockUserResponse;
+import com.clerk.backend_api.models.operations.UnsetUserPasswordCompromisedRequest;
+import com.clerk.backend_api.models.operations.UnsetUserPasswordCompromisedRequestBuilder;
+import com.clerk.backend_api.models.operations.UnsetUserPasswordCompromisedResponse;
 import com.clerk.backend_api.models.operations.UpdateUserMetadataRequest;
 import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBody;
 import com.clerk.backend_api.models.operations.UpdateUserMetadataRequestBuilder;
@@ -110,9 +117,11 @@ import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.operations.GetUsersCount;
 import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
 import com.clerk.backend_api.operations.LockUser;
+import com.clerk.backend_api.operations.SetUserPasswordCompromised;
 import com.clerk.backend_api.operations.SetUserProfileImage;
 import com.clerk.backend_api.operations.UnbanUser;
 import com.clerk.backend_api.operations.UnlockUser;
+import com.clerk.backend_api.operations.UnsetUserPasswordCompromised;
 import com.clerk.backend_api.operations.UpdateUser;
 import com.clerk.backend_api.operations.UpdateUserMetadata;
 import com.clerk.backend_api.operations.UserPasskeyDelete;
@@ -1521,6 +1530,106 @@ public class Users {
                 .build();
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation
               = new DeleteExternalAccount.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Set a user's password as compromised
+     * 
+     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
+     * password on their next sign in.
+     * 
+     * @return The call builder
+     */
+    public SetUserPasswordCompromisedRequestBuilder setPasswordCompromised() {
+        return new SetUserPasswordCompromisedRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Set a user's password as compromised
+     * 
+     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
+     * password on their next sign in.
+     * 
+     * @param userId The ID of the user to set the password as compromised
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SetUserPasswordCompromisedResponse setPasswordCompromised(String userId) {
+        return setPasswordCompromised(userId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Set a user's password as compromised
+     * 
+     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
+     * password on their next sign in.
+     * 
+     * @param userId The ID of the user to set the password as compromised
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SetUserPasswordCompromisedResponse setPasswordCompromised(
+            String userId, Optional<? extends SetUserPasswordCompromisedRequestBody> requestBody,
+            Optional<Options> options) {
+        SetUserPasswordCompromisedRequest request =
+            SetUserPasswordCompromisedRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<SetUserPasswordCompromisedRequest, SetUserPasswordCompromisedResponse> operation
+              = new SetUserPasswordCompromised.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Unmark a user's password as compromised
+     * 
+     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
+     * to reset their password on their next sign in.
+     * 
+     * @return The call builder
+     */
+    public UnsetUserPasswordCompromisedRequestBuilder unsetPasswordCompromised() {
+        return new UnsetUserPasswordCompromisedRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Unmark a user's password as compromised
+     * 
+     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
+     * to reset their password on their next sign in.
+     * 
+     * @param userId The ID of the user to unset the compromised status for
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UnsetUserPasswordCompromisedResponse unsetPasswordCompromised(String userId) {
+        return unsetPasswordCompromised(userId, Optional.empty());
+    }
+
+    /**
+     * Unmark a user's password as compromised
+     * 
+     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
+     * to reset their password on their next sign in.
+     * 
+     * @param userId The ID of the user to unset the compromised status for
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UnsetUserPasswordCompromisedResponse unsetPasswordCompromised(String userId, Optional<Options> options) {
+        UnsetUserPasswordCompromisedRequest request =
+            UnsetUserPasswordCompromisedRequest
+                .builder()
+                .userId(userId)
+                .build();
+        RequestOperation<UnsetUserPasswordCompromisedRequest, UnsetUserPasswordCompromisedResponse> operation
+              = new UnsetUserPasswordCompromised.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
