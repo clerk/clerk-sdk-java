@@ -31,6 +31,8 @@
 * [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
 * [deleteTOTP](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
+* [setPasswordCompromised](#setpasswordcompromised) - Set a user's password as compromised
+* [unsetPasswordCompromised](#unsetpasswordcompromised) - Unmark a user's password as compromised
 * [getInstanceOrganizationMemberships](#getinstanceorganizationmemberships) - Get a list of all organization memberships within an instance.
 
 ## list
@@ -1517,6 +1519,109 @@ public class Application {
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 403, 404             | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## setPasswordCompromised
+
+Sets the given user's password as compromised, which means that they will be prompted to reset their password on their next sign in.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="SetUserPasswordCompromised" method="post" path="/users/{user_id}/password/set_compromised" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        SetUserPasswordCompromisedResponse res = sdk.users().setPasswordCompromised()
+                .userId("<id>")
+                .call();
+
+        if (res.user().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                                             | *String*                                                                                                             | :heavy_check_mark:                                                                                                   | The ID of the user to set the password as compromised                                                                |
+| `requestBody`                                                                                                        | [Optional\<SetUserPasswordCompromisedRequestBody>](../../models/operations/SetUserPasswordCompromisedRequestBody.md) | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
+
+### Response
+
+**[SetUserPasswordCompromisedResponse](../../models/operations/SetUserPasswordCompromisedResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## unsetPasswordCompromised
+
+Removes the compromised status from the given user's password. The user will no longer be prompted to reset their password on their next sign in.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UnsetUserPasswordCompromised" method="post" path="/users/{user_id}/password/unset_compromised" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UnsetUserPasswordCompromisedResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UnsetUserPasswordCompromisedResponse res = sdk.users().unsetPasswordCompromised()
+                .userId("<id>")
+                .call();
+
+        if (res.user().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                              | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `userId`                                               | *String*                                               | :heavy_check_mark:                                     | The ID of the user to unset the compromised status for |
+
+### Response
+
+**[UnsetUserPasswordCompromisedResponse](../../models/operations/UnsetUserPasswordCompromisedResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## getInstanceOrganizationMemberships
