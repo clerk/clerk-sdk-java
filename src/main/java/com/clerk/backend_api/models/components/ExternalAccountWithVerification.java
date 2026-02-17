@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Object;
@@ -55,6 +56,15 @@ public class ExternalAccountWithVerification {
 
     @JsonProperty("email_address")
     private String emailAddress;
+
+    /**
+     * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+     * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+     * confirmed email was NOT verified
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("email_address_verified")
+    private JsonNullable<Boolean> emailAddressVerified;
 
 
     @JsonProperty("first_name")
@@ -128,6 +138,7 @@ public class ExternalAccountWithVerification {
             @JsonProperty("provider_user_id") String providerUserId,
             @JsonProperty("approved_scopes") String approvedScopes,
             @JsonProperty("email_address") String emailAddress,
+            @JsonProperty("email_address_verified") JsonNullable<Boolean> emailAddressVerified,
             @JsonProperty("first_name") String firstName,
             @JsonProperty("last_name") String lastName,
             @JsonProperty("avatar_url") Optional<String> avatarUrl,
@@ -146,6 +157,7 @@ public class ExternalAccountWithVerification {
         Utils.checkNotNull(providerUserId, "providerUserId");
         Utils.checkNotNull(approvedScopes, "approvedScopes");
         Utils.checkNotNull(emailAddress, "emailAddress");
+        Utils.checkNotNull(emailAddressVerified, "emailAddressVerified");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(avatarUrl, "avatarUrl");
@@ -165,6 +177,7 @@ public class ExternalAccountWithVerification {
         this.providerUserId = providerUserId;
         this.approvedScopes = approvedScopes;
         this.emailAddress = emailAddress;
+        this.emailAddressVerified = emailAddressVerified;
         this.firstName = firstName;
         this.lastName = lastName;
         this.avatarUrl = avatarUrl;
@@ -194,10 +207,11 @@ public class ExternalAccountWithVerification {
             long updatedAt) {
         this(object, id, provider,
             identificationId, providerUserId, approvedScopes,
-            emailAddress, firstName, lastName,
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), publicMetadata, JsonNullable.undefined(),
-            createdAt, updatedAt, Optional.empty());
+            emailAddress, JsonNullable.undefined(), firstName,
+            lastName, Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), publicMetadata,
+            JsonNullable.undefined(), createdAt, updatedAt,
+            Optional.empty());
     }
 
     /**
@@ -239,6 +253,16 @@ public class ExternalAccountWithVerification {
     @JsonIgnore
     public String emailAddress() {
         return emailAddress;
+    }
+
+    /**
+     * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+     * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+     * confirmed email was NOT verified
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> emailAddressVerified() {
+        return emailAddressVerified;
     }
 
     @JsonIgnore
@@ -364,6 +388,28 @@ public class ExternalAccountWithVerification {
     public ExternalAccountWithVerification withEmailAddress(String emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
+        return this;
+    }
+
+    /**
+     * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+     * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+     * confirmed email was NOT verified
+     */
+    public ExternalAccountWithVerification withEmailAddressVerified(boolean emailAddressVerified) {
+        Utils.checkNotNull(emailAddressVerified, "emailAddressVerified");
+        this.emailAddressVerified = JsonNullable.of(emailAddressVerified);
+        return this;
+    }
+
+    /**
+     * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+     * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+     * confirmed email was NOT verified
+     */
+    public ExternalAccountWithVerification withEmailAddressVerified(JsonNullable<Boolean> emailAddressVerified) {
+        Utils.checkNotNull(emailAddressVerified, "emailAddressVerified");
+        this.emailAddressVerified = emailAddressVerified;
         return this;
     }
 
@@ -519,6 +565,7 @@ public class ExternalAccountWithVerification {
             Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
             Utils.enhancedDeepEquals(this.approvedScopes, other.approvedScopes) &&
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.emailAddressVerified, other.emailAddressVerified) &&
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.avatarUrl, other.avatarUrl) &&
@@ -538,11 +585,11 @@ public class ExternalAccountWithVerification {
         return Utils.enhancedHash(
             object, id, provider,
             identificationId, providerUserId, approvedScopes,
-            emailAddress, firstName, lastName,
-            avatarUrl, imageUrl, username,
-            phoneNumber, publicMetadata, label,
-            createdAt, updatedAt, verification,
-            additionalProperties);
+            emailAddress, emailAddressVerified, firstName,
+            lastName, avatarUrl, imageUrl,
+            username, phoneNumber, publicMetadata,
+            label, createdAt, updatedAt,
+            verification, additionalProperties);
     }
     
     @Override
@@ -555,6 +602,7 @@ public class ExternalAccountWithVerification {
                 "providerUserId", providerUserId,
                 "approvedScopes", approvedScopes,
                 "emailAddress", emailAddress,
+                "emailAddressVerified", emailAddressVerified,
                 "firstName", firstName,
                 "lastName", lastName,
                 "avatarUrl", avatarUrl,
@@ -585,6 +633,8 @@ public class ExternalAccountWithVerification {
         private String approvedScopes;
 
         private String emailAddress;
+
+        private JsonNullable<Boolean> emailAddressVerified = JsonNullable.undefined();
 
         private String firstName;
 
@@ -667,6 +717,29 @@ public class ExternalAccountWithVerification {
         public Builder emailAddress(String emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
             this.emailAddress = emailAddress;
+            return this;
+        }
+
+
+        /**
+         * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+         * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+         * confirmed email was NOT verified
+         */
+        public Builder emailAddressVerified(boolean emailAddressVerified) {
+            Utils.checkNotNull(emailAddressVerified, "emailAddressVerified");
+            this.emailAddressVerified = JsonNullable.of(emailAddressVerified);
+            return this;
+        }
+
+        /**
+         * Whether the email was verified by the OAuth provider at creation time. null = unknown (pre-migration
+         * data or custom OAuth providers), true = provider confirmed email was verified, false = provider
+         * confirmed email was NOT verified
+         */
+        public Builder emailAddressVerified(JsonNullable<Boolean> emailAddressVerified) {
+            Utils.checkNotNull(emailAddressVerified, "emailAddressVerified");
+            this.emailAddressVerified = emailAddressVerified;
             return this;
         }
 
@@ -822,10 +895,11 @@ public class ExternalAccountWithVerification {
             return new ExternalAccountWithVerification(
                 object, id, provider,
                 identificationId, providerUserId, approvedScopes,
-                emailAddress, firstName, lastName,
-                avatarUrl, imageUrl, username,
-                phoneNumber, publicMetadata, label,
-                createdAt, updatedAt, verification)
+                emailAddress, emailAddressVerified, firstName,
+                lastName, avatarUrl, imageUrl,
+                username, phoneNumber, publicMetadata,
+                label, createdAt, updatedAt,
+                verification)
                 .withAdditionalProperties(additionalProperties);
         }
 

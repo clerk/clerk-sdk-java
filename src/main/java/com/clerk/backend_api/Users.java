@@ -1536,8 +1536,8 @@ public class Users {
     /**
      * Set a user's password as compromised
      * 
-     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
-     * password on their next sign in.
+     * <p>Sets the given user's password as compromised. The user will be prompted to reset their password on
+     * their next sign-in.
      * 
      * @return The call builder
      */
@@ -1548,8 +1548,8 @@ public class Users {
     /**
      * Set a user's password as compromised
      * 
-     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
-     * password on their next sign in.
+     * <p>Sets the given user's password as compromised. The user will be prompted to reset their password on
+     * their next sign-in.
      * 
      * @param userId The ID of the user to set the password as compromised
      * @return The response from the API call
@@ -1562,8 +1562,8 @@ public class Users {
     /**
      * Set a user's password as compromised
      * 
-     * <p>Sets the given user's password as compromised, which means that they will be prompted to reset their
-     * password on their next sign in.
+     * <p>Sets the given user's password as compromised. The user will be prompted to reset their password on
+     * their next sign-in.
      * 
      * @param userId The ID of the user to set the password as compromised
      * @param requestBody 
@@ -1586,10 +1586,10 @@ public class Users {
     }
 
     /**
-     * Unmark a user's password as compromised
+     * Unset a user's password as compromised
      * 
-     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
-     * to reset their password on their next sign in.
+     * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
+     * reset their password on their next sign-in.
      * 
      * @return The call builder
      */
@@ -1598,10 +1598,10 @@ public class Users {
     }
 
     /**
-     * Unmark a user's password as compromised
+     * Unset a user's password as compromised
      * 
-     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
-     * to reset their password on their next sign in.
+     * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
+     * reset their password on their next sign-in.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @return The response from the API call
@@ -1612,10 +1612,10 @@ public class Users {
     }
 
     /**
-     * Unmark a user's password as compromised
+     * Unset a user's password as compromised
      * 
-     * <p>Removes the compromised status from the given user's password. The user will no longer be prompted
-     * to reset their password on their next sign in.
+     * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
+     * reset their password on their next sign-in.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @param options additional options

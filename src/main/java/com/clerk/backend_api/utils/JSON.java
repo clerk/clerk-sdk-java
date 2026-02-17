@@ -3,6 +3,8 @@
  */
 package com.clerk.backend_api.utils;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,8 +22,8 @@ public class JSON {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
-
+            .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+            .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
     public static ObjectMapper getMapper() {
         return MAPPER;
     }

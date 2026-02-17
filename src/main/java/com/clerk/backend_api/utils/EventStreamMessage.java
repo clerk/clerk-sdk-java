@@ -6,16 +6,13 @@ package com.clerk.backend_api.utils;
 import java.util.Optional;
 
 public class EventStreamMessage {
-    
+
     private final Optional<String> event;
     private final Optional<String> id;
     private final Optional<Integer> retryMs;
-    private final String data;
+    private final Optional<String> data;
 
-    public EventStreamMessage(Optional<String> event, Optional<String> id, Optional<Integer> retryMs, String data) {
-        if (data == null) {
-            throw new IllegalArgumentException("data cannot be null");
-        }
+    public EventStreamMessage(Optional<String> event, Optional<String> id, Optional<Integer> retryMs, Optional<String> data) {
         this.event = event;
         this.id = id;
         this.retryMs = retryMs;
@@ -34,23 +31,21 @@ public class EventStreamMessage {
         return retryMs;
     }
 
-    public String data() {
+    public Optional<String> data() {
         return data;
     }
 
     public boolean isEmpty() {
-        return !event.isPresent() && !id().isPresent() && !retryMs().isPresent() && data.isEmpty();
+        return !event.isPresent() && !id().isPresent() && !retryMs().isPresent() && !data.isPresent();
     }
-    
+
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
         event.ifPresent(value -> b.append("event: " + value + "\n"));
         id.ifPresent(value -> b.append("id: " + value + "\n"));
         retryMs.ifPresent(value -> b.append("retry: " + value + "\n"));
-        if (!data.isEmpty()) {
-            b.append("data: " + data);
-        }
+        data.ifPresent(value -> b.append("data: " + value));
         return b.toString();
     }
 }

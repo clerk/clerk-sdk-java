@@ -75,6 +75,14 @@ public class CreateOrganizationRequestBody {
     @JsonProperty("created_at")
     private JsonNullable<String> createdAt;
 
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+     * assign to this organization.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("role_set_key")
+    private JsonNullable<String> roleSetKey;
+
     @JsonCreator
     public CreateOrganizationRequestBody(
             @JsonProperty("name") String name,
@@ -83,7 +91,8 @@ public class CreateOrganizationRequestBody {
             @JsonProperty("public_metadata") JsonNullable<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("slug") JsonNullable<String> slug,
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
-            @JsonProperty("created_at") JsonNullable<String> createdAt) {
+            @JsonProperty("created_at") JsonNullable<String> createdAt,
+            @JsonProperty("role_set_key") JsonNullable<String> roleSetKey) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -91,6 +100,7 @@ public class CreateOrganizationRequestBody {
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(createdAt, "createdAt");
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
         this.name = name;
         this.createdBy = createdBy;
         this.privateMetadata = privateMetadata;
@@ -98,13 +108,14 @@ public class CreateOrganizationRequestBody {
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.createdAt = createdAt;
+        this.roleSetKey = roleSetKey;
     }
     
     public CreateOrganizationRequestBody(
             String name) {
         this(name, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -171,6 +182,15 @@ public class CreateOrganizationRequestBody {
     @JsonIgnore
     public JsonNullable<String> createdAt() {
         return createdAt;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+     * assign to this organization.
+     */
+    @JsonIgnore
+    public JsonNullable<String> roleSetKey() {
+        return roleSetKey;
     }
 
     public static Builder builder() {
@@ -309,6 +329,26 @@ public class CreateOrganizationRequestBody {
         return this;
     }
 
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+     * assign to this organization.
+     */
+    public CreateOrganizationRequestBody withRoleSetKey(String roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = JsonNullable.of(roleSetKey);
+        return this;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+     * assign to this organization.
+     */
+    public CreateOrganizationRequestBody withRoleSetKey(JsonNullable<String> roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = roleSetKey;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -325,7 +365,8 @@ public class CreateOrganizationRequestBody {
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
-            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey);
     }
     
     @Override
@@ -333,7 +374,7 @@ public class CreateOrganizationRequestBody {
         return Utils.enhancedHash(
             name, createdBy, privateMetadata,
             publicMetadata, slug, maxAllowedMemberships,
-            createdAt);
+            createdAt, roleSetKey);
     }
     
     @Override
@@ -345,7 +386,8 @@ public class CreateOrganizationRequestBody {
                 "publicMetadata", publicMetadata,
                 "slug", slug,
                 "maxAllowedMemberships", maxAllowedMemberships,
-                "createdAt", createdAt);
+                "createdAt", createdAt,
+                "roleSetKey", roleSetKey);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -364,6 +406,8 @@ public class CreateOrganizationRequestBody {
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
 
         private JsonNullable<String> createdAt = JsonNullable.undefined();
+
+        private JsonNullable<String> roleSetKey = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -507,12 +551,33 @@ public class CreateOrganizationRequestBody {
             return this;
         }
 
+
+        /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+         * assign to this organization.
+         */
+        public Builder roleSetKey(String roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = JsonNullable.of(roleSetKey);
+            return this;
+        }
+
+        /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets) to
+         * assign to this organization.
+         */
+        public Builder roleSetKey(JsonNullable<String> roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = roleSetKey;
+            return this;
+        }
+
         public CreateOrganizationRequestBody build() {
 
             return new CreateOrganizationRequestBody(
                 name, createdBy, privateMetadata,
                 publicMetadata, slug, maxAllowedMemberships,
-                createdAt);
+                createdAt, roleSetKey);
         }
 
     }

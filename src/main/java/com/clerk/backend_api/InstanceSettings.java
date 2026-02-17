@@ -9,11 +9,16 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
+import com.clerk.backend_api.models.operations.GetInstanceProtectRequestBuilder;
+import com.clerk.backend_api.models.operations.GetInstanceProtectResponse;
 import com.clerk.backend_api.models.operations.GetInstanceRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceResponse;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceProtectRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceProtectRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceProtectResponse;
 import com.clerk.backend_api.models.operations.UpdateInstanceRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateInstanceResponse;
@@ -22,14 +27,18 @@ import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequest
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
 import com.clerk.backend_api.operations.ChangeProductionInstanceDomain;
 import com.clerk.backend_api.operations.GetInstance;
+import com.clerk.backend_api.operations.GetInstanceProtect;
 import com.clerk.backend_api.operations.UpdateInstance;
 import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettings;
+import com.clerk.backend_api.operations.UpdateInstanceProtect;
 import com.clerk.backend_api.operations.UpdateInstanceRestrictions;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.util.Optional;
 
-
+/**
+ * Modify the settings of your instance.
+ */
 public class InstanceSettings {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
@@ -253,6 +262,71 @@ public class InstanceSettings {
     public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceOrganizationSettingsRequestBody>, UpdateInstanceOrganizationSettingsResponse> operation
               = new UpdateInstanceOrganizationSettings.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get instance protect settings
+     * 
+     * @return The call builder
+     */
+    public GetInstanceProtectRequestBuilder getInstanceProtect() {
+        return new GetInstanceProtectRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get instance protect settings
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceProtectResponse getInstanceProtectDirect() {
+        return getInstanceProtect(Optional.empty());
+    }
+
+    /**
+     * Get instance protect settings
+     * 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceProtectResponse getInstanceProtect(Optional<Options> options) {
+        RequestlessOperation<GetInstanceProtectResponse> operation
+            = new GetInstanceProtect.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest());
+    }
+
+    /**
+     * Update instance protect settings
+     * 
+     * @return The call builder
+     */
+    public UpdateInstanceProtectRequestBuilder updateInstanceProtect() {
+        return new UpdateInstanceProtectRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update instance protect settings
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceProtectResponse updateInstanceProtectDirect() {
+        return updateInstanceProtect(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update instance protect settings
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceProtectResponse updateInstanceProtect(Optional<? extends UpdateInstanceProtectRequestBody> request, Optional<Options> options) {
+        RequestOperation<Optional<? extends UpdateInstanceProtectRequestBody>, UpdateInstanceProtectResponse> operation
+              = new UpdateInstanceProtect.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

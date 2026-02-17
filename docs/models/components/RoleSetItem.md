@@ -1,0 +1,18 @@
+# RoleSetItem
+
+A role within a role set
+
+
+## Fields
+
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `object`                                                          | [RoleSetItemObject](../../models/components/RoleSetItemObject.md) | :heavy_check_mark:                                                | N/A                                                               |
+| `id`                                                              | *String*                                                          | :heavy_check_mark:                                                | The unique identifier of the role                                 |
+| `name`                                                            | *String*                                                          | :heavy_check_mark:                                                | The name of the role                                              |
+| `key`                                                             | *String*                                                          | :heavy_check_mark:                                                | The key of the role (e.g., "org:admin", "org:member")             |
+| `description`                                                     | *Optional\<String>*                                               | :heavy_check_mark:                                                | Optional description of the role                                  |
+| `membersCount`                                                    | *JsonNullable\<Long>*                                             | :heavy_minus_sign:                                                | The number of members assigned to this role within the role set   |
+| `hasMembers`                                                      | *JsonNullable\<Boolean>*                                          | :heavy_minus_sign:                                                | Whether this role has any members assigned within the role set    |
+| `createdAt`                                                       | *long*                                                            | :heavy_check_mark:                                                | Unix timestamp of role creation                                   |
+| `updatedAt`                                                       | *long*                                                            | :heavy_check_mark:                                                | Unix timestamp of last role update                                |

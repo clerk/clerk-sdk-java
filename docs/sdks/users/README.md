@@ -32,7 +32,7 @@
 * [deleteTOTP](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
 * [setPasswordCompromised](#setpasswordcompromised) - Set a user's password as compromised
-* [unsetPasswordCompromised](#unsetpasswordcompromised) - Unmark a user's password as compromised
+* [unsetPasswordCompromised](#unsetpasswordcompromised) - Unset a user's password as compromised
 * [getInstanceOrganizationMemberships](#getinstanceorganizationmemberships) - Get a list of all organization memberships within an instance.
 
 ## list
@@ -66,6 +66,8 @@ public class Application {
                 .lastActiveAtSince(1700690400000L)
                 .createdAtBefore(1730160000000L)
                 .createdAtAfter(1730160000000L)
+                .lastSignInAtBefore(1700690400000L)
+                .lastSignInAtAfter(1700690400000L)
                 .build();
 
         GetUserListResponse res = sdk.users().list()
@@ -187,6 +189,8 @@ public class Application {
                 .lastActiveAtSince(1700690400000L)
                 .createdAtBefore(1730160000000L)
                 .createdAtAfter(1730160000000L)
+                .lastSignInAtBefore(1700690400000L)
+                .lastSignInAtAfter(1700690400000L)
                 .build();
 
         GetUsersCountResponse res = sdk.users().count()
@@ -1523,7 +1527,7 @@ public class Application {
 
 ## setPasswordCompromised
 
-Sets the given user's password as compromised, which means that they will be prompted to reset their password on their next sign in.
+Sets the given user's password as compromised. The user will be prompted to reset their password on their next sign-in.
 
 ### Example Usage
 
@@ -1575,7 +1579,7 @@ public class Application {
 
 ## unsetPasswordCompromised
 
-Removes the compromised status from the given user's password. The user will no longer be prompted to reset their password on their next sign in.
+Sets the given user's password as no longer compromised. The user will no longer be prompted to reset their password on their next sign-in.
 
 ### Example Usage
 

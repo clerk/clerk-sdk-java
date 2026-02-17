@@ -47,6 +47,13 @@ public class ListAllOrganizationDomainsRequest {
     private Optional<String> query;
 
     /**
+     * Filter by exact domain names. Accepts multiple values (e.g.
+     * domains=example.com&amp;domains=test.org).
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=domains")
+    private Optional<? extends List<String>> domains;
+
+    /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
@@ -80,6 +87,7 @@ public class ListAllOrganizationDomainsRequest {
             Optional<? extends Verified> verified,
             Optional<? extends List<EnrollmentMode>> enrollmentMode,
             Optional<String> query,
+            Optional<? extends List<String>> domains,
             Optional<String> orderBy,
             Optional<Long> offset,
             Optional<Long> limit) {
@@ -87,6 +95,7 @@ public class ListAllOrganizationDomainsRequest {
         Utils.checkNotNull(verified, "verified");
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(domains, "domains");
         Utils.checkNotNull(orderBy, "orderBy");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(limit, "limit");
@@ -94,6 +103,7 @@ public class ListAllOrganizationDomainsRequest {
         this.verified = verified;
         this.enrollmentMode = enrollmentMode;
         this.query = query;
+        this.domains = domains;
         this.orderBy = orderBy;
         this.offset = offset;
         this.limit = limit;
@@ -102,7 +112,7 @@ public class ListAllOrganizationDomainsRequest {
     public ListAllOrganizationDomainsRequest() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -141,6 +151,16 @@ public class ListAllOrganizationDomainsRequest {
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Filter by exact domain names. Accepts multiple values (e.g.
+     * domains=example.com&amp;domains=test.org).
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> domains() {
+        return (Optional<List<String>>) domains;
     }
 
     /**
@@ -267,6 +287,27 @@ public class ListAllOrganizationDomainsRequest {
     }
 
     /**
+     * Filter by exact domain names. Accepts multiple values (e.g.
+     * domains=example.com&amp;domains=test.org).
+     */
+    public ListAllOrganizationDomainsRequest withDomains(List<String> domains) {
+        Utils.checkNotNull(domains, "domains");
+        this.domains = Optional.ofNullable(domains);
+        return this;
+    }
+
+
+    /**
+     * Filter by exact domain names. Accepts multiple values (e.g.
+     * domains=example.com&amp;domains=test.org).
+     */
+    public ListAllOrganizationDomainsRequest withDomains(Optional<? extends List<String>> domains) {
+        Utils.checkNotNull(domains, "domains");
+        this.domains = domains;
+        return this;
+    }
+
+    /**
      * Allows to return organization domains in a particular order.
      * At the moment, you can order the returned domains by their `name` or `created_at`.
      * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
@@ -357,6 +398,7 @@ public class ListAllOrganizationDomainsRequest {
             Utils.enhancedDeepEquals(this.verified, other.verified) &&
             Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
             Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.domains, other.domains) &&
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
             Utils.enhancedDeepEquals(this.offset, other.offset) &&
             Utils.enhancedDeepEquals(this.limit, other.limit);
@@ -366,8 +408,8 @@ public class ListAllOrganizationDomainsRequest {
     public int hashCode() {
         return Utils.enhancedHash(
             organizationId, verified, enrollmentMode,
-            query, orderBy, offset,
-            limit);
+            query, domains, orderBy,
+            offset, limit);
     }
     
     @Override
@@ -377,6 +419,7 @@ public class ListAllOrganizationDomainsRequest {
                 "verified", verified,
                 "enrollmentMode", enrollmentMode,
                 "query", query,
+                "domains", domains,
                 "orderBy", orderBy,
                 "offset", offset,
                 "limit", limit);
@@ -392,6 +435,8 @@ public class ListAllOrganizationDomainsRequest {
         private Optional<? extends List<EnrollmentMode>> enrollmentMode = Optional.empty();
 
         private Optional<String> query = Optional.empty();
+
+        private Optional<? extends List<String>> domains = Optional.empty();
 
         private Optional<String> orderBy;
 
@@ -489,6 +534,27 @@ public class ListAllOrganizationDomainsRequest {
 
 
         /**
+         * Filter by exact domain names. Accepts multiple values (e.g.
+         * domains=example.com&amp;domains=test.org).
+         */
+        public Builder domains(List<String> domains) {
+            Utils.checkNotNull(domains, "domains");
+            this.domains = Optional.ofNullable(domains);
+            return this;
+        }
+
+        /**
+         * Filter by exact domain names. Accepts multiple values (e.g.
+         * domains=example.com&amp;domains=test.org).
+         */
+        public Builder domains(Optional<? extends List<String>> domains) {
+            Utils.checkNotNull(domains, "domains");
+            this.domains = domains;
+            return this;
+        }
+
+
+        /**
          * Allows to return organization domains in a particular order.
          * At the moment, you can order the returned domains by their `name` or `created_at`.
          * In order to specify the direction, you can use the `+/-` symbols prepended to the property to order
@@ -577,8 +643,8 @@ public class ListAllOrganizationDomainsRequest {
 
             return new ListAllOrganizationDomainsRequest(
                 organizationId, verified, enrollmentMode,
-                query, orderBy, offset,
-                limit);
+                query, domains, orderBy,
+                offset, limit);
         }
 
 

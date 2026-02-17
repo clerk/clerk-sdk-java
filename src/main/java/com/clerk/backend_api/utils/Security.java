@@ -141,8 +141,11 @@ public final class Security {
                     case "bearer":
                         request.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
                         break;
+                    case "basic":
+                        request.addHeader(securityMetadata.name, Utils.valToString(value));
+                        break;
                     case "custom":
-                        // customers are expected to consume the security object and transform requests 
+                        // customers are expected to consume the security object and transform requests
                         // in their own BeforeRequest hook.
                         break;
                     default:

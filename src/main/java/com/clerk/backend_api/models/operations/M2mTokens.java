@@ -56,21 +56,29 @@ public class M2mTokens {
     @JsonProperty("expired")
     private boolean expired;
 
-
+    /**
+     * The timestamp for when the token will expire, in milliseconds
+     */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("expiration")
     private Optional<Double> expiration;
 
-
+    /**
+     * The timestamp for when the token was last used, in milliseconds
+     */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_used_at")
     private Optional<Double> lastUsedAt;
 
-
+    /**
+     * The timestamp for when the token was created, in milliseconds
+     */
     @JsonProperty("created_at")
     private double createdAt;
 
-
+    /**
+     * The timestamp for when the token was last updated, in milliseconds
+     */
     @JsonProperty("updated_at")
     private double updatedAt;
 
@@ -170,21 +178,33 @@ public class M2mTokens {
         return expired;
     }
 
+    /**
+     * The timestamp for when the token will expire, in milliseconds
+     */
     @JsonIgnore
     public Optional<Double> expiration() {
         return expiration;
     }
 
+    /**
+     * The timestamp for when the token was last used, in milliseconds
+     */
     @JsonIgnore
     public Optional<Double> lastUsedAt() {
         return lastUsedAt;
     }
 
+    /**
+     * The timestamp for when the token was created, in milliseconds
+     */
     @JsonIgnore
     public double createdAt() {
         return createdAt;
     }
 
+    /**
+     * The timestamp for when the token was last updated, in milliseconds
+     */
     @JsonIgnore
     public double updatedAt() {
         return updatedAt;
@@ -263,6 +283,9 @@ public class M2mTokens {
         return this;
     }
 
+    /**
+     * The timestamp for when the token will expire, in milliseconds
+     */
     public M2mTokens withExpiration(double expiration) {
         Utils.checkNotNull(expiration, "expiration");
         this.expiration = Optional.ofNullable(expiration);
@@ -270,12 +293,18 @@ public class M2mTokens {
     }
 
 
+    /**
+     * The timestamp for when the token will expire, in milliseconds
+     */
     public M2mTokens withExpiration(Optional<Double> expiration) {
         Utils.checkNotNull(expiration, "expiration");
         this.expiration = expiration;
         return this;
     }
 
+    /**
+     * The timestamp for when the token was last used, in milliseconds
+     */
     public M2mTokens withLastUsedAt(double lastUsedAt) {
         Utils.checkNotNull(lastUsedAt, "lastUsedAt");
         this.lastUsedAt = Optional.ofNullable(lastUsedAt);
@@ -283,18 +312,27 @@ public class M2mTokens {
     }
 
 
+    /**
+     * The timestamp for when the token was last used, in milliseconds
+     */
     public M2mTokens withLastUsedAt(Optional<Double> lastUsedAt) {
         Utils.checkNotNull(lastUsedAt, "lastUsedAt");
         this.lastUsedAt = lastUsedAt;
         return this;
     }
 
+    /**
+     * The timestamp for when the token was created, in milliseconds
+     */
     public M2mTokens withCreatedAt(double createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
     }
 
+    /**
+     * The timestamp for when the token was last updated, in milliseconds
+     */
     public M2mTokens withUpdatedAt(double updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
@@ -457,12 +495,18 @@ public class M2mTokens {
         }
 
 
+        /**
+         * The timestamp for when the token will expire, in milliseconds
+         */
         public Builder expiration(double expiration) {
             Utils.checkNotNull(expiration, "expiration");
             this.expiration = Optional.ofNullable(expiration);
             return this;
         }
 
+        /**
+         * The timestamp for when the token will expire, in milliseconds
+         */
         public Builder expiration(Optional<Double> expiration) {
             Utils.checkNotNull(expiration, "expiration");
             this.expiration = expiration;
@@ -470,12 +514,18 @@ public class M2mTokens {
         }
 
 
+        /**
+         * The timestamp for when the token was last used, in milliseconds
+         */
         public Builder lastUsedAt(double lastUsedAt) {
             Utils.checkNotNull(lastUsedAt, "lastUsedAt");
             this.lastUsedAt = Optional.ofNullable(lastUsedAt);
             return this;
         }
 
+        /**
+         * The timestamp for when the token was last used, in milliseconds
+         */
         public Builder lastUsedAt(Optional<Double> lastUsedAt) {
             Utils.checkNotNull(lastUsedAt, "lastUsedAt");
             this.lastUsedAt = lastUsedAt;
@@ -483,6 +533,9 @@ public class M2mTokens {
         }
 
 
+        /**
+         * The timestamp for when the token was created, in milliseconds
+         */
         public Builder createdAt(double createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
@@ -490,6 +543,9 @@ public class M2mTokens {
         }
 
 
+        /**
+         * The timestamp for when the token was last updated, in milliseconds
+         */
         public Builder updatedAt(double updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;

@@ -76,7 +76,9 @@ public class CreateApiKeyResponseBody {
     @JsonProperty("expired")
     private boolean expired;
 
-
+    /**
+     * The timestamp for when the API key will expire, in milliseconds
+     */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("expiration")
     private Optional<Double> expiration;
@@ -86,16 +88,22 @@ public class CreateApiKeyResponseBody {
     @JsonProperty("created_by")
     private Optional<String> createdBy;
 
-
+    /**
+     * The timestamp for when the API key was last used, in milliseconds
+     */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("last_used_at")
     private Optional<Double> lastUsedAt;
 
-
+    /**
+     * The timestamp for when the API key was created, in milliseconds
+     */
     @JsonProperty("created_at")
     private double createdAt;
 
-
+    /**
+     * The timestamp for when the API key was last updated, in milliseconds
+     */
     @JsonProperty("updated_at")
     private double updatedAt;
 
@@ -235,6 +243,9 @@ public class CreateApiKeyResponseBody {
         return expired;
     }
 
+    /**
+     * The timestamp for when the API key will expire, in milliseconds
+     */
     @JsonIgnore
     public Optional<Double> expiration() {
         return expiration;
@@ -245,16 +256,25 @@ public class CreateApiKeyResponseBody {
         return createdBy;
     }
 
+    /**
+     * The timestamp for when the API key was last used, in milliseconds
+     */
     @JsonIgnore
     public Optional<Double> lastUsedAt() {
         return lastUsedAt;
     }
 
+    /**
+     * The timestamp for when the API key was created, in milliseconds
+     */
     @JsonIgnore
     public double createdAt() {
         return createdAt;
     }
 
+    /**
+     * The timestamp for when the API key was last updated, in milliseconds
+     */
     @JsonIgnore
     public double updatedAt() {
         return updatedAt;
@@ -357,6 +377,9 @@ public class CreateApiKeyResponseBody {
         return this;
     }
 
+    /**
+     * The timestamp for when the API key will expire, in milliseconds
+     */
     public CreateApiKeyResponseBody withExpiration(double expiration) {
         Utils.checkNotNull(expiration, "expiration");
         this.expiration = Optional.ofNullable(expiration);
@@ -364,6 +387,9 @@ public class CreateApiKeyResponseBody {
     }
 
 
+    /**
+     * The timestamp for when the API key will expire, in milliseconds
+     */
     public CreateApiKeyResponseBody withExpiration(Optional<Double> expiration) {
         Utils.checkNotNull(expiration, "expiration");
         this.expiration = expiration;
@@ -383,6 +409,9 @@ public class CreateApiKeyResponseBody {
         return this;
     }
 
+    /**
+     * The timestamp for when the API key was last used, in milliseconds
+     */
     public CreateApiKeyResponseBody withLastUsedAt(double lastUsedAt) {
         Utils.checkNotNull(lastUsedAt, "lastUsedAt");
         this.lastUsedAt = Optional.ofNullable(lastUsedAt);
@@ -390,18 +419,27 @@ public class CreateApiKeyResponseBody {
     }
 
 
+    /**
+     * The timestamp for when the API key was last used, in milliseconds
+     */
     public CreateApiKeyResponseBody withLastUsedAt(Optional<Double> lastUsedAt) {
         Utils.checkNotNull(lastUsedAt, "lastUsedAt");
         this.lastUsedAt = lastUsedAt;
         return this;
     }
 
+    /**
+     * The timestamp for when the API key was created, in milliseconds
+     */
     public CreateApiKeyResponseBody withCreatedAt(double createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
         this.createdAt = createdAt;
         return this;
     }
 
+    /**
+     * The timestamp for when the API key was last updated, in milliseconds
+     */
     public CreateApiKeyResponseBody withUpdatedAt(double updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.updatedAt = updatedAt;
@@ -614,12 +652,18 @@ public class CreateApiKeyResponseBody {
         }
 
 
+        /**
+         * The timestamp for when the API key will expire, in milliseconds
+         */
         public Builder expiration(double expiration) {
             Utils.checkNotNull(expiration, "expiration");
             this.expiration = Optional.ofNullable(expiration);
             return this;
         }
 
+        /**
+         * The timestamp for when the API key will expire, in milliseconds
+         */
         public Builder expiration(Optional<Double> expiration) {
             Utils.checkNotNull(expiration, "expiration");
             this.expiration = expiration;
@@ -640,12 +684,18 @@ public class CreateApiKeyResponseBody {
         }
 
 
+        /**
+         * The timestamp for when the API key was last used, in milliseconds
+         */
         public Builder lastUsedAt(double lastUsedAt) {
             Utils.checkNotNull(lastUsedAt, "lastUsedAt");
             this.lastUsedAt = Optional.ofNullable(lastUsedAt);
             return this;
         }
 
+        /**
+         * The timestamp for when the API key was last used, in milliseconds
+         */
         public Builder lastUsedAt(Optional<Double> lastUsedAt) {
             Utils.checkNotNull(lastUsedAt, "lastUsedAt");
             this.lastUsedAt = lastUsedAt;
@@ -653,6 +703,9 @@ public class CreateApiKeyResponseBody {
         }
 
 
+        /**
+         * The timestamp for when the API key was created, in milliseconds
+         */
         public Builder createdAt(double createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
             this.createdAt = createdAt;
@@ -660,6 +713,9 @@ public class CreateApiKeyResponseBody {
         }
 
 
+        /**
+         * The timestamp for when the API key was last updated, in milliseconds
+         */
         public Builder updatedAt(double updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");
             this.updatedAt = updatedAt;

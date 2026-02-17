@@ -93,7 +93,9 @@ public class Clerk {
 
     private final Domains domains;
 
-
+    /**
+     * Modify the settings of your instance.
+     */
     private final InstanceSettings instanceSettings;
 
 
@@ -146,6 +148,9 @@ public class Clerk {
 
 
     private final OrganizationPermissions organizationPermissions;
+
+
+    private final RoleSets roleSets;
 
     /**
      * Endpoints for managing API Keys
@@ -243,7 +248,9 @@ public class Clerk {
         return domains;
     }
 
-
+    /**
+     * Modify the settings of your instance.
+     */
     public InstanceSettings instanceSettings() {
         return instanceSettings;
     }
@@ -331,6 +338,11 @@ public class Clerk {
 
     public OrganizationPermissions organizationPermissions() {
         return organizationPermissions;
+    }
+
+
+    public RoleSets roleSets() {
+        return roleSets;
     }
 
     /**
@@ -533,6 +545,7 @@ public class Clerk {
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.billing = new Billing(sdkConfiguration);
         this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
+        this.roleSets = new RoleSets(sdkConfiguration);
         this.apiKeys = new APIKeys(sdkConfiguration);
         this.m2m = new M2m(sdkConfiguration);
         this.oauthAccessTokens = new OauthAccessTokens(sdkConfiguration);

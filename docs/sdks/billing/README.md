@@ -5,9 +5,12 @@
 ### Available Operations
 
 * [listPlans](#listplans) - List all billing plans
+* [listPrices](#listprices) - List all billing prices
+* [createPrice](#createprice) - Create a custom billing price
 * [listSubscriptionItems](#listsubscriptionitems) - List all subscription items
 * [cancelSubscriptionItem](#cancelsubscriptionitem) - Cancel a subscription item
 * [extendSubscriptionItemFreeTrial](#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
+* [createPriceTransition](#createpricetransition) - Create a price transition for a subscription item
 * [listStatements](#liststatements) - List all billing statements
 * [getStatement](#getstatement) - Retrieve a billing statement
 * [getStatementPaymentAttempts](#getstatementpaymentattempts) - List payment attempts for a billing statement
@@ -66,6 +69,122 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 422             | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## listPrices
+
+Returns a list of all prices for the instance. The prices are returned sorted by amount ascending,
+then by creation date descending. This includes both default and custom prices. Pagination is supported.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetBillingPriceList" method="get" path="/billing/prices" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetBillingPriceListResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetBillingPriceListResponse res = sdk.billing().listPrices()
+                .limit(10L)
+                .offset(0L)
+                .call();
+
+        if (res.paginatedBillingPriceResponse().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `paginated`                                                                                                                               | *Optional\<Boolean>*                                                                                                                      | :heavy_minus_sign:                                                                                                                        | Whether to paginate the results.<br/>If true, the results will be paginated.<br/>If false, the results will not be paginated.             |
+| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+| `planId`                                                                                                                                  | *Optional\<String>*                                                                                                                       | :heavy_minus_sign:                                                                                                                        | Filter prices by plan ID                                                                                                                  |
+
+### Response
+
+**[GetBillingPriceListResponse](../../models/operations/GetBillingPriceListResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## createPrice
+
+Creates a custom price for a billing plan. Custom prices allow you to offer different pricing
+to specific customers while maintaining the same plan structure.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="CreateBillingPrice" method="post" path="/billing/prices" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.CreateBillingPriceRequest;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateBillingPriceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        CreateBillingPriceRequest req = CreateBillingPriceRequest.builder()
+                .planId("<id>")
+                .amount(826545L)
+                .build();
+
+        CreateBillingPriceResponse res = sdk.billing().createPrice()
+                .request(req)
+                .call();
+
+        if (res.billingPriceResponse().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [CreateBillingPriceRequest](../../models/shared/CreateBillingPriceRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
+
+### Response
+
+**[CreateBillingPriceResponse](../../models/operations/CreateBillingPriceResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
@@ -240,6 +359,65 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## createPriceTransition
+
+Creates a price transition for the specified subscription item.
+This may create an upcoming subscription item or activate immediately depending on plan and payer rules.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="CreateBillingPriceTransition" method="post" path="/billing/subscription_items/{subscription_item_id}/price_transition" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.PriceTransitionRequest;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateBillingPriceTransitionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        CreateBillingPriceTransitionResponse res = sdk.billing().createPriceTransition()
+                .subscriptionItemId("<id>")
+                .priceTransitionRequest(PriceTransitionRequest.builder()
+                    .fromPriceId("<id>")
+                    .toPriceId("<id>")
+                    .build())
+                .call();
+
+        if (res.commercePriceTransitionResponse().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `subscriptionItemId`                                                        | *String*                                                                    | :heavy_check_mark:                                                          | The ID of the subscription item to transition                               |
+| `priceTransitionRequest`                                                    | [PriceTransitionRequest](../../models/components/PriceTransitionRequest.md) | :heavy_check_mark:                                                          | Parameters for the price transition                                         |
+
+### Response
+
+**[CreateBillingPriceTransitionResponse](../../models/operations/CreateBillingPriceTransitionResponse.md)**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 401, 403, 404, 409, 422 | application/json             |
+| models/errors/ClerkErrors    | 500                          | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## listStatements
 

@@ -579,6 +579,17 @@ public class BackendApiAutoConfig {
         return clerk.organizationPermissions();
     }
     /**
+     * Creates a RoleSets sub-SDK bean if none exists.
+     *
+     * @param clerk the main SDK instance
+     * @return A configured RoleSets instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public RoleSets roleSets(Clerk clerk) {
+        return clerk.roleSets();
+    }
+    /**
      * Creates a APIKeys sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance

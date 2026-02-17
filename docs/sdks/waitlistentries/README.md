@@ -6,6 +6,7 @@
 
 * [list](#list) - List all waitlist entries
 * [create](#create) - Create a waitlist entry
+* [bulkCreate](#bulkcreate) - Create multiple waitlist entries
 * [delete](#delete) - Delete a pending waitlist entry
 * [invite](#invite) - Invite a waitlist entry
 * [reject](#reject) - Reject a waitlist entry
@@ -108,6 +109,63 @@ public class Application {
 ### Response
 
 **[CreateWaitlistEntryResponse](../../models/operations/CreateWaitlistEntryResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## bulkCreate
+
+Creates multiple waitlist entries for the provided email addresses.
+You can choose whether to send confirmation emails by setting the `notify` parameter to `true` or `false` for each entry.
+If the `notify` parameter is omitted, it defaults to `true`.
+
+If an email address is already on the waitlist, no new entry will be created and the existing waitlist entry will be returned.
+Duplicate email addresses within the same request are not allowed.
+
+This endpoint is limited to a maximum of 50 entries per API call. If you need to add more entries, please make multiple requests.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="CreateBulkWaitlistEntries" method="post" path="/waitlist_entries/bulk" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateBulkWaitlistEntriesResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        CreateBulkWaitlistEntriesResponse res = sdk.waitlistEntries().bulkCreate()
+                .call();
+
+        if (res.waitlistEntryList().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `request`                                                       | [List<CreateBulkWaitlistEntriesRequestBody>](../../models//.md) | :heavy_check_mark:                                              | The request object to use for the request.                      |
+
+### Response
+
+**[CreateBulkWaitlistEntriesResponse](../../models/operations/CreateBulkWaitlistEntriesResponse.md)**
 
 ### Errors
 

@@ -17,6 +17,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class OrganizationMembershipOrganization {
@@ -101,6 +102,14 @@ public class OrganizationMembershipOrganization {
     @JsonProperty("last_active_at")
     private Optional<Long> lastActiveAt;
 
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("role_set_key")
+    private JsonNullable<String> roleSetKey;
+
     @JsonCreator
     public OrganizationMembershipOrganization(
             @JsonProperty("object") OrganizationMembershipOrganizationObject object,
@@ -119,7 +128,8 @@ public class OrganizationMembershipOrganization {
             @JsonProperty("created_by") Optional<String> createdBy,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
-            @JsonProperty("last_active_at") Optional<Long> lastActiveAt) {
+            @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
+            @JsonProperty("role_set_key") JsonNullable<String> roleSetKey) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -138,6 +148,7 @@ public class OrganizationMembershipOrganization {
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
         this.object = object;
         this.id = id;
         this.name = name;
@@ -155,6 +166,7 @@ public class OrganizationMembershipOrganization {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.lastActiveAt = lastActiveAt;
+        this.roleSetKey = roleSetKey;
     }
     
     public OrganizationMembershipOrganization(
@@ -173,7 +185,7 @@ public class OrganizationMembershipOrganization {
             Optional.empty(), Optional.empty(), Optional.empty(),
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             Optional.empty(), Optional.empty(), createdAt,
-            updatedAt, Optional.empty());
+            updatedAt, Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -269,6 +281,15 @@ public class OrganizationMembershipOrganization {
     @JsonIgnore
     public Optional<Long> lastActiveAt() {
         return lastActiveAt;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    @JsonIgnore
+    public JsonNullable<String> roleSetKey() {
+        return roleSetKey;
     }
 
     public static Builder builder() {
@@ -439,6 +460,26 @@ public class OrganizationMembershipOrganization {
         return this;
     }
 
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    public OrganizationMembershipOrganization withRoleSetKey(String roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = JsonNullable.of(roleSetKey);
+        return this;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    public OrganizationMembershipOrganization withRoleSetKey(JsonNullable<String> roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = roleSetKey;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -465,7 +506,8 @@ public class OrganizationMembershipOrganization {
             Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
-            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt);
+            Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey);
     }
     
     @Override
@@ -476,7 +518,7 @@ public class OrganizationMembershipOrganization {
             membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             privateMetadata, createdBy, createdAt,
-            updatedAt, lastActiveAt);
+            updatedAt, lastActiveAt, roleSetKey);
     }
     
     @Override
@@ -498,7 +540,8 @@ public class OrganizationMembershipOrganization {
                 "createdBy", createdBy,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt,
-                "lastActiveAt", lastActiveAt);
+                "lastActiveAt", lastActiveAt,
+                "roleSetKey", roleSetKey);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -537,6 +580,8 @@ public class OrganizationMembershipOrganization {
         private Long updatedAt;
 
         private Optional<Long> lastActiveAt = Optional.empty();
+
+        private JsonNullable<String> roleSetKey = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -715,6 +760,27 @@ public class OrganizationMembershipOrganization {
             return this;
         }
 
+
+        /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+         * assigned to this organization.
+         */
+        public Builder roleSetKey(String roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = JsonNullable.of(roleSetKey);
+            return this;
+        }
+
+        /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+         * assigned to this organization.
+         */
+        public Builder roleSetKey(JsonNullable<String> roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = roleSetKey;
+            return this;
+        }
+
         public OrganizationMembershipOrganization build() {
 
             return new OrganizationMembershipOrganization(
@@ -723,7 +789,7 @@ public class OrganizationMembershipOrganization {
                 membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
                 maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
                 privateMetadata, createdBy, createdAt,
-                updatedAt, lastActiveAt);
+                updatedAt, lastActiveAt, roleSetKey);
         }
 
     }

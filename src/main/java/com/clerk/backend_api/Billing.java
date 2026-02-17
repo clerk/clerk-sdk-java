@@ -5,13 +5,23 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.components.CreateBillingPriceRequest;
 import com.clerk.backend_api.models.components.ExtendFreeTrialRequest;
+import com.clerk.backend_api.models.components.PriceTransitionRequest;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequest;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequestBuilder;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemResponse;
+import com.clerk.backend_api.models.operations.CreateBillingPriceRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateBillingPriceResponse;
+import com.clerk.backend_api.models.operations.CreateBillingPriceTransitionRequest;
+import com.clerk.backend_api.models.operations.CreateBillingPriceTransitionRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateBillingPriceTransitionResponse;
 import com.clerk.backend_api.models.operations.ExtendBillingSubscriptionItemFreeTrialRequest;
 import com.clerk.backend_api.models.operations.ExtendBillingSubscriptionItemFreeTrialRequestBuilder;
 import com.clerk.backend_api.models.operations.ExtendBillingSubscriptionItemFreeTrialResponse;
+import com.clerk.backend_api.models.operations.GetBillingPriceListRequest;
+import com.clerk.backend_api.models.operations.GetBillingPriceListRequestBuilder;
+import com.clerk.backend_api.models.operations.GetBillingPriceListResponse;
 import com.clerk.backend_api.models.operations.GetBillingStatementListRequest;
 import com.clerk.backend_api.models.operations.GetBillingStatementListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetBillingStatementListResponse;
@@ -29,7 +39,10 @@ import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListRe
 import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListResponse;
 import com.clerk.backend_api.models.operations.PayerType;
 import com.clerk.backend_api.operations.CancelCommerceSubscriptionItem;
+import com.clerk.backend_api.operations.CreateBillingPrice;
+import com.clerk.backend_api.operations.CreateBillingPriceTransition;
 import com.clerk.backend_api.operations.ExtendBillingSubscriptionItemFreeTrial;
+import com.clerk.backend_api.operations.GetBillingPriceList;
 import com.clerk.backend_api.operations.GetBillingStatement;
 import com.clerk.backend_api.operations.GetBillingStatementList;
 import com.clerk.backend_api.operations.GetBillingStatementPaymentAttempts;
@@ -116,6 +129,114 @@ public class Billing {
                 .build();
         RequestOperation<GetCommercePlanListRequest, GetCommercePlanListResponse> operation
               = new GetCommercePlanList.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List all billing prices
+     * 
+     * <p>Returns a list of all prices for the instance. The prices are returned sorted by amount ascending,
+     * then by creation date descending. This includes both default and custom prices. Pagination is
+     * supported.
+     * 
+     * @return The call builder
+     */
+    public GetBillingPriceListRequestBuilder listPrices() {
+        return new GetBillingPriceListRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List all billing prices
+     * 
+     * <p>Returns a list of all prices for the instance. The prices are returned sorted by amount ascending,
+     * then by creation date descending. This includes both default and custom prices. Pagination is
+     * supported.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetBillingPriceListResponse listPricesDirect() {
+        return listPrices(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List all billing prices
+     * 
+     * <p>Returns a list of all prices for the instance. The prices are returned sorted by amount ascending,
+     * then by creation date descending. This includes both default and custom prices. Pagination is
+     * supported.
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param planId Filter prices by plan ID
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetBillingPriceListResponse listPrices(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<String> planId,
+            Optional<Options> options) {
+        GetBillingPriceListRequest request =
+            GetBillingPriceListRequest
+                .builder()
+                .paginated(paginated)
+                .limit(limit)
+                .offset(offset)
+                .planId(planId)
+                .build();
+        RequestOperation<GetBillingPriceListRequest, GetBillingPriceListResponse> operation
+              = new GetBillingPriceList.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create a custom billing price
+     * 
+     * <p>Creates a custom price for a billing plan. Custom prices allow you to offer different pricing
+     * to specific customers while maintaining the same plan structure.
+     * 
+     * @return The call builder
+     */
+    public CreateBillingPriceRequestBuilder createPrice() {
+        return new CreateBillingPriceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a custom billing price
+     * 
+     * <p>Creates a custom price for a billing plan. Custom prices allow you to offer different pricing
+     * to specific customers while maintaining the same plan structure.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBillingPriceResponse createPrice(CreateBillingPriceRequest request) {
+        return createPrice(request, Optional.empty());
+    }
+
+    /**
+     * Create a custom billing price
+     * 
+     * <p>Creates a custom price for a billing plan. Custom prices allow you to offer different pricing
+     * to specific customers while maintaining the same plan structure.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBillingPriceResponse createPrice(CreateBillingPriceRequest request, Optional<Options> options) {
+        RequestOperation<CreateBillingPriceRequest, CreateBillingPriceResponse> operation
+              = new CreateBillingPrice.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -285,6 +406,62 @@ public class Billing {
                 .build();
         RequestOperation<ExtendBillingSubscriptionItemFreeTrialRequest, ExtendBillingSubscriptionItemFreeTrialResponse> operation
               = new ExtendBillingSubscriptionItemFreeTrial.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create a price transition for a subscription item
+     * 
+     * <p>Creates a price transition for the specified subscription item.
+     * This may create an upcoming subscription item or activate immediately depending on plan and payer
+     * rules.
+     * 
+     * @return The call builder
+     */
+    public CreateBillingPriceTransitionRequestBuilder createPriceTransition() {
+        return new CreateBillingPriceTransitionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a price transition for a subscription item
+     * 
+     * <p>Creates a price transition for the specified subscription item.
+     * This may create an upcoming subscription item or activate immediately depending on plan and payer
+     * rules.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to transition
+     * @param priceTransitionRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBillingPriceTransitionResponse createPriceTransition(String subscriptionItemId, PriceTransitionRequest priceTransitionRequest) {
+        return createPriceTransition(subscriptionItemId, priceTransitionRequest, Optional.empty());
+    }
+
+    /**
+     * Create a price transition for a subscription item
+     * 
+     * <p>Creates a price transition for the specified subscription item.
+     * This may create an upcoming subscription item or activate immediately depending on plan and payer
+     * rules.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to transition
+     * @param priceTransitionRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBillingPriceTransitionResponse createPriceTransition(
+            String subscriptionItemId, PriceTransitionRequest priceTransitionRequest,
+            Optional<Options> options) {
+        CreateBillingPriceTransitionRequest request =
+            CreateBillingPriceTransitionRequest
+                .builder()
+                .subscriptionItemId(subscriptionItemId)
+                .priceTransitionRequest(priceTransitionRequest)
+                .build();
+        RequestOperation<CreateBillingPriceTransitionRequest, CreateBillingPriceTransitionResponse> operation
+              = new CreateBillingPriceTransition.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

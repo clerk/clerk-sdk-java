@@ -137,6 +137,16 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonProperty("force_authn")
     private Optional<Boolean> forceAuthn;
 
+    /**
+     * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+     * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+     * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+     * when any such verified domain exists.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("consent_verified_domains_deletion")
+    private JsonNullable<Boolean> consentVerifiedDomainsDeletion;
+
     @JsonCreator
     public UpdateSAMLConnectionRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
@@ -154,7 +164,8 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
             @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated,
             @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications,
-            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn,
+            @JsonProperty("consent_verified_domains_deletion") JsonNullable<Boolean> consentVerifiedDomainsDeletion) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(domains, "domains");
@@ -171,6 +182,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
         this.name = name;
         this.domain = domain;
         this.domains = domains;
@@ -187,6 +199,7 @@ public class UpdateSAMLConnectionRequestBody {
         this.allowIdpInitiated = allowIdpInitiated;
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
         this.forceAuthn = forceAuthn;
+        this.consentVerifiedDomainsDeletion = consentVerifiedDomainsDeletion;
     }
     
     public UpdateSAMLConnectionRequestBody() {
@@ -195,7 +208,7 @@ public class UpdateSAMLConnectionRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty());
+            Optional.empty(), JsonNullable.undefined());
     }
 
     /**
@@ -331,6 +344,17 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonIgnore
     public Optional<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+     * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+     * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+     * when any such verified domain exists.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> consentVerifiedDomainsDeletion() {
+        return consentVerifiedDomainsDeletion;
     }
 
     public static Builder builder() {
@@ -637,6 +661,30 @@ public class UpdateSAMLConnectionRequestBody {
         return this;
     }
 
+    /**
+     * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+     * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+     * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+     * when any such verified domain exists.
+     */
+    public UpdateSAMLConnectionRequestBody withConsentVerifiedDomainsDeletion(boolean consentVerifiedDomainsDeletion) {
+        Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
+        this.consentVerifiedDomainsDeletion = JsonNullable.of(consentVerifiedDomainsDeletion);
+        return this;
+    }
+
+    /**
+     * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+     * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+     * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+     * when any such verified domain exists.
+     */
+    public UpdateSAMLConnectionRequestBody withConsentVerifiedDomainsDeletion(JsonNullable<Boolean> consentVerifiedDomainsDeletion) {
+        Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
+        this.consentVerifiedDomainsDeletion = consentVerifiedDomainsDeletion;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -662,7 +710,8 @@ public class UpdateSAMLConnectionRequestBody {
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.consentVerifiedDomainsDeletion, other.consentVerifiedDomainsDeletion);
     }
     
     @Override
@@ -673,7 +722,7 @@ public class UpdateSAMLConnectionRequestBody {
             idpMetadataUrl, idpMetadata, organizationId,
             attributeMapping, active, syncUserAttributes,
             allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-            forceAuthn);
+            forceAuthn, consentVerifiedDomainsDeletion);
     }
     
     @Override
@@ -694,7 +743,8 @@ public class UpdateSAMLConnectionRequestBody {
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "consentVerifiedDomainsDeletion", consentVerifiedDomainsDeletion);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -732,6 +782,8 @@ public class UpdateSAMLConnectionRequestBody {
         private JsonNullable<Boolean> disableAdditionalIdentifications = JsonNullable.undefined();
 
         private Optional<Boolean> forceAuthn = Optional.empty();
+
+        private JsonNullable<Boolean> consentVerifiedDomainsDeletion = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -1051,6 +1103,31 @@ public class UpdateSAMLConnectionRequestBody {
             return this;
         }
 
+
+        /**
+         * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+         * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+         * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+         * when any such verified domain exists.
+         */
+        public Builder consentVerifiedDomainsDeletion(boolean consentVerifiedDomainsDeletion) {
+            Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
+            this.consentVerifiedDomainsDeletion = JsonNullable.of(consentVerifiedDomainsDeletion);
+            return this;
+        }
+
+        /**
+         * When enabling the connection, controls behavior when verified domains used for enrollment modes like
+         * automatic invitation or automatic suggestion already exist for the same domain. If true, those
+         * verified domains are removed and the connection is enabled. If false or omitted, the request fails
+         * when any such verified domain exists.
+         */
+        public Builder consentVerifiedDomainsDeletion(JsonNullable<Boolean> consentVerifiedDomainsDeletion) {
+            Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
+            this.consentVerifiedDomainsDeletion = consentVerifiedDomainsDeletion;
+            return this;
+        }
+
         public UpdateSAMLConnectionRequestBody build() {
 
             return new UpdateSAMLConnectionRequestBody(
@@ -1059,7 +1136,7 @@ public class UpdateSAMLConnectionRequestBody {
                 idpMetadataUrl, idpMetadata, organizationId,
                 attributeMapping, active, syncUserAttributes,
                 allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-                forceAuthn);
+                forceAuthn, consentVerifiedDomainsDeletion);
         }
 
     }

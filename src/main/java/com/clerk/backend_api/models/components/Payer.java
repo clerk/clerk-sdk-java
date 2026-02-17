@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Optional;
 
 /**
@@ -83,6 +84,11 @@ public class Payer {
     @JsonProperty("image_url")
     private String imageUrl;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("credits_balance")
+    private Optional<? extends CommerceMoneyResponse> creditsBalance;
+
     /**
      * Unix timestamp (in milliseconds) when the payer was created.
      */
@@ -107,6 +113,7 @@ public class Payer {
             @JsonProperty("organization_id") Optional<String> organizationId,
             @JsonProperty("organization_name") Optional<String> organizationName,
             @JsonProperty("image_url") String imageUrl,
+            @JsonProperty("credits_balance") Optional<? extends CommerceMoneyResponse> creditsBalance,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -119,6 +126,7 @@ public class Payer {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(organizationName, "organizationName");
         Utils.checkNotNull(imageUrl, "imageUrl");
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -131,6 +139,7 @@ public class Payer {
         this.organizationId = organizationId;
         this.organizationName = organizationName;
         this.imageUrl = imageUrl;
+        this.creditsBalance = creditsBalance;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -148,7 +157,8 @@ public class Payer {
         this(object, id, instanceId,
             Optional.empty(), firstName, lastName,
             email, Optional.empty(), Optional.empty(),
-            imageUrl, createdAt, updatedAt);
+            imageUrl, Optional.empty(), createdAt,
+            updatedAt);
     }
 
     /**
@@ -229,6 +239,12 @@ public class Payer {
     @JsonIgnore
     public String imageUrl() {
         return imageUrl;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CommerceMoneyResponse> creditsBalance() {
+        return (Optional<CommerceMoneyResponse>) creditsBalance;
     }
 
     /**
@@ -372,6 +388,19 @@ public class Payer {
         return this;
     }
 
+    public Payer withCreditsBalance(CommerceMoneyResponse creditsBalance) {
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
+        this.creditsBalance = Optional.ofNullable(creditsBalance);
+        return this;
+    }
+
+
+    public Payer withCreditsBalance(Optional<? extends CommerceMoneyResponse> creditsBalance) {
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
+        this.creditsBalance = creditsBalance;
+        return this;
+    }
+
     /**
      * Unix timestamp (in milliseconds) when the payer was created.
      */
@@ -410,6 +439,7 @@ public class Payer {
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
             Utils.enhancedDeepEquals(this.organizationName, other.organizationName) &&
             Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.creditsBalance, other.creditsBalance) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -420,7 +450,8 @@ public class Payer {
             object, id, instanceId,
             userId, firstName, lastName,
             email, organizationId, organizationName,
-            imageUrl, createdAt, updatedAt);
+            imageUrl, creditsBalance, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -436,6 +467,7 @@ public class Payer {
                 "organizationId", organizationId,
                 "organizationName", organizationName,
                 "imageUrl", imageUrl,
+                "creditsBalance", creditsBalance,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -462,6 +494,8 @@ public class Payer {
         private Optional<String> organizationName = Optional.empty();
 
         private String imageUrl;
+
+        private Optional<? extends CommerceMoneyResponse> creditsBalance = Optional.empty();
 
         private Long createdAt;
 
@@ -599,6 +633,19 @@ public class Payer {
         }
 
 
+        public Builder creditsBalance(CommerceMoneyResponse creditsBalance) {
+            Utils.checkNotNull(creditsBalance, "creditsBalance");
+            this.creditsBalance = Optional.ofNullable(creditsBalance);
+            return this;
+        }
+
+        public Builder creditsBalance(Optional<? extends CommerceMoneyResponse> creditsBalance) {
+            Utils.checkNotNull(creditsBalance, "creditsBalance");
+            this.creditsBalance = creditsBalance;
+            return this;
+        }
+
+
         /**
          * Unix timestamp (in milliseconds) when the payer was created.
          */
@@ -624,7 +671,8 @@ public class Payer {
                 object, id, instanceId,
                 userId, firstName, lastName,
                 email, organizationId, organizationName,
-                imageUrl, createdAt, updatedAt);
+                imageUrl, creditsBalance, createdAt,
+                updatedAt);
         }
 
     }

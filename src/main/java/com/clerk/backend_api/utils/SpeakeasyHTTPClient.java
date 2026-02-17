@@ -144,16 +144,21 @@ public class SpeakeasyHTTPClient implements HTTPClient {
     }
 
     private static HttpResponse<InputStream> logResponse(HttpResponse<InputStream> response, boolean logBody) throws IOException {
+        String contentType = response.headers().firstValue("Content-Type").orElse("application/octet-stream");
+        log("Received response: " + response);
+        log("Response headers: " + redactHeaders(response.headers()));
+
+        // skip caching for streaming responses - they may hang
+        if (contentType.startsWith("text/event-stream") || contentType.startsWith("application/x-ndjson")) {
+            return response;
+        }
+
         // make the response re-readable by loading the response body into a byte array
         // and allowing the InputStream to be read many times
         response = Utils.cache(response);
-        log("Received response: " + response);
-        log("Response headers: " + redactHeaders(response.headers()));
+
         // only log the response body if logBody is true and the content type is JSON or plain text
-        if (logBody && response.headers() //
-                .firstValue("Content-Type") //
-                .filter(x -> x.equals("application/json") || x.equals("text/plain")) //
-                .isPresent()) {
+        if (logBody && (contentType.startsWith("application/json") || contentType.startsWith("text/plain"))) {
             // the response is re-readable so we can read and close it without
             // affecting later processing of the response.
 
