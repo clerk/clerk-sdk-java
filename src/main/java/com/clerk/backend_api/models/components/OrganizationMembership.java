@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * OrganizationMembership
  * 
- * <p>Hello world
+ * <p>A user's membership in an organization
  */
 public class OrganizationMembership {
 

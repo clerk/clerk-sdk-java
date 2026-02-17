@@ -57,6 +57,13 @@ public class CommerceSubscriptionItem {
     private Optional<String> planId;
 
     /**
+     * Unique identifier for the associated price
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("price_id")
+    private Optional<String> priceId;
+
+    /**
      * The associated plan.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -166,6 +173,7 @@ public class CommerceSubscriptionItem {
             @JsonProperty("status") CommerceSubscriptionItemStatus status,
             @JsonProperty("credit") Optional<? extends CommerceSubscriptionCreditResponse> credit,
             @JsonProperty("plan_id") Optional<String> planId,
+            @JsonProperty("price_id") Optional<String> priceId,
             @JsonProperty("plan") JsonNullable<? extends Plan> plan,
             @JsonProperty("plan_period") PlanPeriod planPeriod,
             @JsonProperty("payment_method") Optional<? extends CommercePaymentMethodResponse> paymentMethod,
@@ -188,6 +196,7 @@ public class CommerceSubscriptionItem {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(credit, "credit");
         Utils.checkNotNull(planId, "planId");
+        Utils.checkNotNull(priceId, "priceId");
         Utils.checkNotNull(plan, "plan");
         Utils.checkNotNull(planPeriod, "planPeriod");
         Utils.checkNotNull(paymentMethod, "paymentMethod");
@@ -210,6 +219,7 @@ public class CommerceSubscriptionItem {
         this.status = status;
         this.credit = credit;
         this.planId = planId;
+        this.priceId = priceId;
         this.plan = plan;
         this.planPeriod = planPeriod;
         this.paymentMethod = paymentMethod;
@@ -239,12 +249,12 @@ public class CommerceSubscriptionItem {
             long periodStart) {
         this(object, id, instanceId,
             status, Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), planPeriod, Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), payerId,
-            Optional.empty(), isFreeTrial, periodStart,
+            Optional.empty(), JsonNullable.undefined(), planPeriod,
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            payerId, Optional.empty(), isFreeTrial,
+            periodStart, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -291,6 +301,14 @@ public class CommerceSubscriptionItem {
     @JsonIgnore
     public Optional<String> planId() {
         return planId;
+    }
+
+    /**
+     * Unique identifier for the associated price
+     */
+    @JsonIgnore
+    public Optional<String> priceId() {
+        return priceId;
     }
 
     /**
@@ -487,6 +505,25 @@ public class CommerceSubscriptionItem {
     public CommerceSubscriptionItem withPlanId(Optional<String> planId) {
         Utils.checkNotNull(planId, "planId");
         this.planId = planId;
+        return this;
+    }
+
+    /**
+     * Unique identifier for the associated price
+     */
+    public CommerceSubscriptionItem withPriceId(String priceId) {
+        Utils.checkNotNull(priceId, "priceId");
+        this.priceId = Optional.ofNullable(priceId);
+        return this;
+    }
+
+
+    /**
+     * Unique identifier for the associated price
+     */
+    public CommerceSubscriptionItem withPriceId(Optional<String> priceId) {
+        Utils.checkNotNull(priceId, "priceId");
+        this.priceId = priceId;
         return this;
     }
 
@@ -750,6 +787,7 @@ public class CommerceSubscriptionItem {
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.credit, other.credit) &&
             Utils.enhancedDeepEquals(this.planId, other.planId) &&
+            Utils.enhancedDeepEquals(this.priceId, other.priceId) &&
             Utils.enhancedDeepEquals(this.plan, other.plan) &&
             Utils.enhancedDeepEquals(this.planPeriod, other.planPeriod) &&
             Utils.enhancedDeepEquals(this.paymentMethod, other.paymentMethod) &&
@@ -773,12 +811,12 @@ public class CommerceSubscriptionItem {
         return Utils.enhancedHash(
             object, id, instanceId,
             status, credit, planId,
-            plan, planPeriod, paymentMethod,
-            lifetimePaid, nextPayment, payerId,
-            payer, isFreeTrial, periodStart,
-            periodEnd, prorationDate, canceledAt,
-            pastDueAt, endedAt, createdAt,
-            updatedAt);
+            priceId, plan, planPeriod,
+            paymentMethod, lifetimePaid, nextPayment,
+            payerId, payer, isFreeTrial,
+            periodStart, periodEnd, prorationDate,
+            canceledAt, pastDueAt, endedAt,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -790,6 +828,7 @@ public class CommerceSubscriptionItem {
                 "status", status,
                 "credit", credit,
                 "planId", planId,
+                "priceId", priceId,
                 "plan", plan,
                 "planPeriod", planPeriod,
                 "paymentMethod", paymentMethod,
@@ -822,6 +861,8 @@ public class CommerceSubscriptionItem {
         private Optional<? extends CommerceSubscriptionCreditResponse> credit = Optional.empty();
 
         private Optional<String> planId = Optional.empty();
+
+        private Optional<String> priceId = Optional.empty();
 
         private JsonNullable<? extends Plan> plan = JsonNullable.undefined();
 
@@ -928,6 +969,25 @@ public class CommerceSubscriptionItem {
         public Builder planId(Optional<String> planId) {
             Utils.checkNotNull(planId, "planId");
             this.planId = planId;
+            return this;
+        }
+
+
+        /**
+         * Unique identifier for the associated price
+         */
+        public Builder priceId(String priceId) {
+            Utils.checkNotNull(priceId, "priceId");
+            this.priceId = Optional.ofNullable(priceId);
+            return this;
+        }
+
+        /**
+         * Unique identifier for the associated price
+         */
+        public Builder priceId(Optional<String> priceId) {
+            Utils.checkNotNull(priceId, "priceId");
+            this.priceId = priceId;
             return this;
         }
 
@@ -1186,12 +1246,12 @@ public class CommerceSubscriptionItem {
             return new CommerceSubscriptionItem(
                 object, id, instanceId,
                 status, credit, planId,
-                plan, planPeriod, paymentMethod,
-                lifetimePaid, nextPayment, payerId,
-                payer, isFreeTrial, periodStart,
-                periodEnd, prorationDate, canceledAt,
-                pastDueAt, endedAt, createdAt,
-                updatedAt);
+                priceId, plan, planPeriod,
+                paymentMethod, lifetimePaid, nextPayment,
+                payerId, payer, isFreeTrial,
+                periodStart, periodEnd, prorationDate,
+                canceledAt, pastDueAt, endedAt,
+                createdAt, updatedAt);
         }
 
     }

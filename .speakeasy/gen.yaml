@@ -13,6 +13,7 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: false
     sharedErrorComponentsApr2025: false
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
@@ -20,13 +21,14 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 4.1.2
+  version: 4.1.3
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -41,6 +43,7 @@ java:
   enableStreamingUploads: false
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   generateOptionalUnionAccessors: false
   generateSpringBootStarter: true
   githubURL: github.com/owner/repo
@@ -63,9 +66,9 @@ java:
   maxMethodParams: 4
   multipartArrayFormat: legacy
   nullFriendlyParameters: false
-  openUnions: true
   operationScopedParams: true
   outputModelSuffix: output
   projectName: api
+  respectTitlesForPrimitiveUnionMembers: false
   templateVersion: v2
   unionStrategy: populated-fields

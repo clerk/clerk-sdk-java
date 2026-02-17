@@ -76,6 +76,14 @@ public class OAuthAccessToken {
     private Optional<? extends List<String>> scopes;
 
     /**
+     * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+     * when available.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("id_token")
+    private Optional<String> idToken;
+
+    /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -93,6 +101,7 @@ public class OAuthAccessToken {
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
             @JsonProperty("label") Optional<String> label,
             @JsonProperty("scopes") Optional<? extends List<String>> scopes,
+            @JsonProperty("id_token") Optional<String> idToken,
             @JsonProperty("token_secret") Optional<String> tokenSecret) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalAccountId, "externalAccountId");
@@ -104,6 +113,7 @@ public class OAuthAccessToken {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(label, "label");
         Utils.checkNotNull(scopes, "scopes");
+        Utils.checkNotNull(idToken, "idToken");
         Utils.checkNotNull(tokenSecret, "tokenSecret");
         this.object = object;
         this.externalAccountId = externalAccountId;
@@ -114,6 +124,7 @@ public class OAuthAccessToken {
         this.publicMetadata = publicMetadata;
         this.label = label;
         this.scopes = scopes;
+        this.idToken = idToken;
         this.tokenSecret = tokenSecret;
     }
     
@@ -127,7 +138,7 @@ public class OAuthAccessToken {
         this(object, externalAccountId, providerUserId,
             token, Optional.empty(), provider,
             publicMetadata, Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -192,6 +203,15 @@ public class OAuthAccessToken {
     @JsonIgnore
     public Optional<List<String>> scopes() {
         return (Optional<List<String>>) scopes;
+    }
+
+    /**
+     * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+     * when available.
+     */
+    @JsonIgnore
+    public Optional<String> idToken() {
+        return idToken;
     }
 
     /**
@@ -307,6 +327,27 @@ public class OAuthAccessToken {
     }
 
     /**
+     * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+     * when available.
+     */
+    public OAuthAccessToken withIdToken(String idToken) {
+        Utils.checkNotNull(idToken, "idToken");
+        this.idToken = Optional.ofNullable(idToken);
+        return this;
+    }
+
+
+    /**
+     * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+     * when available.
+     */
+    public OAuthAccessToken withIdToken(Optional<String> idToken) {
+        Utils.checkNotNull(idToken, "idToken");
+        this.idToken = idToken;
+        return this;
+    }
+
+    /**
      * The token secret. Only present for OAuth 1.0 tokens.
      */
     public OAuthAccessToken withTokenSecret(String tokenSecret) {
@@ -344,6 +385,7 @@ public class OAuthAccessToken {
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.label, other.label) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.idToken, other.idToken) &&
             Utils.enhancedDeepEquals(this.tokenSecret, other.tokenSecret);
     }
     
@@ -353,7 +395,7 @@ public class OAuthAccessToken {
             object, externalAccountId, providerUserId,
             token, expiresAt, provider,
             publicMetadata, label, scopes,
-            tokenSecret);
+            idToken, tokenSecret);
     }
     
     @Override
@@ -368,6 +410,7 @@ public class OAuthAccessToken {
                 "publicMetadata", publicMetadata,
                 "label", label,
                 "scopes", scopes,
+                "idToken", idToken,
                 "tokenSecret", tokenSecret);
     }
 
@@ -391,6 +434,8 @@ public class OAuthAccessToken {
         private Optional<String> label = Optional.empty();
 
         private Optional<? extends List<String>> scopes = Optional.empty();
+
+        private Optional<String> idToken = Optional.empty();
 
         private Optional<String> tokenSecret = Optional.empty();
 
@@ -505,6 +550,27 @@ public class OAuthAccessToken {
 
 
         /**
+         * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+         * when available.
+         */
+        public Builder idToken(String idToken) {
+            Utils.checkNotNull(idToken, "idToken");
+            this.idToken = Optional.ofNullable(idToken);
+            return this;
+        }
+
+        /**
+         * The ID token retrieved from the OIDC provider. Only present for OIDC-compliant OAuth 2.0 providers
+         * when available.
+         */
+        public Builder idToken(Optional<String> idToken) {
+            Utils.checkNotNull(idToken, "idToken");
+            this.idToken = idToken;
+            return this;
+        }
+
+
+        /**
          * The token secret. Only present for OAuth 1.0 tokens.
          */
         public Builder tokenSecret(String tokenSecret) {
@@ -528,7 +594,7 @@ public class OAuthAccessToken {
                 object, externalAccountId, providerUserId,
                 token, expiresAt, provider,
                 publicMetadata, label, scopes,
-                tokenSecret);
+                idToken, tokenSecret);
         }
 
     }

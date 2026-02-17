@@ -115,7 +115,7 @@ public class CreateOAuthApplication {
                     typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
-                    "request",
+                    "",
                     "json",
                     false);
             req.setBody(Optional.ofNullable(serializedRequestBody));

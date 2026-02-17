@@ -5,6 +5,9 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.operations.CreateBulkWaitlistEntriesRequestBody;
+import com.clerk.backend_api.models.operations.CreateBulkWaitlistEntriesRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateBulkWaitlistEntriesResponse;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBody;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateWaitlistEntryResponse;
@@ -21,6 +24,7 @@ import com.clerk.backend_api.models.operations.ListWaitlistEntriesResponse;
 import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequest;
 import com.clerk.backend_api.models.operations.RejectWaitlistEntryRequestBuilder;
 import com.clerk.backend_api.models.operations.RejectWaitlistEntryResponse;
+import com.clerk.backend_api.operations.CreateBulkWaitlistEntries;
 import com.clerk.backend_api.operations.CreateWaitlistEntry;
 import com.clerk.backend_api.operations.DeleteWaitlistEntry;
 import com.clerk.backend_api.operations.InviteWaitlistEntry;
@@ -29,6 +33,7 @@ import com.clerk.backend_api.operations.RejectWaitlistEntry;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -128,6 +133,75 @@ public class WaitlistEntries {
     public CreateWaitlistEntryResponse create(Optional<? extends CreateWaitlistEntryRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateWaitlistEntryRequestBody>, CreateWaitlistEntryResponse> operation
               = new CreateWaitlistEntry.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create multiple waitlist entries
+     * 
+     * <p>Creates multiple waitlist entries for the provided email addresses.
+     * You can choose whether to send confirmation emails by setting the `notify` parameter to `true` or
+     * `false` for each entry.
+     * If the `notify` parameter is omitted, it defaults to `true`.
+     * 
+     * <p>If an email address is already on the waitlist, no new entry will be created and the existing
+     * waitlist entry will be returned.
+     * Duplicate email addresses within the same request are not allowed.
+     * 
+     * <p>This endpoint is limited to a maximum of 50 entries per API call. If you need to add more entries,
+     * please make multiple requests.
+     * 
+     * @return The call builder
+     */
+    public CreateBulkWaitlistEntriesRequestBuilder bulkCreate() {
+        return new CreateBulkWaitlistEntriesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create multiple waitlist entries
+     * 
+     * <p>Creates multiple waitlist entries for the provided email addresses.
+     * You can choose whether to send confirmation emails by setting the `notify` parameter to `true` or
+     * `false` for each entry.
+     * If the `notify` parameter is omitted, it defaults to `true`.
+     * 
+     * <p>If an email address is already on the waitlist, no new entry will be created and the existing
+     * waitlist entry will be returned.
+     * Duplicate email addresses within the same request are not allowed.
+     * 
+     * <p>This endpoint is limited to a maximum of 50 entries per API call. If you need to add more entries,
+     * please make multiple requests.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBulkWaitlistEntriesResponse bulkCreateDirect() {
+        return bulkCreate(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create multiple waitlist entries
+     * 
+     * <p>Creates multiple waitlist entries for the provided email addresses.
+     * You can choose whether to send confirmation emails by setting the `notify` parameter to `true` or
+     * `false` for each entry.
+     * If the `notify` parameter is omitted, it defaults to `true`.
+     * 
+     * <p>If an email address is already on the waitlist, no new entry will be created and the existing
+     * waitlist entry will be returned.
+     * Duplicate email addresses within the same request are not allowed.
+     * 
+     * <p>This endpoint is limited to a maximum of 50 entries per API call. If you need to add more entries,
+     * please make multiple requests.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBulkWaitlistEntriesResponse bulkCreate(Optional<? extends List<CreateBulkWaitlistEntriesRequestBody>> request, Optional<Options> options) {
+        RequestOperation<Optional<? extends List<CreateBulkWaitlistEntriesRequestBody>>, CreateBulkWaitlistEntriesResponse> operation
+              = new CreateBulkWaitlistEntries.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

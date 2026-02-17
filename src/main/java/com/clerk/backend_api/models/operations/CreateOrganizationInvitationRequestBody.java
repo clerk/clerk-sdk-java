@@ -3,12 +3,15 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
@@ -75,6 +78,14 @@ public class CreateOrganizationInvitationRequestBody {
     @JsonProperty("expires_in_days")
     private JsonNullable<Long> expiresInDays;
 
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to `true`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("notify")
+    private JsonNullable<Boolean> notify_;
+
     @JsonCreator
     public CreateOrganizationInvitationRequestBody(
             @JsonProperty("email_address") String emailAddress,
@@ -83,7 +94,8 @@ public class CreateOrganizationInvitationRequestBody {
             @JsonProperty("public_metadata") JsonNullable<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("redirect_url") JsonNullable<String> redirectUrl,
-            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays) {
+            @JsonProperty("expires_in_days") JsonNullable<Long> expiresInDays,
+            @JsonProperty("notify") JsonNullable<Boolean> notify_) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(inviterUserId, "inviterUserId");
         Utils.checkNotNull(role, "role");
@@ -91,6 +103,7 @@ public class CreateOrganizationInvitationRequestBody {
         Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         Utils.checkNotNull(expiresInDays, "expiresInDays");
+        Utils.checkNotNull(notify_, "notify_");
         this.emailAddress = emailAddress;
         this.inviterUserId = inviterUserId;
         this.role = role;
@@ -98,6 +111,7 @@ public class CreateOrganizationInvitationRequestBody {
         this.privateMetadata = privateMetadata;
         this.redirectUrl = redirectUrl;
         this.expiresInDays = expiresInDays;
+        this.notify_ = notify_;
     }
     
     public CreateOrganizationInvitationRequestBody(
@@ -105,7 +119,7 @@ public class CreateOrganizationInvitationRequestBody {
             String role) {
         this(emailAddress, JsonNullable.undefined(), role,
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -173,6 +187,15 @@ public class CreateOrganizationInvitationRequestBody {
     @JsonIgnore
     public JsonNullable<Long> expiresInDays() {
         return expiresInDays;
+    }
+
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to `true`.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> notify_() {
+        return notify_;
     }
 
     public static Builder builder() {
@@ -306,6 +329,26 @@ public class CreateOrganizationInvitationRequestBody {
         return this;
     }
 
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to `true`.
+     */
+    public CreateOrganizationInvitationRequestBody withNotify(boolean notify_) {
+        Utils.checkNotNull(notify_, "notify_");
+        this.notify_ = JsonNullable.of(notify_);
+        return this;
+    }
+
+    /**
+     * Optional flag which denotes whether an email invitation should be sent to the given email address.
+     * Defaults to `true`.
+     */
+    public CreateOrganizationInvitationRequestBody withNotify(JsonNullable<Boolean> notify_) {
+        Utils.checkNotNull(notify_, "notify_");
+        this.notify_ = notify_;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -322,7 +365,8 @@ public class CreateOrganizationInvitationRequestBody {
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
             Utils.enhancedDeepEquals(this.redirectUrl, other.redirectUrl) &&
-            Utils.enhancedDeepEquals(this.expiresInDays, other.expiresInDays);
+            Utils.enhancedDeepEquals(this.expiresInDays, other.expiresInDays) &&
+            Utils.enhancedDeepEquals(this.notify_, other.notify_);
     }
     
     @Override
@@ -330,7 +374,7 @@ public class CreateOrganizationInvitationRequestBody {
         return Utils.enhancedHash(
             emailAddress, inviterUserId, role,
             publicMetadata, privateMetadata, redirectUrl,
-            expiresInDays);
+            expiresInDays, notify_);
     }
     
     @Override
@@ -342,7 +386,8 @@ public class CreateOrganizationInvitationRequestBody {
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
                 "redirectUrl", redirectUrl,
-                "expiresInDays", expiresInDays);
+                "expiresInDays", expiresInDays,
+                "notify_", notify_);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -361,6 +406,8 @@ public class CreateOrganizationInvitationRequestBody {
         private JsonNullable<String> redirectUrl = JsonNullable.undefined();
 
         private JsonNullable<Long> expiresInDays = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> notify_;
 
         private Builder() {
           // force use of static builder() method
@@ -499,13 +546,43 @@ public class CreateOrganizationInvitationRequestBody {
             return this;
         }
 
+
+        /**
+         * Optional flag which denotes whether an email invitation should be sent to the given email address.
+         * Defaults to `true`.
+         */
+        public Builder notify_(boolean notify_) {
+            Utils.checkNotNull(notify_, "notify_");
+            this.notify_ = JsonNullable.of(notify_);
+            return this;
+        }
+
+        /**
+         * Optional flag which denotes whether an email invitation should be sent to the given email address.
+         * Defaults to `true`.
+         */
+        public Builder notify_(JsonNullable<Boolean> notify_) {
+            Utils.checkNotNull(notify_, "notify_");
+            this.notify_ = notify_;
+            return this;
+        }
+
         public CreateOrganizationInvitationRequestBody build() {
+            if (notify_ == null) {
+                notify_ = _SINGLETON_VALUE_Notify.value();
+            }
 
             return new CreateOrganizationInvitationRequestBody(
                 emailAddress, inviterUserId, role,
                 publicMetadata, privateMetadata, redirectUrl,
-                expiresInDays);
+                expiresInDays, notify_);
         }
 
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_Notify =
+                new LazySingletonValue<>(
+                        "notify",
+                        "true",
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }

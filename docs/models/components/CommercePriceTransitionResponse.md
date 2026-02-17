@@ -1,0 +1,12 @@
+# CommercePriceTransitionResponse
+
+A commerce price transition.
+
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `object`                                                                                                  | [CommercePriceTransitionResponseObject](../../models/components/CommercePriceTransitionResponseObject.md) | :heavy_check_mark:                                                                                        | String representing the object's type. Objects of the same type share the same value.                     |
+| `subscriptionItem`                                                                                        | [SchemasCommerceSubscriptionItem](../../models/components/SchemasCommerceSubscriptionItem.md)             | :heavy_check_mark:                                                                                        | N/A                                                                                                       |
+| `transition`                                                                                              | [CommercePriceTransitionDetails](../../models/components/CommercePriceTransitionDetails.md)               | :heavy_check_mark:                                                                                        | N/A                                                                                                       |

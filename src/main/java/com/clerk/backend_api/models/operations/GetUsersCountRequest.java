@@ -161,6 +161,41 @@ public class GetUsersCountRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=created_at_after")
     private Optional<Long> createdAtAfter;
 
+    /**
+     * Counts users whose last sign-in was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_sign_in_at_before")
+    private Optional<Long> lastSignInAtBefore;
+
+    /**
+     * Counts users whose last sign-in was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=last_sign_in_at_after")
+    private Optional<Long> lastSignInAtAfter;
+
+    /**
+     * Counts users with external accounts for the specified OAuth provider.
+     * Must be used in combination with the `provider_user_id` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 providers.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provider")
+    private Optional<String> provider;
+
+    /**
+     * Counts users with the specified provider user IDs for a specific provider.
+     * Must be used in combination with the `provider` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 provider user IDs.
+     * Any provider user IDs not found are ignored.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provider_user_id")
+    private Optional<? extends List<String>> providerUserId;
+
     @JsonCreator
     public GetUsersCountRequest(
             Optional<? extends List<String>> emailAddress,
@@ -180,7 +215,11 @@ public class GetUsersCountRequest {
             Optional<Long> lastActiveAtAfter,
             Optional<Long> lastActiveAtSince,
             Optional<Long> createdAtBefore,
-            Optional<Long> createdAtAfter) {
+            Optional<Long> createdAtAfter,
+            Optional<Long> lastSignInAtBefore,
+            Optional<Long> lastSignInAtAfter,
+            Optional<String> provider,
+            Optional<? extends List<String>> providerUserId) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         Utils.checkNotNull(externalId, "externalId");
@@ -199,6 +238,10 @@ public class GetUsersCountRequest {
         Utils.checkNotNull(lastActiveAtSince, "lastActiveAtSince");
         Utils.checkNotNull(createdAtBefore, "createdAtBefore");
         Utils.checkNotNull(createdAtAfter, "createdAtAfter");
+        Utils.checkNotNull(lastSignInAtBefore, "lastSignInAtBefore");
+        Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
+        Utils.checkNotNull(provider, "provider");
+        Utils.checkNotNull(providerUserId, "providerUserId");
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.externalId = externalId;
@@ -217,6 +260,10 @@ public class GetUsersCountRequest {
         this.lastActiveAtSince = lastActiveAtSince;
         this.createdAtBefore = createdAtBefore;
         this.createdAtAfter = createdAtAfter;
+        this.lastSignInAtBefore = lastSignInAtBefore;
+        this.lastSignInAtAfter = lastSignInAtAfter;
+        this.provider = provider;
+        this.providerUserId = providerUserId;
     }
     
     public GetUsersCountRequest() {
@@ -225,7 +272,9 @@ public class GetUsersCountRequest {
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -412,6 +461,50 @@ public class GetUsersCountRequest {
     @JsonIgnore
     public Optional<Long> createdAtAfter() {
         return createdAtAfter;
+    }
+
+    /**
+     * Counts users whose last sign-in was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+     */
+    @JsonIgnore
+    public Optional<Long> lastSignInAtBefore() {
+        return lastSignInAtBefore;
+    }
+
+    /**
+     * Counts users whose last sign-in was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+     */
+    @JsonIgnore
+    public Optional<Long> lastSignInAtAfter() {
+        return lastSignInAtAfter;
+    }
+
+    /**
+     * Counts users with external accounts for the specified OAuth provider.
+     * Must be used in combination with the `provider_user_id` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 providers.
+     */
+    @JsonIgnore
+    public Optional<String> provider() {
+        return provider;
+    }
+
+    /**
+     * Counts users with the specified provider user IDs for a specific provider.
+     * Must be used in combination with the `provider` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 provider user IDs.
+     * Any provider user IDs not found are ignored.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> providerUserId() {
+        return (Optional<List<String>>) providerUserId;
     }
 
     public static Builder builder() {
@@ -831,6 +924,104 @@ public class GetUsersCountRequest {
         return this;
     }
 
+    /**
+     * Counts users whose last sign-in was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+     */
+    public GetUsersCountRequest withLastSignInAtBefore(long lastSignInAtBefore) {
+        Utils.checkNotNull(lastSignInAtBefore, "lastSignInAtBefore");
+        this.lastSignInAtBefore = Optional.ofNullable(lastSignInAtBefore);
+        return this;
+    }
+
+
+    /**
+     * Counts users whose last sign-in was before the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+     */
+    public GetUsersCountRequest withLastSignInAtBefore(Optional<Long> lastSignInAtBefore) {
+        Utils.checkNotNull(lastSignInAtBefore, "lastSignInAtBefore");
+        this.lastSignInAtBefore = lastSignInAtBefore;
+        return this;
+    }
+
+    /**
+     * Counts users whose last sign-in was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+     */
+    public GetUsersCountRequest withLastSignInAtAfter(long lastSignInAtAfter) {
+        Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
+        this.lastSignInAtAfter = Optional.ofNullable(lastSignInAtAfter);
+        return this;
+    }
+
+
+    /**
+     * Counts users whose last sign-in was after the given date (with millisecond precision).
+     * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+     */
+    public GetUsersCountRequest withLastSignInAtAfter(Optional<Long> lastSignInAtAfter) {
+        Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
+        this.lastSignInAtAfter = lastSignInAtAfter;
+        return this;
+    }
+
+    /**
+     * Counts users with external accounts for the specified OAuth provider.
+     * Must be used in combination with the `provider_user_id` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 providers.
+     */
+    public GetUsersCountRequest withProvider(String provider) {
+        Utils.checkNotNull(provider, "provider");
+        this.provider = Optional.ofNullable(provider);
+        return this;
+    }
+
+
+    /**
+     * Counts users with external accounts for the specified OAuth provider.
+     * Must be used in combination with the `provider_user_id` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 providers.
+     */
+    public GetUsersCountRequest withProvider(Optional<String> provider) {
+        Utils.checkNotNull(provider, "provider");
+        this.provider = provider;
+        return this;
+    }
+
+    /**
+     * Counts users with the specified provider user IDs for a specific provider.
+     * Must be used in combination with the `provider` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 provider user IDs.
+     * Any provider user IDs not found are ignored.
+     */
+    public GetUsersCountRequest withProviderUserId(List<String> providerUserId) {
+        Utils.checkNotNull(providerUserId, "providerUserId");
+        this.providerUserId = Optional.ofNullable(providerUserId);
+        return this;
+    }
+
+
+    /**
+     * Counts users with the specified provider user IDs for a specific provider.
+     * Must be used in combination with the `provider` parameter.
+     * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+     * provider user ID 12345.
+     * Accepts up to 100 provider user IDs.
+     * Any provider user IDs not found are ignored.
+     */
+    public GetUsersCountRequest withProviderUserId(Optional<? extends List<String>> providerUserId) {
+        Utils.checkNotNull(providerUserId, "providerUserId");
+        this.providerUserId = providerUserId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -858,7 +1049,11 @@ public class GetUsersCountRequest {
             Utils.enhancedDeepEquals(this.lastActiveAtAfter, other.lastActiveAtAfter) &&
             Utils.enhancedDeepEquals(this.lastActiveAtSince, other.lastActiveAtSince) &&
             Utils.enhancedDeepEquals(this.createdAtBefore, other.createdAtBefore) &&
-            Utils.enhancedDeepEquals(this.createdAtAfter, other.createdAtAfter);
+            Utils.enhancedDeepEquals(this.createdAtAfter, other.createdAtAfter) &&
+            Utils.enhancedDeepEquals(this.lastSignInAtBefore, other.lastSignInAtBefore) &&
+            Utils.enhancedDeepEquals(this.lastSignInAtAfter, other.lastSignInAtAfter) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId);
     }
     
     @Override
@@ -869,7 +1064,9 @@ public class GetUsersCountRequest {
             organizationId, query, emailAddressQuery,
             phoneNumberQuery, usernameQuery, nameQuery,
             banned, lastActiveAtBefore, lastActiveAtAfter,
-            lastActiveAtSince, createdAtBefore, createdAtAfter);
+            lastActiveAtSince, createdAtBefore, createdAtAfter,
+            lastSignInAtBefore, lastSignInAtAfter, provider,
+            providerUserId);
     }
     
     @Override
@@ -892,7 +1089,11 @@ public class GetUsersCountRequest {
                 "lastActiveAtAfter", lastActiveAtAfter,
                 "lastActiveAtSince", lastActiveAtSince,
                 "createdAtBefore", createdAtBefore,
-                "createdAtAfter", createdAtAfter);
+                "createdAtAfter", createdAtAfter,
+                "lastSignInAtBefore", lastSignInAtBefore,
+                "lastSignInAtAfter", lastSignInAtAfter,
+                "provider", provider,
+                "providerUserId", providerUserId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -934,6 +1135,14 @@ public class GetUsersCountRequest {
         private Optional<Long> createdAtBefore = Optional.empty();
 
         private Optional<Long> createdAtAfter = Optional.empty();
+
+        private Optional<Long> lastSignInAtBefore = Optional.empty();
+
+        private Optional<Long> lastSignInAtAfter = Optional.empty();
+
+        private Optional<String> provider = Optional.empty();
+
+        private Optional<? extends List<String>> providerUserId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -1351,6 +1560,104 @@ public class GetUsersCountRequest {
             return this;
         }
 
+
+        /**
+         * Counts users whose last sign-in was before the given date (with millisecond precision).
+         * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+         */
+        public Builder lastSignInAtBefore(long lastSignInAtBefore) {
+            Utils.checkNotNull(lastSignInAtBefore, "lastSignInAtBefore");
+            this.lastSignInAtBefore = Optional.ofNullable(lastSignInAtBefore);
+            return this;
+        }
+
+        /**
+         * Counts users whose last sign-in was before the given date (with millisecond precision).
+         * Example: use 1700690400000 to count users whose last sign-in was before 2023-11-23.
+         */
+        public Builder lastSignInAtBefore(Optional<Long> lastSignInAtBefore) {
+            Utils.checkNotNull(lastSignInAtBefore, "lastSignInAtBefore");
+            this.lastSignInAtBefore = lastSignInAtBefore;
+            return this;
+        }
+
+
+        /**
+         * Counts users whose last sign-in was after the given date (with millisecond precision).
+         * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+         */
+        public Builder lastSignInAtAfter(long lastSignInAtAfter) {
+            Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
+            this.lastSignInAtAfter = Optional.ofNullable(lastSignInAtAfter);
+            return this;
+        }
+
+        /**
+         * Counts users whose last sign-in was after the given date (with millisecond precision).
+         * Example: use 1700690400000 to count users whose last sign-in was after 2023-11-23.
+         */
+        public Builder lastSignInAtAfter(Optional<Long> lastSignInAtAfter) {
+            Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
+            this.lastSignInAtAfter = lastSignInAtAfter;
+            return this;
+        }
+
+
+        /**
+         * Counts users with external accounts for the specified OAuth provider.
+         * Must be used in combination with the `provider_user_id` parameter.
+         * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+         * provider user ID 12345.
+         * Accepts up to 100 providers.
+         */
+        public Builder provider(String provider) {
+            Utils.checkNotNull(provider, "provider");
+            this.provider = Optional.ofNullable(provider);
+            return this;
+        }
+
+        /**
+         * Counts users with external accounts for the specified OAuth provider.
+         * Must be used in combination with the `provider_user_id` parameter.
+         * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+         * provider user ID 12345.
+         * Accepts up to 100 providers.
+         */
+        public Builder provider(Optional<String> provider) {
+            Utils.checkNotNull(provider, "provider");
+            this.provider = provider;
+            return this;
+        }
+
+
+        /**
+         * Counts users with the specified provider user IDs for a specific provider.
+         * Must be used in combination with the `provider` parameter.
+         * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+         * provider user ID 12345.
+         * Accepts up to 100 provider user IDs.
+         * Any provider user IDs not found are ignored.
+         */
+        public Builder providerUserId(List<String> providerUserId) {
+            Utils.checkNotNull(providerUserId, "providerUserId");
+            this.providerUserId = Optional.ofNullable(providerUserId);
+            return this;
+        }
+
+        /**
+         * Counts users with the specified provider user IDs for a specific provider.
+         * Must be used in combination with the `provider` parameter.
+         * For example, use `provider=oauth_google&amp;provider_user_id=12345` to count users with Google
+         * provider user ID 12345.
+         * Accepts up to 100 provider user IDs.
+         * Any provider user IDs not found are ignored.
+         */
+        public Builder providerUserId(Optional<? extends List<String>> providerUserId) {
+            Utils.checkNotNull(providerUserId, "providerUserId");
+            this.providerUserId = providerUserId;
+            return this;
+        }
+
         public GetUsersCountRequest build() {
 
             return new GetUsersCountRequest(
@@ -1359,7 +1666,9 @@ public class GetUsersCountRequest {
                 organizationId, query, emailAddressQuery,
                 phoneNumberQuery, usernameQuery, nameQuery,
                 banned, lastActiveAtBefore, lastActiveAtAfter,
-                lastActiveAtSince, createdAtBefore, createdAtAfter);
+                lastActiveAtSince, createdAtBefore, createdAtAfter,
+                lastSignInAtBefore, lastSignInAtAfter, provider,
+                providerUserId);
         }
 
     }

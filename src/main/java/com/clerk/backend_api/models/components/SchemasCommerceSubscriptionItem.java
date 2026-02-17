@@ -61,6 +61,13 @@ public class SchemasCommerceSubscriptionItem {
     private String planId;
 
     /**
+     * Unique identifier for the associated price
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("price_id")
+    private Optional<String> priceId;
+
+    /**
      * The associated commerce plan.
      */
     @JsonInclude(Include.ALWAYS)
@@ -194,6 +201,7 @@ public class SchemasCommerceSubscriptionItem {
             @JsonProperty("status") SchemasCommerceSubscriptionItemStatus status,
             @JsonProperty("credit") JsonNullable<? extends Credit> credit,
             @JsonProperty("plan_id") String planId,
+            @JsonProperty("price_id") Optional<String> priceId,
             @JsonProperty("plan") Optional<? extends SchemasCommerceSubscriptionItemPlan> plan,
             @JsonProperty("plan_period") SchemasCommerceSubscriptionItemPlanPeriod planPeriod,
             @JsonProperty("payment_source_id") String paymentSourceId,
@@ -219,6 +227,7 @@ public class SchemasCommerceSubscriptionItem {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(credit, "credit");
         Utils.checkNotNull(planId, "planId");
+        Utils.checkNotNull(priceId, "priceId");
         Utils.checkNotNull(plan, "plan");
         Utils.checkNotNull(planPeriod, "planPeriod");
         Utils.checkNotNull(paymentSourceId, "paymentSourceId");
@@ -244,6 +253,7 @@ public class SchemasCommerceSubscriptionItem {
         this.status = status;
         this.credit = credit;
         this.planId = planId;
+        this.priceId = priceId;
         this.plan = plan;
         this.planPeriod = planPeriod;
         this.paymentSourceId = paymentSourceId;
@@ -280,13 +290,13 @@ public class SchemasCommerceSubscriptionItem {
             long updatedAt) {
         this(object, id, instanceId,
             status, JsonNullable.undefined(), planId,
-            Optional.empty(), planPeriod, paymentSourceId,
+            Optional.empty(), Optional.empty(), planPeriod,
+            paymentSourceId, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), payerId,
-            JsonNullable.undefined(), isFreeTrial, JsonNullable.undefined(),
-            JsonNullable.undefined(), prorationDate, JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), createdAt,
-            updatedAt);
+            payerId, JsonNullable.undefined(), isFreeTrial,
+            JsonNullable.undefined(), JsonNullable.undefined(), prorationDate,
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     /**
@@ -336,6 +346,14 @@ public class SchemasCommerceSubscriptionItem {
     @JsonIgnore
     public String planId() {
         return planId;
+    }
+
+    /**
+     * Unique identifier for the associated price
+     */
+    @JsonIgnore
+    public Optional<String> priceId() {
+        return priceId;
     }
 
     /**
@@ -562,6 +580,25 @@ public class SchemasCommerceSubscriptionItem {
     public SchemasCommerceSubscriptionItem withPlanId(String planId) {
         Utils.checkNotNull(planId, "planId");
         this.planId = planId;
+        return this;
+    }
+
+    /**
+     * Unique identifier for the associated price
+     */
+    public SchemasCommerceSubscriptionItem withPriceId(String priceId) {
+        Utils.checkNotNull(priceId, "priceId");
+        this.priceId = Optional.ofNullable(priceId);
+        return this;
+    }
+
+
+    /**
+     * Unique identifier for the associated price
+     */
+    public SchemasCommerceSubscriptionItem withPriceId(Optional<String> priceId) {
+        Utils.checkNotNull(priceId, "priceId");
+        this.priceId = priceId;
         return this;
     }
 
@@ -861,6 +898,7 @@ public class SchemasCommerceSubscriptionItem {
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.credit, other.credit) &&
             Utils.enhancedDeepEquals(this.planId, other.planId) &&
+            Utils.enhancedDeepEquals(this.priceId, other.priceId) &&
             Utils.enhancedDeepEquals(this.plan, other.plan) &&
             Utils.enhancedDeepEquals(this.planPeriod, other.planPeriod) &&
             Utils.enhancedDeepEquals(this.paymentSourceId, other.paymentSourceId) &&
@@ -887,13 +925,13 @@ public class SchemasCommerceSubscriptionItem {
         return Utils.enhancedHash(
             object, id, instanceId,
             status, credit, planId,
-            plan, planPeriod, paymentSourceId,
-            paymentSource, lifetimePaid, amount,
-            nextInvoice, nextPayment, payerId,
-            payer, isFreeTrial, periodStart,
-            periodEnd, prorationDate, canceledAt,
-            pastDueAt, endedAt, createdAt,
-            updatedAt);
+            priceId, plan, planPeriod,
+            paymentSourceId, paymentSource, lifetimePaid,
+            amount, nextInvoice, nextPayment,
+            payerId, payer, isFreeTrial,
+            periodStart, periodEnd, prorationDate,
+            canceledAt, pastDueAt, endedAt,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -905,6 +943,7 @@ public class SchemasCommerceSubscriptionItem {
                 "status", status,
                 "credit", credit,
                 "planId", planId,
+                "priceId", priceId,
                 "plan", plan,
                 "planPeriod", planPeriod,
                 "paymentSourceId", paymentSourceId,
@@ -940,6 +979,8 @@ public class SchemasCommerceSubscriptionItem {
         private JsonNullable<? extends Credit> credit = JsonNullable.undefined();
 
         private String planId;
+
+        private Optional<String> priceId = Optional.empty();
 
         private Optional<? extends SchemasCommerceSubscriptionItemPlan> plan = Optional.empty();
 
@@ -1049,6 +1090,25 @@ public class SchemasCommerceSubscriptionItem {
         public Builder planId(String planId) {
             Utils.checkNotNull(planId, "planId");
             this.planId = planId;
+            return this;
+        }
+
+
+        /**
+         * Unique identifier for the associated price
+         */
+        public Builder priceId(String priceId) {
+            Utils.checkNotNull(priceId, "priceId");
+            this.priceId = Optional.ofNullable(priceId);
+            return this;
+        }
+
+        /**
+         * Unique identifier for the associated price
+         */
+        public Builder priceId(Optional<String> priceId) {
+            Utils.checkNotNull(priceId, "priceId");
+            this.priceId = priceId;
             return this;
         }
 
@@ -1355,13 +1415,13 @@ public class SchemasCommerceSubscriptionItem {
             return new SchemasCommerceSubscriptionItem(
                 object, id, instanceId,
                 status, credit, planId,
-                plan, planPeriod, paymentSourceId,
-                paymentSource, lifetimePaid, amount,
-                nextInvoice, nextPayment, payerId,
-                payer, isFreeTrial, periodStart,
-                periodEnd, prorationDate, canceledAt,
-                pastDueAt, endedAt, createdAt,
-                updatedAt);
+                priceId, plan, planPeriod,
+                paymentSourceId, paymentSource, lifetimePaid,
+                amount, nextInvoice, nextPayment,
+                payerId, payer, isFreeTrial,
+                periodStart, periodEnd, prorationDate,
+                canceledAt, pastDueAt, endedAt,
+                createdAt, updatedAt);
         }
 
     }

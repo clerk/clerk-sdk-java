@@ -18,6 +18,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class OrganizationWithLogo {
@@ -102,6 +103,14 @@ public class OrganizationWithLogo {
     private Optional<Long> lastActiveAt;
 
     /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("role_set_key")
+    private JsonNullable<String> roleSetKey;
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -129,6 +138,7 @@ public class OrganizationWithLogo {
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt,
             @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
+            @JsonProperty("role_set_key") JsonNullable<String> roleSetKey,
             @JsonProperty("logo_url") Optional<String> logoUrl) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -148,6 +158,7 @@ public class OrganizationWithLogo {
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
         Utils.checkNotNull(logoUrl, "logoUrl");
         this.object = object;
         this.id = id;
@@ -166,6 +177,7 @@ public class OrganizationWithLogo {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.lastActiveAt = lastActiveAt;
+        this.roleSetKey = roleSetKey;
         this.logoUrl = logoUrl;
     }
     
@@ -186,7 +198,8 @@ public class OrganizationWithLogo {
             Optional.empty(), Optional.empty(), Optional.empty(),
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             Optional.empty(), Optional.empty(), createdAt,
-            updatedAt, Optional.empty(), Optional.empty());
+            updatedAt, Optional.empty(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -282,6 +295,15 @@ public class OrganizationWithLogo {
     @JsonIgnore
     public Optional<Long> lastActiveAt() {
         return lastActiveAt;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    @JsonIgnore
+    public JsonNullable<String> roleSetKey() {
+        return roleSetKey;
     }
 
     /**
@@ -456,6 +478,26 @@ public class OrganizationWithLogo {
     }
 
     /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    public OrganizationWithLogo withRoleSetKey(String roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = JsonNullable.of(roleSetKey);
+        return this;
+    }
+
+    /**
+     * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+     * assigned to this organization.
+     */
+    public OrganizationWithLogo withRoleSetKey(JsonNullable<String> roleSetKey) {
+        Utils.checkNotNull(roleSetKey, "roleSetKey");
+        this.roleSetKey = roleSetKey;
+        return this;
+    }
+
+    /**
      * 
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -505,6 +547,7 @@ public class OrganizationWithLogo {
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
             Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
+            Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey) &&
             Utils.enhancedDeepEquals(this.logoUrl, other.logoUrl);
     }
     
@@ -516,7 +559,8 @@ public class OrganizationWithLogo {
             membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
             maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
             privateMetadata, createdBy, createdAt,
-            updatedAt, lastActiveAt, logoUrl);
+            updatedAt, lastActiveAt, roleSetKey,
+            logoUrl);
     }
     
     @Override
@@ -539,6 +583,7 @@ public class OrganizationWithLogo {
                 "createdAt", createdAt,
                 "updatedAt", updatedAt,
                 "lastActiveAt", lastActiveAt,
+                "roleSetKey", roleSetKey,
                 "logoUrl", logoUrl);
     }
 
@@ -578,6 +623,8 @@ public class OrganizationWithLogo {
         private Long updatedAt;
 
         private Optional<Long> lastActiveAt = Optional.empty();
+
+        private JsonNullable<String> roleSetKey = JsonNullable.undefined();
 
         @Deprecated
         private Optional<String> logoUrl = Optional.empty();
@@ -755,6 +802,27 @@ public class OrganizationWithLogo {
 
 
         /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+         * assigned to this organization.
+         */
+        public Builder roleSetKey(String roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = JsonNullable.of(roleSetKey);
+            return this;
+        }
+
+        /**
+         * The key of the [role set](https://clerk.com/docs/guides/organizations/control-access/role-sets)
+         * assigned to this organization.
+         */
+        public Builder roleSetKey(JsonNullable<String> roleSetKey) {
+            Utils.checkNotNull(roleSetKey, "roleSetKey");
+            this.roleSetKey = roleSetKey;
+            return this;
+        }
+
+
+        /**
          * 
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
@@ -784,7 +852,8 @@ public class OrganizationWithLogo {
                 membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
                 maxAllowedMemberships, adminDeleteEnabled, publicMetadata,
                 privateMetadata, createdBy, createdAt,
-                updatedAt, lastActiveAt, logoUrl);
+                updatedAt, lastActiveAt, roleSetKey,
+                logoUrl);
         }
 
     }

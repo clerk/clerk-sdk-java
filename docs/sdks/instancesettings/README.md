@@ -2,6 +2,8 @@
 
 ## Overview
 
+Modify the settings of your instance.
+
 ### Available Operations
 
 * [get](#get) - Fetch the current instance
@@ -9,6 +11,8 @@
 * [updateRestrictions](#updaterestrictions) - Update instance restrictions
 * [changeDomain](#changedomain) - Update production instance domain
 * [updateOrganizationSettings](#updateorganizationsettings) - Update instance organization settings
+* [getInstanceProtect](#getinstanceprotect) - Get instance protect settings
+* [updateInstanceProtect](#updateinstanceprotect) - Update instance protect settings
 
 ## get
 
@@ -250,4 +254,96 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 402, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getInstanceProtect
+
+Get instance protect settings
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetInstanceProtect" method="get" path="/instance/protect" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetInstanceProtectResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetInstanceProtectResponse res = sdk.instanceSettings().getInstanceProtect()
+                .call();
+
+        if (res.instanceProtect().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Response
+
+**[GetInstanceProtectResponse](../../models/operations/GetInstanceProtectResponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4XX, 5XX               | \*/\*                  |
+
+## updateInstanceProtect
+
+Update instance protect settings
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UpdateInstanceProtect" method="patch" path="/instance/protect" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UpdateInstanceProtectResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UpdateInstanceProtectResponse res = sdk.instanceSettings().updateInstanceProtect()
+                .call();
+
+        if (res.instanceProtect().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [UpdateInstanceProtectRequestBody](../../models/operations/UpdateInstanceProtectRequestBody.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
+
+### Response
+
+**[UpdateInstanceProtectResponse](../../models/operations/UpdateInstanceProtectResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 422                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

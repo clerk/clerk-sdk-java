@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -84,6 +85,11 @@ public class CommercePayerResponse {
     @JsonProperty("image_url")
     private Optional<String> imageUrl;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("credits_balance")
+    private Optional<? extends CommerceMoneyResponse> creditsBalance;
+
     /**
      * Unix timestamp (in milliseconds) when the payer was created.
      */
@@ -110,6 +116,7 @@ public class CommercePayerResponse {
             @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("organization_name") JsonNullable<String> organizationName,
             @JsonProperty("image_url") Optional<String> imageUrl,
+            @JsonProperty("credits_balance") Optional<? extends CommerceMoneyResponse> creditsBalance,
             @JsonProperty("created_at") Optional<Long> createdAt,
             @JsonProperty("updated_at") Optional<Long> updatedAt) {
         Utils.checkNotNull(object, "object");
@@ -122,6 +129,7 @@ public class CommercePayerResponse {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(organizationName, "organizationName");
         Utils.checkNotNull(imageUrl, "imageUrl");
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
         this.object = object;
@@ -134,6 +142,7 @@ public class CommercePayerResponse {
         this.organizationId = organizationId;
         this.organizationName = organizationName;
         this.imageUrl = imageUrl;
+        this.creditsBalance = creditsBalance;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -145,7 +154,8 @@ public class CommercePayerResponse {
         this(object, id, instanceId,
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -226,6 +236,12 @@ public class CommercePayerResponse {
     @JsonIgnore
     public Optional<String> imageUrl() {
         return imageUrl;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CommerceMoneyResponse> creditsBalance() {
+        return (Optional<CommerceMoneyResponse>) creditsBalance;
     }
 
     /**
@@ -403,6 +419,19 @@ public class CommercePayerResponse {
         return this;
     }
 
+    public CommercePayerResponse withCreditsBalance(CommerceMoneyResponse creditsBalance) {
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
+        this.creditsBalance = Optional.ofNullable(creditsBalance);
+        return this;
+    }
+
+
+    public CommercePayerResponse withCreditsBalance(Optional<? extends CommerceMoneyResponse> creditsBalance) {
+        Utils.checkNotNull(creditsBalance, "creditsBalance");
+        this.creditsBalance = creditsBalance;
+        return this;
+    }
+
     /**
      * Unix timestamp (in milliseconds) when the payer was created.
      */
@@ -461,6 +490,7 @@ public class CommercePayerResponse {
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
             Utils.enhancedDeepEquals(this.organizationName, other.organizationName) &&
             Utils.enhancedDeepEquals(this.imageUrl, other.imageUrl) &&
+            Utils.enhancedDeepEquals(this.creditsBalance, other.creditsBalance) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -471,7 +501,8 @@ public class CommercePayerResponse {
             object, id, instanceId,
             userId, firstName, lastName,
             email, organizationId, organizationName,
-            imageUrl, createdAt, updatedAt);
+            imageUrl, creditsBalance, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -487,6 +518,7 @@ public class CommercePayerResponse {
                 "organizationId", organizationId,
                 "organizationName", organizationName,
                 "imageUrl", imageUrl,
+                "creditsBalance", creditsBalance,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -513,6 +545,8 @@ public class CommercePayerResponse {
         private JsonNullable<String> organizationName = JsonNullable.undefined();
 
         private Optional<String> imageUrl = Optional.empty();
+
+        private Optional<? extends CommerceMoneyResponse> creditsBalance = Optional.empty();
 
         private Optional<Long> createdAt = Optional.empty();
 
@@ -686,6 +720,19 @@ public class CommercePayerResponse {
         }
 
 
+        public Builder creditsBalance(CommerceMoneyResponse creditsBalance) {
+            Utils.checkNotNull(creditsBalance, "creditsBalance");
+            this.creditsBalance = Optional.ofNullable(creditsBalance);
+            return this;
+        }
+
+        public Builder creditsBalance(Optional<? extends CommerceMoneyResponse> creditsBalance) {
+            Utils.checkNotNull(creditsBalance, "creditsBalance");
+            this.creditsBalance = creditsBalance;
+            return this;
+        }
+
+
         /**
          * Unix timestamp (in milliseconds) when the payer was created.
          */
@@ -729,7 +776,8 @@ public class CommercePayerResponse {
                 object, id, instanceId,
                 userId, firstName, lastName,
                 email, organizationId, organizationName,
-                imageUrl, createdAt, updatedAt);
+                imageUrl, creditsBalance, createdAt,
+                updatedAt);
         }
 
     }

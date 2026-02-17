@@ -38,8 +38,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     private JsonNullable<String> fromEmailAddress;
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the
-     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+     * need assistance.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("progressive_sign_up")
@@ -96,8 +96,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the
-     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+     * need assistance.
      */
     @JsonIgnore
     public JsonNullable<Boolean> progressiveSignUp() {
@@ -165,8 +165,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the
-     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+     * need assistance.
      */
     public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(boolean progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -175,8 +175,8 @@ public class UpdateInstanceAuthConfigRequestBody {
     }
 
     /**
-     * Enable the Progressive Sign Up algorithm. Refer to the
-     * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+     * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+     * need assistance.
      */
     public UpdateInstanceAuthConfigRequestBody withProgressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
         Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -301,8 +301,8 @@ public class UpdateInstanceAuthConfigRequestBody {
 
 
         /**
-         * Enable the Progressive Sign Up algorithm. Refer to the
-         * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+         * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+         * need assistance.
          */
         public Builder progressiveSignUp(boolean progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
@@ -311,8 +311,8 @@ public class UpdateInstanceAuthConfigRequestBody {
         }
 
         /**
-         * Enable the Progressive Sign Up algorithm. Refer to the
-         * [docs](https://clerk.com/docs/upgrade-guides/progressive-sign-up) for more info.
+         * Enable the Progressive Sign Up algorithm. This feature is deprecated, please contact support if you
+         * need assistance.
          */
         public Builder progressiveSignUp(JsonNullable<Boolean> progressiveSignUp) {
             Utils.checkNotNull(progressiveSignUp, "progressiveSignUp");
