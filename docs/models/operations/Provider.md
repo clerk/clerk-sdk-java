@@ -2,6 +2,14 @@
 
 The IdP provider of the connection.
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.Provider;
+
+Provider value = Provider.SAML_CUSTOM;
+```
+
 
 ## Values
 

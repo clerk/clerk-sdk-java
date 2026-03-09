@@ -43,7 +43,7 @@ public class Application {
                 .call();
 
         if (res.actorToken().isPresent()) {
-            // handle response
+            System.out.println(res.actorToken().get());
         }
     }
 }
@@ -94,7 +94,7 @@ public class Application {
                 .call();
 
         if (res.actorToken().isPresent()) {
-            // handle response
+            System.out.println(res.actorToken().get());
         }
     }
 }

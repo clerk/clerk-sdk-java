@@ -37,7 +37,7 @@ public class Application {
                 .call();
 
         if (res.redirectURLList().isPresent()) {
-            // handle response
+            System.out.println(res.redirectURLList().get());
         }
     }
 }
@@ -88,7 +88,7 @@ public class Application {
                 .call();
 
         if (res.redirectURL().isPresent()) {
-            // handle response
+            System.out.println(res.redirectURL().get());
         }
     }
 }
@@ -139,7 +139,7 @@ public class Application {
                 .call();
 
         if (res.redirectURL().isPresent()) {
-            // handle response
+            System.out.println(res.redirectURL().get());
         }
     }
 }
@@ -190,7 +190,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

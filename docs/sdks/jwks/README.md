@@ -32,7 +32,7 @@ public class Application {
                 .call();
 
         if (res.jwks().isPresent()) {
-            // handle response
+            System.out.println(res.jwks().get());
         }
     }
 }

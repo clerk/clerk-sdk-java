@@ -2,6 +2,14 @@
 
 The format of the response.
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.Format;
+
+Format value = Format.TOKEN;
+```
+
 
 ## Values
 

@@ -172,7 +172,7 @@ public class UpdateUser {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "404", "422", "4XX", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "404", "409", "422", "4XX", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;
@@ -209,7 +209,7 @@ public class UpdateUser {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404", "422")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404", "409", "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {

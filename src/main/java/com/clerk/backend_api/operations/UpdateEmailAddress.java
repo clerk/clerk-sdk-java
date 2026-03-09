@@ -168,7 +168,7 @@ public class UpdateEmailAddress {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "4XX", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "409", "4XX", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;
@@ -205,7 +205,7 @@ public class UpdateEmailAddress {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "409")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {

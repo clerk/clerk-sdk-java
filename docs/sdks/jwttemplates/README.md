@@ -38,7 +38,7 @@ public class Application {
                 .call();
 
         if (res.jwtTemplateList().isPresent()) {
-            // handle response
+            System.out.println(res.jwtTemplateList().get());
         }
     }
 }
@@ -89,7 +89,7 @@ public class Application {
                 .call();
 
         if (res.jwtTemplate().isPresent()) {
-            // handle response
+            System.out.println(res.jwtTemplate().get());
         }
     }
 }
@@ -140,7 +140,7 @@ public class Application {
                 .call();
 
         if (res.jwtTemplate().isPresent()) {
-            // handle response
+            System.out.println(res.jwtTemplate().get());
         }
     }
 }
@@ -191,7 +191,7 @@ public class Application {
                 .call();
 
         if (res.jwtTemplate().isPresent()) {
-            // handle response
+            System.out.println(res.jwtTemplate().get());
         }
     }
 }
@@ -243,7 +243,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

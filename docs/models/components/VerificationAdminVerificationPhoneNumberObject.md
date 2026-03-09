@@ -1,5 +1,13 @@
 # VerificationAdminVerificationPhoneNumberObject
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationAdminVerificationPhoneNumberObject;
+
+VerificationAdminVerificationPhoneNumberObject value = VerificationAdminVerificationPhoneNumberObject.VERIFICATION_ADMIN;
+```
+
 
 ## Values
 

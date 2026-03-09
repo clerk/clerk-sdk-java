@@ -36,7 +36,7 @@ public class Application {
                 .call();
 
         if (res.phoneNumber().isPresent()) {
-            // handle response
+            System.out.println(res.phoneNumber().get());
         }
     }
 }
@@ -87,7 +87,7 @@ public class Application {
                 .call();
 
         if (res.phoneNumber().isPresent()) {
-            // handle response
+            System.out.println(res.phoneNumber().get());
         }
     }
 }
@@ -138,7 +138,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -189,7 +189,7 @@ public class Application {
                 .call();
 
         if (res.phoneNumber().isPresent()) {
-            // handle response
+            System.out.println(res.phoneNumber().get());
         }
     }
 }

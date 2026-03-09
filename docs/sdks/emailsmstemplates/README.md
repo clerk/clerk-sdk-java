@@ -46,7 +46,7 @@ public class Application {
                 .call();
 
         if (res.templateList().isPresent()) {
-            // handle response
+            System.out.println(res.templateList().get());
         }
     }
 }
@@ -104,7 +104,7 @@ public class Application {
                 .call();
 
         if (res.template().isPresent()) {
-            // handle response
+            System.out.println(res.template().get());
         }
     }
 }
@@ -160,7 +160,7 @@ public class Application {
                 .call();
 
         if (res.template().isPresent()) {
-            // handle response
+            System.out.println(res.template().get());
         }
     }
 }
@@ -218,7 +218,7 @@ public class Application {
                 .call();
 
         if (res.template().isPresent()) {
-            // handle response
+            System.out.println(res.template().get());
         }
     }
 }

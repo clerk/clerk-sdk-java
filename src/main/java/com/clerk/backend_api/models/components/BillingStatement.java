@@ -52,7 +52,7 @@ public class BillingStatement {
      * Totals for the statement.
      */
     @JsonProperty("totals")
-    private Totals totals;
+    private BillingStatementTotals totals;
 
     /**
      * Array of statement groups.
@@ -68,7 +68,7 @@ public class BillingStatement {
             @JsonProperty("timestamp") long timestamp,
             @JsonProperty("payer") CommercePayerResponse payer,
             @JsonProperty("status") BillingStatementStatus status,
-            @JsonProperty("totals") Totals totals,
+            @JsonProperty("totals") BillingStatementTotals totals,
             @JsonProperty("groups") List<Groups> groups) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -137,7 +137,7 @@ public class BillingStatement {
      * Totals for the statement.
      */
     @JsonIgnore
-    public Totals totals() {
+    public BillingStatementTotals totals() {
         return totals;
     }
 
@@ -208,7 +208,7 @@ public class BillingStatement {
     /**
      * Totals for the statement.
      */
-    public BillingStatement withTotals(Totals totals) {
+    public BillingStatement withTotals(BillingStatementTotals totals) {
         Utils.checkNotNull(totals, "totals");
         this.totals = totals;
         return this;
@@ -279,7 +279,7 @@ public class BillingStatement {
 
         private BillingStatementStatus status;
 
-        private Totals totals;
+        private BillingStatementTotals totals;
 
         private List<Groups> groups;
 
@@ -348,7 +348,7 @@ public class BillingStatement {
         /**
          * Totals for the statement.
          */
-        public Builder totals(Totals totals) {
+        public Builder totals(BillingStatementTotals totals) {
             Utils.checkNotNull(totals, "totals");
             this.totals = totals;
             return this;

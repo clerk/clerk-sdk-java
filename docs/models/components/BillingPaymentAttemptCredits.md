@@ -1,0 +1,10 @@
+# BillingPaymentAttemptCredits
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `proration`                                                                                            | [Optional\<BillingPaymentAttemptProration>](../../models/components/BillingPaymentAttemptProration.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `payer`                                                                                                | [Optional\<BillingPaymentAttemptPayer>](../../models/components/BillingPaymentAttemptPayer.md)         | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `total`                                                                                                | [CommerceMoneyResponse](../../models/components/CommerceMoneyResponse.md)                              | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

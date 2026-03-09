@@ -39,7 +39,7 @@ public class Application {
                 .call();
 
         if (res.permissions().isPresent()) {
-            // handle response
+            System.out.println(res.permissions().get());
         }
     }
 }
@@ -99,7 +99,7 @@ public class Application {
                 .call();
 
         if (res.permission().isPresent()) {
-            // handle response
+            System.out.println(res.permission().get());
         }
     }
 }
@@ -150,7 +150,7 @@ public class Application {
                 .call();
 
         if (res.permission().isPresent()) {
-            // handle response
+            System.out.println(res.permission().get());
         }
     }
 }
@@ -205,7 +205,7 @@ public class Application {
                 .call();
 
         if (res.permission().isPresent()) {
-            // handle response
+            System.out.println(res.permission().get());
         }
     }
 }
@@ -258,7 +258,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

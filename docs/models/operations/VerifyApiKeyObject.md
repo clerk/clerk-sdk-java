@@ -1,5 +1,13 @@
 # VerifyApiKeyObject
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.VerifyApiKeyObject;
+
+VerifyApiKeyObject value = VerifyApiKeyObject.API_KEY;
+```
+
 
 ## Values
 

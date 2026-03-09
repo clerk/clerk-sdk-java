@@ -35,7 +35,7 @@ public class Application {
                 .call();
 
         if (res.svixURL().isPresent()) {
-            // handle response
+            System.out.println(res.svixURL().get());
         }
     }
 }
@@ -121,7 +121,7 @@ public class Application {
                 .call();
 
         if (res.svixURL().isPresent()) {
-            // handle response
+            System.out.println(res.svixURL().get());
         }
     }
 }

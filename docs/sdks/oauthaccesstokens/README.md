@@ -19,9 +19,9 @@ package hello.world;
 import com.clerk.backend_api.Clerk;
 import com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody;
 import com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody;
-import com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenRequestBody;
-import com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenResponse;
+import com.clerk.backend_api.models.operations.*;
 import java.lang.Exception;
+import java.lang.Object;
 
 public class Application {
 
@@ -40,7 +40,17 @@ public class Application {
                 .call();
 
         if (res.oneOf().isPresent()) {
-            // handle response
+            com.clerk.backend_api.models.operations.VerifyOAuthAccessTokenResponseBody unionValue = res.oneOf().get();
+            Object raw = unionValue.value();
+            if (raw instanceof ResponseBody1) {
+                ResponseBody1 responseBody1Value = (ResponseBody1) raw;
+                // Handle responseBody1 variant
+            } else if (raw instanceof ResponseBody2) {
+                ResponseBody2 responseBody2Value = (ResponseBody2) raw;
+                // Handle responseBody2 variant
+            } else {
+                // Unknown or unsupported variant
+            }
         }
     }
 }

@@ -5,6 +5,10 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.components.AdjustCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.AdjustUserBillingCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.AdjustUserBillingCreditBalanceRequestBuilder;
+import com.clerk.backend_api.models.operations.AdjustUserBillingCreditBalanceResponse;
 import com.clerk.backend_api.models.operations.BanUserRequest;
 import com.clerk.backend_api.models.operations.BanUserRequestBuilder;
 import com.clerk.backend_api.models.operations.BanUserResponse;
@@ -32,6 +36,9 @@ import com.clerk.backend_api.models.operations.DisableMFAResponse;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequest;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.GetOAuthAccessTokenResponse;
+import com.clerk.backend_api.models.operations.GetUserBillingCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.GetUserBillingCreditBalanceRequestBuilder;
+import com.clerk.backend_api.models.operations.GetUserBillingCreditBalanceResponse;
 import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionRequest;
 import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionRequestBuilder;
 import com.clerk.backend_api.models.operations.GetUserBillingSubscriptionResponse;
@@ -102,6 +109,7 @@ import com.clerk.backend_api.models.operations.VerifyTOTPRequest;
 import com.clerk.backend_api.models.operations.VerifyTOTPRequestBody;
 import com.clerk.backend_api.models.operations.VerifyTOTPRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyTOTPResponse;
+import com.clerk.backend_api.operations.AdjustUserBillingCreditBalance;
 import com.clerk.backend_api.operations.BanUser;
 import com.clerk.backend_api.operations.CreateUser;
 import com.clerk.backend_api.operations.DeleteBackupCode;
@@ -112,6 +120,7 @@ import com.clerk.backend_api.operations.DeleteUserProfileImage;
 import com.clerk.backend_api.operations.DisableMFA;
 import com.clerk.backend_api.operations.GetOAuthAccessToken;
 import com.clerk.backend_api.operations.GetUser;
+import com.clerk.backend_api.operations.GetUserBillingCreditBalance;
 import com.clerk.backend_api.operations.GetUserBillingSubscription;
 import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.operations.GetUsersCount;
@@ -970,6 +979,113 @@ public class Users {
                 .build();
         RequestOperation<GetUserBillingSubscriptionRequest, GetUserBillingSubscriptionResponse> operation
               = new GetUserBillingSubscription.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve a user's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified user.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges
+     * 
+     * @return The call builder
+     */
+    public GetUserBillingCreditBalanceRequestBuilder getBillingCreditBalance() {
+        return new GetUserBillingCreditBalanceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve a user's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified user.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges
+     * 
+     * @param userId The ID of the user whose credit balance to retrieve
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetUserBillingCreditBalanceResponse getBillingCreditBalance(String userId) {
+        return getBillingCreditBalance(userId, Optional.empty());
+    }
+
+    /**
+     * Retrieve a user's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified user.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges
+     * 
+     * @param userId The ID of the user whose credit balance to retrieve
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetUserBillingCreditBalanceResponse getBillingCreditBalance(String userId, Optional<Options> options) {
+        GetUserBillingCreditBalanceRequest request =
+            GetUserBillingCreditBalanceRequest
+                .builder()
+                .userId(userId)
+                .build();
+        RequestOperation<GetUserBillingCreditBalanceRequest, GetUserBillingCreditBalanceResponse> operation
+              = new GetUserBillingCreditBalance.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Adjust a user's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified user.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @return The call builder
+     */
+    public AdjustUserBillingCreditBalanceRequestBuilder adjustBillingCreditBalance() {
+        return new AdjustUserBillingCreditBalanceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Adjust a user's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified user.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @param userId The ID of the user whose credit balance to adjust
+     * @param adjustCreditBalanceRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AdjustUserBillingCreditBalanceResponse adjustBillingCreditBalance(String userId, AdjustCreditBalanceRequest adjustCreditBalanceRequest) {
+        return adjustBillingCreditBalance(userId, adjustCreditBalanceRequest, Optional.empty());
+    }
+
+    /**
+     * Adjust a user's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified user.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @param userId The ID of the user whose credit balance to adjust
+     * @param adjustCreditBalanceRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AdjustUserBillingCreditBalanceResponse adjustBillingCreditBalance(
+            String userId, AdjustCreditBalanceRequest adjustCreditBalanceRequest,
+            Optional<Options> options) {
+        AdjustUserBillingCreditBalanceRequest request =
+            AdjustUserBillingCreditBalanceRequest
+                .builder()
+                .userId(userId)
+                .adjustCreditBalanceRequest(adjustCreditBalanceRequest)
+                .build();
+        RequestOperation<AdjustUserBillingCreditBalanceRequest, AdjustUserBillingCreditBalanceResponse> operation
+              = new AdjustUserBillingCreditBalance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

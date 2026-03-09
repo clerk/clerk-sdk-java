@@ -36,7 +36,7 @@ public class Application {
                 .call();
 
         if (res.signInToken().isPresent()) {
-            // handle response
+            System.out.println(res.signInToken().get());
         }
     }
 }
@@ -87,7 +87,7 @@ public class Application {
                 .call();
 
         if (res.signInToken().isPresent()) {
-            // handle response
+            System.out.println(res.signInToken().get());
         }
     }
 }

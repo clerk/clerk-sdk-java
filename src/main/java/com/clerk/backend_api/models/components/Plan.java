@@ -135,6 +135,13 @@ public class Plan {
     @JsonProperty("free_trial_days")
     private Optional<Long> freeTrialDays;
 
+    /**
+     * Per-unit pricing tiers for this plan (for example, seats)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("unit_prices")
+    private Optional<? extends List<CommercePlanUnitPrice>> unitPrices;
+
     @JsonCreator
     public Plan(
             @JsonProperty("object") CommerceSubscriptionItemPlanObject object,
@@ -154,7 +161,8 @@ public class Plan {
             @JsonProperty("avatar_url") Optional<String> avatarUrl,
             @JsonProperty("features") Optional<? extends List<FeatureResponse>> features,
             @JsonProperty("free_trial_enabled") boolean freeTrialEnabled,
-            @JsonProperty("free_trial_days") Optional<Long> freeTrialDays) {
+            @JsonProperty("free_trial_days") Optional<Long> freeTrialDays,
+            @JsonProperty("unit_prices") Optional<? extends List<CommercePlanUnitPrice>> unitPrices) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -173,6 +181,7 @@ public class Plan {
         Utils.checkNotNull(features, "features");
         Utils.checkNotNull(freeTrialEnabled, "freeTrialEnabled");
         Utils.checkNotNull(freeTrialDays, "freeTrialDays");
+        Utils.checkNotNull(unitPrices, "unitPrices");
         this.object = object;
         this.id = id;
         this.name = name;
@@ -191,6 +200,7 @@ public class Plan {
         this.features = features;
         this.freeTrialEnabled = freeTrialEnabled;
         this.freeTrialDays = freeTrialDays;
+        this.unitPrices = unitPrices;
     }
     
     public Plan(
@@ -211,7 +221,8 @@ public class Plan {
             Optional.empty(), productId, isDefault,
             isRecurring, publiclyVisible, hasBaseFee,
             forPayerType, slug, Optional.empty(),
-            Optional.empty(), freeTrialEnabled, Optional.empty());
+            Optional.empty(), freeTrialEnabled, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -353,6 +364,15 @@ public class Plan {
     @JsonIgnore
     public Optional<Long> freeTrialDays() {
         return freeTrialDays;
+    }
+
+    /**
+     * Per-unit pricing tiers for this plan (for example, seats)
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<CommercePlanUnitPrice>> unitPrices() {
+        return (Optional<List<CommercePlanUnitPrice>>) unitPrices;
     }
 
     public static Builder builder() {
@@ -570,6 +590,25 @@ public class Plan {
         return this;
     }
 
+    /**
+     * Per-unit pricing tiers for this plan (for example, seats)
+     */
+    public Plan withUnitPrices(List<CommercePlanUnitPrice> unitPrices) {
+        Utils.checkNotNull(unitPrices, "unitPrices");
+        this.unitPrices = Optional.ofNullable(unitPrices);
+        return this;
+    }
+
+
+    /**
+     * Per-unit pricing tiers for this plan (for example, seats)
+     */
+    public Plan withUnitPrices(Optional<? extends List<CommercePlanUnitPrice>> unitPrices) {
+        Utils.checkNotNull(unitPrices, "unitPrices");
+        this.unitPrices = unitPrices;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -597,7 +636,8 @@ public class Plan {
             Utils.enhancedDeepEquals(this.avatarUrl, other.avatarUrl) &&
             Utils.enhancedDeepEquals(this.features, other.features) &&
             Utils.enhancedDeepEquals(this.freeTrialEnabled, other.freeTrialEnabled) &&
-            Utils.enhancedDeepEquals(this.freeTrialDays, other.freeTrialDays);
+            Utils.enhancedDeepEquals(this.freeTrialDays, other.freeTrialDays) &&
+            Utils.enhancedDeepEquals(this.unitPrices, other.unitPrices);
     }
     
     @Override
@@ -608,7 +648,8 @@ public class Plan {
             description, productId, isDefault,
             isRecurring, publiclyVisible, hasBaseFee,
             forPayerType, slug, avatarUrl,
-            features, freeTrialEnabled, freeTrialDays);
+            features, freeTrialEnabled, freeTrialDays,
+            unitPrices);
     }
     
     @Override
@@ -631,7 +672,8 @@ public class Plan {
                 "avatarUrl", avatarUrl,
                 "features", features,
                 "freeTrialEnabled", freeTrialEnabled,
-                "freeTrialDays", freeTrialDays);
+                "freeTrialDays", freeTrialDays,
+                "unitPrices", unitPrices);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -673,6 +715,8 @@ public class Plan {
         private Boolean freeTrialEnabled;
 
         private Optional<Long> freeTrialDays = Optional.empty();
+
+        private Optional<? extends List<CommercePlanUnitPrice>> unitPrices = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -900,6 +944,25 @@ public class Plan {
             return this;
         }
 
+
+        /**
+         * Per-unit pricing tiers for this plan (for example, seats)
+         */
+        public Builder unitPrices(List<CommercePlanUnitPrice> unitPrices) {
+            Utils.checkNotNull(unitPrices, "unitPrices");
+            this.unitPrices = Optional.ofNullable(unitPrices);
+            return this;
+        }
+
+        /**
+         * Per-unit pricing tiers for this plan (for example, seats)
+         */
+        public Builder unitPrices(Optional<? extends List<CommercePlanUnitPrice>> unitPrices) {
+            Utils.checkNotNull(unitPrices, "unitPrices");
+            this.unitPrices = unitPrices;
+            return this;
+        }
+
         public Plan build() {
 
             return new Plan(
@@ -908,7 +971,8 @@ public class Plan {
                 description, productId, isDefault,
                 isRecurring, publiclyVisible, hasBaseFee,
                 forPayerType, slug, avatarUrl,
-                features, freeTrialEnabled, freeTrialDays);
+                features, freeTrialEnabled, freeTrialDays,
+                unitPrices);
         }
 
     }

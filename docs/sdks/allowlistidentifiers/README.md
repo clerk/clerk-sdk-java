@@ -37,7 +37,7 @@ public class Application {
                 .call();
 
         if (res.allowlistIdentifierList().isPresent()) {
-            // handle response
+            System.out.println(res.allowlistIdentifierList().get());
         }
     }
 }
@@ -89,7 +89,7 @@ public class Application {
                 .call();
 
         if (res.allowlistIdentifier().isPresent()) {
-            // handle response
+            System.out.println(res.allowlistIdentifier().get());
         }
     }
 }
@@ -140,7 +140,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

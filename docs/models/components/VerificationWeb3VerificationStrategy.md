@@ -1,5 +1,13 @@
 # VerificationWeb3VerificationStrategy
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationWeb3VerificationStrategy;
+
+VerificationWeb3VerificationStrategy value = VerificationWeb3VerificationStrategy.WEB3_METAMASK_SIGNATURE;
+```
+
 
 ## Values
 

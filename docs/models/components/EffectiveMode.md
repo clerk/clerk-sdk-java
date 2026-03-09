@@ -2,6 +2,14 @@
 
 When the new price takes effect.
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.EffectiveMode;
+
+EffectiveMode value = EffectiveMode.IMMEDIATE;
+```
+
 
 ## Values
 

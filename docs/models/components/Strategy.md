@@ -1,5 +1,16 @@
 # Strategy
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.Strategy;
+
+Strategy value = Strategy.PHONE_CODE;
+
+// Open enum: use .of() to create instances from custom string values
+Strategy custom = Strategy.of("custom_value");
+```
+
 
 ## Values
 

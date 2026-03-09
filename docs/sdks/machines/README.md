@@ -46,7 +46,7 @@ public class Application {
                 .call();
 
         if (res.machineList().isPresent()) {
-            // handle response
+            System.out.println(res.machineList().get());
         }
     }
 }
@@ -99,7 +99,7 @@ public class Application {
                 .call();
 
         if (res.machineCreated().isPresent()) {
-            // handle response
+            System.out.println(res.machineCreated().get());
         }
     }
 }
@@ -150,7 +150,7 @@ public class Application {
                 .call();
 
         if (res.machine().isPresent()) {
-            // handle response
+            System.out.println(res.machine().get());
         }
     }
 }
@@ -202,7 +202,7 @@ public class Application {
                 .call();
 
         if (res.machine().isPresent()) {
-            // handle response
+            System.out.println(res.machine().get());
         }
     }
 }
@@ -254,7 +254,7 @@ public class Application {
                 .call();
 
         if (res.machineDeleted().isPresent()) {
-            // handle response
+            System.out.println(res.machineDeleted().get());
         }
     }
 }
@@ -305,7 +305,7 @@ public class Application {
                 .call();
 
         if (res.machineSecretKey().isPresent()) {
-            // handle response
+            System.out.println(res.machineSecretKey().get());
         }
     }
 }
@@ -362,7 +362,7 @@ public class Application {
                 .call();
 
         if (res.machineSecretKey().isPresent()) {
-            // handle response
+            System.out.println(res.machineSecretKey().get());
         }
     }
 }
@@ -415,7 +415,7 @@ public class Application {
                 .call();
 
         if (res.machineScope().isPresent()) {
-            // handle response
+            System.out.println(res.machineScope().get());
         }
     }
 }
@@ -468,7 +468,7 @@ public class Application {
                 .call();
 
         if (res.machineScopeDeleted().isPresent()) {
-            // handle response
+            System.out.println(res.machineScopeDeleted().get());
         }
     }
 }

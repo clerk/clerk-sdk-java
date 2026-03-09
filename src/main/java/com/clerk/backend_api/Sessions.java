@@ -53,9 +53,13 @@ public class Sessions {
     /**
      * List all sessions
      * 
-     * <p>Returns a list of all sessions.
+     * <p>Returns a list of sessions matching the provided criteria.
      * The sessions are returned sorted by creation date, with the newest sessions appearing first.
-     * **Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
+     * 
+     * <p>Note: This endpoint does not return all sessions that have ever existed. Old and inactive sessions
+     * are periodically cleaned up and will not be included in the results.
+     * 
+     * <p>**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
      * moving forward at least one of `client_id` or `user_id` parameters should be provided.
      * 
      * @return The call builder
@@ -67,9 +71,13 @@ public class Sessions {
     /**
      * List all sessions
      * 
-     * <p>Returns a list of all sessions.
+     * <p>Returns a list of sessions matching the provided criteria.
      * The sessions are returned sorted by creation date, with the newest sessions appearing first.
-     * **Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
+     * 
+     * <p>Note: This endpoint does not return all sessions that have ever existed. Old and inactive sessions
+     * are periodically cleaned up and will not be included in the results.
+     * 
+     * <p>**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
      * moving forward at least one of `client_id` or `user_id` parameters should be provided.
      * 
      * @param request The request object containing all the parameters for the API call.
@@ -83,9 +91,13 @@ public class Sessions {
     /**
      * List all sessions
      * 
-     * <p>Returns a list of all sessions.
+     * <p>Returns a list of sessions matching the provided criteria.
      * The sessions are returned sorted by creation date, with the newest sessions appearing first.
-     * **Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
+     * 
+     * <p>Note: This endpoint does not return all sessions that have ever existed. Old and inactive sessions
+     * are periodically cleaned up and will not be included in the results.
+     * 
+     * <p>**Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
      * moving forward at least one of `client_id` or `user_id` parameters should be provided.
      * 
      * @param request The request object containing all the parameters for the API call.

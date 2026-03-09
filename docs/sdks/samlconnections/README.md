@@ -44,7 +44,7 @@ public class Application {
                 .call();
 
         if (res.samlConnections().isPresent()) {
-            // handle response
+            System.out.println(res.samlConnections().get());
         }
     }
 }
@@ -78,9 +78,11 @@ Create a new SAML Connection.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.*;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.CreateSAMLConnectionResponse;
 import java.lang.Exception;
+import java.lang.Object;
 
 public class Application {
 
@@ -94,7 +96,17 @@ public class Application {
                 .call();
 
         if (res.schemasSAMLConnection().isPresent()) {
-            // handle response
+            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+            Object raw = unionValue.value();
+            if (raw instanceof One) {
+                One oneValue = (One) raw;
+                // Handle one variant
+            } else if (raw instanceof Two) {
+                Two twoValue = (Two) raw;
+                // Handle two variant
+            } else {
+                // Unknown or unsupported variant
+            }
         }
     }
 }
@@ -128,9 +140,11 @@ Fetches the SAML Connection whose ID matches the provided `saml_connection_id` i
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.*;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.GetSAMLConnectionResponse;
 import java.lang.Exception;
+import java.lang.Object;
 
 public class Application {
 
@@ -145,7 +159,17 @@ public class Application {
                 .call();
 
         if (res.schemasSAMLConnection().isPresent()) {
-            // handle response
+            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+            Object raw = unionValue.value();
+            if (raw instanceof One) {
+                One oneValue = (One) raw;
+                // Handle one variant
+            } else if (raw instanceof Two) {
+                Two twoValue = (Two) raw;
+                // Handle two variant
+            } else {
+                // Unknown or unsupported variant
+            }
         }
     }
 }
@@ -179,10 +203,12 @@ Updates the SAML Connection whose ID matches the provided `id` in the path.
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.*;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequestBody;
 import com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse;
 import java.lang.Exception;
+import java.lang.Object;
 
 public class Application {
 
@@ -199,7 +225,17 @@ public class Application {
                 .call();
 
         if (res.schemasSAMLConnection().isPresent()) {
-            // handle response
+            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+            Object raw = unionValue.value();
+            if (raw instanceof One) {
+                One oneValue = (One) raw;
+                // Handle one variant
+            } else if (raw instanceof Two) {
+                Two twoValue = (Two) raw;
+                // Handle two variant
+            } else {
+                // Unknown or unsupported variant
+            }
         }
     }
 }
@@ -251,7 +287,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

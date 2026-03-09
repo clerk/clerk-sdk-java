@@ -20,7 +20,7 @@ public class Application {
                 .call();
 
         if (res.emailAddress().isPresent()) {
-            // handle response
+            System.out.println(res.emailAddress().get());
         }
     }
 }

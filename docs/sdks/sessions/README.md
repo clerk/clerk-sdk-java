@@ -14,8 +14,11 @@
 
 ## list
 
-Returns a list of all sessions.
+Returns a list of sessions matching the provided criteria.
 The sessions are returned sorted by creation date, with the newest sessions appearing first.
+
+Note: This endpoint does not return all sessions that have ever existed. Old and inactive sessions are periodically cleaned up and will not be included in the results.
+
 **Deprecation Notice (2024-01-01):** All parameters were initially considered optional, however
 moving forward at least one of `client_id` or `user_id` parameters should be provided.
 
@@ -47,7 +50,7 @@ public class Application {
                 .call();
 
         if (res.sessionList().isPresent()) {
-            // handle response
+            System.out.println(res.sessionList().get());
         }
     }
 }
@@ -100,7 +103,7 @@ public class Application {
                 .call();
 
         if (res.session().isPresent()) {
-            // handle response
+            System.out.println(res.session().get());
         }
     }
 }
@@ -151,7 +154,7 @@ public class Application {
                 .call();
 
         if (res.session().isPresent()) {
-            // handle response
+            System.out.println(res.session().get());
         }
     }
 }
@@ -186,9 +189,11 @@ are validation errors, which signals the SDKs to fall back to the handshake flow
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.*;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.RefreshSessionResponse;
 import java.lang.Exception;
+import java.lang.Object;
 
 public class Application {
 
@@ -203,7 +208,17 @@ public class Application {
                 .call();
 
         if (res.sessionRefresh().isPresent()) {
-            // handle response
+            SessionRefresh unionValue = res.sessionRefresh().get();
+            Object raw = unionValue.value();
+            if (raw instanceof Token) {
+                Token tokenValue = (Token) raw;
+                // Handle token variant
+            } else if (raw instanceof Cookies) {
+                Cookies cookiesValue = (Cookies) raw;
+                // Handle cookies variant
+            } else {
+                // Unknown or unsupported variant
+            }
         }
     }
 }
@@ -256,7 +271,7 @@ public class Application {
                 .call();
 
         if (res.session().isPresent()) {
-            // handle response
+            System.out.println(res.session().get());
         }
     }
 }
@@ -307,7 +322,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -360,7 +375,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }

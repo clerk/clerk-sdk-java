@@ -35,7 +35,7 @@ public class Application {
                 .call();
 
         if (res.blocklistIdentifiers().isPresent()) {
-            // handle response
+            System.out.println(res.blocklistIdentifiers().get());
         }
     }
 }
@@ -79,7 +79,7 @@ public class Application {
                 .call();
 
         if (res.blocklistIdentifier().isPresent()) {
-            // handle response
+            System.out.println(res.blocklistIdentifier().get());
         }
     }
 }
@@ -130,7 +130,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }

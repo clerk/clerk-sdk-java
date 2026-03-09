@@ -1,5 +1,13 @@
 # IdentifierType
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.IdentifierType;
+
+IdentifierType value = IdentifierType.EMAIL_ADDRESS;
+```
+
 
 ## Values
 

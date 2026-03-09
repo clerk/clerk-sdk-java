@@ -1,5 +1,13 @@
 # VerificationEmailLinkVerificationStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationEmailLinkVerificationStatus;
+
+VerificationEmailLinkVerificationStatus value = VerificationEmailLinkVerificationStatus.UNVERIFIED;
+```
+
 
 ## Values
 

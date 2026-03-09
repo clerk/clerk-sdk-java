@@ -1,5 +1,16 @@
 # VerificationOtpVerificationStrategy
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationOtpVerificationStrategy;
+
+VerificationOtpVerificationStrategy value = VerificationOtpVerificationStrategy.PHONE_CODE;
+
+// Open enum: use .of() to create instances from custom string values
+VerificationOtpVerificationStrategy custom = VerificationOtpVerificationStrategy.of("custom_value");
+```
+
 
 ## Values
 

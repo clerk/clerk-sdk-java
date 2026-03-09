@@ -42,7 +42,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -69,6 +69,8 @@ public class Application {
 ## listTokens
 
 Fetches M2M tokens for a specific machine.
+
+Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M tokens are stateless and are not stored.
 
 This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
 
@@ -104,7 +106,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -132,6 +134,8 @@ public class Application {
 ## revokeToken
 
 Revokes a M2M Token.
+
+This endpoint only revokes stored opaque-format M2M tokens. JWT-format M2M tokens are stateless and cannot be revoked.
 
 This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
 
@@ -166,7 +170,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -230,7 +234,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }

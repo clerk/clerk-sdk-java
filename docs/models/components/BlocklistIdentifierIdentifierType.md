@@ -1,5 +1,13 @@
 # BlocklistIdentifierIdentifierType
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.BlocklistIdentifierIdentifierType;
+
+BlocklistIdentifierIdentifierType value = BlocklistIdentifierIdentifierType.EMAIL_ADDRESS;
+```
+
 
 ## Values
 
