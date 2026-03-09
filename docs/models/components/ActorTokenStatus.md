@@ -1,5 +1,13 @@
 # ActorTokenStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.ActorTokenStatus;
+
+ActorTokenStatus value = ActorTokenStatus.PENDING;
+```
+
 
 ## Values
 

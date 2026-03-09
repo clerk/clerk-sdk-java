@@ -49,7 +49,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitationsWithPublicOrganizationData().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitationsWithPublicOrganizationData().get());
         }
     }
 }
@@ -116,7 +116,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitation().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitation().get());
         }
     }
 }
@@ -137,7 +137,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 400, 402, 403, 404, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## list
@@ -178,7 +178,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitations().get());
         }
     }
 }
@@ -251,7 +251,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitations().get());
         }
     }
 }
@@ -312,7 +312,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitations().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitations().get());
         }
     }
 }
@@ -366,7 +366,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitation().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitation().get());
         }
     }
 }
@@ -423,7 +423,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitation().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitation().get());
         }
     }
 }

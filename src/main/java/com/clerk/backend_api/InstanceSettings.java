@@ -9,10 +9,15 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
+import com.clerk.backend_api.models.operations.GetInstanceOAuthApplicationSettingsRequestBuilder;
+import com.clerk.backend_api.models.operations.GetInstanceOAuthApplicationSettingsResponse;
 import com.clerk.backend_api.models.operations.GetInstanceProtectRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceProtectResponse;
 import com.clerk.backend_api.models.operations.GetInstanceRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsResponse;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateInstanceOrganizationSettingsResponse;
@@ -27,8 +32,10 @@ import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequest
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
 import com.clerk.backend_api.operations.ChangeProductionInstanceDomain;
 import com.clerk.backend_api.operations.GetInstance;
+import com.clerk.backend_api.operations.GetInstanceOAuthApplicationSettings;
 import com.clerk.backend_api.operations.GetInstanceProtect;
 import com.clerk.backend_api.operations.UpdateInstance;
+import com.clerk.backend_api.operations.UpdateInstanceOAuthApplicationSettings;
 import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettings;
 import com.clerk.backend_api.operations.UpdateInstanceProtect;
 import com.clerk.backend_api.operations.UpdateInstanceRestrictions;
@@ -160,6 +167,86 @@ public class InstanceSettings {
     public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
               = new UpdateInstanceRestrictions.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get OAuth application settings
+     * 
+     * <p>Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT
+     * access tokens, etc.).
+     * 
+     * @return The call builder
+     */
+    public GetInstanceOAuthApplicationSettingsRequestBuilder getOAuthApplicationSettings() {
+        return new GetInstanceOAuthApplicationSettingsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get OAuth application settings
+     * 
+     * <p>Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT
+     * access tokens, etc.).
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceOAuthApplicationSettingsResponse getOAuthApplicationSettingsDirect() {
+        return getOAuthApplicationSettings(Optional.empty());
+    }
+
+    /**
+     * Get OAuth application settings
+     * 
+     * <p>Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT
+     * access tokens, etc.).
+     * 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceOAuthApplicationSettingsResponse getOAuthApplicationSettings(Optional<Options> options) {
+        RequestlessOperation<GetInstanceOAuthApplicationSettingsResponse> operation
+            = new GetInstanceOAuthApplicationSettings.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest());
+    }
+
+    /**
+     * Update OAuth application settings
+     * 
+     * <p>Updates the OAuth application settings for the instance.
+     * 
+     * @return The call builder
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBuilder updateOAuthApplicationSettings() {
+        return new UpdateInstanceOAuthApplicationSettingsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update OAuth application settings
+     * 
+     * <p>Updates the OAuth application settings for the instance.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceOAuthApplicationSettingsResponse updateOAuthApplicationSettingsDirect() {
+        return updateOAuthApplicationSettings(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update OAuth application settings
+     * 
+     * <p>Updates the OAuth application settings for the instance.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceOAuthApplicationSettingsResponse updateOAuthApplicationSettings(Optional<? extends UpdateInstanceOAuthApplicationSettingsRequestBody> request, Optional<Options> options) {
+        RequestOperation<Optional<? extends UpdateInstanceOAuthApplicationSettingsRequestBody>, UpdateInstanceOAuthApplicationSettingsResponse> operation
+              = new UpdateInstanceOAuthApplicationSettings.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -44,7 +44,7 @@ public class Application {
                 .call();
 
         if (res.roleSets().isPresent()) {
-            // handle response
+            System.out.println(res.roleSets().get());
         }
     }
 }
@@ -111,7 +111,7 @@ public class Application {
                 .call();
 
         if (res.roleSet().isPresent()) {
-            // handle response
+            System.out.println(res.roleSet().get());
         }
     }
 }
@@ -162,7 +162,7 @@ public class Application {
                 .call();
 
         if (res.roleSet().isPresent()) {
-            // handle response
+            System.out.println(res.roleSet().get());
         }
     }
 }
@@ -218,7 +218,7 @@ public class Application {
                 .call();
 
         if (res.roleSet().isPresent()) {
-            // handle response
+            System.out.println(res.roleSet().get());
         }
     }
 }
@@ -276,7 +276,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -336,7 +336,7 @@ public class Application {
                 .call();
 
         if (res.roleSet().isPresent()) {
-            // handle response
+            System.out.println(res.roleSet().get());
         }
     }
 }
@@ -394,7 +394,7 @@ public class Application {
                 .call();
 
         if (res.roleSet().isPresent()) {
-            // handle response
+            System.out.println(res.roleSet().get());
         }
     }
 }

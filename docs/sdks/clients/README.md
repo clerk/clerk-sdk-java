@@ -41,7 +41,7 @@ public class Application {
                 .call();
 
         if (res.clientList().isPresent()) {
-            // handle response
+            System.out.println(res.clientList().get());
         }
     }
 }
@@ -93,7 +93,7 @@ public class Application {
                 .call();
 
         if (res.client().isPresent()) {
-            // handle response
+            System.out.println(res.client().get());
         }
     }
 }
@@ -144,7 +144,7 @@ public class Application {
                 .call();
 
         if (res.client().isPresent()) {
-            // handle response
+            System.out.println(res.client().get());
         }
     }
 }

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.http.HttpResponse;
 import java.net.ConnectException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.List;
@@ -122,6 +124,25 @@ public class Retries {
         }
     }
 
+    private static long retryAfterMs(HttpResponse<InputStream> response) {
+        String retryAfter = response.headers().firstValue("retry-after").orElse(null);
+        if (retryAfter == null || retryAfter.isEmpty()) {
+            return 0;
+        }
+        try {
+            long seconds = Long.parseLong(retryAfter);
+            return seconds < 0 ? 0 : seconds * 1000;
+        } catch (NumberFormatException ignored) {
+        }
+        try {
+            ZonedDateTime retryDate = ZonedDateTime.parse(retryAfter, DateTimeFormatter.RFC_1123_DATE_TIME);
+            long deltaMs = retryDate.toInstant().toEpochMilli() - System.currentTimeMillis();
+            return deltaMs > 0 ? deltaMs : 0;
+        } catch (Exception ignored) {
+        }
+        return 0;
+    }
+
     private HttpResponse<InputStream> retryWithBackoff(boolean retryConnectError, boolean retryReadTimeoutError) throws Exception {
         BackoffStrategy backoff = retryConfig.backoff().get();
         long initialIntervalMs = backoff.initialIntervalMs();
@@ -147,16 +168,25 @@ public class Retries {
                     throw e;
                 }
 
-                double intervalMs = initialIntervalMs * Math.pow(backoff.baseFactor(), numAttempts);
-                double jitterMs = backoff.jitterFactor() * intervalMs;
-                intervalMs = intervalMs - jitterMs + Math.random()*(2*jitterMs + 1);
-
-                double maxIntervalMs = backoff.maxIntervalMs();
-                if (intervalMs > maxIntervalMs) {
-                    intervalMs = maxIntervalMs;
+                long sleepMs;
+                if (e instanceof RetryableException) {
+                    sleepMs = retryAfterMs(((RetryableException) e).response());
+                } else {
+                    sleepMs = 0;
                 }
 
-                long sleepMs = (long) intervalMs;
+                if (sleepMs <= 0) {
+                    double intervalMs = initialIntervalMs * Math.pow(backoff.baseFactor(), numAttempts);
+                    double jitterMs = backoff.jitterFactor() * intervalMs;
+                    intervalMs = intervalMs - jitterMs + Math.random()*(2*jitterMs + 1);
+
+                    double maxIntervalMs = backoff.maxIntervalMs();
+                    if (intervalMs > maxIntervalMs) {
+                        intervalMs = maxIntervalMs;
+                    }
+                    sleepMs = (long) intervalMs;
+                }
+
                 if (logger.isTraceEnabled()) {
                     String reason = e instanceof RetryableException
                         ? "status " + ((RetryableException)e).response().statusCode()

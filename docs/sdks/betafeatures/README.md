@@ -34,7 +34,7 @@ public class Application {
                 .call();
 
         if (res.instanceSettings().isPresent()) {
-            // handle response
+            System.out.println(res.instanceSettings().get());
         }
     }
 }

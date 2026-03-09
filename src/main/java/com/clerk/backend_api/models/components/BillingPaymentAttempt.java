@@ -14,6 +14,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class BillingPaymentAttempt {
@@ -86,6 +87,13 @@ public class BillingPaymentAttempt {
 
     @JsonProperty("amount")
     private CommerceMoneyResponse amount;
+
+    /**
+     * Totals breakdown for this payment attempt.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("totals")
+    private JsonNullable<? extends BillingPaymentAttemptTotals> totals;
 
     /**
      * Unique identifier for the payment method.
@@ -163,6 +171,7 @@ public class BillingPaymentAttempt {
             @JsonProperty("subscription_item_id") Optional<String> subscriptionItemId,
             @JsonProperty("subscription_item") Optional<? extends SubscriptionItem> subscriptionItem,
             @JsonProperty("amount") CommerceMoneyResponse amount,
+            @JsonProperty("totals") JsonNullable<? extends BillingPaymentAttemptTotals> totals,
             @JsonProperty("payment_method_id") String paymentMethodId,
             @JsonProperty("payment_method") CommercePaymentMethodResponse paymentMethod,
             @JsonProperty("statement_id") String statementId,
@@ -185,6 +194,7 @@ public class BillingPaymentAttempt {
         Utils.checkNotNull(subscriptionItemId, "subscriptionItemId");
         Utils.checkNotNull(subscriptionItem, "subscriptionItem");
         Utils.checkNotNull(amount, "amount");
+        Utils.checkNotNull(totals, "totals");
         Utils.checkNotNull(paymentMethodId, "paymentMethodId");
         Utils.checkNotNull(paymentMethod, "paymentMethod");
         Utils.checkNotNull(statementId, "statementId");
@@ -207,6 +217,7 @@ public class BillingPaymentAttempt {
         this.subscriptionItemId = subscriptionItemId;
         this.subscriptionItem = subscriptionItem;
         this.amount = amount;
+        this.totals = totals;
         this.paymentMethodId = paymentMethodId;
         this.paymentMethod = paymentMethod;
         this.statementId = statementId;
@@ -240,10 +251,10 @@ public class BillingPaymentAttempt {
             instanceId, chargeType, payeeId,
             payee, payerId, payer,
             Optional.empty(), Optional.empty(), amount,
-            paymentMethodId, paymentMethod, statementId,
-            Optional.empty(), Optional.empty(), status,
-            Optional.empty(), Optional.empty(), createdAt,
-            updatedAt);
+            JsonNullable.undefined(), paymentMethodId, paymentMethod,
+            statementId, Optional.empty(), Optional.empty(),
+            status, Optional.empty(), Optional.empty(),
+            createdAt, updatedAt);
     }
 
     /**
@@ -335,6 +346,15 @@ public class BillingPaymentAttempt {
     @JsonIgnore
     public CommerceMoneyResponse amount() {
         return amount;
+    }
+
+    /**
+     * Totals breakdown for this payment attempt.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<BillingPaymentAttemptTotals> totals() {
+        return (JsonNullable<BillingPaymentAttemptTotals>) totals;
     }
 
     /**
@@ -542,6 +562,24 @@ public class BillingPaymentAttempt {
     }
 
     /**
+     * Totals breakdown for this payment attempt.
+     */
+    public BillingPaymentAttempt withTotals(BillingPaymentAttemptTotals totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = JsonNullable.of(totals);
+        return this;
+    }
+
+    /**
+     * Totals breakdown for this payment attempt.
+     */
+    public BillingPaymentAttempt withTotals(JsonNullable<? extends BillingPaymentAttemptTotals> totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = totals;
+        return this;
+    }
+
+    /**
      * Unique identifier for the payment method.
      */
     public BillingPaymentAttempt withPaymentMethodId(String paymentMethodId) {
@@ -690,6 +728,7 @@ public class BillingPaymentAttempt {
             Utils.enhancedDeepEquals(this.subscriptionItemId, other.subscriptionItemId) &&
             Utils.enhancedDeepEquals(this.subscriptionItem, other.subscriptionItem) &&
             Utils.enhancedDeepEquals(this.amount, other.amount) &&
+            Utils.enhancedDeepEquals(this.totals, other.totals) &&
             Utils.enhancedDeepEquals(this.paymentMethodId, other.paymentMethodId) &&
             Utils.enhancedDeepEquals(this.paymentMethod, other.paymentMethod) &&
             Utils.enhancedDeepEquals(this.statementId, other.statementId) &&
@@ -709,10 +748,10 @@ public class BillingPaymentAttempt {
             instanceId, chargeType, payeeId,
             payee, payerId, payer,
             subscriptionItemId, subscriptionItem, amount,
-            paymentMethodId, paymentMethod, statementId,
-            gatewayExternalId, gatewayExternalUrl, status,
-            paidAt, failedAt, createdAt,
-            updatedAt);
+            totals, paymentMethodId, paymentMethod,
+            statementId, gatewayExternalId, gatewayExternalUrl,
+            status, paidAt, failedAt,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -730,6 +769,7 @@ public class BillingPaymentAttempt {
                 "subscriptionItemId", subscriptionItemId,
                 "subscriptionItem", subscriptionItem,
                 "amount", amount,
+                "totals", totals,
                 "paymentMethodId", paymentMethodId,
                 "paymentMethod", paymentMethod,
                 "statementId", statementId,
@@ -768,6 +808,8 @@ public class BillingPaymentAttempt {
         private Optional<? extends SubscriptionItem> subscriptionItem = Optional.empty();
 
         private CommerceMoneyResponse amount;
+
+        private JsonNullable<? extends BillingPaymentAttemptTotals> totals = JsonNullable.undefined();
 
         private String paymentMethodId;
 
@@ -927,6 +969,25 @@ public class BillingPaymentAttempt {
 
 
         /**
+         * Totals breakdown for this payment attempt.
+         */
+        public Builder totals(BillingPaymentAttemptTotals totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = JsonNullable.of(totals);
+            return this;
+        }
+
+        /**
+         * Totals breakdown for this payment attempt.
+         */
+        public Builder totals(JsonNullable<? extends BillingPaymentAttemptTotals> totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = totals;
+            return this;
+        }
+
+
+        /**
          * Unique identifier for the payment method.
          */
         public Builder paymentMethodId(String paymentMethodId) {
@@ -1065,10 +1126,10 @@ public class BillingPaymentAttempt {
                 instanceId, chargeType, payeeId,
                 payee, payerId, payer,
                 subscriptionItemId, subscriptionItem, amount,
-                paymentMethodId, paymentMethod, statementId,
-                gatewayExternalId, gatewayExternalUrl, status,
-                paidAt, failedAt, createdAt,
-                updatedAt);
+                totals, paymentMethodId, paymentMethod,
+                statementId, gatewayExternalId, gatewayExternalUrl,
+                status, paidAt, failedAt,
+                createdAt, updatedAt);
         }
 
     }

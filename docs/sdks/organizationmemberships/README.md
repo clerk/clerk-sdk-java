@@ -48,7 +48,7 @@ public class Application {
                 .call();
 
         if (res.organizationMembership().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMembership().get());
         }
     }
 }
@@ -109,7 +109,7 @@ public class Application {
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMemberships().get());
         }
     }
 }
@@ -165,7 +165,7 @@ public class Application {
                 .call();
 
         if (res.organizationMembership().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMembership().get());
         }
     }
 }
@@ -219,7 +219,7 @@ public class Application {
                 .call();
 
         if (res.organizationMembership().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMembership().get());
         }
     }
 }
@@ -274,7 +274,7 @@ public class Application {
                 .call();
 
         if (res.organizationMembership().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMembership().get());
         }
     }
 }

@@ -1,5 +1,13 @@
 # VerificationSAMLVerificationSAMLAccountStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationSAMLVerificationSAMLAccountStatus;
+
+VerificationSAMLVerificationSAMLAccountStatus value = VerificationSAMLVerificationSAMLAccountStatus.UNVERIFIED;
+```
+
 
 ## Values
 

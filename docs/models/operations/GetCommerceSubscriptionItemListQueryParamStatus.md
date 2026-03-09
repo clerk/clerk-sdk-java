@@ -2,6 +2,14 @@
 
 Filter subscription items by status
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListQueryParamStatus;
+
+GetCommerceSubscriptionItemListQueryParamStatus value = GetCommerceSubscriptionItemListQueryParamStatus.ACTIVE;
+```
+
 
 ## Values
 

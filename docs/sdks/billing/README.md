@@ -45,7 +45,7 @@ public class Application {
                 .call();
 
         if (res.paginatedCommercePlanResponse().isPresent()) {
-            // handle response
+            System.out.println(res.paginatedCommercePlanResponse().get());
         }
     }
 }
@@ -102,7 +102,7 @@ public class Application {
                 .call();
 
         if (res.paginatedBillingPriceResponse().isPresent()) {
-            // handle response
+            System.out.println(res.paginatedBillingPriceResponse().get());
         }
     }
 }
@@ -164,7 +164,7 @@ public class Application {
                 .call();
 
         if (res.billingPriceResponse().isPresent()) {
-            // handle response
+            System.out.println(res.billingPriceResponse().get());
         }
     }
 }
@@ -221,7 +221,7 @@ public class Application {
                 .call();
 
         if (res.paginatedCommerceSubscriptionItemResponse().isPresent()) {
-            // handle response
+            System.out.println(res.paginatedCommerceSubscriptionItemResponse().get());
         }
     }
 }
@@ -274,7 +274,7 @@ public class Application {
                 .call();
 
         if (res.commerceSubscriptionItem().isPresent()) {
-            // handle response
+            System.out.println(res.commerceSubscriptionItem().get());
         }
     }
 }
@@ -335,7 +335,7 @@ public class Application {
                 .call();
 
         if (res.schemasCommerceSubscriptionItem().isPresent()) {
-            // handle response
+            System.out.println(res.schemasCommerceSubscriptionItem().get());
         }
     }
 }
@@ -394,7 +394,7 @@ public class Application {
                 .call();
 
         if (res.commercePriceTransitionResponse().isPresent()) {
-            // handle response
+            System.out.println(res.commercePriceTransitionResponse().get());
         }
     }
 }
@@ -449,7 +449,7 @@ public class Application {
                 .call();
 
         if (res.paginatedBillingStatementResponse().isPresent()) {
-            // handle response
+            System.out.println(res.paginatedBillingStatementResponse().get());
         }
     }
 }
@@ -503,7 +503,7 @@ public class Application {
                 .call();
 
         if (res.billingStatement().isPresent()) {
-            // handle response
+            System.out.println(res.billingStatement().get());
         }
     }
 }
@@ -558,7 +558,7 @@ public class Application {
                 .call();
 
         if (res.paginatedBillingPaymentAttemptResponse().isPresent()) {
-            // handle response
+            System.out.println(res.paginatedBillingPaymentAttemptResponse().get());
         }
     }
 }

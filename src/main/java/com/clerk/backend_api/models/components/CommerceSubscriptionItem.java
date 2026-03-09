@@ -50,6 +50,13 @@ public class CommerceSubscriptionItem {
     private Optional<? extends CommerceSubscriptionCreditResponse> credit;
 
     /**
+     * Unified credits breakdown for this subscription item.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("credits")
+    private JsonNullable<? extends Credits> credits;
+
+    /**
      * Unique identifier for the associated plan.
      */
     @JsonInclude(Include.ALWAYS)
@@ -165,6 +172,20 @@ public class CommerceSubscriptionItem {
     @JsonProperty("updated_at")
     private Optional<Long> updatedAt;
 
+    /**
+     * Seat quantity for seat-based billing.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("seats")
+    private JsonNullable<? extends Seats> seats;
+
+    /**
+     * Totals for this subscription item.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("totals")
+    private JsonNullable<? extends Totals> totals;
+
     @JsonCreator
     public CommerceSubscriptionItem(
             @JsonProperty("object") CommerceSubscriptionItemObject object,
@@ -172,6 +193,7 @@ public class CommerceSubscriptionItem {
             @JsonProperty("instance_id") String instanceId,
             @JsonProperty("status") CommerceSubscriptionItemStatus status,
             @JsonProperty("credit") Optional<? extends CommerceSubscriptionCreditResponse> credit,
+            @JsonProperty("credits") JsonNullable<? extends Credits> credits,
             @JsonProperty("plan_id") Optional<String> planId,
             @JsonProperty("price_id") Optional<String> priceId,
             @JsonProperty("plan") JsonNullable<? extends Plan> plan,
@@ -189,12 +211,15 @@ public class CommerceSubscriptionItem {
             @JsonProperty("past_due_at") Optional<Long> pastDueAt,
             @JsonProperty("ended_at") Optional<Long> endedAt,
             @JsonProperty("created_at") Optional<Long> createdAt,
-            @JsonProperty("updated_at") Optional<Long> updatedAt) {
+            @JsonProperty("updated_at") Optional<Long> updatedAt,
+            @JsonProperty("seats") JsonNullable<? extends Seats> seats,
+            @JsonProperty("totals") JsonNullable<? extends Totals> totals) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(instanceId, "instanceId");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(credit, "credit");
+        Utils.checkNotNull(credits, "credits");
         Utils.checkNotNull(planId, "planId");
         Utils.checkNotNull(priceId, "priceId");
         Utils.checkNotNull(plan, "plan");
@@ -213,11 +238,14 @@ public class CommerceSubscriptionItem {
         Utils.checkNotNull(endedAt, "endedAt");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
+        Utils.checkNotNull(seats, "seats");
+        Utils.checkNotNull(totals, "totals");
         this.object = object;
         this.id = id;
         this.instanceId = instanceId;
         this.status = status;
         this.credit = credit;
+        this.credits = credits;
         this.planId = planId;
         this.priceId = priceId;
         this.plan = plan;
@@ -236,6 +264,8 @@ public class CommerceSubscriptionItem {
         this.endedAt = endedAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.seats = seats;
+        this.totals = totals;
     }
     
     public CommerceSubscriptionItem(
@@ -248,13 +278,14 @@ public class CommerceSubscriptionItem {
             boolean isFreeTrial,
             long periodStart) {
         this(object, id, instanceId,
-            status, Optional.empty(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), planPeriod,
+            status, Optional.empty(), JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            payerId, Optional.empty(), isFreeTrial,
-            periodStart, Optional.empty(), Optional.empty(),
+            planPeriod, Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), payerId, Optional.empty(),
+            isFreeTrial, periodStart, Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -293,6 +324,15 @@ public class CommerceSubscriptionItem {
     @JsonIgnore
     public Optional<CommerceSubscriptionCreditResponse> credit() {
         return (Optional<CommerceSubscriptionCreditResponse>) credit;
+    }
+
+    /**
+     * Unified credits breakdown for this subscription item.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Credits> credits() {
+        return (JsonNullable<Credits>) credits;
     }
 
     /**
@@ -435,6 +475,24 @@ public class CommerceSubscriptionItem {
         return updatedAt;
     }
 
+    /**
+     * Seat quantity for seat-based billing.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Seats> seats() {
+        return (JsonNullable<Seats>) seats;
+    }
+
+    /**
+     * Totals for this subscription item.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Totals> totals() {
+        return (JsonNullable<Totals>) totals;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -486,6 +544,24 @@ public class CommerceSubscriptionItem {
     public CommerceSubscriptionItem withCredit(Optional<? extends CommerceSubscriptionCreditResponse> credit) {
         Utils.checkNotNull(credit, "credit");
         this.credit = credit;
+        return this;
+    }
+
+    /**
+     * Unified credits breakdown for this subscription item.
+     */
+    public CommerceSubscriptionItem withCredits(Credits credits) {
+        Utils.checkNotNull(credits, "credits");
+        this.credits = JsonNullable.of(credits);
+        return this;
+    }
+
+    /**
+     * Unified credits breakdown for this subscription item.
+     */
+    public CommerceSubscriptionItem withCredits(JsonNullable<? extends Credits> credits) {
+        Utils.checkNotNull(credits, "credits");
+        this.credits = credits;
         return this;
     }
 
@@ -771,6 +847,42 @@ public class CommerceSubscriptionItem {
         return this;
     }
 
+    /**
+     * Seat quantity for seat-based billing.
+     */
+    public CommerceSubscriptionItem withSeats(Seats seats) {
+        Utils.checkNotNull(seats, "seats");
+        this.seats = JsonNullable.of(seats);
+        return this;
+    }
+
+    /**
+     * Seat quantity for seat-based billing.
+     */
+    public CommerceSubscriptionItem withSeats(JsonNullable<? extends Seats> seats) {
+        Utils.checkNotNull(seats, "seats");
+        this.seats = seats;
+        return this;
+    }
+
+    /**
+     * Totals for this subscription item.
+     */
+    public CommerceSubscriptionItem withTotals(Totals totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = JsonNullable.of(totals);
+        return this;
+    }
+
+    /**
+     * Totals for this subscription item.
+     */
+    public CommerceSubscriptionItem withTotals(JsonNullable<? extends Totals> totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = totals;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -786,6 +898,7 @@ public class CommerceSubscriptionItem {
             Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.credit, other.credit) &&
+            Utils.enhancedDeepEquals(this.credits, other.credits) &&
             Utils.enhancedDeepEquals(this.planId, other.planId) &&
             Utils.enhancedDeepEquals(this.priceId, other.priceId) &&
             Utils.enhancedDeepEquals(this.plan, other.plan) &&
@@ -803,20 +916,23 @@ public class CommerceSubscriptionItem {
             Utils.enhancedDeepEquals(this.pastDueAt, other.pastDueAt) &&
             Utils.enhancedDeepEquals(this.endedAt, other.endedAt) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
-            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
+            Utils.enhancedDeepEquals(this.seats, other.seats) &&
+            Utils.enhancedDeepEquals(this.totals, other.totals);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, instanceId,
-            status, credit, planId,
-            priceId, plan, planPeriod,
-            paymentMethod, lifetimePaid, nextPayment,
-            payerId, payer, isFreeTrial,
-            periodStart, periodEnd, prorationDate,
-            canceledAt, pastDueAt, endedAt,
-            createdAt, updatedAt);
+            status, credit, credits,
+            planId, priceId, plan,
+            planPeriod, paymentMethod, lifetimePaid,
+            nextPayment, payerId, payer,
+            isFreeTrial, periodStart, periodEnd,
+            prorationDate, canceledAt, pastDueAt,
+            endedAt, createdAt, updatedAt,
+            seats, totals);
     }
     
     @Override
@@ -827,6 +943,7 @@ public class CommerceSubscriptionItem {
                 "instanceId", instanceId,
                 "status", status,
                 "credit", credit,
+                "credits", credits,
                 "planId", planId,
                 "priceId", priceId,
                 "plan", plan,
@@ -844,7 +961,9 @@ public class CommerceSubscriptionItem {
                 "pastDueAt", pastDueAt,
                 "endedAt", endedAt,
                 "createdAt", createdAt,
-                "updatedAt", updatedAt);
+                "updatedAt", updatedAt,
+                "seats", seats,
+                "totals", totals);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -859,6 +978,8 @@ public class CommerceSubscriptionItem {
         private CommerceSubscriptionItemStatus status;
 
         private Optional<? extends CommerceSubscriptionCreditResponse> credit = Optional.empty();
+
+        private JsonNullable<? extends Credits> credits = JsonNullable.undefined();
 
         private Optional<String> planId = Optional.empty();
 
@@ -895,6 +1016,10 @@ public class CommerceSubscriptionItem {
         private Optional<Long> createdAt = Optional.empty();
 
         private Optional<Long> updatedAt = Optional.empty();
+
+        private JsonNullable<? extends Seats> seats = JsonNullable.undefined();
+
+        private JsonNullable<? extends Totals> totals = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -950,6 +1075,25 @@ public class CommerceSubscriptionItem {
         public Builder credit(Optional<? extends CommerceSubscriptionCreditResponse> credit) {
             Utils.checkNotNull(credit, "credit");
             this.credit = credit;
+            return this;
+        }
+
+
+        /**
+         * Unified credits breakdown for this subscription item.
+         */
+        public Builder credits(Credits credits) {
+            Utils.checkNotNull(credits, "credits");
+            this.credits = JsonNullable.of(credits);
+            return this;
+        }
+
+        /**
+         * Unified credits breakdown for this subscription item.
+         */
+        public Builder credits(JsonNullable<? extends Credits> credits) {
+            Utils.checkNotNull(credits, "credits");
+            this.credits = credits;
             return this;
         }
 
@@ -1241,17 +1385,56 @@ public class CommerceSubscriptionItem {
             return this;
         }
 
+
+        /**
+         * Seat quantity for seat-based billing.
+         */
+        public Builder seats(Seats seats) {
+            Utils.checkNotNull(seats, "seats");
+            this.seats = JsonNullable.of(seats);
+            return this;
+        }
+
+        /**
+         * Seat quantity for seat-based billing.
+         */
+        public Builder seats(JsonNullable<? extends Seats> seats) {
+            Utils.checkNotNull(seats, "seats");
+            this.seats = seats;
+            return this;
+        }
+
+
+        /**
+         * Totals for this subscription item.
+         */
+        public Builder totals(Totals totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = JsonNullable.of(totals);
+            return this;
+        }
+
+        /**
+         * Totals for this subscription item.
+         */
+        public Builder totals(JsonNullable<? extends Totals> totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = totals;
+            return this;
+        }
+
         public CommerceSubscriptionItem build() {
 
             return new CommerceSubscriptionItem(
                 object, id, instanceId,
-                status, credit, planId,
-                priceId, plan, planPeriod,
-                paymentMethod, lifetimePaid, nextPayment,
-                payerId, payer, isFreeTrial,
-                periodStart, periodEnd, prorationDate,
-                canceledAt, pastDueAt, endedAt,
-                createdAt, updatedAt);
+                status, credit, credits,
+                planId, priceId, plan,
+                planPeriod, paymentMethod, lifetimePaid,
+                nextPayment, payerId, payer,
+                isFreeTrial, periodStart, periodEnd,
+                prorationDate, canceledAt, pastDueAt,
+                endedAt, createdAt, updatedAt,
+                seats, totals);
         }
 
     }

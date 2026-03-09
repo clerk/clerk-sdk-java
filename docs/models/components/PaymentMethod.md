@@ -2,6 +2,14 @@
 
 The payment method type.
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.PaymentMethod;
+
+PaymentMethod value = PaymentMethod.CARD;
+```
+
 
 ## Values
 

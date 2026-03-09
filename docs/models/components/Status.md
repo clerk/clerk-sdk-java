@@ -1,5 +1,13 @@
 # Status
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.Status;
+
+Status value = Status.ACTIVE;
+```
+
 
 ## Values
 

@@ -1,5 +1,13 @@
 # DomainsEnrollmentModes
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.DomainsEnrollmentModes;
+
+DomainsEnrollmentModes value = DomainsEnrollmentModes.MANUAL_INVITATION;
+```
+
 
 ## Values
 

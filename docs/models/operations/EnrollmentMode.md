@@ -1,5 +1,13 @@
 # EnrollmentMode
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.EnrollmentMode;
+
+EnrollmentMode value = EnrollmentMode.MANUAL_INVITATION;
+```
+
 
 ## Values
 

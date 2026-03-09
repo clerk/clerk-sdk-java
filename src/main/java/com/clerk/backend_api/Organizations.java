@@ -5,6 +5,10 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.components.AdjustCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.AdjustOrganizationBillingCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.AdjustOrganizationBillingCreditBalanceRequestBuilder;
+import com.clerk.backend_api.models.operations.AdjustOrganizationBillingCreditBalanceResponse;
 import com.clerk.backend_api.models.operations.CreateOrganizationRequestBody;
 import com.clerk.backend_api.models.operations.CreateOrganizationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateOrganizationResponse;
@@ -14,6 +18,9 @@ import com.clerk.backend_api.models.operations.DeleteOrganizationLogoResponse;
 import com.clerk.backend_api.models.operations.DeleteOrganizationRequest;
 import com.clerk.backend_api.models.operations.DeleteOrganizationRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteOrganizationResponse;
+import com.clerk.backend_api.models.operations.GetOrganizationBillingCreditBalanceRequest;
+import com.clerk.backend_api.models.operations.GetOrganizationBillingCreditBalanceRequestBuilder;
+import com.clerk.backend_api.models.operations.GetOrganizationBillingCreditBalanceResponse;
 import com.clerk.backend_api.models.operations.GetOrganizationBillingSubscriptionRequest;
 import com.clerk.backend_api.models.operations.GetOrganizationBillingSubscriptionRequestBuilder;
 import com.clerk.backend_api.models.operations.GetOrganizationBillingSubscriptionResponse;
@@ -35,10 +42,12 @@ import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequest;
 import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBody;
 import com.clerk.backend_api.models.operations.UploadOrganizationLogoRequestBuilder;
 import com.clerk.backend_api.models.operations.UploadOrganizationLogoResponse;
+import com.clerk.backend_api.operations.AdjustOrganizationBillingCreditBalance;
 import com.clerk.backend_api.operations.CreateOrganization;
 import com.clerk.backend_api.operations.DeleteOrganization;
 import com.clerk.backend_api.operations.DeleteOrganizationLogo;
 import com.clerk.backend_api.operations.GetOrganization;
+import com.clerk.backend_api.operations.GetOrganizationBillingCreditBalance;
 import com.clerk.backend_api.operations.GetOrganizationBillingSubscription;
 import com.clerk.backend_api.operations.ListOrganizations;
 import com.clerk.backend_api.operations.MergeOrganizationMetadata;
@@ -561,6 +570,113 @@ public class Organizations {
                 .build();
         RequestOperation<GetOrganizationBillingSubscriptionRequest, GetOrganizationBillingSubscriptionResponse> operation
               = new GetOrganizationBillingSubscription.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve an organization's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified organization.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges.
+     * 
+     * @return The call builder
+     */
+    public GetOrganizationBillingCreditBalanceRequestBuilder getBillingCreditBalance() {
+        return new GetOrganizationBillingCreditBalanceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve an organization's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified organization.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges.
+     * 
+     * @param organizationId The ID of the organization whose credit balance to retrieve
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetOrganizationBillingCreditBalanceResponse getBillingCreditBalance(String organizationId) {
+        return getBillingCreditBalance(organizationId, Optional.empty());
+    }
+
+    /**
+     * Retrieve an organization's credit balance
+     * 
+     * <p>Retrieves the current credit balance for the specified organization.
+     * Credits can be applied during checkout to reduce the charge or automatically applied to upcoming
+     * recurring charges.
+     * 
+     * @param organizationId The ID of the organization whose credit balance to retrieve
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetOrganizationBillingCreditBalanceResponse getBillingCreditBalance(String organizationId, Optional<Options> options) {
+        GetOrganizationBillingCreditBalanceRequest request =
+            GetOrganizationBillingCreditBalanceRequest
+                .builder()
+                .organizationId(organizationId)
+                .build();
+        RequestOperation<GetOrganizationBillingCreditBalanceRequest, GetOrganizationBillingCreditBalanceResponse> operation
+              = new GetOrganizationBillingCreditBalance.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Adjust an organization's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified organization.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @return The call builder
+     */
+    public AdjustOrganizationBillingCreditBalanceRequestBuilder adjustBillingCreditBalance() {
+        return new AdjustOrganizationBillingCreditBalanceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Adjust an organization's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified organization.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @param organizationId The ID of the organization whose credit balance to adjust
+     * @param adjustCreditBalanceRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AdjustOrganizationBillingCreditBalanceResponse adjustBillingCreditBalance(String organizationId, AdjustCreditBalanceRequest adjustCreditBalanceRequest) {
+        return adjustBillingCreditBalance(organizationId, adjustCreditBalanceRequest, Optional.empty());
+    }
+
+    /**
+     * Adjust an organization's credit balance
+     * 
+     * <p>Increases or decreases the credit balance for the specified organization.
+     * Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+     * ensures that duplicate requests are safely handled.
+     * 
+     * @param organizationId The ID of the organization whose credit balance to adjust
+     * @param adjustCreditBalanceRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AdjustOrganizationBillingCreditBalanceResponse adjustBillingCreditBalance(
+            String organizationId, AdjustCreditBalanceRequest adjustCreditBalanceRequest,
+            Optional<Options> options) {
+        AdjustOrganizationBillingCreditBalanceRequest request =
+            AdjustOrganizationBillingCreditBalanceRequest
+                .builder()
+                .organizationId(organizationId)
+                .adjustCreditBalanceRequest(adjustCreditBalanceRequest)
+                .build();
+        RequestOperation<AdjustOrganizationBillingCreditBalanceRequest, AdjustOrganizationBillingCreditBalanceResponse> operation
+              = new AdjustOrganizationBillingCreditBalance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

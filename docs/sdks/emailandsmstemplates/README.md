@@ -41,7 +41,7 @@ public class Application {
                 .call();
 
         if (res.template().isPresent()) {
-            // handle response
+            System.out.println(res.template().get());
         }
     }
 }

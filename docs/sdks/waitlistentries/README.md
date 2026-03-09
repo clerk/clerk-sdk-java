@@ -44,7 +44,7 @@ public class Application {
                 .call();
 
         if (res.waitlistEntries().isPresent()) {
-            // handle response
+            System.out.println(res.waitlistEntries().get());
         }
     }
 }
@@ -94,7 +94,7 @@ public class Application {
                 .call();
 
         if (res.waitlistEntry().isPresent()) {
-            // handle response
+            System.out.println(res.waitlistEntry().get());
         }
     }
 }
@@ -151,7 +151,7 @@ public class Application {
                 .call();
 
         if (res.waitlistEntryList().isPresent()) {
-            // handle response
+            System.out.println(res.waitlistEntryList().get());
         }
     }
 }
@@ -202,7 +202,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -253,7 +253,7 @@ public class Application {
                 .call();
 
         if (res.waitlistEntry().isPresent()) {
-            // handle response
+            System.out.println(res.waitlistEntry().get());
         }
     }
 }
@@ -305,7 +305,7 @@ public class Application {
                 .call();
 
         if (res.waitlistEntry().isPresent()) {
-            // handle response
+            System.out.println(res.waitlistEntry().get());
         }
     }
 }

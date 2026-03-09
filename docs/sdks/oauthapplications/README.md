@@ -44,7 +44,7 @@ public class Application {
                 .call();
 
         if (res.oAuthApplications().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthApplications().get());
         }
     }
 }
@@ -106,7 +106,7 @@ public class Application {
                 .call();
 
         if (res.oAuthApplicationWithSecret().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthApplicationWithSecret().get());
         }
     }
 }
@@ -157,7 +157,7 @@ public class Application {
                 .call();
 
         if (res.oAuthApplication().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthApplication().get());
         }
     }
 }
@@ -212,7 +212,7 @@ public class Application {
                 .call();
 
         if (res.oAuthApplication().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthApplication().get());
         }
     }
 }
@@ -265,7 +265,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -317,7 +317,7 @@ public class Application {
                 .call();
 
         if (res.oAuthApplicationWithSecret().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthApplicationWithSecret().get());
         }
     }
 }

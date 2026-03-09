@@ -1,5 +1,13 @@
 # VerificationSamlVerificationStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.VerificationSamlVerificationStatus;
+
+VerificationSamlVerificationStatus value = VerificationSamlVerificationStatus.UNVERIFIED;
+```
+
 
 ## Values
 

@@ -13,6 +13,8 @@
 * [uploadLogo](#uploadlogo) - Upload a logo for the organization
 * [deleteLogo](#deletelogo) - Delete the organization's logo.
 * [getBillingSubscription](#getbillingsubscription) - Retrieve an organization's billing subscription
+* [getBillingCreditBalance](#getbillingcreditbalance) - Retrieve an organization's credit balance
+* [adjustBillingCreditBalance](#adjustbillingcreditbalance) - Adjust an organization's credit balance
 
 ## list
 
@@ -49,7 +51,7 @@ public class Application {
                 .call();
 
         if (res.organizations().isPresent()) {
-            // handle response
+            System.out.println(res.organizations().get());
         }
     }
 }
@@ -108,7 +110,7 @@ public class Application {
                 .call();
 
         if (res.organization().isPresent()) {
-            // handle response
+            System.out.println(res.organization().get());
         }
     }
 }
@@ -159,7 +161,7 @@ public class Application {
                 .call();
 
         if (res.organization().isPresent()) {
-            // handle response
+            System.out.println(res.organization().get());
         }
     }
 }
@@ -215,7 +217,7 @@ public class Application {
                 .call();
 
         if (res.organization().isPresent()) {
-            // handle response
+            System.out.println(res.organization().get());
         }
     }
 }
@@ -236,7 +238,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 400, 402, 403, 404, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
@@ -272,7 +274,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -329,7 +331,7 @@ public class Application {
                 .call();
 
         if (res.organization().isPresent()) {
-            // handle response
+            System.out.println(res.organization().get());
         }
     }
 }
@@ -433,7 +435,7 @@ public class Application {
                 .call();
 
         if (res.organization().isPresent()) {
-            // handle response
+            System.out.println(res.organization().get());
         }
     }
 }
@@ -486,7 +488,7 @@ public class Application {
                 .call();
 
         if (res.commerceSubscription().isPresent()) {
-            // handle response
+            System.out.println(res.commerceSubscription().get());
         }
     }
 }
@@ -509,3 +511,118 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getBillingCreditBalance
+
+Retrieves the current credit balance for the specified organization.
+Credits can be applied during checkout to reduce the charge or automatically applied to upcoming recurring charges.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetOrganizationBillingCreditBalance" method="get" path="/organizations/{organization_id}/billing/credits" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetOrganizationBillingCreditBalanceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetOrganizationBillingCreditBalanceResponse res = sdk.organizations().getBillingCreditBalance()
+                .organizationId("<id>")
+                .call();
+
+        if (res.commerceCreditBalanceResponse().isPresent()) {
+            System.out.println(res.commerceCreditBalanceResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `organizationId`                                            | *String*                                                    | :heavy_check_mark:                                          | The ID of the organization whose credit balance to retrieve |
+
+### Response
+
+**[GetOrganizationBillingCreditBalanceResponse](../../models/operations/GetOrganizationBillingCreditBalanceResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## adjustBillingCreditBalance
+
+Increases or decreases the credit balance for the specified organization.
+Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+ensures that duplicate requests are safely handled.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="AdjustOrganizationBillingCreditBalance" method="post" path="/organizations/{organization_id}/billing/credits" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.Action;
+import com.clerk.backend_api.models.components.AdjustCreditBalanceRequest;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.AdjustOrganizationBillingCreditBalanceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        AdjustOrganizationBillingCreditBalanceResponse res = sdk.organizations().adjustBillingCreditBalance()
+                .organizationId("<id>")
+                .adjustCreditBalanceRequest(AdjustCreditBalanceRequest.builder()
+                    .amount(245081L)
+                    .action(Action.INCREASE)
+                    .idempotencyKey("<value>")
+                    .build())
+                .call();
+
+        if (res.commerceCreditLedgerResponse().isPresent()) {
+            System.out.println(res.commerceCreditLedgerResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `organizationId`                                                                    | *String*                                                                            | :heavy_check_mark:                                                                  | The ID of the organization whose credit balance to adjust                           |
+| `adjustCreditBalanceRequest`                                                        | [AdjustCreditBalanceRequest](../../models/components/AdjustCreditBalanceRequest.md) | :heavy_check_mark:                                                                  | Parameters for the credit balance adjustment                                        |
+
+### Response
+
+**[AdjustOrganizationBillingCreditBalanceResponse](../../models/operations/AdjustOrganizationBillingCreditBalanceResponse.md)**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 401, 403, 404, 409, 422 | application/json             |
+| models/errors/ClerkErrors    | 500                          | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |

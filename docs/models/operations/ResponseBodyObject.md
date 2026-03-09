@@ -1,5 +1,13 @@
 # ResponseBodyObject
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.ResponseBodyObject;
+
+ResponseBodyObject value = ResponseBodyObject.CLERK_IDP_OAUTH_ACCESS_TOKEN;
+```
+
 
 ## Values
 

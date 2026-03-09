@@ -1,5 +1,13 @@
 # SignInTokenStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.SignInTokenStatus;
+
+SignInTokenStatus value = SignInTokenStatus.PENDING;
+```
+
 
 ## Values
 

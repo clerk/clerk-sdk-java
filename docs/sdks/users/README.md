@@ -20,6 +20,8 @@
 * [deleteProfileImage](#deleteprofileimage) - Delete user profile image
 * [updateMetadata](#updatemetadata) - Merge and update a user's metadata
 * [getBillingSubscription](#getbillingsubscription) - Retrieve a user's billing subscription
+* [getBillingCreditBalance](#getbillingcreditbalance) - Retrieve a user's credit balance
+* [adjustBillingCreditBalance](#adjustbillingcreditbalance) - Adjust a user's credit balance
 * [getOAuthAccessToken](#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](#getorganizationinvitations) - Retrieve all invitations for a user
@@ -75,7 +77,7 @@ public class Application {
                 .call();
 
         if (res.userList().isPresent()) {
-            // handle response
+            System.out.println(res.userList().get());
         }
     }
 }
@@ -136,7 +138,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -198,7 +200,7 @@ public class Application {
                 .call();
 
         if (res.totalCount().isPresent()) {
-            // handle response
+            System.out.println(res.totalCount().get());
         }
     }
 }
@@ -249,7 +251,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -314,7 +316,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -335,7 +337,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 400, 401, 404, 409, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
@@ -366,7 +368,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -417,7 +419,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -468,7 +470,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -528,7 +530,7 @@ public class Application {
                 .call();
 
         if (res.userList().isPresent()) {
-            // handle response
+            System.out.println(res.userList().get());
         }
     }
 }
@@ -588,7 +590,7 @@ public class Application {
                 .call();
 
         if (res.userList().isPresent()) {
-            // handle response
+            System.out.println(res.userList().get());
         }
     }
 }
@@ -640,7 +642,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -691,7 +693,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -794,7 +796,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -852,7 +854,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -906,7 +908,7 @@ public class Application {
                 .call();
 
         if (res.commerceSubscription().isPresent()) {
-            // handle response
+            System.out.println(res.commerceSubscription().get());
         }
     }
 }
@@ -929,6 +931,121 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getBillingCreditBalance
+
+Retrieves the current credit balance for the specified user.
+Credits can be applied during checkout to reduce the charge or automatically applied to upcoming recurring charges
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetUserBillingCreditBalance" method="get" path="/users/{user_id}/billing/credits" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetUserBillingCreditBalanceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetUserBillingCreditBalanceResponse res = sdk.users().getBillingCreditBalance()
+                .userId("<id>")
+                .call();
+
+        if (res.commerceCreditBalanceResponse().isPresent()) {
+            System.out.println(res.commerceCreditBalanceResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                           | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `userId`                                            | *String*                                            | :heavy_check_mark:                                  | The ID of the user whose credit balance to retrieve |
+
+### Response
+
+**[GetUserBillingCreditBalanceResponse](../../models/operations/GetUserBillingCreditBalanceResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 422   | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## adjustBillingCreditBalance
+
+Increases or decreases the credit balance for the specified user.
+Each adjustment is recorded as a ledger entry. The idempotency_key parameter
+ensures that duplicate requests are safely handled.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="AdjustUserBillingCreditBalance" method="post" path="/users/{user_id}/billing/credits" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.Action;
+import com.clerk.backend_api.models.components.AdjustCreditBalanceRequest;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.AdjustUserBillingCreditBalanceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        AdjustUserBillingCreditBalanceResponse res = sdk.users().adjustBillingCreditBalance()
+                .userId("<id>")
+                .adjustCreditBalanceRequest(AdjustCreditBalanceRequest.builder()
+                    .amount(562473L)
+                    .action(Action.DECREASE)
+                    .idempotencyKey("<value>")
+                    .build())
+                .call();
+
+        if (res.commerceCreditLedgerResponse().isPresent()) {
+            System.out.println(res.commerceCreditLedgerResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `userId`                                                                            | *String*                                                                            | :heavy_check_mark:                                                                  | The ID of the user whose credit balance to adjust                                   |
+| `adjustCreditBalanceRequest`                                                        | [AdjustCreditBalanceRequest](../../models/components/AdjustCreditBalanceRequest.md) | :heavy_check_mark:                                                                  | Parameters for the credit balance adjustment                                        |
+
+### Response
+
+**[AdjustUserBillingCreditBalanceResponse](../../models/operations/AdjustUserBillingCreditBalanceResponse.md)**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 401, 403, 404, 409, 422 | application/json             |
+| models/errors/ClerkErrors    | 500                          | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## getOAuthAccessToken
 
@@ -965,7 +1082,7 @@ public class Application {
                 .call();
 
         if (res.oAuthAccessToken().isPresent()) {
-            // handle response
+            System.out.println(res.oAuthAccessToken().get());
         }
     }
 }
@@ -1018,7 +1135,7 @@ public class Application {
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMemberships().get());
         }
     }
 }
@@ -1073,7 +1190,7 @@ public class Application {
                 .call();
 
         if (res.organizationInvitationsWithPublicOrganizationData().isPresent()) {
-            // handle response
+            System.out.println(res.organizationInvitationsWithPublicOrganizationData().get());
         }
     }
 }
@@ -1128,7 +1245,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -1183,7 +1300,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -1235,7 +1352,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -1287,7 +1404,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -1340,7 +1457,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -1394,7 +1511,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -1447,7 +1564,7 @@ public class Application {
                 .call();
 
         if (res.object().isPresent()) {
-            // handle response
+            System.out.println(res.object().get());
         }
     }
 }
@@ -1500,7 +1617,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -1553,7 +1670,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -1605,7 +1722,7 @@ public class Application {
                 .call();
 
         if (res.user().isPresent()) {
-            // handle response
+            System.out.println(res.user().get());
         }
     }
 }
@@ -1657,7 +1774,7 @@ public class Application {
                 .call();
 
         if (res.organizationMemberships().isPresent()) {
-            // handle response
+            System.out.println(res.organizationMemberships().get());
         }
     }
 }

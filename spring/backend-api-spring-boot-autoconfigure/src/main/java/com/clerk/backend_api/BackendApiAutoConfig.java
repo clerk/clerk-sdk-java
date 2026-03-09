@@ -546,6 +546,17 @@ public class BackendApiAutoConfig {
         return clerk.testingTokens();
     }
     /**
+     * Creates a AgentTasks sub-SDK bean if none exists.
+     *
+     * @param clerk the main SDK instance
+     * @return A configured AgentTasks instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AgentTasks agentTasks(Clerk clerk) {
+        return clerk.agentTasks();
+    }
+    /**
      * Creates a WaitlistEntries sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance

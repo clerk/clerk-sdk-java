@@ -1,5 +1,13 @@
 # ProxyCheckObject
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.ProxyCheckObject;
+
+ProxyCheckObject value = ProxyCheckObject.PROXY_CHECK;
+```
+
 
 ## Values
 

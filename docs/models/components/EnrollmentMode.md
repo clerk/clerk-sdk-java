@@ -2,6 +2,14 @@
 
 Mode of enrollment for the domain
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.EnrollmentMode;
+
+EnrollmentMode value = EnrollmentMode.MANUAL_INVITATION;
+```
+
 
 ## Values
 

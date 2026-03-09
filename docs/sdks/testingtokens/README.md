@@ -32,7 +32,7 @@ public class Application {
                 .call();
 
         if (res.testingToken().isPresent()) {
-            // handle response
+            System.out.println(res.testingToken().get());
         }
     }
 }

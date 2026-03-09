@@ -41,7 +41,7 @@ public class Application {
                 .call();
 
         if (res.organizationDomain().isPresent()) {
-            // handle response
+            System.out.println(res.organizationDomain().get());
         }
     }
 }
@@ -98,7 +98,7 @@ public class Application {
                 .call();
 
         if (res.organizationDomains().isPresent()) {
-            // handle response
+            System.out.println(res.organizationDomains().get());
         }
     }
 }
@@ -153,7 +153,7 @@ public class Application {
                 .call();
 
         if (res.organizationDomain().isPresent()) {
-            // handle response
+            System.out.println(res.organizationDomain().get());
         }
     }
 }
@@ -207,7 +207,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -269,7 +269,7 @@ public class Application {
                 .call();
 
         if (res.organizationDomains().isPresent()) {
-            // handle response
+            System.out.println(res.organizationDomains().get());
         }
     }
 }

@@ -2,6 +2,14 @@
 
 Filter sessions by the provided status
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.Status;
+
+Status value = Status.ABANDONED;
+```
+
 
 ## Values
 

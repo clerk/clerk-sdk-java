@@ -3,21 +3,29 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Double;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CreateM2MTokenRequestBody {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("token_format")
+    private Optional<? extends TokenFormat> tokenFormat;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("seconds_until_expiration")
@@ -30,16 +38,25 @@ public class CreateM2MTokenRequestBody {
 
     @JsonCreator
     public CreateM2MTokenRequestBody(
+            @JsonProperty("token_format") Optional<? extends TokenFormat> tokenFormat,
             @JsonProperty("seconds_until_expiration") JsonNullable<Double> secondsUntilExpiration,
             @JsonProperty("claims") JsonNullable<? extends Object> claims) {
+        Utils.checkNotNull(tokenFormat, "tokenFormat");
         Utils.checkNotNull(secondsUntilExpiration, "secondsUntilExpiration");
         Utils.checkNotNull(claims, "claims");
+        this.tokenFormat = tokenFormat;
         this.secondsUntilExpiration = secondsUntilExpiration;
         this.claims = claims;
     }
     
     public CreateM2MTokenRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<TokenFormat> tokenFormat() {
+        return (Optional<TokenFormat>) tokenFormat;
     }
 
     @JsonIgnore
@@ -57,6 +74,19 @@ public class CreateM2MTokenRequestBody {
         return new Builder();
     }
 
+
+    public CreateM2MTokenRequestBody withTokenFormat(TokenFormat tokenFormat) {
+        Utils.checkNotNull(tokenFormat, "tokenFormat");
+        this.tokenFormat = Optional.ofNullable(tokenFormat);
+        return this;
+    }
+
+
+    public CreateM2MTokenRequestBody withTokenFormat(Optional<? extends TokenFormat> tokenFormat) {
+        Utils.checkNotNull(tokenFormat, "tokenFormat");
+        this.tokenFormat = tokenFormat;
+        return this;
+    }
 
     public CreateM2MTokenRequestBody withSecondsUntilExpiration(double secondsUntilExpiration) {
         Utils.checkNotNull(secondsUntilExpiration, "secondsUntilExpiration");
@@ -92,6 +122,7 @@ public class CreateM2MTokenRequestBody {
         }
         CreateM2MTokenRequestBody other = (CreateM2MTokenRequestBody) o;
         return 
+            Utils.enhancedDeepEquals(this.tokenFormat, other.tokenFormat) &&
             Utils.enhancedDeepEquals(this.secondsUntilExpiration, other.secondsUntilExpiration) &&
             Utils.enhancedDeepEquals(this.claims, other.claims);
     }
@@ -99,12 +130,13 @@ public class CreateM2MTokenRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            secondsUntilExpiration, claims);
+            tokenFormat, secondsUntilExpiration, claims);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateM2MTokenRequestBody.class,
+                "tokenFormat", tokenFormat,
                 "secondsUntilExpiration", secondsUntilExpiration,
                 "claims", claims);
     }
@@ -112,12 +144,27 @@ public class CreateM2MTokenRequestBody {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends TokenFormat> tokenFormat;
+
         private JsonNullable<Double> secondsUntilExpiration = JsonNullable.undefined();
 
         private JsonNullable<? extends Object> claims = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        public Builder tokenFormat(TokenFormat tokenFormat) {
+            Utils.checkNotNull(tokenFormat, "tokenFormat");
+            this.tokenFormat = Optional.ofNullable(tokenFormat);
+            return this;
+        }
+
+        public Builder tokenFormat(Optional<? extends TokenFormat> tokenFormat) {
+            Utils.checkNotNull(tokenFormat, "tokenFormat");
+            this.tokenFormat = tokenFormat;
+            return this;
         }
 
 
@@ -147,10 +194,19 @@ public class CreateM2MTokenRequestBody {
         }
 
         public CreateM2MTokenRequestBody build() {
+            if (tokenFormat == null) {
+                tokenFormat = _SINGLETON_VALUE_TokenFormat.value();
+            }
 
             return new CreateM2MTokenRequestBody(
-                secondsUntilExpiration, claims);
+                tokenFormat, secondsUntilExpiration, claims);
         }
 
+
+        private static final LazySingletonValue<Optional<? extends TokenFormat>> _SINGLETON_VALUE_TokenFormat =
+                new LazySingletonValue<>(
+                        "token_format",
+                        "\"opaque\"",
+                        new TypeReference<Optional<? extends TokenFormat>>() {});
     }
 }

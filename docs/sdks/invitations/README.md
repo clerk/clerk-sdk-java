@@ -38,7 +38,7 @@ public class Application {
                 .call();
 
         if (res.invitation().isPresent()) {
-            // handle response
+            System.out.println(res.invitation().get());
         }
     }
 }
@@ -92,7 +92,7 @@ public class Application {
                 .call();
 
         if (res.invitationList().isPresent()) {
-            // handle response
+            System.out.println(res.invitationList().get());
         }
     }
 }
@@ -146,7 +146,7 @@ public class Application {
                 .call();
 
         if (res.invitationList().isPresent()) {
-            // handle response
+            System.out.println(res.invitationList().get());
         }
     }
 }
@@ -200,7 +200,7 @@ public class Application {
                 .call();
 
         if (res.invitationRevoked().isPresent()) {
-            // handle response
+            System.out.println(res.invitationRevoked().get());
         }
     }
 }

@@ -81,6 +81,9 @@ public class M2m {
      * 
      * <p>Fetches M2M tokens for a specific machine.
      * 
+     * <p>Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M
+     * tokens are stateless and are not stored.
+     * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
      * <p>- When fetching M2M tokens with a Machine Secret Key, only tokens associated with the authenticated
@@ -98,6 +101,9 @@ public class M2m {
      * Get M2M Tokens
      * 
      * <p>Fetches M2M tokens for a specific machine.
+     * 
+     * <p>Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M
+     * tokens are stateless and are not stored.
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
@@ -118,6 +124,9 @@ public class M2m {
      * Get M2M Tokens
      * 
      * <p>Fetches M2M tokens for a specific machine.
+     * 
+     * <p>Only tokens created with the opaque token format are returned by this endpoint. JWT-format M2M
+     * tokens are stateless and are not stored.
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
@@ -142,6 +151,9 @@ public class M2m {
      * 
      * <p>Revokes a M2M Token.
      * 
+     * <p>This endpoint only revokes stored opaque-format M2M tokens. JWT-format M2M tokens are stateless and
+     * cannot be revoked.
+     * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
      * <p>- When revoking a M2M Token with a Machine Secret Key, the token must managed by the Machine
@@ -158,6 +170,9 @@ public class M2m {
      * Revoke a M2M Token
      * 
      * <p>Revokes a M2M Token.
+     * 
+     * <p>This endpoint only revokes stored opaque-format M2M tokens. JWT-format M2M tokens are stateless and
+     * cannot be revoked.
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 
@@ -178,6 +193,9 @@ public class M2m {
      * Revoke a M2M Token
      * 
      * <p>Revokes a M2M Token.
+     * 
+     * <p>This endpoint only revokes stored opaque-format M2M tokens. JWT-format M2M tokens are stateless and
+     * cannot be revoked.
      * 
      * <p>This endpoint can be authenticated by either a Machine Secret Key or by a Clerk Secret Key.
      * 

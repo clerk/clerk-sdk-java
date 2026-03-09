@@ -16,7 +16,8 @@ import java.util.Optional;
 public enum QueryParamStatus {
     PENDING("pending"),
     ACCEPTED("accepted"),
-    REVOKED("revoked");
+    REVOKED("revoked"),
+    EXPIRED("expired");
 
     @JsonValue
     private final String value;

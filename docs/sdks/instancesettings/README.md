@@ -9,6 +9,8 @@ Modify the settings of your instance.
 * [get](#get) - Fetch the current instance
 * [update](#update) - Update instance settings
 * [updateRestrictions](#updaterestrictions) - Update instance restrictions
+* [getOAuthApplicationSettings](#getoauthapplicationsettings) - Get OAuth application settings
+* [updateOAuthApplicationSettings](#updateoauthapplicationsettings) - Update OAuth application settings
 * [changeDomain](#changedomain) - Update production instance domain
 * [updateOrganizationSettings](#updateorganizationsettings) - Update instance organization settings
 * [getInstanceProtect](#getinstanceprotect) - Get instance protect settings
@@ -40,7 +42,7 @@ public class Application {
                 .call();
 
         if (res.instance().isPresent()) {
-            // handle response
+            System.out.println(res.instance().get());
         }
     }
 }
@@ -131,7 +133,7 @@ public class Application {
                 .call();
 
         if (res.instanceRestrictions().isPresent()) {
-            // handle response
+            System.out.println(res.instanceRestrictions().get());
         }
     }
 }
@@ -152,6 +154,98 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 402, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getOAuthApplicationSettings
+
+Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT access tokens, etc.).
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetInstanceOAuthApplicationSettings" method="get" path="/instance/oauth_application_settings" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetInstanceOAuthApplicationSettingsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetInstanceOAuthApplicationSettingsResponse res = sdk.instanceSettings().getOAuthApplicationSettings()
+                .call();
+
+        if (res.oAuthApplicationSettings().isPresent()) {
+            System.out.println(res.oAuthApplicationSettings().get());
+        }
+    }
+}
+```
+
+### Response
+
+**[GetInstanceOAuthApplicationSettingsResponse](../../models/operations/GetInstanceOAuthApplicationSettingsResponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4XX, 5XX               | \*/\*                  |
+
+## updateOAuthApplicationSettings
+
+Updates the OAuth application settings for the instance.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UpdateInstanceOAuthApplicationSettings" method="patch" path="/instance/oauth_application_settings" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UpdateInstanceOAuthApplicationSettingsResponse res = sdk.instanceSettings().updateOAuthApplicationSettings()
+                .call();
+
+        if (res.oAuthApplicationSettings().isPresent()) {
+            System.out.println(res.oAuthApplicationSettings().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                         | [UpdateInstanceOAuthApplicationSettingsRequestBody](../../models/operations/UpdateInstanceOAuthApplicationSettingsRequestBody.md) | :heavy_check_mark:                                                                                                                | The request object to use for the request.                                                                                        |
+
+### Response
+
+**[UpdateInstanceOAuthApplicationSettingsResponse](../../models/operations/UpdateInstanceOAuthApplicationSettingsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 422                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## changeDomain
@@ -233,7 +327,7 @@ public class Application {
                 .call();
 
         if (res.organizationSettings().isPresent()) {
-            // handle response
+            System.out.println(res.organizationSettings().get());
         }
     }
 }
@@ -282,7 +376,7 @@ public class Application {
                 .call();
 
         if (res.instanceProtect().isPresent()) {
-            // handle response
+            System.out.println(res.instanceProtect().get());
         }
     }
 }
@@ -325,7 +419,7 @@ public class Application {
                 .call();
 
         if (res.instanceProtect().isPresent()) {
-            // handle response
+            System.out.println(res.instanceProtect().get());
         }
     }
 }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -80,6 +81,12 @@ public class BillingPriceResponse {
     private JsonNullable<String> description;
 
     /**
+     * Whether this price is the default price for its plan.
+     */
+    @JsonProperty("is_default")
+    private boolean isDefault;
+
+    /**
      * Unix timestamp (milliseconds) of creation.
      */
     @JsonProperty("created_at")
@@ -98,6 +105,7 @@ public class BillingPriceResponse {
             @JsonProperty("fee") CommerceMoneyResponse fee,
             @JsonProperty("annual_monthly_fee") CommerceMoneyResponse annualMonthlyFee,
             @JsonProperty("description") JsonNullable<String> description,
+            @JsonProperty("is_default") boolean isDefault,
             @JsonProperty("created_at") long createdAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
@@ -110,6 +118,7 @@ public class BillingPriceResponse {
         Utils.checkNotNull(fee, "fee");
         Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
         Utils.checkNotNull(description, "description");
+        Utils.checkNotNull(isDefault, "isDefault");
         Utils.checkNotNull(createdAt, "createdAt");
         this.object = object;
         this.id = id;
@@ -122,6 +131,7 @@ public class BillingPriceResponse {
         this.fee = fee;
         this.annualMonthlyFee = annualMonthlyFee;
         this.description = description;
+        this.isDefault = isDefault;
         this.createdAt = createdAt;
     }
     
@@ -136,11 +146,13 @@ public class BillingPriceResponse {
             long annualMonthlyAmount,
             CommerceMoneyResponse fee,
             CommerceMoneyResponse annualMonthlyFee,
+            boolean isDefault,
             long createdAt) {
         this(object, id, planId,
             instanceId, currency, currencySymbol,
             amount, annualMonthlyAmount, fee,
-            annualMonthlyFee, JsonNullable.undefined(), createdAt);
+            annualMonthlyFee, JsonNullable.undefined(), isDefault,
+            createdAt);
     }
 
     /**
@@ -223,6 +235,14 @@ public class BillingPriceResponse {
     @JsonIgnore
     public JsonNullable<String> description() {
         return description;
+    }
+
+    /**
+     * Whether this price is the default price for its plan.
+     */
+    @JsonIgnore
+    public boolean isDefault() {
+        return isDefault;
     }
 
     /**
@@ -341,6 +361,15 @@ public class BillingPriceResponse {
     }
 
     /**
+     * Whether this price is the default price for its plan.
+     */
+    public BillingPriceResponse withIsDefault(boolean isDefault) {
+        Utils.checkNotNull(isDefault, "isDefault");
+        this.isDefault = isDefault;
+        return this;
+    }
+
+    /**
      * Unix timestamp (milliseconds) of creation.
      */
     public BillingPriceResponse withCreatedAt(long createdAt) {
@@ -370,6 +399,7 @@ public class BillingPriceResponse {
             Utils.enhancedDeepEquals(this.fee, other.fee) &&
             Utils.enhancedDeepEquals(this.annualMonthlyFee, other.annualMonthlyFee) &&
             Utils.enhancedDeepEquals(this.description, other.description) &&
+            Utils.enhancedDeepEquals(this.isDefault, other.isDefault) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
     }
     
@@ -379,7 +409,8 @@ public class BillingPriceResponse {
             object, id, planId,
             instanceId, currency, currencySymbol,
             amount, annualMonthlyAmount, fee,
-            annualMonthlyFee, description, createdAt);
+            annualMonthlyFee, description, isDefault,
+            createdAt);
     }
     
     @Override
@@ -396,6 +427,7 @@ public class BillingPriceResponse {
                 "fee", fee,
                 "annualMonthlyFee", annualMonthlyFee,
                 "description", description,
+                "isDefault", isDefault,
                 "createdAt", createdAt);
     }
 
@@ -423,6 +455,8 @@ public class BillingPriceResponse {
         private CommerceMoneyResponse annualMonthlyFee;
 
         private JsonNullable<String> description = JsonNullable.undefined();
+
+        private Boolean isDefault;
 
         private Long createdAt;
 
@@ -545,6 +579,16 @@ public class BillingPriceResponse {
 
 
         /**
+         * Whether this price is the default price for its plan.
+         */
+        public Builder isDefault(boolean isDefault) {
+            Utils.checkNotNull(isDefault, "isDefault");
+            this.isDefault = isDefault;
+            return this;
+        }
+
+
+        /**
          * Unix timestamp (milliseconds) of creation.
          */
         public Builder createdAt(long createdAt) {
@@ -559,7 +603,8 @@ public class BillingPriceResponse {
                 object, id, planId,
                 instanceId, currency, currencySymbol,
                 amount, annualMonthlyAmount, fee,
-                annualMonthlyFee, description, createdAt);
+                annualMonthlyFee, description, isDefault,
+                createdAt);
         }
 
     }

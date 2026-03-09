@@ -1,5 +1,13 @@
 # InvitationStatus
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.InvitationStatus;
+
+InvitationStatus value = InvitationStatus.PENDING;
+```
+
 
 ## Values
 

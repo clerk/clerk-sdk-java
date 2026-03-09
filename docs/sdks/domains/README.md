@@ -36,7 +36,7 @@ public class Application {
                 .call();
 
         if (res.domains().isPresent()) {
-            // handle response
+            System.out.println(res.domains().get());
         }
     }
 }
@@ -83,7 +83,7 @@ public class Application {
                 .call();
 
         if (res.domain().isPresent()) {
-            // handle response
+            System.out.println(res.domain().get());
         }
     }
 }
@@ -135,7 +135,7 @@ public class Application {
                 .call();
 
         if (res.deletedObject().isPresent()) {
-            // handle response
+            System.out.println(res.deletedObject().get());
         }
     }
 }
@@ -196,7 +196,7 @@ public class Application {
                 .call();
 
         if (res.domain().isPresent()) {
-            // handle response
+            System.out.println(res.domain().get());
         }
     }
 }

@@ -2,6 +2,14 @@
 
 Current status of the subscription item.
 
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.CommerceSubscriptionItemStatus;
+
+CommerceSubscriptionItemStatus value = CommerceSubscriptionItemStatus.ACTIVE;
+```
+
 
 ## Values
 
