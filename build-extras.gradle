@@ -16,7 +16,7 @@ dependencies {
 //     - JDK 14 or earlier, and you want to use EdDSA (Ed25519 or Ed448) Elliptic
 //    Curve signature algorithms.
 //     It is unnecessary for these algorithms on JDK 15 or later.
-    implementation 'org.bouncycastle:bcprov-jdk18on:1.76'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.83'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'org.mockito:mockito-core:5.17.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
