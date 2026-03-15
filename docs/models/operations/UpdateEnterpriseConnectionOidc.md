@@ -1,0 +1,16 @@
+# UpdateEnterpriseConnectionOidc
+
+OIDC connection-specific properties. Only applied when the enterprise connection uses OIDC.
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `clientId`                                                                       | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC client ID                                                                   |
+| `clientSecret`                                                                   | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC client secret                                                               |
+| `discoveryUrl`                                                                   | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC discovery URL                                                               |
+| `authUrl`                                                                        | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC authorization URL                                                           |
+| `tokenUrl`                                                                       | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC token URL                                                                   |
+| `userInfoUrl`                                                                    | *JsonNullable\<String>*                                                          | :heavy_minus_sign:                                                               | OIDC userinfo URL                                                                |
+| `requiresPkce`                                                                   | *JsonNullable\<Boolean>*                                                         | :heavy_minus_sign:                                                               | Whether PKCE is required (must be true for public clients with no client secret) |

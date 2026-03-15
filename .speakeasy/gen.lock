@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 1d22a5a4-8bac-42e3-b164-121fcacf66c9
 management:
-  docChecksum: 4208cf01d594ca72c5c2c890e279dc8b
+  docChecksum: c952794d01bd93a91afe2e68a3ab947e
   docVersion: "2025-11-10"
-  speakeasyVersion: 1.749.1
-  generationVersion: 2.855.2
-  releaseVersion: 4.1.4
-  configChecksum: 53ccc1243a6d7825c50c94b1c3d560c5
+  speakeasyVersion: 1.755.0
+  generationVersion: 2.865.2
+  releaseVersion: 4.1.5
+  configChecksum: 8bc4434ccbac1ba85c00b5f9d501f8b3
   repoURL: https://github.com/clerk/clerk-sdk-java.git
   installationURL: https://github.com/clerk/clerk-sdk-java
   published: true
 persistentEdits:
-  generation_id: da0c3ae4-2046-434a-b60a-05a8197f7842
-  pristine_commit_hash: 5060fb5200cd8f24b5117cc67ea21973e586832d
-  pristine_tree_hash: f3c0885abcef07f30e1326955495c6784bf74d0a
+  generation_id: 77d121a0-fbde-4b84-95f1-44cac58faa00
+  pristine_commit_hash: 5218a9241692f4c925fa2a7ec4221e2a1b6d1cfb
+  pristine_tree_hash: de65b625206ca4d85cc339530a8d31204183e63e
 features:
   java:
     additionalDependencies: 0.1.0
@@ -452,6 +452,10 @@ trackedFiles:
     id: c9c5855677f1
     last_write_checksum: sha1:940a772cc49b3932bec211167e97f7c82ef374dc
     pristine_git_object: bc98469b0a7cd89be070fa4dcead66115a719b3a
+  docs/models/components/EnterpriseConnections.md:
+    id: 94aca8bbadd1
+    last_write_checksum: sha1:fe19d3bb39f2a7cb1bc39bd7cd8bb922aa9cfcf4
+    pristine_git_object: bc460642e64a659f809f097e0d96a13eeab1259a
   docs/models/components/Error.md:
     id: 3d17bbb75eba
     last_write_checksum: sha1:bd6c6094bde2540f50c579198d8f3fbccf848117
@@ -712,6 +716,10 @@ trackedFiles:
     id: ebc9c63488e5
     last_write_checksum: sha1:e122a0a593d07d66d14c42e94e26b02c192ead7c
     pristine_git_object: fc9a4f20ead259d9bdfd2571c700d73922c6adaa
+  docs/models/components/OauthConfig.md:
+    id: 7f06dd2c127c
+    last_write_checksum: sha1:3cd0a552d42ffa84f65bc0190607c465cb4482d7
+    pristine_git_object: 48d43a8f8a4429de97348326fcbabf009356aedb
   docs/models/components/Object.md:
     id: 664819da5a69
     last_write_checksum: sha1:a0e5f161012608cc440979fcb370ddf62032e6af
@@ -1100,6 +1108,14 @@ trackedFiles:
     id: 54fec716b374
     last_write_checksum: sha1:22f569eef82a282ff512d080401369c8fb23a155
     pristine_git_object: 3769ff5d4af3702c8f53d966f647271883d1f997
+  docs/models/components/SchemasEnterpriseConnection.md:
+    id: d846b32495f6
+    last_write_checksum: sha1:e1ba460d86f2bf2edf4bb7b263361a2a0c399625
+    pristine_git_object: 5d1450ef07a2298f1e8b3dd1ab8be2a6a1af958b
+  docs/models/components/SchemasEnterpriseConnectionSamlConnection.md:
+    id: edc895ab0c90
+    last_write_checksum: sha1:2ea3b913cee2a45b7ef8d350b8d67457eeb9c85c
+    pristine_git_object: 3fcc654eb20652974b2427fb24b881927490f78d
   docs/models/components/SchemasFeatureResponse.md:
     id: febdae5288f3
     last_write_checksum: sha1:85bca4481b794a30c6e6bbed4ff39c9ad584e24e
@@ -1980,6 +1996,18 @@ trackedFiles:
     id: 6c6b0e4bf6b5
     last_write_checksum: sha1:79b4eb71c8647effe603dc4c4084a9d88a8013f6
     pristine_git_object: a78e235d7320505244dac232dc751516b21ac720
+  docs/models/operations/CreateEnterpriseConnectionAttributeMapping.md:
+    id: d7aad87f04dc
+    last_write_checksum: sha1:ba6510a4df31f4dafd7a1476ab4f5ed8ae02e31b
+    pristine_git_object: a1c83c589326522b9092e9135a53593d8cd6a1c8
+  docs/models/operations/CreateEnterpriseConnectionRequestBody.md:
+    id: 3c97ef7d2d21
+    last_write_checksum: sha1:d33510307525bc9e5696afe5b057573527601b0a
+    pristine_git_object: 7c4a5e80d6a455fae69625a0d86fd14bfeaf20dd
+  docs/models/operations/CreateEnterpriseConnectionResponse.md:
+    id: 609802a433ab
+    last_write_checksum: sha1:6e991263ec768f3904a4444612306026ac8da922
+    pristine_git_object: dab60574cbc513535cb902c6ded30972b422c5d7
   docs/models/operations/CreateInvitationRequestBody.md:
     id: 73746d9c3012
     last_write_checksum: sha1:526dd2b8e2a35c69ad40c213245215120ec1c5ae
@@ -2144,6 +2172,10 @@ trackedFiles:
     id: e5da583f5701
     last_write_checksum: sha1:4e268d8def0bf2477ab41a6e35801f0da13ebe1b
     pristine_git_object: cb9f82410a341bcefc4c69b2eb7192972436abb0
+  docs/models/operations/CreateSAMLConnectionRequestBodyProvider.md:
+    id: 4f9ad800088e
+    last_write_checksum: sha1:f2f1cd39f83bd6c2d3d8aefea65ad6398eb8e949
+    pristine_git_object: 413d283d40f3bceef6140e08508e8c58d96d1024
   docs/models/operations/CreateSAMLConnectionResponse.md:
     id: 9eb33bb7672c
     last_write_checksum: sha1:89abdcf145078cf1daab5cd7e9399a46764cabca
@@ -2288,6 +2320,14 @@ trackedFiles:
     id: b0cbc5271ddb
     last_write_checksum: sha1:087a5b6a499184735b5a43bd60ae1549f230d45c
     pristine_git_object: 893c41fab39fc609304c40af4bc2f2d81b40e0e2
+  docs/models/operations/DeleteEnterpriseConnectionRequest.md:
+    id: 9eab07579864
+    last_write_checksum: sha1:66475790ec121a0a8de041dc6d9e8c04fffe7f4a
+    pristine_git_object: bba904f7ea85769e6f6048e0158d3906765f6a57
+  docs/models/operations/DeleteEnterpriseConnectionResponse.md:
+    id: 06cfd7b85d22
+    last_write_checksum: sha1:5ce8146299e986fdb5f8fc70dae61affc116fca4
+    pristine_git_object: 3ffe1099f86741c2a9bcef0661561e22e70cf39c
   docs/models/operations/DeleteExternalAccountRequest.md:
     id: e0ff074d3b68
     last_write_checksum: sha1:ba630d4f0f24f33870df1f815d6c35354095a20f
@@ -2596,6 +2636,14 @@ trackedFiles:
     id: 732f20629821
     last_write_checksum: sha1:e22029c8d7614978308e243b04fad4daa0f51749
     pristine_git_object: 17ef88cedae305ea15c497263a017197460fa8fb
+  docs/models/operations/GetEnterpriseConnectionRequest.md:
+    id: 96c1052d9f12
+    last_write_checksum: sha1:fc7c81e1239f23cd562060ea062a653025219f85
+    pristine_git_object: 875216deb384c66647a610c2b633136e85ea4775
+  docs/models/operations/GetEnterpriseConnectionResponse.md:
+    id: 354731c6ff37
+    last_write_checksum: sha1:5cc45a544e0597c570a73de1ee10d54ee9eef253
+    pristine_git_object: 5c7788cfc7a9fcdf9b2b0fe4e690eab630dc3265
   docs/models/operations/GetInstanceOAuthApplicationSettingsResponse.md:
     id: d08c68a33a00
     last_write_checksum: sha1:abdf4103f001669ed24686fd8c2d352c4b2c3845
@@ -2884,6 +2932,14 @@ trackedFiles:
     id: e2ae796f73d9
     last_write_checksum: sha1:9424a2796f37ef2b7562f96675807c86c8b41272
     pristine_git_object: 9ae5a9eefc4fb63eabe98cb3795ca8ad14f3d6ab
+  docs/models/operations/ListEnterpriseConnectionsRequest.md:
+    id: 4f745f12d39d
+    last_write_checksum: sha1:5d0704edbb398c38da35b25a5b3d7698c47d29b9
+    pristine_git_object: 49659d01b9177ced7c73df9cfde8bad998acf241
+  docs/models/operations/ListEnterpriseConnectionsResponse.md:
+    id: 7d300eceab55
+    last_write_checksum: sha1:c24036bc3e510231e08ac9c41b7999274f09d460
+    pristine_git_object: 63062d7f84e77a90d9b025a7334bc0f5c8f07120
   docs/models/operations/ListInstanceOrganizationInvitationsQueryParamStatus.md:
     id: 5ada8a612e63
     last_write_checksum: sha1:0675f7d78a41562a2a75e790018b2d88be305ad6
@@ -3056,14 +3112,18 @@ trackedFiles:
     id: 8cf691682353
     last_write_checksum: sha1:142f382d088c9fc38c38498d20a32d2070d011ff
     pristine_git_object: 32fa8d82e7a4e9904c74339fac680199c3d97846
+  docs/models/operations/Oidc.md:
+    id: 2e56aa994683
+    last_write_checksum: sha1:817fb213236c5a76670b0a8fb8418c571fd3fb9e
+    pristine_git_object: 62298fa4848910526c849ad2686ec16dac93d0c7
   docs/models/operations/OnBehalfOf.md:
     id: 249b4243cbbf
     last_write_checksum: sha1:8eaa458f977c3040606b1d1dca4bba081bd2f90a
     pristine_git_object: 3bbb97f740fe8cf723cf30560b6227cbc514142b
   docs/models/operations/One.md:
     id: dd07ece0a93e
-    last_write_checksum: sha1:34a39918ff025ed88edae571d628706a72f5dff6
-    pristine_git_object: 0a976d1e88ddbd1e3a75fc356162030a42a0229a
+    last_write_checksum: sha1:eeb2844d55d15e8480f7a16687b2e66dc0007c77
+    pristine_git_object: 7f9e3d7a3b809852accf7115de2cf129ec618d2f
   docs/models/operations/PathParamTemplateType.md:
     id: da086ca6fa0d
     last_write_checksum: sha1:ceec3ed17f4d76faa1298b8893472a2830ec63b0
@@ -3094,8 +3154,8 @@ trackedFiles:
     pristine_git_object: b930c48f83ab6aefe21477331b9c0d8ed13ac946
   docs/models/operations/Provider.md:
     id: d2b9f31448a2
-    last_write_checksum: sha1:26d52448878555f287d3a8f264254fc7d80a0793
-    pristine_git_object: e960f9bc92dfa6226852864bf53e6b760a41b2ab
+    last_write_checksum: sha1:3e7338962021dd906a45b3c9d1134120e277dc28
+    pristine_git_object: baf3f137596983f7a886b73521c1087403794a1e
   docs/models/operations/QueryParamPayerType.md:
     id: abde0a59cc8d
     last_write_checksum: sha1:09fefd7eb7d241d5f949b369edcc9e3ca048b91f
@@ -3304,6 +3364,10 @@ trackedFiles:
     id: e9cc72f12824
     last_write_checksum: sha1:aed20e03d5f8e9d6481d0cf4d89a00cc0aacf67a
     pristine_git_object: 9d5dea39dae93ad1992665fc11532d560823e5e2
+  docs/models/operations/Saml.md:
+    id: b7d65d3ef2ad
+    last_write_checksum: sha1:e6aa85bdd8b2344cac34b18309a7f5d40b233603
+    pristine_git_object: dfcb1cf8b8f3cc3efa6686c527016243d6b680ed
   docs/models/operations/SetUserPasswordCompromisedRequest.md:
     id: 887ca7c0a4f1
     last_write_checksum: sha1:b281a3ad578f7c71b5117d3b81ec5f1c582ec17a
@@ -3436,6 +3500,30 @@ trackedFiles:
     id: 7decd22601a4
     last_write_checksum: sha1:79dc502fd92ae75025020c48fbdf4363fb6debd1
     pristine_git_object: 24d5aa1bd211601ae2c124bb526be0cdc8b42fc1
+  docs/models/operations/UpdateEnterpriseConnectionAttributeMapping.md:
+    id: f480cc21a267
+    last_write_checksum: sha1:3321ec75b90fd26f1736059ab57891d20160915e
+    pristine_git_object: 7434ab0ed63b765342bdd615581b5007ab8ae283
+  docs/models/operations/UpdateEnterpriseConnectionOidc.md:
+    id: 0bd4e80b07b2
+    last_write_checksum: sha1:7053b80282bcffbba526e4ce47f81c422b12eef6
+    pristine_git_object: 9195b63c3fb7ff546c74c32ebaa9f76731f494b0
+  docs/models/operations/UpdateEnterpriseConnectionRequest.md:
+    id: e94ec6a557fd
+    last_write_checksum: sha1:6ea191a89e40f9b4a588f1ef4ae823ad7fa31fa7
+    pristine_git_object: f791c5ebbe21f3f8eb6293d7eb53f17cce198e75
+  docs/models/operations/UpdateEnterpriseConnectionRequestBody.md:
+    id: e16e7733598a
+    last_write_checksum: sha1:e3e3c35eabf9825a9545cd89ac358248859d1386
+    pristine_git_object: 03f600915a757cc0d687d22698e4f6dc8f9fd87f
+  docs/models/operations/UpdateEnterpriseConnectionResponse.md:
+    id: b4aadf7d03ed
+    last_write_checksum: sha1:967a09927d9fd2ddcc0a4eb887ca63d404517a86
+    pristine_git_object: 8e49e0d1ec75cbb0276155fd58bde8f6069577cd
+  docs/models/operations/UpdateEnterpriseConnectionSaml.md:
+    id: d214627f6764
+    last_write_checksum: sha1:974d7fc6c3642b56ad9533fb3dba61474376a0a5
+    pristine_git_object: 16f825d0a0dc7e4b9c584ada9c44f25e7bdc6aa8
   docs/models/operations/UpdateInstanceAuthConfigRequestBody.md:
     id: ea0404441470
     last_write_checksum: sha1:6fbcb569ad7fa518ccc3e04b668eb9ac6a5d9f5e
@@ -3904,6 +3992,10 @@ trackedFiles:
     id: 7d9a6ae619bd
     last_write_checksum: sha1:efa2d99292840d414ead2b51064d12f2c24c37e5
     pristine_git_object: a895c1617aab48ad91e5c706bacdc23e870311c5
+  docs/sdks/enterpriseconnections/README.md:
+    id: 05389ef24544
+    last_write_checksum: sha1:6daac96f1b64b4676264bdf4ffcdab15f22b7b8e
+    pristine_git_object: 466f2354fb535cbb392b282cb43a6fdcdff6b477
   docs/sdks/instancesettings/README.md:
     id: 8c1dfa91ef03
     last_write_checksum: sha1:afd2be9c36f160f2681b310b04a475b27f58bd6d
@@ -3982,8 +4074,8 @@ trackedFiles:
     pristine_git_object: d90c91d1e42a23714aaf02547abb847140213fcd
   docs/sdks/samlconnections/README.md:
     id: c10bb4446e9b
-    last_write_checksum: sha1:e815f143ff0a72c8846650c788970228d29c86a3
-    pristine_git_object: 7a272ebbdfa273092fd5afd90f919abc21e56bbc
+    last_write_checksum: sha1:032c15074770d426ab005bfe9441cb587b3e33f9
+    pristine_git_object: e97d53a0f5c7d657b9c0997ac21f415d6de46f75
   docs/sdks/sessions/README.md:
     id: 57ad62844f79
     last_write_checksum: sha1:2f49edccab12e69d351ada28016c854c007cdb2e
@@ -4018,8 +4110,8 @@ trackedFiles:
     pristine_git_object: 45f47ee13644598aaf91efff776b5e331d062373
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:c059b3d415caa7154db1c6789b75e3b5fb5cbc19
-    pristine_git_object: f1ec31c45d11590eaa4ee625c07b68d4959e07a0
+    last_write_checksum: sha1:8fe0db64c9e5d1ac6521bde2a28e972df708d222
+    pristine_git_object: cd8513aa7a42796f98c4cd9cc532a2f16dbefdf3
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -4050,8 +4142,8 @@ trackedFiles:
     pristine_git_object: 6a8215324459aeb0b92fbd9b98ea2a9f7ee8638c
   spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/BackendApiAutoConfig.java:
     id: 9a4e5f25ad52
-    last_write_checksum: sha1:24f238cdf9a0d266fb9bb4525c72fc0f0c635e2d
-    pristine_git_object: dba0da078ed1238f7974bc1eabe4c8a65c21ed04
+    last_write_checksum: sha1:16a7ac0ef007fb97fd476216445aecce6a595396
+    pristine_git_object: b1fc432d2a0556f067ca599824392adce618e66d
   spring/backend-api-spring-boot-autoconfigure/src/main/java/com/clerk/backend_api/BackendApiAutoConfigProperties.java:
     id: d6422b6531ee
     last_write_checksum: sha1:eb7d7891e1773c5c1afbe76bcbd663f9944565ca
@@ -4102,8 +4194,8 @@ trackedFiles:
     pristine_git_object: 5bf02163324a409051fe6b8395ab523a4bd34c67
   src/main/java/com/clerk/backend_api/Clerk.java:
     id: f98667576bff
-    last_write_checksum: sha1:d493b1d93ba483458c7e5a9f5b2724cf5899bb3e
-    pristine_git_object: c3f217031afb9dfc6fe1b5376a1ebf4513ab80b3
+    last_write_checksum: sha1:18aa73fd6a6d7847dd6fbd2d2b89aa1d5b12ebf7
+    pristine_git_object: 25eb6ff9f9ce545058ffbddd6e1063250b9a056e
   src/main/java/com/clerk/backend_api/Clients.java:
     id: 2b86a17ff763
     last_write_checksum: sha1:2c7b3fff8cd457b51317ca1197ced5003f028465
@@ -4124,6 +4216,10 @@ trackedFiles:
     id: 6d630936afb4
     last_write_checksum: sha1:c2eba962e3df95d9ebb36f2cb0ae06b4409928af
     pristine_git_object: ef38e125e83f5605a17cf653ab298af6b63a37f2
+  src/main/java/com/clerk/backend_api/EnterpriseConnections.java:
+    id: 61662603c832
+    last_write_checksum: sha1:786b6d5c7ee5c78899629e1bc3a8d4f151d859ca
+    pristine_git_object: 8854cd6a08b96ce9eff13dd6256e5c9dea97643f
   src/main/java/com/clerk/backend_api/InstanceSettings.java:
     id: e2ec95c97f57
     last_write_checksum: sha1:89063a167b2f020a47999988c45c1c2bae9784bc
@@ -4202,12 +4298,12 @@ trackedFiles:
     pristine_git_object: 40597c8205e6e12003fcdad6e1d4f084c674effd
   src/main/java/com/clerk/backend_api/SDKConfiguration.java:
     id: 02084533ec5b
-    last_write_checksum: sha1:ee20d350551ac486910ebc0d4cb722a6ad5111e8
-    pristine_git_object: 1bcc4241d165b80e402eaa6caada58366451e456
+    last_write_checksum: sha1:3948fef1d03b2e5b12a8c5fe4630520f8216844d
+    pristine_git_object: 4d82537dbe3d3f639bdce66fb88fe5afcb104f20
   src/main/java/com/clerk/backend_api/SamlConnections.java:
     id: 4bbf4e5d0a3c
-    last_write_checksum: sha1:649526a6ae41f1558fd7992eaa80434663f0b3e3
-    pristine_git_object: 62402c5b794ecc11eea6ac95b3e320489a93ee14
+    last_write_checksum: sha1:2e48c2a616261bcc34ae98b7f96b9eacfa8cdee6
+    pristine_git_object: 7f76add10087f3751b550ebf83bcac1aea639b0a
   src/main/java/com/clerk/backend_api/SecuritySource.java:
     id: 4010c3f377dc
     last_write_checksum: sha1:860f7ae6b19ce596e37ac476536164f66a68de78
@@ -4652,6 +4748,10 @@ trackedFiles:
     id: cdb091ab74b7
     last_write_checksum: sha1:ed5aca5eb71227aed75ddecbcf99b552f2f26480
     pristine_git_object: c23c42dbfd4a200ac700e18dc7f3136af9af244c
+  src/main/java/com/clerk/backend_api/models/components/EnterpriseConnections.java:
+    id: 117b30e2b0a5
+    last_write_checksum: sha1:f23d512a4dd9246ee88730da67c4129777340af5
+    pristine_git_object: 661f2e4c91c27612375160ae8156b87e71f93336
   src/main/java/com/clerk/backend_api/models/components/Error.java:
     id: 5970d5e06080
     last_write_checksum: sha1:84a747b5aa14ec4113c29ca684ed193f154fa468
@@ -4762,8 +4862,8 @@ trackedFiles:
     pristine_git_object: 26cb85e4457bb863786d178e5e3d0d4a020ffe29
   src/main/java/com/clerk/backend_api/models/components/InvitationRevoked.java:
     id: c7e0d8356d73
-    last_write_checksum: sha1:fc0d87627108a4bbec73727b04d37e1229b1fb4c
-    pristine_git_object: 41396aeae13c4d0c90159f12deea8ceb9fc1e578
+    last_write_checksum: sha1:2d75b18c3cfce585166e57144271fb245e642348
+    pristine_git_object: 99c6f487ecd25a209e2f55e70c31cd4e66c2e385
   src/main/java/com/clerk/backend_api/models/components/InvitationRevokedObject.java:
     id: 9e5eab1c1890
     last_write_checksum: sha1:a6958024afc1ad4ec3d51b67fde8942beb6ccd35
@@ -4810,8 +4910,8 @@ trackedFiles:
     pristine_git_object: 1021aa32c870b0cc6572af5cbae2bf87a34b660d
   src/main/java/com/clerk/backend_api/models/components/MachineDeleted.java:
     id: ea31116491c1
-    last_write_checksum: sha1:63397b4159e4ee5dc0ffab5863365cc27f564b0c
-    pristine_git_object: fe4ce986778d944c7f41a8643521f08a3081f7bb
+    last_write_checksum: sha1:a78a64d9fb20f3f06529318e514006ee71fa4177
+    pristine_git_object: 365c67ed19f061e558b77caa76e2fa14c5b95763
   src/main/java/com/clerk/backend_api/models/components/MachineDeletedObject.java:
     id: bf704ff7ecb5
     last_write_checksum: sha1:26a60b3b9fad0378d557f9d9db5a3168da436060
@@ -4830,8 +4930,8 @@ trackedFiles:
     pristine_git_object: 1115e05da2a9908ff66283c0107cf77f2ded3d8a
   src/main/java/com/clerk/backend_api/models/components/MachineScopeDeleted.java:
     id: 1938c0493a98
-    last_write_checksum: sha1:2ae964b8f1540129da6d7881abad7f6da7d12063
-    pristine_git_object: d24cfbfc812c9affb87e350c6b5461ae47020ceb
+    last_write_checksum: sha1:e09a9181cb844b72b2df279b1a469d60724dbf68
+    pristine_git_object: 065daf06a1c3b5145ebc664f7ae12dbecf47c322
   src/main/java/com/clerk/backend_api/models/components/MachineScopeDeletedObject.java:
     id: 6839b1ba4550
     last_write_checksum: sha1:a2d459e59ba960202fe9d348337db0d8f9e247e9
@@ -4916,6 +5016,10 @@ trackedFiles:
     id: a96cce614d99
     last_write_checksum: sha1:3b3d7c6abf924a0f7b572e45c99ca73215b29064
     pristine_git_object: 53da109f4db230e5d3d9daef8a6a700985f0de1c
+  src/main/java/com/clerk/backend_api/models/components/OauthConfig.java:
+    id: 9caf84269364
+    last_write_checksum: sha1:16b6903baea7e40f96136c4eaa1061566e7726fc
+    pristine_git_object: 7aa5b94aa3463f562f458653270f6461615d3424
   src/main/java/com/clerk/backend_api/models/components/Object.java:
     id: 2b57f2909baa
     last_write_checksum: sha1:030ea1239c0b660db08963a118606b3e96ffe96b
@@ -5316,6 +5420,14 @@ trackedFiles:
     id: bbee3fbb8905
     last_write_checksum: sha1:dd0f9041e1a813f88f9684868ce95044904342d1
     pristine_git_object: 21103ceeee8f994421eabbd02b1adfce1a66aa33
+  src/main/java/com/clerk/backend_api/models/components/SchemasEnterpriseConnection.java:
+    id: e6b66acaa1a5
+    last_write_checksum: sha1:c43e028cafb0df5d0d80b26ffe906d9f0752023a
+    pristine_git_object: 8a7785f813b2ae65261dcecdfccfbd8ba3339d1c
+  src/main/java/com/clerk/backend_api/models/components/SchemasEnterpriseConnectionSamlConnection.java:
+    id: 2521fd646113
+    last_write_checksum: sha1:8b6b040edf19fdcd202aa318e1553f891545bee6
+    pristine_git_object: fe718a67817e7c39a926285c54dba2bab58bd536
   src/main/java/com/clerk/backend_api/models/components/SchemasFeatureResponse.java:
     id: 599152e6cbc3
     last_write_checksum: sha1:d01a9e0be7250572fae63529a67eb1a37e29d997
@@ -6086,8 +6198,8 @@ trackedFiles:
     pristine_git_object: 37c13897157bebe11b41f6d70ec0cbb94a8f1c87
   src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBody.java:
     id: 1974d8ef569d
-    last_write_checksum: sha1:715b40d2915ee7a5265a992c2a989a1469acb7dc
-    pristine_git_object: 95d1b0d2e94be24a24ff5295331cd02b22774445
+    last_write_checksum: sha1:6dfab7bdf810041616b73a011c9f99a41f049761
+    pristine_git_object: 62dcef05c8647a2d70ed93af7c86bee0486ac238
   src/main/java/com/clerk/backend_api/models/operations/AddDomainRequestBuilder.java:
     id: 95e2055e00dd
     last_write_checksum: sha1:5f0d0f47251444d439ce6571471a512a9a003f8b
@@ -6320,6 +6432,22 @@ trackedFiles:
     id: 358ff94cae0b
     last_write_checksum: sha1:d897932c80bbf9d63c29739f4a806234bb22ff29
     pristine_git_object: a04f2a94795b6009cff1a2bc4f7f33fa2a380902
+  src/main/java/com/clerk/backend_api/models/operations/CreateEnterpriseConnectionAttributeMapping.java:
+    id: a8ea4e3f7139
+    last_write_checksum: sha1:efbb5d1fa6b89a2802e2ecc6610e880396d50548
+    pristine_git_object: f975289bcd9e79adf95a37d81de556fd1e1433f6
+  src/main/java/com/clerk/backend_api/models/operations/CreateEnterpriseConnectionRequestBody.java:
+    id: f072bc25b93f
+    last_write_checksum: sha1:5f72fcc0b7a4e4375343b7f0c48488eb45cc2038
+    pristine_git_object: 71629a00da2a21900fdda3e4065cf3b9c9e92271
+  src/main/java/com/clerk/backend_api/models/operations/CreateEnterpriseConnectionRequestBuilder.java:
+    id: 450bcb30e1ce
+    last_write_checksum: sha1:8b773f94d59827c393dda8ae917a0ec495df1668
+    pristine_git_object: 063917d7ed1f9d3f25c88db9a1584f462928b23a
+  src/main/java/com/clerk/backend_api/models/operations/CreateEnterpriseConnectionResponse.java:
+    id: 34004632a651
+    last_write_checksum: sha1:e90eef5e59c9c03a300399ab415d44827d82a444
+    pristine_git_object: 69c7404ee219a919e2eed7b470bda6153504f306
   src/main/java/com/clerk/backend_api/models/operations/CreateInvitationRequestBody.java:
     id: c422975f32d4
     last_write_checksum: sha1:7e998321754ba80a12e77079dc48aae2948a7fef
@@ -6548,6 +6676,10 @@ trackedFiles:
     id: 8aba56621486
     last_write_checksum: sha1:31590a4a856fb3e1293a9383ae91ae1b8a85a3ab
     pristine_git_object: e42808fdae0c3705ba6cea35a43151c7bd35893c
+  src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionRequestBodyProvider.java:
+    id: 5c64241517b2
+    last_write_checksum: sha1:e7a87aac8d9ad3103bfdc63ea175acf468535126
+    pristine_git_object: a9378cf25ecc474203c0487052a09b54467c1443
   src/main/java/com/clerk/backend_api/models/operations/CreateSAMLConnectionRequestBuilder.java:
     id: 6150dbb518ca
     last_write_checksum: sha1:43ce868d189b436202d9b6e33648321005a2930e
@@ -6698,8 +6830,8 @@ trackedFiles:
     pristine_git_object: d0c95aa11f831b11ef503ff3b59dccc20bea9735
   src/main/java/com/clerk/backend_api/models/operations/DeleteApiKeyResponseBody.java:
     id: 9cdf4ddae131
-    last_write_checksum: sha1:4e4dfe11cbc5280a683e825515afcd451f3c7346
-    pristine_git_object: 9bddafca02f8734846185b87916620eb4dfe7844
+    last_write_checksum: sha1:b4f9725773716eb560f8ed5b25df6be150199456
+    pristine_git_object: d63123ac86eba21943cf0a9c14622da43326b787
   src/main/java/com/clerk/backend_api/models/operations/DeleteBackupCodeRequest.java:
     id: 8383eaa1f716
     last_write_checksum: sha1:15a7e53f15daaf8130a40d08aa578dc922a3e336
@@ -6752,6 +6884,18 @@ trackedFiles:
     id: ccaf931ffe94
     last_write_checksum: sha1:e7548de5bf323151362f7a111bcd36a91c4f072e
     pristine_git_object: 217978b5e2d429ab8f1632f221e338b5400bb833
+  src/main/java/com/clerk/backend_api/models/operations/DeleteEnterpriseConnectionRequest.java:
+    id: 0f1913665a8d
+    last_write_checksum: sha1:57e9b6ae86020ef58153d9a922bccc213437a0c6
+    pristine_git_object: 85daa6739821c63e6d2890c09db034f237f87256
+  src/main/java/com/clerk/backend_api/models/operations/DeleteEnterpriseConnectionRequestBuilder.java:
+    id: f98390f68068
+    last_write_checksum: sha1:8f4f4fc1510cb3990293019a9df4b8f35f7a90ee
+    pristine_git_object: d932db41f0dc97ac73a75a099dd12de2908103d4
+  src/main/java/com/clerk/backend_api/models/operations/DeleteEnterpriseConnectionResponse.java:
+    id: 1cc867e0349a
+    last_write_checksum: sha1:858f6a2a204ca4c1d671eba78e6e87c1736dfef4
+    pristine_git_object: 4eb0487f1fa8ca09d1ff81fe3ce1da3ac0348638
   src/main/java/com/clerk/backend_api/models/operations/DeleteExternalAccountRequest.java:
     id: b01bb49d2085
     last_write_checksum: sha1:52bce1eefce58d75d2a3aa3cd1fb0447ac9737be
@@ -7196,6 +7340,18 @@ trackedFiles:
     id: 80ca24509f88
     last_write_checksum: sha1:6102cf67d2a183d2a5a00e5a453e29ec304167aa
     pristine_git_object: ae8f1cf87d499bdb05e77ba37a3464230d4dd729
+  src/main/java/com/clerk/backend_api/models/operations/GetEnterpriseConnectionRequest.java:
+    id: f8386dc99855
+    last_write_checksum: sha1:406c18580e2f965c0999b3708062a02e8478a500
+    pristine_git_object: 72b1f6924f708792cb0d20eb543e5b5ebe4c2196
+  src/main/java/com/clerk/backend_api/models/operations/GetEnterpriseConnectionRequestBuilder.java:
+    id: b59fbfe03f99
+    last_write_checksum: sha1:9335121f540f688d8993ac5ee1b4b57ffa7a5141
+    pristine_git_object: 094bd67356789b9b569b5cf0fe90ae98becad008
+  src/main/java/com/clerk/backend_api/models/operations/GetEnterpriseConnectionResponse.java:
+    id: 5540bb9f76dc
+    last_write_checksum: sha1:138e6ae9f7ad943318f939664e24d94fa8271fa8
+    pristine_git_object: 6b2d4841e736e948c713396ace5efd9a3c51e734
   src/main/java/com/clerk/backend_api/models/operations/GetInstanceOAuthApplicationSettingsRequestBuilder.java:
     id: 02d07b6d2923
     last_write_checksum: sha1:cb92d8baca6072c1a2361cc2db397205b18611c6
@@ -7632,6 +7788,18 @@ trackedFiles:
     id: e84cec5431cc
     last_write_checksum: sha1:14a145d1ec67b7b1f33ee20eccc82761164e100c
     pristine_git_object: 563bb976e7a837a4af5c2a7b3c0df2a8fa417333
+  src/main/java/com/clerk/backend_api/models/operations/ListEnterpriseConnectionsRequest.java:
+    id: c00e2d81f582
+    last_write_checksum: sha1:f15f5a449981c7365f84183dfc207961a84e4e8e
+    pristine_git_object: a87fc433a5a73c5cc0e7d76550abc1e004f78887
+  src/main/java/com/clerk/backend_api/models/operations/ListEnterpriseConnectionsRequestBuilder.java:
+    id: 254d55fa7a6d
+    last_write_checksum: sha1:aaac0ecd774e01a33e77e7b7d55d39461ec2c006
+    pristine_git_object: 848d59be677019b970cf1a5c5c05436a87e6890f
+  src/main/java/com/clerk/backend_api/models/operations/ListEnterpriseConnectionsResponse.java:
+    id: bebca96438e0
+    last_write_checksum: sha1:90e938b0f67d91c27fc6da7ef18727b11cd41309
+    pristine_git_object: afa7b2d8e96dcfc4f676fe887cd6fb6b337b05f6
   src/main/java/com/clerk/backend_api/models/operations/ListInstanceOrganizationInvitationsQueryParamStatus.java:
     id: 3bdde27f0b3a
     last_write_checksum: sha1:4c275b0f09e723ff0d81793d4a75efb790a104e3
@@ -7876,14 +8044,18 @@ trackedFiles:
     id: 49863d01685a
     last_write_checksum: sha1:c8c777820c698d3373693f96953f13ff4dc62769
     pristine_git_object: 85a27d3a9b3f9aaf2577288ee6f8c42eedd5c2e3
+  src/main/java/com/clerk/backend_api/models/operations/Oidc.java:
+    id: 02d3e92ef934
+    last_write_checksum: sha1:f4eb9f13b52c58a126cec297294e1511357d0860
+    pristine_git_object: 9440cba54a9ba29a9d4335bdb63fed32f96a8f6e
   src/main/java/com/clerk/backend_api/models/operations/OnBehalfOf.java:
     id: a89da80bdf1b
     last_write_checksum: sha1:1222ae0a6dda006954cff86b0bc10f554c66d444
     pristine_git_object: 9af24deb436dbf26ef1ebb0ac96469282b9746fa
   src/main/java/com/clerk/backend_api/models/operations/One.java:
     id: c5fb0cdd0e7e
-    last_write_checksum: sha1:7e77169b2264f4a79529a8b56edce57bd7d772a6
-    pristine_git_object: e37e7105597fd932ca3f80a422781bda65104497
+    last_write_checksum: sha1:0ce3e84475be30d2441b00ae47cc217c0dcaae29
+    pristine_git_object: af385330b916707ac09aa83ef23c44735d61683e
   src/main/java/com/clerk/backend_api/models/operations/PathParamTemplateType.java:
     id: 20fdfdf68a07
     last_write_checksum: sha1:0af836fa41c5a3e00f26f75771c51c9a7600a637
@@ -7918,8 +8090,8 @@ trackedFiles:
     pristine_git_object: 77f5c1f509adc70ec142d37664bb2a7d800723d8
   src/main/java/com/clerk/backend_api/models/operations/Provider.java:
     id: 93ea42a36868
-    last_write_checksum: sha1:fde50e35537fc206a67e19cf29f92ca453f2a1df
-    pristine_git_object: 892f96d957801a4ab1d699e4c1c358e3bd4e446a
+    last_write_checksum: sha1:f9edbc11f9aeed1e869e84ac26689ec820f2cebc
+    pristine_git_object: cdb00be096f236e454c74b5978ddafcb7bdac126
   src/main/java/com/clerk/backend_api/models/operations/QueryParamPayerType.java:
     id: 0b855f897675
     last_write_checksum: sha1:7ff0d24b9a21e9f6a6fb8bacef640ea342c8c494
@@ -8018,8 +8190,8 @@ trackedFiles:
     pristine_git_object: d4b02e684ca16561f49e0f07ca8bf3e7384437e2
   src/main/java/com/clerk/backend_api/models/operations/ResponseBody2.java:
     id: 19c9f13e588a
-    last_write_checksum: sha1:e33b664e7f29068072a529a7c1fee9814d2f963d
-    pristine_git_object: 6479dfbbbb65a0c5de6db0e58384d61497e4bffd
+    last_write_checksum: sha1:967b2df044399fa9ff9d398b959c09f671a7d686
+    pristine_git_object: b44c99c072a39126cc46b47e2332b283193135a6
   src/main/java/com/clerk/backend_api/models/operations/ResponseBodyObject.java:
     id: 2cf163ba29e1
     last_write_checksum: sha1:4c560634f68b272fc49cf6d9837b71f617403880
@@ -8192,6 +8364,10 @@ trackedFiles:
     id: a482243e59ef
     last_write_checksum: sha1:1b74124164e8b7a8b58a3092034e05491f929201
     pristine_git_object: 22b038dda3f23bda3ecff657e61197699739c63e
+  src/main/java/com/clerk/backend_api/models/operations/Saml.java:
+    id: c607aedffd6d
+    last_write_checksum: sha1:c70c49a7a89e8c1320021bce183dd1f38326e43b
+    pristine_git_object: 98c1d02ede1b105f3102e998491d8c82c6d25569
   src/main/java/com/clerk/backend_api/models/operations/SetUserPasswordCompromisedRequest.java:
     id: "653826163e99"
     last_write_checksum: sha1:111d5e7a41a5376d14ec20e5b8e28d3d3c8000f8
@@ -8360,6 +8536,34 @@ trackedFiles:
     id: 7d1f3361b3f6
     last_write_checksum: sha1:080a13eb9519953ba877466558467338f32a5d6f
     pristine_git_object: f58492afdb6285bdbaa56af3503e684c6e651457
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionAttributeMapping.java:
+    id: 0bbc323acd3a
+    last_write_checksum: sha1:aa7a7c31fa1eb1c231f6d9be600108e1d216caf7
+    pristine_git_object: 3262b9db2e81a8b1b82241287fb00eab86e09000
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionOidc.java:
+    id: c738172f95b0
+    last_write_checksum: sha1:9558fa53f7ac64c48998193ffa89c2b17bf9c8a0
+    pristine_git_object: b94faa56bc74d649ad94a57b8752cbf5038fb85b
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionRequest.java:
+    id: 89c9c8a29c6b
+    last_write_checksum: sha1:345eab25db8e82130cc46865dfe1fe84b93efec1
+    pristine_git_object: 246e1ed4ffd988a8d21eac78e4ebd80b6f63235e
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionRequestBody.java:
+    id: 5ddd657b20d6
+    last_write_checksum: sha1:15f01e507f3bb26e1480fe1728cc772e0923f22d
+    pristine_git_object: 2ac6aeeadaa111ff4659f64aaeb0cd6b90e7a58d
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionRequestBuilder.java:
+    id: c81177069be3
+    last_write_checksum: sha1:496fe4c9a33f69a72f9bc647fe7f586a774f51eb
+    pristine_git_object: da542d1968fe1813c6a0c2f7aed0918a6c24feb8
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionResponse.java:
+    id: ab7284b25bd2
+    last_write_checksum: sha1:16304140a76f31312d10ad92bde047a44ff90c1b
+    pristine_git_object: a1128cd4ad0cb84ba105c7bb51892924dfb63cec
+  src/main/java/com/clerk/backend_api/models/operations/UpdateEnterpriseConnectionSaml.java:
+    id: d511eaa9d897
+    last_write_checksum: sha1:cf3b0ba2cd489fab801b8d4b2a83aee5ecd5fa8d
+    pristine_git_object: 21c78c96c948f95366b7fed94fa8626c7fd10ca1
   src/main/java/com/clerk/backend_api/models/operations/UpdateInstanceAuthConfigRequestBody.java:
     id: 8b89cdacdc0f
     last_write_checksum: sha1:603cdbdcc9289e51e3cbe6d3cd320414703032fd
@@ -9000,6 +9204,10 @@ trackedFiles:
     id: def88dd4bd06
     last_write_checksum: sha1:2790e7556d6fd9471b2e8dfaf40166cd49f0eb8b
     pristine_git_object: 854ec4270e8192a945793af324357ff4d6bfcc33
+  src/main/java/com/clerk/backend_api/operations/CreateEnterpriseConnection.java:
+    id: 96674eb8e62f
+    last_write_checksum: sha1:8e3f1d3b0428f29649c5c457ab26027d7d15d847
+    pristine_git_object: daacd5a2324a01be1b5416a325d8ea19f3946499
   src/main/java/com/clerk/backend_api/operations/CreateInvitation.java:
     id: 97cebe0fa244
     last_write_checksum: sha1:84d35991807c92dffbc4d70b162de11ba4c3f0dc
@@ -9124,6 +9332,10 @@ trackedFiles:
     id: eb7c630a3854
     last_write_checksum: sha1:74d4de5da6e896984cd3634791b6c2f945a94717
     pristine_git_object: 5a8829e7d058539a87fa8edf0849b398931c4c6f
+  src/main/java/com/clerk/backend_api/operations/DeleteEnterpriseConnection.java:
+    id: 6c94e679ca11
+    last_write_checksum: sha1:315afa411699aa81866c2a88f6d5f66d39420570
+    pristine_git_object: 8b351c27bc1dd03961f267b03171e986b2bf95af
   src/main/java/com/clerk/backend_api/operations/DeleteExternalAccount.java:
     id: 4254b2e0bad7
     last_write_checksum: sha1:ef61b624c218dab6eee5adc2b51894c055cf11c3
@@ -9260,6 +9472,10 @@ trackedFiles:
     id: 13849a136189
     last_write_checksum: sha1:df5b414a6eebbde6963829013437c7c8974ae7be
     pristine_git_object: 2e8829be77674fc2df11d54c277b6b09343f0b08
+  src/main/java/com/clerk/backend_api/operations/GetEnterpriseConnection.java:
+    id: 89e0a3cac7ef
+    last_write_checksum: sha1:7e8c2b3a84012235f525287fc2580d6188921b55
+    pristine_git_object: 411d8dc45348bfaa9edb9bc14ab20d73456f8eaf
   src/main/java/com/clerk/backend_api/operations/GetInstance.java:
     id: 268bbfa35c61
     last_write_checksum: sha1:badb3be64ab2cfa24760a0ffde48d23ff41c1d67
@@ -9408,6 +9624,10 @@ trackedFiles:
     id: 2da2727dcc84
     last_write_checksum: sha1:3807bd5d9b25393e039f695d73164478a26a704d
     pristine_git_object: f4444178c96065e6cb1b0385b295372b957caf47
+  src/main/java/com/clerk/backend_api/operations/ListEnterpriseConnections.java:
+    id: 16d7a5a3b7e5
+    last_write_checksum: sha1:1f06b99dffba91668f6363c2c805fb050b6257e2
+    pristine_git_object: 59b155eb118c1052766587433ede192735fdbc78
   src/main/java/com/clerk/backend_api/operations/ListInstanceOrganizationInvitations.java:
     id: a4fa544bd5cf
     last_write_checksum: sha1:4215175e7c52c81adae4dd21b6349af8152c43e1
@@ -9588,6 +9808,10 @@ trackedFiles:
     id: 20eef9a4a5d9
     last_write_checksum: sha1:c16db0efb77ccd2194416b7961d7063e328da1b0
     pristine_git_object: 29bba09bb76ab46ff74d532dee7ec3fea43aa3f9
+  src/main/java/com/clerk/backend_api/operations/UpdateEnterpriseConnection.java:
+    id: b862b33587aa
+    last_write_checksum: sha1:d92aaab85557e6d9df8478f54dade999ac84f778
+    pristine_git_object: 8da0ecee12e77ad993e528e2f1e8a79c84de7935
   src/main/java/com/clerk/backend_api/operations/UpdateInstance.java:
     id: 6c57784d7abd
     last_write_checksum: sha1:ddea3f778cb7e47b639095635fc05987c61e240f
@@ -9774,8 +9998,8 @@ trackedFiles:
     pristine_git_object: 37d78cf8b44c028b3ff8aac04038f5767c0d0540
   src/main/java/com/clerk/backend_api/utils/EventStream.java:
     id: d6f0b8d7dc39
-    last_write_checksum: sha1:917454927df6db14f69187446e314b052295bbcb
-    pristine_git_object: d625d7218f0e55b6403b1b166056d8734f6abcb0
+    last_write_checksum: sha1:b3f5eb9372fccb1d7df4c4dc230a7dc4a6d2ebc2
+    pristine_git_object: 6cceea5d66a4d8d1b23fb7cf25468312edd709a4
   src/main/java/com/clerk/backend_api/utils/EventStreamMessage.java:
     id: 1f945e095bfa
     last_write_checksum: sha1:748ef03dac830de1da025418d5a84d4d234102ac
@@ -11447,7 +11671,7 @@ examples:
           other_machine_id: "<id>"
       responses:
         "200":
-          application/json: {"object": "machine_scope", "from_machine_id": "<id>", "to_machine_id": "<id>", "deleted": false}
+          application/json: {"object": "machine_scope", "from_machine_id": "<id>", "to_machine_id": "<id>", "deleted": true}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
   GetOrganizationBillingSubscription:
@@ -11863,7 +12087,7 @@ examples:
           apiKeyID: "<id>"
       responses:
         "200":
-          application/json: {"id": "ak_3beecc9c60adb5f9b850e91a8ee1e992", "object": "api_key", "deleted": false}
+          application/json: {"id": "ak_3beecc9c60adb5f9b850e91a8ee1e992", "object": "api_key", "deleted": true}
         "400":
           application/json: {"errors": [{"message": "Bad Request", "long_message": "Invalid 'url_parameter.example': Failed regex check", "code": "bad_request"}]}
         "404":
@@ -12142,9 +12366,70 @@ examples:
           application/json: {"object": "agent_task", "agent_id": "<id>", "task_id": "<id>"}
         "400":
           application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  ListEnterpriseConnections:
+    speakeasy-default-list-enterprise-connections:
+      parameters:
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [{"id": "<id>", "name": "<value>", "active": false, "domains": ["<value 1>"], "created_at": 240579, "updated_at": 395895}], "total_count": 730912}
+        "402":
+          application/json: {"errors": []}
+  CreateEnterpriseConnection:
+    speakeasy-default-create-enterprise-connection:
+      responses:
+        "201":
+          application/json: {"id": "<id>", "name": "<value>", "active": true, "domains": ["<value 1>", "<value 2>"], "created_at": 885509, "updated_at": 123882}
+        "402":
+          application/json: {"errors": []}
+  GetEnterpriseConnection:
+    speakeasy-default-get-enterprise-connection:
+      parameters:
+        path:
+          enterprise_connection_id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "name": "<value>", "active": true, "domains": ["<value 1>", "<value 2>", "<value 3>"], "created_at": 815472, "updated_at": 13898}
+        "402":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  UpdateEnterpriseConnection:
+    speakeasy-default-update-enterprise-connection:
+      parameters:
+        path:
+          enterprise_connection_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "name": "<value>", "active": false, "domains": [], "created_at": 266017, "updated_at": 675395}
+        "400":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
+  DeleteEnterpriseConnection:
+    speakeasy-default-delete-enterprise-connection:
+      parameters:
+        path:
+          enterprise_connection_id: "<id>"
+      responses:
+        "200":
+          application/json: {"object": "<value>", "deleted": false}
+        "402":
+          application/json: {"errors": [{"message": "<value>", "long_message": "<value>", "code": "<value>"}]}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Java SDK Changes:\n* `clerk.users.getBillingCreditBalance()`: **Added**\n* `clerk.users.adjustBillingCreditBalance()`: **Added**\n* `clerk.instanceSettings.getOAuthApplicationSettings()`: **Added**\n* `clerk.instanceSettings.updateOAuthApplicationSettings()`: **Added**\n* `clerk.organizations.getBillingCreditBalance()`: **Added**\n* `clerk.organizations.adjustBillingCreditBalance()`: **Added**\n* `clerk.agentTasks.create()`: **Added**\n* `clerk.agentTasks.revoke()`: **Added**\n* `clerk.emailAddresses.create()`:  `error.status[409]` **Added**\n* `clerk.emailAddresses.update()`:  `error.status[409]` **Added**\n* `clerk.users.update()`:  `error.status[409]` **Added**\n* `clerk.users.getBillingSubscription()`:  `response.subscriptionItems[]` **Changed**\n* `clerk.users.getOrganizationInvitations()`:  `request.status` **Changed**\n* `clerk.organizationInvitations.getAll()`: \n  *  `request.status` **Changed**\n* `clerk.organizationInvitations.create()`:  `error.status[402]` **Added**\n* `clerk.organizationInvitations.list()`: \n  *  `request.status` **Changed**\n* `clerk.organizations.update()`:  `error.status[400]` **Added**\n* `clerk.organizations.getBillingSubscription()`:  `response.subscriptionItems[]` **Changed**\n* `clerk.billing.listPlans()`:  `response.data[].unitPrices` **Added**\n* `clerk.billing.listPrices()`:  `response.data[].isDefault` **Added**\n* `clerk.billing.createPrice()`:  `response.isDefault` **Added**\n* `clerk.billing.listSubscriptionItems()`:  `response.data[]` **Changed**\n* `clerk.billing.cancelSubscriptionItem()`:  `response` **Changed**\n* `clerk.billing.createPriceTransition()`:  `response.transition.previousPrice.isDefault` **Added**\n* `clerk.billing.listStatements()`:  `response.data[]` **Changed**\n* `clerk.billing.getStatement()`:  `response` **Changed**\n* `clerk.billing.getStatementPaymentAttempts()`:  `response.data[].totals` **Added**\n* `clerk.m2m.createToken()`: \n  *  `request.tokenFormat` **Added**\n"
+releaseNotes: |
+  ## Java SDK Changes:
+  * `clerk.enterpriseConnections.list()`: **Added**
+  * `clerk.enterpriseConnections.create()`: **Added**
+  * `clerk.enterpriseConnections.get()`: **Added**
+  * `clerk.enterpriseConnections.update()`: **Added**
+  * `clerk.enterpriseConnections.delete()`: **Added**
+  * `clerk.samlConnections.list()`: **Deprecated**
+  * `clerk.samlConnections.create()`: **Deprecated**
+  * `clerk.samlConnections.get()`: **Deprecated**
+  * `clerk.samlConnections.update()`: **Deprecated**
+  * `clerk.samlConnections.delete()`: **Deprecated**
 generatedFiles:
   - .gitattributes
   - USAGE.md

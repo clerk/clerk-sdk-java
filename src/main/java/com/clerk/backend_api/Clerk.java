@@ -138,6 +138,9 @@ public class Clerk {
     private final SamlConnections samlConnections;
 
 
+    private final EnterpriseConnections enterpriseConnections;
+
+
     private final TestingTokens testingTokens;
 
 
@@ -321,6 +324,11 @@ public class Clerk {
 
     public SamlConnections samlConnections() {
         return samlConnections;
+    }
+
+
+    public EnterpriseConnections enterpriseConnections() {
+        return enterpriseConnections;
     }
 
 
@@ -549,6 +557,7 @@ public class Clerk {
         this.signUps = new SignUps(sdkConfiguration);
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
+        this.enterpriseConnections = new EnterpriseConnections(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.agentTasks = new AgentTasks(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
