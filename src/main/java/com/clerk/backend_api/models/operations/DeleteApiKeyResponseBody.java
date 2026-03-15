@@ -3,10 +3,12 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
@@ -32,14 +34,12 @@ public class DeleteApiKeyResponseBody {
     @JsonCreator
     public DeleteApiKeyResponseBody(
             @JsonProperty("id") String id,
-            @JsonProperty("object") DeleteApiKeyObject object,
-            @JsonProperty("deleted") boolean deleted) {
+            @JsonProperty("object") DeleteApiKeyObject object) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
-        Utils.checkNotNull(deleted, "deleted");
         this.id = id;
         this.object = object;
-        this.deleted = deleted;
+        this.deleted = Builder._SINGLETON_VALUE_Deleted.value();
     }
 
     @JsonIgnore
@@ -71,12 +71,6 @@ public class DeleteApiKeyResponseBody {
     public DeleteApiKeyResponseBody withObject(DeleteApiKeyObject object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
-        return this;
-    }
-
-    public DeleteApiKeyResponseBody withDeleted(boolean deleted) {
-        Utils.checkNotNull(deleted, "deleted");
-        this.deleted = deleted;
         return this;
     }
 
@@ -116,8 +110,6 @@ public class DeleteApiKeyResponseBody {
 
         private DeleteApiKeyObject object;
 
-        private Boolean deleted;
-
         private Builder() {
           // force use of static builder() method
         }
@@ -136,18 +128,17 @@ public class DeleteApiKeyResponseBody {
             return this;
         }
 
-
-        public Builder deleted(boolean deleted) {
-            Utils.checkNotNull(deleted, "deleted");
-            this.deleted = deleted;
-            return this;
-        }
-
         public DeleteApiKeyResponseBody build() {
 
             return new DeleteApiKeyResponseBody(
-                id, object, deleted);
+                id, object);
         }
 
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_Deleted =
+                new LazySingletonValue<>(
+                        "deleted",
+                        "true",
+                        new TypeReference<Boolean>() {});
     }
 }

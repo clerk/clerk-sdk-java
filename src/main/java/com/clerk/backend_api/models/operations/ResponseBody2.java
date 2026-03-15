@@ -3,10 +3,12 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
@@ -20,10 +22,8 @@ public class ResponseBody2 {
     private boolean active;
 
     @JsonCreator
-    public ResponseBody2(
-            @JsonProperty("active") boolean active) {
-        Utils.checkNotNull(active, "active");
-        this.active = active;
+    public ResponseBody2() {
+        this.active = Builder._SINGLETON_VALUE_Active.value();
     }
 
     /**
@@ -38,15 +38,6 @@ public class ResponseBody2 {
         return new Builder();
     }
 
-
-    /**
-     * Indicates that a JWT access token is not active (expired)
-     */
-    public ResponseBody2 withActive(boolean active) {
-        Utils.checkNotNull(active, "active");
-        this.active = active;
-        return this;
-    }
 
     @Override
     public boolean equals(java.lang.Object o) {
@@ -76,27 +67,21 @@ public class ResponseBody2 {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Boolean active;
-
         private Builder() {
           // force use of static builder() method
-        }
-
-
-        /**
-         * Indicates that a JWT access token is not active (expired)
-         */
-        public Builder active(boolean active) {
-            Utils.checkNotNull(active, "active");
-            this.active = active;
-            return this;
         }
 
         public ResponseBody2 build() {
 
             return new ResponseBody2(
-                active);
+                );
         }
 
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_Active =
+                new LazySingletonValue<>(
+                        "active",
+                        "false",
+                        new TypeReference<Boolean>() {});
     }
 }

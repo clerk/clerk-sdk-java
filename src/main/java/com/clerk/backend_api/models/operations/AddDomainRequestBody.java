@@ -3,12 +3,14 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
@@ -39,20 +41,17 @@ public class AddDomainRequestBody {
     @JsonCreator
     public AddDomainRequestBody(
             @JsonProperty("name") String name,
-            @JsonProperty("is_satellite") boolean isSatellite,
             @JsonProperty("proxy_url") JsonNullable<String> proxyUrl) {
         Utils.checkNotNull(name, "name");
-        Utils.checkNotNull(isSatellite, "isSatellite");
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         this.name = name;
-        this.isSatellite = isSatellite;
+        this.isSatellite = Builder._SINGLETON_VALUE_IsSatellite.value();
         this.proxyUrl = proxyUrl;
     }
     
     public AddDomainRequestBody(
-            String name,
-            boolean isSatellite) {
-        this(name, isSatellite, JsonNullable.undefined());
+            String name) {
+        this(name, JsonNullable.undefined());
     }
 
     /**
@@ -91,15 +90,6 @@ public class AddDomainRequestBody {
     public AddDomainRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
-        return this;
-    }
-
-    /**
-     * Marks the new domain as satellite. Only `true` is accepted at the moment.
-     */
-    public AddDomainRequestBody withIsSatellite(boolean isSatellite) {
-        Utils.checkNotNull(isSatellite, "isSatellite");
-        this.isSatellite = isSatellite;
         return this;
     }
 
@@ -157,8 +147,6 @@ public class AddDomainRequestBody {
 
         private String name;
 
-        private Boolean isSatellite;
-
         private JsonNullable<String> proxyUrl = JsonNullable.undefined();
 
         private Builder() {
@@ -172,16 +160,6 @@ public class AddDomainRequestBody {
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
-            return this;
-        }
-
-
-        /**
-         * Marks the new domain as satellite. Only `true` is accepted at the moment.
-         */
-        public Builder isSatellite(boolean isSatellite) {
-            Utils.checkNotNull(isSatellite, "isSatellite");
-            this.isSatellite = isSatellite;
             return this;
         }
 
@@ -209,8 +187,14 @@ public class AddDomainRequestBody {
         public AddDomainRequestBody build() {
 
             return new AddDomainRequestBody(
-                name, isSatellite, proxyUrl);
+                name, proxyUrl);
         }
 
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_IsSatellite =
+                new LazySingletonValue<>(
+                        "is_satellite",
+                        "true",
+                        new TypeReference<Boolean>() {});
     }
 }
