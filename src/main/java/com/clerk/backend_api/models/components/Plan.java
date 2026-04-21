@@ -43,8 +43,9 @@ public class Plan {
     private String name;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("fee")
-    private CommerceMoneyResponse fee;
+    private Optional<? extends CommerceSubscriptionItemFee> fee;
 
 
     @JsonInclude(Include.ALWAYS)
@@ -147,7 +148,7 @@ public class Plan {
             @JsonProperty("object") CommerceSubscriptionItemPlanObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
-            @JsonProperty("fee") CommerceMoneyResponse fee,
+            @JsonProperty("fee") Optional<? extends CommerceSubscriptionItemFee> fee,
             @JsonProperty("annual_monthly_fee") Optional<? extends CommerceSubscriptionItemAnnualMonthlyFee> annualMonthlyFee,
             @JsonProperty("annual_fee") Optional<? extends CommerceSubscriptionItemAnnualFee> annualFee,
             @JsonProperty("description") Optional<String> description,
@@ -207,7 +208,6 @@ public class Plan {
             CommerceSubscriptionItemPlanObject object,
             String id,
             String name,
-            CommerceMoneyResponse fee,
             String productId,
             boolean isDefault,
             boolean isRecurring,
@@ -217,7 +217,7 @@ public class Plan {
             String slug,
             boolean freeTrialEnabled) {
         this(object, id, name,
-            fee, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), productId, isDefault,
             isRecurring, publiclyVisible, hasBaseFee,
             forPayerType, slug, Optional.empty(),
@@ -249,9 +249,10 @@ public class Plan {
         return name;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse fee() {
-        return fee;
+    public Optional<CommerceSubscriptionItemFee> fee() {
+        return (Optional<CommerceSubscriptionItemFee>) fee;
     }
 
     @SuppressWarnings("unchecked")
@@ -407,7 +408,14 @@ public class Plan {
         return this;
     }
 
-    public Plan withFee(CommerceMoneyResponse fee) {
+    public Plan withFee(CommerceSubscriptionItemFee fee) {
+        Utils.checkNotNull(fee, "fee");
+        this.fee = Optional.ofNullable(fee);
+        return this;
+    }
+
+
+    public Plan withFee(Optional<? extends CommerceSubscriptionItemFee> fee) {
         Utils.checkNotNull(fee, "fee");
         this.fee = fee;
         return this;
@@ -685,7 +693,7 @@ public class Plan {
 
         private String name;
 
-        private CommerceMoneyResponse fee;
+        private Optional<? extends CommerceSubscriptionItemFee> fee = Optional.empty();
 
         private Optional<? extends CommerceSubscriptionItemAnnualMonthlyFee> annualMonthlyFee = Optional.empty();
 
@@ -753,7 +761,13 @@ public class Plan {
         }
 
 
-        public Builder fee(CommerceMoneyResponse fee) {
+        public Builder fee(CommerceSubscriptionItemFee fee) {
+            Utils.checkNotNull(fee, "fee");
+            this.fee = Optional.ofNullable(fee);
+            return this;
+        }
+
+        public Builder fee(Optional<? extends CommerceSubscriptionItemFee> fee) {
             Utils.checkNotNull(fee, "fee");
             this.fee = fee;
             return this;

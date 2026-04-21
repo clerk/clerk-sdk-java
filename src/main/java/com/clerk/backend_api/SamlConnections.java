@@ -28,6 +28,7 @@ import com.clerk.backend_api.operations.ListSAMLConnections;
 import com.clerk.backend_api.operations.UpdateSAMLConnection;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
+import java.lang.Deprecated;
 import java.lang.String;
 import java.util.Optional;
 
@@ -47,9 +48,13 @@ public class SamlConnections {
      * Results can be paginated using the optional `limit` and `offset` query parameters.
      * The SAML Connections are ordered by descending creation date and the most recent will be returned
      * first.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListSAMLConnectionsRequestBuilder list() {
         return new ListSAMLConnectionsRequestBuilder(sdkConfiguration);
     }
@@ -61,11 +66,15 @@ public class SamlConnections {
      * Results can be paginated using the optional `limit` and `offset` query parameters.
      * The SAML Connections are ordered by descending creation date and the most recent will be returned
      * first.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request) {
         return list(request, Optional.empty());
     }
@@ -77,12 +86,16 @@ public class SamlConnections {
      * Results can be paginated using the optional `limit` and `offset` query parameters.
      * The SAML Connections are ordered by descending creation date and the most recent will be returned
      * first.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListSAMLConnectionsResponse list(ListSAMLConnectionsRequest request, Optional<Options> options) {
         RequestOperation<ListSAMLConnectionsRequest, ListSAMLConnectionsResponse> operation
               = new ListSAMLConnections.Sync(sdkConfiguration, options, _headers);
@@ -93,9 +106,13 @@ public class SamlConnections {
      * Create a SAML Connection
      * 
      * <p>Create a new SAML Connection.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CreateSAMLConnectionRequestBuilder create() {
         return new CreateSAMLConnectionRequestBuilder(sdkConfiguration);
     }
@@ -104,10 +121,14 @@ public class SamlConnections {
      * Create a SAML Connection
      * 
      * <p>Create a new SAML Connection.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CreateSAMLConnectionResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
     }
@@ -116,12 +137,16 @@ public class SamlConnections {
      * Create a SAML Connection
      * 
      * <p>Create a new SAML Connection.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CreateSAMLConnectionResponse create(Optional<? extends CreateSAMLConnectionRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends CreateSAMLConnectionRequestBody>, CreateSAMLConnectionResponse> operation
               = new CreateSAMLConnection.Sync(sdkConfiguration, options, _headers);
@@ -132,9 +157,13 @@ public class SamlConnections {
      * Retrieve a SAML Connection by ID
      * 
      * <p>Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public GetSAMLConnectionRequestBuilder get() {
         return new GetSAMLConnectionRequestBuilder(sdkConfiguration);
     }
@@ -143,11 +172,15 @@ public class SamlConnections {
      * Retrieve a SAML Connection by ID
      * 
      * <p>Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public GetSAMLConnectionResponse get(String samlConnectionId) {
         return get(samlConnectionId, Optional.empty());
     }
@@ -156,12 +189,16 @@ public class SamlConnections {
      * Retrieve a SAML Connection by ID
      * 
      * <p>Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public GetSAMLConnectionResponse get(String samlConnectionId, Optional<Options> options) {
         GetSAMLConnectionRequest request =
             GetSAMLConnectionRequest
@@ -177,9 +214,13 @@ public class SamlConnections {
      * Update a SAML Connection
      * 
      * <p>Updates the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public UpdateSAMLConnectionRequestBuilder update() {
         return new UpdateSAMLConnectionRequestBuilder(sdkConfiguration);
     }
@@ -188,12 +229,16 @@ public class SamlConnections {
      * Update a SAML Connection
      * 
      * <p>Updates the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection to update
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public UpdateSAMLConnectionResponse update(String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody) {
         return update(samlConnectionId, requestBody, Optional.empty());
     }
@@ -202,13 +247,17 @@ public class SamlConnections {
      * Update a SAML Connection
      * 
      * <p>Updates the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection to update
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public UpdateSAMLConnectionResponse update(
             String samlConnectionId, UpdateSAMLConnectionRequestBody requestBody,
             Optional<Options> options) {
@@ -227,9 +276,13 @@ public class SamlConnections {
      * Delete a SAML Connection
      * 
      * <p>Deletes the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public DeleteSAMLConnectionRequestBuilder delete() {
         return new DeleteSAMLConnectionRequestBuilder(sdkConfiguration);
     }
@@ -238,11 +291,15 @@ public class SamlConnections {
      * Delete a SAML Connection
      * 
      * <p>Deletes the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection to delete
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public DeleteSAMLConnectionResponse delete(String samlConnectionId) {
         return delete(samlConnectionId, Optional.empty());
     }
@@ -251,12 +308,16 @@ public class SamlConnections {
      * Delete a SAML Connection
      * 
      * <p>Deletes the SAML Connection whose ID matches the provided `id` in the path.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
      * 
      * @param samlConnectionId The ID of the SAML Connection to delete
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public DeleteSAMLConnectionResponse delete(String samlConnectionId, Optional<Options> options) {
         DeleteSAMLConnectionRequest request =
             DeleteSAMLConnectionRequest

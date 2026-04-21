@@ -3,12 +3,14 @@
  */
 package com.clerk.backend_api.models.components;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Object;
@@ -79,7 +81,6 @@ public class InvitationRevoked {
             @JsonProperty("id") String id,
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
-            @JsonProperty("revoked") Optional<Boolean> revoked,
             @JsonProperty("status") InvitationRevokedStatus status,
             @JsonProperty("url") Optional<String> url,
             @JsonProperty("expires_at") JsonNullable<Long> expiresAt,
@@ -90,7 +91,6 @@ public class InvitationRevoked {
         Utils.checkNotNull(emailAddress, "emailAddress");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
-        Utils.checkNotNull(revoked, "revoked");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(url, "url");
         Utils.checkNotNull(expiresAt, "expiresAt");
@@ -100,7 +100,7 @@ public class InvitationRevoked {
         this.id = id;
         this.emailAddress = emailAddress;
         this.publicMetadata = publicMetadata;
-        this.revoked = revoked;
+        this.revoked = Builder._SINGLETON_VALUE_Revoked.value();
         this.status = status;
         this.url = url;
         this.expiresAt = expiresAt;
@@ -117,9 +117,8 @@ public class InvitationRevoked {
             long createdAt,
             long updatedAt) {
         this(object, id, emailAddress,
-            publicMetadata, Optional.empty(), status,
-            Optional.empty(), JsonNullable.undefined(), createdAt,
-            updatedAt);
+            publicMetadata, status, Optional.empty(),
+            JsonNullable.undefined(), createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -207,19 +206,6 @@ public class InvitationRevoked {
     public InvitationRevoked withPublicMetadata(Map<String, Object> publicMetadata) {
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         this.publicMetadata = publicMetadata;
-        return this;
-    }
-
-    public InvitationRevoked withRevoked(boolean revoked) {
-        Utils.checkNotNull(revoked, "revoked");
-        this.revoked = Optional.ofNullable(revoked);
-        return this;
-    }
-
-
-    public InvitationRevoked withRevoked(Optional<Boolean> revoked) {
-        Utils.checkNotNull(revoked, "revoked");
-        this.revoked = revoked;
         return this;
     }
 
@@ -335,8 +321,6 @@ public class InvitationRevoked {
 
         private Map<String, Object> publicMetadata;
 
-        private Optional<Boolean> revoked = Optional.empty();
-
         private InvitationRevokedStatus status;
 
         private Optional<String> url = Optional.empty();
@@ -376,19 +360,6 @@ public class InvitationRevoked {
         public Builder publicMetadata(Map<String, Object> publicMetadata) {
             Utils.checkNotNull(publicMetadata, "publicMetadata");
             this.publicMetadata = publicMetadata;
-            return this;
-        }
-
-
-        public Builder revoked(boolean revoked) {
-            Utils.checkNotNull(revoked, "revoked");
-            this.revoked = Optional.ofNullable(revoked);
-            return this;
-        }
-
-        public Builder revoked(Optional<Boolean> revoked) {
-            Utils.checkNotNull(revoked, "revoked");
-            this.revoked = revoked;
             return this;
         }
 
@@ -455,10 +426,15 @@ public class InvitationRevoked {
 
             return new InvitationRevoked(
                 object, id, emailAddress,
-                publicMetadata, revoked, status,
-                url, expiresAt, createdAt,
-                updatedAt);
+                publicMetadata, status, url,
+                expiresAt, createdAt, updatedAt);
         }
 
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_Revoked =
+                new LazySingletonValue<>(
+                        "revoked",
+                        "true",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

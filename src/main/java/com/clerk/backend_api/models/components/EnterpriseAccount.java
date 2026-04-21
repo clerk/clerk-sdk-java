@@ -85,7 +85,7 @@ public class EnterpriseAccount {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enterprise_connection")
-    private JsonNullable<? extends EnterpriseConnection> enterpriseConnection;
+    private JsonNullable<? extends EnterpriseAccountEnterpriseConnection> enterpriseConnection;
 
     /**
      * Unix timestamp of last authentication.
@@ -108,7 +108,7 @@ public class EnterpriseAccount {
             @JsonProperty("enterprise_connection_id") JsonNullable<String> enterpriseConnectionId,
             @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("verification") Optional<? extends EnterpriseAccountVerification> verification,
-            @JsonProperty("enterprise_connection") JsonNullable<? extends EnterpriseConnection> enterpriseConnection,
+            @JsonProperty("enterprise_connection") JsonNullable<? extends EnterpriseAccountEnterpriseConnection> enterpriseConnection,
             @JsonProperty("last_authenticated_at") JsonNullable<Long> lastAuthenticatedAt) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
@@ -227,8 +227,8 @@ public class EnterpriseAccount {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<EnterpriseConnection> enterpriseConnection() {
-        return (JsonNullable<EnterpriseConnection>) enterpriseConnection;
+    public JsonNullable<EnterpriseAccountEnterpriseConnection> enterpriseConnection() {
+        return (JsonNullable<EnterpriseAccountEnterpriseConnection>) enterpriseConnection;
     }
 
     /**
@@ -376,13 +376,13 @@ public class EnterpriseAccount {
         return this;
     }
 
-    public EnterpriseAccount withEnterpriseConnection(EnterpriseConnection enterpriseConnection) {
+    public EnterpriseAccount withEnterpriseConnection(EnterpriseAccountEnterpriseConnection enterpriseConnection) {
         Utils.checkNotNull(enterpriseConnection, "enterpriseConnection");
         this.enterpriseConnection = JsonNullable.of(enterpriseConnection);
         return this;
     }
 
-    public EnterpriseAccount withEnterpriseConnection(JsonNullable<? extends EnterpriseConnection> enterpriseConnection) {
+    public EnterpriseAccount withEnterpriseConnection(JsonNullable<? extends EnterpriseAccountEnterpriseConnection> enterpriseConnection) {
         Utils.checkNotNull(enterpriseConnection, "enterpriseConnection");
         this.enterpriseConnection = enterpriseConnection;
         return this;
@@ -488,7 +488,7 @@ public class EnterpriseAccount {
 
         private Optional<? extends EnterpriseAccountVerification> verification = Optional.empty();
 
-        private JsonNullable<? extends EnterpriseConnection> enterpriseConnection = JsonNullable.undefined();
+        private JsonNullable<? extends EnterpriseAccountEnterpriseConnection> enterpriseConnection = JsonNullable.undefined();
 
         private JsonNullable<Long> lastAuthenticatedAt = JsonNullable.undefined();
 
@@ -638,13 +638,13 @@ public class EnterpriseAccount {
         }
 
 
-        public Builder enterpriseConnection(EnterpriseConnection enterpriseConnection) {
+        public Builder enterpriseConnection(EnterpriseAccountEnterpriseConnection enterpriseConnection) {
             Utils.checkNotNull(enterpriseConnection, "enterpriseConnection");
             this.enterpriseConnection = JsonNullable.of(enterpriseConnection);
             return this;
         }
 
-        public Builder enterpriseConnection(JsonNullable<? extends EnterpriseConnection> enterpriseConnection) {
+        public Builder enterpriseConnection(JsonNullable<? extends EnterpriseAccountEnterpriseConnection> enterpriseConnection) {
             Utils.checkNotNull(enterpriseConnection, "enterpriseConnection");
             this.enterpriseConnection = enterpriseConnection;
             return this;

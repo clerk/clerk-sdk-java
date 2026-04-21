@@ -9,7 +9,7 @@ import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
-import com.clerk.backend_api.models.components.SchemasSAMLConnection;
+import com.clerk.backend_api.models.components.SAMLConnection;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest;
@@ -172,7 +172,7 @@ public class UpdateSAMLConnection {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "402", "403", "404", "422", "4XX", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;
@@ -204,7 +204,7 @@ public class UpdateSAMLConnection {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withSchemasSAMLConnection(Utils.unmarshal(response, new TypeReference<SchemasSAMLConnection>() {}));
+                    return res.withSAMLConnection(Utils.unmarshal(response, new TypeReference<SAMLConnection>() {}));
                 } else {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }

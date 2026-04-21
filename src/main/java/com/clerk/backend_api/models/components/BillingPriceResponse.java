@@ -13,6 +13,8 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -66,12 +68,14 @@ public class BillingPriceResponse {
     private long annualMonthlyAmount;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("fee")
-    private CommerceMoneyResponse fee;
+    private Optional<? extends BillingPriceResponseFee> fee;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("annual_monthly_fee")
-    private CommerceMoneyResponse annualMonthlyFee;
+    private Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee;
 
     /**
      * The description of the price.
@@ -102,8 +106,8 @@ public class BillingPriceResponse {
             @JsonProperty("currency_symbol") String currencySymbol,
             @JsonProperty("amount") long amount,
             @JsonProperty("annual_monthly_amount") long annualMonthlyAmount,
-            @JsonProperty("fee") CommerceMoneyResponse fee,
-            @JsonProperty("annual_monthly_fee") CommerceMoneyResponse annualMonthlyFee,
+            @JsonProperty("fee") Optional<? extends BillingPriceResponseFee> fee,
+            @JsonProperty("annual_monthly_fee") Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee,
             @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("is_default") boolean isDefault,
             @JsonProperty("created_at") long createdAt) {
@@ -144,14 +148,12 @@ public class BillingPriceResponse {
             String currencySymbol,
             long amount,
             long annualMonthlyAmount,
-            CommerceMoneyResponse fee,
-            CommerceMoneyResponse annualMonthlyFee,
             boolean isDefault,
             long createdAt) {
         this(object, id, planId,
             instanceId, currency, currencySymbol,
-            amount, annualMonthlyAmount, fee,
-            annualMonthlyFee, JsonNullable.undefined(), isDefault,
+            amount, annualMonthlyAmount, Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), isDefault,
             createdAt);
     }
 
@@ -219,14 +221,16 @@ public class BillingPriceResponse {
         return annualMonthlyAmount;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse fee() {
-        return fee;
+    public Optional<BillingPriceResponseFee> fee() {
+        return (Optional<BillingPriceResponseFee>) fee;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse annualMonthlyFee() {
-        return annualMonthlyFee;
+    public Optional<BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee() {
+        return (Optional<BillingPriceResponseAnnualMonthlyFee>) annualMonthlyFee;
     }
 
     /**
@@ -330,13 +334,27 @@ public class BillingPriceResponse {
         return this;
     }
 
-    public BillingPriceResponse withFee(CommerceMoneyResponse fee) {
+    public BillingPriceResponse withFee(BillingPriceResponseFee fee) {
+        Utils.checkNotNull(fee, "fee");
+        this.fee = Optional.ofNullable(fee);
+        return this;
+    }
+
+
+    public BillingPriceResponse withFee(Optional<? extends BillingPriceResponseFee> fee) {
         Utils.checkNotNull(fee, "fee");
         this.fee = fee;
         return this;
     }
 
-    public BillingPriceResponse withAnnualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+    public BillingPriceResponse withAnnualMonthlyFee(BillingPriceResponseAnnualMonthlyFee annualMonthlyFee) {
+        Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+        this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+        return this;
+    }
+
+
+    public BillingPriceResponse withAnnualMonthlyFee(Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee) {
         Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
         this.annualMonthlyFee = annualMonthlyFee;
         return this;
@@ -450,9 +468,9 @@ public class BillingPriceResponse {
 
         private Long annualMonthlyAmount;
 
-        private CommerceMoneyResponse fee;
+        private Optional<? extends BillingPriceResponseFee> fee = Optional.empty();
 
-        private CommerceMoneyResponse annualMonthlyFee;
+        private Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee = Optional.empty();
 
         private JsonNullable<String> description = JsonNullable.undefined();
 
@@ -545,14 +563,26 @@ public class BillingPriceResponse {
         }
 
 
-        public Builder fee(CommerceMoneyResponse fee) {
+        public Builder fee(BillingPriceResponseFee fee) {
+            Utils.checkNotNull(fee, "fee");
+            this.fee = Optional.ofNullable(fee);
+            return this;
+        }
+
+        public Builder fee(Optional<? extends BillingPriceResponseFee> fee) {
             Utils.checkNotNull(fee, "fee");
             this.fee = fee;
             return this;
         }
 
 
-        public Builder annualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+        public Builder annualMonthlyFee(BillingPriceResponseAnnualMonthlyFee annualMonthlyFee) {
+            Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+            this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+            return this;
+        }
+
+        public Builder annualMonthlyFee(Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee) {
             Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
             this.annualMonthlyFee = annualMonthlyFee;
             return this;

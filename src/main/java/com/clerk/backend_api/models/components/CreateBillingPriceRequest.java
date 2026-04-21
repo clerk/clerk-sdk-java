@@ -15,6 +15,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CreateBillingPriceRequest {
@@ -32,17 +33,18 @@ public class CreateBillingPriceRequest {
     private Optional<String> currency;
 
     /**
-     * The amount in cents for the price. Must be at least $1 (100 cents).
+     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("amount")
-    private long amount;
+    private Optional<Long> amount;
 
     /**
-     * The monthly amount in cents when billed annually. Optional.
+     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("annual_monthly_amount")
-    private Optional<Long> annualMonthlyAmount;
+    private JsonNullable<Long> annualMonthlyAmount;
 
     /**
      * An optional description for this custom price.
@@ -55,8 +57,8 @@ public class CreateBillingPriceRequest {
     public CreateBillingPriceRequest(
             @JsonProperty("plan_id") String planId,
             @JsonProperty("currency") Optional<String> currency,
-            @JsonProperty("amount") long amount,
-            @JsonProperty("annual_monthly_amount") Optional<Long> annualMonthlyAmount,
+            @JsonProperty("amount") Optional<Long> amount,
+            @JsonProperty("annual_monthly_amount") JsonNullable<Long> annualMonthlyAmount,
             @JsonProperty("description") Optional<String> description) {
         Utils.checkNotNull(planId, "planId");
         Utils.checkNotNull(currency, "currency");
@@ -71,10 +73,9 @@ public class CreateBillingPriceRequest {
     }
     
     public CreateBillingPriceRequest(
-            String planId,
-            long amount) {
-        this(planId, Optional.empty(), amount,
-            Optional.empty(), Optional.empty());
+            String planId) {
+        this(planId, Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -94,18 +95,18 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The amount in cents for the price. Must be at least $1 (100 cents).
+     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
      */
     @JsonIgnore
-    public long amount() {
+    public Optional<Long> amount() {
         return amount;
     }
 
     /**
-     * The monthly amount in cents when billed annually. Optional.
+     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
      */
     @JsonIgnore
-    public Optional<Long> annualMonthlyAmount() {
+    public JsonNullable<Long> annualMonthlyAmount() {
         return annualMonthlyAmount;
     }
 
@@ -151,28 +152,37 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The amount in cents for the price. Must be at least $1 (100 cents).
+     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
      */
     public CreateBillingPriceRequest withAmount(long amount) {
+        Utils.checkNotNull(amount, "amount");
+        this.amount = Optional.ofNullable(amount);
+        return this;
+    }
+
+
+    /**
+     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+     */
+    public CreateBillingPriceRequest withAmount(Optional<Long> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
     }
 
     /**
-     * The monthly amount in cents when billed annually. Optional.
+     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
      */
     public CreateBillingPriceRequest withAnnualMonthlyAmount(long annualMonthlyAmount) {
         Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
-        this.annualMonthlyAmount = Optional.ofNullable(annualMonthlyAmount);
+        this.annualMonthlyAmount = JsonNullable.of(annualMonthlyAmount);
         return this;
     }
 
-
     /**
-     * The monthly amount in cents when billed annually. Optional.
+     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
      */
-    public CreateBillingPriceRequest withAnnualMonthlyAmount(Optional<Long> annualMonthlyAmount) {
+    public CreateBillingPriceRequest withAnnualMonthlyAmount(JsonNullable<Long> annualMonthlyAmount) {
         Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
         this.annualMonthlyAmount = annualMonthlyAmount;
         return this;
@@ -238,9 +248,9 @@ public class CreateBillingPriceRequest {
 
         private Optional<String> currency;
 
-        private Long amount;
+        private Optional<Long> amount = Optional.empty();
 
-        private Optional<Long> annualMonthlyAmount = Optional.empty();
+        private JsonNullable<Long> annualMonthlyAmount = JsonNullable.undefined();
 
         private Optional<String> description = Optional.empty();
 
@@ -279,9 +289,18 @@ public class CreateBillingPriceRequest {
 
 
         /**
-         * The amount in cents for the price. Must be at least $1 (100 cents).
+         * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
          */
         public Builder amount(long amount) {
+            Utils.checkNotNull(amount, "amount");
+            this.amount = Optional.ofNullable(amount);
+            return this;
+        }
+
+        /**
+         * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+         */
+        public Builder amount(Optional<Long> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;
@@ -289,18 +308,18 @@ public class CreateBillingPriceRequest {
 
 
         /**
-         * The monthly amount in cents when billed annually. Optional.
+         * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
          */
         public Builder annualMonthlyAmount(long annualMonthlyAmount) {
             Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
-            this.annualMonthlyAmount = Optional.ofNullable(annualMonthlyAmount);
+            this.annualMonthlyAmount = JsonNullable.of(annualMonthlyAmount);
             return this;
         }
 
         /**
-         * The monthly amount in cents when billed annually. Optional.
+         * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
          */
-        public Builder annualMonthlyAmount(Optional<Long> annualMonthlyAmount) {
+        public Builder annualMonthlyAmount(JsonNullable<Long> annualMonthlyAmount) {
             Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
             this.annualMonthlyAmount = annualMonthlyAmount;
             return this;

@@ -160,7 +160,7 @@ public class GetOAuthAccessToken {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "404", "422", "4XX", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;

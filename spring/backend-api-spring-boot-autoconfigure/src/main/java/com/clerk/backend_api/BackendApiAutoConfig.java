@@ -535,6 +535,17 @@ public class BackendApiAutoConfig {
         return clerk.samlConnections();
     }
     /**
+     * Creates a EnterpriseConnections sub-SDK bean if none exists.
+     *
+     * @param clerk the main SDK instance
+     * @return A configured EnterpriseConnections instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public EnterpriseConnections enterpriseConnections(Clerk clerk) {
+        return clerk.enterpriseConnections();
+    }
+    /**
      * Creates a TestingTokens sub-SDK bean if none exists.
      *
      * @param clerk the main SDK instance

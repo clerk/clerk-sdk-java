@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.lang.Deprecated;

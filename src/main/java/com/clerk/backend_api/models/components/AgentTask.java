@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -32,7 +33,16 @@ public class AgentTask {
     /**
      * A unique identifier for this agent task.
      */
+    @JsonProperty("agent_task_id")
+    private String agentTaskId;
+
+    /**
+     * A unique identifier for this agent task. Deprecated: use agent_task_id instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     @JsonProperty("task_id")
+    @Deprecated
     private String taskId;
 
     /**
@@ -47,14 +57,17 @@ public class AgentTask {
     public AgentTask(
             @JsonProperty("object") AgentTaskObject object,
             @JsonProperty("agent_id") String agentId,
+            @JsonProperty("agent_task_id") String agentTaskId,
             @JsonProperty("task_id") String taskId,
             @JsonProperty("url") Optional<String> url) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(agentId, "agentId");
+        Utils.checkNotNull(agentTaskId, "agentTaskId");
         Utils.checkNotNull(taskId, "taskId");
         Utils.checkNotNull(url, "url");
         this.object = object;
         this.agentId = agentId;
+        this.agentTaskId = agentTaskId;
         this.taskId = taskId;
         this.url = url;
     }
@@ -62,9 +75,10 @@ public class AgentTask {
     public AgentTask(
             AgentTaskObject object,
             String agentId,
+            String agentTaskId,
             String taskId) {
-        this(object, agentId, taskId,
-            Optional.empty());
+        this(object, agentId, agentTaskId,
+            taskId, Optional.empty());
     }
 
     @JsonIgnore
@@ -83,6 +97,17 @@ public class AgentTask {
     /**
      * A unique identifier for this agent task.
      */
+    @JsonIgnore
+    public String agentTaskId() {
+        return agentTaskId;
+    }
+
+    /**
+     * A unique identifier for this agent task. Deprecated: use agent_task_id instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @JsonIgnore
     public String taskId() {
         return taskId;
@@ -120,6 +145,18 @@ public class AgentTask {
     /**
      * A unique identifier for this agent task.
      */
+    public AgentTask withAgentTaskId(String agentTaskId) {
+        Utils.checkNotNull(agentTaskId, "agentTaskId");
+        this.agentTaskId = agentTaskId;
+        return this;
+    }
+
+    /**
+     * A unique identifier for this agent task. Deprecated: use agent_task_id instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public AgentTask withTaskId(String taskId) {
         Utils.checkNotNull(taskId, "taskId");
         this.taskId = taskId;
@@ -159,6 +196,7 @@ public class AgentTask {
         return 
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.agentId, other.agentId) &&
+            Utils.enhancedDeepEquals(this.agentTaskId, other.agentTaskId) &&
             Utils.enhancedDeepEquals(this.taskId, other.taskId) &&
             Utils.enhancedDeepEquals(this.url, other.url);
     }
@@ -166,8 +204,8 @@ public class AgentTask {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, agentId, taskId,
-            url);
+            object, agentId, agentTaskId,
+            taskId, url);
     }
     
     @Override
@@ -175,6 +213,7 @@ public class AgentTask {
         return Utils.toString(AgentTask.class,
                 "object", object,
                 "agentId", agentId,
+                "agentTaskId", agentTaskId,
                 "taskId", taskId,
                 "url", url);
     }
@@ -186,6 +225,9 @@ public class AgentTask {
 
         private String agentId;
 
+        private String agentTaskId;
+
+        @Deprecated
         private String taskId;
 
         private Optional<String> url = Optional.empty();
@@ -215,6 +257,19 @@ public class AgentTask {
         /**
          * A unique identifier for this agent task.
          */
+        public Builder agentTaskId(String agentTaskId) {
+            Utils.checkNotNull(agentTaskId, "agentTaskId");
+            this.agentTaskId = agentTaskId;
+            return this;
+        }
+
+
+        /**
+         * A unique identifier for this agent task. Deprecated: use agent_task_id instead.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder taskId(String taskId) {
             Utils.checkNotNull(taskId, "taskId");
             this.taskId = taskId;
@@ -245,8 +300,8 @@ public class AgentTask {
         public AgentTask build() {
 
             return new AgentTask(
-                object, agentId, taskId,
-                url);
+                object, agentId, agentTaskId,
+                taskId, url);
         }
 
     }

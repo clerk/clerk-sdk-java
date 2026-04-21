@@ -3,54 +3,505 @@
  */
 package com.clerk.backend_api.models.components;
 
-import com.clerk.backend_api.utils.OneOfDeserializer;
-import com.clerk.backend_api.utils.TypedObject;
-import com.clerk.backend_api.utils.Utils.JsonShape;
-import com.clerk.backend_api.utils.Utils.TypeReferenceWithShape;
 import com.clerk.backend_api.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-@JsonDeserialize(using = EnterpriseConnection._Deserializer.class)
+
 public class EnterpriseConnection {
-
-    @JsonValue
-    private final TypedObject value;
-    
-    private EnterpriseConnection(TypedObject value) {
-        this.value = value;
-    }
-
-    public static EnterpriseConnection of(EnterpriseConnectionEnterpriseConnection value) {
-        Utils.checkNotNull(value, "value");
-        return new EnterpriseConnection(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
-    }
-    
     /**
-     * Returns an instance of one of these types:
-     * <ul>
-     * <li>{@code com.clerk.backend_api.models.components.EnterpriseConnectionEnterpriseConnection}</li>
-     * </ul>
-     * 
-     * <p>Use {@code instanceof} to determine what type is returned. For example:
-     * 
-     * <pre>
-     * if (obj.value() instanceof String) {
-     *     String answer = (String) obj.value();
-     *     System.out.println("answer=" + answer);
-     * }
-     * </pre>
-     * 
-     * @return value of oneOf type
-     **/ 
-    public java.lang.Object value() {
-        return value.value();
+     * The enterprise connection ID
+     */
+    @JsonProperty("id")
+    private String id;
+
+    /**
+     * The display name of the connection
+     */
+    @JsonProperty("name")
+    private String name;
+
+
+    @JsonProperty("provider")
+    private String provider;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("logo_public_url")
+    private JsonNullable<String> logoPublicUrl;
+
+    /**
+     * Whether the enterprise connection is active
+     */
+    @JsonProperty("active")
+    private boolean active;
+
+    /**
+     * Domains associated with the enterprise connection
+     */
+    @JsonProperty("domains")
+    private List<String> domains;
+
+    /**
+     * Organization ID when the connection is linked to an organization
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("organization_id")
+    private JsonNullable<String> organizationId;
+
+    /**
+     * Controls whether to update the user's attributes on each sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("sync_user_attributes")
+    private Optional<Boolean> syncUserAttributes;
+
+    /**
+     * When true, users cannot add additional identifications when using this connection
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("disable_additional_identifications")
+    private Optional<Boolean> disableAdditionalIdentifications;
+
+    /**
+     * Whether this connection supports account linking via organization membership
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("allow_organization_account_linking")
+    private Optional<Boolean> allowOrganizationAccountLinking;
+
+    /**
+     * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("custom_attributes")
+    private Optional<? extends List<CustomAttributes>> customAttributes;
+
+    /**
+     * Present when the enterprise connection uses SAML
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("saml_connection")
+    private JsonNullable<? extends EnterpriseConnectionSamlConnection> samlConnection;
+
+    /**
+     * Present when the enterprise connection uses OIDC or EASIE
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("oauth_config")
+    private JsonNullable<? extends OauthConfig> oauthConfig;
+
+    /**
+     * Unix timestamp in milliseconds when the connection was created
+     */
+    @JsonProperty("created_at")
+    private long createdAt;
+
+    /**
+     * Unix timestamp in milliseconds when the connection was last updated
+     */
+    @JsonProperty("updated_at")
+    private long updatedAt;
+
+    @JsonCreator
+    public EnterpriseConnection(
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("provider") String provider,
+            @JsonProperty("logo_public_url") JsonNullable<String> logoPublicUrl,
+            @JsonProperty("active") boolean active,
+            @JsonProperty("domains") List<String> domains,
+            @JsonProperty("organization_id") JsonNullable<String> organizationId,
+            @JsonProperty("sync_user_attributes") Optional<Boolean> syncUserAttributes,
+            @JsonProperty("disable_additional_identifications") Optional<Boolean> disableAdditionalIdentifications,
+            @JsonProperty("allow_organization_account_linking") Optional<Boolean> allowOrganizationAccountLinking,
+            @JsonProperty("custom_attributes") Optional<? extends List<CustomAttributes>> customAttributes,
+            @JsonProperty("saml_connection") JsonNullable<? extends EnterpriseConnectionSamlConnection> samlConnection,
+            @JsonProperty("oauth_config") JsonNullable<? extends OauthConfig> oauthConfig,
+            @JsonProperty("created_at") long createdAt,
+            @JsonProperty("updated_at") long updatedAt) {
+        Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(provider, "provider");
+        Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
+        Utils.checkNotNull(active, "active");
+        Utils.checkNotNull(domains, "domains");
+        Utils.checkNotNull(organizationId, "organizationId");
+        Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+        Utils.checkNotNull(customAttributes, "customAttributes");
+        Utils.checkNotNull(samlConnection, "samlConnection");
+        Utils.checkNotNull(oauthConfig, "oauthConfig");
+        Utils.checkNotNull(createdAt, "createdAt");
+        Utils.checkNotNull(updatedAt, "updatedAt");
+        this.id = id;
+        this.name = name;
+        this.provider = provider;
+        this.logoPublicUrl = logoPublicUrl;
+        this.active = active;
+        this.domains = domains;
+        this.organizationId = organizationId;
+        this.syncUserAttributes = syncUserAttributes;
+        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
+        this.customAttributes = customAttributes;
+        this.samlConnection = samlConnection;
+        this.oauthConfig = oauthConfig;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     
+    public EnterpriseConnection(
+            String id,
+            String name,
+            String provider,
+            boolean active,
+            List<String> domains,
+            long createdAt,
+            long updatedAt) {
+        this(id, name, provider,
+            JsonNullable.undefined(), active, domains,
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), createdAt, updatedAt);
+    }
+
+    /**
+     * The enterprise connection ID
+     */
+    @JsonIgnore
+    public String id() {
+        return id;
+    }
+
+    /**
+     * The display name of the connection
+     */
+    @JsonIgnore
+    public String name() {
+        return name;
+    }
+
+    @JsonIgnore
+    public String provider() {
+        return provider;
+    }
+
+    @JsonIgnore
+    public JsonNullable<String> logoPublicUrl() {
+        return logoPublicUrl;
+    }
+
+    /**
+     * Whether the enterprise connection is active
+     */
+    @JsonIgnore
+    public boolean active() {
+        return active;
+    }
+
+    /**
+     * Domains associated with the enterprise connection
+     */
+    @JsonIgnore
+    public List<String> domains() {
+        return domains;
+    }
+
+    /**
+     * Organization ID when the connection is linked to an organization
+     */
+    @JsonIgnore
+    public JsonNullable<String> organizationId() {
+        return organizationId;
+    }
+
+    /**
+     * Controls whether to update the user's attributes on each sign-in
+     */
+    @JsonIgnore
+    public Optional<Boolean> syncUserAttributes() {
+        return syncUserAttributes;
+    }
+
+    /**
+     * When true, users cannot add additional identifications when using this connection
+     */
+    @JsonIgnore
+    public Optional<Boolean> disableAdditionalIdentifications() {
+        return disableAdditionalIdentifications;
+    }
+
+    /**
+     * Whether this connection supports account linking via organization membership
+     */
+    @JsonIgnore
+    public Optional<Boolean> allowOrganizationAccountLinking() {
+        return allowOrganizationAccountLinking;
+    }
+
+    /**
+     * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<CustomAttributes>> customAttributes() {
+        return (Optional<List<CustomAttributes>>) customAttributes;
+    }
+
+    /**
+     * Present when the enterprise connection uses SAML
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<EnterpriseConnectionSamlConnection> samlConnection() {
+        return (JsonNullable<EnterpriseConnectionSamlConnection>) samlConnection;
+    }
+
+    /**
+     * Present when the enterprise connection uses OIDC or EASIE
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<OauthConfig> oauthConfig() {
+        return (JsonNullable<OauthConfig>) oauthConfig;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when the connection was created
+     */
+    @JsonIgnore
+    public long createdAt() {
+        return createdAt;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when the connection was last updated
+     */
+    @JsonIgnore
+    public long updatedAt() {
+        return updatedAt;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+
+    /**
+     * The enterprise connection ID
+     */
+    public EnterpriseConnection withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The display name of the connection
+     */
+    public EnterpriseConnection withName(String name) {
+        Utils.checkNotNull(name, "name");
+        this.name = name;
+        return this;
+    }
+
+    public EnterpriseConnection withProvider(String provider) {
+        Utils.checkNotNull(provider, "provider");
+        this.provider = provider;
+        return this;
+    }
+
+    public EnterpriseConnection withLogoPublicUrl(String logoPublicUrl) {
+        Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
+        this.logoPublicUrl = JsonNullable.of(logoPublicUrl);
+        return this;
+    }
+
+    public EnterpriseConnection withLogoPublicUrl(JsonNullable<String> logoPublicUrl) {
+        Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
+        this.logoPublicUrl = logoPublicUrl;
+        return this;
+    }
+
+    /**
+     * Whether the enterprise connection is active
+     */
+    public EnterpriseConnection withActive(boolean active) {
+        Utils.checkNotNull(active, "active");
+        this.active = active;
+        return this;
+    }
+
+    /**
+     * Domains associated with the enterprise connection
+     */
+    public EnterpriseConnection withDomains(List<String> domains) {
+        Utils.checkNotNull(domains, "domains");
+        this.domains = domains;
+        return this;
+    }
+
+    /**
+     * Organization ID when the connection is linked to an organization
+     */
+    public EnterpriseConnection withOrganizationId(String organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = JsonNullable.of(organizationId);
+        return this;
+    }
+
+    /**
+     * Organization ID when the connection is linked to an organization
+     */
+    public EnterpriseConnection withOrganizationId(JsonNullable<String> organizationId) {
+        Utils.checkNotNull(organizationId, "organizationId");
+        this.organizationId = organizationId;
+        return this;
+    }
+
+    /**
+     * Controls whether to update the user's attributes on each sign-in
+     */
+    public EnterpriseConnection withSyncUserAttributes(boolean syncUserAttributes) {
+        Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
+        this.syncUserAttributes = Optional.ofNullable(syncUserAttributes);
+        return this;
+    }
+
+
+    /**
+     * Controls whether to update the user's attributes on each sign-in
+     */
+    public EnterpriseConnection withSyncUserAttributes(Optional<Boolean> syncUserAttributes) {
+        Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
+        this.syncUserAttributes = syncUserAttributes;
+        return this;
+    }
+
+    /**
+     * When true, users cannot add additional identifications when using this connection
+     */
+    public EnterpriseConnection withDisableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
+        return this;
+    }
+
+
+    /**
+     * When true, users cannot add additional identifications when using this connection
+     */
+    public EnterpriseConnection withDisableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
+        Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        return this;
+    }
+
+    /**
+     * Whether this connection supports account linking via organization membership
+     */
+    public EnterpriseConnection withAllowOrganizationAccountLinking(boolean allowOrganizationAccountLinking) {
+        Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+        this.allowOrganizationAccountLinking = Optional.ofNullable(allowOrganizationAccountLinking);
+        return this;
+    }
+
+
+    /**
+     * Whether this connection supports account linking via organization membership
+     */
+    public EnterpriseConnection withAllowOrganizationAccountLinking(Optional<Boolean> allowOrganizationAccountLinking) {
+        Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+        this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
+        return this;
+    }
+
+    /**
+     * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+     */
+    public EnterpriseConnection withCustomAttributes(List<CustomAttributes> customAttributes) {
+        Utils.checkNotNull(customAttributes, "customAttributes");
+        this.customAttributes = Optional.ofNullable(customAttributes);
+        return this;
+    }
+
+
+    /**
+     * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+     */
+    public EnterpriseConnection withCustomAttributes(Optional<? extends List<CustomAttributes>> customAttributes) {
+        Utils.checkNotNull(customAttributes, "customAttributes");
+        this.customAttributes = customAttributes;
+        return this;
+    }
+
+    /**
+     * Present when the enterprise connection uses SAML
+     */
+    public EnterpriseConnection withSamlConnection(EnterpriseConnectionSamlConnection samlConnection) {
+        Utils.checkNotNull(samlConnection, "samlConnection");
+        this.samlConnection = JsonNullable.of(samlConnection);
+        return this;
+    }
+
+    /**
+     * Present when the enterprise connection uses SAML
+     */
+    public EnterpriseConnection withSamlConnection(JsonNullable<? extends EnterpriseConnectionSamlConnection> samlConnection) {
+        Utils.checkNotNull(samlConnection, "samlConnection");
+        this.samlConnection = samlConnection;
+        return this;
+    }
+
+    /**
+     * Present when the enterprise connection uses OIDC or EASIE
+     */
+    public EnterpriseConnection withOauthConfig(OauthConfig oauthConfig) {
+        Utils.checkNotNull(oauthConfig, "oauthConfig");
+        this.oauthConfig = JsonNullable.of(oauthConfig);
+        return this;
+    }
+
+    /**
+     * Present when the enterprise connection uses OIDC or EASIE
+     */
+    public EnterpriseConnection withOauthConfig(JsonNullable<? extends OauthConfig> oauthConfig) {
+        Utils.checkNotNull(oauthConfig, "oauthConfig");
+        this.oauthConfig = oauthConfig;
+        return this;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when the connection was created
+     */
+    public EnterpriseConnection withCreatedAt(long createdAt) {
+        Utils.checkNotNull(createdAt, "createdAt");
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when the connection was last updated
+     */
+    public EnterpriseConnection withUpdatedAt(long updatedAt) {
+        Utils.checkNotNull(updatedAt, "updatedAt");
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -60,28 +511,313 @@ public class EnterpriseConnection {
             return false;
         }
         EnterpriseConnection other = (EnterpriseConnection) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
+        return 
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.provider, other.provider) &&
+            Utils.enhancedDeepEquals(this.logoPublicUrl, other.logoPublicUrl) &&
+            Utils.enhancedDeepEquals(this.active, other.active) &&
+            Utils.enhancedDeepEquals(this.domains, other.domains) &&
+            Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
+            Utils.enhancedDeepEquals(this.syncUserAttributes, other.syncUserAttributes) &&
+            Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.allowOrganizationAccountLinking, other.allowOrganizationAccountLinking) &&
+            Utils.enhancedDeepEquals(this.customAttributes, other.customAttributes) &&
+            Utils.enhancedDeepEquals(this.samlConnection, other.samlConnection) &&
+            Utils.enhancedDeepEquals(this.oauthConfig, other.oauthConfig) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
     
     @Override
     public int hashCode() {
-        return Utils.enhancedHash(value.value());
-    }
-    
-    @SuppressWarnings("serial")
-    public static final class _Deserializer extends OneOfDeserializer<EnterpriseConnection> {
-
-        public _Deserializer() {
-            super(EnterpriseConnection.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<EnterpriseConnectionEnterpriseConnection>() {}, JsonShape.DEFAULT));
-        }
+        return Utils.enhancedHash(
+            id, name, provider,
+            logoPublicUrl, active, domains,
+            organizationId, syncUserAttributes, disableAdditionalIdentifications,
+            allowOrganizationAccountLinking, customAttributes, samlConnection,
+            oauthConfig, createdAt, updatedAt);
     }
     
     @Override
     public String toString() {
         return Utils.toString(EnterpriseConnection.class,
-                "value", value);
+                "id", id,
+                "name", name,
+                "provider", provider,
+                "logoPublicUrl", logoPublicUrl,
+                "active", active,
+                "domains", domains,
+                "organizationId", organizationId,
+                "syncUserAttributes", syncUserAttributes,
+                "disableAdditionalIdentifications", disableAdditionalIdentifications,
+                "allowOrganizationAccountLinking", allowOrganizationAccountLinking,
+                "customAttributes", customAttributes,
+                "samlConnection", samlConnection,
+                "oauthConfig", oauthConfig,
+                "createdAt", createdAt,
+                "updatedAt", updatedAt);
     }
 
-}
+    @SuppressWarnings("UnusedReturnValue")
+    public final static class Builder {
 
+        private String id;
+
+        private String name;
+
+        private String provider;
+
+        private JsonNullable<String> logoPublicUrl = JsonNullable.undefined();
+
+        private Boolean active;
+
+        private List<String> domains;
+
+        private JsonNullable<String> organizationId = JsonNullable.undefined();
+
+        private Optional<Boolean> syncUserAttributes = Optional.empty();
+
+        private Optional<Boolean> disableAdditionalIdentifications = Optional.empty();
+
+        private Optional<Boolean> allowOrganizationAccountLinking = Optional.empty();
+
+        private Optional<? extends List<CustomAttributes>> customAttributes = Optional.empty();
+
+        private JsonNullable<? extends EnterpriseConnectionSamlConnection> samlConnection = JsonNullable.undefined();
+
+        private JsonNullable<? extends OauthConfig> oauthConfig = JsonNullable.undefined();
+
+        private Long createdAt;
+
+        private Long updatedAt;
+
+        private Builder() {
+          // force use of static builder() method
+        }
+
+
+        /**
+         * The enterprise connection ID
+         */
+        public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = id;
+            return this;
+        }
+
+
+        /**
+         * The display name of the connection
+         */
+        public Builder name(String name) {
+            Utils.checkNotNull(name, "name");
+            this.name = name;
+            return this;
+        }
+
+
+        public Builder provider(String provider) {
+            Utils.checkNotNull(provider, "provider");
+            this.provider = provider;
+            return this;
+        }
+
+
+        public Builder logoPublicUrl(String logoPublicUrl) {
+            Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
+            this.logoPublicUrl = JsonNullable.of(logoPublicUrl);
+            return this;
+        }
+
+        public Builder logoPublicUrl(JsonNullable<String> logoPublicUrl) {
+            Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
+            this.logoPublicUrl = logoPublicUrl;
+            return this;
+        }
+
+
+        /**
+         * Whether the enterprise connection is active
+         */
+        public Builder active(boolean active) {
+            Utils.checkNotNull(active, "active");
+            this.active = active;
+            return this;
+        }
+
+
+        /**
+         * Domains associated with the enterprise connection
+         */
+        public Builder domains(List<String> domains) {
+            Utils.checkNotNull(domains, "domains");
+            this.domains = domains;
+            return this;
+        }
+
+
+        /**
+         * Organization ID when the connection is linked to an organization
+         */
+        public Builder organizationId(String organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = JsonNullable.of(organizationId);
+            return this;
+        }
+
+        /**
+         * Organization ID when the connection is linked to an organization
+         */
+        public Builder organizationId(JsonNullable<String> organizationId) {
+            Utils.checkNotNull(organizationId, "organizationId");
+            this.organizationId = organizationId;
+            return this;
+        }
+
+
+        /**
+         * Controls whether to update the user's attributes on each sign-in
+         */
+        public Builder syncUserAttributes(boolean syncUserAttributes) {
+            Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
+            this.syncUserAttributes = Optional.ofNullable(syncUserAttributes);
+            return this;
+        }
+
+        /**
+         * Controls whether to update the user's attributes on each sign-in
+         */
+        public Builder syncUserAttributes(Optional<Boolean> syncUserAttributes) {
+            Utils.checkNotNull(syncUserAttributes, "syncUserAttributes");
+            this.syncUserAttributes = syncUserAttributes;
+            return this;
+        }
+
+
+        /**
+         * When true, users cannot add additional identifications when using this connection
+         */
+        public Builder disableAdditionalIdentifications(boolean disableAdditionalIdentifications) {
+            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+            this.disableAdditionalIdentifications = Optional.ofNullable(disableAdditionalIdentifications);
+            return this;
+        }
+
+        /**
+         * When true, users cannot add additional identifications when using this connection
+         */
+        public Builder disableAdditionalIdentifications(Optional<Boolean> disableAdditionalIdentifications) {
+            Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+            this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+            return this;
+        }
+
+
+        /**
+         * Whether this connection supports account linking via organization membership
+         */
+        public Builder allowOrganizationAccountLinking(boolean allowOrganizationAccountLinking) {
+            Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+            this.allowOrganizationAccountLinking = Optional.ofNullable(allowOrganizationAccountLinking);
+            return this;
+        }
+
+        /**
+         * Whether this connection supports account linking via organization membership
+         */
+        public Builder allowOrganizationAccountLinking(Optional<Boolean> allowOrganizationAccountLinking) {
+            Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+            this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
+            return this;
+        }
+
+
+        /**
+         * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+         */
+        public Builder customAttributes(List<CustomAttributes> customAttributes) {
+            Utils.checkNotNull(customAttributes, "customAttributes");
+            this.customAttributes = Optional.ofNullable(customAttributes);
+            return this;
+        }
+
+        /**
+         * Custom attributes to map from the IdP to the user's profile via SSO or SCIM provisioning
+         */
+        public Builder customAttributes(Optional<? extends List<CustomAttributes>> customAttributes) {
+            Utils.checkNotNull(customAttributes, "customAttributes");
+            this.customAttributes = customAttributes;
+            return this;
+        }
+
+
+        /**
+         * Present when the enterprise connection uses SAML
+         */
+        public Builder samlConnection(EnterpriseConnectionSamlConnection samlConnection) {
+            Utils.checkNotNull(samlConnection, "samlConnection");
+            this.samlConnection = JsonNullable.of(samlConnection);
+            return this;
+        }
+
+        /**
+         * Present when the enterprise connection uses SAML
+         */
+        public Builder samlConnection(JsonNullable<? extends EnterpriseConnectionSamlConnection> samlConnection) {
+            Utils.checkNotNull(samlConnection, "samlConnection");
+            this.samlConnection = samlConnection;
+            return this;
+        }
+
+
+        /**
+         * Present when the enterprise connection uses OIDC or EASIE
+         */
+        public Builder oauthConfig(OauthConfig oauthConfig) {
+            Utils.checkNotNull(oauthConfig, "oauthConfig");
+            this.oauthConfig = JsonNullable.of(oauthConfig);
+            return this;
+        }
+
+        /**
+         * Present when the enterprise connection uses OIDC or EASIE
+         */
+        public Builder oauthConfig(JsonNullable<? extends OauthConfig> oauthConfig) {
+            Utils.checkNotNull(oauthConfig, "oauthConfig");
+            this.oauthConfig = oauthConfig;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp in milliseconds when the connection was created
+         */
+        public Builder createdAt(long createdAt) {
+            Utils.checkNotNull(createdAt, "createdAt");
+            this.createdAt = createdAt;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp in milliseconds when the connection was last updated
+         */
+        public Builder updatedAt(long updatedAt) {
+            Utils.checkNotNull(updatedAt, "updatedAt");
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public EnterpriseConnection build() {
+
+            return new EnterpriseConnection(
+                id, name, provider,
+                logoPublicUrl, active, domains,
+                organizationId, syncUserAttributes, disableAdditionalIdentifications,
+                allowOrganizationAccountLinking, customAttributes, samlConnection,
+                oauthConfig, createdAt, updatedAt);
+        }
+
+    }
+}

@@ -1,20 +1,26 @@
-# SamlConnections
+# ~~SamlConnections~~
+
+> [!WARNING]
+> This SDK is **DEPRECATED**
 
 ## Overview
 
 ### Available Operations
 
-* [list](#list) - Get a list of SAML Connections for an instance
-* [create](#create) - Create a SAML Connection
-* [get](#get) - Retrieve a SAML Connection by ID
-* [update](#update) - Update a SAML Connection
-* [delete](#delete) - Delete a SAML Connection
+* [~~list~~](#list) - Get a list of SAML Connections for an instance :warning: **Deprecated**
+* [~~create~~](#create) - Create a SAML Connection :warning: **Deprecated**
+* [~~get~~](#get) - Retrieve a SAML Connection by ID :warning: **Deprecated**
+* [~~update~~](#update) - Update a SAML Connection :warning: **Deprecated**
+* [~~delete~~](#delete) - Delete a SAML Connection :warning: **Deprecated**
 
-## list
+## ~~list~~
 
 Returns the list of SAML Connections for an instance.
 Results can be paginated using the optional `limit` and `offset` query parameters.
 The SAML Connections are ordered by descending creation date and the most recent will be returned first.
+Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -67,9 +73,12 @@ public class Application {
 | models/errors/ClerkErrors | 402, 403, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## create
+## ~~create~~
 
 Create a new SAML Connection.
+Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -95,8 +104,8 @@ public class Application {
         CreateSAMLConnectionResponse res = sdk.samlConnections().create()
                 .call();
 
-        if (res.schemasSAMLConnection().isPresent()) {
-            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+        if (res.samlConnection().isPresent()) {
+            SAMLConnection unionValue = res.samlConnection().get();
             Object raw = unionValue.value();
             if (raw instanceof One) {
                 One oneValue = (One) raw;
@@ -129,9 +138,12 @@ public class Application {
 | models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## get
+## ~~get~~
 
 Fetches the SAML Connection whose ID matches the provided `saml_connection_id` in the path.
+Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -158,8 +170,8 @@ public class Application {
                 .samlConnectionId("<id>")
                 .call();
 
-        if (res.schemasSAMLConnection().isPresent()) {
-            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+        if (res.samlConnection().isPresent()) {
+            SAMLConnection unionValue = res.samlConnection().get();
             Object raw = unionValue.value();
             if (raw instanceof One) {
                 One oneValue = (One) raw;
@@ -192,9 +204,12 @@ public class Application {
 | models/errors/ClerkErrors | 402, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## update
+## ~~update~~
 
 Updates the SAML Connection whose ID matches the provided `id` in the path.
+Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -224,8 +239,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.schemasSAMLConnection().isPresent()) {
-            SchemasSAMLConnection unionValue = res.schemasSAMLConnection().get();
+        if (res.samlConnection().isPresent()) {
+            SAMLConnection unionValue = res.samlConnection().get();
             Object raw = unionValue.value();
             if (raw instanceof One) {
                 One oneValue = (One) raw;
@@ -259,9 +274,12 @@ public class Application {
 | models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## delete
+## ~~delete~~
 
 Deletes the SAML Connection whose ID matches the provided `id` in the path.
+Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future versions.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

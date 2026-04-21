@@ -13,6 +13,7 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -38,16 +39,19 @@ public class SchemasCommercePlan {
     private String name;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("fee")
-    private CommerceMoneyResponse fee;
+    private Optional<? extends SchemasCommercePlanFee> fee;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("annual_monthly_fee")
-    private CommerceMoneyResponse annualMonthlyFee;
+    private Optional<? extends SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee;
 
 
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("annual_fee")
-    private CommerceMoneyResponse annualFee;
+    private Optional<? extends SchemasCommercePlanAnnualFee> annualFee;
 
     /**
      * The amount in cents for the plan.
@@ -196,9 +200,9 @@ public class SchemasCommercePlan {
             @JsonProperty("object") SchemasCommercePlanObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
-            @JsonProperty("fee") CommerceMoneyResponse fee,
-            @JsonProperty("annual_monthly_fee") CommerceMoneyResponse annualMonthlyFee,
-            @JsonProperty("annual_fee") CommerceMoneyResponse annualFee,
+            @JsonProperty("fee") Optional<? extends SchemasCommercePlanFee> fee,
+            @JsonProperty("annual_monthly_fee") Optional<? extends SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee,
+            @JsonProperty("annual_fee") Optional<? extends SchemasCommercePlanAnnualFee> annualFee,
             @JsonProperty("amount") long amount,
             @JsonProperty("amount_formatted") String amountFormatted,
             @JsonProperty("annual_monthly_amount") long annualMonthlyAmount,
@@ -286,9 +290,6 @@ public class SchemasCommercePlan {
             SchemasCommercePlanObject object,
             String id,
             String name,
-            CommerceMoneyResponse fee,
-            CommerceMoneyResponse annualMonthlyFee,
-            CommerceMoneyResponse annualFee,
             long amount,
             String amountFormatted,
             long annualMonthlyAmount,
@@ -309,7 +310,7 @@ public class SchemasCommercePlan {
             String avatarUrl,
             List<SchemasFeatureResponse> features) {
         this(object, id, name,
-            fee, annualMonthlyFee, annualFee,
+            Optional.empty(), Optional.empty(), Optional.empty(),
             amount, amountFormatted, annualMonthlyAmount,
             annualMonthlyAmountFormatted, annualAmount, annualAmountFormatted,
             currencySymbol, currency, description,
@@ -344,19 +345,22 @@ public class SchemasCommercePlan {
         return name;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse fee() {
-        return fee;
+    public Optional<SchemasCommercePlanFee> fee() {
+        return (Optional<SchemasCommercePlanFee>) fee;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse annualMonthlyFee() {
-        return annualMonthlyFee;
+    public Optional<SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee() {
+        return (Optional<SchemasCommercePlanAnnualMonthlyFee>) annualMonthlyFee;
     }
 
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public CommerceMoneyResponse annualFee() {
-        return annualFee;
+    public Optional<SchemasCommercePlanAnnualFee> annualFee() {
+        return (Optional<SchemasCommercePlanAnnualFee>) annualFee;
     }
 
     /**
@@ -575,19 +579,40 @@ public class SchemasCommercePlan {
         return this;
     }
 
-    public SchemasCommercePlan withFee(CommerceMoneyResponse fee) {
+    public SchemasCommercePlan withFee(SchemasCommercePlanFee fee) {
+        Utils.checkNotNull(fee, "fee");
+        this.fee = Optional.ofNullable(fee);
+        return this;
+    }
+
+
+    public SchemasCommercePlan withFee(Optional<? extends SchemasCommercePlanFee> fee) {
         Utils.checkNotNull(fee, "fee");
         this.fee = fee;
         return this;
     }
 
-    public SchemasCommercePlan withAnnualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+    public SchemasCommercePlan withAnnualMonthlyFee(SchemasCommercePlanAnnualMonthlyFee annualMonthlyFee) {
+        Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+        this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+        return this;
+    }
+
+
+    public SchemasCommercePlan withAnnualMonthlyFee(Optional<? extends SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee) {
         Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
         this.annualMonthlyFee = annualMonthlyFee;
         return this;
     }
 
-    public SchemasCommercePlan withAnnualFee(CommerceMoneyResponse annualFee) {
+    public SchemasCommercePlan withAnnualFee(SchemasCommercePlanAnnualFee annualFee) {
+        Utils.checkNotNull(annualFee, "annualFee");
+        this.annualFee = Optional.ofNullable(annualFee);
+        return this;
+    }
+
+
+    public SchemasCommercePlan withAnnualFee(Optional<? extends SchemasCommercePlanAnnualFee> annualFee) {
         Utils.checkNotNull(annualFee, "annualFee");
         this.annualFee = annualFee;
         return this;
@@ -938,11 +963,11 @@ public class SchemasCommercePlan {
 
         private String name;
 
-        private CommerceMoneyResponse fee;
+        private Optional<? extends SchemasCommercePlanFee> fee = Optional.empty();
 
-        private CommerceMoneyResponse annualMonthlyFee;
+        private Optional<? extends SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee = Optional.empty();
 
-        private CommerceMoneyResponse annualFee;
+        private Optional<? extends SchemasCommercePlanAnnualFee> annualFee = Optional.empty();
 
         private Long amount;
 
@@ -1025,21 +1050,39 @@ public class SchemasCommercePlan {
         }
 
 
-        public Builder fee(CommerceMoneyResponse fee) {
+        public Builder fee(SchemasCommercePlanFee fee) {
+            Utils.checkNotNull(fee, "fee");
+            this.fee = Optional.ofNullable(fee);
+            return this;
+        }
+
+        public Builder fee(Optional<? extends SchemasCommercePlanFee> fee) {
             Utils.checkNotNull(fee, "fee");
             this.fee = fee;
             return this;
         }
 
 
-        public Builder annualMonthlyFee(CommerceMoneyResponse annualMonthlyFee) {
+        public Builder annualMonthlyFee(SchemasCommercePlanAnnualMonthlyFee annualMonthlyFee) {
+            Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
+            this.annualMonthlyFee = Optional.ofNullable(annualMonthlyFee);
+            return this;
+        }
+
+        public Builder annualMonthlyFee(Optional<? extends SchemasCommercePlanAnnualMonthlyFee> annualMonthlyFee) {
             Utils.checkNotNull(annualMonthlyFee, "annualMonthlyFee");
             this.annualMonthlyFee = annualMonthlyFee;
             return this;
         }
 
 
-        public Builder annualFee(CommerceMoneyResponse annualFee) {
+        public Builder annualFee(SchemasCommercePlanAnnualFee annualFee) {
+            Utils.checkNotNull(annualFee, "annualFee");
+            this.annualFee = Optional.ofNullable(annualFee);
+            return this;
+        }
+
+        public Builder annualFee(Optional<? extends SchemasCommercePlanAnnualFee> annualFee) {
             Utils.checkNotNull(annualFee, "annualFee");
             this.annualFee = annualFee;
             return this;
