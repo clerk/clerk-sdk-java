@@ -48,7 +48,7 @@ public class One {
      * The IdP provider of the connection.
      */
     @JsonProperty("provider")
-    private Provider provider;
+    private CreateSAMLConnectionRequestBodyProvider provider;
 
     /**
      * The Entity ID as provided by the IdP
@@ -113,7 +113,7 @@ public class One {
             @JsonProperty("name") String name,
             @JsonProperty("domain") String domain,
             @JsonProperty("domains") Optional<? extends List<String>> domains,
-            @JsonProperty("provider") Provider provider,
+            @JsonProperty("provider") CreateSAMLConnectionRequestBodyProvider provider,
             @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
             @JsonProperty("idp_sso_url") JsonNullable<String> idpSsoUrl,
             @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
@@ -151,7 +151,7 @@ public class One {
     public One(
             String name,
             String domain,
-            Provider provider) {
+            CreateSAMLConnectionRequestBodyProvider provider) {
         this(name, domain, Optional.empty(),
             provider, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
@@ -192,7 +192,7 @@ public class One {
      * The IdP provider of the connection.
      */
     @JsonIgnore
-    public Provider provider() {
+    public CreateSAMLConnectionRequestBodyProvider provider() {
         return provider;
     }
 
@@ -314,7 +314,7 @@ public class One {
     /**
      * The IdP provider of the connection.
      */
-    public One withProvider(Provider provider) {
+    public One withProvider(CreateSAMLConnectionRequestBodyProvider provider) {
         Utils.checkNotNull(provider, "provider");
         this.provider = provider;
         return this;
@@ -529,7 +529,7 @@ public class One {
 
         private Optional<? extends List<String>> domains = Optional.empty();
 
-        private Provider provider;
+        private CreateSAMLConnectionRequestBodyProvider provider;
 
         private JsonNullable<String> idpEntityId = JsonNullable.undefined();
 
@@ -600,7 +600,7 @@ public class One {
         /**
          * The IdP provider of the connection.
          */
-        public Builder provider(Provider provider) {
+        public Builder provider(CreateSAMLConnectionRequestBodyProvider provider) {
             Utils.checkNotNull(provider, "provider");
             this.provider = provider;
             return this;

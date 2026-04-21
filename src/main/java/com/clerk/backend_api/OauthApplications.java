@@ -24,12 +24,17 @@ import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequest;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOAuthApplicationResponse;
+import com.clerk.backend_api.models.operations.UploadOAuthApplicationLogoRequest;
+import com.clerk.backend_api.models.operations.UploadOAuthApplicationLogoRequestBody;
+import com.clerk.backend_api.models.operations.UploadOAuthApplicationLogoRequestBuilder;
+import com.clerk.backend_api.models.operations.UploadOAuthApplicationLogoResponse;
 import com.clerk.backend_api.operations.CreateOAuthApplication;
 import com.clerk.backend_api.operations.DeleteOAuthApplication;
 import com.clerk.backend_api.operations.GetOAuthApplication;
 import com.clerk.backend_api.operations.ListOAuthApplications;
 import com.clerk.backend_api.operations.RotateOAuthApplicationSecret;
 import com.clerk.backend_api.operations.UpdateOAuthApplication;
+import com.clerk.backend_api.operations.UploadOAuthApplicationLogo;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Long;
@@ -301,6 +306,67 @@ public class OauthApplications {
                 .build();
         RequestOperation<DeleteOAuthApplicationRequest, DeleteOAuthApplicationResponse> operation
               = new DeleteOAuthApplication.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Upload a logo for the OAuth application
+     * 
+     * <p>Set or replace an OAuth application's logo by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
+     * 
+     * @return The call builder
+     */
+    public UploadOAuthApplicationLogoRequestBuilder uploadLogo() {
+        return new UploadOAuthApplicationLogoRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Upload a logo for the OAuth application
+     * 
+     * <p>Set or replace an OAuth application's logo by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
+     * 
+     * @param oauthApplicationId The ID of the OAuth application for which to upload a logo
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UploadOAuthApplicationLogoResponse uploadLogo(String oauthApplicationId) {
+        return uploadLogo(oauthApplicationId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Upload a logo for the OAuth application
+     * 
+     * <p>Set or replace an OAuth application's logo by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
+     * 
+     * @param oauthApplicationId The ID of the OAuth application for which to upload a logo
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UploadOAuthApplicationLogoResponse uploadLogo(
+            String oauthApplicationId, Optional<? extends UploadOAuthApplicationLogoRequestBody> requestBody,
+            Optional<Options> options) {
+        UploadOAuthApplicationLogoRequest request =
+            UploadOAuthApplicationLogoRequest
+                .builder()
+                .oauthApplicationId(oauthApplicationId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<UploadOAuthApplicationLogoRequest, UploadOAuthApplicationLogoResponse> operation
+              = new UploadOAuthApplicationLogo.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -9,6 +9,7 @@
 * [get](#get) - Retrieve an OAuth application by ID
 * [update](#update) - Update an OAuth application
 * [delete](#delete) - Delete an OAuth application
+* [uploadLogo](#uploadlogo) - Upload a logo for the OAuth application
 * [rotateSecret](#rotatesecret) - Rotate the client secret of the given OAuth application
 
 ## list
@@ -286,6 +287,58 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## uploadLogo
+
+Set or replace an OAuth application's logo by uploading an image file.
+This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+The file size cannot exceed 10MB.
+Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UploadOAuthApplicationLogo" method="put" path="/oauth_applications/{oauth_application_id}/logo" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UploadOAuthApplicationLogoResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UploadOAuthApplicationLogoResponse res = sdk.oauthApplications().uploadLogo()
+                .oauthApplicationId("<id>")
+                .call();
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `oauthApplicationId`                                                                                                 | *String*                                                                                                             | :heavy_check_mark:                                                                                                   | The ID of the OAuth application for which to upload a logo                                                           |
+| `requestBody`                                                                                                        | [Optional\<UploadOAuthApplicationLogoRequestBody>](../../models/operations/UploadOAuthApplicationLogoRequestBody.md) | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
+
+### Response
+
+**[UploadOAuthApplicationLogoResponse](../../models/operations/UploadOAuthApplicationLogoResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 403, 404, 413        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## rotateSecret

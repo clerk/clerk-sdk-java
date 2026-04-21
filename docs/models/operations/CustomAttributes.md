@@ -1,0 +1,11 @@
+# CustomAttributes
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `name`                                                             | *String*                                                           | :heavy_check_mark:                                                 | Display name for the custom attribute                              |
+| `key`                                                              | *String*                                                           | :heavy_check_mark:                                                 | Key used to store the attribute in the user's metadata             |
+| `ssoPath`                                                          | *Optional\<String>*                                                | :heavy_minus_sign:                                                 | Path to extract the attribute value from SSO claims                |
+| `scimPath`                                                         | *Optional\<String>*                                                | :heavy_minus_sign:                                                 | GJSON path to extract the attribute value from SCIM user resources |

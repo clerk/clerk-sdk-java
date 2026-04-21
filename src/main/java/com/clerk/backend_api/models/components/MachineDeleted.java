@@ -3,10 +3,12 @@
  */
 package com.clerk.backend_api.models.components;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
@@ -38,14 +40,12 @@ public class MachineDeleted {
     @JsonCreator
     public MachineDeleted(
             @JsonProperty("object") MachineDeletedObject object,
-            @JsonProperty("id") String id,
-            @JsonProperty("deleted") boolean deleted) {
+            @JsonProperty("id") String id) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
-        Utils.checkNotNull(deleted, "deleted");
         this.object = object;
         this.id = id;
-        this.deleted = deleted;
+        this.deleted = Builder._SINGLETON_VALUE_Deleted.value();
     }
 
     /**
@@ -95,15 +95,6 @@ public class MachineDeleted {
         return this;
     }
 
-    /**
-     * Whether the machine was successfully deleted
-     */
-    public MachineDeleted withDeleted(boolean deleted) {
-        Utils.checkNotNull(deleted, "deleted");
-        this.deleted = deleted;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -140,8 +131,6 @@ public class MachineDeleted {
 
         private String id;
 
-        private Boolean deleted;
-
         private Builder() {
           // force use of static builder() method
         }
@@ -166,21 +155,17 @@ public class MachineDeleted {
             return this;
         }
 
-
-        /**
-         * Whether the machine was successfully deleted
-         */
-        public Builder deleted(boolean deleted) {
-            Utils.checkNotNull(deleted, "deleted");
-            this.deleted = deleted;
-            return this;
-        }
-
         public MachineDeleted build() {
 
             return new MachineDeleted(
-                object, id, deleted);
+                object, id);
         }
 
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_Deleted =
+                new LazySingletonValue<>(
+                        "deleted",
+                        "true",
+                        new TypeReference<Boolean>() {});
     }
 }

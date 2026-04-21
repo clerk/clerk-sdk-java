@@ -78,7 +78,7 @@ public class SAMLAccount {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("saml_connection")
-    private JsonNullable<? extends SamlConnection> samlConnection;
+    private JsonNullable<? extends SAMLAccountSAMLConnection> samlConnection;
 
     @JsonCreator
     public SAMLAccount(
@@ -93,7 +93,7 @@ public class SAMLAccount {
             @JsonProperty("last_authenticated_at") JsonNullable<Long> lastAuthenticatedAt,
             @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
             @JsonProperty("verification") Optional<? extends SAMLAccountVerification> verification,
-            @JsonProperty("saml_connection") JsonNullable<? extends SamlConnection> samlConnection) {
+            @JsonProperty("saml_connection") JsonNullable<? extends SAMLAccountSAMLConnection> samlConnection) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(provider, "provider");
@@ -197,8 +197,8 @@ public class SAMLAccount {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<SamlConnection> samlConnection() {
-        return (JsonNullable<SamlConnection>) samlConnection;
+    public JsonNullable<SAMLAccountSAMLConnection> samlConnection() {
+        return (JsonNullable<SAMLAccountSAMLConnection>) samlConnection;
     }
 
     public static Builder builder() {
@@ -319,13 +319,13 @@ public class SAMLAccount {
         return this;
     }
 
-    public SAMLAccount withSamlConnection(SamlConnection samlConnection) {
+    public SAMLAccount withSamlConnection(SAMLAccountSAMLConnection samlConnection) {
         Utils.checkNotNull(samlConnection, "samlConnection");
         this.samlConnection = JsonNullable.of(samlConnection);
         return this;
     }
 
-    public SAMLAccount withSamlConnection(JsonNullable<? extends SamlConnection> samlConnection) {
+    public SAMLAccount withSamlConnection(JsonNullable<? extends SAMLAccountSAMLConnection> samlConnection) {
         Utils.checkNotNull(samlConnection, "samlConnection");
         this.samlConnection = samlConnection;
         return this;
@@ -406,7 +406,7 @@ public class SAMLAccount {
 
         private Optional<? extends SAMLAccountVerification> verification = Optional.empty();
 
-        private JsonNullable<? extends SamlConnection> samlConnection = JsonNullable.undefined();
+        private JsonNullable<? extends SAMLAccountSAMLConnection> samlConnection = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -535,13 +535,13 @@ public class SAMLAccount {
         }
 
 
-        public Builder samlConnection(SamlConnection samlConnection) {
+        public Builder samlConnection(SAMLAccountSAMLConnection samlConnection) {
             Utils.checkNotNull(samlConnection, "samlConnection");
             this.samlConnection = JsonNullable.of(samlConnection);
             return this;
         }
 
-        public Builder samlConnection(JsonNullable<? extends SamlConnection> samlConnection) {
+        public Builder samlConnection(JsonNullable<? extends SAMLAccountSAMLConnection> samlConnection) {
             Utils.checkNotNull(samlConnection, "samlConnection");
             this.samlConnection = samlConnection;
             return this;

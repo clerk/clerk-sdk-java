@@ -32,7 +32,7 @@ public class AgentTasks {
      * 
      * <p>Create an agent task on behalf of a user.
      * The response contains a URL that, when visited, creates a session for the user.
-     * The agent_id is stable per agent_name within an instance. The task_id is unique per call.
+     * The agent_id is stable per agent_name within an instance. The agent_task_id is unique per call.
      * 
      * @return The call builder
      */
@@ -45,7 +45,7 @@ public class AgentTasks {
      * 
      * <p>Create an agent task on behalf of a user.
      * The response contains a URL that, when visited, creates a session for the user.
-     * The agent_id is stable per agent_name within an instance. The task_id is unique per call.
+     * The agent_id is stable per agent_name within an instance. The agent_task_id is unique per call.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -59,7 +59,7 @@ public class AgentTasks {
      * 
      * <p>Create an agent task on behalf of a user.
      * The response contains a URL that, when visited, creates a session for the user.
-     * The agent_id is stable per agent_name within an instance. The task_id is unique per call.
+     * The agent_id is stable per agent_name within an instance. The agent_task_id is unique per call.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options

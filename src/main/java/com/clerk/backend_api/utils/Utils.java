@@ -307,8 +307,8 @@ public final class Utils {
         return QueryParameters.parseQueryParams(type, params, globals);
     }
 
-    public static HTTPRequest configureSecurity(HTTPRequest request, Object security) throws Exception {
-        return Security.configureSecurity(request, security);
+    public static HTTPRequest configureSecurity(HTTPRequest request, Object security, String... allowedFields) throws Exception {
+        return Security.configureSecurity(request, security, allowedFields);
     }
     
     private static final String DOLLAR_MARKER = "D9qPtyhOYzkHGu3c";

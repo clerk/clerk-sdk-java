@@ -23,7 +23,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class One {
 
     @JsonProperty("object")
-    private SchemasSAMLConnectionObject object;
+    private SAMLConnectionObject object;
 
 
     @JsonProperty("id")
@@ -121,6 +121,10 @@ public class One {
     @JsonProperty("disable_additional_identifications")
     private boolean disableAdditionalIdentifications;
 
+
+    @JsonProperty("allow_organization_account_linking")
+    private boolean allowOrganizationAccountLinking;
+
     /**
      * Enable or deactivate ForceAuthn
      */
@@ -146,7 +150,7 @@ public class One {
 
     @JsonCreator
     public One(
-            @JsonProperty("object") SchemasSAMLConnectionObject object,
+            @JsonProperty("object") SAMLConnectionObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("domain") String domain,
@@ -168,6 +172,7 @@ public class One {
             @JsonProperty("allow_subdomains") boolean allowSubdomains,
             @JsonProperty("allow_idp_initiated") boolean allowIdpInitiated,
             @JsonProperty("disable_additional_identifications") boolean disableAdditionalIdentifications,
+            @JsonProperty("allow_organization_account_linking") boolean allowOrganizationAccountLinking,
             @JsonProperty("force_authn") boolean forceAuthn,
             @JsonProperty("enterprise_connection_id") JsonNullable<String> enterpriseConnectionId,
             @JsonProperty("created_at") long createdAt,
@@ -194,6 +199,7 @@ public class One {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
+        Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         Utils.checkNotNull(createdAt, "createdAt");
@@ -220,6 +226,7 @@ public class One {
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
+        this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
         this.forceAuthn = forceAuthn;
         this.enterpriseConnectionId = enterpriseConnectionId;
         this.createdAt = createdAt;
@@ -227,7 +234,7 @@ public class One {
     }
     
     public One(
-            SchemasSAMLConnectionObject object,
+            SAMLConnectionObject object,
             String id,
             String name,
             String domain,
@@ -241,6 +248,7 @@ public class One {
             boolean allowSubdomains,
             boolean allowIdpInitiated,
             boolean disableAdditionalIdentifications,
+            boolean allowOrganizationAccountLinking,
             boolean forceAuthn,
             long createdAt,
             long updatedAt) {
@@ -251,12 +259,12 @@ public class One {
             spMetadataUrl, JsonNullable.undefined(), Optional.empty(),
             active, provider, userCount,
             syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, forceAuthn, JsonNullable.undefined(),
-            createdAt, updatedAt);
+            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            JsonNullable.undefined(), createdAt, updatedAt);
     }
 
     @JsonIgnore
-    public SchemasSAMLConnectionObject object() {
+    public SAMLConnectionObject object() {
         return object;
     }
 
@@ -372,6 +380,11 @@ public class One {
         return disableAdditionalIdentifications;
     }
 
+    @JsonIgnore
+    public boolean allowOrganizationAccountLinking() {
+        return allowOrganizationAccountLinking;
+    }
+
     /**
      * Enable or deactivate ForceAuthn
      */
@@ -406,7 +419,7 @@ public class One {
     }
 
 
-    public One withObject(SchemasSAMLConnectionObject object) {
+    public One withObject(SAMLConnectionObject object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -596,6 +609,12 @@ public class One {
         return this;
     }
 
+    public One withAllowOrganizationAccountLinking(boolean allowOrganizationAccountLinking) {
+        Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+        this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
+        return this;
+    }
+
     /**
      * Enable or deactivate ForceAuthn
      */
@@ -667,6 +686,7 @@ public class One {
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
+            Utils.enhancedDeepEquals(this.allowOrganizationAccountLinking, other.allowOrganizationAccountLinking) &&
             Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
             Utils.enhancedDeepEquals(this.enterpriseConnectionId, other.enterpriseConnectionId) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
@@ -683,8 +703,8 @@ public class One {
             spMetadataUrl, organizationId, attributeMapping,
             active, provider, userCount,
             syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, forceAuthn, enterpriseConnectionId,
-            createdAt, updatedAt);
+            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            enterpriseConnectionId, createdAt, updatedAt);
     }
     
     @Override
@@ -712,6 +732,7 @@ public class One {
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
+                "allowOrganizationAccountLinking", allowOrganizationAccountLinking,
                 "forceAuthn", forceAuthn,
                 "enterpriseConnectionId", enterpriseConnectionId,
                 "createdAt", createdAt,
@@ -721,7 +742,7 @@ public class One {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private SchemasSAMLConnectionObject object;
+        private SAMLConnectionObject object;
 
         private String id;
 
@@ -766,6 +787,8 @@ public class One {
 
         private Boolean disableAdditionalIdentifications;
 
+        private Boolean allowOrganizationAccountLinking;
+
         private Boolean forceAuthn;
 
         private JsonNullable<String> enterpriseConnectionId = JsonNullable.undefined();
@@ -779,7 +802,7 @@ public class One {
         }
 
 
-        public Builder object(SchemasSAMLConnectionObject object) {
+        public Builder object(SAMLConnectionObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
@@ -986,6 +1009,13 @@ public class One {
         }
 
 
+        public Builder allowOrganizationAccountLinking(boolean allowOrganizationAccountLinking) {
+            Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
+            this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
+            return this;
+        }
+
+
         /**
          * Enable or deactivate ForceAuthn
          */
@@ -1038,8 +1068,8 @@ public class One {
                 spMetadataUrl, organizationId, attributeMapping,
                 active, provider, userCount,
                 syncUserAttributes, allowSubdomains, allowIdpInitiated,
-                disableAdditionalIdentifications, forceAuthn, enterpriseConnectionId,
-                createdAt, updatedAt);
+                disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+                enterpriseConnectionId, createdAt, updatedAt);
         }
 
     }
