@@ -135,7 +135,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 402, 403, 404, 409, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## ~~get~~
@@ -271,7 +271,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 402, 403, 404, 409, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## ~~delete~~

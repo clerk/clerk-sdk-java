@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,15 +29,25 @@ public class Seats {
     @JsonProperty("quantity")
     private Optional<Long> quantity;
 
+    /**
+     * Per-unit cost breakdown by pricing tier
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tiers")
+    private Optional<? extends List<CommercePerUnitTotalTier>> tiers;
+
     @JsonCreator
     public Seats(
-            @JsonProperty("quantity") Optional<Long> quantity) {
+            @JsonProperty("quantity") Optional<Long> quantity,
+            @JsonProperty("tiers") Optional<? extends List<CommercePerUnitTotalTier>> tiers) {
         Utils.checkNotNull(quantity, "quantity");
+        Utils.checkNotNull(tiers, "tiers");
         this.quantity = quantity;
+        this.tiers = tiers;
     }
     
     public Seats() {
-        this(Optional.empty());
+        this(Optional.empty(), Optional.empty());
     }
 
     /**
@@ -44,6 +56,15 @@ public class Seats {
     @JsonIgnore
     public Optional<Long> quantity() {
         return quantity;
+    }
+
+    /**
+     * Per-unit cost breakdown by pricing tier
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<CommercePerUnitTotalTier>> tiers() {
+        return (Optional<List<CommercePerUnitTotalTier>>) tiers;
     }
 
     public static Builder builder() {
@@ -70,6 +91,25 @@ public class Seats {
         return this;
     }
 
+    /**
+     * Per-unit cost breakdown by pricing tier
+     */
+    public Seats withTiers(List<CommercePerUnitTotalTier> tiers) {
+        Utils.checkNotNull(tiers, "tiers");
+        this.tiers = Optional.ofNullable(tiers);
+        return this;
+    }
+
+
+    /**
+     * Per-unit cost breakdown by pricing tier
+     */
+    public Seats withTiers(Optional<? extends List<CommercePerUnitTotalTier>> tiers) {
+        Utils.checkNotNull(tiers, "tiers");
+        this.tiers = tiers;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -80,25 +120,29 @@ public class Seats {
         }
         Seats other = (Seats) o;
         return 
-            Utils.enhancedDeepEquals(this.quantity, other.quantity);
+            Utils.enhancedDeepEquals(this.quantity, other.quantity) &&
+            Utils.enhancedDeepEquals(this.tiers, other.tiers);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            quantity);
+            quantity, tiers);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Seats.class,
-                "quantity", quantity);
+                "quantity", quantity,
+                "tiers", tiers);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private Optional<Long> quantity = Optional.empty();
+
+        private Optional<? extends List<CommercePerUnitTotalTier>> tiers = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -123,10 +167,29 @@ public class Seats {
             return this;
         }
 
+
+        /**
+         * Per-unit cost breakdown by pricing tier
+         */
+        public Builder tiers(List<CommercePerUnitTotalTier> tiers) {
+            Utils.checkNotNull(tiers, "tiers");
+            this.tiers = Optional.ofNullable(tiers);
+            return this;
+        }
+
+        /**
+         * Per-unit cost breakdown by pricing tier
+         */
+        public Builder tiers(Optional<? extends List<CommercePerUnitTotalTier>> tiers) {
+            Utils.checkNotNull(tiers, "tiers");
+            this.tiers = tiers;
+            return this;
+        }
+
         public Seats build() {
 
             return new Seats(
-                quantity);
+                quantity, tiers);
         }
 
     }

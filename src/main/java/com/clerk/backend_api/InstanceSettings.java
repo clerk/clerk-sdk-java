@@ -9,12 +9,19 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBody;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.ChangeProductionInstanceDomainResponse;
+import com.clerk.backend_api.models.operations.GetInstanceCommunicationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetInstanceCommunicationResponse;
 import com.clerk.backend_api.models.operations.GetInstanceOAuthApplicationSettingsRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceOAuthApplicationSettingsResponse;
+import com.clerk.backend_api.models.operations.GetInstanceOrganizationSettingsRequestBuilder;
+import com.clerk.backend_api.models.operations.GetInstanceOrganizationSettingsResponse;
 import com.clerk.backend_api.models.operations.GetInstanceProtectRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceProtectResponse;
 import com.clerk.backend_api.models.operations.GetInstanceRequestBuilder;
 import com.clerk.backend_api.models.operations.GetInstanceResponse;
+import com.clerk.backend_api.models.operations.UpdateInstanceCommunicationRequestBody;
+import com.clerk.backend_api.models.operations.UpdateInstanceCommunicationRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateInstanceCommunicationResponse;
 import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsRequestBody;
 import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateInstanceOAuthApplicationSettingsResponse;
@@ -32,9 +39,12 @@ import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsRequest
 import com.clerk.backend_api.models.operations.UpdateInstanceRestrictionsResponse;
 import com.clerk.backend_api.operations.ChangeProductionInstanceDomain;
 import com.clerk.backend_api.operations.GetInstance;
+import com.clerk.backend_api.operations.GetInstanceCommunication;
 import com.clerk.backend_api.operations.GetInstanceOAuthApplicationSettings;
+import com.clerk.backend_api.operations.GetInstanceOrganizationSettings;
 import com.clerk.backend_api.operations.GetInstanceProtect;
 import com.clerk.backend_api.operations.UpdateInstance;
+import com.clerk.backend_api.operations.UpdateInstanceCommunication;
 import com.clerk.backend_api.operations.UpdateInstanceOAuthApplicationSettings;
 import com.clerk.backend_api.operations.UpdateInstanceOrganizationSettings;
 import com.clerk.backend_api.operations.UpdateInstanceProtect;
@@ -167,6 +177,92 @@ public class InstanceSettings {
     public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request, Optional<Options> options) {
         RequestOperation<Optional<? extends UpdateInstanceRestrictionsRequestBody>, UpdateInstanceRestrictionsResponse> operation
               = new UpdateInstanceRestrictions.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get instance communication settings
+     * 
+     * <p>Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
+     * 
+     * @return The call builder
+     */
+    public GetInstanceCommunicationRequestBuilder getCommunication() {
+        return new GetInstanceCommunicationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get instance communication settings
+     * 
+     * <p>Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceCommunicationResponse getCommunicationDirect() {
+        return getCommunication(Optional.empty());
+    }
+
+    /**
+     * Get instance communication settings
+     * 
+     * <p>Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
+     * 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceCommunicationResponse getCommunication(Optional<Options> options) {
+        RequestlessOperation<GetInstanceCommunicationResponse> operation
+            = new GetInstanceCommunication.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest());
+    }
+
+    /**
+     * Update instance communication settings
+     * 
+     * <p>Replaces the SMS country blocklist for this instance. Pass the full set of ISO 3166-1
+     * alpha-2 country codes that should be blocked; codes that aren't recognized as SMS-tier
+     * countries are silently dropped from the persisted list. Omitting `blocked_country_codes`
+     * is a no-op.
+     * 
+     * @return The call builder
+     */
+    public UpdateInstanceCommunicationRequestBuilder updateCommunication() {
+        return new UpdateInstanceCommunicationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update instance communication settings
+     * 
+     * <p>Replaces the SMS country blocklist for this instance. Pass the full set of ISO 3166-1
+     * alpha-2 country codes that should be blocked; codes that aren't recognized as SMS-tier
+     * countries are silently dropped from the persisted list. Omitting `blocked_country_codes`
+     * is a no-op.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceCommunicationResponse updateCommunicationDirect() {
+        return updateCommunication(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update instance communication settings
+     * 
+     * <p>Replaces the SMS country blocklist for this instance. Pass the full set of ISO 3166-1
+     * alpha-2 country codes that should be blocked; codes that aren't recognized as SMS-tier
+     * countries are silently dropped from the persisted list. Omitting `blocked_country_codes`
+     * is a no-op.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceCommunicationResponse updateCommunication(Optional<? extends UpdateInstanceCommunicationRequestBody> request, Optional<Options> options) {
+        RequestOperation<Optional<? extends UpdateInstanceCommunicationRequestBody>, UpdateInstanceCommunicationResponse> operation
+              = new UpdateInstanceCommunication.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -311,6 +407,44 @@ public class InstanceSettings {
         RequestOperation<Optional<? extends ChangeProductionInstanceDomainRequestBody>, ChangeProductionInstanceDomainResponse> operation
               = new ChangeProductionInstanceDomain.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get instance organization settings
+     * 
+     * <p>Retrieves the organization settings of the instance
+     * 
+     * @return The call builder
+     */
+    public GetInstanceOrganizationSettingsRequestBuilder getOrganizationSettings() {
+        return new GetInstanceOrganizationSettingsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get instance organization settings
+     * 
+     * <p>Retrieves the organization settings of the instance
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceOrganizationSettingsResponse getOrganizationSettingsDirect() {
+        return getOrganizationSettings(Optional.empty());
+    }
+
+    /**
+     * Get instance organization settings
+     * 
+     * <p>Retrieves the organization settings of the instance
+     * 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetInstanceOrganizationSettingsResponse getOrganizationSettings(Optional<Options> options) {
+        RequestlessOperation<GetInstanceOrganizationSettingsResponse> operation
+            = new GetInstanceOrganizationSettings.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest());
     }
 
     /**

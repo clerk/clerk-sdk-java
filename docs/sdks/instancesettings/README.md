@@ -9,9 +9,12 @@ Modify the settings of your instance.
 * [get](#get) - Fetch the current instance
 * [update](#update) - Update instance settings
 * [updateRestrictions](#updaterestrictions) - Update instance restrictions
+* [getCommunication](#getcommunication) - Get instance communication settings
+* [updateCommunication](#updatecommunication) - Update instance communication settings
 * [getOAuthApplicationSettings](#getoauthapplicationsettings) - Get OAuth application settings
 * [updateOAuthApplicationSettings](#updateoauthapplicationsettings) - Update OAuth application settings
 * [changeDomain](#changedomain) - Update production instance domain
+* [getOrganizationSettings](#getorganizationsettings) - Get instance organization settings
 * [updateOrganizationSettings](#updateorganizationsettings) - Update instance organization settings
 * [getInstanceProtect](#getinstanceprotect) - Get instance protect settings
 * [updateInstanceProtect](#updateinstanceprotect) - Update instance protect settings
@@ -156,6 +159,102 @@ public class Application {
 | models/errors/ClerkErrors | 402, 422                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## getCommunication
+
+Retrieves the per-instance SMS communication settings, including the SMS country blocklist.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetInstanceCommunication" method="get" path="/instance/communication" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.operations.GetInstanceCommunicationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetInstanceCommunicationResponse res = sdk.instanceSettings().getCommunication()
+                .call();
+
+        if (res.instanceCommunication().isPresent()) {
+            System.out.println(res.instanceCommunication().get());
+        }
+    }
+}
+```
+
+### Response
+
+**[GetInstanceCommunicationResponse](../../models/operations/GetInstanceCommunicationResponse.md)**
+
+### Errors
+
+| Error Type             | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4XX, 5XX               | \*/\*                  |
+
+## updateCommunication
+
+Replaces the SMS country blocklist for this instance. Pass the full set of ISO 3166-1
+alpha-2 country codes that should be blocked; codes that aren't recognized as SMS-tier
+countries are silently dropped from the persisted list. Omitting `blocked_country_codes`
+is a no-op.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UpdateInstanceCommunication" method="patch" path="/instance/communication" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UpdateInstanceCommunicationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UpdateInstanceCommunicationResponse res = sdk.instanceSettings().updateCommunication()
+                .call();
+
+        if (res.instanceCommunication().isPresent()) {
+            System.out.println(res.instanceCommunication().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                   | [UpdateInstanceCommunicationRequestBody](../../models/operations/UpdateInstanceCommunicationRequestBody.md) | :heavy_check_mark:                                                                                          | The request object to use for the request.                                                                  |
+
+### Response
+
+**[UpdateInstanceCommunicationResponse](../../models/operations/UpdateInstanceCommunicationResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 422                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## getOAuthApplicationSettings
 
 Retrieves the settings for OAuth applications for the instance (dynamic client registration, JWT access tokens, etc.).
@@ -298,6 +397,50 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getOrganizationSettings
+
+Retrieves the organization settings of the instance
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetInstanceOrganizationSettings" method="get" path="/instance/organization_settings" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetInstanceOrganizationSettingsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetInstanceOrganizationSettingsResponse res = sdk.instanceSettings().getOrganizationSettings()
+                .call();
+
+        if (res.organizationSettings().isPresent()) {
+            System.out.println(res.organizationSettings().get());
+        }
+    }
+}
+```
+
+### Response
+
+**[GetInstanceOrganizationSettingsResponse](../../models/operations/GetInstanceOrganizationSettingsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 402, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## updateOrganizationSettings
