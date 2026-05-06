@@ -3,17 +3,15 @@
  */
 package com.clerk.backend_api.operations;
 
-import static com.clerk.backend_api.operations.Operations.RequestOperation;
+import static com.clerk.backend_api.operations.Operations.RequestlessOperation;
 import static com.clerk.backend_api.utils.Retries.NonRetryableException;
 import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
-import com.clerk.backend_api.models.components.SAMLConnection;
-import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.components.InstanceCommunication;
 import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.models.operations.UpdateSAMLConnectionRequest;
-import com.clerk.backend_api.models.operations.UpdateSAMLConnectionResponse;
+import com.clerk.backend_api.models.operations.GetInstanceCommunicationResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
@@ -24,14 +22,10 @@ import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.Retries;
 import com.clerk.backend_api.utils.RetryConfig;
-import com.clerk.backend_api.utils.SerializedBody;
-import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.IllegalArgumentException;
-import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -40,7 +34,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-public class UpdateSAMLConnection {
+public class GetInstanceCommunication {
 
     static abstract class Base {
         final SDKConfiguration sdkConfiguration;
@@ -83,7 +77,7 @@ public class UpdateSAMLConnection {
             return new BeforeRequestContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "UpdateSAMLConnection",
+                    "GetInstanceCommunication",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -92,7 +86,7 @@ public class UpdateSAMLConnection {
             return new AfterSuccessContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "UpdateSAMLConnection",
+                    "GetInstanceCommunication",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -101,30 +95,15 @@ public class UpdateSAMLConnection {
             return new AfterErrorContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "UpdateSAMLConnection",
+                    "GetInstanceCommunication",
                     java.util.Optional.empty(),
                     securitySource());
         }
-        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
+        HttpRequest buildRequest() throws Exception {
             String url = Utils.generateURL(
-                    klass,
                     this.baseUrl,
-                    "/saml_connections/{saml_connection_id}",
-                    request, null);
-            HTTPRequest req = new HTTPRequest(url, "PATCH");
-            Object convertedRequest = Utils.convertToShape(
-                    request,
-                    JsonShape.DEFAULT,
-                    typeReference);
-            SerializedBody serializedRequestBody = Utils.serializeRequestBody(
-                    convertedRequest,
-                    "requestBody",
-                    "json",
-                    false);
-            if (serializedRequestBody == null) {
-                throw new IllegalArgumentException("Request body is required");
-            }
-            req.setBody(Optional.ofNullable(serializedRequestBody));
+                    "/instance/communication");
+            HTTPRequest req = new HTTPRequest(url, "GET");
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
@@ -135,7 +114,7 @@ public class UpdateSAMLConnection {
     }
 
     public static class Sync extends Base
-            implements RequestOperation<UpdateSAMLConnectionRequest, UpdateSAMLConnectionResponse> {
+            implements RequestlessOperation<GetInstanceCommunicationResponse> {
         public Sync(
                 SDKConfiguration sdkConfiguration, Optional<Options> options,
                 Headers _headers) {
@@ -144,8 +123,8 @@ public class UpdateSAMLConnection {
                   _headers);
         }
 
-        private HttpRequest onBuildRequest(UpdateSAMLConnectionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, UpdateSAMLConnectionRequest.class, new TypeReference<UpdateSAMLConnectionRequest>() {});
+        private HttpRequest onBuildRequest() throws Exception {
+            HttpRequest req = buildRequest();
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -161,12 +140,12 @@ public class UpdateSAMLConnection {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(UpdateSAMLConnectionRequest request) {
+        public HttpResponse<InputStream> doRequest() {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
                         try {
-                            r = onBuildRequest(request);
+                            r = onBuildRequest();
                         } catch (Exception e) {
                             throw new NonRetryableException(e);
                         }
@@ -188,30 +167,23 @@ public class UpdateSAMLConnection {
 
 
         @Override
-        public UpdateSAMLConnectionResponse handleResponse(HttpResponse<InputStream> response) {
+        public GetInstanceCommunicationResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
                     .orElse("application/octet-stream");
-            UpdateSAMLConnectionResponse.Builder resBuilder =
-                    UpdateSAMLConnectionResponse
+            GetInstanceCommunicationResponse.Builder resBuilder =
+                    GetInstanceCommunicationResponse
                             .builder()
                             .contentType(contentType)
                             .statusCode(response.statusCode())
                             .rawResponse(response);
 
-            UpdateSAMLConnectionResponse res = resBuilder.build();
+            GetInstanceCommunicationResponse res = resBuilder.build();
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withSAMLConnection(Utils.unmarshal(response, new TypeReference<SAMLConnection>() {}));
-                } else {
-                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
-                }
-            }
-            if (Utils.statusCodeMatches(response.statusCode(), "402", "403", "404", "409", "422")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw ClerkErrors.from(response);
+                    return res.withInstanceCommunication(Utils.unmarshal(response, new TypeReference<InstanceCommunication>() {}));
                 } else {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }

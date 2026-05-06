@@ -16,8 +16,8 @@ public class SDKConfiguration {
 
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "2025-11-10";
-    public static final String SDK_VERSION = "4.1.5";
-    public static final String GEN_VERSION = "2.881.4";
+    public static final String SDK_VERSION = "4.1.6";
+    public static final String GEN_VERSION = "2.882.0";
     private static final String BASE_PACKAGE = "com.clerk.backend_api";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s",
