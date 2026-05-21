@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Double;
+import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -36,21 +37,46 @@ public class CreateM2MTokenRequestBody {
     @JsonProperty("claims")
     private JsonNullable<? extends Object> claims;
 
+    /**
+     * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+     * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+     * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+     * 
+     * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+     * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+     * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+     * token, which is the recommended pattern for high-volume M2M traffic.
+     * 
+     * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+     * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+     * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+     * 
+     * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+     * stateless and are never deduplicated.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("min_remaining_ttl_seconds")
+    private Optional<Long> minRemainingTtlSeconds;
+
     @JsonCreator
     public CreateM2MTokenRequestBody(
             @JsonProperty("token_format") Optional<? extends TokenFormat> tokenFormat,
             @JsonProperty("seconds_until_expiration") JsonNullable<Double> secondsUntilExpiration,
-            @JsonProperty("claims") JsonNullable<? extends Object> claims) {
+            @JsonProperty("claims") JsonNullable<? extends Object> claims,
+            @JsonProperty("min_remaining_ttl_seconds") Optional<Long> minRemainingTtlSeconds) {
         Utils.checkNotNull(tokenFormat, "tokenFormat");
         Utils.checkNotNull(secondsUntilExpiration, "secondsUntilExpiration");
         Utils.checkNotNull(claims, "claims");
+        Utils.checkNotNull(minRemainingTtlSeconds, "minRemainingTtlSeconds");
         this.tokenFormat = tokenFormat;
         this.secondsUntilExpiration = secondsUntilExpiration;
         this.claims = claims;
+        this.minRemainingTtlSeconds = minRemainingTtlSeconds;
     }
     
     public CreateM2MTokenRequestBody() {
-        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +94,28 @@ public class CreateM2MTokenRequestBody {
     @JsonIgnore
     public JsonNullable<Object> claims() {
         return (JsonNullable<Object>) claims;
+    }
+
+    /**
+     * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+     * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+     * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+     * 
+     * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+     * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+     * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+     * token, which is the recommended pattern for high-volume M2M traffic.
+     * 
+     * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+     * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+     * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+     * 
+     * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+     * stateless and are never deduplicated.
+     */
+    @JsonIgnore
+    public Optional<Long> minRemainingTtlSeconds() {
+        return minRemainingTtlSeconds;
     }
 
     public static Builder builder() {
@@ -112,6 +160,53 @@ public class CreateM2MTokenRequestBody {
         return this;
     }
 
+    /**
+     * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+     * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+     * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+     * 
+     * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+     * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+     * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+     * token, which is the recommended pattern for high-volume M2M traffic.
+     * 
+     * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+     * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+     * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+     * 
+     * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+     * stateless and are never deduplicated.
+     */
+    public CreateM2MTokenRequestBody withMinRemainingTtlSeconds(long minRemainingTtlSeconds) {
+        Utils.checkNotNull(minRemainingTtlSeconds, "minRemainingTtlSeconds");
+        this.minRemainingTtlSeconds = Optional.ofNullable(minRemainingTtlSeconds);
+        return this;
+    }
+
+
+    /**
+     * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+     * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+     * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+     * 
+     * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+     * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+     * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+     * token, which is the recommended pattern for high-volume M2M traffic.
+     * 
+     * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+     * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+     * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+     * 
+     * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+     * stateless and are never deduplicated.
+     */
+    public CreateM2MTokenRequestBody withMinRemainingTtlSeconds(Optional<Long> minRemainingTtlSeconds) {
+        Utils.checkNotNull(minRemainingTtlSeconds, "minRemainingTtlSeconds");
+        this.minRemainingTtlSeconds = minRemainingTtlSeconds;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -124,13 +219,15 @@ public class CreateM2MTokenRequestBody {
         return 
             Utils.enhancedDeepEquals(this.tokenFormat, other.tokenFormat) &&
             Utils.enhancedDeepEquals(this.secondsUntilExpiration, other.secondsUntilExpiration) &&
-            Utils.enhancedDeepEquals(this.claims, other.claims);
+            Utils.enhancedDeepEquals(this.claims, other.claims) &&
+            Utils.enhancedDeepEquals(this.minRemainingTtlSeconds, other.minRemainingTtlSeconds);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            tokenFormat, secondsUntilExpiration, claims);
+            tokenFormat, secondsUntilExpiration, claims,
+            minRemainingTtlSeconds);
     }
     
     @Override
@@ -138,7 +235,8 @@ public class CreateM2MTokenRequestBody {
         return Utils.toString(CreateM2MTokenRequestBody.class,
                 "tokenFormat", tokenFormat,
                 "secondsUntilExpiration", secondsUntilExpiration,
-                "claims", claims);
+                "claims", claims,
+                "minRemainingTtlSeconds", minRemainingTtlSeconds);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -149,6 +247,8 @@ public class CreateM2MTokenRequestBody {
         private JsonNullable<Double> secondsUntilExpiration = JsonNullable.undefined();
 
         private JsonNullable<? extends Object> claims = JsonNullable.undefined();
+
+        private Optional<Long> minRemainingTtlSeconds = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -193,13 +293,61 @@ public class CreateM2MTokenRequestBody {
             return this;
         }
 
+
+        /**
+         * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+         * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+         * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+         * 
+         * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+         * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+         * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+         * token, which is the recommended pattern for high-volume M2M traffic.
+         * 
+         * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+         * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+         * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+         * 
+         * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+         * stateless and are never deduplicated.
+         */
+        public Builder minRemainingTtlSeconds(long minRemainingTtlSeconds) {
+            Utils.checkNotNull(minRemainingTtlSeconds, "minRemainingTtlSeconds");
+            this.minRemainingTtlSeconds = Optional.ofNullable(minRemainingTtlSeconds);
+            return this;
+        }
+
+        /**
+         * Enables server-side token reuse for opaque-format tokens. When set, if a non-revoked, non-expired
+         * M2M token already exists for this machine with identical `claims` and `scopes` and at least this
+         * many seconds of remaining lifetime, that existing token is returned and no new token is minted.
+         * 
+         * <p>Use this when caching tokens in application memory across requests is impractical — for example, in
+         * serverless functions, short-lived job workers, or autoscaling containers that churn faster than the
+         * token TTL. Pooling at the server collapses many redundant create calls into reuse of a single live
+         * token, which is the recommended pattern for high-volume M2M traffic.
+         * 
+         * <p>Must be strictly less than the effective token lifetime — that is, `seconds_until_expiration` when
+         * provided, or the machine's default TTL otherwise. A value greater than or equal to the lifetime is
+         * rejected with a 400, since no freshly-minted token would ever satisfy the requirement.
+         * 
+         * <p>Only applies to opaque-format tokens (`token_format` defaults to `opaque`). JWT-format tokens are
+         * stateless and are never deduplicated.
+         */
+        public Builder minRemainingTtlSeconds(Optional<Long> minRemainingTtlSeconds) {
+            Utils.checkNotNull(minRemainingTtlSeconds, "minRemainingTtlSeconds");
+            this.minRemainingTtlSeconds = minRemainingTtlSeconds;
+            return this;
+        }
+
         public CreateM2MTokenRequestBody build() {
             if (tokenFormat == null) {
                 tokenFormat = _SINGLETON_VALUE_TokenFormat.value();
             }
 
             return new CreateM2MTokenRequestBody(
-                tokenFormat, secondsUntilExpiration, claims);
+                tokenFormat, secondsUntilExpiration, claims,
+                minRemainingTtlSeconds);
         }
 
 
