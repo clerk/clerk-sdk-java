@@ -182,6 +182,15 @@ public class OneOfDeserializer<T> extends StdDeserializer<T> {
                 return;
             }
 
+            // Unwrap optional fields
+            if (obj instanceof java.util.Optional) {
+                java.util.Optional<?> opt = (java.util.Optional<?>) obj;
+                if (opt.isPresent()) {
+                    countFieldsRecursive(opt.get(), jsonNode);
+                }
+                return;
+            }
+
             // Handle primitives and strings
             if (isPrimitiveOrString(obj)) {
                 matched++;

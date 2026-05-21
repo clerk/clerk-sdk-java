@@ -35,6 +35,7 @@ public class Application {
             .build();
 
         CreateM2MTokenRequestBody req = CreateM2MTokenRequestBody.builder()
+                .minRemainingTtlSeconds(240L)
                 .build();
 
         CreateM2MTokenResponse res = sdk.m2m().createToken()
