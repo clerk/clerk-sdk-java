@@ -19,7 +19,7 @@ public class ExternalAccountWithVerificationVerificationTypeIdResolver extends G
     }
 
     private void initializeTypeMap() {
-        registerType("verification_oauth", Oauth.class);
+        registerType("verification_oauth", VerificationOauthVerificationOauth.class);
         registerType("verification_google_one_tap", GoogleOneTap.class);
     }
 

@@ -23,8 +23,9 @@ public class VerificationTypeIdResolver extends GenericTypeIdResolver<Verificati
         registerType("verification_admin", Admin.class);
         registerType("verification_from_oauth", FromOAuth.class);
         registerType("verification_ticket", Ticket.class);
-        registerType("verification_saml", Saml.class);
+        registerType("verification_saml", VerificationSAMLVerificationEmailAddressSAML.class);
         registerType("verification_email_link", EmailLink.class);
+        registerType("verification_scim", VerificationSCIM.class);
     }
 
     @Override

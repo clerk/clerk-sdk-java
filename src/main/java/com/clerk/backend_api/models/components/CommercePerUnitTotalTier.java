@@ -17,7 +17,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class CommercePerUnitTotalTier {
     /**
-     * Units billed in this tier; null means unlimited
+     * Units billed in this tier; null means unlimited.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("quantity")
@@ -51,7 +51,7 @@ public class CommercePerUnitTotalTier {
     }
 
     /**
-     * Units billed in this tier; null means unlimited
+     * Units billed in this tier; null means unlimited.
      */
     @JsonIgnore
     public JsonNullable<Long> quantity() {
@@ -74,7 +74,7 @@ public class CommercePerUnitTotalTier {
 
 
     /**
-     * Units billed in this tier; null means unlimited
+     * Units billed in this tier; null means unlimited.
      */
     public CommercePerUnitTotalTier withQuantity(long quantity) {
         Utils.checkNotNull(quantity, "quantity");
@@ -83,7 +83,7 @@ public class CommercePerUnitTotalTier {
     }
 
     /**
-     * Units billed in this tier; null means unlimited
+     * Units billed in this tier; null means unlimited.
      */
     public CommercePerUnitTotalTier withQuantity(JsonNullable<Long> quantity) {
         Utils.checkNotNull(quantity, "quantity");
@@ -147,7 +147,7 @@ public class CommercePerUnitTotalTier {
 
 
         /**
-         * Units billed in this tier; null means unlimited
+         * Units billed in this tier; null means unlimited.
          */
         public Builder quantity(long quantity) {
             Utils.checkNotNull(quantity, "quantity");
@@ -156,7 +156,7 @@ public class CommercePerUnitTotalTier {
         }
 
         /**
-         * Units billed in this tier; null means unlimited
+         * Units billed in this tier; null means unlimited.
          */
         public Builder quantity(JsonNullable<Long> quantity) {
             Utils.checkNotNull(quantity, "quantity");

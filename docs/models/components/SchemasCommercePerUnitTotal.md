@@ -1,0 +1,10 @@
+# SchemasCommercePerUnitTotal
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `name`                                                                                               | *String*                                                                                             | :heavy_check_mark:                                                                                   | Name of the billable unit (for example, seats)                                                       |
+| `blockSize`                                                                                          | *long*                                                                                               | :heavy_check_mark:                                                                                   | Number of units included in each pricing block                                                       |
+| `tiers`                                                                                              | List\<[SchemasCommercePerUnitTotalTier](../../models/components/SchemasCommercePerUnitTotalTier.md)> | :heavy_check_mark:                                                                                   | Computed totals for each pricing tier                                                                |

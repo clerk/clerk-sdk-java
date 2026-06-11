@@ -55,19 +55,45 @@ public class CreateUserRequestBody {
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
+     * Created verified by default; see `email_address_identification_status` to create them reserved.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email_address")
     private Optional<? extends List<String>> emailAddress;
 
     /**
+     * Controls the status each email address is created with. Runs parallel to
+     * `email_address`: when provided, it must contain exactly one item per email
+     * address, applied by position. When omitted or empty, every email address is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * email address reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("email_address_identification_status")
+    private Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus;
+
+    /**
      * Phone numbers to add to the user.
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
+     * Created verified by default; see `phone_number_identification_status` to create them reserved.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone_number")
     private Optional<? extends List<String>> phoneNumber;
+
+    /**
+     * Controls the status each phone number is created with. Runs parallel to
+     * `phone_number`: when provided, it must contain exactly one item per phone
+     * number, applied by position. When omitted or empty, every phone number is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * phone number reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("phone_number_identification_status")
+    private Optional<? extends List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus;
 
     /**
      * Web3 wallets to add to the user.
@@ -254,6 +280,22 @@ public class CreateUserRequestBody {
     @JsonProperty("bypass_client_trust")
     private JsonNullable<Boolean> bypassClientTrust;
 
+    /**
+     * When set to `true`, the user is created already banned and cannot sign in.
+     * Requires the same plan support as the ban user endpoint.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("banned")
+    private JsonNullable<Boolean> banned;
+
+    /**
+     * When set to `true`, the user is created already locked.
+     * Requires the user lockout feature to be enabled on the instance.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("locked")
+    private JsonNullable<Boolean> locked;
+
     @JsonCreator
     public CreateUserRequestBody(
             @JsonProperty("external_id") JsonNullable<String> externalId,
@@ -261,7 +303,9 @@ public class CreateUserRequestBody {
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("email_address") Optional<? extends List<String>> emailAddress,
+            @JsonProperty("email_address_identification_status") Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus,
             @JsonProperty("phone_number") Optional<? extends List<String>> phoneNumber,
+            @JsonProperty("phone_number_identification_status") Optional<? extends List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus,
             @JsonProperty("web3_wallet") Optional<? extends List<String>> web3Wallet,
             @JsonProperty("username") JsonNullable<String> username,
             @JsonProperty("password") JsonNullable<String> password,
@@ -281,13 +325,17 @@ public class CreateUserRequestBody {
             @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
             @JsonProperty("created_at") JsonNullable<String> createdAt,
-            @JsonProperty("bypass_client_trust") JsonNullable<Boolean> bypassClientTrust) {
+            @JsonProperty("bypass_client_trust") JsonNullable<Boolean> bypassClientTrust,
+            @JsonProperty("banned") JsonNullable<Boolean> banned,
+            @JsonProperty("locked") JsonNullable<Boolean> locked) {
         Utils.checkNotNull(externalId, "externalId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(emailAddress, "emailAddress");
+        Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
+        Utils.checkNotNull(phoneNumberIdentificationStatus, "phoneNumberIdentificationStatus");
         Utils.checkNotNull(web3Wallet, "web3Wallet");
         Utils.checkNotNull(username, "username");
         Utils.checkNotNull(password, "password");
@@ -308,12 +356,16 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(createOrganizationsLimit, "createOrganizationsLimit");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        Utils.checkNotNull(banned, "banned");
+        Utils.checkNotNull(locked, "locked");
         this.externalId = externalId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.locale = locale;
         this.emailAddress = emailAddress;
+        this.emailAddressIdentificationStatus = emailAddressIdentificationStatus;
         this.phoneNumber = phoneNumber;
+        this.phoneNumberIdentificationStatus = phoneNumberIdentificationStatus;
         this.web3Wallet = web3Wallet;
         this.username = username;
         this.password = password;
@@ -334,18 +386,21 @@ public class CreateUserRequestBody {
         this.createOrganizationsLimit = createOrganizationsLimit;
         this.createdAt = createdAt;
         this.bypassClientTrust = bypassClientTrust;
+        this.banned = banned;
+        this.locked = locked;
     }
     
     public CreateUserRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -385,6 +440,7 @@ public class CreateUserRequestBody {
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
+     * Created verified by default; see `email_address_identification_status` to create them reserved.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -393,14 +449,43 @@ public class CreateUserRequestBody {
     }
 
     /**
+     * Controls the status each email address is created with. Runs parallel to
+     * `email_address`: when provided, it must contain exactly one item per email
+     * address, applied by position. When omitted or empty, every email address is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * email address reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus() {
+        return (Optional<List<EmailAddressIdentificationStatus>>) emailAddressIdentificationStatus;
+    }
+
+    /**
      * Phone numbers to add to the user.
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
+     * Created verified by default; see `phone_number_identification_status` to create them reserved.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<List<String>> phoneNumber() {
         return (Optional<List<String>>) phoneNumber;
+    }
+
+    /**
+     * Controls the status each phone number is created with. Runs parallel to
+     * `phone_number`: when provided, it must contain exactly one item per phone
+     * number, applied by position. When omitted or empty, every phone number is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * phone number reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus() {
+        return (Optional<List<PhoneNumberIdentificationStatus>>) phoneNumberIdentificationStatus;
     }
 
     /**
@@ -613,6 +698,24 @@ public class CreateUserRequestBody {
         return bypassClientTrust;
     }
 
+    /**
+     * When set to `true`, the user is created already banned and cannot sign in.
+     * Requires the same plan support as the ban user endpoint.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> banned() {
+        return banned;
+    }
+
+    /**
+     * When set to `true`, the user is created already locked.
+     * Requires the user lockout feature to be enabled on the instance.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> locked() {
+        return locked;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -696,6 +799,7 @@ public class CreateUserRequestBody {
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
+     * Created verified by default; see `email_address_identification_status` to create them reserved.
      */
     public CreateUserRequestBody withEmailAddress(List<String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -708,6 +812,7 @@ public class CreateUserRequestBody {
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
+     * Created verified by default; see `email_address_identification_status` to create them reserved.
      */
     public CreateUserRequestBody withEmailAddress(Optional<? extends List<String>> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
@@ -716,9 +821,39 @@ public class CreateUserRequestBody {
     }
 
     /**
+     * Controls the status each email address is created with. Runs parallel to
+     * `email_address`: when provided, it must contain exactly one item per email
+     * address, applied by position. When omitted or empty, every email address is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * email address reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    public CreateUserRequestBody withEmailAddressIdentificationStatus(List<EmailAddressIdentificationStatus> emailAddressIdentificationStatus) {
+        Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
+        this.emailAddressIdentificationStatus = Optional.ofNullable(emailAddressIdentificationStatus);
+        return this;
+    }
+
+
+    /**
+     * Controls the status each email address is created with. Runs parallel to
+     * `email_address`: when provided, it must contain exactly one item per email
+     * address, applied by position. When omitted or empty, every email address is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * email address reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    public CreateUserRequestBody withEmailAddressIdentificationStatus(Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus) {
+        Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
+        this.emailAddressIdentificationStatus = emailAddressIdentificationStatus;
+        return this;
+    }
+
+    /**
      * Phone numbers to add to the user.
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
+     * Created verified by default; see `phone_number_identification_status` to create them reserved.
      */
     public CreateUserRequestBody withPhoneNumber(List<String> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -731,10 +866,40 @@ public class CreateUserRequestBody {
      * Phone numbers to add to the user.
      * Must be unique across your instance.
      * The first phone number will be set as the user's primary phone number.
+     * Created verified by default; see `phone_number_identification_status` to create them reserved.
      */
     public CreateUserRequestBody withPhoneNumber(Optional<? extends List<String>> phoneNumber) {
         Utils.checkNotNull(phoneNumber, "phoneNumber");
         this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    /**
+     * Controls the status each phone number is created with. Runs parallel to
+     * `phone_number`: when provided, it must contain exactly one item per phone
+     * number, applied by position. When omitted or empty, every phone number is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * phone number reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    public CreateUserRequestBody withPhoneNumberIdentificationStatus(List<PhoneNumberIdentificationStatus> phoneNumberIdentificationStatus) {
+        Utils.checkNotNull(phoneNumberIdentificationStatus, "phoneNumberIdentificationStatus");
+        this.phoneNumberIdentificationStatus = Optional.ofNullable(phoneNumberIdentificationStatus);
+        return this;
+    }
+
+
+    /**
+     * Controls the status each phone number is created with. Runs parallel to
+     * `phone_number`: when provided, it must contain exactly one item per phone
+     * number, applied by position. When omitted or empty, every phone number is
+     * created `verified`. Set an item to `reserved` to create the corresponding
+     * phone number reserved instead (unverified but usable for sign-in and locked
+     * so no other user can claim it).
+     */
+    public CreateUserRequestBody withPhoneNumberIdentificationStatus(Optional<? extends List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus) {
+        Utils.checkNotNull(phoneNumberIdentificationStatus, "phoneNumberIdentificationStatus");
+        this.phoneNumberIdentificationStatus = phoneNumberIdentificationStatus;
         return this;
     }
 
@@ -1194,6 +1359,46 @@ public class CreateUserRequestBody {
         return this;
     }
 
+    /**
+     * When set to `true`, the user is created already banned and cannot sign in.
+     * Requires the same plan support as the ban user endpoint.
+     */
+    public CreateUserRequestBody withBanned(boolean banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = JsonNullable.of(banned);
+        return this;
+    }
+
+    /**
+     * When set to `true`, the user is created already banned and cannot sign in.
+     * Requires the same plan support as the ban user endpoint.
+     */
+    public CreateUserRequestBody withBanned(JsonNullable<Boolean> banned) {
+        Utils.checkNotNull(banned, "banned");
+        this.banned = banned;
+        return this;
+    }
+
+    /**
+     * When set to `true`, the user is created already locked.
+     * Requires the user lockout feature to be enabled on the instance.
+     */
+    public CreateUserRequestBody withLocked(boolean locked) {
+        Utils.checkNotNull(locked, "locked");
+        this.locked = JsonNullable.of(locked);
+        return this;
+    }
+
+    /**
+     * When set to `true`, the user is created already locked.
+     * Requires the user lockout feature to be enabled on the instance.
+     */
+    public CreateUserRequestBody withLocked(JsonNullable<Boolean> locked) {
+        Utils.checkNotNull(locked, "locked");
+        this.locked = locked;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1209,7 +1414,9 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
+            Utils.enhancedDeepEquals(this.emailAddressIdentificationStatus, other.emailAddressIdentificationStatus) &&
             Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
+            Utils.enhancedDeepEquals(this.phoneNumberIdentificationStatus, other.phoneNumberIdentificationStatus) &&
             Utils.enhancedDeepEquals(this.web3Wallet, other.web3Wallet) &&
             Utils.enhancedDeepEquals(this.username, other.username) &&
             Utils.enhancedDeepEquals(this.password, other.password) &&
@@ -1229,21 +1436,24 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
             Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
-            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust);
+            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust) &&
+            Utils.enhancedDeepEquals(this.banned, other.banned) &&
+            Utils.enhancedDeepEquals(this.locked, other.locked);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            locale, emailAddress, phoneNumber,
-            web3Wallet, username, password,
-            passwordDigest, passwordHasher, skipPasswordChecks,
-            skipPasswordRequirement, totpSecret, backupCodes,
-            publicMetadata, privateMetadata, unsafeMetadata,
-            deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-            skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
-            createdAt, bypassClientTrust);
+            locale, emailAddress, emailAddressIdentificationStatus,
+            phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
+            username, password, passwordDigest,
+            passwordHasher, skipPasswordChecks, skipPasswordRequirement,
+            totpSecret, backupCodes, publicMetadata,
+            privateMetadata, unsafeMetadata, deleteSelfEnabled,
+            legalAcceptedAt, skipLegalChecks, skipUserRequirement,
+            createOrganizationEnabled, createOrganizationsLimit, createdAt,
+            bypassClientTrust, banned, locked);
     }
     
     @Override
@@ -1254,7 +1464,9 @@ public class CreateUserRequestBody {
                 "lastName", lastName,
                 "locale", locale,
                 "emailAddress", emailAddress,
+                "emailAddressIdentificationStatus", emailAddressIdentificationStatus,
                 "phoneNumber", phoneNumber,
+                "phoneNumberIdentificationStatus", phoneNumberIdentificationStatus,
                 "web3Wallet", web3Wallet,
                 "username", username,
                 "password", password,
@@ -1274,7 +1486,9 @@ public class CreateUserRequestBody {
                 "createOrganizationEnabled", createOrganizationEnabled,
                 "createOrganizationsLimit", createOrganizationsLimit,
                 "createdAt", createdAt,
-                "bypassClientTrust", bypassClientTrust);
+                "bypassClientTrust", bypassClientTrust,
+                "banned", banned,
+                "locked", locked);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1290,7 +1504,11 @@ public class CreateUserRequestBody {
 
         private Optional<? extends List<String>> emailAddress = Optional.empty();
 
+        private Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus = Optional.empty();
+
         private Optional<? extends List<String>> phoneNumber = Optional.empty();
+
+        private Optional<? extends List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus = Optional.empty();
 
         private Optional<? extends List<String>> web3Wallet = Optional.empty();
 
@@ -1331,6 +1549,10 @@ public class CreateUserRequestBody {
         private JsonNullable<String> createdAt = JsonNullable.undefined();
 
         private JsonNullable<Boolean> bypassClientTrust = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> banned = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> locked = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -1419,6 +1641,7 @@ public class CreateUserRequestBody {
          * Email addresses to add to the user.
          * Must be unique across your instance.
          * The first email address will be set as the user's primary email address.
+         * Created verified by default; see `email_address_identification_status` to create them reserved.
          */
         public Builder emailAddress(List<String> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -1430,6 +1653,7 @@ public class CreateUserRequestBody {
          * Email addresses to add to the user.
          * Must be unique across your instance.
          * The first email address will be set as the user's primary email address.
+         * Created verified by default; see `email_address_identification_status` to create them reserved.
          */
         public Builder emailAddress(Optional<? extends List<String>> emailAddress) {
             Utils.checkNotNull(emailAddress, "emailAddress");
@@ -1439,9 +1663,39 @@ public class CreateUserRequestBody {
 
 
         /**
+         * Controls the status each email address is created with. Runs parallel to
+         * `email_address`: when provided, it must contain exactly one item per email
+         * address, applied by position. When omitted or empty, every email address is
+         * created `verified`. Set an item to `reserved` to create the corresponding
+         * email address reserved instead (unverified but usable for sign-in and locked
+         * so no other user can claim it).
+         */
+        public Builder emailAddressIdentificationStatus(List<EmailAddressIdentificationStatus> emailAddressIdentificationStatus) {
+            Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
+            this.emailAddressIdentificationStatus = Optional.ofNullable(emailAddressIdentificationStatus);
+            return this;
+        }
+
+        /**
+         * Controls the status each email address is created with. Runs parallel to
+         * `email_address`: when provided, it must contain exactly one item per email
+         * address, applied by position. When omitted or empty, every email address is
+         * created `verified`. Set an item to `reserved` to create the corresponding
+         * email address reserved instead (unverified but usable for sign-in and locked
+         * so no other user can claim it).
+         */
+        public Builder emailAddressIdentificationStatus(Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus) {
+            Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
+            this.emailAddressIdentificationStatus = emailAddressIdentificationStatus;
+            return this;
+        }
+
+
+        /**
          * Phone numbers to add to the user.
          * Must be unique across your instance.
          * The first phone number will be set as the user's primary phone number.
+         * Created verified by default; see `phone_number_identification_status` to create them reserved.
          */
         public Builder phoneNumber(List<String> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -1453,10 +1707,40 @@ public class CreateUserRequestBody {
          * Phone numbers to add to the user.
          * Must be unique across your instance.
          * The first phone number will be set as the user's primary phone number.
+         * Created verified by default; see `phone_number_identification_status` to create them reserved.
          */
         public Builder phoneNumber(Optional<? extends List<String>> phoneNumber) {
             Utils.checkNotNull(phoneNumber, "phoneNumber");
             this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+
+        /**
+         * Controls the status each phone number is created with. Runs parallel to
+         * `phone_number`: when provided, it must contain exactly one item per phone
+         * number, applied by position. When omitted or empty, every phone number is
+         * created `verified`. Set an item to `reserved` to create the corresponding
+         * phone number reserved instead (unverified but usable for sign-in and locked
+         * so no other user can claim it).
+         */
+        public Builder phoneNumberIdentificationStatus(List<PhoneNumberIdentificationStatus> phoneNumberIdentificationStatus) {
+            Utils.checkNotNull(phoneNumberIdentificationStatus, "phoneNumberIdentificationStatus");
+            this.phoneNumberIdentificationStatus = Optional.ofNullable(phoneNumberIdentificationStatus);
+            return this;
+        }
+
+        /**
+         * Controls the status each phone number is created with. Runs parallel to
+         * `phone_number`: when provided, it must contain exactly one item per phone
+         * number, applied by position. When omitted or empty, every phone number is
+         * created `verified`. Set an item to `reserved` to create the corresponding
+         * phone number reserved instead (unverified but usable for sign-in and locked
+         * so no other user can claim it).
+         */
+        public Builder phoneNumberIdentificationStatus(Optional<? extends List<PhoneNumberIdentificationStatus>> phoneNumberIdentificationStatus) {
+            Utils.checkNotNull(phoneNumberIdentificationStatus, "phoneNumberIdentificationStatus");
+            this.phoneNumberIdentificationStatus = phoneNumberIdentificationStatus;
             return this;
         }
 
@@ -1930,18 +2214,61 @@ public class CreateUserRequestBody {
             return this;
         }
 
+
+        /**
+         * When set to `true`, the user is created already banned and cannot sign in.
+         * Requires the same plan support as the ban user endpoint.
+         */
+        public Builder banned(boolean banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = JsonNullable.of(banned);
+            return this;
+        }
+
+        /**
+         * When set to `true`, the user is created already banned and cannot sign in.
+         * Requires the same plan support as the ban user endpoint.
+         */
+        public Builder banned(JsonNullable<Boolean> banned) {
+            Utils.checkNotNull(banned, "banned");
+            this.banned = banned;
+            return this;
+        }
+
+
+        /**
+         * When set to `true`, the user is created already locked.
+         * Requires the user lockout feature to be enabled on the instance.
+         */
+        public Builder locked(boolean locked) {
+            Utils.checkNotNull(locked, "locked");
+            this.locked = JsonNullable.of(locked);
+            return this;
+        }
+
+        /**
+         * When set to `true`, the user is created already locked.
+         * Requires the user lockout feature to be enabled on the instance.
+         */
+        public Builder locked(JsonNullable<Boolean> locked) {
+            Utils.checkNotNull(locked, "locked");
+            this.locked = locked;
+            return this;
+        }
+
         public CreateUserRequestBody build() {
 
             return new CreateUserRequestBody(
                 externalId, firstName, lastName,
-                locale, emailAddress, phoneNumber,
-                web3Wallet, username, password,
-                passwordDigest, passwordHasher, skipPasswordChecks,
-                skipPasswordRequirement, totpSecret, backupCodes,
-                publicMetadata, privateMetadata, unsafeMetadata,
-                deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-                skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
-                createdAt, bypassClientTrust);
+                locale, emailAddress, emailAddressIdentificationStatus,
+                phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
+                username, password, passwordDigest,
+                passwordHasher, skipPasswordChecks, skipPasswordRequirement,
+                totpSecret, backupCodes, publicMetadata,
+                privateMetadata, unsafeMetadata, deleteSelfEnabled,
+                legalAcceptedAt, skipLegalChecks, skipUserRequirement,
+                createOrganizationEnabled, createOrganizationsLimit, createdAt,
+                bypassClientTrust, banned, locked);
         }
 
     }

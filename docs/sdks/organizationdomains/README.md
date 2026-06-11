@@ -8,6 +8,7 @@
 * [list](#list) - Get a list of all domains of an organization.
 * [update](#update) - Update an organization domain.
 * [delete](#delete) - Remove a domain from an organization.
+* [verifyOwnership](#verifyownership) - Mark an organization domain's ownership as verified
 * [listAll](#listall) - List all organization domains
 
 ## create
@@ -229,6 +230,66 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## verifyOwnership
+
+Flips the organization domain's ownership state to verified via the
+manual override path, bypassing the self-serve TXT DNS challenge. The
+domain row records strategy=`manual_override` and an
+`organization_domain.ownership_verified` audit event is emitted with the
+same strategy.
+
+Idempotent: re-calling on an already-verified domain returns the current
+ownership state without re-emitting the audit event.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="VerifyOrganizationDomainOwnership" method="post" path="/organizations/{organization_id}/domains/{domain_id}/verify_ownership" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.VerifyOrganizationDomainOwnershipResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        VerifyOrganizationDomainOwnershipResponse res = sdk.organizationDomains().verifyOwnership()
+                .organizationId("<id>")
+                .domainId("<id>")
+                .call();
+
+        if (res.organizationDomain().isPresent()) {
+            System.out.println(res.organizationDomain().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                              | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `organizationId`                                       | *String*                                               | :heavy_check_mark:                                     | The ID of the organization to which the domain belongs |
+| `domainId`                                             | *String*                                               | :heavy_check_mark:                                     | The ID of the domain                                   |
+
+### Response
+
+**[VerifyOrganizationDomainOwnershipResponse](../../models/operations/VerifyOrganizationDomainOwnershipResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 401, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## listAll

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -17,14 +18,18 @@ import java.util.Optional;
 /**
  * OrganizationDomainVerification
  * 
- * <p>Verification details for the domain
+ * <p>Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+ * version; will be removed in the next API version. Prefer `affiliation_verification`.
+ * 
+ * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
  */
+@Deprecated
 public class OrganizationDomainVerification {
     /**
-     * Status of the verification. It can be `unverified` or `verified`
+     * Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
      */
     @JsonProperty("status")
-    private OrganizationDomainStatus status;
+    private String status;
 
     /**
      * Name of the strategy used to verify the domain
@@ -46,34 +51,45 @@ public class OrganizationDomainVerification {
     @JsonProperty("expire_at")
     private Optional<Long> expireAt;
 
+    /**
+     * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+     * `affiliation_verification`.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("verified_at")
+    private Optional<Long> verifiedAt;
+
     @JsonCreator
     public OrganizationDomainVerification(
-            @JsonProperty("status") OrganizationDomainStatus status,
+            @JsonProperty("status") String status,
             @JsonProperty("strategy") String strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
-            @JsonProperty("expire_at") Optional<Long> expireAt) {
+            @JsonProperty("expire_at") Optional<Long> expireAt,
+            @JsonProperty("verified_at") Optional<Long> verifiedAt) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
+        Utils.checkNotNull(verifiedAt, "verifiedAt");
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
         this.expireAt = expireAt;
+        this.verifiedAt = verifiedAt;
     }
     
     public OrganizationDomainVerification(
-            OrganizationDomainStatus status,
+            String status,
             String strategy) {
         this(status, strategy, Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
-     * Status of the verification. It can be `unverified` or `verified`
+     * Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
      */
     @JsonIgnore
-    public OrganizationDomainStatus status() {
+    public String status() {
         return status;
     }
 
@@ -101,15 +117,24 @@ public class OrganizationDomainVerification {
         return expireAt;
     }
 
+    /**
+     * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+     * `affiliation_verification`.
+     */
+    @JsonIgnore
+    public Optional<Long> verifiedAt() {
+        return verifiedAt;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
 
     /**
-     * Status of the verification. It can be `unverified` or `verified`
+     * Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
      */
-    public OrganizationDomainVerification withStatus(OrganizationDomainStatus status) {
+    public OrganizationDomainVerification withStatus(String status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -162,6 +187,27 @@ public class OrganizationDomainVerification {
         return this;
     }
 
+    /**
+     * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+     * `affiliation_verification`.
+     */
+    public OrganizationDomainVerification withVerifiedAt(long verifiedAt) {
+        Utils.checkNotNull(verifiedAt, "verifiedAt");
+        this.verifiedAt = Optional.ofNullable(verifiedAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+     * `affiliation_verification`.
+     */
+    public OrganizationDomainVerification withVerifiedAt(Optional<Long> verifiedAt) {
+        Utils.checkNotNull(verifiedAt, "verifiedAt");
+        this.verifiedAt = verifiedAt;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -175,14 +221,15 @@ public class OrganizationDomainVerification {
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
-            Utils.enhancedDeepEquals(this.expireAt, other.expireAt);
+            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
+            Utils.enhancedDeepEquals(this.verifiedAt, other.verifiedAt);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             status, strategy, attempts,
-            expireAt);
+            expireAt, verifiedAt);
     }
     
     @Override
@@ -191,13 +238,14 @@ public class OrganizationDomainVerification {
                 "status", status,
                 "strategy", strategy,
                 "attempts", attempts,
-                "expireAt", expireAt);
+                "expireAt", expireAt,
+                "verifiedAt", verifiedAt);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private OrganizationDomainStatus status;
+        private String status;
 
         private String strategy;
 
@@ -205,15 +253,17 @@ public class OrganizationDomainVerification {
 
         private Optional<Long> expireAt = Optional.empty();
 
+        private Optional<Long> verifiedAt = Optional.empty();
+
         private Builder() {
           // force use of static builder() method
         }
 
 
         /**
-         * Status of the verification. It can be `unverified` or `verified`
+         * Status of the verification. It can be `unverified`, `verified`, `failed`, or `expired`.
          */
-        public Builder status(OrganizationDomainStatus status) {
+        public Builder status(String status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
@@ -267,11 +317,32 @@ public class OrganizationDomainVerification {
             return this;
         }
 
+
+        /**
+         * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+         * `affiliation_verification`.
+         */
+        public Builder verifiedAt(long verifiedAt) {
+            Utils.checkNotNull(verifiedAt, "verifiedAt");
+            this.verifiedAt = Optional.ofNullable(verifiedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp of when ownership was verified. Only populated on `ownership_verification`; null on
+         * `affiliation_verification`.
+         */
+        public Builder verifiedAt(Optional<Long> verifiedAt) {
+            Utils.checkNotNull(verifiedAt, "verifiedAt");
+            this.verifiedAt = verifiedAt;
+            return this;
+        }
+
         public OrganizationDomainVerification build() {
 
             return new OrganizationDomainVerification(
                 status, strategy, attempts,
-                expireAt);
+                expireAt, verifiedAt);
         }
 
     }

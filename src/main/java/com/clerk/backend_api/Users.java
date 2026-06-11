@@ -58,6 +58,10 @@ import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
 import com.clerk.backend_api.models.operations.QueryParamStatus;
+import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequest;
+import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBody;
+import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBuilder;
+import com.clerk.backend_api.models.operations.ReplaceUserMetadataResponse;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequest;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBody;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBuilder;
@@ -126,6 +130,7 @@ import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.operations.GetUsersCount;
 import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
 import com.clerk.backend_api.operations.LockUser;
+import com.clerk.backend_api.operations.ReplaceUserMetadata;
 import com.clerk.backend_api.operations.SetUserPasswordCompromised;
 import com.clerk.backend_api.operations.SetUserProfileImage;
 import com.clerk.backend_api.operations.UnbanUser;
@@ -204,7 +209,10 @@ public class Users {
      * 
      * <p>Creates a new user. Your user management settings determine how you should setup your user model.
      * 
-     * <p>Any email address and phone number created using this method will be marked as verified.
+     * <p>By default, any email address and phone number created using this method is marked as verified. Use
+     * the `email_address_identification_status` and `phone_number_identification_status` arrays to instead
+     * create some or all of them as reserved (unverified but usable for sign-in and locked so no other
+     * user can claim them).
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime
      * migrations](https://clerk.com/docs/deployments/migrate-overview).
@@ -223,7 +231,10 @@ public class Users {
      * 
      * <p>Creates a new user. Your user management settings determine how you should setup your user model.
      * 
-     * <p>Any email address and phone number created using this method will be marked as verified.
+     * <p>By default, any email address and phone number created using this method is marked as verified. Use
+     * the `email_address_identification_status` and `phone_number_identification_status` arrays to instead
+     * create some or all of them as reserved (unverified but usable for sign-in and locked so no other
+     * user can claim them).
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime
      * migrations](https://clerk.com/docs/deployments/migrate-overview).
@@ -244,7 +255,10 @@ public class Users {
      * 
      * <p>Creates a new user. Your user management settings determine how you should setup your user model.
      * 
-     * <p>Any email address and phone number created using this method will be marked as verified.
+     * <p>By default, any email address and phone number created using this method is marked as verified. Use
+     * the `email_address_identification_status` and `phone_number_identification_status` arrays to instead
+     * create some or all of them as reserved (unverified but usable for sign-in and locked so no other
+     * user can claim them).
      * 
      * <p>Note: If you are performing a migration, check out our guide on [zero downtime
      * migrations](https://clerk.com/docs/deployments/migrate-overview).
@@ -358,16 +372,11 @@ public class Users {
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
-     * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least
-     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
-     * have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
-     * parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the
-     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata`, `private_metadata`,
+     * or `unsafe_metadata`.
+     * Use `PATCH /v1/users/{user_id}/metadata` to merge updates into existing metadata, or `PUT
+     * /v1/users/{user_id}/metadata` to replace a metadata field entirely.
      * 
      * @return The call builder
      */
@@ -385,16 +394,11 @@ public class Users {
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
-     * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least
-     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
-     * have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
-     * parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the
-     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata`, `private_metadata`,
+     * or `unsafe_metadata`.
+     * Use `PATCH /v1/users/{user_id}/metadata` to merge updates into existing metadata, or `PUT
+     * /v1/users/{user_id}/metadata` to replace a metadata field entirely.
      * 
      * @param userId The ID of the user to update
      * @param requestBody 
@@ -415,16 +419,11 @@ public class Users {
      * Both IDs should correspond to verified identifications that belong to the user.
      * 
      * <p>You can remove a user's username by setting the username attribute to null or the blank string "".
-     * This is a destructive action; the identification will be deleted forever.
-     * Usernames can be removed only if they are optional in your instance settings and there's at least
-     * one other identifier which can be used for authentication.
      * 
-     * <p>This endpoint allows changing a user's password. When passing the `password` parameter directly you
-     * have two further options.
-     * You can ignore the password policy checks for your instance by setting the `skip_password_checks`
-     * parameter to `true`.
-     * You can also choose to sign the user out of all their active sessions on any device once the
-     * password is updated. Just set `sign_out_of_other_sessions` to `true`.
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata`, `private_metadata`,
+     * or `unsafe_metadata`.
+     * Use `PATCH /v1/users/{user_id}/metadata` to merge updates into existing metadata, or `PUT
+     * /v1/users/{user_id}/metadata` to replace a metadata field entirely.
      * 
      * @param userId The ID of the user to update
      * @param requestBody 
@@ -925,6 +924,79 @@ public class Users {
                 .build();
         RequestOperation<UpdateUserMetadataRequest, UpdateUserMetadataResponse> operation
               = new UpdateUserMetadata.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Replace a user's metadata
+     * 
+     * <p>Replace a user's metadata attributes with the provided values.
+     * 
+     * <p>Unlike `PATCH /v1/users/{user_id}/metadata` (merge semantics), this endpoint
+     * replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are
+     * left unchanged.
+     * 
+     * <p>Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you
+     * explicitly intend to overwrite a metadata field wholesale.
+     * 
+     * @return The call builder
+     */
+    public ReplaceUserMetadataRequestBuilder replaceMetadata() {
+        return new ReplaceUserMetadataRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Replace a user's metadata
+     * 
+     * <p>Replace a user's metadata attributes with the provided values.
+     * 
+     * <p>Unlike `PATCH /v1/users/{user_id}/metadata` (merge semantics), this endpoint
+     * replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are
+     * left unchanged.
+     * 
+     * <p>Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you
+     * explicitly intend to overwrite a metadata field wholesale.
+     * 
+     * @param userId The ID of the user whose metadata will be replaced
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserMetadataResponse replaceMetadata(String userId) {
+        return replaceMetadata(userId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Replace a user's metadata
+     * 
+     * <p>Replace a user's metadata attributes with the provided values.
+     * 
+     * <p>Unlike `PATCH /v1/users/{user_id}/metadata` (merge semantics), this endpoint
+     * replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are
+     * left unchanged.
+     * 
+     * <p>Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you
+     * explicitly intend to overwrite a metadata field wholesale.
+     * 
+     * @param userId The ID of the user whose metadata will be replaced
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserMetadataResponse replaceMetadata(
+            String userId, Optional<? extends ReplaceUserMetadataRequestBody> requestBody,
+            Optional<Options> options) {
+        ReplaceUserMetadataRequest request =
+            ReplaceUserMetadataRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<ReplaceUserMetadataRequest, ReplaceUserMetadataResponse> operation
+              = new ReplaceUserMetadata.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

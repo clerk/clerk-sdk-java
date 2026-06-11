@@ -8,12 +8,19 @@ import static com.clerk.backend_api.operations.Operations.RequestOperation;
 import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionRequestBody;
 import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionResponse;
+import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionTestRunRequest;
+import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionTestRunRequestBuilder;
+import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionTestRunResponse;
 import com.clerk.backend_api.models.operations.DeleteEnterpriseConnectionRequest;
 import com.clerk.backend_api.models.operations.DeleteEnterpriseConnectionRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteEnterpriseConnectionResponse;
 import com.clerk.backend_api.models.operations.GetEnterpriseConnectionRequest;
 import com.clerk.backend_api.models.operations.GetEnterpriseConnectionRequestBuilder;
 import com.clerk.backend_api.models.operations.GetEnterpriseConnectionResponse;
+import com.clerk.backend_api.models.operations.ListEnterpriseConnectionTestRunsQueryParamStatus;
+import com.clerk.backend_api.models.operations.ListEnterpriseConnectionTestRunsRequest;
+import com.clerk.backend_api.models.operations.ListEnterpriseConnectionTestRunsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListEnterpriseConnectionTestRunsResponse;
 import com.clerk.backend_api.models.operations.ListEnterpriseConnectionsRequest;
 import com.clerk.backend_api.models.operations.ListEnterpriseConnectionsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListEnterpriseConnectionsResponse;
@@ -22,8 +29,10 @@ import com.clerk.backend_api.models.operations.UpdateEnterpriseConnectionRequest
 import com.clerk.backend_api.models.operations.UpdateEnterpriseConnectionRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateEnterpriseConnectionResponse;
 import com.clerk.backend_api.operations.CreateEnterpriseConnection;
+import com.clerk.backend_api.operations.CreateEnterpriseConnectionTestRun;
 import com.clerk.backend_api.operations.DeleteEnterpriseConnection;
 import com.clerk.backend_api.operations.GetEnterpriseConnection;
+import com.clerk.backend_api.operations.ListEnterpriseConnectionTestRuns;
 import com.clerk.backend_api.operations.ListEnterpriseConnections;
 import com.clerk.backend_api.operations.UpdateEnterpriseConnection;
 import com.clerk.backend_api.utils.Headers;
@@ -31,6 +40,7 @@ import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -296,6 +306,109 @@ public class EnterpriseConnections {
                 .build();
         RequestOperation<DeleteEnterpriseConnectionRequest, DeleteEnterpriseConnectionResponse> operation
               = new DeleteEnterpriseConnection.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List enterprise connection test runs
+     * 
+     * <p>Returns a paginated list of SAML or OIDC debug test runs for an enterprise connection.
+     * 
+     * @return The call builder
+     */
+    public ListEnterpriseConnectionTestRunsRequestBuilder listTestRuns() {
+        return new ListEnterpriseConnectionTestRunsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List enterprise connection test runs
+     * 
+     * <p>Returns a paginated list of SAML or OIDC debug test runs for an enterprise connection.
+     * 
+     * @param enterpriseConnectionId The ID of the enterprise connection
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListEnterpriseConnectionTestRunsResponse listTestRuns(String enterpriseConnectionId) {
+        return listTestRuns(enterpriseConnectionId, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List enterprise connection test runs
+     * 
+     * <p>Returns a paginated list of SAML or OIDC debug test runs for an enterprise connection.
+     * 
+     * @param enterpriseConnectionId The ID of the enterprise connection
+     * @param status Filter test runs by status (may be repeated)
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListEnterpriseConnectionTestRunsResponse listTestRuns(
+            String enterpriseConnectionId, Optional<? extends List<ListEnterpriseConnectionTestRunsQueryParamStatus>> status,
+            Optional<Long> limit, Optional<Long> offset,
+            Optional<Options> options) {
+        ListEnterpriseConnectionTestRunsRequest request =
+            ListEnterpriseConnectionTestRunsRequest
+                .builder()
+                .enterpriseConnectionId(enterpriseConnectionId)
+                .status(status)
+                .limit(limit)
+                .offset(offset)
+                .build();
+        RequestOperation<ListEnterpriseConnectionTestRunsRequest, ListEnterpriseConnectionTestRunsResponse> operation
+              = new ListEnterpriseConnectionTestRuns.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create an enterprise connection test run
+     * 
+     * <p>Returns a short-lived URL that starts the IdP test flow for this connection.
+     * 
+     * @return The call builder
+     */
+    public CreateEnterpriseConnectionTestRunRequestBuilder createTestRun() {
+        return new CreateEnterpriseConnectionTestRunRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create an enterprise connection test run
+     * 
+     * <p>Returns a short-lived URL that starts the IdP test flow for this connection.
+     * 
+     * @param enterpriseConnectionId The ID of the enterprise connection
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateEnterpriseConnectionTestRunResponse createTestRun(String enterpriseConnectionId) {
+        return createTestRun(enterpriseConnectionId, Optional.empty());
+    }
+
+    /**
+     * Create an enterprise connection test run
+     * 
+     * <p>Returns a short-lived URL that starts the IdP test flow for this connection.
+     * 
+     * @param enterpriseConnectionId The ID of the enterprise connection
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateEnterpriseConnectionTestRunResponse createTestRun(String enterpriseConnectionId, Optional<Options> options) {
+        CreateEnterpriseConnectionTestRunRequest request =
+            CreateEnterpriseConnectionTestRunRequest
+                .builder()
+                .enterpriseConnectionId(enterpriseConnectionId)
+                .build();
+        RequestOperation<CreateEnterpriseConnectionTestRunRequest, CreateEnterpriseConnectionTestRunResponse> operation
+              = new CreateEnterpriseConnectionTestRun.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

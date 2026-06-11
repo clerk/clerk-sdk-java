@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -41,27 +42,38 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     @JsonProperty("scim_path")
     private Optional<String> scimPath;
 
+    /**
+     * When true, the attribute supports multiple values; values from the IdP are written to
+     * public_metadata as an array. Defaults to false.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("multi_valued")
+    private Optional<Boolean> multiValued;
+
     @JsonCreator
     public UpdateEnterpriseConnectionCustomAttributes(
             @JsonProperty("name") String name,
             @JsonProperty("key") String key,
             @JsonProperty("sso_path") Optional<String> ssoPath,
-            @JsonProperty("scim_path") Optional<String> scimPath) {
+            @JsonProperty("scim_path") Optional<String> scimPath,
+            @JsonProperty("multi_valued") Optional<Boolean> multiValued) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(key, "key");
         Utils.checkNotNull(ssoPath, "ssoPath");
         Utils.checkNotNull(scimPath, "scimPath");
+        Utils.checkNotNull(multiValued, "multiValued");
         this.name = name;
         this.key = key;
         this.ssoPath = ssoPath;
         this.scimPath = scimPath;
+        this.multiValued = multiValued;
     }
     
     public UpdateEnterpriseConnectionCustomAttributes(
             String name,
             String key) {
         this(name, key, Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -94,6 +106,15 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     @JsonIgnore
     public Optional<String> scimPath() {
         return scimPath;
+    }
+
+    /**
+     * When true, the attribute supports multiple values; values from the IdP are written to
+     * public_metadata as an array. Defaults to false.
+     */
+    @JsonIgnore
+    public Optional<Boolean> multiValued() {
+        return multiValued;
     }
 
     public static Builder builder() {
@@ -157,6 +178,27 @@ public class UpdateEnterpriseConnectionCustomAttributes {
         return this;
     }
 
+    /**
+     * When true, the attribute supports multiple values; values from the IdP are written to
+     * public_metadata as an array. Defaults to false.
+     */
+    public UpdateEnterpriseConnectionCustomAttributes withMultiValued(boolean multiValued) {
+        Utils.checkNotNull(multiValued, "multiValued");
+        this.multiValued = Optional.ofNullable(multiValued);
+        return this;
+    }
+
+
+    /**
+     * When true, the attribute supports multiple values; values from the IdP are written to
+     * public_metadata as an array. Defaults to false.
+     */
+    public UpdateEnterpriseConnectionCustomAttributes withMultiValued(Optional<Boolean> multiValued) {
+        Utils.checkNotNull(multiValued, "multiValued");
+        this.multiValued = multiValued;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -170,14 +212,15 @@ public class UpdateEnterpriseConnectionCustomAttributes {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.key, other.key) &&
             Utils.enhancedDeepEquals(this.ssoPath, other.ssoPath) &&
-            Utils.enhancedDeepEquals(this.scimPath, other.scimPath);
+            Utils.enhancedDeepEquals(this.scimPath, other.scimPath) &&
+            Utils.enhancedDeepEquals(this.multiValued, other.multiValued);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             name, key, ssoPath,
-            scimPath);
+            scimPath, multiValued);
     }
     
     @Override
@@ -186,7 +229,8 @@ public class UpdateEnterpriseConnectionCustomAttributes {
                 "name", name,
                 "key", key,
                 "ssoPath", ssoPath,
-                "scimPath", scimPath);
+                "scimPath", scimPath,
+                "multiValued", multiValued);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -199,6 +243,8 @@ public class UpdateEnterpriseConnectionCustomAttributes {
         private Optional<String> ssoPath = Optional.empty();
 
         private Optional<String> scimPath = Optional.empty();
+
+        private Optional<Boolean> multiValued = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -262,11 +308,32 @@ public class UpdateEnterpriseConnectionCustomAttributes {
             return this;
         }
 
+
+        /**
+         * When true, the attribute supports multiple values; values from the IdP are written to
+         * public_metadata as an array. Defaults to false.
+         */
+        public Builder multiValued(boolean multiValued) {
+            Utils.checkNotNull(multiValued, "multiValued");
+            this.multiValued = Optional.ofNullable(multiValued);
+            return this;
+        }
+
+        /**
+         * When true, the attribute supports multiple values; values from the IdP are written to
+         * public_metadata as an array. Defaults to false.
+         */
+        public Builder multiValued(Optional<Boolean> multiValued) {
+            Utils.checkNotNull(multiValued, "multiValued");
+            this.multiValued = multiValued;
+            return this;
+        }
+
         public UpdateEnterpriseConnectionCustomAttributes build() {
 
             return new UpdateEnterpriseConnectionCustomAttributes(
                 name, key, ssoPath,
-                scimPath);
+                scimPath, multiValued);
         }
 
     }

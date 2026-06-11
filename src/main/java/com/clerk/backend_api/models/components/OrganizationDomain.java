@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Deprecated;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Override;
@@ -62,10 +63,30 @@ public class OrganizationDomain {
     private Optional<String> affiliationEmailAddress;
 
     /**
-     * Verification details for the domain
+     * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+     * affiliation_email_code).
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("affiliation_verification")
+    private Optional<? extends AffiliationVerification> affiliationVerification;
+
+    /**
+     * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+     * override). Null until ownership has been attempted.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("ownership_verification")
+    private Optional<? extends OwnershipVerification> ownershipVerification;
+
+    /**
+     * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+     * version; will be removed in the next API version. Prefer `affiliation_verification`.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("verification")
+    @Deprecated
     private Optional<? extends OrganizationDomainVerification> verification;
 
     /**
@@ -107,6 +128,8 @@ public class OrganizationDomain {
             @JsonProperty("name") String name,
             @JsonProperty("enrollment_mode") EnrollmentMode enrollmentMode,
             @JsonProperty("affiliation_email_address") Optional<String> affiliationEmailAddress,
+            @JsonProperty("affiliation_verification") Optional<? extends AffiliationVerification> affiliationVerification,
+            @JsonProperty("ownership_verification") Optional<? extends OwnershipVerification> ownershipVerification,
             @JsonProperty("verification") Optional<? extends OrganizationDomainVerification> verification,
             @JsonProperty("total_pending_invitations") int totalPendingInvitations,
             @JsonProperty("total_pending_suggestions") int totalPendingSuggestions,
@@ -119,6 +142,8 @@ public class OrganizationDomain {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
         Utils.checkNotNull(affiliationEmailAddress, "affiliationEmailAddress");
+        Utils.checkNotNull(affiliationVerification, "affiliationVerification");
+        Utils.checkNotNull(ownershipVerification, "ownershipVerification");
         Utils.checkNotNull(verification, "verification");
         Utils.checkNotNull(totalPendingInvitations, "totalPendingInvitations");
         Utils.checkNotNull(totalPendingSuggestions, "totalPendingSuggestions");
@@ -131,6 +156,8 @@ public class OrganizationDomain {
         this.name = name;
         this.enrollmentMode = enrollmentMode;
         this.affiliationEmailAddress = affiliationEmailAddress;
+        this.affiliationVerification = affiliationVerification;
+        this.ownershipVerification = ownershipVerification;
         this.verification = verification;
         this.totalPendingInvitations = totalPendingInvitations;
         this.totalPendingSuggestions = totalPendingSuggestions;
@@ -151,8 +178,9 @@ public class OrganizationDomain {
             long updatedAt) {
         this(object, id, organizationId,
             name, enrollmentMode, Optional.empty(),
-            Optional.empty(), totalPendingInvitations, totalPendingSuggestions,
-            JsonNullable.undefined(), createdAt, updatedAt);
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            totalPendingInvitations, totalPendingSuggestions, JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     /**
@@ -205,8 +233,32 @@ public class OrganizationDomain {
     }
 
     /**
-     * Verification details for the domain
+     * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+     * affiliation_email_code).
      */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<AffiliationVerification> affiliationVerification() {
+        return (Optional<AffiliationVerification>) affiliationVerification;
+    }
+
+    /**
+     * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+     * override). Null until ownership has been attempted.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<OwnershipVerification> ownershipVerification() {
+        return (Optional<OwnershipVerification>) ownershipVerification;
+    }
+
+    /**
+     * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+     * version; will be removed in the next API version. Prefer `affiliation_verification`.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<OrganizationDomainVerification> verification() {
@@ -325,8 +377,54 @@ public class OrganizationDomain {
     }
 
     /**
-     * Verification details for the domain
+     * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+     * affiliation_email_code).
      */
+    public OrganizationDomain withAffiliationVerification(AffiliationVerification affiliationVerification) {
+        Utils.checkNotNull(affiliationVerification, "affiliationVerification");
+        this.affiliationVerification = Optional.ofNullable(affiliationVerification);
+        return this;
+    }
+
+
+    /**
+     * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+     * affiliation_email_code).
+     */
+    public OrganizationDomain withAffiliationVerification(Optional<? extends AffiliationVerification> affiliationVerification) {
+        Utils.checkNotNull(affiliationVerification, "affiliationVerification");
+        this.affiliationVerification = affiliationVerification;
+        return this;
+    }
+
+    /**
+     * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+     * override). Null until ownership has been attempted.
+     */
+    public OrganizationDomain withOwnershipVerification(OwnershipVerification ownershipVerification) {
+        Utils.checkNotNull(ownershipVerification, "ownershipVerification");
+        this.ownershipVerification = Optional.ofNullable(ownershipVerification);
+        return this;
+    }
+
+
+    /**
+     * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+     * override). Null until ownership has been attempted.
+     */
+    public OrganizationDomain withOwnershipVerification(Optional<? extends OwnershipVerification> ownershipVerification) {
+        Utils.checkNotNull(ownershipVerification, "ownershipVerification");
+        this.ownershipVerification = ownershipVerification;
+        return this;
+    }
+
+    /**
+     * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+     * version; will be removed in the next API version. Prefer `affiliation_verification`.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public OrganizationDomain withVerification(OrganizationDomainVerification verification) {
         Utils.checkNotNull(verification, "verification");
         this.verification = Optional.ofNullable(verification);
@@ -335,8 +433,12 @@ public class OrganizationDomain {
 
 
     /**
-     * Verification details for the domain
+     * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+     * version; will be removed in the next API version. Prefer `affiliation_verification`.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public OrganizationDomain withVerification(Optional<? extends OrganizationDomainVerification> verification) {
         Utils.checkNotNull(verification, "verification");
         this.verification = verification;
@@ -413,6 +515,8 @@ public class OrganizationDomain {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.enrollmentMode, other.enrollmentMode) &&
             Utils.enhancedDeepEquals(this.affiliationEmailAddress, other.affiliationEmailAddress) &&
+            Utils.enhancedDeepEquals(this.affiliationVerification, other.affiliationVerification) &&
+            Utils.enhancedDeepEquals(this.ownershipVerification, other.ownershipVerification) &&
             Utils.enhancedDeepEquals(this.verification, other.verification) &&
             Utils.enhancedDeepEquals(this.totalPendingInvitations, other.totalPendingInvitations) &&
             Utils.enhancedDeepEquals(this.totalPendingSuggestions, other.totalPendingSuggestions) &&
@@ -426,8 +530,9 @@ public class OrganizationDomain {
         return Utils.enhancedHash(
             object, id, organizationId,
             name, enrollmentMode, affiliationEmailAddress,
-            verification, totalPendingInvitations, totalPendingSuggestions,
-            publicOrganizationData, createdAt, updatedAt);
+            affiliationVerification, ownershipVerification, verification,
+            totalPendingInvitations, totalPendingSuggestions, publicOrganizationData,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -439,6 +544,8 @@ public class OrganizationDomain {
                 "name", name,
                 "enrollmentMode", enrollmentMode,
                 "affiliationEmailAddress", affiliationEmailAddress,
+                "affiliationVerification", affiliationVerification,
+                "ownershipVerification", ownershipVerification,
                 "verification", verification,
                 "totalPendingInvitations", totalPendingInvitations,
                 "totalPendingSuggestions", totalPendingSuggestions,
@@ -462,6 +569,11 @@ public class OrganizationDomain {
 
         private Optional<String> affiliationEmailAddress = Optional.empty();
 
+        private Optional<? extends AffiliationVerification> affiliationVerification = Optional.empty();
+
+        private Optional<? extends OwnershipVerification> ownershipVerification = Optional.empty();
+
+        @Deprecated
         private Optional<? extends OrganizationDomainVerification> verification = Optional.empty();
 
         private Integer totalPendingInvitations;
@@ -550,8 +662,54 @@ public class OrganizationDomain {
 
 
         /**
-         * Verification details for the domain
+         * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+         * affiliation_email_code).
          */
+        public Builder affiliationVerification(AffiliationVerification affiliationVerification) {
+            Utils.checkNotNull(affiliationVerification, "affiliationVerification");
+            this.affiliationVerification = Optional.ofNullable(affiliationVerification);
+            return this;
+        }
+
+        /**
+         * Verification details for the user-facing affiliation between the domain and the organization (e.g.
+         * affiliation_email_code).
+         */
+        public Builder affiliationVerification(Optional<? extends AffiliationVerification> affiliationVerification) {
+            Utils.checkNotNull(affiliationVerification, "affiliationVerification");
+            this.affiliationVerification = affiliationVerification;
+            return this;
+        }
+
+
+        /**
+         * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+         * override). Null until ownership has been attempted.
+         */
+        public Builder ownershipVerification(OwnershipVerification ownershipVerification) {
+            Utils.checkNotNull(ownershipVerification, "ownershipVerification");
+            this.ownershipVerification = Optional.ofNullable(ownershipVerification);
+            return this;
+        }
+
+        /**
+         * Verification details for the underlying DNS domain ownership proof (TXT challenge or dashboard
+         * override). Null until ownership has been attempted.
+         */
+        public Builder ownershipVerification(Optional<? extends OwnershipVerification> ownershipVerification) {
+            Utils.checkNotNull(ownershipVerification, "ownershipVerification");
+            this.ownershipVerification = ownershipVerification;
+            return this;
+        }
+
+
+        /**
+         * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+         * version; will be removed in the next API version. Prefer `affiliation_verification`.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder verification(OrganizationDomainVerification verification) {
             Utils.checkNotNull(verification, "verification");
             this.verification = Optional.ofNullable(verification);
@@ -559,8 +717,12 @@ public class OrganizationDomain {
         }
 
         /**
-         * Verification details for the domain
+         * Deprecated alias for `affiliation_verification`. Kept for backward compatibility on the current API
+         * version; will be removed in the next API version. Prefer `affiliation_verification`.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder verification(Optional<? extends OrganizationDomainVerification> verification) {
             Utils.checkNotNull(verification, "verification");
             this.verification = verification;
@@ -631,8 +793,9 @@ public class OrganizationDomain {
             return new OrganizationDomain(
                 object, id, organizationId,
                 name, enrollmentMode, affiliationEmailAddress,
-                verification, totalPendingInvitations, totalPendingSuggestions,
-                publicOrganizationData, createdAt, updatedAt);
+                affiliationVerification, ownershipVerification, verification,
+                totalPendingInvitations, totalPendingSuggestions, publicOrganizationData,
+                createdAt, updatedAt);
         }
 
     }

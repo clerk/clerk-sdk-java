@@ -19,6 +19,7 @@
 * [setProfileImage](#setprofileimage) - Set user profile image
 * [deleteProfileImage](#deleteprofileimage) - Delete user profile image
 * [updateMetadata](#updatemetadata) - Merge and update a user's metadata
+* [replaceMetadata](#replacemetadata) - Replace a user's metadata
 * [getBillingSubscription](#getbillingsubscription) - Retrieve a user's billing subscription
 * [getBillingCreditBalance](#getbillingcreditbalance) - Retrieve a user's credit balance
 * [adjustBillingCreditBalance](#adjustbillingcreditbalance) - Adjust a user's credit balance
@@ -104,7 +105,7 @@ public class Application {
 
 Creates a new user. Your user management settings determine how you should setup your user model.
 
-Any email address and phone number created using this method will be marked as verified.
+By default, any email address and phone number created using this method is marked as verified. Use the `email_address_identification_status` and `phone_number_identification_status` arrays to instead create some or all of them as reserved (unverified but usable for sign-in and locked so no other user can claim them).
 
 Note: If you are performing a migration, check out our guide on [zero downtime migrations](https://clerk.com/docs/deployments/migrate-overview).
 
@@ -158,7 +159,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 403, 422        | application/json          |
+| models/errors/ClerkErrors | 400, 401, 402, 403, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## count
@@ -282,12 +283,9 @@ You can set the user's primary contact identifiers (email address and phone numb
 Both IDs should correspond to verified identifications that belong to the user.
 
 You can remove a user's username by setting the username attribute to null or the blank string "".
-This is a destructive action; the identification will be deleted forever.
-Usernames can be removed only if they are optional in your instance settings and there's at least one other identifier which can be used for authentication.
 
-This endpoint allows changing a user's password. When passing the `password` parameter directly you have two further options.
-You can ignore the password policy checks for your instance by setting the `skip_password_checks` parameter to `true`.
-You can also choose to sign the user out of all their active sessions on any device once the password is updated. Just set `sign_out_of_other_sessions` to `true`.
+As of API version 2026-05-12, this endpoint no longer accepts `public_metadata`, `private_metadata`, or `unsafe_metadata`.
+Use `PATCH /v1/users/{user_id}/metadata` to merge updates into existing metadata, or `PUT /v1/users/{user_id}/metadata` to replace a metadata field entirely.
 
 ### Example Usage
 
@@ -870,6 +868,66 @@ public class Application {
 ### Response
 
 **[UpdateUserMetadataResponse](../../models/operations/UpdateUserMetadataResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## replaceMetadata
+
+Replace a user's metadata attributes with the provided values.
+
+Unlike `PATCH /v1/users/{user_id}/metadata` (merge semantics), this endpoint
+replaces the supplied metadata fields entirely — the prior contents of each
+supplied field are discarded. Fields omitted from the request body are
+left unchanged.
+
+Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you
+explicitly intend to overwrite a metadata field wholesale.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ReplaceUserMetadata" method="put" path="/users/{user_id}/metadata" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ReplaceUserMetadataResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ReplaceUserMetadataResponse res = sdk.users().replaceMetadata()
+                .userId("<id>")
+                .call();
+
+        if (res.user().isPresent()) {
+            System.out.println(res.user().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `userId`                                                                                               | *String*                                                                                               | :heavy_check_mark:                                                                                     | The ID of the user whose metadata will be replaced                                                     |
+| `requestBody`                                                                                          | [Optional\<ReplaceUserMetadataRequestBody>](../../models/operations/ReplaceUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+
+### Response
+
+**[ReplaceUserMetadataResponse](../../models/operations/ReplaceUserMetadataResponse.md)**
 
 ### Errors
 

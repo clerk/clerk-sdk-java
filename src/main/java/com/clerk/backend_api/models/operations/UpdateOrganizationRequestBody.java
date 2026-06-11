@@ -11,29 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Long;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
-import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateOrganizationRequestBody {
-    /**
-     * Metadata saved on the organization, that is visible to both your frontend and backend.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("public_metadata")
-    private JsonNullable<? extends Map<String, Object>> publicMetadata;
-
-    /**
-     * Metadata saved on the organization that is only visible to your backend.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("private_metadata")
-    private JsonNullable<? extends Map<String, Object>> privateMetadata;
-
     /**
      * The new name of the organization.
      * May not contain URLs or HTML.
@@ -82,24 +65,18 @@ public class UpdateOrganizationRequestBody {
 
     @JsonCreator
     public UpdateOrganizationRequestBody(
-            @JsonProperty("public_metadata") JsonNullable<? extends Map<String, Object>> publicMetadata,
-            @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("name") JsonNullable<String> name,
             @JsonProperty("slug") JsonNullable<String> slug,
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled,
             @JsonProperty("created_at") JsonNullable<String> createdAt,
             @JsonProperty("role_set_key") JsonNullable<String> roleSetKey) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(roleSetKey, "roleSetKey");
-        this.publicMetadata = publicMetadata;
-        this.privateMetadata = privateMetadata;
         this.name = name;
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
@@ -110,26 +87,7 @@ public class UpdateOrganizationRequestBody {
     
     public UpdateOrganizationRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
-    }
-
-    /**
-     * Metadata saved on the organization, that is visible to both your frontend and backend.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, Object>> publicMetadata() {
-        return (JsonNullable<Map<String, Object>>) publicMetadata;
-    }
-
-    /**
-     * Metadata saved on the organization that is only visible to your backend.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, Object>> privateMetadata() {
-        return (JsonNullable<Map<String, Object>>) privateMetadata;
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -188,42 +146,6 @@ public class UpdateOrganizationRequestBody {
         return new Builder();
     }
 
-
-    /**
-     * Metadata saved on the organization, that is visible to both your frontend and backend.
-     */
-    public UpdateOrganizationRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        this.publicMetadata = JsonNullable.of(publicMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the organization, that is visible to both your frontend and backend.
-     */
-    public UpdateOrganizationRequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        this.publicMetadata = publicMetadata;
-        return this;
-    }
-
-    /**
-     * Metadata saved on the organization that is only visible to your backend.
-     */
-    public UpdateOrganizationRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = JsonNullable.of(privateMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the organization that is only visible to your backend.
-     */
-    public UpdateOrganizationRequestBody withPrivateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = privateMetadata;
-        return this;
-    }
 
     /**
      * The new name of the organization.
@@ -351,8 +273,6 @@ public class UpdateOrganizationRequestBody {
         }
         UpdateOrganizationRequestBody other = (UpdateOrganizationRequestBody) o;
         return 
-            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
-            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
@@ -364,16 +284,13 @@ public class UpdateOrganizationRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            publicMetadata, privateMetadata, name,
-            slug, maxAllowedMemberships, adminDeleteEnabled,
-            createdAt, roleSetKey);
+            name, slug, maxAllowedMemberships,
+            adminDeleteEnabled, createdAt, roleSetKey);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateOrganizationRequestBody.class,
-                "publicMetadata", publicMetadata,
-                "privateMetadata", privateMetadata,
                 "name", name,
                 "slug", slug,
                 "maxAllowedMemberships", maxAllowedMemberships,
@@ -384,10 +301,6 @@ public class UpdateOrganizationRequestBody {
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
-
-        private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
-
-        private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
 
         private JsonNullable<String> name = JsonNullable.undefined();
 
@@ -403,44 +316,6 @@ public class UpdateOrganizationRequestBody {
 
         private Builder() {
           // force use of static builder() method
-        }
-
-
-        /**
-         * Metadata saved on the organization, that is visible to both your frontend and backend.
-         */
-        public Builder publicMetadata(Map<String, Object> publicMetadata) {
-            Utils.checkNotNull(publicMetadata, "publicMetadata");
-            this.publicMetadata = JsonNullable.of(publicMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the organization, that is visible to both your frontend and backend.
-         */
-        public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
-            Utils.checkNotNull(publicMetadata, "publicMetadata");
-            this.publicMetadata = publicMetadata;
-            return this;
-        }
-
-
-        /**
-         * Metadata saved on the organization that is only visible to your backend.
-         */
-        public Builder privateMetadata(Map<String, Object> privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = JsonNullable.of(privateMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the organization that is only visible to your backend.
-         */
-        public Builder privateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = privateMetadata;
-            return this;
         }
 
 
@@ -568,9 +443,8 @@ public class UpdateOrganizationRequestBody {
         public UpdateOrganizationRequestBody build() {
 
             return new UpdateOrganizationRequestBody(
-                publicMetadata, privateMetadata, name,
-                slug, maxAllowedMemberships, adminDeleteEnabled,
-                createdAt, roleSetKey);
+                name, slug, maxAllowedMemberships,
+                adminDeleteEnabled, createdAt, roleSetKey);
         }
 
     }

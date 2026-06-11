@@ -53,7 +53,7 @@ public class CreateAPIKeyAPIKeysResponseBody extends ClerkError {
     }
 
     @Deprecated
-    public Optional<List<CreateApiKeyErrors>> errors() {
+    public Optional<List<CreateAPIKeyAPIKeysErrors>> errors() {
         return data().map(Data::errors);
     }
 
@@ -75,17 +75,17 @@ public class CreateAPIKeyAPIKeysResponseBody extends ClerkError {
     public static class Data {
 
         @JsonProperty("errors")
-        private List<CreateApiKeyErrors> errors;
+        private List<CreateAPIKeyAPIKeysErrors> errors;
 
         @JsonCreator
         public Data(
-                @JsonProperty("errors") List<CreateApiKeyErrors> errors) {
+                @JsonProperty("errors") List<CreateAPIKeyAPIKeysErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
         }
 
         @JsonIgnore
-        public List<CreateApiKeyErrors> errors() {
+        public List<CreateAPIKeyAPIKeysErrors> errors() {
             return errors;
         }
 
@@ -94,7 +94,7 @@ public class CreateAPIKeyAPIKeysResponseBody extends ClerkError {
         }
 
 
-        public Data withErrors(List<CreateApiKeyErrors> errors) {
+        public Data withErrors(List<CreateAPIKeyAPIKeysErrors> errors) {
             Utils.checkNotNull(errors, "errors");
             this.errors = errors;
             return this;
@@ -128,14 +128,14 @@ public class CreateAPIKeyAPIKeysResponseBody extends ClerkError {
         @SuppressWarnings("UnusedReturnValue")
         public final static class Builder {
 
-            private List<CreateApiKeyErrors> errors;
+            private List<CreateAPIKeyAPIKeysErrors> errors;
 
             private Builder() {
               // force use of static builder() method
             }
 
 
-            public Builder errors(List<CreateApiKeyErrors> errors) {
+            public Builder errors(List<CreateAPIKeyAPIKeysErrors> errors) {
                 Utils.checkNotNull(errors, "errors");
                 this.errors = errors;
                 return this;

@@ -9,6 +9,8 @@
 * [get](#get) - Retrieve an enterprise connection
 * [update](#update) - Update an enterprise connection
 * [delete](#delete) - Delete an enterprise connection
+* [listTestRuns](#listtestruns) - List enterprise connection test runs
+* [createTestRun](#createtestrun) - Create an enterprise connection test run
 
 ## list
 
@@ -113,7 +115,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 402, 403, 404, 409, 422   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## get
@@ -266,6 +268,113 @@ public class Application {
 ### Response
 
 **[DeleteEnterpriseConnectionResponse](../../models/operations/DeleteEnterpriseConnectionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 402, 403, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## listTestRuns
+
+Returns a paginated list of SAML or OIDC debug test runs for an enterprise connection.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ListEnterpriseConnectionTestRuns" method="get" path="/enterprise_connections/{enterprise_connection_id}/test_runs" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListEnterpriseConnectionTestRunsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ListEnterpriseConnectionTestRunsResponse res = sdk.enterpriseConnections().listTestRuns()
+                .enterpriseConnectionId("<id>")
+                .limit(10L)
+                .offset(0L)
+                .call();
+
+        if (res.enterpriseConnectionTestRuns().isPresent()) {
+            System.out.println(res.enterpriseConnectionTestRuns().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `enterpriseConnectionId`                                                                                                                  | *String*                                                                                                                                  | :heavy_check_mark:                                                                                                                        | The ID of the enterprise connection                                                                                                       |
+| `status`                                                                                                                                  | List\<[ListEnterpriseConnectionTestRunsQueryParamStatus](../../models/operations/ListEnterpriseConnectionTestRunsQueryParamStatus.md)>    | :heavy_minus_sign:                                                                                                                        | Filter test runs by status (may be repeated)                                                                                              |
+| `limit`                                                                                                                                   | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `offset`.                     |
+| `offset`                                                                                                                                  | *Optional\<Long>*                                                                                                                         | :heavy_minus_sign:                                                                                                                        | Skip the first `offset` results when paginating.<br/>Needs to be an integer greater or equal to zero.<br/>To be used in conjunction with `limit`. |
+
+### Response
+
+**[ListEnterpriseConnectionTestRunsResponse](../../models/operations/ListEnterpriseConnectionTestRunsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 402, 403, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## createTestRun
+
+Returns a short-lived URL that starts the IdP test flow for this connection.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="CreateEnterpriseConnectionTestRun" method="post" path="/enterprise_connections/{enterprise_connection_id}/test_runs" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.CreateEnterpriseConnectionTestRunResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        CreateEnterpriseConnectionTestRunResponse res = sdk.enterpriseConnections().createTestRun()
+                .enterpriseConnectionId("<id>")
+                .call();
+
+        if (res.enterpriseConnectionTestRunResponse().isPresent()) {
+            System.out.println(res.enterpriseConnectionTestRunResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                           | Type                                | Required                            | Description                         |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| `enterpriseConnectionId`            | *String*                            | :heavy_check_mark:                  | The ID of the enterprise connection |
+
+### Response
+
+**[CreateEnterpriseConnectionTestRunResponse](../../models/operations/CreateEnterpriseConnectionTestRunResponse.md)**
 
 ### Errors
 

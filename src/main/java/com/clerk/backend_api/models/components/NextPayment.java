@@ -13,6 +13,8 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -22,7 +24,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class NextPayment {
     /**
-     * Amount for the next payment.
+     * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+     * `totals.grand_total` for the full amount.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
@@ -35,22 +38,45 @@ public class NextPayment {
     @JsonProperty("date")
     private JsonNullable<Long> date;
 
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("per_unit_totals")
+    private Optional<? extends List<CommercePerUnitTotal>> perUnitTotals;
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("totals")
+    private JsonNullable<? extends CommerceSubscriptionItemTotals> totals;
+
     @JsonCreator
     public NextPayment(
             @JsonProperty("amount") JsonNullable<? extends CommerceSubscriptionItemAmount> amount,
-            @JsonProperty("date") JsonNullable<Long> date) {
+            @JsonProperty("date") JsonNullable<Long> date,
+            @JsonProperty("per_unit_totals") Optional<? extends List<CommercePerUnitTotal>> perUnitTotals,
+            @JsonProperty("totals") JsonNullable<? extends CommerceSubscriptionItemTotals> totals) {
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(date, "date");
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        Utils.checkNotNull(totals, "totals");
         this.amount = amount;
         this.date = date;
+        this.perUnitTotals = perUnitTotals;
+        this.totals = totals;
     }
     
     public NextPayment() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     /**
-     * Amount for the next payment.
+     * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+     * `totals.grand_total` for the full amount.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -66,13 +92,33 @@ public class NextPayment {
         return date;
     }
 
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<CommercePerUnitTotal>> perUnitTotals() {
+        return (Optional<List<CommercePerUnitTotal>>) perUnitTotals;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<CommerceSubscriptionItemTotals> totals() {
+        return (JsonNullable<CommerceSubscriptionItemTotals>) totals;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
 
     /**
-     * Amount for the next payment.
+     * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+     * `totals.grand_total` for the full amount.
      */
     public NextPayment withAmount(CommerceSubscriptionItemAmount amount) {
         Utils.checkNotNull(amount, "amount");
@@ -81,7 +127,8 @@ public class NextPayment {
     }
 
     /**
-     * Amount for the next payment.
+     * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+     * `totals.grand_total` for the full amount.
      */
     public NextPayment withAmount(JsonNullable<? extends CommerceSubscriptionItemAmount> amount) {
         Utils.checkNotNull(amount, "amount");
@@ -107,6 +154,45 @@ public class NextPayment {
         return this;
     }
 
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    public NextPayment withPerUnitTotals(List<CommercePerUnitTotal> perUnitTotals) {
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        this.perUnitTotals = Optional.ofNullable(perUnitTotals);
+        return this;
+    }
+
+
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    public NextPayment withPerUnitTotals(Optional<? extends List<CommercePerUnitTotal>> perUnitTotals) {
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        this.perUnitTotals = perUnitTotals;
+        return this;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    public NextPayment withTotals(CommerceSubscriptionItemTotals totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = JsonNullable.of(totals);
+        return this;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    public NextPayment withTotals(JsonNullable<? extends CommerceSubscriptionItemTotals> totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = totals;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -118,20 +204,25 @@ public class NextPayment {
         NextPayment other = (NextPayment) o;
         return 
             Utils.enhancedDeepEquals(this.amount, other.amount) &&
-            Utils.enhancedDeepEquals(this.date, other.date);
+            Utils.enhancedDeepEquals(this.date, other.date) &&
+            Utils.enhancedDeepEquals(this.perUnitTotals, other.perUnitTotals) &&
+            Utils.enhancedDeepEquals(this.totals, other.totals);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            amount, date);
+            amount, date, perUnitTotals,
+            totals);
     }
     
     @Override
     public String toString() {
         return Utils.toString(NextPayment.class,
                 "amount", amount,
-                "date", date);
+                "date", date,
+                "perUnitTotals", perUnitTotals,
+                "totals", totals);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -141,13 +232,18 @@ public class NextPayment {
 
         private JsonNullable<Long> date = JsonNullable.undefined();
 
+        private Optional<? extends List<CommercePerUnitTotal>> perUnitTotals = Optional.empty();
+
+        private JsonNullable<? extends CommerceSubscriptionItemTotals> totals = JsonNullable.undefined();
+
         private Builder() {
           // force use of static builder() method
         }
 
 
         /**
-         * Amount for the next payment.
+         * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+         * `totals.grand_total` for the full amount.
          */
         public Builder amount(CommerceSubscriptionItemAmount amount) {
             Utils.checkNotNull(amount, "amount");
@@ -156,7 +252,8 @@ public class NextPayment {
         }
 
         /**
-         * Amount for the next payment.
+         * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+         * `totals.grand_total` for the full amount.
          */
         public Builder amount(JsonNullable<? extends CommerceSubscriptionItemAmount> amount) {
             Utils.checkNotNull(amount, "amount");
@@ -183,10 +280,51 @@ public class NextPayment {
             return this;
         }
 
+
+        /**
+         * Per-unit total breakdown (for example, seats) for the next payment.
+         */
+        public Builder perUnitTotals(List<CommercePerUnitTotal> perUnitTotals) {
+            Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+            this.perUnitTotals = Optional.ofNullable(perUnitTotals);
+            return this;
+        }
+
+        /**
+         * Per-unit total breakdown (for example, seats) for the next payment.
+         */
+        public Builder perUnitTotals(Optional<? extends List<CommercePerUnitTotal>> perUnitTotals) {
+            Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+            this.perUnitTotals = perUnitTotals;
+            return this;
+        }
+
+
+        /**
+         * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+         * and credits are not previewed.
+         */
+        public Builder totals(CommerceSubscriptionItemTotals totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = JsonNullable.of(totals);
+            return this;
+        }
+
+        /**
+         * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+         * and credits are not previewed.
+         */
+        public Builder totals(JsonNullable<? extends CommerceSubscriptionItemTotals> totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = totals;
+            return this;
+        }
+
         public NextPayment build() {
 
             return new NextPayment(
-                amount, date);
+                amount, date, perUnitTotals,
+                totals);
         }
 
     }

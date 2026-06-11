@@ -5,6 +5,10 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationRequest;
+import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationRequestBody;
+import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationRequestBuilder;
+import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationResponse;
 import com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBody;
 import com.clerk.backend_api.models.operations.CreatePhoneNumberRequestBuilder;
 import com.clerk.backend_api.models.operations.CreatePhoneNumberResponse;
@@ -14,13 +18,23 @@ import com.clerk.backend_api.models.operations.DeletePhoneNumberResponse;
 import com.clerk.backend_api.models.operations.GetPhoneNumberRequest;
 import com.clerk.backend_api.models.operations.GetPhoneNumberRequestBuilder;
 import com.clerk.backend_api.models.operations.GetPhoneNumberResponse;
+import com.clerk.backend_api.models.operations.PreparePhoneNumberVerificationRequest;
+import com.clerk.backend_api.models.operations.PreparePhoneNumberVerificationRequestBuilder;
+import com.clerk.backend_api.models.operations.PreparePhoneNumberVerificationResponse;
+import com.clerk.backend_api.models.operations.ReplaceUserPhoneNumberRequest;
+import com.clerk.backend_api.models.operations.ReplaceUserPhoneNumberRequestBody;
+import com.clerk.backend_api.models.operations.ReplaceUserPhoneNumberRequestBuilder;
+import com.clerk.backend_api.models.operations.ReplaceUserPhoneNumberResponse;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequest;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBody;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdatePhoneNumberResponse;
+import com.clerk.backend_api.operations.AttemptPhoneNumberVerification;
 import com.clerk.backend_api.operations.CreatePhoneNumber;
 import com.clerk.backend_api.operations.DeletePhoneNumber;
 import com.clerk.backend_api.operations.GetPhoneNumber;
+import com.clerk.backend_api.operations.PreparePhoneNumberVerification;
+import com.clerk.backend_api.operations.ReplaceUserPhoneNumber;
 import com.clerk.backend_api.operations.UpdatePhoneNumber;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
@@ -211,6 +225,205 @@ public class PhoneNumbers {
                 .build();
         RequestOperation<UpdatePhoneNumberRequest, UpdatePhoneNumberResponse> operation
               = new UpdatePhoneNumber.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Send a verification code to a phone number
+     * 
+     * <p>Sends a one-time code to the given phone number so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @return The call builder
+     */
+    public PreparePhoneNumberVerificationRequestBuilder prepareVerification() {
+        return new PreparePhoneNumberVerificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Send a verification code to a phone number
+     * 
+     * <p>Sends a one-time code to the given phone number so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @param phoneNumberId The ID of the phone number to send the verification code to
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PreparePhoneNumberVerificationResponse prepareVerification(String phoneNumberId) {
+        return prepareVerification(phoneNumberId, Optional.empty());
+    }
+
+    /**
+     * Send a verification code to a phone number
+     * 
+     * <p>Sends a one-time code to the given phone number so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @param phoneNumberId The ID of the phone number to send the verification code to
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PreparePhoneNumberVerificationResponse prepareVerification(String phoneNumberId, Optional<Options> options) {
+        PreparePhoneNumberVerificationRequest request =
+            PreparePhoneNumberVerificationRequest
+                .builder()
+                .phoneNumberId(phoneNumberId)
+                .build();
+        RequestOperation<PreparePhoneNumberVerificationRequest, PreparePhoneNumberVerificationResponse> operation
+              = new PreparePhoneNumberVerification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Verify a code sent to a phone number
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the phone number is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified phone number is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @return The call builder
+     */
+    public AttemptPhoneNumberVerificationRequestBuilder attemptVerification() {
+        return new AttemptPhoneNumberVerificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Verify a code sent to a phone number
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the phone number is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified phone number is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @param phoneNumberId The ID of the phone number whose code is being verified
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AttemptPhoneNumberVerificationResponse attemptVerification(String phoneNumberId, AttemptPhoneNumberVerificationRequestBody requestBody) {
+        return attemptVerification(phoneNumberId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Verify a code sent to a phone number
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the phone number is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified phone number is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @param phoneNumberId The ID of the phone number whose code is being verified
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AttemptPhoneNumberVerificationResponse attemptVerification(
+            String phoneNumberId, AttemptPhoneNumberVerificationRequestBody requestBody,
+            Optional<Options> options) {
+        AttemptPhoneNumberVerificationRequest request =
+            AttemptPhoneNumberVerificationRequest
+                .builder()
+                .phoneNumberId(phoneNumberId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<AttemptPhoneNumberVerificationRequest, AttemptPhoneNumberVerificationResponse> operation
+              = new AttemptPhoneNumberVerification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Replace a user's phone number
+     * 
+     * <p>Replaces all of the user's phone numbers with a single primary phone number.
+     * By default the new phone number is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. The new phone number is never reserved for
+     * second factor. Any existing phone numbers are deleted; replacing a phone number that is reserved
+     * for second factor disables the user's MFA.
+     * 
+     * @return The call builder
+     */
+    public ReplaceUserPhoneNumberRequestBuilder replaceForUser() {
+        return new ReplaceUserPhoneNumberRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Replace a user's phone number
+     * 
+     * <p>Replaces all of the user's phone numbers with a single primary phone number.
+     * By default the new phone number is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. The new phone number is never reserved for
+     * second factor. Any existing phone numbers are deleted; replacing a phone number that is reserved
+     * for second factor disables the user's MFA.
+     * 
+     * @param userId The ID of the user whose phone number to replace
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserPhoneNumberResponse replaceForUser(String userId, ReplaceUserPhoneNumberRequestBody requestBody) {
+        return replaceForUser(userId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Replace a user's phone number
+     * 
+     * <p>Replaces all of the user's phone numbers with a single primary phone number.
+     * By default the new phone number is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. The new phone number is never reserved for
+     * second factor. Any existing phone numbers are deleted; replacing a phone number that is reserved
+     * for second factor disables the user's MFA.
+     * 
+     * @param userId The ID of the user whose phone number to replace
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserPhoneNumberResponse replaceForUser(
+            String userId, ReplaceUserPhoneNumberRequestBody requestBody,
+            Optional<Options> options) {
+        ReplaceUserPhoneNumberRequest request =
+            ReplaceUserPhoneNumberRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<ReplaceUserPhoneNumberRequest, ReplaceUserPhoneNumberResponse> operation
+              = new ReplaceUserPhoneNumber.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
