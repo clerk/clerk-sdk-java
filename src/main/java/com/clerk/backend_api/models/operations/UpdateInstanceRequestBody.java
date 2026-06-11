@@ -82,6 +82,16 @@ public class UpdateInstanceRequestBody {
     @JsonProperty("url_based_session_syncing")
     private JsonNullable<Boolean> urlBasedSessionSyncing;
 
+    /**
+     * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+     * Clerk components. Has no effect when password is not required. Defaults to `password`.
+     * 
+     * <p>Set to an empty string to clear the override.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("preferred_sign_in_strategy_when_password_required")
+    private JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired;
+
     @JsonCreator
     public UpdateInstanceRequestBody(
             @JsonProperty("test_mode") JsonNullable<Boolean> testMode,
@@ -91,7 +101,8 @@ public class UpdateInstanceRequestBody {
             @JsonProperty("development_origin") JsonNullable<String> developmentOrigin,
             @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
             @JsonProperty("cookieless_dev") JsonNullable<Boolean> cookielessDev,
-            @JsonProperty("url_based_session_syncing") JsonNullable<Boolean> urlBasedSessionSyncing) {
+            @JsonProperty("url_based_session_syncing") JsonNullable<Boolean> urlBasedSessionSyncing,
+            @JsonProperty("preferred_sign_in_strategy_when_password_required") JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired) {
         Utils.checkNotNull(testMode, "testMode");
         Utils.checkNotNull(hibp, "hibp");
         Utils.checkNotNull(supportEmail, "supportEmail");
@@ -100,6 +111,7 @@ public class UpdateInstanceRequestBody {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
         Utils.checkNotNull(cookielessDev, "cookielessDev");
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
+        Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
         this.testMode = testMode;
         this.hibp = hibp;
         this.supportEmail = supportEmail;
@@ -108,12 +120,13 @@ public class UpdateInstanceRequestBody {
         this.allowedOrigins = allowedOrigins;
         this.cookielessDev = cookielessDev;
         this.urlBasedSessionSyncing = urlBasedSessionSyncing;
+        this.preferredSignInStrategyWhenPasswordRequired = preferredSignInStrategyWhenPasswordRequired;
     }
     
     public UpdateInstanceRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -182,6 +195,18 @@ public class UpdateInstanceRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> urlBasedSessionSyncing() {
         return urlBasedSessionSyncing;
+    }
+
+    /**
+     * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+     * Clerk components. Has no effect when password is not required. Defaults to `password`.
+     * 
+     * <p>Set to an empty string to clear the override.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired() {
+        return (JsonNullable<PreferredSignInStrategyWhenPasswordRequired>) preferredSignInStrategyWhenPasswordRequired;
     }
 
     public static Builder builder() {
@@ -340,6 +365,30 @@ public class UpdateInstanceRequestBody {
         return this;
     }
 
+    /**
+     * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+     * Clerk components. Has no effect when password is not required. Defaults to `password`.
+     * 
+     * <p>Set to an empty string to clear the override.
+     */
+    public UpdateInstanceRequestBody withPreferredSignInStrategyWhenPasswordRequired(PreferredSignInStrategyWhenPasswordRequired preferredSignInStrategyWhenPasswordRequired) {
+        Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
+        this.preferredSignInStrategyWhenPasswordRequired = JsonNullable.of(preferredSignInStrategyWhenPasswordRequired);
+        return this;
+    }
+
+    /**
+     * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+     * Clerk components. Has no effect when password is not required. Defaults to `password`.
+     * 
+     * <p>Set to an empty string to clear the override.
+     */
+    public UpdateInstanceRequestBody withPreferredSignInStrategyWhenPasswordRequired(JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired) {
+        Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
+        this.preferredSignInStrategyWhenPasswordRequired = preferredSignInStrategyWhenPasswordRequired;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -357,7 +406,8 @@ public class UpdateInstanceRequestBody {
             Utils.enhancedDeepEquals(this.developmentOrigin, other.developmentOrigin) &&
             Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins) &&
             Utils.enhancedDeepEquals(this.cookielessDev, other.cookielessDev) &&
-            Utils.enhancedDeepEquals(this.urlBasedSessionSyncing, other.urlBasedSessionSyncing);
+            Utils.enhancedDeepEquals(this.urlBasedSessionSyncing, other.urlBasedSessionSyncing) &&
+            Utils.enhancedDeepEquals(this.preferredSignInStrategyWhenPasswordRequired, other.preferredSignInStrategyWhenPasswordRequired);
     }
     
     @Override
@@ -365,7 +415,7 @@ public class UpdateInstanceRequestBody {
         return Utils.enhancedHash(
             testMode, hibp, supportEmail,
             clerkJsVersion, developmentOrigin, allowedOrigins,
-            cookielessDev, urlBasedSessionSyncing);
+            cookielessDev, urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
     }
     
     @Override
@@ -378,7 +428,8 @@ public class UpdateInstanceRequestBody {
                 "developmentOrigin", developmentOrigin,
                 "allowedOrigins", allowedOrigins,
                 "cookielessDev", cookielessDev,
-                "urlBasedSessionSyncing", urlBasedSessionSyncing);
+                "urlBasedSessionSyncing", urlBasedSessionSyncing,
+                "preferredSignInStrategyWhenPasswordRequired", preferredSignInStrategyWhenPasswordRequired);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -400,6 +451,8 @@ public class UpdateInstanceRequestBody {
         private JsonNullable<Boolean> cookielessDev = JsonNullable.undefined();
 
         private JsonNullable<Boolean> urlBasedSessionSyncing = JsonNullable.undefined();
+
+        private JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -563,12 +616,37 @@ public class UpdateInstanceRequestBody {
             return this;
         }
 
+
+        /**
+         * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+         * Clerk components. Has no effect when password is not required. Defaults to `password`.
+         * 
+         * <p>Set to an empty string to clear the override.
+         */
+        public Builder preferredSignInStrategyWhenPasswordRequired(PreferredSignInStrategyWhenPasswordRequired preferredSignInStrategyWhenPasswordRequired) {
+            Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
+            this.preferredSignInStrategyWhenPasswordRequired = JsonNullable.of(preferredSignInStrategyWhenPasswordRequired);
+            return this;
+        }
+
+        /**
+         * When password is required at the instance level, sets the preferred sign-in strategy surfaced to
+         * Clerk components. Has no effect when password is not required. Defaults to `password`.
+         * 
+         * <p>Set to an empty string to clear the override.
+         */
+        public Builder preferredSignInStrategyWhenPasswordRequired(JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired) {
+            Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
+            this.preferredSignInStrategyWhenPasswordRequired = preferredSignInStrategyWhenPasswordRequired;
+            return this;
+        }
+
         public UpdateInstanceRequestBody build() {
 
             return new UpdateInstanceRequestBody(
                 testMode, hibp, supportEmail,
                 clerkJsVersion, developmentOrigin, allowedOrigins,
-                cookielessDev, urlBasedSessionSyncing);
+                cookielessDev, urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
         }
 
     }

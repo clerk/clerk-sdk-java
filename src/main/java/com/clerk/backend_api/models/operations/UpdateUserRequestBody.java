@@ -13,12 +13,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -160,10 +158,6 @@ public class UpdateUserRequestBody {
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
-     * Please note that currently the supported options are:
-     * * Period: 30 seconds
-     * * Code length: 6 digits
-     * * Algorithm: SHA1
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totp_secret")
@@ -172,33 +166,10 @@ public class UpdateUserRequestBody {
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
      * user without the need to reset them.
-     * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("backup_codes")
     private Optional<? extends List<String>> backupCodes;
-
-    /**
-     * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("public_metadata")
-    private JsonNullable<? extends Map<String, Object>> publicMetadata;
-
-    /**
-     * Metadata saved on the user, that is only visible to your Backend API
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("private_metadata")
-    private JsonNullable<? extends Map<String, Object>> privateMetadata;
-
-    /**
-     * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-     * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("unsafe_metadata")
-    private JsonNullable<? extends Map<String, Object>> unsafeMetadata;
 
     /**
      * If true, the user can delete themselves with the Frontend API.
@@ -215,8 +186,8 @@ public class UpdateUserRequestBody {
     private JsonNullable<Boolean> createOrganizationEnabled;
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-     * (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+     * format.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("legal_accepted_at")
@@ -224,7 +195,6 @@ public class UpdateUserRequestBody {
 
     /**
      * When set to `true` all legal checks are skipped.
-     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("skip_legal_checks")
@@ -238,8 +208,7 @@ public class UpdateUserRequestBody {
     private JsonNullable<Long> createOrganizationsLimit;
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-     * format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("created_at")
@@ -271,9 +240,6 @@ public class UpdateUserRequestBody {
             @JsonProperty("sign_out_of_other_sessions") JsonNullable<Boolean> signOutOfOtherSessions,
             @JsonProperty("totp_secret") JsonNullable<String> totpSecret,
             @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
-            @JsonProperty("public_metadata") JsonNullable<? extends Map<String, Object>> publicMetadata,
-            @JsonProperty("private_metadata") JsonNullable<? extends Map<String, Object>> privateMetadata,
-            @JsonProperty("unsafe_metadata") JsonNullable<? extends Map<String, Object>> unsafeMetadata,
             @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
             @JsonProperty("create_organization_enabled") JsonNullable<Boolean> createOrganizationEnabled,
             @JsonProperty("legal_accepted_at") JsonNullable<String> legalAcceptedAt,
@@ -298,9 +264,6 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
         Utils.checkNotNull(totpSecret, "totpSecret");
         Utils.checkNotNull(backupCodes, "backupCodes");
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
         Utils.checkNotNull(createOrganizationEnabled, "createOrganizationEnabled");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -325,9 +288,6 @@ public class UpdateUserRequestBody {
         this.signOutOfOtherSessions = signOutOfOtherSessions;
         this.totpSecret = totpSecret;
         this.backupCodes = backupCodes;
-        this.publicMetadata = publicMetadata;
-        this.privateMetadata = privateMetadata;
-        this.unsafeMetadata = unsafeMetadata;
         this.deleteSelfEnabled = deleteSelfEnabled;
         this.createOrganizationEnabled = createOrganizationEnabled;
         this.legalAcceptedAt = legalAcceptedAt;
@@ -344,7 +304,6 @@ public class UpdateUserRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
@@ -500,10 +459,6 @@ public class UpdateUserRequestBody {
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
-     * Please note that currently the supported options are:
-     * * Period: 30 seconds
-     * * Code length: 6 digits
-     * * Algorithm: SHA1
      */
     @JsonIgnore
     public JsonNullable<String> totpSecret() {
@@ -513,40 +468,11 @@ public class UpdateUserRequestBody {
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
      * user without the need to reset them.
-     * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<List<String>> backupCodes() {
         return (Optional<List<String>>) backupCodes;
-    }
-
-    /**
-     * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, Object>> publicMetadata() {
-        return (JsonNullable<Map<String, Object>>) publicMetadata;
-    }
-
-    /**
-     * Metadata saved on the user, that is only visible to your Backend API
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, Object>> privateMetadata() {
-        return (JsonNullable<Map<String, Object>>) privateMetadata;
-    }
-
-    /**
-     * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-     * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, Object>> unsafeMetadata() {
-        return (JsonNullable<Map<String, Object>>) unsafeMetadata;
     }
 
     /**
@@ -566,8 +492,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-     * (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+     * format.
      */
     @JsonIgnore
     public JsonNullable<String> legalAcceptedAt() {
@@ -576,7 +502,6 @@ public class UpdateUserRequestBody {
 
     /**
      * When set to `true` all legal checks are skipped.
-     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
      */
     @JsonIgnore
     public JsonNullable<Boolean> skipLegalChecks() {
@@ -592,8 +517,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-     * format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application.
      */
     @JsonIgnore
     public JsonNullable<String> createdAt() {
@@ -944,10 +868,6 @@ public class UpdateUserRequestBody {
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
-     * Please note that currently the supported options are:
-     * * Period: 30 seconds
-     * * Code length: 6 digits
-     * * Algorithm: SHA1
      */
     public UpdateUserRequestBody withTotpSecret(String totpSecret) {
         Utils.checkNotNull(totpSecret, "totpSecret");
@@ -958,10 +878,6 @@ public class UpdateUserRequestBody {
     /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
-     * Please note that currently the supported options are:
-     * * Period: 30 seconds
-     * * Code length: 6 digits
-     * * Algorithm: SHA1
      */
     public UpdateUserRequestBody withTotpSecret(JsonNullable<String> totpSecret) {
         Utils.checkNotNull(totpSecret, "totpSecret");
@@ -972,7 +888,6 @@ public class UpdateUserRequestBody {
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
      * user without the need to reset them.
-     * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public UpdateUserRequestBody withBackupCodes(List<String> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
@@ -984,67 +899,10 @@ public class UpdateUserRequestBody {
     /**
      * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
      * user without the need to reset them.
-     * You must provide the backup codes in plain format or the corresponding bcrypt digest.
      */
     public UpdateUserRequestBody withBackupCodes(Optional<? extends List<String>> backupCodes) {
         Utils.checkNotNull(backupCodes, "backupCodes");
         this.backupCodes = backupCodes;
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-     */
-    public UpdateUserRequestBody withPublicMetadata(Map<String, Object> publicMetadata) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        this.publicMetadata = JsonNullable.of(publicMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-     */
-    public UpdateUserRequestBody withPublicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
-        Utils.checkNotNull(publicMetadata, "publicMetadata");
-        this.publicMetadata = publicMetadata;
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that is only visible to your Backend API
-     */
-    public UpdateUserRequestBody withPrivateMetadata(Map<String, Object> privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = JsonNullable.of(privateMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that is only visible to your Backend API
-     */
-    public UpdateUserRequestBody withPrivateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
-        Utils.checkNotNull(privateMetadata, "privateMetadata");
-        this.privateMetadata = privateMetadata;
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-     * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-     */
-    public UpdateUserRequestBody withUnsafeMetadata(Map<String, Object> unsafeMetadata) {
-        Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
-        this.unsafeMetadata = JsonNullable.of(unsafeMetadata);
-        return this;
-    }
-
-    /**
-     * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-     * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-     */
-    public UpdateUserRequestBody withUnsafeMetadata(JsonNullable<? extends Map<String, Object>> unsafeMetadata) {
-        Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
-        this.unsafeMetadata = unsafeMetadata;
         return this;
     }
 
@@ -1085,8 +943,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-     * (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+     * format.
      */
     public UpdateUserRequestBody withLegalAcceptedAt(String legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1095,8 +953,8 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-     * (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+     * format.
      */
     public UpdateUserRequestBody withLegalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1106,7 +964,6 @@ public class UpdateUserRequestBody {
 
     /**
      * When set to `true` all legal checks are skipped.
-     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
      */
     public UpdateUserRequestBody withSkipLegalChecks(boolean skipLegalChecks) {
         Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
@@ -1116,7 +973,6 @@ public class UpdateUserRequestBody {
 
     /**
      * When set to `true` all legal checks are skipped.
-     * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
      */
     public UpdateUserRequestBody withSkipLegalChecks(JsonNullable<Boolean> skipLegalChecks) {
         Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
@@ -1143,8 +999,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-     * format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application.
      */
     public UpdateUserRequestBody withCreatedAt(String createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -1153,8 +1008,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-     * format (e.g. `2012-10-20T07:15:20.902Z`).
+     * A custom date/time denoting _when_ the user signed up to the application.
      */
     public UpdateUserRequestBody withCreatedAt(JsonNullable<String> createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -1207,9 +1061,6 @@ public class UpdateUserRequestBody {
             Utils.enhancedDeepEquals(this.signOutOfOtherSessions, other.signOutOfOtherSessions) &&
             Utils.enhancedDeepEquals(this.totpSecret, other.totpSecret) &&
             Utils.enhancedDeepEquals(this.backupCodes, other.backupCodes) &&
-            Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
-            Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
-            Utils.enhancedDeepEquals(this.unsafeMetadata, other.unsafeMetadata) &&
             Utils.enhancedDeepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
             Utils.enhancedDeepEquals(this.createOrganizationEnabled, other.createOrganizationEnabled) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
@@ -1227,8 +1078,7 @@ public class UpdateUserRequestBody {
             primaryPhoneNumberId, primaryWeb3WalletId, username,
             profileImageId, password, passwordDigest,
             passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-            totpSecret, backupCodes, publicMetadata,
-            privateMetadata, unsafeMetadata, deleteSelfEnabled,
+            totpSecret, backupCodes, deleteSelfEnabled,
             createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
             createOrganizationsLimit, createdAt, bypassClientTrust);
     }
@@ -1253,9 +1103,6 @@ public class UpdateUserRequestBody {
                 "signOutOfOtherSessions", signOutOfOtherSessions,
                 "totpSecret", totpSecret,
                 "backupCodes", backupCodes,
-                "publicMetadata", publicMetadata,
-                "privateMetadata", privateMetadata,
-                "unsafeMetadata", unsafeMetadata,
                 "deleteSelfEnabled", deleteSelfEnabled,
                 "createOrganizationEnabled", createOrganizationEnabled,
                 "legalAcceptedAt", legalAcceptedAt,
@@ -1301,12 +1148,6 @@ public class UpdateUserRequestBody {
         private JsonNullable<String> totpSecret = JsonNullable.undefined();
 
         private Optional<? extends List<String>> backupCodes = Optional.empty();
-
-        private JsonNullable<? extends Map<String, Object>> publicMetadata = JsonNullable.undefined();
-
-        private JsonNullable<? extends Map<String, Object>> privateMetadata = JsonNullable.undefined();
-
-        private JsonNullable<? extends Map<String, Object>> unsafeMetadata = JsonNullable.undefined();
 
         private JsonNullable<Boolean> deleteSelfEnabled = JsonNullable.undefined();
 
@@ -1671,10 +1512,6 @@ public class UpdateUserRequestBody {
         /**
          * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
          * user without the need to reset it.
-         * Please note that currently the supported options are:
-         * * Period: 30 seconds
-         * * Code length: 6 digits
-         * * Algorithm: SHA1
          */
         public Builder totpSecret(String totpSecret) {
             Utils.checkNotNull(totpSecret, "totpSecret");
@@ -1685,10 +1522,6 @@ public class UpdateUserRequestBody {
         /**
          * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
          * user without the need to reset it.
-         * Please note that currently the supported options are:
-         * * Period: 30 seconds
-         * * Code length: 6 digits
-         * * Algorithm: SHA1
          */
         public Builder totpSecret(JsonNullable<String> totpSecret) {
             Utils.checkNotNull(totpSecret, "totpSecret");
@@ -1700,7 +1533,6 @@ public class UpdateUserRequestBody {
         /**
          * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
          * user without the need to reset them.
-         * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(List<String> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
@@ -1711,70 +1543,10 @@ public class UpdateUserRequestBody {
         /**
          * If Backup Codes are configured on the instance, you can provide them to enable it on the specific
          * user without the need to reset them.
-         * You must provide the backup codes in plain format or the corresponding bcrypt digest.
          */
         public Builder backupCodes(Optional<? extends List<String>> backupCodes) {
             Utils.checkNotNull(backupCodes, "backupCodes");
             this.backupCodes = backupCodes;
-            return this;
-        }
-
-
-        /**
-         * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-         */
-        public Builder publicMetadata(Map<String, Object> publicMetadata) {
-            Utils.checkNotNull(publicMetadata, "publicMetadata");
-            this.publicMetadata = JsonNullable.of(publicMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the user, that is visible to both your Frontend and Backend APIs
-         */
-        public Builder publicMetadata(JsonNullable<? extends Map<String, Object>> publicMetadata) {
-            Utils.checkNotNull(publicMetadata, "publicMetadata");
-            this.publicMetadata = publicMetadata;
-            return this;
-        }
-
-
-        /**
-         * Metadata saved on the user, that is only visible to your Backend API
-         */
-        public Builder privateMetadata(Map<String, Object> privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = JsonNullable.of(privateMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the user, that is only visible to your Backend API
-         */
-        public Builder privateMetadata(JsonNullable<? extends Map<String, Object>> privateMetadata) {
-            Utils.checkNotNull(privateMetadata, "privateMetadata");
-            this.privateMetadata = privateMetadata;
-            return this;
-        }
-
-
-        /**
-         * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-         * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-         */
-        public Builder unsafeMetadata(Map<String, Object> unsafeMetadata) {
-            Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
-            this.unsafeMetadata = JsonNullable.of(unsafeMetadata);
-            return this;
-        }
-
-        /**
-         * Metadata saved on the user, that can be updated from both the Frontend and Backend APIs.
-         * Note: Since this data can be modified from the frontend, it is not guaranteed to be safe.
-         */
-        public Builder unsafeMetadata(JsonNullable<? extends Map<String, Object>> unsafeMetadata) {
-            Utils.checkNotNull(unsafeMetadata, "unsafeMetadata");
-            this.unsafeMetadata = unsafeMetadata;
             return this;
         }
 
@@ -1818,8 +1590,8 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-         * (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+         * format.
          */
         public Builder legalAcceptedAt(String legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1828,8 +1600,8 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339 format
-         * (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom timestamp denoting _when_ the user accepted legal requirements, specified in RFC3339
+         * format.
          */
         public Builder legalAcceptedAt(JsonNullable<String> legalAcceptedAt) {
             Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
@@ -1840,7 +1612,6 @@ public class UpdateUserRequestBody {
 
         /**
          * When set to `true` all legal checks are skipped.
-         * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
          */
         public Builder skipLegalChecks(boolean skipLegalChecks) {
             Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
@@ -1850,7 +1621,6 @@ public class UpdateUserRequestBody {
 
         /**
          * When set to `true` all legal checks are skipped.
-         * It is not recommended to skip legal checks unless you are migrating a user to Clerk.
          */
         public Builder skipLegalChecks(JsonNullable<Boolean> skipLegalChecks) {
             Utils.checkNotNull(skipLegalChecks, "skipLegalChecks");
@@ -1879,8 +1649,7 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-         * format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application.
          */
         public Builder createdAt(String createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1889,8 +1658,7 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * A custom date/time denoting _when_ the user signed up to the application, specified in RFC3339
-         * format (e.g. `2012-10-20T07:15:20.902Z`).
+         * A custom date/time denoting _when_ the user signed up to the application.
          */
         public Builder createdAt(JsonNullable<String> createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -1928,8 +1696,7 @@ public class UpdateUserRequestBody {
                 primaryPhoneNumberId, primaryWeb3WalletId, username,
                 profileImageId, password, passwordDigest,
                 passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-                totpSecret, backupCodes, publicMetadata,
-                privateMetadata, unsafeMetadata, deleteSelfEnabled,
+                totpSecret, backupCodes, deleteSelfEnabled,
                 createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
                 createOrganizationsLimit, createdAt, bypassClientTrust);
         }

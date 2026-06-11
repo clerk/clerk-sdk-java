@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -53,29 +54,39 @@ public class CreateBillingPriceRequest {
     @JsonProperty("description")
     private Optional<String> description;
 
+    /**
+     * Which billing periods this price supports. Inferred from amounts if omitted.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("supported_billing_periods")
+    private Optional<? extends CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods;
+
     @JsonCreator
     public CreateBillingPriceRequest(
             @JsonProperty("plan_id") String planId,
             @JsonProperty("currency") Optional<String> currency,
             @JsonProperty("amount") Optional<Long> amount,
             @JsonProperty("annual_monthly_amount") JsonNullable<Long> annualMonthlyAmount,
-            @JsonProperty("description") Optional<String> description) {
+            @JsonProperty("description") Optional<String> description,
+            @JsonProperty("supported_billing_periods") Optional<? extends CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods) {
         Utils.checkNotNull(planId, "planId");
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
         Utils.checkNotNull(description, "description");
+        Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
         this.planId = planId;
         this.currency = currency;
         this.amount = amount;
         this.annualMonthlyAmount = annualMonthlyAmount;
         this.description = description;
+        this.supportedBillingPeriods = supportedBillingPeriods;
     }
     
     public CreateBillingPriceRequest(
             String planId) {
         this(planId, Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), Optional.empty());
+            JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -116,6 +127,15 @@ public class CreateBillingPriceRequest {
     @JsonIgnore
     public Optional<String> description() {
         return description;
+    }
+
+    /**
+     * Which billing periods this price supports. Inferred from amounts if omitted.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods() {
+        return (Optional<CreateBillingPriceRequestSupportedBillingPeriods>) supportedBillingPeriods;
     }
 
     public static Builder builder() {
@@ -207,6 +227,25 @@ public class CreateBillingPriceRequest {
         return this;
     }
 
+    /**
+     * Which billing periods this price supports. Inferred from amounts if omitted.
+     */
+    public CreateBillingPriceRequest withSupportedBillingPeriods(CreateBillingPriceRequestSupportedBillingPeriods supportedBillingPeriods) {
+        Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+        this.supportedBillingPeriods = Optional.ofNullable(supportedBillingPeriods);
+        return this;
+    }
+
+
+    /**
+     * Which billing periods this price supports. Inferred from amounts if omitted.
+     */
+    public CreateBillingPriceRequest withSupportedBillingPeriods(Optional<? extends CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods) {
+        Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+        this.supportedBillingPeriods = supportedBillingPeriods;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -221,14 +260,15 @@ public class CreateBillingPriceRequest {
             Utils.enhancedDeepEquals(this.currency, other.currency) &&
             Utils.enhancedDeepEquals(this.amount, other.amount) &&
             Utils.enhancedDeepEquals(this.annualMonthlyAmount, other.annualMonthlyAmount) &&
-            Utils.enhancedDeepEquals(this.description, other.description);
+            Utils.enhancedDeepEquals(this.description, other.description) &&
+            Utils.enhancedDeepEquals(this.supportedBillingPeriods, other.supportedBillingPeriods);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             planId, currency, amount,
-            annualMonthlyAmount, description);
+            annualMonthlyAmount, description, supportedBillingPeriods);
     }
     
     @Override
@@ -238,7 +278,8 @@ public class CreateBillingPriceRequest {
                 "currency", currency,
                 "amount", amount,
                 "annualMonthlyAmount", annualMonthlyAmount,
-                "description", description);
+                "description", description,
+                "supportedBillingPeriods", supportedBillingPeriods);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -253,6 +294,8 @@ public class CreateBillingPriceRequest {
         private JsonNullable<Long> annualMonthlyAmount = JsonNullable.undefined();
 
         private Optional<String> description = Optional.empty();
+
+        private Optional<? extends CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -344,6 +387,25 @@ public class CreateBillingPriceRequest {
             return this;
         }
 
+
+        /**
+         * Which billing periods this price supports. Inferred from amounts if omitted.
+         */
+        public Builder supportedBillingPeriods(CreateBillingPriceRequestSupportedBillingPeriods supportedBillingPeriods) {
+            Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+            this.supportedBillingPeriods = Optional.ofNullable(supportedBillingPeriods);
+            return this;
+        }
+
+        /**
+         * Which billing periods this price supports. Inferred from amounts if omitted.
+         */
+        public Builder supportedBillingPeriods(Optional<? extends CreateBillingPriceRequestSupportedBillingPeriods> supportedBillingPeriods) {
+            Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+            this.supportedBillingPeriods = supportedBillingPeriods;
+            return this;
+        }
+
         public CreateBillingPriceRequest build() {
             if (currency == null) {
                 currency = _SINGLETON_VALUE_Currency.value();
@@ -351,7 +413,7 @@ public class CreateBillingPriceRequest {
 
             return new CreateBillingPriceRequest(
                 planId, currency, amount,
-                annualMonthlyAmount, description);
+                annualMonthlyAmount, description, supportedBillingPeriods);
         }
 
 

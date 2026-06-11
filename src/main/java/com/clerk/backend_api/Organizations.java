@@ -34,6 +34,10 @@ import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequest;
 import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBody;
 import com.clerk.backend_api.models.operations.MergeOrganizationMetadataRequestBuilder;
 import com.clerk.backend_api.models.operations.MergeOrganizationMetadataResponse;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataRequest;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataRequestBody;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataRequestBuilder;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataResponse;
 import com.clerk.backend_api.models.operations.UpdateOrganizationRequest;
 import com.clerk.backend_api.models.operations.UpdateOrganizationRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationRequestBuilder;
@@ -51,6 +55,7 @@ import com.clerk.backend_api.operations.GetOrganizationBillingCreditBalance;
 import com.clerk.backend_api.operations.GetOrganizationBillingSubscription;
 import com.clerk.backend_api.operations.ListOrganizations;
 import com.clerk.backend_api.operations.MergeOrganizationMetadata;
+import com.clerk.backend_api.operations.ReplaceOrganizationMetadata;
 import com.clerk.backend_api.operations.UpdateOrganization;
 import com.clerk.backend_api.operations.UploadOrganizationLogo;
 import com.clerk.backend_api.utils.Headers;
@@ -247,7 +252,12 @@ public class Organizations {
     /**
      * Update an organization
      * 
-     * <p>Updates an existing organization
+     * <p>Updates an existing organization.
+     * 
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata` or
+     * `private_metadata`.
+     * Use `PATCH /v1/organizations/{organization_id}/metadata` to merge updates into existing metadata, or
+     * `PUT /v1/organizations/{organization_id}/metadata` to replace a metadata field entirely.
      * 
      * @return The call builder
      */
@@ -258,7 +268,12 @@ public class Organizations {
     /**
      * Update an organization
      * 
-     * <p>Updates an existing organization
+     * <p>Updates an existing organization.
+     * 
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata` or
+     * `private_metadata`.
+     * Use `PATCH /v1/organizations/{organization_id}/metadata` to merge updates into existing metadata, or
+     * `PUT /v1/organizations/{organization_id}/metadata` to replace a metadata field entirely.
      * 
      * @param organizationId The ID of the organization to update
      * @param requestBody 
@@ -272,7 +287,12 @@ public class Organizations {
     /**
      * Update an organization
      * 
-     * <p>Updates an existing organization
+     * <p>Updates an existing organization.
+     * 
+     * <p>As of API version 2026-05-12, this endpoint no longer accepts `public_metadata` or
+     * `private_metadata`.
+     * Use `PATCH /v1/organizations/{organization_id}/metadata` to merge updates into existing metadata, or
+     * `PUT /v1/organizations/{organization_id}/metadata` to replace a metadata field entirely.
      * 
      * @param organizationId The ID of the organization to update
      * @param requestBody 
@@ -410,6 +430,71 @@ public class Organizations {
                 .build();
         RequestOperation<MergeOrganizationMetadataRequest, MergeOrganizationMetadataResponse> operation
               = new MergeOrganizationMetadata.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Replace metadata for an organization
+     * 
+     * <p>Replace an organization's metadata attributes with the provided values.
+     * Unlike `PATCH /v1/organizations/{organization_id}/metadata` (merge semantics), this
+     * endpoint replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are left unchanged.
+     * Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you explicitly
+     * intend to overwrite a metadata field wholesale.
+     * 
+     * @return The call builder
+     */
+    public ReplaceOrganizationMetadataRequestBuilder replaceMetadata() {
+        return new ReplaceOrganizationMetadataRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Replace metadata for an organization
+     * 
+     * <p>Replace an organization's metadata attributes with the provided values.
+     * Unlike `PATCH /v1/organizations/{organization_id}/metadata` (merge semantics), this
+     * endpoint replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are left unchanged.
+     * Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you explicitly
+     * intend to overwrite a metadata field wholesale.
+     * 
+     * @param organizationId The ID of the organization whose metadata will be replaced
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceOrganizationMetadataResponse replaceMetadata(String organizationId, ReplaceOrganizationMetadataRequestBody requestBody) {
+        return replaceMetadata(organizationId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Replace metadata for an organization
+     * 
+     * <p>Replace an organization's metadata attributes with the provided values.
+     * Unlike `PATCH /v1/organizations/{organization_id}/metadata` (merge semantics), this
+     * endpoint replaces the supplied metadata fields entirely — the prior contents of each
+     * supplied field are discarded. Fields omitted from the request body are left unchanged.
+     * Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you explicitly
+     * intend to overwrite a metadata field wholesale.
+     * 
+     * @param organizationId The ID of the organization whose metadata will be replaced
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceOrganizationMetadataResponse replaceMetadata(
+            String organizationId, ReplaceOrganizationMetadataRequestBody requestBody,
+            Optional<Options> options) {
+        ReplaceOrganizationMetadataRequest request =
+            ReplaceOrganizationMetadataRequest
+                .builder()
+                .organizationId(organizationId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<ReplaceOrganizationMetadataRequest, ReplaceOrganizationMetadataResponse> operation
+              = new ReplaceOrganizationMetadata.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

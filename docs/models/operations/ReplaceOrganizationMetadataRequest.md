@@ -1,0 +1,9 @@
+# ReplaceOrganizationMetadataRequest
+
+
+## Fields
+
+| Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                            | *String*                                                                                                    | :heavy_check_mark:                                                                                          | The ID of the organization whose metadata will be replaced                                                  |
+| `requestBody`                                                                                               | [ReplaceOrganizationMetadataRequestBody](../../models/operations/ReplaceOrganizationMetadataRequestBody.md) | :heavy_check_mark:                                                                                          | N/A                                                                                                         |

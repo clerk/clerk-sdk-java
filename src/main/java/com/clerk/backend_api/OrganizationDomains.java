@@ -22,11 +22,15 @@ import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequest;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequestBody;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateOrganizationDomainResponse;
+import com.clerk.backend_api.models.operations.VerifyOrganizationDomainOwnershipRequest;
+import com.clerk.backend_api.models.operations.VerifyOrganizationDomainOwnershipRequestBuilder;
+import com.clerk.backend_api.models.operations.VerifyOrganizationDomainOwnershipResponse;
 import com.clerk.backend_api.operations.CreateOrganizationDomain;
 import com.clerk.backend_api.operations.DeleteOrganizationDomain;
 import com.clerk.backend_api.operations.ListAllOrganizationDomains;
 import com.clerk.backend_api.operations.ListOrganizationDomains;
 import com.clerk.backend_api.operations.UpdateOrganizationDomain;
+import com.clerk.backend_api.operations.VerifyOrganizationDomainOwnership;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.String;
@@ -237,6 +241,77 @@ public class OrganizationDomains {
                 .build();
         RequestOperation<DeleteOrganizationDomainRequest, DeleteOrganizationDomainResponse> operation
               = new DeleteOrganizationDomain.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Mark an organization domain's ownership as verified
+     * 
+     * <p>Flips the organization domain's ownership state to verified via the
+     * manual override path, bypassing the self-serve TXT DNS challenge. The
+     * domain row records strategy=`manual_override` and an
+     * `organization_domain.ownership_verified` audit event is emitted with the
+     * same strategy.
+     * 
+     * <p>Idempotent: re-calling on an already-verified domain returns the current
+     * ownership state without re-emitting the audit event.
+     * 
+     * @return The call builder
+     */
+    public VerifyOrganizationDomainOwnershipRequestBuilder verifyOwnership() {
+        return new VerifyOrganizationDomainOwnershipRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Mark an organization domain's ownership as verified
+     * 
+     * <p>Flips the organization domain's ownership state to verified via the
+     * manual override path, bypassing the self-serve TXT DNS challenge. The
+     * domain row records strategy=`manual_override` and an
+     * `organization_domain.ownership_verified` audit event is emitted with the
+     * same strategy.
+     * 
+     * <p>Idempotent: re-calling on an already-verified domain returns the current
+     * ownership state without re-emitting the audit event.
+     * 
+     * @param organizationId The ID of the organization to which the domain belongs
+     * @param domainId The ID of the domain
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public VerifyOrganizationDomainOwnershipResponse verifyOwnership(String organizationId, String domainId) {
+        return verifyOwnership(organizationId, domainId, Optional.empty());
+    }
+
+    /**
+     * Mark an organization domain's ownership as verified
+     * 
+     * <p>Flips the organization domain's ownership state to verified via the
+     * manual override path, bypassing the self-serve TXT DNS challenge. The
+     * domain row records strategy=`manual_override` and an
+     * `organization_domain.ownership_verified` audit event is emitted with the
+     * same strategy.
+     * 
+     * <p>Idempotent: re-calling on an already-verified domain returns the current
+     * ownership state without re-emitting the audit event.
+     * 
+     * @param organizationId The ID of the organization to which the domain belongs
+     * @param domainId The ID of the domain
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public VerifyOrganizationDomainOwnershipResponse verifyOwnership(
+            String organizationId, String domainId,
+            Optional<Options> options) {
+        VerifyOrganizationDomainOwnershipRequest request =
+            VerifyOrganizationDomainOwnershipRequest
+                .builder()
+                .organizationId(organizationId)
+                .domainId(domainId)
+                .build();
+        RequestOperation<VerifyOrganizationDomainOwnershipRequest, VerifyOrganizationDomainOwnershipResponse> operation
+              = new VerifyOrganizationDomainOwnership.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

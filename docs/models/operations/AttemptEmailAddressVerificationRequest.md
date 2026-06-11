@@ -1,0 +1,9 @@
+# AttemptEmailAddressVerificationRequest
+
+
+## Fields
+
+| Field                                                                                                               | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `emailAddressId`                                                                                                    | *String*                                                                                                            | :heavy_check_mark:                                                                                                  | The ID of the email address whose code is being verified                                                            |
+| `requestBody`                                                                                                       | [AttemptEmailAddressVerificationRequestBody](../../models/operations/AttemptEmailAddressVerificationRequestBody.md) | :heavy_check_mark:                                                                                                  | N/A                                                                                                                 |

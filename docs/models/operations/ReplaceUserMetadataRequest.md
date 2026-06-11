@@ -1,0 +1,9 @@
+# ReplaceUserMetadataRequest
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `userId`                                                                                               | *String*                                                                                               | :heavy_check_mark:                                                                                     | The ID of the user whose metadata will be replaced                                                     |
+| `requestBody`                                                                                          | [Optional\<ReplaceUserMetadataRequestBody>](../../models/operations/ReplaceUserMetadataRequestBody.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |

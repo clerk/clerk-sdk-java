@@ -16,7 +16,6 @@ plugins {
     id 'signing'
     // V2 publishing plugin (Sonatype Central Portal)
     id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
-    id "io.spring.dependency-management" version "1.1.6" apply false
 }
 
 compileJava.options.encoding = "UTF-8"
@@ -82,47 +81,6 @@ dependencies {
     api('org.openapitools:jackson-databind-nullable:0.2.6') {exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'}
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
-}
-
-ext {
-    springBootVersion = '2.7.18'
-}
-
-subprojects {
-    if (name in [
-            'backend-api-spring-boot-autoconfigure',
-            'backend-api-spring-boot-starter'
-    ]) {
-        // Ensure subprojects use the same group and version as root project
-        group = rootProject.group
-        version = rootProject.version
-
-        apply {
-            plugin "java-library"
-            plugin "io.spring.dependency-management"
-            plugin "maven-publish"
-            plugin "signing"
-            plugin "cl.franciscosolis.sonatype-central-upload"
-        }
-        dependencyManagement {
-            imports {
-                mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.springBootVersion}"
-            }
-        }
-        repositories {
-            mavenCentral()
-        }
-        java {
-            withSourcesJar()
-            withJavadocJar()
-        }
-        tasks.withType(JavaCompile).configureEach {
-            options.release = 11
-        }
-
-        // Apply publishing configuration to all subprojects - they'll check for publishingConfig internally
-        apply from: rootProject.file('publishing.gradle')
-    }
 }
 
 ext {

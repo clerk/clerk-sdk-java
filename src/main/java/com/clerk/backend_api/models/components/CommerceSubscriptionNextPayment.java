@@ -6,10 +6,16 @@ package com.clerk.backend_api.models.components;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CommerceSubscriptionNextPayment {
@@ -23,14 +29,42 @@ public class CommerceSubscriptionNextPayment {
     @JsonProperty("amount")
     private CommerceMoneyResponse amount;
 
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("per_unit_totals")
+    private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals;
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("totals")
+    private JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals;
+
     @JsonCreator
     public CommerceSubscriptionNextPayment(
             @JsonProperty("date") long date,
-            @JsonProperty("amount") CommerceMoneyResponse amount) {
+            @JsonProperty("amount") CommerceMoneyResponse amount,
+            @JsonProperty("per_unit_totals") Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals,
+            @JsonProperty("totals") JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals) {
         Utils.checkNotNull(date, "date");
         Utils.checkNotNull(amount, "amount");
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        Utils.checkNotNull(totals, "totals");
         this.date = date;
         this.amount = amount;
+        this.perUnitTotals = perUnitTotals;
+        this.totals = totals;
+    }
+    
+    public CommerceSubscriptionNextPayment(
+            long date,
+            CommerceMoneyResponse amount) {
+        this(date, amount, Optional.empty(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -44,6 +78,25 @@ public class CommerceSubscriptionNextPayment {
     @JsonIgnore
     public CommerceMoneyResponse amount() {
         return amount;
+    }
+
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<SchemasCommercePerUnitTotal>> perUnitTotals() {
+        return (Optional<List<SchemasCommercePerUnitTotal>>) perUnitTotals;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<CommerceSubscriptionNextPaymentTotals> totals() {
+        return (JsonNullable<CommerceSubscriptionNextPaymentTotals>) totals;
     }
 
     public static Builder builder() {
@@ -66,6 +119,45 @@ public class CommerceSubscriptionNextPayment {
         return this;
     }
 
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    public CommerceSubscriptionNextPayment withPerUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        this.perUnitTotals = Optional.ofNullable(perUnitTotals);
+        return this;
+    }
+
+
+    /**
+     * Per-unit total breakdown (for example, seats) for the next payment.
+     */
+    public CommerceSubscriptionNextPayment withPerUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+        Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+        this.perUnitTotals = perUnitTotals;
+        return this;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    public CommerceSubscriptionNextPayment withTotals(CommerceSubscriptionNextPaymentTotals totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = JsonNullable.of(totals);
+        return this;
+    }
+
+    /**
+     * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+     * and credits are not previewed.
+     */
+    public CommerceSubscriptionNextPayment withTotals(JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals) {
+        Utils.checkNotNull(totals, "totals");
+        this.totals = totals;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -77,20 +169,25 @@ public class CommerceSubscriptionNextPayment {
         CommerceSubscriptionNextPayment other = (CommerceSubscriptionNextPayment) o;
         return 
             Utils.enhancedDeepEquals(this.date, other.date) &&
-            Utils.enhancedDeepEquals(this.amount, other.amount);
+            Utils.enhancedDeepEquals(this.amount, other.amount) &&
+            Utils.enhancedDeepEquals(this.perUnitTotals, other.perUnitTotals) &&
+            Utils.enhancedDeepEquals(this.totals, other.totals);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            date, amount);
+            date, amount, perUnitTotals,
+            totals);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CommerceSubscriptionNextPayment.class,
                 "date", date,
-                "amount", amount);
+                "amount", amount,
+                "perUnitTotals", perUnitTotals,
+                "totals", totals);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -99,6 +196,10 @@ public class CommerceSubscriptionNextPayment {
         private Long date;
 
         private CommerceMoneyResponse amount;
+
+        private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals = Optional.empty();
+
+        private JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -121,10 +222,51 @@ public class CommerceSubscriptionNextPayment {
             return this;
         }
 
+
+        /**
+         * Per-unit total breakdown (for example, seats) for the next payment.
+         */
+        public Builder perUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+            Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+            this.perUnitTotals = Optional.ofNullable(perUnitTotals);
+            return this;
+        }
+
+        /**
+         * Per-unit total breakdown (for example, seats) for the next payment.
+         */
+        public Builder perUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+            Utils.checkNotNull(perUnitTotals, "perUnitTotals");
+            this.perUnitTotals = perUnitTotals;
+            return this;
+        }
+
+
+        /**
+         * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+         * and credits are not previewed.
+         */
+        public Builder totals(CommerceSubscriptionNextPaymentTotals totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = JsonNullable.of(totals);
+            return this;
+        }
+
+        /**
+         * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
+         * and credits are not previewed.
+         */
+        public Builder totals(JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals) {
+            Utils.checkNotNull(totals, "totals");
+            this.totals = totals;
+            return this;
+        }
+
         public CommerceSubscriptionNextPayment build() {
 
             return new CommerceSubscriptionNextPayment(
-                date, amount);
+                date, amount, perUnitTotals,
+                totals);
         }
 
     }

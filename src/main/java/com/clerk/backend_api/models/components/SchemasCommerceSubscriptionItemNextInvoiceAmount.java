@@ -14,7 +14,8 @@ import java.lang.String;
 /**
  * SchemasCommerceSubscriptionItemNextInvoiceAmount
  * 
- * <p>Amount for the next payment.
+ * <p>Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
+ * `totals.grand_total` for the full amount.
  */
 public class SchemasCommerceSubscriptionItemNextInvoiceAmount {
     /**

@@ -96,6 +96,12 @@ public class BillingPriceResponse {
     @JsonProperty("created_at")
     private long createdAt;
 
+    /**
+     * Which billing periods this price supports.
+     */
+    @JsonProperty("supported_billing_periods")
+    private SupportedBillingPeriods supportedBillingPeriods;
+
     @JsonCreator
     public BillingPriceResponse(
             @JsonProperty("object") BillingPriceResponseObject object,
@@ -110,7 +116,8 @@ public class BillingPriceResponse {
             @JsonProperty("annual_monthly_fee") Optional<? extends BillingPriceResponseAnnualMonthlyFee> annualMonthlyFee,
             @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("is_default") boolean isDefault,
-            @JsonProperty("created_at") long createdAt) {
+            @JsonProperty("created_at") long createdAt,
+            @JsonProperty("supported_billing_periods") SupportedBillingPeriods supportedBillingPeriods) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(planId, "planId");
@@ -124,6 +131,7 @@ public class BillingPriceResponse {
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(isDefault, "isDefault");
         Utils.checkNotNull(createdAt, "createdAt");
+        Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
         this.object = object;
         this.id = id;
         this.planId = planId;
@@ -137,6 +145,7 @@ public class BillingPriceResponse {
         this.description = description;
         this.isDefault = isDefault;
         this.createdAt = createdAt;
+        this.supportedBillingPeriods = supportedBillingPeriods;
     }
     
     public BillingPriceResponse(
@@ -149,12 +158,13 @@ public class BillingPriceResponse {
             long amount,
             long annualMonthlyAmount,
             boolean isDefault,
-            long createdAt) {
+            long createdAt,
+            SupportedBillingPeriods supportedBillingPeriods) {
         this(object, id, planId,
             instanceId, currency, currencySymbol,
             amount, annualMonthlyAmount, Optional.empty(),
             Optional.empty(), JsonNullable.undefined(), isDefault,
-            createdAt);
+            createdAt, supportedBillingPeriods);
     }
 
     /**
@@ -255,6 +265,14 @@ public class BillingPriceResponse {
     @JsonIgnore
     public long createdAt() {
         return createdAt;
+    }
+
+    /**
+     * Which billing periods this price supports.
+     */
+    @JsonIgnore
+    public SupportedBillingPeriods supportedBillingPeriods() {
+        return supportedBillingPeriods;
     }
 
     public static Builder builder() {
@@ -396,6 +414,15 @@ public class BillingPriceResponse {
         return this;
     }
 
+    /**
+     * Which billing periods this price supports.
+     */
+    public BillingPriceResponse withSupportedBillingPeriods(SupportedBillingPeriods supportedBillingPeriods) {
+        Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+        this.supportedBillingPeriods = supportedBillingPeriods;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -418,7 +445,8 @@ public class BillingPriceResponse {
             Utils.enhancedDeepEquals(this.annualMonthlyFee, other.annualMonthlyFee) &&
             Utils.enhancedDeepEquals(this.description, other.description) &&
             Utils.enhancedDeepEquals(this.isDefault, other.isDefault) &&
-            Utils.enhancedDeepEquals(this.createdAt, other.createdAt);
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.supportedBillingPeriods, other.supportedBillingPeriods);
     }
     
     @Override
@@ -428,7 +456,7 @@ public class BillingPriceResponse {
             instanceId, currency, currencySymbol,
             amount, annualMonthlyAmount, fee,
             annualMonthlyFee, description, isDefault,
-            createdAt);
+            createdAt, supportedBillingPeriods);
     }
     
     @Override
@@ -446,7 +474,8 @@ public class BillingPriceResponse {
                 "annualMonthlyFee", annualMonthlyFee,
                 "description", description,
                 "isDefault", isDefault,
-                "createdAt", createdAt);
+                "createdAt", createdAt,
+                "supportedBillingPeriods", supportedBillingPeriods);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -477,6 +506,8 @@ public class BillingPriceResponse {
         private Boolean isDefault;
 
         private Long createdAt;
+
+        private SupportedBillingPeriods supportedBillingPeriods;
 
         private Builder() {
           // force use of static builder() method
@@ -627,6 +658,16 @@ public class BillingPriceResponse {
             return this;
         }
 
+
+        /**
+         * Which billing periods this price supports.
+         */
+        public Builder supportedBillingPeriods(SupportedBillingPeriods supportedBillingPeriods) {
+            Utils.checkNotNull(supportedBillingPeriods, "supportedBillingPeriods");
+            this.supportedBillingPeriods = supportedBillingPeriods;
+            return this;
+        }
+
         public BillingPriceResponse build() {
 
             return new BillingPriceResponse(
@@ -634,7 +675,7 @@ public class BillingPriceResponse {
                 instanceId, currency, currencySymbol,
                 amount, annualMonthlyAmount, fee,
                 annualMonthlyFee, description, isDefault,
-                createdAt);
+                createdAt, supportedBillingPeriods);
         }
 
     }

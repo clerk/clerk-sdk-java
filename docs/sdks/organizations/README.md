@@ -10,6 +10,7 @@
 * [update](#update) - Update an organization
 * [delete](#delete) - Delete an organization
 * [mergeMetadata](#mergemetadata) - Merge and update metadata for an organization
+* [replaceMetadata](#replacemetadata) - Replace metadata for an organization
 * [uploadLogo](#uploadlogo) - Upload a logo for the organization
 * [deleteLogo](#deletelogo) - Delete the organization's logo.
 * [getBillingSubscription](#getbillingsubscription) - Retrieve an organization's billing subscription
@@ -188,7 +189,10 @@ public class Application {
 
 ## update
 
-Updates an existing organization
+Updates an existing organization.
+
+As of API version 2026-05-12, this endpoint no longer accepts `public_metadata` or `private_metadata`.
+Use `PATCH /v1/organizations/{organization_id}/metadata` to merge updates into existing metadata, or `PUT /v1/organizations/{organization_id}/metadata` to replace a metadata field entirely.
 
 ### Example Usage
 
@@ -347,6 +351,66 @@ public class Application {
 ### Response
 
 **[MergeOrganizationMetadataResponse](../../models/operations/MergeOrganizationMetadataResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## replaceMetadata
+
+Replace an organization's metadata attributes with the provided values.
+Unlike `PATCH /v1/organizations/{organization_id}/metadata` (merge semantics), this
+endpoint replaces the supplied metadata fields entirely — the prior contents of each
+supplied field are discarded. Fields omitted from the request body are left unchanged.
+Prefer the `PATCH` endpoint for partial updates. Use `PUT` only when you explicitly
+intend to overwrite a metadata field wholesale.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ReplaceOrganizationMetadata" method="put" path="/organizations/{organization_id}/metadata" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataRequestBody;
+import com.clerk.backend_api.models.operations.ReplaceOrganizationMetadataResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ReplaceOrganizationMetadataResponse res = sdk.organizations().replaceMetadata()
+                .organizationId("<id>")
+                .requestBody(ReplaceOrganizationMetadataRequestBody.builder()
+                    .build())
+                .call();
+
+        if (res.organization().isPresent()) {
+            System.out.println(res.organization().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `organizationId`                                                                                            | *String*                                                                                                    | :heavy_check_mark:                                                                                          | The ID of the organization whose metadata will be replaced                                                  |
+| `requestBody`                                                                                               | [ReplaceOrganizationMetadataRequestBody](../../models/operations/ReplaceOrganizationMetadataRequestBody.md) | :heavy_check_mark:                                                                                          | N/A                                                                                                         |
+
+### Response
+
+**[ReplaceOrganizationMetadataResponse](../../models/operations/ReplaceOrganizationMetadataResponse.md)**
 
 ### Errors
 

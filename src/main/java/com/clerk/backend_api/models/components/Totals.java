@@ -41,12 +41,19 @@ public class Totals {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("per_unit_totals")
-    private Optional<? extends List<CommercePerUnitTotal>> perUnitTotals;
+    private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals;
 
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credits")
     private JsonNullable<? extends CommerceSubscriptionItemCredits> credits;
+
+    /**
+     * Information about the discounts applied to the payment
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("discounts")
+    private JsonNullable<? extends Discounts> discounts;
 
     @JsonCreator
     public Totals(
@@ -54,20 +61,23 @@ public class Totals {
             @JsonProperty("base_fee") CommerceMoneyResponse baseFee,
             @JsonProperty("tax_total") CommerceMoneyResponse taxTotal,
             @JsonProperty("grand_total") CommerceMoneyResponse grandTotal,
-            @JsonProperty("per_unit_totals") Optional<? extends List<CommercePerUnitTotal>> perUnitTotals,
-            @JsonProperty("credits") JsonNullable<? extends CommerceSubscriptionItemCredits> credits) {
+            @JsonProperty("per_unit_totals") Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals,
+            @JsonProperty("credits") JsonNullable<? extends CommerceSubscriptionItemCredits> credits,
+            @JsonProperty("discounts") JsonNullable<? extends Discounts> discounts) {
         Utils.checkNotNull(subtotal, "subtotal");
         Utils.checkNotNull(baseFee, "baseFee");
         Utils.checkNotNull(taxTotal, "taxTotal");
         Utils.checkNotNull(grandTotal, "grandTotal");
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         Utils.checkNotNull(credits, "credits");
+        Utils.checkNotNull(discounts, "discounts");
         this.subtotal = subtotal;
         this.baseFee = baseFee;
         this.taxTotal = taxTotal;
         this.grandTotal = grandTotal;
         this.perUnitTotals = perUnitTotals;
         this.credits = credits;
+        this.discounts = discounts;
     }
     
     public Totals(
@@ -76,7 +86,8 @@ public class Totals {
             CommerceMoneyResponse taxTotal,
             CommerceMoneyResponse grandTotal) {
         this(subtotal, baseFee, taxTotal,
-            grandTotal, Optional.empty(), JsonNullable.undefined());
+            grandTotal, Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -101,14 +112,23 @@ public class Totals {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<CommercePerUnitTotal>> perUnitTotals() {
-        return (Optional<List<CommercePerUnitTotal>>) perUnitTotals;
+    public Optional<List<SchemasCommercePerUnitTotal>> perUnitTotals() {
+        return (Optional<List<SchemasCommercePerUnitTotal>>) perUnitTotals;
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<CommerceSubscriptionItemCredits> credits() {
         return (JsonNullable<CommerceSubscriptionItemCredits>) credits;
+    }
+
+    /**
+     * Information about the discounts applied to the payment
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Discounts> discounts() {
+        return (JsonNullable<Discounts>) discounts;
     }
 
     public static Builder builder() {
@@ -140,14 +160,14 @@ public class Totals {
         return this;
     }
 
-    public Totals withPerUnitTotals(List<CommercePerUnitTotal> perUnitTotals) {
+    public Totals withPerUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = Optional.ofNullable(perUnitTotals);
         return this;
     }
 
 
-    public Totals withPerUnitTotals(Optional<? extends List<CommercePerUnitTotal>> perUnitTotals) {
+    public Totals withPerUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = perUnitTotals;
         return this;
@@ -162,6 +182,24 @@ public class Totals {
     public Totals withCredits(JsonNullable<? extends CommerceSubscriptionItemCredits> credits) {
         Utils.checkNotNull(credits, "credits");
         this.credits = credits;
+        return this;
+    }
+
+    /**
+     * Information about the discounts applied to the payment
+     */
+    public Totals withDiscounts(Discounts discounts) {
+        Utils.checkNotNull(discounts, "discounts");
+        this.discounts = JsonNullable.of(discounts);
+        return this;
+    }
+
+    /**
+     * Information about the discounts applied to the payment
+     */
+    public Totals withDiscounts(JsonNullable<? extends Discounts> discounts) {
+        Utils.checkNotNull(discounts, "discounts");
+        this.discounts = discounts;
         return this;
     }
 
@@ -180,14 +218,16 @@ public class Totals {
             Utils.enhancedDeepEquals(this.taxTotal, other.taxTotal) &&
             Utils.enhancedDeepEquals(this.grandTotal, other.grandTotal) &&
             Utils.enhancedDeepEquals(this.perUnitTotals, other.perUnitTotals) &&
-            Utils.enhancedDeepEquals(this.credits, other.credits);
+            Utils.enhancedDeepEquals(this.credits, other.credits) &&
+            Utils.enhancedDeepEquals(this.discounts, other.discounts);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             subtotal, baseFee, taxTotal,
-            grandTotal, perUnitTotals, credits);
+            grandTotal, perUnitTotals, credits,
+            discounts);
     }
     
     @Override
@@ -198,7 +238,8 @@ public class Totals {
                 "taxTotal", taxTotal,
                 "grandTotal", grandTotal,
                 "perUnitTotals", perUnitTotals,
-                "credits", credits);
+                "credits", credits,
+                "discounts", discounts);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -212,9 +253,11 @@ public class Totals {
 
         private CommerceMoneyResponse grandTotal;
 
-        private Optional<? extends List<CommercePerUnitTotal>> perUnitTotals = Optional.empty();
+        private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals = Optional.empty();
 
         private JsonNullable<? extends CommerceSubscriptionItemCredits> credits = JsonNullable.undefined();
+
+        private JsonNullable<? extends Discounts> discounts = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -249,13 +292,13 @@ public class Totals {
         }
 
 
-        public Builder perUnitTotals(List<CommercePerUnitTotal> perUnitTotals) {
+        public Builder perUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = Optional.ofNullable(perUnitTotals);
             return this;
         }
 
-        public Builder perUnitTotals(Optional<? extends List<CommercePerUnitTotal>> perUnitTotals) {
+        public Builder perUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = perUnitTotals;
             return this;
@@ -274,11 +317,31 @@ public class Totals {
             return this;
         }
 
+
+        /**
+         * Information about the discounts applied to the payment
+         */
+        public Builder discounts(Discounts discounts) {
+            Utils.checkNotNull(discounts, "discounts");
+            this.discounts = JsonNullable.of(discounts);
+            return this;
+        }
+
+        /**
+         * Information about the discounts applied to the payment
+         */
+        public Builder discounts(JsonNullable<? extends Discounts> discounts) {
+            Utils.checkNotNull(discounts, "discounts");
+            this.discounts = discounts;
+            return this;
+        }
+
         public Totals build() {
 
             return new Totals(
                 subtotal, baseFee, taxTotal,
-                grandTotal, perUnitTotals, credits);
+                grandTotal, perUnitTotals, credits,
+                discounts);
         }
 
     }

@@ -5,6 +5,10 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.operations.AttemptEmailAddressVerificationRequest;
+import com.clerk.backend_api.models.operations.AttemptEmailAddressVerificationRequestBody;
+import com.clerk.backend_api.models.operations.AttemptEmailAddressVerificationRequestBuilder;
+import com.clerk.backend_api.models.operations.AttemptEmailAddressVerificationResponse;
 import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBody;
 import com.clerk.backend_api.models.operations.CreateEmailAddressRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateEmailAddressResponse;
@@ -14,13 +18,23 @@ import com.clerk.backend_api.models.operations.DeleteEmailAddressResponse;
 import com.clerk.backend_api.models.operations.GetEmailAddressRequest;
 import com.clerk.backend_api.models.operations.GetEmailAddressRequestBuilder;
 import com.clerk.backend_api.models.operations.GetEmailAddressResponse;
+import com.clerk.backend_api.models.operations.PrepareEmailAddressVerificationRequest;
+import com.clerk.backend_api.models.operations.PrepareEmailAddressVerificationRequestBuilder;
+import com.clerk.backend_api.models.operations.PrepareEmailAddressVerificationResponse;
+import com.clerk.backend_api.models.operations.ReplaceUserEmailAddressRequest;
+import com.clerk.backend_api.models.operations.ReplaceUserEmailAddressRequestBody;
+import com.clerk.backend_api.models.operations.ReplaceUserEmailAddressRequestBuilder;
+import com.clerk.backend_api.models.operations.ReplaceUserEmailAddressResponse;
 import com.clerk.backend_api.models.operations.UpdateEmailAddressRequest;
 import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBody;
 import com.clerk.backend_api.models.operations.UpdateEmailAddressRequestBuilder;
 import com.clerk.backend_api.models.operations.UpdateEmailAddressResponse;
+import com.clerk.backend_api.operations.AttemptEmailAddressVerification;
 import com.clerk.backend_api.operations.CreateEmailAddress;
 import com.clerk.backend_api.operations.DeleteEmailAddress;
 import com.clerk.backend_api.operations.GetEmailAddress;
+import com.clerk.backend_api.operations.PrepareEmailAddressVerification;
+import com.clerk.backend_api.operations.ReplaceUserEmailAddress;
 import com.clerk.backend_api.operations.UpdateEmailAddress;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
@@ -211,6 +225,205 @@ public class EmailAddresses {
                 .build();
         RequestOperation<UpdateEmailAddressRequest, UpdateEmailAddressResponse> operation
               = new UpdateEmailAddress.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Send a verification code to an email address
+     * 
+     * <p>Sends a one-time code to the given email address so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @return The call builder
+     */
+    public PrepareEmailAddressVerificationRequestBuilder prepareVerification() {
+        return new PrepareEmailAddressVerificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Send a verification code to an email address
+     * 
+     * <p>Sends a one-time code to the given email address so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @param emailAddressId The ID of the email address to send the verification code to
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PrepareEmailAddressVerificationResponse prepareVerification(String emailAddressId) {
+        return prepareVerification(emailAddressId, Optional.empty());
+    }
+
+    /**
+     * Send a verification code to an email address
+     * 
+     * <p>Sends a one-time code to the given email address so that a backend can
+     * verify the user controls it (for example, in a custom, backend-driven
+     * sign-in flow). The code is tracked on its own verification; confirm it
+     * with attempt_verification.
+     * 
+     * @param emailAddressId The ID of the email address to send the verification code to
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PrepareEmailAddressVerificationResponse prepareVerification(String emailAddressId, Optional<Options> options) {
+        PrepareEmailAddressVerificationRequest request =
+            PrepareEmailAddressVerificationRequest
+                .builder()
+                .emailAddressId(emailAddressId)
+                .build();
+        RequestOperation<PrepareEmailAddressVerificationRequest, PrepareEmailAddressVerificationResponse> operation
+              = new PrepareEmailAddressVerification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Verify a code sent to an email address
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the email address is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified email address is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @return The call builder
+     */
+    public AttemptEmailAddressVerificationRequestBuilder attemptVerification() {
+        return new AttemptEmailAddressVerificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Verify a code sent to an email address
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the email address is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified email address is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @param emailAddressId The ID of the email address whose code is being verified
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AttemptEmailAddressVerificationResponse attemptVerification(String emailAddressId, AttemptEmailAddressVerificationRequestBody requestBody) {
+        return attemptVerification(emailAddressId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Verify a code sent to an email address
+     * 
+     * <p>Checks a one-time code against the verification identified by
+     * verification_id, and returns the verification with its updated status
+     * (`verified`, `unverified`, `expired`, or `failed`) and attempt count, so a
+     * backend driving its own frontend can react on every attempt — an incorrect
+     * or expired code is reported through the status, not as an error. Resubmitting
+     * a verification whose code was already accepted is rejected with a
+     * `verification_already_verified` error. If the code
+     * is correct and the email address is not already verified, it is also marked
+     * as verified as a side effect (just as it would be in a frontend verification
+     * flow); an already verified email address is left unchanged. It never creates
+     * a session; to sign the user in afterwards, mint a sign-in token.
+     * 
+     * @param emailAddressId The ID of the email address whose code is being verified
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AttemptEmailAddressVerificationResponse attemptVerification(
+            String emailAddressId, AttemptEmailAddressVerificationRequestBody requestBody,
+            Optional<Options> options) {
+        AttemptEmailAddressVerificationRequest request =
+            AttemptEmailAddressVerificationRequest
+                .builder()
+                .emailAddressId(emailAddressId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<AttemptEmailAddressVerificationRequest, AttemptEmailAddressVerificationResponse> operation
+              = new AttemptEmailAddressVerification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Replace a user's email address
+     * 
+     * <p>Replaces all of the user's email addresses with a single primary email address.
+     * By default the new email address is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * If an existing email address is linked to a connected account, the request is rejected; remove
+     * the connected account first.
+     * 
+     * @return The call builder
+     */
+    public ReplaceUserEmailAddressRequestBuilder replaceForUser() {
+        return new ReplaceUserEmailAddressRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Replace a user's email address
+     * 
+     * <p>Replaces all of the user's email addresses with a single primary email address.
+     * By default the new email address is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * If an existing email address is linked to a connected account, the request is rejected; remove
+     * the connected account first.
+     * 
+     * @param userId The ID of the user whose email address to replace
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserEmailAddressResponse replaceForUser(String userId, ReplaceUserEmailAddressRequestBody requestBody) {
+        return replaceForUser(userId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Replace a user's email address
+     * 
+     * <p>Replaces all of the user's email addresses with a single primary email address.
+     * By default the new email address is created verified, with the admin verification strategy.
+     * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
+     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * If an existing email address is linked to a connected account, the request is rejected; remove
+     * the connected account first.
+     * 
+     * @param userId The ID of the user whose email address to replace
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ReplaceUserEmailAddressResponse replaceForUser(
+            String userId, ReplaceUserEmailAddressRequestBody requestBody,
+            Optional<Options> options) {
+        ReplaceUserEmailAddressRequest request =
+            ReplaceUserEmailAddressRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<ReplaceUserEmailAddressRequest, ReplaceUserEmailAddressResponse> operation
+              = new ReplaceUserEmailAddress.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

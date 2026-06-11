@@ -40,6 +40,13 @@ public class VerificationOTP implements PhoneNumberVerification {
     @JsonProperty("expire_at")
     private Optional<Long> expireAt;
 
+    /**
+     * The delivery channel of the code (phone codes only).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("channel")
+    private JsonNullable<String> channel;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("verified_at_client")
@@ -52,18 +59,21 @@ public class VerificationOTP implements PhoneNumberVerification {
             @JsonProperty("strategy") VerificationOtpVerificationStrategy strategy,
             @JsonProperty("attempts") Optional<Long> attempts,
             @JsonProperty("expire_at") Optional<Long> expireAt,
+            @JsonProperty("channel") JsonNullable<String> channel,
             @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(strategy, "strategy");
         Utils.checkNotNull(attempts, "attempts");
         Utils.checkNotNull(expireAt, "expireAt");
+        Utils.checkNotNull(channel, "channel");
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.object = object;
         this.status = status;
         this.strategy = strategy;
         this.attempts = attempts;
         this.expireAt = expireAt;
+        this.channel = channel;
         this.verifiedAtClient = verifiedAtClient;
     }
     
@@ -71,7 +81,8 @@ public class VerificationOTP implements PhoneNumberVerification {
             VerificationOtpVerificationStatus status,
             VerificationOtpVerificationStrategy strategy) {
         this(Optional.empty(), status, strategy,
-            Optional.empty(), Optional.empty(), JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -98,6 +109,14 @@ public class VerificationOTP implements PhoneNumberVerification {
     @JsonIgnore
     public Optional<Long> expireAt() {
         return expireAt;
+    }
+
+    /**
+     * The delivery channel of the code (phone codes only).
+     */
+    @JsonIgnore
+    public JsonNullable<String> channel() {
+        return channel;
     }
 
     @JsonIgnore
@@ -161,6 +180,24 @@ public class VerificationOTP implements PhoneNumberVerification {
         return this;
     }
 
+    /**
+     * The delivery channel of the code (phone codes only).
+     */
+    public VerificationOTP withChannel(String channel) {
+        Utils.checkNotNull(channel, "channel");
+        this.channel = JsonNullable.of(channel);
+        return this;
+    }
+
+    /**
+     * The delivery channel of the code (phone codes only).
+     */
+    public VerificationOTP withChannel(JsonNullable<String> channel) {
+        Utils.checkNotNull(channel, "channel");
+        this.channel = channel;
+        return this;
+    }
+
     public VerificationOTP withVerifiedAtClient(String verifiedAtClient) {
         Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
         this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
@@ -188,6 +225,7 @@ public class VerificationOTP implements PhoneNumberVerification {
             Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
             Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
             Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
+            Utils.enhancedDeepEquals(this.channel, other.channel) &&
             Utils.enhancedDeepEquals(this.verifiedAtClient, other.verifiedAtClient);
     }
     
@@ -195,7 +233,8 @@ public class VerificationOTP implements PhoneNumberVerification {
     public int hashCode() {
         return Utils.enhancedHash(
             object, status, strategy,
-            attempts, expireAt, verifiedAtClient);
+            attempts, expireAt, channel,
+            verifiedAtClient);
     }
     
     @Override
@@ -206,6 +245,7 @@ public class VerificationOTP implements PhoneNumberVerification {
                 "strategy", strategy,
                 "attempts", attempts,
                 "expireAt", expireAt,
+                "channel", channel,
                 "verifiedAtClient", verifiedAtClient);
     }
 
@@ -221,6 +261,8 @@ public class VerificationOTP implements PhoneNumberVerification {
         private Optional<Long> attempts = Optional.empty();
 
         private Optional<Long> expireAt = Optional.empty();
+
+        private JsonNullable<String> channel = JsonNullable.undefined();
 
         private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
 
@@ -282,6 +324,25 @@ public class VerificationOTP implements PhoneNumberVerification {
         }
 
 
+        /**
+         * The delivery channel of the code (phone codes only).
+         */
+        public Builder channel(String channel) {
+            Utils.checkNotNull(channel, "channel");
+            this.channel = JsonNullable.of(channel);
+            return this;
+        }
+
+        /**
+         * The delivery channel of the code (phone codes only).
+         */
+        public Builder channel(JsonNullable<String> channel) {
+            Utils.checkNotNull(channel, "channel");
+            this.channel = channel;
+            return this;
+        }
+
+
         public Builder verifiedAtClient(String verifiedAtClient) {
             Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
             this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
@@ -298,7 +359,8 @@ public class VerificationOTP implements PhoneNumberVerification {
 
             return new VerificationOTP(
                 object, status, strategy,
-                attempts, expireAt, verifiedAtClient);
+                attempts, expireAt, channel,
+                verifiedAtClient);
         }
 
     }

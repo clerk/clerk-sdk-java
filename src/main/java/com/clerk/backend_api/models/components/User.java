@@ -203,6 +203,13 @@ public class User {
     private boolean locked;
 
     /**
+     * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("deprovisioned")
+    private Optional<Boolean> deprovisioned;
+
+    /**
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for
      * a locked user indicates that lockout never expires.
      */
@@ -271,6 +278,11 @@ public class User {
     @JsonProperty("bypass_client_trust")
     private Optional<Boolean> bypassClientTrust;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("scim")
+    private JsonNullable<? extends Scim> scim;
+
     @JsonCreator
     public User(
             @JsonProperty("id") String id,
@@ -307,6 +319,7 @@ public class User {
             @JsonProperty("last_sign_in_at") Optional<Long> lastSignInAt,
             @JsonProperty("banned") boolean banned,
             @JsonProperty("locked") boolean locked,
+            @JsonProperty("deprovisioned") Optional<Boolean> deprovisioned,
             @JsonProperty("lockout_expires_in_seconds") Optional<Long> lockoutExpiresInSeconds,
             @JsonProperty("verification_attempts_remaining") Optional<Long> verificationAttemptsRemaining,
             @JsonProperty("updated_at") long updatedAt,
@@ -316,7 +329,8 @@ public class User {
             @JsonProperty("create_organizations_limit") JsonNullable<Long> createOrganizationsLimit,
             @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
             @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt,
-            @JsonProperty("bypass_client_trust") Optional<Boolean> bypassClientTrust) {
+            @JsonProperty("bypass_client_trust") Optional<Boolean> bypassClientTrust,
+            @JsonProperty("scim") JsonNullable<? extends Scim> scim) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(externalId, "externalId");
@@ -352,6 +366,7 @@ public class User {
         Utils.checkNotNull(lastSignInAt, "lastSignInAt");
         Utils.checkNotNull(banned, "banned");
         Utils.checkNotNull(locked, "locked");
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
         Utils.checkNotNull(lockoutExpiresInSeconds, "lockoutExpiresInSeconds");
         Utils.checkNotNull(verificationAttemptsRemaining, "verificationAttemptsRemaining");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -362,6 +377,7 @@ public class User {
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        Utils.checkNotNull(scim, "scim");
         this.id = id;
         this.object = object;
         this.externalId = externalId;
@@ -396,6 +412,7 @@ public class User {
         this.lastSignInAt = lastSignInAt;
         this.banned = banned;
         this.locked = locked;
+        this.deprovisioned = deprovisioned;
         this.lockoutExpiresInSeconds = lockoutExpiresInSeconds;
         this.verificationAttemptsRemaining = verificationAttemptsRemaining;
         this.updatedAt = updatedAt;
@@ -406,6 +423,7 @@ public class User {
         this.lastActiveAt = lastActiveAt;
         this.legalAcceptedAt = legalAcceptedAt;
         this.bypassClientTrust = bypassClientTrust;
+        this.scim = scim;
     }
     
     public User(
@@ -442,9 +460,10 @@ public class User {
             externalAccounts, samlAccounts, enterpriseAccounts,
             Optional.empty(), Optional.empty(), banned,
             locked, Optional.empty(), Optional.empty(),
-            updatedAt, createdAt, deleteSelfEnabled,
-            createOrganizationEnabled, JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), updatedAt, createdAt,
+            deleteSelfEnabled, createOrganizationEnabled, JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -649,6 +668,14 @@ public class User {
     }
 
     /**
+     * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+     */
+    @JsonIgnore
+    public Optional<Boolean> deprovisioned() {
+        return deprovisioned;
+    }
+
+    /**
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for
      * a locked user indicates that lockout never expires.
      */
@@ -729,6 +756,12 @@ public class User {
     @JsonIgnore
     public Optional<Boolean> bypassClientTrust() {
         return bypassClientTrust;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Scim> scim() {
+        return (JsonNullable<Scim>) scim;
     }
 
     public static Builder builder() {
@@ -1104,6 +1137,25 @@ public class User {
     }
 
     /**
+     * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+     */
+    public User withDeprovisioned(boolean deprovisioned) {
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
+        this.deprovisioned = Optional.ofNullable(deprovisioned);
+        return this;
+    }
+
+
+    /**
+     * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+     */
+    public User withDeprovisioned(Optional<Boolean> deprovisioned) {
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
+        this.deprovisioned = deprovisioned;
+        return this;
+    }
+
+    /**
      * The number of seconds remaining until the lockout period expires for a locked user. A null value for
      * a locked user indicates that lockout never expires.
      */
@@ -1258,6 +1310,18 @@ public class User {
         return this;
     }
 
+    public User withScim(Scim scim) {
+        Utils.checkNotNull(scim, "scim");
+        this.scim = JsonNullable.of(scim);
+        return this;
+    }
+
+    public User withScim(JsonNullable<? extends Scim> scim) {
+        Utils.checkNotNull(scim, "scim");
+        this.scim = scim;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1302,6 +1366,7 @@ public class User {
             Utils.enhancedDeepEquals(this.lastSignInAt, other.lastSignInAt) &&
             Utils.enhancedDeepEquals(this.banned, other.banned) &&
             Utils.enhancedDeepEquals(this.locked, other.locked) &&
+            Utils.enhancedDeepEquals(this.deprovisioned, other.deprovisioned) &&
             Utils.enhancedDeepEquals(this.lockoutExpiresInSeconds, other.lockoutExpiresInSeconds) &&
             Utils.enhancedDeepEquals(this.verificationAttemptsRemaining, other.verificationAttemptsRemaining) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
@@ -1311,7 +1376,8 @@ public class User {
             Utils.enhancedDeepEquals(this.createOrganizationsLimit, other.createOrganizationsLimit) &&
             Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
-            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust);
+            Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust) &&
+            Utils.enhancedDeepEquals(this.scim, other.scim);
     }
     
     @Override
@@ -1328,10 +1394,11 @@ public class User {
             mfaEnabledAt, mfaDisabledAt, passwordLastUpdatedAt,
             externalAccounts, samlAccounts, enterpriseAccounts,
             organizationMemberships, lastSignInAt, banned,
-            locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
-            updatedAt, createdAt, deleteSelfEnabled,
-            createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
-            legalAcceptedAt, bypassClientTrust);
+            locked, deprovisioned, lockoutExpiresInSeconds,
+            verificationAttemptsRemaining, updatedAt, createdAt,
+            deleteSelfEnabled, createOrganizationEnabled, createOrganizationsLimit,
+            lastActiveAt, legalAcceptedAt, bypassClientTrust,
+            scim);
     }
     
     @Override
@@ -1371,6 +1438,7 @@ public class User {
                 "lastSignInAt", lastSignInAt,
                 "banned", banned,
                 "locked", locked,
+                "deprovisioned", deprovisioned,
                 "lockoutExpiresInSeconds", lockoutExpiresInSeconds,
                 "verificationAttemptsRemaining", verificationAttemptsRemaining,
                 "updatedAt", updatedAt,
@@ -1380,7 +1448,8 @@ public class User {
                 "createOrganizationsLimit", createOrganizationsLimit,
                 "lastActiveAt", lastActiveAt,
                 "legalAcceptedAt", legalAcceptedAt,
-                "bypassClientTrust", bypassClientTrust);
+                "bypassClientTrust", bypassClientTrust,
+                "scim", scim);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1455,6 +1524,8 @@ public class User {
 
         private Boolean locked;
 
+        private Optional<Boolean> deprovisioned = Optional.empty();
+
         private Optional<Long> lockoutExpiresInSeconds = Optional.empty();
 
         private Optional<Long> verificationAttemptsRemaining = Optional.empty();
@@ -1474,6 +1545,8 @@ public class User {
         private Optional<Long> legalAcceptedAt = Optional.empty();
 
         private Optional<Boolean> bypassClientTrust;
+
+        private JsonNullable<? extends Scim> scim = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -1868,6 +1941,25 @@ public class User {
 
 
         /**
+         * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+         */
+        public Builder deprovisioned(boolean deprovisioned) {
+            Utils.checkNotNull(deprovisioned, "deprovisioned");
+            this.deprovisioned = Optional.ofNullable(deprovisioned);
+            return this;
+        }
+
+        /**
+         * Flag to denote whether user has been deprovisioned and is restricted from signing in.
+         */
+        public Builder deprovisioned(Optional<Boolean> deprovisioned) {
+            Utils.checkNotNull(deprovisioned, "deprovisioned");
+            this.deprovisioned = deprovisioned;
+            return this;
+        }
+
+
+        /**
          * The number of seconds remaining until the lockout period expires for a locked user. A null value for
          * a locked user indicates that lockout never expires.
          */
@@ -2026,6 +2118,19 @@ public class User {
             return this;
         }
 
+
+        public Builder scim(Scim scim) {
+            Utils.checkNotNull(scim, "scim");
+            this.scim = JsonNullable.of(scim);
+            return this;
+        }
+
+        public Builder scim(JsonNullable<? extends Scim> scim) {
+            Utils.checkNotNull(scim, "scim");
+            this.scim = scim;
+            return this;
+        }
+
         public User build() {
             if (bypassClientTrust == null) {
                 bypassClientTrust = _SINGLETON_VALUE_BypassClientTrust.value();
@@ -2043,10 +2148,11 @@ public class User {
                 mfaEnabledAt, mfaDisabledAt, passwordLastUpdatedAt,
                 externalAccounts, samlAccounts, enterpriseAccounts,
                 organizationMemberships, lastSignInAt, banned,
-                locked, lockoutExpiresInSeconds, verificationAttemptsRemaining,
-                updatedAt, createdAt, deleteSelfEnabled,
-                createOrganizationEnabled, createOrganizationsLimit, lastActiveAt,
-                legalAcceptedAt, bypassClientTrust);
+                locked, deprovisioned, lockoutExpiresInSeconds,
+                verificationAttemptsRemaining, updatedAt, createdAt,
+                deleteSelfEnabled, createOrganizationEnabled, createOrganizationsLimit,
+                lastActiveAt, legalAcceptedAt, bypassClientTrust,
+                scim);
         }
 
 

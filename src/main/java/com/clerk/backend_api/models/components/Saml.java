@@ -9,129 +9,61 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
-
-public class Saml implements Verification {
+/**
+ * Saml
+ * 
+ * <p>SAML-specific metadata, present for SAML connections
+ */
+public class Saml {
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("object")
-    private Optional<? extends VerificationSamlVerificationObject> object;
-
-
-    @JsonProperty("status")
-    private VerificationSamlVerificationStatus status;
-
-
-    @JsonProperty("strategy")
-    private VerificationSamlVerificationStrategy strategy;
+    @JsonProperty("saml_request")
+    private Optional<String> samlRequest;
 
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("external_verification_redirect_url")
-    private JsonNullable<String> externalVerificationRedirectUrl;
+    @JsonProperty("saml_response")
+    private Optional<String> samlResponse;
 
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("error")
-    private JsonNullable<? extends VerificationError> error;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("expire_at")
-    private JsonNullable<Long> expireAt;
-
-
-    @JsonInclude(Include.ALWAYS)
-    @JsonProperty("attempts")
-    private Optional<Long> attempts;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("verified_at_client")
-    private JsonNullable<String> verifiedAtClient;
+    @JsonProperty("relay_state")
+    private Optional<String> relayState;
 
     @JsonCreator
     public Saml(
-            @JsonProperty("object") Optional<? extends VerificationSamlVerificationObject> object,
-            @JsonProperty("status") VerificationSamlVerificationStatus status,
-            @JsonProperty("strategy") VerificationSamlVerificationStrategy strategy,
-            @JsonProperty("external_verification_redirect_url") JsonNullable<String> externalVerificationRedirectUrl,
-            @JsonProperty("error") JsonNullable<? extends VerificationError> error,
-            @JsonProperty("expire_at") JsonNullable<Long> expireAt,
-            @JsonProperty("attempts") Optional<Long> attempts,
-            @JsonProperty("verified_at_client") JsonNullable<String> verifiedAtClient) {
-        Utils.checkNotNull(object, "object");
-        Utils.checkNotNull(status, "status");
-        Utils.checkNotNull(strategy, "strategy");
-        Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-        Utils.checkNotNull(error, "error");
-        Utils.checkNotNull(expireAt, "expireAt");
-        Utils.checkNotNull(attempts, "attempts");
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.object = object;
-        this.status = status;
-        this.strategy = strategy;
-        this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
-        this.error = error;
-        this.expireAt = expireAt;
-        this.attempts = attempts;
-        this.verifiedAtClient = verifiedAtClient;
+            @JsonProperty("saml_request") Optional<String> samlRequest,
+            @JsonProperty("saml_response") Optional<String> samlResponse,
+            @JsonProperty("relay_state") Optional<String> relayState) {
+        Utils.checkNotNull(samlRequest, "samlRequest");
+        Utils.checkNotNull(samlResponse, "samlResponse");
+        Utils.checkNotNull(relayState, "relayState");
+        this.samlRequest = samlRequest;
+        this.samlResponse = samlResponse;
+        this.relayState = relayState;
     }
     
-    public Saml(
-            VerificationSamlVerificationStatus status,
-            VerificationSamlVerificationStrategy strategy) {
-        this(Optional.empty(), status, strategy,
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), JsonNullable.undefined());
+    public Saml() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
-    @Override
-    public String object() {
-        return Utils.discriminatorToString(object);
+    public Optional<String> samlRequest() {
+        return samlRequest;
     }
 
     @JsonIgnore
-    public VerificationSamlVerificationStatus status() {
-        return status;
+    public Optional<String> samlResponse() {
+        return samlResponse;
     }
 
     @JsonIgnore
-    public VerificationSamlVerificationStrategy strategy() {
-        return strategy;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> externalVerificationRedirectUrl() {
-        return externalVerificationRedirectUrl;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<VerificationError> error() {
-        return (JsonNullable<VerificationError>) error;
-    }
-
-    @JsonIgnore
-    public JsonNullable<Long> expireAt() {
-        return expireAt;
-    }
-
-    @JsonIgnore
-    public Optional<Long> attempts() {
-        return attempts;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> verifiedAtClient() {
-        return verifiedAtClient;
+    public Optional<String> relayState() {
+        return relayState;
     }
 
     public static Builder builder() {
@@ -139,89 +71,42 @@ public class Saml implements Verification {
     }
 
 
-    public Saml withObject(VerificationSamlVerificationObject object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public Saml withSamlRequest(String samlRequest) {
+        Utils.checkNotNull(samlRequest, "samlRequest");
+        this.samlRequest = Optional.ofNullable(samlRequest);
         return this;
     }
 
 
-    public Saml withObject(Optional<? extends VerificationSamlVerificationObject> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public Saml withSamlRequest(Optional<String> samlRequest) {
+        Utils.checkNotNull(samlRequest, "samlRequest");
+        this.samlRequest = samlRequest;
         return this;
     }
 
-    public Saml withStatus(VerificationSamlVerificationStatus status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
-        return this;
-    }
-
-    public Saml withStrategy(VerificationSamlVerificationStrategy strategy) {
-        Utils.checkNotNull(strategy, "strategy");
-        this.strategy = strategy;
-        return this;
-    }
-
-    public Saml withExternalVerificationRedirectUrl(String externalVerificationRedirectUrl) {
-        Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-        this.externalVerificationRedirectUrl = JsonNullable.of(externalVerificationRedirectUrl);
-        return this;
-    }
-
-    public Saml withExternalVerificationRedirectUrl(JsonNullable<String> externalVerificationRedirectUrl) {
-        Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-        this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
-        return this;
-    }
-
-    public Saml withError(VerificationError error) {
-        Utils.checkNotNull(error, "error");
-        this.error = JsonNullable.of(error);
-        return this;
-    }
-
-    public Saml withError(JsonNullable<? extends VerificationError> error) {
-        Utils.checkNotNull(error, "error");
-        this.error = error;
-        return this;
-    }
-
-    public Saml withExpireAt(long expireAt) {
-        Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = JsonNullable.of(expireAt);
-        return this;
-    }
-
-    public Saml withExpireAt(JsonNullable<Long> expireAt) {
-        Utils.checkNotNull(expireAt, "expireAt");
-        this.expireAt = expireAt;
-        return this;
-    }
-
-    public Saml withAttempts(long attempts) {
-        Utils.checkNotNull(attempts, "attempts");
-        this.attempts = Optional.ofNullable(attempts);
+    public Saml withSamlResponse(String samlResponse) {
+        Utils.checkNotNull(samlResponse, "samlResponse");
+        this.samlResponse = Optional.ofNullable(samlResponse);
         return this;
     }
 
 
-    public Saml withAttempts(Optional<Long> attempts) {
-        Utils.checkNotNull(attempts, "attempts");
-        this.attempts = attempts;
+    public Saml withSamlResponse(Optional<String> samlResponse) {
+        Utils.checkNotNull(samlResponse, "samlResponse");
+        this.samlResponse = samlResponse;
         return this;
     }
 
-    public Saml withVerifiedAtClient(String verifiedAtClient) {
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
+    public Saml withRelayState(String relayState) {
+        Utils.checkNotNull(relayState, "relayState");
+        this.relayState = Optional.ofNullable(relayState);
         return this;
     }
 
-    public Saml withVerifiedAtClient(JsonNullable<String> verifiedAtClient) {
-        Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-        this.verifiedAtClient = verifiedAtClient;
+
+    public Saml withRelayState(Optional<String> relayState) {
+        Utils.checkNotNull(relayState, "relayState");
+        this.relayState = relayState;
         return this;
     }
 
@@ -235,158 +120,81 @@ public class Saml implements Verification {
         }
         Saml other = (Saml) o;
         return 
-            Utils.enhancedDeepEquals(this.object, other.object) &&
-            Utils.enhancedDeepEquals(this.status, other.status) &&
-            Utils.enhancedDeepEquals(this.strategy, other.strategy) &&
-            Utils.enhancedDeepEquals(this.externalVerificationRedirectUrl, other.externalVerificationRedirectUrl) &&
-            Utils.enhancedDeepEquals(this.error, other.error) &&
-            Utils.enhancedDeepEquals(this.expireAt, other.expireAt) &&
-            Utils.enhancedDeepEquals(this.attempts, other.attempts) &&
-            Utils.enhancedDeepEquals(this.verifiedAtClient, other.verifiedAtClient);
+            Utils.enhancedDeepEquals(this.samlRequest, other.samlRequest) &&
+            Utils.enhancedDeepEquals(this.samlResponse, other.samlResponse) &&
+            Utils.enhancedDeepEquals(this.relayState, other.relayState);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, status, strategy,
-            externalVerificationRedirectUrl, error, expireAt,
-            attempts, verifiedAtClient);
+            samlRequest, samlResponse, relayState);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Saml.class,
-                "object", object,
-                "status", status,
-                "strategy", strategy,
-                "externalVerificationRedirectUrl", externalVerificationRedirectUrl,
-                "error", error,
-                "expireAt", expireAt,
-                "attempts", attempts,
-                "verifiedAtClient", verifiedAtClient);
+                "samlRequest", samlRequest,
+                "samlResponse", samlResponse,
+                "relayState", relayState);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<? extends VerificationSamlVerificationObject> object = Optional.empty();
+        private Optional<String> samlRequest = Optional.empty();
 
-        private VerificationSamlVerificationStatus status;
+        private Optional<String> samlResponse = Optional.empty();
 
-        private VerificationSamlVerificationStrategy strategy;
-
-        private JsonNullable<String> externalVerificationRedirectUrl = JsonNullable.undefined();
-
-        private JsonNullable<? extends VerificationError> error = JsonNullable.undefined();
-
-        private JsonNullable<Long> expireAt = JsonNullable.undefined();
-
-        private Optional<Long> attempts = Optional.empty();
-
-        private JsonNullable<String> verifiedAtClient = JsonNullable.undefined();
+        private Optional<String> relayState = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        public Builder object(VerificationSamlVerificationObject object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder samlRequest(String samlRequest) {
+            Utils.checkNotNull(samlRequest, "samlRequest");
+            this.samlRequest = Optional.ofNullable(samlRequest);
             return this;
         }
 
-        public Builder object(Optional<? extends VerificationSamlVerificationObject> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
-            return this;
-        }
-
-
-        public Builder status(VerificationSamlVerificationStatus status) {
-            Utils.checkNotNull(status, "status");
-            this.status = status;
+        public Builder samlRequest(Optional<String> samlRequest) {
+            Utils.checkNotNull(samlRequest, "samlRequest");
+            this.samlRequest = samlRequest;
             return this;
         }
 
 
-        public Builder strategy(VerificationSamlVerificationStrategy strategy) {
-            Utils.checkNotNull(strategy, "strategy");
-            this.strategy = strategy;
+        public Builder samlResponse(String samlResponse) {
+            Utils.checkNotNull(samlResponse, "samlResponse");
+            this.samlResponse = Optional.ofNullable(samlResponse);
+            return this;
+        }
+
+        public Builder samlResponse(Optional<String> samlResponse) {
+            Utils.checkNotNull(samlResponse, "samlResponse");
+            this.samlResponse = samlResponse;
             return this;
         }
 
 
-        public Builder externalVerificationRedirectUrl(String externalVerificationRedirectUrl) {
-            Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-            this.externalVerificationRedirectUrl = JsonNullable.of(externalVerificationRedirectUrl);
+        public Builder relayState(String relayState) {
+            Utils.checkNotNull(relayState, "relayState");
+            this.relayState = Optional.ofNullable(relayState);
             return this;
         }
 
-        public Builder externalVerificationRedirectUrl(JsonNullable<String> externalVerificationRedirectUrl) {
-            Utils.checkNotNull(externalVerificationRedirectUrl, "externalVerificationRedirectUrl");
-            this.externalVerificationRedirectUrl = externalVerificationRedirectUrl;
-            return this;
-        }
-
-
-        public Builder error(VerificationError error) {
-            Utils.checkNotNull(error, "error");
-            this.error = JsonNullable.of(error);
-            return this;
-        }
-
-        public Builder error(JsonNullable<? extends VerificationError> error) {
-            Utils.checkNotNull(error, "error");
-            this.error = error;
-            return this;
-        }
-
-
-        public Builder expireAt(long expireAt) {
-            Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = JsonNullable.of(expireAt);
-            return this;
-        }
-
-        public Builder expireAt(JsonNullable<Long> expireAt) {
-            Utils.checkNotNull(expireAt, "expireAt");
-            this.expireAt = expireAt;
-            return this;
-        }
-
-
-        public Builder attempts(long attempts) {
-            Utils.checkNotNull(attempts, "attempts");
-            this.attempts = Optional.ofNullable(attempts);
-            return this;
-        }
-
-        public Builder attempts(Optional<Long> attempts) {
-            Utils.checkNotNull(attempts, "attempts");
-            this.attempts = attempts;
-            return this;
-        }
-
-
-        public Builder verifiedAtClient(String verifiedAtClient) {
-            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-            this.verifiedAtClient = JsonNullable.of(verifiedAtClient);
-            return this;
-        }
-
-        public Builder verifiedAtClient(JsonNullable<String> verifiedAtClient) {
-            Utils.checkNotNull(verifiedAtClient, "verifiedAtClient");
-            this.verifiedAtClient = verifiedAtClient;
+        public Builder relayState(Optional<String> relayState) {
+            Utils.checkNotNull(relayState, "relayState");
+            this.relayState = relayState;
             return this;
         }
 
         public Saml build() {
 
             return new Saml(
-                object, status, strategy,
-                externalVerificationRedirectUrl, error, expireAt,
-                attempts, verifiedAtClient);
+                samlRequest, samlResponse, relayState);
         }
 
     }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -57,6 +58,34 @@ public class OauthConfig {
     private JsonNullable<String> discoveryUrl;
 
     /**
+     * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("auth_url")
+    private JsonNullable<String> authUrl;
+
+    /**
+     * OAuth token endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("token_url")
+    private JsonNullable<String> tokenUrl;
+
+    /**
+     * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("user_info_url")
+    private JsonNullable<String> userInfoUrl;
+
+    /**
+     * Whether PKCE is required for this OAuth client
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("requires_pkce")
+    private Optional<Boolean> requiresPkce;
+
+    /**
      * Logo URL for the provider
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -84,6 +113,10 @@ public class OauthConfig {
             @JsonProperty("provider_key") Optional<String> providerKey,
             @JsonProperty("client_id") JsonNullable<String> clientId,
             @JsonProperty("discovery_url") JsonNullable<String> discoveryUrl,
+            @JsonProperty("auth_url") JsonNullable<String> authUrl,
+            @JsonProperty("token_url") JsonNullable<String> tokenUrl,
+            @JsonProperty("user_info_url") JsonNullable<String> userInfoUrl,
+            @JsonProperty("requires_pkce") Optional<Boolean> requiresPkce,
             @JsonProperty("logo_public_url") JsonNullable<String> logoPublicUrl,
             @JsonProperty("created_at") Optional<Long> createdAt,
             @JsonProperty("updated_at") Optional<Long> updatedAt) {
@@ -92,6 +125,10 @@ public class OauthConfig {
         Utils.checkNotNull(providerKey, "providerKey");
         Utils.checkNotNull(clientId, "clientId");
         Utils.checkNotNull(discoveryUrl, "discoveryUrl");
+        Utils.checkNotNull(authUrl, "authUrl");
+        Utils.checkNotNull(tokenUrl, "tokenUrl");
+        Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+        Utils.checkNotNull(requiresPkce, "requiresPkce");
         Utils.checkNotNull(logoPublicUrl, "logoPublicUrl");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -100,6 +137,10 @@ public class OauthConfig {
         this.providerKey = providerKey;
         this.clientId = clientId;
         this.discoveryUrl = discoveryUrl;
+        this.authUrl = authUrl;
+        this.tokenUrl = tokenUrl;
+        this.userInfoUrl = userInfoUrl;
+        this.requiresPkce = requiresPkce;
         this.logoPublicUrl = logoPublicUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -108,7 +149,8 @@ public class OauthConfig {
     public OauthConfig() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), Optional.empty());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -149,6 +191,38 @@ public class OauthConfig {
     @JsonIgnore
     public JsonNullable<String> discoveryUrl() {
         return discoveryUrl;
+    }
+
+    /**
+     * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonIgnore
+    public JsonNullable<String> authUrl() {
+        return authUrl;
+    }
+
+    /**
+     * OAuth token endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonIgnore
+    public JsonNullable<String> tokenUrl() {
+        return tokenUrl;
+    }
+
+    /**
+     * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+     */
+    @JsonIgnore
+    public JsonNullable<String> userInfoUrl() {
+        return userInfoUrl;
+    }
+
+    /**
+     * Whether PKCE is required for this OAuth client
+     */
+    @JsonIgnore
+    public Optional<Boolean> requiresPkce() {
+        return requiresPkce;
     }
 
     /**
@@ -274,6 +348,79 @@ public class OauthConfig {
     }
 
     /**
+     * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withAuthUrl(String authUrl) {
+        Utils.checkNotNull(authUrl, "authUrl");
+        this.authUrl = JsonNullable.of(authUrl);
+        return this;
+    }
+
+    /**
+     * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withAuthUrl(JsonNullable<String> authUrl) {
+        Utils.checkNotNull(authUrl, "authUrl");
+        this.authUrl = authUrl;
+        return this;
+    }
+
+    /**
+     * OAuth token endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withTokenUrl(String tokenUrl) {
+        Utils.checkNotNull(tokenUrl, "tokenUrl");
+        this.tokenUrl = JsonNullable.of(tokenUrl);
+        return this;
+    }
+
+    /**
+     * OAuth token endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withTokenUrl(JsonNullable<String> tokenUrl) {
+        Utils.checkNotNull(tokenUrl, "tokenUrl");
+        this.tokenUrl = tokenUrl;
+        return this;
+    }
+
+    /**
+     * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withUserInfoUrl(String userInfoUrl) {
+        Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+        this.userInfoUrl = JsonNullable.of(userInfoUrl);
+        return this;
+    }
+
+    /**
+     * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+     */
+    public OauthConfig withUserInfoUrl(JsonNullable<String> userInfoUrl) {
+        Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+        this.userInfoUrl = userInfoUrl;
+        return this;
+    }
+
+    /**
+     * Whether PKCE is required for this OAuth client
+     */
+    public OauthConfig withRequiresPkce(boolean requiresPkce) {
+        Utils.checkNotNull(requiresPkce, "requiresPkce");
+        this.requiresPkce = Optional.ofNullable(requiresPkce);
+        return this;
+    }
+
+
+    /**
+     * Whether PKCE is required for this OAuth client
+     */
+    public OauthConfig withRequiresPkce(Optional<Boolean> requiresPkce) {
+        Utils.checkNotNull(requiresPkce, "requiresPkce");
+        this.requiresPkce = requiresPkce;
+        return this;
+    }
+
+    /**
      * Logo URL for the provider
      */
     public OauthConfig withLogoPublicUrl(String logoPublicUrl) {
@@ -344,6 +491,10 @@ public class OauthConfig {
             Utils.enhancedDeepEquals(this.providerKey, other.providerKey) &&
             Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
             Utils.enhancedDeepEquals(this.discoveryUrl, other.discoveryUrl) &&
+            Utils.enhancedDeepEquals(this.authUrl, other.authUrl) &&
+            Utils.enhancedDeepEquals(this.tokenUrl, other.tokenUrl) &&
+            Utils.enhancedDeepEquals(this.userInfoUrl, other.userInfoUrl) &&
+            Utils.enhancedDeepEquals(this.requiresPkce, other.requiresPkce) &&
             Utils.enhancedDeepEquals(this.logoPublicUrl, other.logoPublicUrl) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
@@ -353,8 +504,9 @@ public class OauthConfig {
     public int hashCode() {
         return Utils.enhancedHash(
             id, name, providerKey,
-            clientId, discoveryUrl, logoPublicUrl,
-            createdAt, updatedAt);
+            clientId, discoveryUrl, authUrl,
+            tokenUrl, userInfoUrl, requiresPkce,
+            logoPublicUrl, createdAt, updatedAt);
     }
     
     @Override
@@ -365,6 +517,10 @@ public class OauthConfig {
                 "providerKey", providerKey,
                 "clientId", clientId,
                 "discoveryUrl", discoveryUrl,
+                "authUrl", authUrl,
+                "tokenUrl", tokenUrl,
+                "userInfoUrl", userInfoUrl,
+                "requiresPkce", requiresPkce,
                 "logoPublicUrl", logoPublicUrl,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
@@ -382,6 +538,14 @@ public class OauthConfig {
         private JsonNullable<String> clientId = JsonNullable.undefined();
 
         private JsonNullable<String> discoveryUrl = JsonNullable.undefined();
+
+        private JsonNullable<String> authUrl = JsonNullable.undefined();
+
+        private JsonNullable<String> tokenUrl = JsonNullable.undefined();
+
+        private JsonNullable<String> userInfoUrl = JsonNullable.undefined();
+
+        private Optional<Boolean> requiresPkce = Optional.empty();
 
         private JsonNullable<String> logoPublicUrl = JsonNullable.undefined();
 
@@ -490,6 +654,82 @@ public class OauthConfig {
 
 
         /**
+         * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder authUrl(String authUrl) {
+            Utils.checkNotNull(authUrl, "authUrl");
+            this.authUrl = JsonNullable.of(authUrl);
+            return this;
+        }
+
+        /**
+         * OAuth authorization endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder authUrl(JsonNullable<String> authUrl) {
+            Utils.checkNotNull(authUrl, "authUrl");
+            this.authUrl = authUrl;
+            return this;
+        }
+
+
+        /**
+         * OAuth token endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder tokenUrl(String tokenUrl) {
+            Utils.checkNotNull(tokenUrl, "tokenUrl");
+            this.tokenUrl = JsonNullable.of(tokenUrl);
+            return this;
+        }
+
+        /**
+         * OAuth token endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder tokenUrl(JsonNullable<String> tokenUrl) {
+            Utils.checkNotNull(tokenUrl, "tokenUrl");
+            this.tokenUrl = tokenUrl;
+            return this;
+        }
+
+
+        /**
+         * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder userInfoUrl(String userInfoUrl) {
+            Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+            this.userInfoUrl = JsonNullable.of(userInfoUrl);
+            return this;
+        }
+
+        /**
+         * OIDC userinfo endpoint URL (present when configured or resolved from discovery)
+         */
+        public Builder userInfoUrl(JsonNullable<String> userInfoUrl) {
+            Utils.checkNotNull(userInfoUrl, "userInfoUrl");
+            this.userInfoUrl = userInfoUrl;
+            return this;
+        }
+
+
+        /**
+         * Whether PKCE is required for this OAuth client
+         */
+        public Builder requiresPkce(boolean requiresPkce) {
+            Utils.checkNotNull(requiresPkce, "requiresPkce");
+            this.requiresPkce = Optional.ofNullable(requiresPkce);
+            return this;
+        }
+
+        /**
+         * Whether PKCE is required for this OAuth client
+         */
+        public Builder requiresPkce(Optional<Boolean> requiresPkce) {
+            Utils.checkNotNull(requiresPkce, "requiresPkce");
+            this.requiresPkce = requiresPkce;
+            return this;
+        }
+
+
+        /**
          * Logo URL for the provider
          */
         public Builder logoPublicUrl(String logoPublicUrl) {
@@ -549,8 +789,9 @@ public class OauthConfig {
 
             return new OauthConfig(
                 id, name, providerKey,
-                clientId, discoveryUrl, logoPublicUrl,
-                createdAt, updatedAt);
+                clientId, discoveryUrl, authUrl,
+                tokenUrl, userInfoUrl, requiresPkce,
+                logoPublicUrl, createdAt, updatedAt);
         }
 
     }

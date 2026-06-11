@@ -15,19 +15,19 @@ import java.util.List;
 
 public class CommercePerUnitTotal {
     /**
-     * Name of the billable unit (for example, seats)
+     * Name of the billable unit (for example, `seats`).
      */
     @JsonProperty("name")
     private String name;
 
     /**
-     * Number of units included in each pricing block
+     * Number of units included in each pricing block.
      */
     @JsonProperty("block_size")
     private long blockSize;
 
     /**
-     * Computed totals for each pricing tier
+     * Computed totals for each pricing tier.
      */
     @JsonProperty("tiers")
     private List<CommercePerUnitTotalTier> tiers;
@@ -46,7 +46,7 @@ public class CommercePerUnitTotal {
     }
 
     /**
-     * Name of the billable unit (for example, seats)
+     * Name of the billable unit (for example, `seats`).
      */
     @JsonIgnore
     public String name() {
@@ -54,7 +54,7 @@ public class CommercePerUnitTotal {
     }
 
     /**
-     * Number of units included in each pricing block
+     * Number of units included in each pricing block.
      */
     @JsonIgnore
     public long blockSize() {
@@ -62,7 +62,7 @@ public class CommercePerUnitTotal {
     }
 
     /**
-     * Computed totals for each pricing tier
+     * Computed totals for each pricing tier.
      */
     @JsonIgnore
     public List<CommercePerUnitTotalTier> tiers() {
@@ -75,7 +75,7 @@ public class CommercePerUnitTotal {
 
 
     /**
-     * Name of the billable unit (for example, seats)
+     * Name of the billable unit (for example, `seats`).
      */
     public CommercePerUnitTotal withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -84,7 +84,7 @@ public class CommercePerUnitTotal {
     }
 
     /**
-     * Number of units included in each pricing block
+     * Number of units included in each pricing block.
      */
     public CommercePerUnitTotal withBlockSize(long blockSize) {
         Utils.checkNotNull(blockSize, "blockSize");
@@ -93,7 +93,7 @@ public class CommercePerUnitTotal {
     }
 
     /**
-     * Computed totals for each pricing tier
+     * Computed totals for each pricing tier.
      */
     public CommercePerUnitTotal withTiers(List<CommercePerUnitTotalTier> tiers) {
         Utils.checkNotNull(tiers, "tiers");
@@ -145,7 +145,7 @@ public class CommercePerUnitTotal {
 
 
         /**
-         * Name of the billable unit (for example, seats)
+         * Name of the billable unit (for example, `seats`).
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -155,7 +155,7 @@ public class CommercePerUnitTotal {
 
 
         /**
-         * Number of units included in each pricing block
+         * Number of units included in each pricing block.
          */
         public Builder blockSize(long blockSize) {
             Utils.checkNotNull(blockSize, "blockSize");
@@ -165,7 +165,7 @@ public class CommercePerUnitTotal {
 
 
         /**
-         * Computed totals for each pricing tier
+         * Computed totals for each pricing tier.
          */
         public Builder tiers(List<CommercePerUnitTotalTier> tiers) {
             Utils.checkNotNull(tiers, "tiers");

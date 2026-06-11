@@ -158,6 +158,9 @@ public class Clerk {
 
     private final RoleSets roleSets;
 
+
+    private final AdminPortalLinkTokens adminPortalLinkTokens;
+
     /**
      * Endpoints for managing API Keys
      */
@@ -361,6 +364,11 @@ public class Clerk {
         return roleSets;
     }
 
+
+    public AdminPortalLinkTokens adminPortalLinkTokens() {
+        return adminPortalLinkTokens;
+    }
+
     /**
      * Endpoints for managing API Keys
      */
@@ -524,7 +532,7 @@ public class Clerk {
         return new Builder();
     }
 
-    public Clerk(SDKConfiguration sdkConfiguration) {
+    private Clerk(SDKConfiguration sdkConfiguration) {
         sdkConfiguration.initialize();
         this.miscellaneous = new Miscellaneous(sdkConfiguration);
         this.jwks = new Jwks(sdkConfiguration);
@@ -564,6 +572,7 @@ public class Clerk {
         this.billing = new Billing(sdkConfiguration);
         this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
         this.roleSets = new RoleSets(sdkConfiguration);
+        this.adminPortalLinkTokens = new AdminPortalLinkTokens(sdkConfiguration);
         this.apiKeys = new APIKeys(sdkConfiguration);
         this.m2m = new M2m(sdkConfiguration);
         this.oauthAccessTokens = new OauthAccessTokens(sdkConfiguration);
