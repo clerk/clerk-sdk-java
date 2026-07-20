@@ -16,7 +16,8 @@ import java.util.Optional;
 public enum EnrollmentMode {
     MANUAL_INVITATION("manual_invitation"),
     AUTOMATIC_INVITATION("automatic_invitation"),
-    AUTOMATIC_SUGGESTION("automatic_suggestion");
+    AUTOMATIC_SUGGESTION("automatic_suggestion"),
+    ENTERPRISE_SSO("enterprise_sso");
 
     @JsonValue
     private final String value;

@@ -192,7 +192,7 @@ public class DeleteOrganizationDomain {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {

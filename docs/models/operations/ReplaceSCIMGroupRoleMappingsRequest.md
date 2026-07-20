@@ -1,0 +1,9 @@
+# ReplaceSCIMGroupRoleMappingsRequest
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `scimDirectoryId`                                                                                             | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the SCIM directory.                                                                                 |
+| `requestBody`                                                                                                 | [ReplaceSCIMGroupRoleMappingsRequestBody](../../models/operations/ReplaceSCIMGroupRoleMappingsRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |

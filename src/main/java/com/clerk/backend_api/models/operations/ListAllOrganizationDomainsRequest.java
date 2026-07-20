@@ -31,7 +31,8 @@ public class ListAllOrganizationDomainsRequest {
     private Optional<? extends Verified> verified;
 
     /**
-     * Filter by enrollment mode
+     * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+     * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=false,name=enrollment_mode")
     private Optional<? extends List<EnrollmentMode>> enrollmentMode;
@@ -133,7 +134,8 @@ public class ListAllOrganizationDomainsRequest {
     }
 
     /**
-     * Filter by enrollment mode
+     * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+     * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -241,7 +243,8 @@ public class ListAllOrganizationDomainsRequest {
     }
 
     /**
-     * Filter by enrollment mode
+     * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+     * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
      */
     public ListAllOrganizationDomainsRequest withEnrollmentMode(List<EnrollmentMode> enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -251,7 +254,8 @@ public class ListAllOrganizationDomainsRequest {
 
 
     /**
-     * Filter by enrollment mode
+     * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+     * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
      */
     public ListAllOrganizationDomainsRequest withEnrollmentMode(Optional<? extends List<EnrollmentMode>> enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -488,7 +492,8 @@ public class ListAllOrganizationDomainsRequest {
 
 
         /**
-         * Filter by enrollment mode
+         * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+         * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
          */
         public Builder enrollmentMode(List<EnrollmentMode> enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -497,7 +502,8 @@ public class ListAllOrganizationDomainsRequest {
         }
 
         /**
-         * Filter by enrollment mode
+         * Filter by enrollment mode. Prefix a value with `-` to exclude it instead
+         * (e.g. `-enterprise_sso`). Include and exclude filters can be combined and compose as AND.
          */
         public Builder enrollmentMode(Optional<? extends List<EnrollmentMode>> enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");

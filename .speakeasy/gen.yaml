@@ -29,7 +29,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 5.0.0
+  version: 5.0.1
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api

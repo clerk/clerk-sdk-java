@@ -1779,6 +1779,10 @@ public class Users {
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
      * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
+     * 
      * @return The call builder
      */
     public UnsetUserPasswordCompromisedRequestBuilder unsetPasswordCompromised() {
@@ -1790,6 +1794,10 @@ public class Users {
      * 
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
+     * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @return The response from the API call
@@ -1804,6 +1812,10 @@ public class Users {
      * 
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
+     * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @param options additional options

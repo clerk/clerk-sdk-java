@@ -334,8 +334,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.schemasCommerceSubscriptionItem().isPresent()) {
-            System.out.println(res.schemasCommerceSubscriptionItem().get());
+        if (res.commerceSubscriptionItem2().isPresent()) {
+            System.out.println(res.commerceSubscriptionItem2().get());
         }
     }
 }

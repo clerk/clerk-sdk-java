@@ -9,7 +9,7 @@ import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
-import com.clerk.backend_api.models.components.SchemasCommerceSubscriptionItem;
+import com.clerk.backend_api.models.components.CommerceSubscriptionItem2;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
 import com.clerk.backend_api.models.operations.ExtendBillingSubscriptionItemFreeTrialRequest;
@@ -204,7 +204,7 @@ public class ExtendBillingSubscriptionItemFreeTrial {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withSchemasCommerceSubscriptionItem(Utils.unmarshal(response, new TypeReference<SchemasCommerceSubscriptionItem>() {}));
+                    return res.withCommerceSubscriptionItem2(Utils.unmarshal(response, new TypeReference<CommerceSubscriptionItem2>() {}));
                 } else {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }

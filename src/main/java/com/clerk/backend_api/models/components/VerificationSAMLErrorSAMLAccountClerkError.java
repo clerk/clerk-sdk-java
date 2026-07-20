@@ -9,9 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -31,14 +33,14 @@ public class VerificationSAMLErrorSAMLAccountClerkError {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("meta")
-    private Optional<? extends ClerkErrorErrorSAMLAccountMeta> meta;
+    private Optional<? extends Map<String, Object>> meta;
 
     @JsonCreator
     public VerificationSAMLErrorSAMLAccountClerkError(
             @JsonProperty("message") String message,
             @JsonProperty("long_message") String longMessage,
             @JsonProperty("code") String code,
-            @JsonProperty("meta") Optional<? extends ClerkErrorErrorSAMLAccountMeta> meta) {
+            @JsonProperty("meta") Optional<? extends Map<String, Object>> meta) {
         Utils.checkNotNull(message, "message");
         Utils.checkNotNull(longMessage, "longMessage");
         Utils.checkNotNull(code, "code");
@@ -74,8 +76,8 @@ public class VerificationSAMLErrorSAMLAccountClerkError {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<ClerkErrorErrorSAMLAccountMeta> meta() {
-        return (Optional<ClerkErrorErrorSAMLAccountMeta>) meta;
+    public Optional<Map<String, Object>> meta() {
+        return (Optional<Map<String, Object>>) meta;
     }
 
     public static Builder builder() {
@@ -101,14 +103,14 @@ public class VerificationSAMLErrorSAMLAccountClerkError {
         return this;
     }
 
-    public VerificationSAMLErrorSAMLAccountClerkError withMeta(ClerkErrorErrorSAMLAccountMeta meta) {
+    public VerificationSAMLErrorSAMLAccountClerkError withMeta(Map<String, Object> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = Optional.ofNullable(meta);
         return this;
     }
 
 
-    public VerificationSAMLErrorSAMLAccountClerkError withMeta(Optional<? extends ClerkErrorErrorSAMLAccountMeta> meta) {
+    public VerificationSAMLErrorSAMLAccountClerkError withMeta(Optional<? extends Map<String, Object>> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = meta;
         return this;
@@ -155,7 +157,7 @@ public class VerificationSAMLErrorSAMLAccountClerkError {
 
         private String code;
 
-        private Optional<? extends ClerkErrorErrorSAMLAccountMeta> meta = Optional.empty();
+        private Optional<? extends Map<String, Object>> meta = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -183,13 +185,13 @@ public class VerificationSAMLErrorSAMLAccountClerkError {
         }
 
 
-        public Builder meta(ClerkErrorErrorSAMLAccountMeta meta) {
+        public Builder meta(Map<String, Object> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = Optional.ofNullable(meta);
             return this;
         }
 
-        public Builder meta(Optional<? extends ClerkErrorErrorSAMLAccountMeta> meta) {
+        public Builder meta(Optional<? extends Map<String, Object>> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = meta;
             return this;

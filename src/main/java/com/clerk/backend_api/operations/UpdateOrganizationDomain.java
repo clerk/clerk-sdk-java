@@ -209,7 +209,7 @@ public class UpdateOrganizationDomain {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "404", "422")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404", "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {

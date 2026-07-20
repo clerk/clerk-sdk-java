@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.lang.Throwable;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("serial")
@@ -60,7 +62,7 @@ public class ClerkErrors extends ClerkError {
     }
 
     @Deprecated
-    public Optional<Meta> meta() {
+    public Optional<Map<String, Object>> meta() {
         return data().flatMap(Data::meta);
     }
 
@@ -87,12 +89,12 @@ public class ClerkErrors extends ClerkError {
 
         @JsonInclude(Include.NON_ABSENT)
         @JsonProperty("meta")
-        private Optional<? extends Meta> meta;
+        private Optional<? extends Map<String, Object>> meta;
 
         @JsonCreator
         public Data(
                 @JsonProperty("errors") List<com.clerk.backend_api.models.components.ClerkError> errors,
-                @JsonProperty("meta") Optional<? extends Meta> meta) {
+                @JsonProperty("meta") Optional<? extends Map<String, Object>> meta) {
             Utils.checkNotNull(errors, "errors");
             Utils.checkNotNull(meta, "meta");
             this.errors = errors;
@@ -111,8 +113,8 @@ public class ClerkErrors extends ClerkError {
 
         @SuppressWarnings("unchecked")
         @JsonIgnore
-        public Optional<Meta> meta() {
-            return (Optional<Meta>) meta;
+        public Optional<Map<String, Object>> meta() {
+            return (Optional<Map<String, Object>>) meta;
         }
 
         public static Builder builder() {
@@ -126,14 +128,14 @@ public class ClerkErrors extends ClerkError {
             return this;
         }
 
-        public Data withMeta(Meta meta) {
+        public Data withMeta(Map<String, Object> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = Optional.ofNullable(meta);
             return this;
         }
 
 
-        public Data withMeta(Optional<? extends Meta> meta) {
+        public Data withMeta(Optional<? extends Map<String, Object>> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = meta;
             return this;
@@ -171,7 +173,7 @@ public class ClerkErrors extends ClerkError {
 
             private List<com.clerk.backend_api.models.components.ClerkError> errors;
 
-            private Optional<? extends Meta> meta = Optional.empty();
+            private Optional<? extends Map<String, Object>> meta = Optional.empty();
 
             private Builder() {
               // force use of static builder() method
@@ -185,13 +187,13 @@ public class ClerkErrors extends ClerkError {
             }
 
 
-            public Builder meta(Meta meta) {
+            public Builder meta(Map<String, Object> meta) {
                 Utils.checkNotNull(meta, "meta");
                 this.meta = Optional.ofNullable(meta);
                 return this;
             }
 
-            public Builder meta(Optional<? extends Meta> meta) {
+            public Builder meta(Optional<? extends Map<String, Object>> meta) {
                 Utils.checkNotNull(meta, "meta");
                 this.meta = meta;
                 return this;

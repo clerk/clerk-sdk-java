@@ -24,7 +24,7 @@ public class CommercePriceTransitionResponse {
 
 
     @JsonProperty("subscription_item")
-    private SchemasCommerceSubscriptionItem subscriptionItem;
+    private CommerceSubscriptionItem2 subscriptionItem;
 
 
     @JsonProperty("transition")
@@ -33,7 +33,7 @@ public class CommercePriceTransitionResponse {
     @JsonCreator
     public CommercePriceTransitionResponse(
             @JsonProperty("object") CommercePriceTransitionResponseObject object,
-            @JsonProperty("subscription_item") SchemasCommerceSubscriptionItem subscriptionItem,
+            @JsonProperty("subscription_item") CommerceSubscriptionItem2 subscriptionItem,
             @JsonProperty("transition") CommercePriceTransitionDetails transition) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(subscriptionItem, "subscriptionItem");
@@ -52,7 +52,7 @@ public class CommercePriceTransitionResponse {
     }
 
     @JsonIgnore
-    public SchemasCommerceSubscriptionItem subscriptionItem() {
+    public CommerceSubscriptionItem2 subscriptionItem() {
         return subscriptionItem;
     }
 
@@ -75,7 +75,7 @@ public class CommercePriceTransitionResponse {
         return this;
     }
 
-    public CommercePriceTransitionResponse withSubscriptionItem(SchemasCommerceSubscriptionItem subscriptionItem) {
+    public CommercePriceTransitionResponse withSubscriptionItem(CommerceSubscriptionItem2 subscriptionItem) {
         Utils.checkNotNull(subscriptionItem, "subscriptionItem");
         this.subscriptionItem = subscriptionItem;
         return this;
@@ -121,7 +121,7 @@ public class CommercePriceTransitionResponse {
 
         private CommercePriceTransitionResponseObject object;
 
-        private SchemasCommerceSubscriptionItem subscriptionItem;
+        private CommerceSubscriptionItem2 subscriptionItem;
 
         private CommercePriceTransitionDetails transition;
 
@@ -140,7 +140,7 @@ public class CommercePriceTransitionResponse {
         }
 
 
-        public Builder subscriptionItem(SchemasCommerceSubscriptionItem subscriptionItem) {
+        public Builder subscriptionItem(CommerceSubscriptionItem2 subscriptionItem) {
             Utils.checkNotNull(subscriptionItem, "subscriptionItem");
             this.subscriptionItem = subscriptionItem;
             return this;
