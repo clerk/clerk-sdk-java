@@ -176,18 +176,25 @@ public final class StreamingParser<T> {
         private static final byte[] CRLF = {CR, LF}; // \r\n
         private static final byte[] LF_ONLY = {LF}; // \n
 
+        // Next unexamined offset; preserved across reads to avoid rescanning.
+        private int scanPos = 0;
+
         @Override
         public BoundaryInfo findBoundary(byte[] data, int limit) {
-            for (int i = 0; i < limit; i++) {
+            // Resume one byte early so a trailing CR can complete to CRLF.
+            for (int i = Math.max(0, scanPos - 1); i < limit; i++) {
                 // Check for CRLF first (longer pattern)
                 if (matchesPattern(data, i, limit, CRLF)) {
+                    scanPos = 0;
                     return new BoundaryInfo(i, CRLF.length);
                 }
                 // Check for LF only
                 if (matchesPattern(data, i, limit, LF_ONLY)) {
+                    scanPos = 0;
                     return new BoundaryInfo(i, LF_ONLY.length);
                 }
             }
+            scanPos = limit;
             return new BoundaryInfo(-1, 0);
         }
 
@@ -217,9 +224,24 @@ public final class StreamingParser<T> {
 
         private Optional<String> eventId = Optional.empty();
 
+        // Scan state preserved across reads; offsets stay valid because the
+        // parser compacts and resets this state after each boundary.
+        private int scanPos = 0;
+        private int lineStart = 0;
+        // A trailing CR may complete to CRLF on the next read; in that case
+        // the LF belongs to the same line ending, not a new empty line.
+        private boolean pendingCRLF = false;
+
         @Override
         public BoundaryInfo findBoundary(byte[] data, int limit) {
-            int lineStart = 0, i = lineStart;
+            int i = scanPos;
+            if (pendingCRLF) {
+                pendingCRLF = false;
+                if (i < limit && data[i] == LF && i == lineStart) {
+                    lineStart = i + 1;
+                    i = i + 1;
+                }
+            }
             while (i < limit) {
                 for (byte[] pattern : BOUNDARY_PATTERNS) {
                     if (matchesPattern(data, i, limit, pattern)) {
@@ -229,7 +251,13 @@ public final class StreamingParser<T> {
                                 boundStart--;
                             }
                             int boundLength = (lineStart - boundStart) + pattern.length;
+                            scanPos = 0;
+                            lineStart = 0;
+                            pendingCRLF = false;
                             return new BoundaryInfo(boundStart, boundLength);
+                        }
+                        if (pattern.length == 1 && data[i] == CR && i == limit - 1) {
+                            pendingCRLF = true;
                         }
                         lineStart = i + pattern.length;
                         i = lineStart - 1;
@@ -238,6 +266,7 @@ public final class StreamingParser<T> {
                 }
                 i++;
             }
+            scanPos = i;
             return new BoundaryInfo(-1, 0);
         }
 

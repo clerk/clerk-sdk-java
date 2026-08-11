@@ -27,7 +27,7 @@ public class Credit {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
-    private JsonNullable<? extends SchemasCommerceSubscriptionItemCreditAmount> amount;
+    private JsonNullable<? extends CommerceSubscriptionItem2CreditAmount> amount;
 
     /**
      * Percentage of the billing cycle remaining.
@@ -38,7 +38,7 @@ public class Credit {
 
     @JsonCreator
     public Credit(
-            @JsonProperty("amount") JsonNullable<? extends SchemasCommerceSubscriptionItemCreditAmount> amount,
+            @JsonProperty("amount") JsonNullable<? extends CommerceSubscriptionItem2CreditAmount> amount,
             @JsonProperty("cycle_remaining_percent") Optional<Float> cycleRemainingPercent) {
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(cycleRemainingPercent, "cycleRemainingPercent");
@@ -55,8 +55,8 @@ public class Credit {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<SchemasCommerceSubscriptionItemCreditAmount> amount() {
-        return (JsonNullable<SchemasCommerceSubscriptionItemCreditAmount>) amount;
+    public JsonNullable<CommerceSubscriptionItem2CreditAmount> amount() {
+        return (JsonNullable<CommerceSubscriptionItem2CreditAmount>) amount;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Credit {
     /**
      * Credit amount.
      */
-    public Credit withAmount(SchemasCommerceSubscriptionItemCreditAmount amount) {
+    public Credit withAmount(CommerceSubscriptionItem2CreditAmount amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = JsonNullable.of(amount);
         return this;
@@ -84,7 +84,7 @@ public class Credit {
     /**
      * Credit amount.
      */
-    public Credit withAmount(JsonNullable<? extends SchemasCommerceSubscriptionItemCreditAmount> amount) {
+    public Credit withAmount(JsonNullable<? extends CommerceSubscriptionItem2CreditAmount> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
@@ -139,7 +139,7 @@ public class Credit {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private JsonNullable<? extends SchemasCommerceSubscriptionItemCreditAmount> amount = JsonNullable.undefined();
+        private JsonNullable<? extends CommerceSubscriptionItem2CreditAmount> amount = JsonNullable.undefined();
 
         private Optional<Float> cycleRemainingPercent = Optional.empty();
 
@@ -151,7 +151,7 @@ public class Credit {
         /**
          * Credit amount.
          */
-        public Builder amount(SchemasCommerceSubscriptionItemCreditAmount amount) {
+        public Builder amount(CommerceSubscriptionItem2CreditAmount amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = JsonNullable.of(amount);
             return this;
@@ -160,7 +160,7 @@ public class Credit {
         /**
          * Credit amount.
          */
-        public Builder amount(JsonNullable<? extends SchemasCommerceSubscriptionItemCreditAmount> amount) {
+        public Builder amount(JsonNullable<? extends CommerceSubscriptionItem2CreditAmount> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;

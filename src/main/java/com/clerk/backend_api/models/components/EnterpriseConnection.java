@@ -20,6 +20,10 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class EnterpriseConnection {
+
+    @JsonProperty("object")
+    private EnterpriseConnectionObject object;
+
     /**
      * The enterprise connection ID
      */
@@ -116,6 +120,7 @@ public class EnterpriseConnection {
 
     @JsonCreator
     public EnterpriseConnection(
+            @JsonProperty("object") EnterpriseConnectionObject object,
             @JsonProperty("id") String id,
             @JsonProperty("name") String name,
             @JsonProperty("provider") String provider,
@@ -131,6 +136,7 @@ public class EnterpriseConnection {
             @JsonProperty("oauth_config") JsonNullable<? extends OauthConfig> oauthConfig,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
+        Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(provider, "provider");
@@ -146,6 +152,7 @@ public class EnterpriseConnection {
         Utils.checkNotNull(oauthConfig, "oauthConfig");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
+        this.object = object;
         this.id = id;
         this.name = name;
         this.provider = provider;
@@ -164,6 +171,7 @@ public class EnterpriseConnection {
     }
     
     public EnterpriseConnection(
+            EnterpriseConnectionObject object,
             String id,
             String name,
             String provider,
@@ -171,11 +179,17 @@ public class EnterpriseConnection {
             List<String> domains,
             long createdAt,
             long updatedAt) {
-        this(id, name, provider,
-            JsonNullable.undefined(), active, domains,
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), createdAt, updatedAt);
+        this(object, id, name,
+            provider, JsonNullable.undefined(), active,
+            domains, JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), createdAt,
+            updatedAt);
+    }
+
+    @JsonIgnore
+    public EnterpriseConnectionObject object() {
+        return object;
     }
 
     /**
@@ -299,6 +313,12 @@ public class EnterpriseConnection {
         return new Builder();
     }
 
+
+    public EnterpriseConnection withObject(EnterpriseConnectionObject object) {
+        Utils.checkNotNull(object, "object");
+        this.object = object;
+        return this;
+    }
 
     /**
      * The enterprise connection ID
@@ -512,6 +532,7 @@ public class EnterpriseConnection {
         }
         EnterpriseConnection other = (EnterpriseConnection) o;
         return 
+            Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.provider, other.provider) &&
@@ -532,16 +553,18 @@ public class EnterpriseConnection {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id, name, provider,
-            logoPublicUrl, active, domains,
-            organizationId, syncUserAttributes, disableAdditionalIdentifications,
-            allowOrganizationAccountLinking, customAttributes, samlConnection,
-            oauthConfig, createdAt, updatedAt);
+            object, id, name,
+            provider, logoPublicUrl, active,
+            domains, organizationId, syncUserAttributes,
+            disableAdditionalIdentifications, allowOrganizationAccountLinking, customAttributes,
+            samlConnection, oauthConfig, createdAt,
+            updatedAt);
     }
     
     @Override
     public String toString() {
         return Utils.toString(EnterpriseConnection.class,
+                "object", object,
                 "id", id,
                 "name", name,
                 "provider", provider,
@@ -561,6 +584,8 @@ public class EnterpriseConnection {
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
+
+        private EnterpriseConnectionObject object;
 
         private String id;
 
@@ -594,6 +619,13 @@ public class EnterpriseConnection {
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        public Builder object(EnterpriseConnectionObject object) {
+            Utils.checkNotNull(object, "object");
+            this.object = object;
+            return this;
         }
 
 
@@ -812,11 +844,12 @@ public class EnterpriseConnection {
         public EnterpriseConnection build() {
 
             return new EnterpriseConnection(
-                id, name, provider,
-                logoPublicUrl, active, domains,
-                organizationId, syncUserAttributes, disableAdditionalIdentifications,
-                allowOrganizationAccountLinking, customAttributes, samlConnection,
-                oauthConfig, createdAt, updatedAt);
+                object, id, name,
+                provider, logoPublicUrl, active,
+                domains, organizationId, syncUserAttributes,
+                disableAdditionalIdentifications, allowOrganizationAccountLinking, customAttributes,
+                samlConnection, oauthConfig, createdAt,
+                updatedAt);
         }
 
     }

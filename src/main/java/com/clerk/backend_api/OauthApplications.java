@@ -17,6 +17,10 @@ import com.clerk.backend_api.models.operations.GetOAuthApplicationResponse;
 import com.clerk.backend_api.models.operations.ListOAuthApplicationsRequest;
 import com.clerk.backend_api.models.operations.ListOAuthApplicationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListOAuthApplicationsResponse;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenRequest;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenRequestBody;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenResponse;
 import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequest;
 import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretRequestBuilder;
 import com.clerk.backend_api.models.operations.RotateOAuthApplicationSecretResponse;
@@ -32,6 +36,7 @@ import com.clerk.backend_api.operations.CreateOAuthApplication;
 import com.clerk.backend_api.operations.DeleteOAuthApplication;
 import com.clerk.backend_api.operations.GetOAuthApplication;
 import com.clerk.backend_api.operations.ListOAuthApplications;
+import com.clerk.backend_api.operations.RevokeOAuthApplicationToken;
 import com.clerk.backend_api.operations.RotateOAuthApplicationSecret;
 import com.clerk.backend_api.operations.UpdateOAuthApplication;
 import com.clerk.backend_api.operations.UploadOAuthApplicationLogo;
@@ -415,6 +420,65 @@ public class OauthApplications {
                 .build();
         RequestOperation<RotateOAuthApplicationSecretRequest, RotateOAuthApplicationSecretResponse> operation
               = new RotateOAuthApplicationSecret.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Revoke an OAuth application token
+     * 
+     * <p>Revoke both OAuth access token and refresh token for the associated grant for the given OAuth
+     * application.
+     * The request may specify either token.
+     * JWT access tokens cannot be revoked.
+     * 
+     * @return The call builder
+     */
+    public RevokeOAuthApplicationTokenRequestBuilder revokeToken() {
+        return new RevokeOAuthApplicationTokenRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Revoke an OAuth application token
+     * 
+     * <p>Revoke both OAuth access token and refresh token for the associated grant for the given OAuth
+     * application.
+     * The request may specify either token.
+     * JWT access tokens cannot be revoked.
+     * 
+     * @param oauthApplicationId The ID of the OAuth application for which to revoke the token
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeOAuthApplicationTokenResponse revokeToken(String oauthApplicationId, RevokeOAuthApplicationTokenRequestBody requestBody) {
+        return revokeToken(oauthApplicationId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Revoke an OAuth application token
+     * 
+     * <p>Revoke both OAuth access token and refresh token for the associated grant for the given OAuth
+     * application.
+     * The request may specify either token.
+     * JWT access tokens cannot be revoked.
+     * 
+     * @param oauthApplicationId The ID of the OAuth application for which to revoke the token
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeOAuthApplicationTokenResponse revokeToken(
+            String oauthApplicationId, RevokeOAuthApplicationTokenRequestBody requestBody,
+            Optional<Options> options) {
+        RevokeOAuthApplicationTokenRequest request =
+            RevokeOAuthApplicationTokenRequest
+                .builder()
+                .oauthApplicationId(oauthApplicationId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<RevokeOAuthApplicationTokenRequest, RevokeOAuthApplicationTokenResponse> operation
+              = new RevokeOAuthApplicationToken.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

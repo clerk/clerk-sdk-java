@@ -15,7 +15,8 @@ import java.util.Optional;
  */
 public enum PaymentType {
     CARD("card"),
-    LINK("link");
+    LINK("link"),
+    PAYER_CREDITS("payer-credits");
 
     @JsonValue
     private final String value;

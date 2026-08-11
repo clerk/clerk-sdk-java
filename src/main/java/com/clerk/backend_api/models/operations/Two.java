@@ -108,6 +108,13 @@ public class Two {
     @JsonProperty("force_authn")
     private Optional<Boolean> forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private JsonNullable<? extends RequestBodyLoginHint> loginHint;
+
     @JsonCreator
     public Two(
             @JsonProperty("name") String name,
@@ -121,7 +128,8 @@ public class Two {
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("attribute_mapping") JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping,
-            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn,
+            @JsonProperty("login_hint") JsonNullable<? extends RequestBodyLoginHint> loginHint) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(domains, "domains");
@@ -134,6 +142,7 @@ public class Two {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         this.name = name;
         this.domain = domain;
         this.domains = domains;
@@ -146,6 +155,7 @@ public class Two {
         this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
     }
     
     public Two(
@@ -155,7 +165,8 @@ public class Two {
         this(name, Optional.empty(), domains,
             provider, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -260,6 +271,15 @@ public class Two {
     @JsonIgnore
     public Optional<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<RequestBodyLoginHint> loginHint() {
+        return (JsonNullable<RequestBodyLoginHint>) loginHint;
     }
 
     public static Builder builder() {
@@ -471,6 +491,24 @@ public class Two {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public Two withLoginHint(RequestBodyLoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = JsonNullable.of(loginHint);
+        return this;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public Two withLoginHint(JsonNullable<? extends RequestBodyLoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -492,7 +530,8 @@ public class Two {
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint);
     }
     
     @Override
@@ -501,7 +540,8 @@ public class Two {
             name, domain, domains,
             provider, idpEntityId, idpSsoUrl,
             idpCertificate, idpMetadataUrl, idpMetadata,
-            organizationId, attributeMapping, forceAuthn);
+            organizationId, attributeMapping, forceAuthn,
+            loginHint);
     }
     
     @Override
@@ -518,7 +558,8 @@ public class Two {
                 "idpMetadata", idpMetadata,
                 "organizationId", organizationId,
                 "attributeMapping", attributeMapping,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "loginHint", loginHint);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -548,6 +589,8 @@ public class Two {
         private JsonNullable<? extends RequestBodyAttributeMapping> attributeMapping = JsonNullable.undefined();
 
         private Optional<Boolean> forceAuthn = Optional.empty();
+
+        private JsonNullable<? extends RequestBodyLoginHint> loginHint = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -767,13 +810,33 @@ public class Two {
             return this;
         }
 
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(RequestBodyLoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = JsonNullable.of(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(JsonNullable<? extends RequestBodyLoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
         public Two build() {
 
             return new Two(
                 name, domain, domains,
                 provider, idpEntityId, idpSsoUrl,
                 idpCertificate, idpMetadataUrl, idpMetadata,
-                organizationId, attributeMapping, forceAuthn);
+                organizationId, attributeMapping, forceAuthn,
+                loginHint);
         }
 
     }

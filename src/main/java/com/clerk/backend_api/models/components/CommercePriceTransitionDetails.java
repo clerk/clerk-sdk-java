@@ -20,7 +20,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class CommercePriceTransitionDetails {
 
     @JsonProperty("previous_plan")
-    private SchemasCommercePlan previousPlan;
+    private CommercePlan2 previousPlan;
 
 
     @JsonProperty("previous_price")
@@ -72,7 +72,7 @@ public class CommercePriceTransitionDetails {
 
     @JsonCreator
     public CommercePriceTransitionDetails(
-            @JsonProperty("previous_plan") SchemasCommercePlan previousPlan,
+            @JsonProperty("previous_plan") CommercePlan2 previousPlan,
             @JsonProperty("previous_price") BillingPriceResponse previousPrice,
             @JsonProperty("effective_at") long effectiveAt,
             @JsonProperty("effective_mode") EffectiveMode effectiveMode,
@@ -102,7 +102,7 @@ public class CommercePriceTransitionDetails {
     }
     
     public CommercePriceTransitionDetails(
-            SchemasCommercePlan previousPlan,
+            CommercePlan2 previousPlan,
             BillingPriceResponse previousPrice,
             long effectiveAt,
             EffectiveMode effectiveMode,
@@ -115,7 +115,7 @@ public class CommercePriceTransitionDetails {
     }
 
     @JsonIgnore
-    public SchemasCommercePlan previousPlan() {
+    public CommercePlan2 previousPlan() {
         return previousPlan;
     }
 
@@ -186,7 +186,7 @@ public class CommercePriceTransitionDetails {
     }
 
 
-    public CommercePriceTransitionDetails withPreviousPlan(SchemasCommercePlan previousPlan) {
+    public CommercePriceTransitionDetails withPreviousPlan(CommercePlan2 previousPlan) {
         Utils.checkNotNull(previousPlan, "previousPlan");
         this.previousPlan = previousPlan;
         return this;
@@ -325,7 +325,7 @@ public class CommercePriceTransitionDetails {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private SchemasCommercePlan previousPlan;
+        private CommercePlan2 previousPlan;
 
         private BillingPriceResponse previousPrice;
 
@@ -348,7 +348,7 @@ public class CommercePriceTransitionDetails {
         }
 
 
-        public Builder previousPlan(SchemasCommercePlan previousPlan) {
+        public Builder previousPlan(CommercePlan2 previousPlan) {
             Utils.checkNotNull(previousPlan, "previousPlan");
             this.previousPlan = previousPlan;
             return this;

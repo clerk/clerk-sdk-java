@@ -368,9 +368,16 @@ public class EmailAddresses {
      * <p>Replaces all of the user's email addresses with a single primary email address.
      * By default the new email address is created verified, with the admin verification strategy.
      * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
-     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * for sign-in and locked so no other user can claim it. When it is `unverified` the address is
+     * neither usable for sign-in nor locked. Any existing email addresses are deleted.
      * If an existing email address is linked to a connected account, the request is rejected; remove
      * the connected account first.
+     * 
+     * <p>**Warning:** `identification_status: unverified` can lock the user out of their account. An
+     * unverified email address cannot be used to sign in, so if the user has no other verified or
+     * reserved identifier, deleting their existing email addresses leaves them unable to
+     * authenticate — and unable to verify the new address, since that requires signing in. Recovery
+     * then requires another admin API call.
      * 
      * @return The call builder
      */
@@ -384,9 +391,16 @@ public class EmailAddresses {
      * <p>Replaces all of the user's email addresses with a single primary email address.
      * By default the new email address is created verified, with the admin verification strategy.
      * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
-     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * for sign-in and locked so no other user can claim it. When it is `unverified` the address is
+     * neither usable for sign-in nor locked. Any existing email addresses are deleted.
      * If an existing email address is linked to a connected account, the request is rejected; remove
      * the connected account first.
+     * 
+     * <p>**Warning:** `identification_status: unverified` can lock the user out of their account. An
+     * unverified email address cannot be used to sign in, so if the user has no other verified or
+     * reserved identifier, deleting their existing email addresses leaves them unable to
+     * authenticate — and unable to verify the new address, since that requires signing in. Recovery
+     * then requires another admin API call.
      * 
      * @param userId The ID of the user whose email address to replace
      * @param requestBody 
@@ -403,9 +417,16 @@ public class EmailAddresses {
      * <p>Replaces all of the user's email addresses with a single primary email address.
      * By default the new email address is created verified, with the admin verification strategy.
      * When `identification_status` is `reserved` it is created reserved instead: unverified but usable
-     * for sign-in and locked so no other user can claim it. Any existing email addresses are deleted.
+     * for sign-in and locked so no other user can claim it. When it is `unverified` the address is
+     * neither usable for sign-in nor locked. Any existing email addresses are deleted.
      * If an existing email address is linked to a connected account, the request is rejected; remove
      * the connected account first.
+     * 
+     * <p>**Warning:** `identification_status: unverified` can lock the user out of their account. An
+     * unverified email address cannot be used to sign in, so if the user has no other verified or
+     * reserved identifier, deleting their existing email addresses leaves them unable to
+     * authenticate — and unable to verify the new address, since that requires signing in. Recovery
+     * then requires another admin API call.
      * 
      * @param userId The ID of the user whose email address to replace
      * @param requestBody 

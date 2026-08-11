@@ -145,6 +145,13 @@ public class UpdateSAMLConnectionRequestBody {
     private Optional<Boolean> forceAuthn;
 
     /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private JsonNullable<? extends LoginHint> loginHint;
+
+    /**
      * When enabling the connection, controls behavior when verified domains used for enrollment modes like
      * automatic invitation or automatic suggestion already exist for the same domain. If true, those
      * verified domains are removed and the connection is enabled. If false or omitted, the request fails
@@ -173,6 +180,7 @@ public class UpdateSAMLConnectionRequestBody {
             @JsonProperty("disable_additional_identifications") JsonNullable<Boolean> disableAdditionalIdentifications,
             @JsonProperty("allow_organization_account_linking") JsonNullable<Boolean> allowOrganizationAccountLinking,
             @JsonProperty("force_authn") Optional<Boolean> forceAuthn,
+            @JsonProperty("login_hint") JsonNullable<? extends LoginHint> loginHint,
             @JsonProperty("consent_verified_domains_deletion") JsonNullable<Boolean> consentVerifiedDomainsDeletion) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
@@ -191,6 +199,7 @@ public class UpdateSAMLConnectionRequestBody {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         Utils.checkNotNull(consentVerifiedDomainsDeletion, "consentVerifiedDomainsDeletion");
         this.name = name;
         this.domain = domain;
@@ -209,6 +218,7 @@ public class UpdateSAMLConnectionRequestBody {
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
         this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
         this.consentVerifiedDomainsDeletion = consentVerifiedDomainsDeletion;
     }
     
@@ -218,7 +228,8 @@ public class UpdateSAMLConnectionRequestBody {
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined());
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -362,6 +373,15 @@ public class UpdateSAMLConnectionRequestBody {
     @JsonIgnore
     public Optional<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<LoginHint> loginHint() {
+        return (JsonNullable<LoginHint>) loginHint;
     }
 
     /**
@@ -698,6 +718,24 @@ public class UpdateSAMLConnectionRequestBody {
     }
 
     /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public UpdateSAMLConnectionRequestBody withLoginHint(LoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = JsonNullable.of(loginHint);
+        return this;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public UpdateSAMLConnectionRequestBody withLoginHint(JsonNullable<? extends LoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
+    /**
      * When enabling the connection, controls behavior when verified domains used for enrollment modes like
      * automatic invitation or automatic suggestion already exist for the same domain. If true, those
      * verified domains are removed and the connection is enabled. If false or omitted, the request fails
@@ -748,6 +786,7 @@ public class UpdateSAMLConnectionRequestBody {
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
             Utils.enhancedDeepEquals(this.allowOrganizationAccountLinking, other.allowOrganizationAccountLinking) &&
             Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint) &&
             Utils.enhancedDeepEquals(this.consentVerifiedDomainsDeletion, other.consentVerifiedDomainsDeletion);
     }
     
@@ -759,7 +798,8 @@ public class UpdateSAMLConnectionRequestBody {
             idpMetadataUrl, idpMetadata, organizationId,
             attributeMapping, active, syncUserAttributes,
             allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-            allowOrganizationAccountLinking, forceAuthn, consentVerifiedDomainsDeletion);
+            allowOrganizationAccountLinking, forceAuthn, loginHint,
+            consentVerifiedDomainsDeletion);
     }
     
     @Override
@@ -782,6 +822,7 @@ public class UpdateSAMLConnectionRequestBody {
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
                 "allowOrganizationAccountLinking", allowOrganizationAccountLinking,
                 "forceAuthn", forceAuthn,
+                "loginHint", loginHint,
                 "consentVerifiedDomainsDeletion", consentVerifiedDomainsDeletion);
     }
 
@@ -822,6 +863,8 @@ public class UpdateSAMLConnectionRequestBody {
         private JsonNullable<Boolean> allowOrganizationAccountLinking = JsonNullable.undefined();
 
         private Optional<Boolean> forceAuthn = Optional.empty();
+
+        private JsonNullable<? extends LoginHint> loginHint = JsonNullable.undefined();
 
         private JsonNullable<Boolean> consentVerifiedDomainsDeletion = JsonNullable.undefined();
 
@@ -1164,6 +1207,25 @@ public class UpdateSAMLConnectionRequestBody {
 
 
         /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(LoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = JsonNullable.of(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(JsonNullable<? extends LoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
+
+        /**
          * When enabling the connection, controls behavior when verified domains used for enrollment modes like
          * automatic invitation or automatic suggestion already exist for the same domain. If true, those
          * verified domains are removed and the connection is enabled. If false or omitted, the request fails
@@ -1195,7 +1257,8 @@ public class UpdateSAMLConnectionRequestBody {
                 idpMetadataUrl, idpMetadata, organizationId,
                 attributeMapping, active, syncUserAttributes,
                 allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-                allowOrganizationAccountLinking, forceAuthn, consentVerifiedDomainsDeletion);
+                allowOrganizationAccountLinking, forceAuthn, loginHint,
+                consentVerifiedDomainsDeletion);
         }
 
     }

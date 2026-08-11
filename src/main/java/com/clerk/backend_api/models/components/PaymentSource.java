@@ -26,7 +26,7 @@ public class PaymentSource {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonProperty("object")
-    private SchemasCommerceSubscriptionItemPaymentSourceObject object;
+    private CommerceSubscriptionItem2PaymentSourceObject object;
 
     /**
      * Unique identifier for the payment source.
@@ -82,7 +82,7 @@ public class PaymentSource {
      * Status of the payment source.
      */
     @JsonProperty("status")
-    private SchemasCommerceSubscriptionItemPaymentSourceStatus status;
+    private CommerceSubscriptionItem2PaymentSourceStatus status;
 
     /**
      * Type of wallet (if applicable).
@@ -131,7 +131,7 @@ public class PaymentSource {
 
     @JsonCreator
     public PaymentSource(
-            @JsonProperty("object") SchemasCommerceSubscriptionItemPaymentSourceObject object,
+            @JsonProperty("object") CommerceSubscriptionItem2PaymentSourceObject object,
             @JsonProperty("id") String id,
             @JsonProperty("payer_id") String payerId,
             @JsonProperty("payment_method") PaymentMethod paymentMethod,
@@ -140,7 +140,7 @@ public class PaymentSource {
             @JsonProperty("gateway_external_id") String gatewayExternalId,
             @JsonProperty("gateway_external_account_id") JsonNullable<String> gatewayExternalAccountId,
             @JsonProperty("last4") String last4,
-            @JsonProperty("status") SchemasCommerceSubscriptionItemPaymentSourceStatus status,
+            @JsonProperty("status") CommerceSubscriptionItem2PaymentSourceStatus status,
             @JsonProperty("wallet_type") String walletType,
             @JsonProperty("card_type") String cardType,
             @JsonProperty("expiry_year") Optional<Long> expiryYear,
@@ -185,14 +185,14 @@ public class PaymentSource {
     }
     
     public PaymentSource(
-            SchemasCommerceSubscriptionItemPaymentSourceObject object,
+            CommerceSubscriptionItem2PaymentSourceObject object,
             String id,
             String payerId,
             PaymentMethod paymentMethod,
             String gateway,
             String gatewayExternalId,
             String last4,
-            SchemasCommerceSubscriptionItemPaymentSourceStatus status,
+            CommerceSubscriptionItem2PaymentSourceStatus status,
             String walletType,
             String cardType,
             long createdAt,
@@ -209,7 +209,7 @@ public class PaymentSource {
      * String representing the object's type. Objects of the same type share the same value.
      */
     @JsonIgnore
-    public SchemasCommerceSubscriptionItemPaymentSourceObject object() {
+    public CommerceSubscriptionItem2PaymentSourceObject object() {
         return object;
     }
 
@@ -281,7 +281,7 @@ public class PaymentSource {
      * Status of the payment source.
      */
     @JsonIgnore
-    public SchemasCommerceSubscriptionItemPaymentSourceStatus status() {
+    public CommerceSubscriptionItem2PaymentSourceStatus status() {
         return status;
     }
 
@@ -349,7 +349,7 @@ public class PaymentSource {
     /**
      * String representing the object's type. Objects of the same type share the same value.
      */
-    public PaymentSource withObject(SchemasCommerceSubscriptionItemPaymentSourceObject object) {
+    public PaymentSource withObject(CommerceSubscriptionItem2PaymentSourceObject object) {
         Utils.checkNotNull(object, "object");
         this.object = object;
         return this;
@@ -448,7 +448,7 @@ public class PaymentSource {
     /**
      * Status of the payment source.
      */
-    public PaymentSource withStatus(SchemasCommerceSubscriptionItemPaymentSourceStatus status) {
+    public PaymentSource withStatus(CommerceSubscriptionItem2PaymentSourceStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -611,7 +611,7 @@ public class PaymentSource {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private SchemasCommerceSubscriptionItemPaymentSourceObject object;
+        private CommerceSubscriptionItem2PaymentSourceObject object;
 
         private String id;
 
@@ -629,7 +629,7 @@ public class PaymentSource {
 
         private String last4;
 
-        private SchemasCommerceSubscriptionItemPaymentSourceStatus status;
+        private CommerceSubscriptionItem2PaymentSourceStatus status;
 
         private String walletType;
 
@@ -653,7 +653,7 @@ public class PaymentSource {
         /**
          * String representing the object's type. Objects of the same type share the same value.
          */
-        public Builder object(SchemasCommerceSubscriptionItemPaymentSourceObject object) {
+        public Builder object(CommerceSubscriptionItem2PaymentSourceObject object) {
             Utils.checkNotNull(object, "object");
             this.object = object;
             return this;
@@ -761,7 +761,7 @@ public class PaymentSource {
         /**
          * Status of the payment source.
          */
-        public Builder status(SchemasCommerceSubscriptionItemPaymentSourceStatus status) {
+        public Builder status(CommerceSubscriptionItem2PaymentSourceStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;

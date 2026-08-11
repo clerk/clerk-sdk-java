@@ -3,7 +3,7 @@
  */
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.components.SchemasCommerceSubscriptionItem;
+import com.clerk.backend_api.models.components.CommerceSubscriptionItem2;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,22 +36,22 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
     /**
      * A commerce subscription item.
      */
-    private Optional<? extends SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem;
+    private Optional<? extends CommerceSubscriptionItem2> commerceSubscriptionItem2;
 
     @JsonCreator
     public ExtendBillingSubscriptionItemFreeTrialResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem) {
+            Optional<? extends CommerceSubscriptionItem2> commerceSubscriptionItem2) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(schemasCommerceSubscriptionItem, "schemasCommerceSubscriptionItem");
+        Utils.checkNotNull(commerceSubscriptionItem2, "commerceSubscriptionItem2");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.schemasCommerceSubscriptionItem = schemasCommerceSubscriptionItem;
+        this.commerceSubscriptionItem2 = commerceSubscriptionItem2;
     }
     
     public ExtendBillingSubscriptionItemFreeTrialResponse(
@@ -91,8 +91,8 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem() {
-        return (Optional<SchemasCommerceSubscriptionItem>) schemasCommerceSubscriptionItem;
+    public Optional<CommerceSubscriptionItem2> commerceSubscriptionItem2() {
+        return (Optional<CommerceSubscriptionItem2>) commerceSubscriptionItem2;
     }
 
     public static Builder builder() {
@@ -130,9 +130,9 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
     /**
      * A commerce subscription item.
      */
-    public ExtendBillingSubscriptionItemFreeTrialResponse withSchemasCommerceSubscriptionItem(SchemasCommerceSubscriptionItem schemasCommerceSubscriptionItem) {
-        Utils.checkNotNull(schemasCommerceSubscriptionItem, "schemasCommerceSubscriptionItem");
-        this.schemasCommerceSubscriptionItem = Optional.ofNullable(schemasCommerceSubscriptionItem);
+    public ExtendBillingSubscriptionItemFreeTrialResponse withCommerceSubscriptionItem2(CommerceSubscriptionItem2 commerceSubscriptionItem2) {
+        Utils.checkNotNull(commerceSubscriptionItem2, "commerceSubscriptionItem2");
+        this.commerceSubscriptionItem2 = Optional.ofNullable(commerceSubscriptionItem2);
         return this;
     }
 
@@ -140,9 +140,9 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
     /**
      * A commerce subscription item.
      */
-    public ExtendBillingSubscriptionItemFreeTrialResponse withSchemasCommerceSubscriptionItem(Optional<? extends SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem) {
-        Utils.checkNotNull(schemasCommerceSubscriptionItem, "schemasCommerceSubscriptionItem");
-        this.schemasCommerceSubscriptionItem = schemasCommerceSubscriptionItem;
+    public ExtendBillingSubscriptionItemFreeTrialResponse withCommerceSubscriptionItem2(Optional<? extends CommerceSubscriptionItem2> commerceSubscriptionItem2) {
+        Utils.checkNotNull(commerceSubscriptionItem2, "commerceSubscriptionItem2");
+        this.commerceSubscriptionItem2 = commerceSubscriptionItem2;
         return this;
     }
 
@@ -159,14 +159,14 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.schemasCommerceSubscriptionItem, other.schemasCommerceSubscriptionItem);
+            Utils.enhancedDeepEquals(this.commerceSubscriptionItem2, other.commerceSubscriptionItem2);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            schemasCommerceSubscriptionItem);
+            commerceSubscriptionItem2);
     }
     
     @Override
@@ -175,7 +175,7 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "schemasCommerceSubscriptionItem", schemasCommerceSubscriptionItem);
+                "commerceSubscriptionItem2", commerceSubscriptionItem2);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +187,7 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem = Optional.empty();
+        private Optional<? extends CommerceSubscriptionItem2> commerceSubscriptionItem2 = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -227,18 +227,18 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
         /**
          * A commerce subscription item.
          */
-        public Builder schemasCommerceSubscriptionItem(SchemasCommerceSubscriptionItem schemasCommerceSubscriptionItem) {
-            Utils.checkNotNull(schemasCommerceSubscriptionItem, "schemasCommerceSubscriptionItem");
-            this.schemasCommerceSubscriptionItem = Optional.ofNullable(schemasCommerceSubscriptionItem);
+        public Builder commerceSubscriptionItem2(CommerceSubscriptionItem2 commerceSubscriptionItem2) {
+            Utils.checkNotNull(commerceSubscriptionItem2, "commerceSubscriptionItem2");
+            this.commerceSubscriptionItem2 = Optional.ofNullable(commerceSubscriptionItem2);
             return this;
         }
 
         /**
          * A commerce subscription item.
          */
-        public Builder schemasCommerceSubscriptionItem(Optional<? extends SchemasCommerceSubscriptionItem> schemasCommerceSubscriptionItem) {
-            Utils.checkNotNull(schemasCommerceSubscriptionItem, "schemasCommerceSubscriptionItem");
-            this.schemasCommerceSubscriptionItem = schemasCommerceSubscriptionItem;
+        public Builder commerceSubscriptionItem2(Optional<? extends CommerceSubscriptionItem2> commerceSubscriptionItem2) {
+            Utils.checkNotNull(commerceSubscriptionItem2, "commerceSubscriptionItem2");
+            this.commerceSubscriptionItem2 = commerceSubscriptionItem2;
             return this;
         }
 
@@ -246,7 +246,7 @@ public class ExtendBillingSubscriptionItemFreeTrialResponse implements Response 
 
             return new ExtendBillingSubscriptionItemFreeTrialResponse(
                 contentType, statusCode, rawResponse,
-                schemasCommerceSubscriptionItem);
+                commerceSubscriptionItem2);
         }
 
     }

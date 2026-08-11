@@ -3,12 +3,14 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
@@ -43,27 +45,39 @@ public class CreateEmailAddressRequestBody {
     @JsonProperty("primary")
     private JsonNullable<Boolean> primary;
 
+    /**
+     * If set to `true` and the email address is created as the user's new primary,
+     * the previous primary email address is notified of the change.
+     * By default, no notification is sent.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("notify_primary_email_address_changed")
+    private JsonNullable<Boolean> notifyPrimaryEmailAddressChanged;
+
     @JsonCreator
     public CreateEmailAddressRequestBody(
             @JsonProperty("user_id") String userId,
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("verified") JsonNullable<Boolean> verified,
-            @JsonProperty("primary") JsonNullable<Boolean> primary) {
+            @JsonProperty("primary") JsonNullable<Boolean> primary,
+            @JsonProperty("notify_primary_email_address_changed") JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(verified, "verified");
         Utils.checkNotNull(primary, "primary");
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         this.userId = userId;
         this.emailAddress = emailAddress;
         this.verified = verified;
         this.primary = primary;
+        this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
     }
     
     public CreateEmailAddressRequestBody(
             String userId,
             String emailAddress) {
         this(userId, emailAddress, JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -97,6 +111,16 @@ public class CreateEmailAddressRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> primary() {
         return primary;
+    }
+
+    /**
+     * If set to `true` and the email address is created as the user's new primary,
+     * the previous primary email address is notified of the change.
+     * By default, no notification is sent.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> notifyPrimaryEmailAddressChanged() {
+        return notifyPrimaryEmailAddressChanged;
     }
 
     public static Builder builder() {
@@ -160,6 +184,28 @@ public class CreateEmailAddressRequestBody {
         return this;
     }
 
+    /**
+     * If set to `true` and the email address is created as the user's new primary,
+     * the previous primary email address is notified of the change.
+     * By default, no notification is sent.
+     */
+    public CreateEmailAddressRequestBody withNotifyPrimaryEmailAddressChanged(boolean notifyPrimaryEmailAddressChanged) {
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+        this.notifyPrimaryEmailAddressChanged = JsonNullable.of(notifyPrimaryEmailAddressChanged);
+        return this;
+    }
+
+    /**
+     * If set to `true` and the email address is created as the user's new primary,
+     * the previous primary email address is notified of the change.
+     * By default, no notification is sent.
+     */
+    public CreateEmailAddressRequestBody withNotifyPrimaryEmailAddressChanged(JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+        this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -173,14 +219,15 @@ public class CreateEmailAddressRequestBody {
             Utils.enhancedDeepEquals(this.userId, other.userId) &&
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
             Utils.enhancedDeepEquals(this.verified, other.verified) &&
-            Utils.enhancedDeepEquals(this.primary, other.primary);
+            Utils.enhancedDeepEquals(this.primary, other.primary) &&
+            Utils.enhancedDeepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             userId, emailAddress, verified,
-            primary);
+            primary, notifyPrimaryEmailAddressChanged);
     }
     
     @Override
@@ -189,7 +236,8 @@ public class CreateEmailAddressRequestBody {
                 "userId", userId,
                 "emailAddress", emailAddress,
                 "verified", verified,
-                "primary", primary);
+                "primary", primary,
+                "notifyPrimaryEmailAddressChanged", notifyPrimaryEmailAddressChanged);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -202,6 +250,8 @@ public class CreateEmailAddressRequestBody {
         private JsonNullable<Boolean> verified = JsonNullable.undefined();
 
         private JsonNullable<Boolean> primary = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> notifyPrimaryEmailAddressChanged;
 
         private Builder() {
           // force use of static builder() method
@@ -267,12 +317,44 @@ public class CreateEmailAddressRequestBody {
             return this;
         }
 
+
+        /**
+         * If set to `true` and the email address is created as the user's new primary,
+         * the previous primary email address is notified of the change.
+         * By default, no notification is sent.
+         */
+        public Builder notifyPrimaryEmailAddressChanged(boolean notifyPrimaryEmailAddressChanged) {
+            Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+            this.notifyPrimaryEmailAddressChanged = JsonNullable.of(notifyPrimaryEmailAddressChanged);
+            return this;
+        }
+
+        /**
+         * If set to `true` and the email address is created as the user's new primary,
+         * the previous primary email address is notified of the change.
+         * By default, no notification is sent.
+         */
+        public Builder notifyPrimaryEmailAddressChanged(JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
+            Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+            this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
+            return this;
+        }
+
         public CreateEmailAddressRequestBody build() {
+            if (notifyPrimaryEmailAddressChanged == null) {
+                notifyPrimaryEmailAddressChanged = _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged.value();
+            }
 
             return new CreateEmailAddressRequestBody(
                 userId, emailAddress, verified,
-                primary);
+                primary, notifyPrimaryEmailAddressChanged);
         }
 
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged =
+                new LazySingletonValue<>(
+                        "notify_primary_email_address_changed",
+                        "false",
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }

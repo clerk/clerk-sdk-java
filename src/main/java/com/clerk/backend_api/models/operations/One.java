@@ -108,6 +108,13 @@ public class One {
     @JsonProperty("force_authn")
     private Optional<Boolean> forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private JsonNullable<? extends CreateSAMLConnectionRequestBodyLoginHint> loginHint;
+
     @JsonCreator
     public One(
             @JsonProperty("name") String name,
@@ -121,7 +128,8 @@ public class One {
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("organization_id") JsonNullable<String> organizationId,
             @JsonProperty("attribute_mapping") JsonNullable<? extends CreateSAMLConnectionRequestBodyAttributeMapping> attributeMapping,
-            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn,
+            @JsonProperty("login_hint") JsonNullable<? extends CreateSAMLConnectionRequestBodyLoginHint> loginHint) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(domain, "domain");
         Utils.checkNotNull(domains, "domains");
@@ -134,6 +142,7 @@ public class One {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         this.name = name;
         this.domain = domain;
         this.domains = domains;
@@ -146,6 +155,7 @@ public class One {
         this.organizationId = organizationId;
         this.attributeMapping = attributeMapping;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
     }
     
     public One(
@@ -155,7 +165,8 @@ public class One {
         this(name, domain, Optional.empty(),
             provider, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -261,6 +272,15 @@ public class One {
     @JsonIgnore
     public Optional<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<CreateSAMLConnectionRequestBodyLoginHint> loginHint() {
+        return (JsonNullable<CreateSAMLConnectionRequestBodyLoginHint>) loginHint;
     }
 
     public static Builder builder() {
@@ -469,6 +489,24 @@ public class One {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public One withLoginHint(CreateSAMLConnectionRequestBodyLoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = JsonNullable.of(loginHint);
+        return this;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public One withLoginHint(JsonNullable<? extends CreateSAMLConnectionRequestBodyLoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -490,7 +528,8 @@ public class One {
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.organizationId, other.organizationId) &&
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint);
     }
     
     @Override
@@ -499,7 +538,8 @@ public class One {
             name, domain, domains,
             provider, idpEntityId, idpSsoUrl,
             idpCertificate, idpMetadataUrl, idpMetadata,
-            organizationId, attributeMapping, forceAuthn);
+            organizationId, attributeMapping, forceAuthn,
+            loginHint);
     }
     
     @Override
@@ -516,7 +556,8 @@ public class One {
                 "idpMetadata", idpMetadata,
                 "organizationId", organizationId,
                 "attributeMapping", attributeMapping,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "loginHint", loginHint);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -546,6 +587,8 @@ public class One {
         private JsonNullable<? extends CreateSAMLConnectionRequestBodyAttributeMapping> attributeMapping = JsonNullable.undefined();
 
         private Optional<Boolean> forceAuthn = Optional.empty();
+
+        private JsonNullable<? extends CreateSAMLConnectionRequestBodyLoginHint> loginHint = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -762,13 +805,33 @@ public class One {
             return this;
         }
 
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(CreateSAMLConnectionRequestBodyLoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = JsonNullable.of(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(JsonNullable<? extends CreateSAMLConnectionRequestBodyLoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
         public One build() {
 
             return new One(
                 name, domain, domains,
                 provider, idpEntityId, idpSsoUrl,
                 idpCertificate, idpMetadataUrl, idpMetadata,
-                organizationId, attributeMapping, forceAuthn);
+                organizationId, attributeMapping, forceAuthn,
+                loginHint);
         }
 
     }

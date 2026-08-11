@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class ReplaceUserEmailAddressRequestBody {
@@ -26,26 +28,45 @@ public class ReplaceUserEmailAddressRequestBody {
 
     /**
      * Controls the status of the replacement email address. Defaults to `verified`. Set to
-     * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-     * instead of verified.
+     * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+     * other user can claim it), or to `unverified` to create it neither usable for sign-in
+     * nor locked.
+     * 
+     * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+     * address cannot be used to sign in, so if the user has no other verified or reserved
+     * identifier, they will be unable to authenticate and unable to verify this address.
+     * Prefer `reserved` unless you specifically need the address left unclaimed — for
+     * example so that another user can also hold it until one of them verifies it.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("identification_status")
     private Optional<? extends IdentificationStatus> identificationStatus;
 
+    /**
+     * If set to `true`, the user's previous primary email address is notified that the
+     * primary email address has changed. No notification is sent when the replacement
+     * is the user's current primary email address. By default, no notification is sent.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("notify_primary_email_address_changed")
+    private JsonNullable<Boolean> notifyPrimaryEmailAddressChanged;
+
     @JsonCreator
     public ReplaceUserEmailAddressRequestBody(
             @JsonProperty("email_address") String emailAddress,
-            @JsonProperty("identification_status") Optional<? extends IdentificationStatus> identificationStatus) {
+            @JsonProperty("identification_status") Optional<? extends IdentificationStatus> identificationStatus,
+            @JsonProperty("notify_primary_email_address_changed") JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(identificationStatus, "identificationStatus");
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         this.emailAddress = emailAddress;
         this.identificationStatus = identificationStatus;
+        this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
     }
     
     public ReplaceUserEmailAddressRequestBody(
             String emailAddress) {
-        this(emailAddress, Optional.empty());
+        this(emailAddress, Optional.empty(), JsonNullable.undefined());
     }
 
     /**
@@ -58,13 +79,30 @@ public class ReplaceUserEmailAddressRequestBody {
 
     /**
      * Controls the status of the replacement email address. Defaults to `verified`. Set to
-     * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-     * instead of verified.
+     * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+     * other user can claim it), or to `unverified` to create it neither usable for sign-in
+     * nor locked.
+     * 
+     * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+     * address cannot be used to sign in, so if the user has no other verified or reserved
+     * identifier, they will be unable to authenticate and unable to verify this address.
+     * Prefer `reserved` unless you specifically need the address left unclaimed — for
+     * example so that another user can also hold it until one of them verifies it.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<IdentificationStatus> identificationStatus() {
         return (Optional<IdentificationStatus>) identificationStatus;
+    }
+
+    /**
+     * If set to `true`, the user's previous primary email address is notified that the
+     * primary email address has changed. No notification is sent when the replacement
+     * is the user's current primary email address. By default, no notification is sent.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> notifyPrimaryEmailAddressChanged() {
+        return notifyPrimaryEmailAddressChanged;
     }
 
     public static Builder builder() {
@@ -83,8 +121,15 @@ public class ReplaceUserEmailAddressRequestBody {
 
     /**
      * Controls the status of the replacement email address. Defaults to `verified`. Set to
-     * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-     * instead of verified.
+     * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+     * other user can claim it), or to `unverified` to create it neither usable for sign-in
+     * nor locked.
+     * 
+     * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+     * address cannot be used to sign in, so if the user has no other verified or reserved
+     * identifier, they will be unable to authenticate and unable to verify this address.
+     * Prefer `reserved` unless you specifically need the address left unclaimed — for
+     * example so that another user can also hold it until one of them verifies it.
      */
     public ReplaceUserEmailAddressRequestBody withIdentificationStatus(IdentificationStatus identificationStatus) {
         Utils.checkNotNull(identificationStatus, "identificationStatus");
@@ -95,12 +140,41 @@ public class ReplaceUserEmailAddressRequestBody {
 
     /**
      * Controls the status of the replacement email address. Defaults to `verified`. Set to
-     * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-     * instead of verified.
+     * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+     * other user can claim it), or to `unverified` to create it neither usable for sign-in
+     * nor locked.
+     * 
+     * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+     * address cannot be used to sign in, so if the user has no other verified or reserved
+     * identifier, they will be unable to authenticate and unable to verify this address.
+     * Prefer `reserved` unless you specifically need the address left unclaimed — for
+     * example so that another user can also hold it until one of them verifies it.
      */
     public ReplaceUserEmailAddressRequestBody withIdentificationStatus(Optional<? extends IdentificationStatus> identificationStatus) {
         Utils.checkNotNull(identificationStatus, "identificationStatus");
         this.identificationStatus = identificationStatus;
+        return this;
+    }
+
+    /**
+     * If set to `true`, the user's previous primary email address is notified that the
+     * primary email address has changed. No notification is sent when the replacement
+     * is the user's current primary email address. By default, no notification is sent.
+     */
+    public ReplaceUserEmailAddressRequestBody withNotifyPrimaryEmailAddressChanged(boolean notifyPrimaryEmailAddressChanged) {
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+        this.notifyPrimaryEmailAddressChanged = JsonNullable.of(notifyPrimaryEmailAddressChanged);
+        return this;
+    }
+
+    /**
+     * If set to `true`, the user's previous primary email address is notified that the
+     * primary email address has changed. No notification is sent when the replacement
+     * is the user's current primary email address. By default, no notification is sent.
+     */
+    public ReplaceUserEmailAddressRequestBody withNotifyPrimaryEmailAddressChanged(JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
+        Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+        this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
         return this;
     }
 
@@ -115,20 +189,22 @@ public class ReplaceUserEmailAddressRequestBody {
         ReplaceUserEmailAddressRequestBody other = (ReplaceUserEmailAddressRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
-            Utils.enhancedDeepEquals(this.identificationStatus, other.identificationStatus);
+            Utils.enhancedDeepEquals(this.identificationStatus, other.identificationStatus) &&
+            Utils.enhancedDeepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            emailAddress, identificationStatus);
+            emailAddress, identificationStatus, notifyPrimaryEmailAddressChanged);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ReplaceUserEmailAddressRequestBody.class,
                 "emailAddress", emailAddress,
-                "identificationStatus", identificationStatus);
+                "identificationStatus", identificationStatus,
+                "notifyPrimaryEmailAddressChanged", notifyPrimaryEmailAddressChanged);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -137,6 +213,8 @@ public class ReplaceUserEmailAddressRequestBody {
         private String emailAddress;
 
         private Optional<? extends IdentificationStatus> identificationStatus;
+
+        private JsonNullable<Boolean> notifyPrimaryEmailAddressChanged;
 
         private Builder() {
           // force use of static builder() method
@@ -155,8 +233,15 @@ public class ReplaceUserEmailAddressRequestBody {
 
         /**
          * Controls the status of the replacement email address. Defaults to `verified`. Set to
-         * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-         * instead of verified.
+         * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+         * other user can claim it), or to `unverified` to create it neither usable for sign-in
+         * nor locked.
+         * 
+         * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+         * address cannot be used to sign in, so if the user has no other verified or reserved
+         * identifier, they will be unable to authenticate and unable to verify this address.
+         * Prefer `reserved` unless you specifically need the address left unclaimed — for
+         * example so that another user can also hold it until one of them verifies it.
          */
         public Builder identificationStatus(IdentificationStatus identificationStatus) {
             Utils.checkNotNull(identificationStatus, "identificationStatus");
@@ -166,8 +251,15 @@ public class ReplaceUserEmailAddressRequestBody {
 
         /**
          * Controls the status of the replacement email address. Defaults to `verified`. Set to
-         * `reserved` to create it reserved (unverified but usable for sign-in and locked)
-         * instead of verified.
+         * `reserved` to create it reserved (unverified but usable for sign-in and locked so no
+         * other user can claim it), or to `unverified` to create it neither usable for sign-in
+         * nor locked.
+         * 
+         * <p>**Warning:** `unverified` can lock the user out of their account. An unverified email
+         * address cannot be used to sign in, so if the user has no other verified or reserved
+         * identifier, they will be unable to authenticate and unable to verify this address.
+         * Prefer `reserved` unless you specifically need the address left unclaimed — for
+         * example so that another user can also hold it until one of them verifies it.
          */
         public Builder identificationStatus(Optional<? extends IdentificationStatus> identificationStatus) {
             Utils.checkNotNull(identificationStatus, "identificationStatus");
@@ -175,13 +267,39 @@ public class ReplaceUserEmailAddressRequestBody {
             return this;
         }
 
+
+        /**
+         * If set to `true`, the user's previous primary email address is notified that the
+         * primary email address has changed. No notification is sent when the replacement
+         * is the user's current primary email address. By default, no notification is sent.
+         */
+        public Builder notifyPrimaryEmailAddressChanged(boolean notifyPrimaryEmailAddressChanged) {
+            Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+            this.notifyPrimaryEmailAddressChanged = JsonNullable.of(notifyPrimaryEmailAddressChanged);
+            return this;
+        }
+
+        /**
+         * If set to `true`, the user's previous primary email address is notified that the
+         * primary email address has changed. No notification is sent when the replacement
+         * is the user's current primary email address. By default, no notification is sent.
+         */
+        public Builder notifyPrimaryEmailAddressChanged(JsonNullable<Boolean> notifyPrimaryEmailAddressChanged) {
+            Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
+            this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
+            return this;
+        }
+
         public ReplaceUserEmailAddressRequestBody build() {
             if (identificationStatus == null) {
                 identificationStatus = _SINGLETON_VALUE_IdentificationStatus.value();
             }
+            if (notifyPrimaryEmailAddressChanged == null) {
+                notifyPrimaryEmailAddressChanged = _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged.value();
+            }
 
             return new ReplaceUserEmailAddressRequestBody(
-                emailAddress, identificationStatus);
+                emailAddress, identificationStatus, notifyPrimaryEmailAddressChanged);
         }
 
 
@@ -190,5 +308,11 @@ public class ReplaceUserEmailAddressRequestBody {
                         "identification_status",
                         "\"verified\"",
                         new TypeReference<Optional<? extends IdentificationStatus>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_NotifyPrimaryEmailAddressChanged =
+                new LazySingletonValue<>(
+                        "notify_primary_email_address_changed",
+                        "false",
+                        new TypeReference<JsonNullable<Boolean>>() {});
     }
 }

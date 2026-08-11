@@ -6,10 +6,15 @@ package com.clerk.backend_api.models.components;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * OAuthApplicationSettings
@@ -30,23 +35,75 @@ public class OAuthApplicationSettings {
     private boolean dynamicOauthClientRegistration;
 
     /**
+     * Default scopes.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("default_scopes")
+    private Optional<? extends List<String>> defaultScopes;
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
     @JsonProperty("oauth_jwt_access_tokens")
     private boolean oauthJwtAccessTokens;
 
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    @JsonProperty("client_id_metadata_documents_advertised")
+    private boolean clientIdMetadataDocumentsAdvertised;
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients")
+    private boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients")
+    private boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+
     @JsonCreator
     public OAuthApplicationSettings(
             @JsonProperty("object") OAuthApplicationSettingsObject object,
             @JsonProperty("dynamic_oauth_client_registration") boolean dynamicOauthClientRegistration,
-            @JsonProperty("oauth_jwt_access_tokens") boolean oauthJwtAccessTokens) {
+            @JsonProperty("default_scopes") Optional<? extends List<String>> defaultScopes,
+            @JsonProperty("oauth_jwt_access_tokens") boolean oauthJwtAccessTokens,
+            @JsonProperty("client_id_metadata_documents_advertised") boolean clientIdMetadataDocumentsAdvertised,
+            @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients") boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients") boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
+        Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+        Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+        Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
         this.object = object;
         this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
+        this.defaultScopes = defaultScopes;
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+        this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+        this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+        this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+    }
+    
+    public OAuthApplicationSettings(
+            OAuthApplicationSettingsObject object,
+            boolean dynamicOauthClientRegistration,
+            boolean oauthJwtAccessTokens,
+            boolean clientIdMetadataDocumentsAdvertised,
+            boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+        this(object, dynamicOauthClientRegistration, Optional.empty(),
+            oauthJwtAccessTokens, clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
 
     /**
@@ -66,12 +123,48 @@ public class OAuthApplicationSettings {
     }
 
     /**
+     * Default scopes.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> defaultScopes() {
+        return (Optional<List<String>>) defaultScopes;
+    }
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
     @JsonIgnore
     public boolean oauthJwtAccessTokens() {
         return oauthJwtAccessTokens;
+    }
+
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    @JsonIgnore
+    public boolean clientIdMetadataDocumentsAdvertised() {
+        return clientIdMetadataDocumentsAdvertised;
+    }
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    @JsonIgnore
+    public boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients() {
+        return clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+    }
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    @JsonIgnore
+    public boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients() {
+        return clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
     }
 
     public static Builder builder() {
@@ -98,12 +191,61 @@ public class OAuthApplicationSettings {
     }
 
     /**
+     * Default scopes.
+     */
+    public OAuthApplicationSettings withDefaultScopes(List<String> defaultScopes) {
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
+        this.defaultScopes = Optional.ofNullable(defaultScopes);
+        return this;
+    }
+
+
+    /**
+     * Default scopes.
+     */
+    public OAuthApplicationSettings withDefaultScopes(Optional<? extends List<String>> defaultScopes) {
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
+        this.defaultScopes = defaultScopes;
+        return this;
+    }
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
     public OAuthApplicationSettings withOauthJwtAccessTokens(boolean oauthJwtAccessTokens) {
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+        return this;
+    }
+
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    public OAuthApplicationSettings withClientIdMetadataDocumentsAdvertised(boolean clientIdMetadataDocumentsAdvertised) {
+        Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+        this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+        return this;
+    }
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    public OAuthApplicationSettings withClientIdMetadataDocumentsOnlyAllowPreRegisteredClients(boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+        this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+        return this;
+    }
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    public OAuthApplicationSettings withClientIdMetadataDocumentsBlockImplicitlyAllowedClients(boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+        this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
         return this;
     }
 
@@ -119,13 +261,19 @@ public class OAuthApplicationSettings {
         return 
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.dynamicOauthClientRegistration, other.dynamicOauthClientRegistration) &&
-            Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens);
+            Utils.enhancedDeepEquals(this.defaultScopes, other.defaultScopes) &&
+            Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsAdvertised, other.clientIdMetadataDocumentsAdvertised) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, other.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients, other.clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, dynamicOauthClientRegistration, oauthJwtAccessTokens);
+            object, dynamicOauthClientRegistration, defaultScopes,
+            oauthJwtAccessTokens, clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
@@ -133,7 +281,11 @@ public class OAuthApplicationSettings {
         return Utils.toString(OAuthApplicationSettings.class,
                 "object", object,
                 "dynamicOauthClientRegistration", dynamicOauthClientRegistration,
-                "oauthJwtAccessTokens", oauthJwtAccessTokens);
+                "defaultScopes", defaultScopes,
+                "oauthJwtAccessTokens", oauthJwtAccessTokens,
+                "clientIdMetadataDocumentsAdvertised", clientIdMetadataDocumentsAdvertised,
+                "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients", clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+                "clientIdMetadataDocumentsBlockImplicitlyAllowedClients", clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -143,7 +295,15 @@ public class OAuthApplicationSettings {
 
         private Boolean dynamicOauthClientRegistration;
 
+        private Optional<? extends List<String>> defaultScopes = Optional.empty();
+
         private Boolean oauthJwtAccessTokens;
+
+        private Boolean clientIdMetadataDocumentsAdvertised;
+
+        private Boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+
+        private Boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
 
         private Builder() {
           // force use of static builder() method
@@ -171,6 +331,25 @@ public class OAuthApplicationSettings {
 
 
         /**
+         * Default scopes.
+         */
+        public Builder defaultScopes(List<String> defaultScopes) {
+            Utils.checkNotNull(defaultScopes, "defaultScopes");
+            this.defaultScopes = Optional.ofNullable(defaultScopes);
+            return this;
+        }
+
+        /**
+         * Default scopes.
+         */
+        public Builder defaultScopes(Optional<? extends List<String>> defaultScopes) {
+            Utils.checkNotNull(defaultScopes, "defaultScopes");
+            this.defaultScopes = defaultScopes;
+            return this;
+        }
+
+
+        /**
          * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
          * tokens).
          */
@@ -180,10 +359,45 @@ public class OAuthApplicationSettings {
             return this;
         }
 
+
+        /**
+         * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+         * server metadata.
+         */
+        public Builder clientIdMetadataDocumentsAdvertised(boolean clientIdMetadataDocumentsAdvertised) {
+            Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+            this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+            return this;
+        }
+
+
+        /**
+         * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+         * clients remain admitted; deleting a client makes it unknown again.
+         */
+        public Builder clientIdMetadataDocumentsOnlyAllowPreRegisteredClients(boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+            this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+            return this;
+        }
+
+
+        /**
+         * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+         * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+         */
+        public Builder clientIdMetadataDocumentsBlockImplicitlyAllowedClients(boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+            this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+            return this;
+        }
+
         public OAuthApplicationSettings build() {
 
             return new OAuthApplicationSettings(
-                object, dynamicOauthClientRegistration, oauthJwtAccessTokens);
+                object, dynamicOauthClientRegistration, defaultScopes,
+                oauthJwtAccessTokens, clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+                clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
         }
 
     }

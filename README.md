@@ -53,7 +53,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.clerk:backend-api:5.0.0'
+implementation 'com.clerk:backend-api:6.0.0'
 ```
 
 Maven:
@@ -61,7 +61,7 @@ Maven:
 <dependency>
     <groupId>com.clerk</groupId>
     <artifactId>backend-api</artifactId>
-    <version>5.0.0</version>
+    <version>6.0.0</version>
 </dependency>
 ```
 
@@ -381,6 +381,7 @@ public class MachineAuthentication {
 * [delete](docs/sdks/oauthapplications/README.md#delete) - Delete an OAuth application
 * [uploadLogo](docs/sdks/oauthapplications/README.md#uploadlogo) - Upload a logo for the OAuth application
 * [rotateSecret](docs/sdks/oauthapplications/README.md#rotatesecret) - Rotate the client secret of the given OAuth application
+* [revokeToken](docs/sdks/oauthapplications/README.md#revoketoken) - Revoke an OAuth application token
 
 ### [OrganizationDomains](docs/sdks/organizationdomains/README.md)
 
@@ -481,6 +482,19 @@ public class MachineAuthentication {
 * [~~update~~](docs/sdks/samlconnections/README.md#update) - Update a SAML Connection :warning: **Deprecated**
 * [~~delete~~](docs/sdks/samlconnections/README.md#delete) - Delete a SAML Connection :warning: **Deprecated**
 
+### [ScimDirectories](docs/sdks/scimdirectories/README.md)
+
+* [list](docs/sdks/scimdirectories/README.md#list) - List all SCIM directories
+* [create](docs/sdks/scimdirectories/README.md#create) - Create a SCIM directory
+* [get](docs/sdks/scimdirectories/README.md#get) - Retrieve a SCIM directory
+* [update](docs/sdks/scimdirectories/README.md#update) - Update a SCIM directory
+* [delete](docs/sdks/scimdirectories/README.md#delete) - Delete a SCIM directory
+* [rotateApiKey](docs/sdks/scimdirectories/README.md#rotateapikey) - Rotate a SCIM directory's API key
+* [listGroupRoleMappings](docs/sdks/scimdirectories/README.md#listgrouprolemappings) - List SCIM group role mappings
+* [createGroupRoleMapping](docs/sdks/scimdirectories/README.md#creategrouprolemapping) - Create a SCIM group role mapping
+* [replaceGroupRoleMappings](docs/sdks/scimdirectories/README.md#replacegrouprolemappings) - Replace SCIM group role mappings
+* [deleteGroupRoleMapping](docs/sdks/scimdirectories/README.md#deletegrouprolemapping) - Delete a SCIM group role mapping
+
 ### [Sessions](docs/sdks/sessions/README.md)
 
 * [list](docs/sdks/sessions/README.md#list) - List all sessions
@@ -533,11 +547,14 @@ public class MachineAuthentication {
 * [getOAuthAccessToken](docs/sdks/users/README.md#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](docs/sdks/users/README.md#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](docs/sdks/users/README.md#getorganizationinvitations) - Retrieve all invitations for a user
+* [removePassword](docs/sdks/users/README.md#removepassword) - Remove a user's password
 * [verifyPassword](docs/sdks/users/README.md#verifypassword) - Verify the password of a user
 * [verifyTotp](docs/sdks/users/README.md#verifytotp) - Verify a TOTP or backup code for a user
 * [disableMfa](docs/sdks/users/README.md#disablemfa) - Disable a user's MFA methods
 * [deleteBackupCodes](docs/sdks/users/README.md#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](docs/sdks/users/README.md#deletepasskey) - Delete a user passkey
+* [listTrustedDevices](docs/sdks/users/README.md#listtrusteddevices) - List a user's trusted devices
+* [revokeTrustedDevice](docs/sdks/users/README.md#revoketrusteddevice) - Revoke a user's trusted device
 * [deleteWeb3Wallet](docs/sdks/users/README.md#deleteweb3wallet) - Delete a user web3 wallet
 * [deleteTOTP](docs/sdks/users/README.md#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](docs/sdks/users/README.md#deleteexternalaccount) - Delete External Account
@@ -663,12 +680,14 @@ Handling errors in this SDK should largely match your expectations. All operatio
 package hello.world;
 
 import com.clerk.backend_api.Clerk;
-import com.clerk.backend_api.models.errors.*;
+import com.clerk.backend_api.models.errors.ClerkError;
+import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import java.io.UncheckedIOException;
 import java.lang.Exception;
-import java.util.List;
-import java.util.Optional;
+import java.lang.Object;
+import java.lang.String;
+import java.util.*;
 
 public class Application {
 
@@ -705,7 +724,7 @@ public class Application {
                 // Check error data fields
                 e.data().ifPresent(payload -> {
                       List<com.clerk.backend_api.models.components.ClerkError> errors = payload.errors();
-                      Optional<Meta> meta = payload.meta();
+                      Optional<Map<String, Object>> meta = payload.meta();
                 });
             }
 
@@ -736,41 +755,41 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`ClerkError`](./src/main/java/models/errors/ClerkError.java)**:
-* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetApiKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeysResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseBody.java): 401 Unauthorized. Status code `401`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseBody.java): 401 Unauthorized. Status code `401`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponse409ResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponse409ResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 223 methods.*
-* [`com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 223 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeysResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetApiKeySecretResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyApiKeyResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenResponseBody.java): 400 Bad Request. Status code `400`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseBody.java): 401 Unauthorized. Status code `401`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseBody.java): 401 Unauthorized. Status code `401`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponseResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseBody.java): 403 Forbidden. Status code `403`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeysAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.UpdateAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.DeleteAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetAPIKeySecretAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyAPIKeyAPIKeysResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.GetM2MTokensM2mResponseResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.RevokeM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyM2MTokenM2mResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.VerifyOAuthAccessTokenOauthAccessTokensResponseBody.java): 404 Not Found. Status code `404`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponse409ResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAdminPortalLinkTokenAdminPortalLinkTokensResponse409ResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateAPIKeyAPIKeysResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 237 methods.*
+* [`com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody`](./src/main/java/models/errors/com.clerk.backend_api.models.errors.CreateM2MTokenM2mResponseBody.java): 409 Conflict. Status code `409`. Applicable to 1 of 237 methods.*
 
 
 </details>

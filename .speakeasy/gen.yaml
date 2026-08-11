@@ -29,7 +29,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 java:
-  version: 5.0.0
+  version: 6.0.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: backend-api
@@ -46,12 +46,14 @@ java:
   explicitDocImports: false
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: false
-  forwardCompatibleUnionsByDefault: "false"
+  forwardCompatibleUnionsByDefault: true
   generateOptionalUnionAccessors: false
   generateSpringBootStarter: true
   generateUnionDocs: false
+  getterStyle: presence-aware
   githubURL: github.com/owner/repo
   groupID: com.clerk
+  httpClient: jdk
   imports:
     option: openapi
     paths:
