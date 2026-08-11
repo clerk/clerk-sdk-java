@@ -29,17 +29,27 @@ public class InstanceProtect {
     @JsonProperty("specter_enabled")
     private boolean specterEnabled;
 
+    /**
+     * Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already
+     * meets the requirements.
+     */
+    @JsonProperty("checks_bypassed")
+    private boolean checksBypassed;
+
     @JsonCreator
     public InstanceProtect(
             @JsonProperty("object") InstanceProtectObject object,
             @JsonProperty("rules_enabled") boolean rulesEnabled,
-            @JsonProperty("specter_enabled") boolean specterEnabled) {
+            @JsonProperty("specter_enabled") boolean specterEnabled,
+            @JsonProperty("checks_bypassed") boolean checksBypassed) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
         Utils.checkNotNull(specterEnabled, "specterEnabled");
+        Utils.checkNotNull(checksBypassed, "checksBypassed");
         this.object = object;
         this.rulesEnabled = rulesEnabled;
         this.specterEnabled = specterEnabled;
+        this.checksBypassed = checksBypassed;
     }
 
     @JsonIgnore
@@ -55,6 +65,15 @@ public class InstanceProtect {
     @JsonIgnore
     public boolean specterEnabled() {
         return specterEnabled;
+    }
+
+    /**
+     * Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already
+     * meets the requirements.
+     */
+    @JsonIgnore
+    public boolean checksBypassed() {
+        return checksBypassed;
     }
 
     public static Builder builder() {
@@ -80,6 +99,16 @@ public class InstanceProtect {
         return this;
     }
 
+    /**
+     * Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already
+     * meets the requirements.
+     */
+    public InstanceProtect withChecksBypassed(boolean checksBypassed) {
+        Utils.checkNotNull(checksBypassed, "checksBypassed");
+        this.checksBypassed = checksBypassed;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -92,13 +121,15 @@ public class InstanceProtect {
         return 
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.rulesEnabled, other.rulesEnabled) &&
-            Utils.enhancedDeepEquals(this.specterEnabled, other.specterEnabled);
+            Utils.enhancedDeepEquals(this.specterEnabled, other.specterEnabled) &&
+            Utils.enhancedDeepEquals(this.checksBypassed, other.checksBypassed);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, rulesEnabled, specterEnabled);
+            object, rulesEnabled, specterEnabled,
+            checksBypassed);
     }
     
     @Override
@@ -106,7 +137,8 @@ public class InstanceProtect {
         return Utils.toString(InstanceProtect.class,
                 "object", object,
                 "rulesEnabled", rulesEnabled,
-                "specterEnabled", specterEnabled);
+                "specterEnabled", specterEnabled,
+                "checksBypassed", checksBypassed);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -117,6 +149,8 @@ public class InstanceProtect {
         private Boolean rulesEnabled;
 
         private Boolean specterEnabled;
+
+        private Boolean checksBypassed;
 
         private Builder() {
           // force use of static builder() method
@@ -143,10 +177,22 @@ public class InstanceProtect {
             return this;
         }
 
+
+        /**
+         * Whether the instance has opted out of the Protect prerequisite checks, asserting its setup already
+         * meets the requirements.
+         */
+        public Builder checksBypassed(boolean checksBypassed) {
+            Utils.checkNotNull(checksBypassed, "checksBypassed");
+            this.checksBypassed = checksBypassed;
+            return this;
+        }
+
         public InstanceProtect build() {
 
             return new InstanceProtect(
-                object, rulesEnabled, specterEnabled);
+                object, rulesEnabled, specterEnabled,
+                checksBypassed);
         }
 
     }

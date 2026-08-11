@@ -41,7 +41,7 @@ public class BillingPaymentAttemptTotals {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("per_unit_totals")
-    private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals;
+    private Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -61,7 +61,7 @@ public class BillingPaymentAttemptTotals {
             @JsonProperty("base_fee") CommerceMoneyResponse baseFee,
             @JsonProperty("tax_total") CommerceMoneyResponse taxTotal,
             @JsonProperty("grand_total") CommerceMoneyResponse grandTotal,
-            @JsonProperty("per_unit_totals") Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals,
+            @JsonProperty("per_unit_totals") Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals,
             @JsonProperty("credits") JsonNullable<? extends BillingPaymentAttemptCredits> credits,
             @JsonProperty("discounts") JsonNullable<? extends BillingPaymentAttemptDiscounts> discounts) {
         Utils.checkNotNull(subtotal, "subtotal");
@@ -112,8 +112,8 @@ public class BillingPaymentAttemptTotals {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<SchemasCommercePerUnitTotal>> perUnitTotals() {
-        return (Optional<List<SchemasCommercePerUnitTotal>>) perUnitTotals;
+    public Optional<List<CommercePerUnitTotal2>> perUnitTotals() {
+        return (Optional<List<CommercePerUnitTotal2>>) perUnitTotals;
     }
 
     @SuppressWarnings("unchecked")
@@ -160,14 +160,14 @@ public class BillingPaymentAttemptTotals {
         return this;
     }
 
-    public BillingPaymentAttemptTotals withPerUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+    public BillingPaymentAttemptTotals withPerUnitTotals(List<CommercePerUnitTotal2> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = Optional.ofNullable(perUnitTotals);
         return this;
     }
 
 
-    public BillingPaymentAttemptTotals withPerUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+    public BillingPaymentAttemptTotals withPerUnitTotals(Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = perUnitTotals;
         return this;
@@ -253,7 +253,7 @@ public class BillingPaymentAttemptTotals {
 
         private CommerceMoneyResponse grandTotal;
 
-        private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals = Optional.empty();
+        private Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals = Optional.empty();
 
         private JsonNullable<? extends BillingPaymentAttemptCredits> credits = JsonNullable.undefined();
 
@@ -292,13 +292,13 @@ public class BillingPaymentAttemptTotals {
         }
 
 
-        public Builder perUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+        public Builder perUnitTotals(List<CommercePerUnitTotal2> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = Optional.ofNullable(perUnitTotals);
             return this;
         }
 
-        public Builder perUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+        public Builder perUnitTotals(Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = perUnitTotals;
             return this;

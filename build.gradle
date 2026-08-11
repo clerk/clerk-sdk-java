@@ -74,10 +74,10 @@ javadocJar {
 }
 
 dependencies {
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.22'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.22.0'
     api('org.openapitools:jackson-databind-nullable:0.2.6') {exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'}
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.time.OffsetDateTime;
@@ -39,17 +38,9 @@ public class CommerceCreditLedgerResponse {
     @JsonProperty("payer_id")
     private String payerId;
 
-    /**
-     * The signed credit amount. Positive for increases, negative for decreases.
-     */
-    @JsonProperty("amount")
-    private long amount;
 
-    /**
-     * The currency code of the credit adjustment.
-     */
-    @JsonProperty("currency")
-    private String currency;
+    @JsonProperty("amount")
+    private CommerceMoneyResponse amount;
 
     /**
      * The type of source that originated the adjustment (e.g. "grant").
@@ -81,8 +72,7 @@ public class CommerceCreditLedgerResponse {
             @JsonProperty("object") String object,
             @JsonProperty("id") String id,
             @JsonProperty("payer_id") String payerId,
-            @JsonProperty("amount") long amount,
-            @JsonProperty("currency") String currency,
+            @JsonProperty("amount") CommerceMoneyResponse amount,
             @JsonProperty("source_type") String sourceType,
             @JsonProperty("source_id") String sourceId,
             @JsonProperty("note") JsonNullable<String> note,
@@ -91,7 +81,6 @@ public class CommerceCreditLedgerResponse {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(payerId, "payerId");
         Utils.checkNotNull(amount, "amount");
-        Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(sourceType, "sourceType");
         Utils.checkNotNull(sourceId, "sourceId");
         Utils.checkNotNull(note, "note");
@@ -100,7 +89,6 @@ public class CommerceCreditLedgerResponse {
         this.id = id;
         this.payerId = payerId;
         this.amount = amount;
-        this.currency = currency;
         this.sourceType = sourceType;
         this.sourceId = sourceId;
         this.note = note;
@@ -111,14 +99,13 @@ public class CommerceCreditLedgerResponse {
             String object,
             String id,
             String payerId,
-            long amount,
-            String currency,
+            CommerceMoneyResponse amount,
             String sourceType,
             String sourceId,
             OffsetDateTime createdAt) {
         this(object, id, payerId,
-            amount, currency, sourceType,
-            sourceId, JsonNullable.undefined(), createdAt);
+            amount, sourceType, sourceId,
+            JsonNullable.undefined(), createdAt);
     }
 
     /**
@@ -145,20 +132,9 @@ public class CommerceCreditLedgerResponse {
         return payerId;
     }
 
-    /**
-     * The signed credit amount. Positive for increases, negative for decreases.
-     */
     @JsonIgnore
-    public long amount() {
+    public CommerceMoneyResponse amount() {
         return amount;
-    }
-
-    /**
-     * The currency code of the credit adjustment.
-     */
-    @JsonIgnore
-    public String currency() {
-        return currency;
     }
 
     /**
@@ -225,21 +201,9 @@ public class CommerceCreditLedgerResponse {
         return this;
     }
 
-    /**
-     * The signed credit amount. Positive for increases, negative for decreases.
-     */
-    public CommerceCreditLedgerResponse withAmount(long amount) {
+    public CommerceCreditLedgerResponse withAmount(CommerceMoneyResponse amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
-        return this;
-    }
-
-    /**
-     * The currency code of the credit adjustment.
-     */
-    public CommerceCreditLedgerResponse withCurrency(String currency) {
-        Utils.checkNotNull(currency, "currency");
-        this.currency = currency;
         return this;
     }
 
@@ -302,7 +266,6 @@ public class CommerceCreditLedgerResponse {
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.payerId, other.payerId) &&
             Utils.enhancedDeepEquals(this.amount, other.amount) &&
-            Utils.enhancedDeepEquals(this.currency, other.currency) &&
             Utils.enhancedDeepEquals(this.sourceType, other.sourceType) &&
             Utils.enhancedDeepEquals(this.sourceId, other.sourceId) &&
             Utils.enhancedDeepEquals(this.note, other.note) &&
@@ -313,8 +276,8 @@ public class CommerceCreditLedgerResponse {
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, payerId,
-            amount, currency, sourceType,
-            sourceId, note, createdAt);
+            amount, sourceType, sourceId,
+            note, createdAt);
     }
     
     @Override
@@ -324,7 +287,6 @@ public class CommerceCreditLedgerResponse {
                 "id", id,
                 "payerId", payerId,
                 "amount", amount,
-                "currency", currency,
                 "sourceType", sourceType,
                 "sourceId", sourceId,
                 "note", note,
@@ -340,9 +302,7 @@ public class CommerceCreditLedgerResponse {
 
         private String payerId;
 
-        private Long amount;
-
-        private String currency;
+        private CommerceMoneyResponse amount;
 
         private String sourceType;
 
@@ -387,22 +347,9 @@ public class CommerceCreditLedgerResponse {
         }
 
 
-        /**
-         * The signed credit amount. Positive for increases, negative for decreases.
-         */
-        public Builder amount(long amount) {
+        public Builder amount(CommerceMoneyResponse amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
-            return this;
-        }
-
-
-        /**
-         * The currency code of the credit adjustment.
-         */
-        public Builder currency(String currency) {
-            Utils.checkNotNull(currency, "currency");
-            this.currency = currency;
             return this;
         }
 
@@ -459,8 +406,8 @@ public class CommerceCreditLedgerResponse {
 
             return new CommerceCreditLedgerResponse(
                 object, id, payerId,
-                amount, currency, sourceType,
-                sourceId, note, createdAt);
+                amount, sourceType, sourceId,
+                note, createdAt);
         }
 
     }

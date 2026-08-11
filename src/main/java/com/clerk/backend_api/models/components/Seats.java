@@ -34,12 +34,12 @@ public class Seats {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("tiers")
-    private Optional<? extends List<SchemasCommercePerUnitTotalTier>> tiers;
+    private Optional<? extends List<CommercePerUnitTotalTier2>> tiers;
 
     @JsonCreator
     public Seats(
             @JsonProperty("quantity") Optional<Long> quantity,
-            @JsonProperty("tiers") Optional<? extends List<SchemasCommercePerUnitTotalTier>> tiers) {
+            @JsonProperty("tiers") Optional<? extends List<CommercePerUnitTotalTier2>> tiers) {
         Utils.checkNotNull(quantity, "quantity");
         Utils.checkNotNull(tiers, "tiers");
         this.quantity = quantity;
@@ -63,8 +63,8 @@ public class Seats {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<SchemasCommercePerUnitTotalTier>> tiers() {
-        return (Optional<List<SchemasCommercePerUnitTotalTier>>) tiers;
+    public Optional<List<CommercePerUnitTotalTier2>> tiers() {
+        return (Optional<List<CommercePerUnitTotalTier2>>) tiers;
     }
 
     public static Builder builder() {
@@ -94,7 +94,7 @@ public class Seats {
     /**
      * Per-unit cost breakdown by pricing tier
      */
-    public Seats withTiers(List<SchemasCommercePerUnitTotalTier> tiers) {
+    public Seats withTiers(List<CommercePerUnitTotalTier2> tiers) {
         Utils.checkNotNull(tiers, "tiers");
         this.tiers = Optional.ofNullable(tiers);
         return this;
@@ -104,7 +104,7 @@ public class Seats {
     /**
      * Per-unit cost breakdown by pricing tier
      */
-    public Seats withTiers(Optional<? extends List<SchemasCommercePerUnitTotalTier>> tiers) {
+    public Seats withTiers(Optional<? extends List<CommercePerUnitTotalTier2>> tiers) {
         Utils.checkNotNull(tiers, "tiers");
         this.tiers = tiers;
         return this;
@@ -142,7 +142,7 @@ public class Seats {
 
         private Optional<Long> quantity = Optional.empty();
 
-        private Optional<? extends List<SchemasCommercePerUnitTotalTier>> tiers = Optional.empty();
+        private Optional<? extends List<CommercePerUnitTotalTier2>> tiers = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -171,7 +171,7 @@ public class Seats {
         /**
          * Per-unit cost breakdown by pricing tier
          */
-        public Builder tiers(List<SchemasCommercePerUnitTotalTier> tiers) {
+        public Builder tiers(List<CommercePerUnitTotalTier2> tiers) {
             Utils.checkNotNull(tiers, "tiers");
             this.tiers = Optional.ofNullable(tiers);
             return this;
@@ -180,7 +180,7 @@ public class Seats {
         /**
          * Per-unit cost breakdown by pricing tier
          */
-        public Builder tiers(Optional<? extends List<SchemasCommercePerUnitTotalTier>> tiers) {
+        public Builder tiers(Optional<? extends List<CommercePerUnitTotalTier2>> tiers) {
             Utils.checkNotNull(tiers, "tiers");
             this.tiers = tiers;
             return this;

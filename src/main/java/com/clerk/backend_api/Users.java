@@ -54,14 +54,24 @@ import com.clerk.backend_api.models.operations.GetUsersCountResponse;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
+import com.clerk.backend_api.models.operations.ListUserTrustedDevicesRequest;
+import com.clerk.backend_api.models.operations.ListUserTrustedDevicesRequestBuilder;
+import com.clerk.backend_api.models.operations.ListUserTrustedDevicesResponse;
 import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
 import com.clerk.backend_api.models.operations.QueryParamStatus;
+import com.clerk.backend_api.models.operations.RemoveUserPasswordRequest;
+import com.clerk.backend_api.models.operations.RemoveUserPasswordRequestBody;
+import com.clerk.backend_api.models.operations.RemoveUserPasswordRequestBuilder;
+import com.clerk.backend_api.models.operations.RemoveUserPasswordResponse;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequest;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBody;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBuilder;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataResponse;
+import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceRequest;
+import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceResponse;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequest;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBody;
 import com.clerk.backend_api.models.operations.SetUserPasswordCompromisedRequestBuilder;
@@ -129,8 +139,11 @@ import com.clerk.backend_api.operations.GetUserBillingSubscription;
 import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.operations.GetUsersCount;
 import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
+import com.clerk.backend_api.operations.ListUserTrustedDevices;
 import com.clerk.backend_api.operations.LockUser;
+import com.clerk.backend_api.operations.RemoveUserPassword;
 import com.clerk.backend_api.operations.ReplaceUserMetadata;
+import com.clerk.backend_api.operations.RevokeUserTrustedDevice;
 import com.clerk.backend_api.operations.SetUserPasswordCompromised;
 import com.clerk.backend_api.operations.SetUserProfileImage;
 import com.clerk.backend_api.operations.UnbanUser;
@@ -1324,6 +1337,73 @@ public class Users {
     }
 
     /**
+     * Remove a user's password
+     * 
+     * <p>Removes the password credential from the given user. This is a privileged operation and does not
+     * require the user's current password. Password removal is allowed even when the user has no other
+     * sign-in method configured.
+     * 
+     * <p>If the user does not have a password, the user is returned unchanged and no password-deletion or
+     * user-update event is emitted. By default, existing sessions remain active. Set
+     * `sign_out_of_other_sessions` to `true` to revoke sessions active when the request is processed.
+     * 
+     * @return The call builder
+     */
+    public RemoveUserPasswordRequestBuilder removePassword() {
+        return new RemoveUserPasswordRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Remove a user's password
+     * 
+     * <p>Removes the password credential from the given user. This is a privileged operation and does not
+     * require the user's current password. Password removal is allowed even when the user has no other
+     * sign-in method configured.
+     * 
+     * <p>If the user does not have a password, the user is returned unchanged and no password-deletion or
+     * user-update event is emitted. By default, existing sessions remain active. Set
+     * `sign_out_of_other_sessions` to `true` to revoke sessions active when the request is processed.
+     * 
+     * @param userId The ID of the user whose password to remove
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RemoveUserPasswordResponse removePassword(String userId) {
+        return removePassword(userId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Remove a user's password
+     * 
+     * <p>Removes the password credential from the given user. This is a privileged operation and does not
+     * require the user's current password. Password removal is allowed even when the user has no other
+     * sign-in method configured.
+     * 
+     * <p>If the user does not have a password, the user is returned unchanged and no password-deletion or
+     * user-update event is emitted. By default, existing sessions remain active. Set
+     * `sign_out_of_other_sessions` to `true` to revoke sessions active when the request is processed.
+     * 
+     * @param userId The ID of the user whose password to remove
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RemoveUserPasswordResponse removePassword(
+            String userId, Optional<? extends RemoveUserPasswordRequestBody> requestBody,
+            Optional<Options> options) {
+        RemoveUserPasswordRequest request =
+            RemoveUserPasswordRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<RemoveUserPasswordRequest, RemoveUserPasswordResponse> operation
+              = new RemoveUserPassword.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Verify the password of a user
      * 
      * <p>Check that the user's password matches the supplied input.
@@ -1577,6 +1657,101 @@ public class Users {
     }
 
     /**
+     * List a user's trusted devices
+     * 
+     * <p>Returns the active trusted devices enrolled by the user.
+     * 
+     * @return The call builder
+     */
+    public ListUserTrustedDevicesRequestBuilder listTrustedDevices() {
+        return new ListUserTrustedDevicesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List a user's trusted devices
+     * 
+     * <p>Returns the active trusted devices enrolled by the user.
+     * 
+     * @param userId The ID of the user whose trusted devices are returned
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListUserTrustedDevicesResponse listTrustedDevices(String userId) {
+        return listTrustedDevices(userId, Optional.empty());
+    }
+
+    /**
+     * List a user's trusted devices
+     * 
+     * <p>Returns the active trusted devices enrolled by the user.
+     * 
+     * @param userId The ID of the user whose trusted devices are returned
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListUserTrustedDevicesResponse listTrustedDevices(String userId, Optional<Options> options) {
+        ListUserTrustedDevicesRequest request =
+            ListUserTrustedDevicesRequest
+                .builder()
+                .userId(userId)
+                .build();
+        RequestOperation<ListUserTrustedDevicesRequest, ListUserTrustedDevicesResponse> operation
+              = new ListUserTrustedDevices.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Revoke a user's trusted device
+     * 
+     * <p>Revokes an active trusted device enrolled by the user.
+     * 
+     * @return The call builder
+     */
+    public RevokeUserTrustedDeviceRequestBuilder revokeTrustedDevice() {
+        return new RevokeUserTrustedDeviceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Revoke a user's trusted device
+     * 
+     * <p>Revokes an active trusted device enrolled by the user.
+     * 
+     * @param userId The ID of the user that owns the trusted device
+     * @param trustedDeviceId The ID of the trusted device to revoke
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeUserTrustedDeviceResponse revokeTrustedDevice(String userId, String trustedDeviceId) {
+        return revokeTrustedDevice(userId, trustedDeviceId, Optional.empty());
+    }
+
+    /**
+     * Revoke a user's trusted device
+     * 
+     * <p>Revokes an active trusted device enrolled by the user.
+     * 
+     * @param userId The ID of the user that owns the trusted device
+     * @param trustedDeviceId The ID of the trusted device to revoke
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeUserTrustedDeviceResponse revokeTrustedDevice(
+            String userId, String trustedDeviceId,
+            Optional<Options> options) {
+        RevokeUserTrustedDeviceRequest request =
+            RevokeUserTrustedDeviceRequest
+                .builder()
+                .userId(userId)
+                .trustedDeviceId(trustedDeviceId)
+                .build();
+        RequestOperation<RevokeUserTrustedDeviceRequest, RevokeUserTrustedDeviceResponse> operation
+              = new RevokeUserTrustedDevice.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Delete a user web3 wallet
      * 
      * <p>Delete the web3 wallet identification for a given user.
@@ -1779,6 +1954,10 @@ public class Users {
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
      * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
+     * 
      * @return The call builder
      */
     public UnsetUserPasswordCompromisedRequestBuilder unsetPasswordCompromised() {
@@ -1790,6 +1969,10 @@ public class Users {
      * 
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
+     * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @return The response from the API call
@@ -1804,6 +1987,10 @@ public class Users {
      * 
      * <p>Sets the given user's password as no longer compromised. The user will no longer be prompted to
      * reset their password on their next sign-in.
+     * 
+     * <p>If the user is in reserved-email password quarantine, the quarantine is preserved and the returned
+     * user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can
+     * only be cleared by completing a password reset or changing/removing the password.
      * 
      * @param userId The ID of the user to unset the compromised status for
      * @param options additional options

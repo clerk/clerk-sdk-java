@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -48,9 +49,16 @@ public class InstanceSettings {
     @JsonProperty("progressive_sign_up")
     private Optional<Boolean> progressiveSignUp;
 
-
+    /**
+     * Deprecated. When enabled, production authentication emails for this instance are sent through
+     * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+     * configured email sending domain instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enhanced_email_deliverability")
+    @Deprecated
     private Optional<Boolean> enhancedEmailDeliverability;
 
     @JsonCreator
@@ -109,6 +117,14 @@ public class InstanceSettings {
         return progressiveSignUp;
     }
 
+    /**
+     * Deprecated. When enabled, production authentication emails for this instance are sent through
+     * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+     * configured email sending domain instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @JsonIgnore
     public Optional<Boolean> enhancedEmailDeliverability() {
         return enhancedEmailDeliverability;
@@ -190,6 +206,14 @@ public class InstanceSettings {
         return this;
     }
 
+    /**
+     * Deprecated. When enabled, production authentication emails for this instance are sent through
+     * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+     * configured email sending domain instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public InstanceSettings withEnhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = Optional.ofNullable(enhancedEmailDeliverability);
@@ -197,6 +221,14 @@ public class InstanceSettings {
     }
 
 
+    /**
+     * Deprecated. When enabled, production authentication emails for this instance are sent through
+     * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+     * configured email sending domain instead.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public InstanceSettings withEnhancedEmailDeliverability(Optional<Boolean> enhancedEmailDeliverability) {
         Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
         this.enhancedEmailDeliverability = enhancedEmailDeliverability;
@@ -252,6 +284,7 @@ public class InstanceSettings {
 
         private Optional<Boolean> progressiveSignUp = Optional.empty();
 
+        @Deprecated
         private Optional<Boolean> enhancedEmailDeliverability = Optional.empty();
 
         private Builder() {
@@ -330,12 +363,28 @@ public class InstanceSettings {
         }
 
 
+        /**
+         * Deprecated. When enabled, production authentication emails for this instance are sent through
+         * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+         * configured email sending domain instead.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder enhancedEmailDeliverability(boolean enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = Optional.ofNullable(enhancedEmailDeliverability);
             return this;
         }
 
+        /**
+         * Deprecated. When enabled, production authentication emails for this instance are sent through
+         * Clerk's legacy managed email delivery path. This setting is being retired; use the instance's
+         * configured email sending domain instead.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder enhancedEmailDeliverability(Optional<Boolean> enhancedEmailDeliverability) {
             Utils.checkNotNull(enhancedEmailDeliverability, "enhancedEmailDeliverability");
             this.enhancedEmailDeliverability = enhancedEmailDeliverability;

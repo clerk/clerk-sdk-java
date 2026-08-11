@@ -205,7 +205,7 @@ public class UpsertTemplate {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "402", "403", "404", "422")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "402", "403", "404", "422", "423", "429")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {

@@ -25,6 +25,14 @@ public class CreateSignInTokenRequestBody {
     private String userId;
 
     /**
+     * The ID of the organization to activate when the user signs in.
+     * Organizations must be enabled for the instance, and the user must be a member of the organization.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("org_id")
+    private JsonNullable<String> orgId;
+
+    /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
      * By default, the duration is 30 days.
      */
@@ -35,16 +43,19 @@ public class CreateSignInTokenRequestBody {
     @JsonCreator
     public CreateSignInTokenRequestBody(
             @JsonProperty("user_id") String userId,
+            @JsonProperty("org_id") JsonNullable<String> orgId,
             @JsonProperty("expires_in_seconds") JsonNullable<Long> expiresInSeconds) {
         Utils.checkNotNull(userId, "userId");
+        Utils.checkNotNull(orgId, "orgId");
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.userId = userId;
+        this.orgId = orgId;
         this.expiresInSeconds = expiresInSeconds;
     }
     
     public CreateSignInTokenRequestBody(
             String userId) {
-        this(userId, JsonNullable.undefined());
+        this(userId, JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -53,6 +64,15 @@ public class CreateSignInTokenRequestBody {
     @JsonIgnore
     public String userId() {
         return userId;
+    }
+
+    /**
+     * The ID of the organization to activate when the user signs in.
+     * Organizations must be enabled for the instance, and the user must be a member of the organization.
+     */
+    @JsonIgnore
+    public JsonNullable<String> orgId() {
+        return orgId;
     }
 
     /**
@@ -75,6 +95,26 @@ public class CreateSignInTokenRequestBody {
     public CreateSignInTokenRequestBody withUserId(String userId) {
         Utils.checkNotNull(userId, "userId");
         this.userId = userId;
+        return this;
+    }
+
+    /**
+     * The ID of the organization to activate when the user signs in.
+     * Organizations must be enabled for the instance, and the user must be a member of the organization.
+     */
+    public CreateSignInTokenRequestBody withOrgId(String orgId) {
+        Utils.checkNotNull(orgId, "orgId");
+        this.orgId = JsonNullable.of(orgId);
+        return this;
+    }
+
+    /**
+     * The ID of the organization to activate when the user signs in.
+     * Organizations must be enabled for the instance, and the user must be a member of the organization.
+     */
+    public CreateSignInTokenRequestBody withOrgId(JsonNullable<String> orgId) {
+        Utils.checkNotNull(orgId, "orgId");
+        this.orgId = orgId;
         return this;
     }
 
@@ -109,19 +149,21 @@ public class CreateSignInTokenRequestBody {
         CreateSignInTokenRequestBody other = (CreateSignInTokenRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.userId, other.userId) &&
+            Utils.enhancedDeepEquals(this.orgId, other.orgId) &&
             Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            userId, expiresInSeconds);
+            userId, orgId, expiresInSeconds);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateSignInTokenRequestBody.class,
                 "userId", userId,
+                "orgId", orgId,
                 "expiresInSeconds", expiresInSeconds);
     }
 
@@ -129,6 +171,8 @@ public class CreateSignInTokenRequestBody {
     public final static class Builder {
 
         private String userId;
+
+        private JsonNullable<String> orgId = JsonNullable.undefined();
 
         private JsonNullable<Long> expiresInSeconds;
 
@@ -143,6 +187,27 @@ public class CreateSignInTokenRequestBody {
         public Builder userId(String userId) {
             Utils.checkNotNull(userId, "userId");
             this.userId = userId;
+            return this;
+        }
+
+
+        /**
+         * The ID of the organization to activate when the user signs in.
+         * Organizations must be enabled for the instance, and the user must be a member of the organization.
+         */
+        public Builder orgId(String orgId) {
+            Utils.checkNotNull(orgId, "orgId");
+            this.orgId = JsonNullable.of(orgId);
+            return this;
+        }
+
+        /**
+         * The ID of the organization to activate when the user signs in.
+         * Organizations must be enabled for the instance, and the user must be a member of the organization.
+         */
+        public Builder orgId(JsonNullable<String> orgId) {
+            Utils.checkNotNull(orgId, "orgId");
+            this.orgId = orgId;
             return this;
         }
 
@@ -173,7 +238,7 @@ public class CreateSignInTokenRequestBody {
             }
 
             return new CreateSignInTokenRequestBody(
-                userId, expiresInSeconds);
+                userId, orgId, expiresInSeconds);
         }
 
 

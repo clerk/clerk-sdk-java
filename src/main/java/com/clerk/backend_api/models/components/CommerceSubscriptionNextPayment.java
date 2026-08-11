@@ -34,7 +34,7 @@ public class CommerceSubscriptionNextPayment {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("per_unit_totals")
-    private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals;
+    private Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals;
 
     /**
      * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
@@ -48,7 +48,7 @@ public class CommerceSubscriptionNextPayment {
     public CommerceSubscriptionNextPayment(
             @JsonProperty("date") long date,
             @JsonProperty("amount") CommerceMoneyResponse amount,
-            @JsonProperty("per_unit_totals") Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals,
+            @JsonProperty("per_unit_totals") Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals,
             @JsonProperty("totals") JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals) {
         Utils.checkNotNull(date, "date");
         Utils.checkNotNull(amount, "amount");
@@ -85,8 +85,8 @@ public class CommerceSubscriptionNextPayment {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<SchemasCommercePerUnitTotal>> perUnitTotals() {
-        return (Optional<List<SchemasCommercePerUnitTotal>>) perUnitTotals;
+    public Optional<List<CommercePerUnitTotal2>> perUnitTotals() {
+        return (Optional<List<CommercePerUnitTotal2>>) perUnitTotals;
     }
 
     /**
@@ -122,7 +122,7 @@ public class CommerceSubscriptionNextPayment {
     /**
      * Per-unit total breakdown (for example, seats) for the next payment.
      */
-    public CommerceSubscriptionNextPayment withPerUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+    public CommerceSubscriptionNextPayment withPerUnitTotals(List<CommercePerUnitTotal2> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = Optional.ofNullable(perUnitTotals);
         return this;
@@ -132,7 +132,7 @@ public class CommerceSubscriptionNextPayment {
     /**
      * Per-unit total breakdown (for example, seats) for the next payment.
      */
-    public CommerceSubscriptionNextPayment withPerUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+    public CommerceSubscriptionNextPayment withPerUnitTotals(Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals) {
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
         this.perUnitTotals = perUnitTotals;
         return this;
@@ -197,7 +197,7 @@ public class CommerceSubscriptionNextPayment {
 
         private CommerceMoneyResponse amount;
 
-        private Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals = Optional.empty();
+        private Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals = Optional.empty();
 
         private JsonNullable<? extends CommerceSubscriptionNextPaymentTotals> totals = JsonNullable.undefined();
 
@@ -226,7 +226,7 @@ public class CommerceSubscriptionNextPayment {
         /**
          * Per-unit total breakdown (for example, seats) for the next payment.
          */
-        public Builder perUnitTotals(List<SchemasCommercePerUnitTotal> perUnitTotals) {
+        public Builder perUnitTotals(List<CommercePerUnitTotal2> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = Optional.ofNullable(perUnitTotals);
             return this;
@@ -235,7 +235,7 @@ public class CommerceSubscriptionNextPayment {
         /**
          * Per-unit total breakdown (for example, seats) for the next payment.
          */
-        public Builder perUnitTotals(Optional<? extends List<SchemasCommercePerUnitTotal>> perUnitTotals) {
+        public Builder perUnitTotals(Optional<? extends List<CommercePerUnitTotal2>> perUnitTotals) {
             Utils.checkNotNull(perUnitTotals, "perUnitTotals");
             this.perUnitTotals = perUnitTotals;
             return this;

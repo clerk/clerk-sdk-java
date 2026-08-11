@@ -11,6 +11,7 @@
 * [delete](#delete) - Delete an OAuth application
 * [uploadLogo](#uploadlogo) - Upload a logo for the OAuth application
 * [rotateSecret](#rotatesecret) - Rotate the client secret of the given OAuth application
+* [revokeToken](#revoketoken) - Revoke an OAuth application token
 
 ## list
 
@@ -391,4 +392,60 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## revokeToken
+
+Revoke both OAuth access token and refresh token for the associated grant for the given OAuth application.
+The request may specify either token.
+JWT access tokens cannot be revoked.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RevokeOAuthApplicationToken" method="post" path="/oauth_applications/{oauth_application_id}/revoke_token" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenRequestBody;
+import com.clerk.backend_api.models.operations.RevokeOAuthApplicationTokenResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RevokeOAuthApplicationTokenResponse res = sdk.oauthApplications().revokeToken()
+                .oauthApplicationId("<id>")
+                .requestBody(RevokeOAuthApplicationTokenRequestBody.builder()
+                    .token("<value>")
+                    .build())
+                .call();
+
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `oauthApplicationId`                                                                                        | *String*                                                                                                    | :heavy_check_mark:                                                                                          | The ID of the OAuth application for which to revoke the token                                               |
+| `requestBody`                                                                                               | [RevokeOAuthApplicationTokenRequestBody](../../models/operations/RevokeOAuthApplicationTokenRequestBody.md) | :heavy_check_mark:                                                                                          | N/A                                                                                                         |
+
+### Response
+
+**[RevokeOAuthApplicationTokenResponse](../../models/operations/RevokeOAuthApplicationTokenResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

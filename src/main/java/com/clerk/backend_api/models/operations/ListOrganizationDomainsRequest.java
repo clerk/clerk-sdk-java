@@ -29,7 +29,10 @@ public class ListOrganizationDomainsRequest {
     private Optional<String> verified;
 
     /**
-     * Filter domains by their enrollment mode
+     * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+     * `manual_invitation` or `enterprise_sso`.
+     * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+     * can be combined and compose as AND.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=enrollment_mode")
     private Optional<String> enrollmentMode;
@@ -91,7 +94,10 @@ public class ListOrganizationDomainsRequest {
     }
 
     /**
-     * Filter domains by their enrollment mode
+     * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+     * `manual_invitation` or `enterprise_sso`.
+     * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+     * can be combined and compose as AND.
      */
     @JsonIgnore
     public Optional<String> enrollmentMode() {
@@ -151,7 +157,10 @@ public class ListOrganizationDomainsRequest {
     }
 
     /**
-     * Filter domains by their enrollment mode
+     * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+     * `manual_invitation` or `enterprise_sso`.
+     * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+     * can be combined and compose as AND.
      */
     public ListOrganizationDomainsRequest withEnrollmentMode(String enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -161,7 +170,10 @@ public class ListOrganizationDomainsRequest {
 
 
     /**
-     * Filter domains by their enrollment mode
+     * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+     * `manual_invitation` or `enterprise_sso`.
+     * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+     * can be combined and compose as AND.
      */
     public ListOrganizationDomainsRequest withEnrollmentMode(Optional<String> enrollmentMode) {
         Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -295,7 +307,10 @@ public class ListOrganizationDomainsRequest {
 
 
         /**
-         * Filter domains by their enrollment mode
+         * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+         * `manual_invitation` or `enterprise_sso`.
+         * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+         * can be combined and compose as AND.
          */
         public Builder enrollmentMode(String enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");
@@ -304,7 +319,10 @@ public class ListOrganizationDomainsRequest {
         }
 
         /**
-         * Filter domains by their enrollment mode
+         * Filter domains by their enrollment mode. Accepts `automatic_invitation`, `automatic_suggestion`,
+         * `manual_invitation` or `enterprise_sso`.
+         * Prefix a value with `-` to exclude it instead (e.g. `-enterprise_sso`). Include and exclude filters
+         * can be combined and compose as AND.
          */
         public Builder enrollmentMode(Optional<String> enrollmentMode) {
             Utils.checkNotNull(enrollmentMode, "enrollmentMode");

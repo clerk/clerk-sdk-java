@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -105,6 +106,13 @@ public class EnterpriseConnectionSamlConnection {
     @JsonProperty("force_authn")
     private Optional<Boolean> forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private Optional<? extends LoginHint> loginHint;
+
     @JsonCreator
     public EnterpriseConnectionSamlConnection(
             @JsonProperty("id") Optional<String> id,
@@ -118,7 +126,8 @@ public class EnterpriseConnectionSamlConnection {
             @JsonProperty("active") Optional<Boolean> active,
             @JsonProperty("allow_idp_initiated") Optional<Boolean> allowIdpInitiated,
             @JsonProperty("allow_subdomains") Optional<Boolean> allowSubdomains,
-            @JsonProperty("force_authn") Optional<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") Optional<Boolean> forceAuthn,
+            @JsonProperty("login_hint") Optional<? extends LoginHint> loginHint) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(idpEntityId, "idpEntityId");
@@ -131,6 +140,7 @@ public class EnterpriseConnectionSamlConnection {
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         this.id = id;
         this.name = name;
         this.idpEntityId = idpEntityId;
@@ -143,13 +153,15 @@ public class EnterpriseConnectionSamlConnection {
         this.allowIdpInitiated = allowIdpInitiated;
         this.allowSubdomains = allowSubdomains;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
     }
     
     public EnterpriseConnectionSamlConnection() {
         this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -246,6 +258,15 @@ public class EnterpriseConnectionSamlConnection {
     @JsonIgnore
     public Optional<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<LoginHint> loginHint() {
+        return (Optional<LoginHint>) loginHint;
     }
 
     public static Builder builder() {
@@ -475,6 +496,25 @@ public class EnterpriseConnectionSamlConnection {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public EnterpriseConnectionSamlConnection withLoginHint(LoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = Optional.ofNullable(loginHint);
+        return this;
+    }
+
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public EnterpriseConnectionSamlConnection withLoginHint(Optional<? extends LoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -496,7 +536,8 @@ public class EnterpriseConnectionSamlConnection {
             Utils.enhancedDeepEquals(this.active, other.active) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint);
     }
     
     @Override
@@ -505,7 +546,8 @@ public class EnterpriseConnectionSamlConnection {
             id, name, idpEntityId,
             idpSsoUrl, idpMetadataUrl, acsUrl,
             spEntityId, spMetadataUrl, active,
-            allowIdpInitiated, allowSubdomains, forceAuthn);
+            allowIdpInitiated, allowSubdomains, forceAuthn,
+            loginHint);
     }
     
     @Override
@@ -522,7 +564,8 @@ public class EnterpriseConnectionSamlConnection {
                 "active", active,
                 "allowIdpInitiated", allowIdpInitiated,
                 "allowSubdomains", allowSubdomains,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "loginHint", loginHint);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -551,6 +594,8 @@ public class EnterpriseConnectionSamlConnection {
         private Optional<Boolean> allowSubdomains = Optional.empty();
 
         private Optional<Boolean> forceAuthn = Optional.empty();
+
+        private Optional<? extends LoginHint> loginHint = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -784,13 +829,33 @@ public class EnterpriseConnectionSamlConnection {
             return this;
         }
 
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(LoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = Optional.ofNullable(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(Optional<? extends LoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
         public EnterpriseConnectionSamlConnection build() {
 
             return new EnterpriseConnectionSamlConnection(
                 id, name, idpEntityId,
                 idpSsoUrl, idpMetadataUrl, acsUrl,
                 spEntityId, spMetadataUrl, active,
-                allowIdpInitiated, allowSubdomains, forceAuthn);
+                allowIdpInitiated, allowSubdomains, forceAuthn,
+                loginHint);
         }
 
     }

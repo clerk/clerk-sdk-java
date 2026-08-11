@@ -9,9 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -31,14 +33,14 @@ public class VerificationOauthErrorClerkError {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("meta")
-    private Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta;
+    private Optional<? extends Map<String, Object>> meta;
 
     @JsonCreator
     public VerificationOauthErrorClerkError(
             @JsonProperty("message") String message,
             @JsonProperty("long_message") String longMessage,
             @JsonProperty("code") String code,
-            @JsonProperty("meta") Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta) {
+            @JsonProperty("meta") Optional<? extends Map<String, Object>> meta) {
         Utils.checkNotNull(message, "message");
         Utils.checkNotNull(longMessage, "longMessage");
         Utils.checkNotNull(code, "code");
@@ -74,8 +76,8 @@ public class VerificationOauthErrorClerkError {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<ClerkErrorErrorExternalAccountWithVerificationMeta> meta() {
-        return (Optional<ClerkErrorErrorExternalAccountWithVerificationMeta>) meta;
+    public Optional<Map<String, Object>> meta() {
+        return (Optional<Map<String, Object>>) meta;
     }
 
     public static Builder builder() {
@@ -101,14 +103,14 @@ public class VerificationOauthErrorClerkError {
         return this;
     }
 
-    public VerificationOauthErrorClerkError withMeta(ClerkErrorErrorExternalAccountWithVerificationMeta meta) {
+    public VerificationOauthErrorClerkError withMeta(Map<String, Object> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = Optional.ofNullable(meta);
         return this;
     }
 
 
-    public VerificationOauthErrorClerkError withMeta(Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta) {
+    public VerificationOauthErrorClerkError withMeta(Optional<? extends Map<String, Object>> meta) {
         Utils.checkNotNull(meta, "meta");
         this.meta = meta;
         return this;
@@ -155,7 +157,7 @@ public class VerificationOauthErrorClerkError {
 
         private String code;
 
-        private Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta = Optional.empty();
+        private Optional<? extends Map<String, Object>> meta = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -183,13 +185,13 @@ public class VerificationOauthErrorClerkError {
         }
 
 
-        public Builder meta(ClerkErrorErrorExternalAccountWithVerificationMeta meta) {
+        public Builder meta(Map<String, Object> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = Optional.ofNullable(meta);
             return this;
         }
 
-        public Builder meta(Optional<? extends ClerkErrorErrorExternalAccountWithVerificationMeta> meta) {
+        public Builder meta(Optional<? extends Map<String, Object>> meta) {
             Utils.checkNotNull(meta, "meta");
             this.meta = meta;
             return this;

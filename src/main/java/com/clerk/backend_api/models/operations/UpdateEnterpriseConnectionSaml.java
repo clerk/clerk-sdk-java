@@ -86,6 +86,13 @@ public class UpdateEnterpriseConnectionSaml {
     @JsonProperty("force_authn")
     private JsonNullable<Boolean> forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private JsonNullable<? extends UpdateEnterpriseConnectionLoginHint> loginHint;
+
     @JsonCreator
     public UpdateEnterpriseConnectionSaml(
             @JsonProperty("name") JsonNullable<String> name,
@@ -97,7 +104,8 @@ public class UpdateEnterpriseConnectionSaml {
             @JsonProperty("attribute_mapping") JsonNullable<? extends UpdateEnterpriseConnectionAttributeMapping> attributeMapping,
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
             @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated,
-            @JsonProperty("force_authn") JsonNullable<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") JsonNullable<Boolean> forceAuthn,
+            @JsonProperty("login_hint") JsonNullable<? extends UpdateEnterpriseConnectionLoginHint> loginHint) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
@@ -108,6 +116,7 @@ public class UpdateEnterpriseConnectionSaml {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         this.name = name;
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
@@ -118,13 +127,14 @@ public class UpdateEnterpriseConnectionSaml {
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
     }
     
     public UpdateEnterpriseConnectionSaml() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -197,6 +207,15 @@ public class UpdateEnterpriseConnectionSaml {
     @JsonIgnore
     public JsonNullable<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<UpdateEnterpriseConnectionLoginHint> loginHint() {
+        return (JsonNullable<UpdateEnterpriseConnectionLoginHint>) loginHint;
     }
 
     public static Builder builder() {
@@ -366,6 +385,24 @@ public class UpdateEnterpriseConnectionSaml {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public UpdateEnterpriseConnectionSaml withLoginHint(UpdateEnterpriseConnectionLoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = JsonNullable.of(loginHint);
+        return this;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public UpdateEnterpriseConnectionSaml withLoginHint(JsonNullable<? extends UpdateEnterpriseConnectionLoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -385,7 +422,8 @@ public class UpdateEnterpriseConnectionSaml {
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint);
     }
     
     @Override
@@ -394,7 +432,7 @@ public class UpdateEnterpriseConnectionSaml {
             name, idpEntityId, idpSsoUrl,
             idpCertificate, idpMetadataUrl, idpMetadata,
             attributeMapping, allowSubdomains, allowIdpInitiated,
-            forceAuthn);
+            forceAuthn, loginHint);
     }
     
     @Override
@@ -409,7 +447,8 @@ public class UpdateEnterpriseConnectionSaml {
                 "attributeMapping", attributeMapping,
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "loginHint", loginHint);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -434,6 +473,8 @@ public class UpdateEnterpriseConnectionSaml {
         private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();
 
         private JsonNullable<Boolean> forceAuthn = JsonNullable.undefined();
+
+        private JsonNullable<? extends UpdateEnterpriseConnectionLoginHint> loginHint = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -611,13 +652,32 @@ public class UpdateEnterpriseConnectionSaml {
             return this;
         }
 
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(UpdateEnterpriseConnectionLoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = JsonNullable.of(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(JsonNullable<? extends UpdateEnterpriseConnectionLoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
         public UpdateEnterpriseConnectionSaml build() {
 
             return new UpdateEnterpriseConnectionSaml(
                 name, idpEntityId, idpSsoUrl,
                 idpCertificate, idpMetadataUrl, idpMetadata,
                 attributeMapping, allowSubdomains, allowIdpInitiated,
-                forceAuthn);
+                forceAuthn, loginHint);
         }
 
     }

@@ -56,7 +56,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 404, 422                  | application/json          |
+| models/errors/ClerkErrors | 403, 404, 422             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke

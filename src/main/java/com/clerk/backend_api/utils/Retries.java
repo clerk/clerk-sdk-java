@@ -44,10 +44,10 @@ public class Retries {
             super(exception);
             this.exception = exception;
         }
-        
+
         public Exception exception() {
             return exception;
-        } 
+        }
     }
 
     @SuppressWarnings("serial")
@@ -57,7 +57,7 @@ public class Retries {
         public RetryableException(HttpResponse<InputStream> response) {
             this.response = response;
         }
-        
+
         public HttpResponse<InputStream> response() {
             return response;
         }
@@ -125,6 +125,15 @@ public class Retries {
     }
 
     private static long retryAfterMs(HttpResponse<InputStream> response) {
+        String retryAfterMs = response.headers().firstValue("retry-after-ms").orElse(null);
+        if (retryAfterMs != null && !retryAfterMs.isEmpty()) {
+            try {
+                long milliseconds = Long.parseLong(retryAfterMs);
+                return milliseconds < 0 ? 0 : milliseconds;
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
         String retryAfter = response.headers().firstValue("retry-after").orElse(null);
         if (retryAfter == null || retryAfter.isEmpty()) {
             return 0;

@@ -29,7 +29,7 @@ public class NextInvoice {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
-    private JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount;
+    private JsonNullable<? extends CommerceSubscriptionItem2NextInvoiceAmount> amount;
 
     /**
      * Unix timestamp (in milliseconds) for the next payment date.
@@ -51,14 +51,14 @@ public class NextInvoice {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totals")
-    private JsonNullable<? extends SchemasCommerceSubscriptionItemTotals> totals;
+    private JsonNullable<? extends CommerceSubscriptionItem2Totals> totals;
 
     @JsonCreator
     public NextInvoice(
-            @JsonProperty("amount") JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount,
+            @JsonProperty("amount") JsonNullable<? extends CommerceSubscriptionItem2NextInvoiceAmount> amount,
             @JsonProperty("date") JsonNullable<Long> date,
             @JsonProperty("per_unit_totals") Optional<? extends List<CommercePerUnitTotal>> perUnitTotals,
-            @JsonProperty("totals") JsonNullable<? extends SchemasCommerceSubscriptionItemTotals> totals) {
+            @JsonProperty("totals") JsonNullable<? extends CommerceSubscriptionItem2Totals> totals) {
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(date, "date");
         Utils.checkNotNull(perUnitTotals, "perUnitTotals");
@@ -80,8 +80,8 @@ public class NextInvoice {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<SchemasCommerceSubscriptionItemNextInvoiceAmount> amount() {
-        return (JsonNullable<SchemasCommerceSubscriptionItemNextInvoiceAmount>) amount;
+    public JsonNullable<CommerceSubscriptionItem2NextInvoiceAmount> amount() {
+        return (JsonNullable<CommerceSubscriptionItem2NextInvoiceAmount>) amount;
     }
 
     /**
@@ -107,8 +107,8 @@ public class NextInvoice {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<SchemasCommerceSubscriptionItemTotals> totals() {
-        return (JsonNullable<SchemasCommerceSubscriptionItemTotals>) totals;
+    public JsonNullable<CommerceSubscriptionItem2Totals> totals() {
+        return (JsonNullable<CommerceSubscriptionItem2Totals>) totals;
     }
 
     public static Builder builder() {
@@ -120,7 +120,7 @@ public class NextInvoice {
      * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
      * `totals.grand_total` for the full amount.
      */
-    public NextInvoice withAmount(SchemasCommerceSubscriptionItemNextInvoiceAmount amount) {
+    public NextInvoice withAmount(CommerceSubscriptionItem2NextInvoiceAmount amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = JsonNullable.of(amount);
         return this;
@@ -130,7 +130,7 @@ public class NextInvoice {
      * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
      * `totals.grand_total` for the full amount.
      */
-    public NextInvoice withAmount(JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount) {
+    public NextInvoice withAmount(JsonNullable<? extends CommerceSubscriptionItem2NextInvoiceAmount> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
@@ -177,7 +177,7 @@ public class NextInvoice {
      * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
      * and credits are not previewed.
      */
-    public NextInvoice withTotals(SchemasCommerceSubscriptionItemTotals totals) {
+    public NextInvoice withTotals(CommerceSubscriptionItem2Totals totals) {
         Utils.checkNotNull(totals, "totals");
         this.totals = JsonNullable.of(totals);
         return this;
@@ -187,7 +187,7 @@ public class NextInvoice {
      * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
      * and credits are not previewed.
      */
-    public NextInvoice withTotals(JsonNullable<? extends SchemasCommerceSubscriptionItemTotals> totals) {
+    public NextInvoice withTotals(JsonNullable<? extends CommerceSubscriptionItem2Totals> totals) {
         Utils.checkNotNull(totals, "totals");
         this.totals = totals;
         return this;
@@ -228,13 +228,13 @@ public class NextInvoice {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount = JsonNullable.undefined();
+        private JsonNullable<? extends CommerceSubscriptionItem2NextInvoiceAmount> amount = JsonNullable.undefined();
 
         private JsonNullable<Long> date = JsonNullable.undefined();
 
         private Optional<? extends List<CommercePerUnitTotal>> perUnitTotals = Optional.empty();
 
-        private JsonNullable<? extends SchemasCommerceSubscriptionItemTotals> totals = JsonNullable.undefined();
+        private JsonNullable<? extends CommerceSubscriptionItem2Totals> totals = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -245,7 +245,7 @@ public class NextInvoice {
          * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
          * `totals.grand_total` for the full amount.
          */
-        public Builder amount(SchemasCommerceSubscriptionItemNextInvoiceAmount amount) {
+        public Builder amount(CommerceSubscriptionItem2NextInvoiceAmount amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = JsonNullable.of(amount);
             return this;
@@ -255,7 +255,7 @@ public class NextInvoice {
          * Base plan fee for the next payment. Does not include per-unit (e.g. seat) charges; see
          * `totals.grand_total` for the full amount.
          */
-        public Builder amount(JsonNullable<? extends SchemasCommerceSubscriptionItemNextInvoiceAmount> amount) {
+        public Builder amount(JsonNullable<? extends CommerceSubscriptionItem2NextInvoiceAmount> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;
@@ -304,7 +304,7 @@ public class NextInvoice {
          * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
          * and credits are not previewed.
          */
-        public Builder totals(SchemasCommerceSubscriptionItemTotals totals) {
+        public Builder totals(CommerceSubscriptionItem2Totals totals) {
             Utils.checkNotNull(totals, "totals");
             this.totals = JsonNullable.of(totals);
             return this;
@@ -314,7 +314,7 @@ public class NextInvoice {
          * Breakdown of the recurring amount that will be billed at renewal (base fee + per-unit charges). Tax
          * and credits are not previewed.
          */
-        public Builder totals(JsonNullable<? extends SchemasCommerceSubscriptionItemTotals> totals) {
+        public Builder totals(JsonNullable<? extends CommerceSubscriptionItem2Totals> totals) {
             Utils.checkNotNull(totals, "totals");
             this.totals = totals;
             return this;

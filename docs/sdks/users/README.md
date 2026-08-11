@@ -26,11 +26,14 @@
 * [getOAuthAccessToken](#getoauthaccesstoken) - Retrieve the OAuth access token of a user
 * [getOrganizationMemberships](#getorganizationmemberships) - Retrieve all memberships for a user
 * [getOrganizationInvitations](#getorganizationinvitations) - Retrieve all invitations for a user
+* [removePassword](#removepassword) - Remove a user's password
 * [verifyPassword](#verifypassword) - Verify the password of a user
 * [verifyTotp](#verifytotp) - Verify a TOTP or backup code for a user
 * [disableMfa](#disablemfa) - Disable a user's MFA methods
 * [deleteBackupCodes](#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](#deletepasskey) - Delete a user passkey
+* [listTrustedDevices](#listtrusteddevices) - List a user's trusted devices
+* [revokeTrustedDevice](#revoketrusteddevice) - Revoke a user's trusted device
 * [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
 * [deleteTOTP](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
@@ -1274,6 +1277,61 @@ public class Application {
 | models/errors/ClerkErrors | 400, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## removePassword
+
+Removes the password credential from the given user. This is a privileged operation and does not require the user's current password. Password removal is allowed even when the user has no other sign-in method configured.
+
+If the user does not have a password, the user is returned unchanged and no password-deletion or user-update event is emitted. By default, existing sessions remain active. Set `sign_out_of_other_sessions` to `true` to revoke sessions active when the request is processed.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RemoveUserPassword" method="post" path="/users/{user_id}/remove_password" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RemoveUserPasswordResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RemoveUserPasswordResponse res = sdk.users().removePassword()
+                .userId("<id>")
+                .call();
+
+        if (res.user().isPresent()) {
+            System.out.println(res.user().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `userId`                                                                                             | *String*                                                                                             | :heavy_check_mark:                                                                                   | The ID of the user whose password to remove                                                          |
+| `requestBody`                                                                                        | [Optional\<RemoveUserPasswordRequestBody>](../../models/operations/RemoveUserPasswordRequestBody.md) | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
+
+### Response
+
+**[RemoveUserPasswordResponse](../../models/operations/RemoveUserPasswordResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 403, 404        | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## verifyPassword
 
 Check that the user's password matches the supplied input.
@@ -1540,6 +1598,112 @@ public class Application {
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## listTrustedDevices
+
+Returns the active trusted devices enrolled by the user.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ListUserTrustedDevices" method="get" path="/users/{user_id}/trusted_devices" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListUserTrustedDevicesResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ListUserTrustedDevicesResponse res = sdk.users().listTrustedDevices()
+                .userId("<id>")
+                .call();
+
+        if (res.trustedDeviceList().isPresent()) {
+            System.out.println(res.trustedDeviceList().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `userId`                                              | *String*                                              | :heavy_check_mark:                                    | The ID of the user whose trusted devices are returned |
+
+### Response
+
+**[ListUserTrustedDevicesResponse](../../models/operations/ListUserTrustedDevicesResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## revokeTrustedDevice
+
+Revokes an active trusted device enrolled by the user.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RevokeUserTrustedDevice" method="delete" path="/users/{user_id}/trusted_devices/{trusted_device_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RevokeUserTrustedDeviceResponse res = sdk.users().revokeTrustedDevice()
+                .userId("<id>")
+                .trustedDeviceId("<id>")
+                .call();
+
+        if (res.trustedDevice().isPresent()) {
+            System.out.println(res.trustedDevice().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                       | Type                                            | Required                                        | Description                                     |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `userId`                                        | *String*                                        | :heavy_check_mark:                              | The ID of the user that owns the trusted device |
+| `trustedDeviceId`                               | *String*                                        | :heavy_check_mark:                              | The ID of the trusted device to revoke          |
+
+### Response
+
+**[RevokeUserTrustedDeviceResponse](../../models/operations/RevokeUserTrustedDeviceResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## deleteWeb3Wallet
 
 Delete the web3 wallet identification for a given user.
@@ -1755,6 +1919,8 @@ public class Application {
 ## unsetPasswordCompromised
 
 Sets the given user's password as no longer compromised. The user will no longer be prompted to reset their password on their next sign-in.
+
+If the user is in reserved-email password quarantine, the quarantine is preserved and the returned user will still have `requires_password_reset` set to `true`. Reserved-email password quarantine can only be cleared by completing a password reset or changing/removing the password.
 
 ### Example Usage
 

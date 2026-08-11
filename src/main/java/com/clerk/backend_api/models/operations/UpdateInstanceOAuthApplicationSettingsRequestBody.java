@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -24,6 +26,13 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     private JsonNullable<Boolean> dynamicOauthClientRegistration;
 
     /**
+     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("default_scopes")
+    private JsonNullable<? extends List<String>> defaultScopes;
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
@@ -31,18 +40,55 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonProperty("oauth_jwt_access_tokens")
     private JsonNullable<Boolean> oauthJwtAccessTokens;
 
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("client_id_metadata_documents_advertised")
+    private JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised;
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients")
+    private JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients")
+    private JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+
     @JsonCreator
     public UpdateInstanceOAuthApplicationSettingsRequestBody(
             @JsonProperty("dynamic_oauth_client_registration") JsonNullable<Boolean> dynamicOauthClientRegistration,
-            @JsonProperty("oauth_jwt_access_tokens") JsonNullable<Boolean> oauthJwtAccessTokens) {
+            @JsonProperty("default_scopes") JsonNullable<? extends List<String>> defaultScopes,
+            @JsonProperty("oauth_jwt_access_tokens") JsonNullable<Boolean> oauthJwtAccessTokens,
+            @JsonProperty("client_id_metadata_documents_advertised") JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised,
+            @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients") JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients") JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
         Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
+        Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+        Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+        Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
         this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
+        this.defaultScopes = defaultScopes;
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+        this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+        this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+        this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
     }
     
     public UpdateInstanceOAuthApplicationSettingsRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -54,12 +100,48 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     }
 
     /**
+     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<String>> defaultScopes() {
+        return (JsonNullable<List<String>>) defaultScopes;
+    }
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
     @JsonIgnore
     public JsonNullable<Boolean> oauthJwtAccessTokens() {
         return oauthJwtAccessTokens;
+    }
+
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised() {
+        return clientIdMetadataDocumentsAdvertised;
+    }
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients() {
+        return clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+    }
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients() {
+        return clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
     }
 
     public static Builder builder() {
@@ -86,6 +168,24 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     }
 
     /**
+     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withDefaultScopes(List<String> defaultScopes) {
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
+        this.defaultScopes = JsonNullable.of(defaultScopes);
+        return this;
+    }
+
+    /**
+     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withDefaultScopes(JsonNullable<? extends List<String>> defaultScopes) {
+        Utils.checkNotNull(defaultScopes, "defaultScopes");
+        this.defaultScopes = defaultScopes;
+        return this;
+    }
+
+    /**
      * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
      * tokens).
      */
@@ -105,6 +205,66 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         return this;
     }
 
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsAdvertised(boolean clientIdMetadataDocumentsAdvertised) {
+        Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+        this.clientIdMetadataDocumentsAdvertised = JsonNullable.of(clientIdMetadataDocumentsAdvertised);
+        return this;
+    }
+
+    /**
+     * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+     * server metadata.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsAdvertised(JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised) {
+        Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+        this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+        return this;
+    }
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsOnlyAllowPreRegisteredClients(boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+        this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = JsonNullable.of(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients);
+        return this;
+    }
+
+    /**
+     * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+     * clients remain admitted; deleting a client makes it unknown again.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsOnlyAllowPreRegisteredClients(JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+        this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+        return this;
+    }
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsBlockImplicitlyAllowedClients(boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+        this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = JsonNullable.of(clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+        return this;
+    }
+
+    /**
+     * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+     * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withClientIdMetadataDocumentsBlockImplicitlyAllowedClients(JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+        Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+        this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,20 +276,29 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         UpdateInstanceOAuthApplicationSettingsRequestBody other = (UpdateInstanceOAuthApplicationSettingsRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.dynamicOauthClientRegistration, other.dynamicOauthClientRegistration) &&
-            Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens);
+            Utils.enhancedDeepEquals(this.defaultScopes, other.defaultScopes) &&
+            Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsAdvertised, other.clientIdMetadataDocumentsAdvertised) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, other.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) &&
+            Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients, other.clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            dynamicOauthClientRegistration, oauthJwtAccessTokens);
+            dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
+            clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateInstanceOAuthApplicationSettingsRequestBody.class,
                 "dynamicOauthClientRegistration", dynamicOauthClientRegistration,
-                "oauthJwtAccessTokens", oauthJwtAccessTokens);
+                "defaultScopes", defaultScopes,
+                "oauthJwtAccessTokens", oauthJwtAccessTokens,
+                "clientIdMetadataDocumentsAdvertised", clientIdMetadataDocumentsAdvertised,
+                "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients", clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+                "clientIdMetadataDocumentsBlockImplicitlyAllowedClients", clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -137,7 +306,15 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
 
         private JsonNullable<Boolean> dynamicOauthClientRegistration = JsonNullable.undefined();
 
+        private JsonNullable<? extends List<String>> defaultScopes = JsonNullable.undefined();
+
         private JsonNullable<Boolean> oauthJwtAccessTokens = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -164,6 +341,25 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
 
 
         /**
+         * Default scopes. Set to null to reset to Clerk-provided defaults.
+         */
+        public Builder defaultScopes(List<String> defaultScopes) {
+            Utils.checkNotNull(defaultScopes, "defaultScopes");
+            this.defaultScopes = JsonNullable.of(defaultScopes);
+            return this;
+        }
+
+        /**
+         * Default scopes. Set to null to reset to Clerk-provided defaults.
+         */
+        public Builder defaultScopes(JsonNullable<? extends List<String>> defaultScopes) {
+            Utils.checkNotNull(defaultScopes, "defaultScopes");
+            this.defaultScopes = defaultScopes;
+            return this;
+        }
+
+
+        /**
          * Whether OAuth JWT access tokens are enabled for the instance (disabled indicates opaque access
          * tokens).
          */
@@ -183,10 +379,74 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
             return this;
         }
 
+
+        /**
+         * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+         * server metadata.
+         */
+        public Builder clientIdMetadataDocumentsAdvertised(boolean clientIdMetadataDocumentsAdvertised) {
+            Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+            this.clientIdMetadataDocumentsAdvertised = JsonNullable.of(clientIdMetadataDocumentsAdvertised);
+            return this;
+        }
+
+        /**
+         * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
+         * server metadata.
+         */
+        public Builder clientIdMetadataDocumentsAdvertised(JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised) {
+            Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
+            this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
+            return this;
+        }
+
+
+        /**
+         * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+         * clients remain admitted; deleting a client makes it unknown again.
+         */
+        public Builder clientIdMetadataDocumentsOnlyAllowPreRegisteredClients(boolean clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+            this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = JsonNullable.of(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients);
+            return this;
+        }
+
+        /**
+         * When true, new unknown CIMD clients are rejected. Previously auto-connected and pre-registered
+         * clients remain admitted; deleting a client makes it unknown again.
+         */
+        public Builder clientIdMetadataDocumentsOnlyAllowPreRegisteredClients(JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
+            this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
+            return this;
+        }
+
+
+        /**
+         * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+         * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+         */
+        public Builder clientIdMetadataDocumentsBlockImplicitlyAllowedClients(boolean clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+            this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = JsonNullable.of(clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+            return this;
+        }
+
+        /**
+         * When true, recorded implicitly allowed CIMD clients are rejected on future client lookups.
+         * Explicitly allowed clients remain accepted. This does not revoke previously issued access tokens.
+         */
+        public Builder clientIdMetadataDocumentsBlockImplicitlyAllowedClients(JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
+            Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
+            this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
+            return this;
+        }
+
         public UpdateInstanceOAuthApplicationSettingsRequestBody build() {
 
             return new UpdateInstanceOAuthApplicationSettingsRequestBody(
-                dynamicOauthClientRegistration, oauthJwtAccessTokens);
+                dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
+                clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
         }
 
     }

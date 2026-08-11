@@ -61,6 +61,22 @@ public class One {
     @JsonProperty("idp_certificate")
     private Optional<String> idpCertificate;
 
+    /**
+     * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+     * Null when no certificate is configured.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("idp_certificate_issued_at")
+    private Optional<Long> idpCertificateIssuedAt;
+
+    /**
+     * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+     * Null when no certificate is configured.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("idp_certificate_expires_at")
+    private Optional<Long> idpCertificateExpiresAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
@@ -131,6 +147,12 @@ public class One {
     @JsonProperty("force_authn")
     private boolean forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonProperty("login_hint")
+    private SAMLConnectionLoginHint loginHint;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enterprise_connection_id")
@@ -158,6 +180,8 @@ public class One {
             @JsonProperty("idp_entity_id") Optional<String> idpEntityId,
             @JsonProperty("idp_sso_url") Optional<String> idpSsoUrl,
             @JsonProperty("idp_certificate") Optional<String> idpCertificate,
+            @JsonProperty("idp_certificate_issued_at") Optional<Long> idpCertificateIssuedAt,
+            @JsonProperty("idp_certificate_expires_at") Optional<Long> idpCertificateExpiresAt,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("acs_url") String acsUrl,
@@ -174,6 +198,7 @@ public class One {
             @JsonProperty("disable_additional_identifications") boolean disableAdditionalIdentifications,
             @JsonProperty("allow_organization_account_linking") boolean allowOrganizationAccountLinking,
             @JsonProperty("force_authn") boolean forceAuthn,
+            @JsonProperty("login_hint") SAMLConnectionLoginHint loginHint,
             @JsonProperty("enterprise_connection_id") JsonNullable<String> enterpriseConnectionId,
             @JsonProperty("created_at") long createdAt,
             @JsonProperty("updated_at") long updatedAt) {
@@ -185,6 +210,8 @@ public class One {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         Utils.checkNotNull(idpCertificate, "idpCertificate");
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         Utils.checkNotNull(acsUrl, "acsUrl");
@@ -201,6 +228,7 @@ public class One {
         Utils.checkNotNull(disableAdditionalIdentifications, "disableAdditionalIdentifications");
         Utils.checkNotNull(allowOrganizationAccountLinking, "allowOrganizationAccountLinking");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -212,6 +240,8 @@ public class One {
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
         this.idpCertificate = idpCertificate;
+        this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+        this.idpCertificateExpiresAt = idpCertificateExpiresAt;
         this.idpMetadataUrl = idpMetadataUrl;
         this.idpMetadata = idpMetadata;
         this.acsUrl = acsUrl;
@@ -228,6 +258,7 @@ public class One {
         this.disableAdditionalIdentifications = disableAdditionalIdentifications;
         this.allowOrganizationAccountLinking = allowOrganizationAccountLinking;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
         this.enterpriseConnectionId = enterpriseConnectionId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -250,16 +281,18 @@ public class One {
             boolean disableAdditionalIdentifications,
             boolean allowOrganizationAccountLinking,
             boolean forceAuthn,
+            SAMLConnectionLoginHint loginHint,
             long createdAt,
             long updatedAt) {
         this(object, id, name,
             domain, Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), acsUrl, spEntityId,
-            spMetadataUrl, JsonNullable.undefined(), Optional.empty(),
-            active, provider, userCount,
-            syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            acsUrl, spEntityId, spMetadataUrl,
+            JsonNullable.undefined(), Optional.empty(), active,
+            provider, userCount, syncUserAttributes,
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+            allowOrganizationAccountLinking, forceAuthn, loginHint,
             JsonNullable.undefined(), createdAt, updatedAt);
     }
 
@@ -307,6 +340,24 @@ public class One {
     @JsonIgnore
     public Optional<String> idpCertificate() {
         return idpCertificate;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+     * Null when no certificate is configured.
+     */
+    @JsonIgnore
+    public Optional<Long> idpCertificateIssuedAt() {
+        return idpCertificateIssuedAt;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+     * Null when no certificate is configured.
+     */
+    @JsonIgnore
+    public Optional<Long> idpCertificateExpiresAt() {
+        return idpCertificateExpiresAt;
     }
 
     @JsonIgnore
@@ -391,6 +442,14 @@ public class One {
     @JsonIgnore
     public boolean forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonIgnore
+    public SAMLConnectionLoginHint loginHint() {
+        return loginHint;
     }
 
     @JsonIgnore
@@ -497,6 +556,48 @@ public class One {
     public One withIdpCertificate(Optional<String> idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         this.idpCertificate = idpCertificate;
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+     * Null when no certificate is configured.
+     */
+    public One withIdpCertificateIssuedAt(long idpCertificateIssuedAt) {
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        this.idpCertificateIssuedAt = Optional.ofNullable(idpCertificateIssuedAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+     * Null when no certificate is configured.
+     */
+    public One withIdpCertificateIssuedAt(Optional<Long> idpCertificateIssuedAt) {
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+     * Null when no certificate is configured.
+     */
+    public One withIdpCertificateExpiresAt(long idpCertificateExpiresAt) {
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        this.idpCertificateExpiresAt = Optional.ofNullable(idpCertificateExpiresAt);
+        return this;
+    }
+
+
+    /**
+     * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+     * Null when no certificate is configured.
+     */
+    public One withIdpCertificateExpiresAt(Optional<Long> idpCertificateExpiresAt) {
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        this.idpCertificateExpiresAt = idpCertificateExpiresAt;
         return this;
     }
 
@@ -624,6 +725,15 @@ public class One {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public One withLoginHint(SAMLConnectionLoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     public One withEnterpriseConnectionId(String enterpriseConnectionId) {
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         this.enterpriseConnectionId = JsonNullable.of(enterpriseConnectionId);
@@ -672,6 +782,8 @@ public class One {
             Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
             Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
             Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpCertificateIssuedAt, other.idpCertificateIssuedAt) &&
+            Utils.enhancedDeepEquals(this.idpCertificateExpiresAt, other.idpCertificateExpiresAt) &&
             Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.acsUrl, other.acsUrl) &&
@@ -688,6 +800,7 @@ public class One {
             Utils.enhancedDeepEquals(this.disableAdditionalIdentifications, other.disableAdditionalIdentifications) &&
             Utils.enhancedDeepEquals(this.allowOrganizationAccountLinking, other.allowOrganizationAccountLinking) &&
             Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint) &&
             Utils.enhancedDeepEquals(this.enterpriseConnectionId, other.enterpriseConnectionId) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
@@ -698,12 +811,13 @@ public class One {
         return Utils.enhancedHash(
             object, id, name,
             domain, domains, idpEntityId,
-            idpSsoUrl, idpCertificate, idpMetadataUrl,
-            idpMetadata, acsUrl, spEntityId,
-            spMetadataUrl, organizationId, attributeMapping,
-            active, provider, userCount,
-            syncUserAttributes, allowSubdomains, allowIdpInitiated,
-            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
+            idpCertificateExpiresAt, idpMetadataUrl, idpMetadata,
+            acsUrl, spEntityId, spMetadataUrl,
+            organizationId, attributeMapping, active,
+            provider, userCount, syncUserAttributes,
+            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+            allowOrganizationAccountLinking, forceAuthn, loginHint,
             enterpriseConnectionId, createdAt, updatedAt);
     }
     
@@ -718,6 +832,8 @@ public class One {
                 "idpEntityId", idpEntityId,
                 "idpSsoUrl", idpSsoUrl,
                 "idpCertificate", idpCertificate,
+                "idpCertificateIssuedAt", idpCertificateIssuedAt,
+                "idpCertificateExpiresAt", idpCertificateExpiresAt,
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
                 "acsUrl", acsUrl,
@@ -734,6 +850,7 @@ public class One {
                 "disableAdditionalIdentifications", disableAdditionalIdentifications,
                 "allowOrganizationAccountLinking", allowOrganizationAccountLinking,
                 "forceAuthn", forceAuthn,
+                "loginHint", loginHint,
                 "enterpriseConnectionId", enterpriseConnectionId,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
@@ -758,6 +875,10 @@ public class One {
         private Optional<String> idpSsoUrl = Optional.empty();
 
         private Optional<String> idpCertificate = Optional.empty();
+
+        private Optional<Long> idpCertificateIssuedAt = Optional.empty();
+
+        private Optional<Long> idpCertificateExpiresAt = Optional.empty();
 
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
 
@@ -790,6 +911,8 @@ public class One {
         private Boolean allowOrganizationAccountLinking;
 
         private Boolean forceAuthn;
+
+        private SAMLConnectionLoginHint loginHint;
 
         private JsonNullable<String> enterpriseConnectionId = JsonNullable.undefined();
 
@@ -883,6 +1006,48 @@ public class One {
         public Builder idpCertificate(Optional<String> idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
             this.idpCertificate = idpCertificate;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+         * Null when no certificate is configured.
+         */
+        public Builder idpCertificateIssuedAt(long idpCertificateIssuedAt) {
+            Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+            this.idpCertificateIssuedAt = Optional.ofNullable(idpCertificateIssuedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (milliseconds) of the start of the IdP certificate validity window (X.509 NotBefore).
+         * Null when no certificate is configured.
+         */
+        public Builder idpCertificateIssuedAt(Optional<Long> idpCertificateIssuedAt) {
+            Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+            this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+         * Null when no certificate is configured.
+         */
+        public Builder idpCertificateExpiresAt(long idpCertificateExpiresAt) {
+            Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+            this.idpCertificateExpiresAt = Optional.ofNullable(idpCertificateExpiresAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (milliseconds) of the end of the IdP certificate validity window (X.509 NotAfter).
+         * Null when no certificate is configured.
+         */
+        public Builder idpCertificateExpiresAt(Optional<Long> idpCertificateExpiresAt) {
+            Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+            this.idpCertificateExpiresAt = idpCertificateExpiresAt;
             return this;
         }
 
@@ -1026,6 +1191,16 @@ public class One {
         }
 
 
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(SAMLConnectionLoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
+
         public Builder enterpriseConnectionId(String enterpriseConnectionId) {
             Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
             this.enterpriseConnectionId = JsonNullable.of(enterpriseConnectionId);
@@ -1063,12 +1238,13 @@ public class One {
             return new One(
                 object, id, name,
                 domain, domains, idpEntityId,
-                idpSsoUrl, idpCertificate, idpMetadataUrl,
-                idpMetadata, acsUrl, spEntityId,
-                spMetadataUrl, organizationId, attributeMapping,
-                active, provider, userCount,
-                syncUserAttributes, allowSubdomains, allowIdpInitiated,
-                disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+                idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
+                idpCertificateExpiresAt, idpMetadataUrl, idpMetadata,
+                acsUrl, spEntityId, spMetadataUrl,
+                organizationId, attributeMapping, active,
+                provider, userCount, syncUserAttributes,
+                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
+                allowOrganizationAccountLinking, forceAuthn, loginHint,
                 enterpriseConnectionId, createdAt, updatedAt);
         }
 

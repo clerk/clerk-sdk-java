@@ -81,6 +81,13 @@ public class Saml {
     @JsonProperty("force_authn")
     private JsonNullable<Boolean> forceAuthn;
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("login_hint")
+    private JsonNullable<? extends CreateEnterpriseConnectionLoginHint> loginHint;
+
     @JsonCreator
     public Saml(
             @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
@@ -91,7 +98,8 @@ public class Saml {
             @JsonProperty("attribute_mapping") JsonNullable<? extends CreateEnterpriseConnectionAttributeMapping> attributeMapping,
             @JsonProperty("allow_subdomains") JsonNullable<Boolean> allowSubdomains,
             @JsonProperty("allow_idp_initiated") JsonNullable<Boolean> allowIdpInitiated,
-            @JsonProperty("force_authn") JsonNullable<Boolean> forceAuthn) {
+            @JsonProperty("force_authn") JsonNullable<Boolean> forceAuthn,
+            @JsonProperty("login_hint") JsonNullable<? extends CreateEnterpriseConnectionLoginHint> loginHint) {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         Utils.checkNotNull(idpCertificate, "idpCertificate");
@@ -101,6 +109,7 @@ public class Saml {
         Utils.checkNotNull(allowSubdomains, "allowSubdomains");
         Utils.checkNotNull(allowIdpInitiated, "allowIdpInitiated");
         Utils.checkNotNull(forceAuthn, "forceAuthn");
+        Utils.checkNotNull(loginHint, "loginHint");
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
         this.idpCertificate = idpCertificate;
@@ -110,12 +119,14 @@ public class Saml {
         this.allowSubdomains = allowSubdomains;
         this.allowIdpInitiated = allowIdpInitiated;
         this.forceAuthn = forceAuthn;
+        this.loginHint = loginHint;
     }
     
     public Saml() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -180,6 +191,15 @@ public class Saml {
     @JsonIgnore
     public JsonNullable<Boolean> forceAuthn() {
         return forceAuthn;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<CreateEnterpriseConnectionLoginHint> loginHint() {
+        return (JsonNullable<CreateEnterpriseConnectionLoginHint>) loginHint;
     }
 
     public static Builder builder() {
@@ -331,6 +351,24 @@ public class Saml {
         return this;
     }
 
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public Saml withLoginHint(CreateEnterpriseConnectionLoginHint loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = JsonNullable.of(loginHint);
+        return this;
+    }
+
+    /**
+     * Configuration for the login_hint sent to the IdP on SSO sign-in
+     */
+    public Saml withLoginHint(JsonNullable<? extends CreateEnterpriseConnectionLoginHint> loginHint) {
+        Utils.checkNotNull(loginHint, "loginHint");
+        this.loginHint = loginHint;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -349,7 +387,8 @@ public class Saml {
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
             Utils.enhancedDeepEquals(this.allowSubdomains, other.allowSubdomains) &&
             Utils.enhancedDeepEquals(this.allowIdpInitiated, other.allowIdpInitiated) &&
-            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn);
+            Utils.enhancedDeepEquals(this.forceAuthn, other.forceAuthn) &&
+            Utils.enhancedDeepEquals(this.loginHint, other.loginHint);
     }
     
     @Override
@@ -357,7 +396,8 @@ public class Saml {
         return Utils.enhancedHash(
             idpEntityId, idpSsoUrl, idpCertificate,
             idpMetadataUrl, idpMetadata, attributeMapping,
-            allowSubdomains, allowIdpInitiated, forceAuthn);
+            allowSubdomains, allowIdpInitiated, forceAuthn,
+            loginHint);
     }
     
     @Override
@@ -371,7 +411,8 @@ public class Saml {
                 "attributeMapping", attributeMapping,
                 "allowSubdomains", allowSubdomains,
                 "allowIdpInitiated", allowIdpInitiated,
-                "forceAuthn", forceAuthn);
+                "forceAuthn", forceAuthn,
+                "loginHint", loginHint);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -394,6 +435,8 @@ public class Saml {
         private JsonNullable<Boolean> allowIdpInitiated = JsonNullable.undefined();
 
         private JsonNullable<Boolean> forceAuthn = JsonNullable.undefined();
+
+        private JsonNullable<? extends CreateEnterpriseConnectionLoginHint> loginHint = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -552,12 +595,32 @@ public class Saml {
             return this;
         }
 
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(CreateEnterpriseConnectionLoginHint loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = JsonNullable.of(loginHint);
+            return this;
+        }
+
+        /**
+         * Configuration for the login_hint sent to the IdP on SSO sign-in
+         */
+        public Builder loginHint(JsonNullable<? extends CreateEnterpriseConnectionLoginHint> loginHint) {
+            Utils.checkNotNull(loginHint, "loginHint");
+            this.loginHint = loginHint;
+            return this;
+        }
+
         public Saml build() {
 
             return new Saml(
                 idpEntityId, idpSsoUrl, idpCertificate,
                 idpMetadataUrl, idpMetadata, attributeMapping,
-                allowSubdomains, allowIdpInitiated, forceAuthn);
+                allowSubdomains, allowIdpInitiated, forceAuthn,
+                loginHint);
         }
 
     }

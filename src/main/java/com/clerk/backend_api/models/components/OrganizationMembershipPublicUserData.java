@@ -68,6 +68,11 @@ public class OrganizationMembershipPublicUserData {
     @JsonProperty("banned")
     private Optional<Boolean> banned;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("deprovisioned")
+    private Optional<Boolean> deprovisioned;
+
     @JsonCreator
     public OrganizationMembershipPublicUserData(
             @JsonProperty("user_id") String userId,
@@ -78,7 +83,8 @@ public class OrganizationMembershipPublicUserData {
             @JsonProperty("has_image") boolean hasImage,
             @JsonProperty("identifier") JsonNullable<String> identifier,
             @JsonProperty("username") JsonNullable<String> username,
-            @JsonProperty("banned") Optional<Boolean> banned) {
+            @JsonProperty("banned") Optional<Boolean> banned,
+            @JsonProperty("deprovisioned") Optional<Boolean> deprovisioned) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
@@ -88,6 +94,7 @@ public class OrganizationMembershipPublicUserData {
         Utils.checkNotNull(identifier, "identifier");
         Utils.checkNotNull(username, "username");
         Utils.checkNotNull(banned, "banned");
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -97,6 +104,7 @@ public class OrganizationMembershipPublicUserData {
         this.identifier = identifier;
         this.username = username;
         this.banned = banned;
+        this.deprovisioned = deprovisioned;
     }
     
     public OrganizationMembershipPublicUserData(
@@ -105,7 +113,8 @@ public class OrganizationMembershipPublicUserData {
             boolean hasImage) {
         this(userId, Optional.empty(), Optional.empty(),
             Optional.empty(), imageUrl, hasImage,
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -156,6 +165,11 @@ public class OrganizationMembershipPublicUserData {
     @JsonIgnore
     public Optional<Boolean> banned() {
         return banned;
+    }
+
+    @JsonIgnore
+    public Optional<Boolean> deprovisioned() {
+        return deprovisioned;
     }
 
     public static Builder builder() {
@@ -267,6 +281,19 @@ public class OrganizationMembershipPublicUserData {
         return this;
     }
 
+    public OrganizationMembershipPublicUserData withDeprovisioned(boolean deprovisioned) {
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
+        this.deprovisioned = Optional.ofNullable(deprovisioned);
+        return this;
+    }
+
+
+    public OrganizationMembershipPublicUserData withDeprovisioned(Optional<Boolean> deprovisioned) {
+        Utils.checkNotNull(deprovisioned, "deprovisioned");
+        this.deprovisioned = deprovisioned;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -285,7 +312,8 @@ public class OrganizationMembershipPublicUserData {
             Utils.enhancedDeepEquals(this.hasImage, other.hasImage) &&
             Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
             Utils.enhancedDeepEquals(this.username, other.username) &&
-            Utils.enhancedDeepEquals(this.banned, other.banned);
+            Utils.enhancedDeepEquals(this.banned, other.banned) &&
+            Utils.enhancedDeepEquals(this.deprovisioned, other.deprovisioned);
     }
     
     @Override
@@ -293,7 +321,8 @@ public class OrganizationMembershipPublicUserData {
         return Utils.enhancedHash(
             userId, firstName, lastName,
             profileImageUrl, imageUrl, hasImage,
-            identifier, username, banned);
+            identifier, username, banned,
+            deprovisioned);
     }
     
     @Override
@@ -307,7 +336,8 @@ public class OrganizationMembershipPublicUserData {
                 "hasImage", hasImage,
                 "identifier", identifier,
                 "username", username,
-                "banned", banned);
+                "banned", banned,
+                "deprovisioned", deprovisioned);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -331,6 +361,8 @@ public class OrganizationMembershipPublicUserData {
         private JsonNullable<String> username = JsonNullable.undefined();
 
         private Optional<Boolean> banned = Optional.empty();
+
+        private Optional<Boolean> deprovisioned = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -445,12 +477,26 @@ public class OrganizationMembershipPublicUserData {
             return this;
         }
 
+
+        public Builder deprovisioned(boolean deprovisioned) {
+            Utils.checkNotNull(deprovisioned, "deprovisioned");
+            this.deprovisioned = Optional.ofNullable(deprovisioned);
+            return this;
+        }
+
+        public Builder deprovisioned(Optional<Boolean> deprovisioned) {
+            Utils.checkNotNull(deprovisioned, "deprovisioned");
+            this.deprovisioned = deprovisioned;
+            return this;
+        }
+
         public OrganizationMembershipPublicUserData build() {
 
             return new OrganizationMembershipPublicUserData(
                 userId, firstName, lastName,
                 profileImageUrl, imageUrl, hasImage,
-                identifier, username, banned);
+                identifier, username, banned,
+                deprovisioned);
         }
 
     }
