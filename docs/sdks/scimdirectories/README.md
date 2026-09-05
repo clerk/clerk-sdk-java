@@ -4,12 +4,12 @@
 
 ### Available Operations
 
-* [list](#list) - List all SCIM directories
-* [create](#create) - Create a SCIM directory
-* [get](#get) - Retrieve a SCIM directory
-* [update](#update) - Update a SCIM directory
-* [delete](#delete) - Delete a SCIM directory
-* [rotateApiKey](#rotateapikey) - Rotate a SCIM directory's API key
+* [list](#list) - List all directories
+* [create](#create) - Create a directory
+* [get](#get) - Retrieve a directory
+* [update](#update) - Update a directory
+* [delete](#delete) - Delete a directory
+* [rotateApiKey](#rotateapikey) - Rotate a directory's API key
 * [listGroupRoleMappings](#listgrouprolemappings) - List SCIM group role mappings
 * [createGroupRoleMapping](#creategrouprolemapping) - Create a SCIM group role mapping
 * [replaceGroupRoleMappings](#replacegrouprolemappings) - Replace SCIM group role mappings
@@ -17,7 +17,7 @@
 
 ## list
 
-Returns a list of all SCIM directories for the instance.
+Returns a list of all directories for the instance.
 
 ### Example Usage
 
@@ -70,7 +70,7 @@ public class Application {
 
 ## create
 
-Create a new SCIM directory for the instance.
+Create a new directory for the instance.
 
 ### Example Usage
 
@@ -120,7 +120,7 @@ public class Application {
 
 ## get
 
-Returns the details of a SCIM directory.
+Returns the details of a directory.
 
 ### Example Usage
 
@@ -154,9 +154,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                | Type                                     | Required                                 | Description                              |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `scimDirectoryId`                        | *String*                                 | :heavy_check_mark:                       | The ID of the SCIM directory to retrieve |
+| Parameter                           | Type                                | Required                            | Description                         |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| `scimDirectoryId`                   | *String*                            | :heavy_check_mark:                  | The ID of the directory to retrieve |
 
 ### Response
 
@@ -171,7 +171,7 @@ public class Application {
 
 ## update
 
-Updates a SCIM directory.
+Updates a directory.
 
 ### Example Usage
 
@@ -207,7 +207,7 @@ public class Application {
 
 | Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `scimDirectoryId`                                                                                      | *String*                                                                                               | :heavy_check_mark:                                                                                     | The ID of the SCIM directory to update                                                                 |
+| `scimDirectoryId`                                                                                      | *String*                                                                                               | :heavy_check_mark:                                                                                     | The ID of the directory to update                                                                      |
 | `requestBody`                                                                                          | [Optional\<UpdateSCIMDirectoryRequestBody>](../../models/operations/UpdateSCIMDirectoryRequestBody.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
 
 ### Response
@@ -223,7 +223,7 @@ public class Application {
 
 ## delete
 
-Deletes a SCIM directory and stops provisioning for it. SCIM requests authenticated
+Deletes a directory and stops provisioning for it. SCIM requests authenticated
 with the directory's API key are rejected afterwards.
 
 ### Example Usage
@@ -258,9 +258,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                              | Type                                   | Required                               | Description                            |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `scimDirectoryId`                      | *String*                               | :heavy_check_mark:                     | The ID of the SCIM directory to delete |
+| Parameter                         | Type                              | Required                          | Description                       |
+| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| `scimDirectoryId`                 | *String*                          | :heavy_check_mark:                | The ID of the directory to delete |
 
 ### Response
 
@@ -275,7 +275,7 @@ public class Application {
 
 ## rotateApiKey
 
-Generates a new API key for the SCIM directory and returns it in the `api_key` field.
+Generates a new API key for the directory and returns it in the `api_key` field.
 This is the only way to obtain the key after creation, so make sure to update it in
 your identity provider. The previous key remains valid for a short grace period before
 it expires.
@@ -312,9 +312,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                            | Type                                                 | Required                                             | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `scimDirectoryId`                                    | *String*                                             | :heavy_check_mark:                                   | The ID of the SCIM directory whose API key to rotate |
+| Parameter                                       | Type                                            | Required                                        | Description                                     |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `scimDirectoryId`                               | *String*                                        | :heavy_check_mark:                              | The ID of the directory whose API key to rotate |
 
 ### Response
 
@@ -329,7 +329,7 @@ public class Application {
 
 ## listGroupRoleMappings
 
-Returns the list of SCIM group to organization role mappings for a SCIM directory, ordered by precedence.
+Returns the list of SCIM group to organization role mappings for a directory, ordered by precedence.
 
 ### Example Usage
 
@@ -363,9 +363,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                     | Type                          | Required                      | Description                   |
-| ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
-| `scimDirectoryId`             | *String*                      | :heavy_check_mark:            | The ID of the SCIM directory. |
+| Parameter                | Type                     | Required                 | Description              |
+| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `scimDirectoryId`        | *String*                 | :heavy_check_mark:       | The ID of the directory. |
 
 ### Response
 
@@ -380,7 +380,7 @@ public class Application {
 
 ## createGroupRoleMapping
 
-Creates a new SCIM group to organization role mapping for a SCIM directory.
+Creates a new SCIM group to organization role mapping for a directory.
 Group role mapping must be enabled on the directory.
 
 ### Example Usage
@@ -422,7 +422,7 @@ public class Application {
 
 | Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `scimDirectoryId`                                                                                         | *String*                                                                                                  | :heavy_check_mark:                                                                                        | The ID of the SCIM directory.                                                                             |
+| `scimDirectoryId`                                                                                         | *String*                                                                                                  | :heavy_check_mark:                                                                                        | The ID of the directory.                                                                                  |
 | `requestBody`                                                                                             | [CreateSCIMGroupRoleMappingRequestBody](../../models/operations/CreateSCIMGroupRoleMappingRequestBody.md) | :heavy_check_mark:                                                                                        | N/A                                                                                                       |
 
 ### Response
@@ -482,7 +482,7 @@ public class Application {
 
 | Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `scimDirectoryId`                                                                                             | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the SCIM directory.                                                                                 |
+| `scimDirectoryId`                                                                                             | *String*                                                                                                      | :heavy_check_mark:                                                                                            | The ID of the directory.                                                                                      |
 | `requestBody`                                                                                                 | [ReplaceSCIMGroupRoleMappingsRequestBody](../../models/operations/ReplaceSCIMGroupRoleMappingsRequestBody.md) | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
 
 ### Response
@@ -536,7 +536,7 @@ public class Application {
 
 | Parameter                                        | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `scimDirectoryId`                                | *String*                                         | :heavy_check_mark:                               | The ID of the SCIM directory.                    |
+| `scimDirectoryId`                                | *String*                                         | :heavy_check_mark:                               | The ID of the directory.                         |
 | `mappingId`                                      | *String*                                         | :heavy_check_mark:                               | The ID of the SCIM group role mapping to delete. |
 
 ### Response

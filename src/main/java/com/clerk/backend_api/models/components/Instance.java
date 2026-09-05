@@ -40,20 +40,31 @@ public class Instance {
     @JsonProperty("allowed_origins")
     private Optional<? extends List<String>> allowedOrigins;
 
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("workspace_id")
+    private Optional<String> workspaceId;
+
     @JsonCreator
     public Instance(
             @JsonProperty("object") InstanceObject object,
             @JsonProperty("id") String id,
             @JsonProperty("environment_type") String environmentType,
-            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins) {
+            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
+            @JsonProperty("workspace_id") Optional<String> workspaceId) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(environmentType, "environmentType");
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
+        Utils.checkNotNull(workspaceId, "workspaceId");
         this.object = object;
         this.id = id;
         this.environmentType = environmentType;
         this.allowedOrigins = allowedOrigins;
+        this.workspaceId = workspaceId;
     }
     
     public Instance(
@@ -61,7 +72,7 @@ public class Instance {
             String id,
             String environmentType) {
         this(object, id, environmentType,
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -86,6 +97,15 @@ public class Instance {
     @JsonIgnore
     public Optional<List<String>> allowedOrigins() {
         return (Optional<List<String>>) allowedOrigins;
+    }
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    @JsonIgnore
+    public Optional<String> workspaceId() {
+        return workspaceId;
     }
 
     public static Builder builder() {
@@ -127,6 +147,27 @@ public class Instance {
         return this;
     }
 
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    public Instance withWorkspaceId(String workspaceId) {
+        Utils.checkNotNull(workspaceId, "workspaceId");
+        this.workspaceId = Optional.ofNullable(workspaceId);
+        return this;
+    }
+
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    public Instance withWorkspaceId(Optional<String> workspaceId) {
+        Utils.checkNotNull(workspaceId, "workspaceId");
+        this.workspaceId = workspaceId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -140,14 +181,15 @@ public class Instance {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.environmentType, other.environmentType) &&
-            Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins);
+            Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins) &&
+            Utils.enhancedDeepEquals(this.workspaceId, other.workspaceId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, environmentType,
-            allowedOrigins);
+            allowedOrigins, workspaceId);
     }
     
     @Override
@@ -156,7 +198,8 @@ public class Instance {
                 "object", object,
                 "id", id,
                 "environmentType", environmentType,
-                "allowedOrigins", allowedOrigins);
+                "allowedOrigins", allowedOrigins,
+                "workspaceId", workspaceId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -169,6 +212,8 @@ public class Instance {
         private String environmentType;
 
         private Optional<? extends List<String>> allowedOrigins = Optional.empty();
+
+        private Optional<String> workspaceId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -211,11 +256,32 @@ public class Instance {
             return this;
         }
 
+
+        /**
+         * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+         * has no owner.
+         */
+        public Builder workspaceId(String workspaceId) {
+            Utils.checkNotNull(workspaceId, "workspaceId");
+            this.workspaceId = Optional.ofNullable(workspaceId);
+            return this;
+        }
+
+        /**
+         * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+         * has no owner.
+         */
+        public Builder workspaceId(Optional<String> workspaceId) {
+            Utils.checkNotNull(workspaceId, "workspaceId");
+            this.workspaceId = workspaceId;
+            return this;
+        }
+
         public Instance build() {
 
             return new Instance(
                 object, id, environmentType,
-                allowedOrigins);
+                allowedOrigins, workspaceId);
         }
 
     }

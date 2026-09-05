@@ -180,6 +180,11 @@ public class Users {
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
      * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
+     * 
      * @return The call builder
      */
     public GetUserListRequestBuilder list() {
@@ -191,6 +196,11 @@ public class Users {
      * 
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
+     * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -205,6 +215,11 @@ public class Users {
      * 
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
+     * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options

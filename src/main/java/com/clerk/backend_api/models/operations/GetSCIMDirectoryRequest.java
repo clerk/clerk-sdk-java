@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class GetSCIMDirectoryRequest {
     /**
-     * The ID of the SCIM directory to retrieve
+     * The ID of the directory to retrieve
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=scim_directory_id")
     private String scimDirectoryId;
@@ -26,7 +26,7 @@ public class GetSCIMDirectoryRequest {
     }
 
     /**
-     * The ID of the SCIM directory to retrieve
+     * The ID of the directory to retrieve
      */
     @JsonIgnore
     public String scimDirectoryId() {
@@ -39,7 +39,7 @@ public class GetSCIMDirectoryRequest {
 
 
     /**
-     * The ID of the SCIM directory to retrieve
+     * The ID of the directory to retrieve
      */
     public GetSCIMDirectoryRequest withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
@@ -83,7 +83,7 @@ public class GetSCIMDirectoryRequest {
 
 
         /**
-         * The ID of the SCIM directory to retrieve
+         * The ID of the directory to retrieve
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");

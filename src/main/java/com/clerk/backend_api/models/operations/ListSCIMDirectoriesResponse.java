@@ -34,7 +34,7 @@ public class ListSCIMDirectoriesResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * A list of SCIM directories
+     * A list of directories
      */
     private Optional<? extends SCIMDirectoryList> scimDirectoryList;
 
@@ -87,7 +87,7 @@ public class ListSCIMDirectoriesResponse implements Response {
     }
 
     /**
-     * A list of SCIM directories
+     * A list of directories
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class ListSCIMDirectoriesResponse implements Response {
     }
 
     /**
-     * A list of SCIM directories
+     * A list of directories
      */
     public ListSCIMDirectoriesResponse withSCIMDirectoryList(SCIMDirectoryList scimDirectoryList) {
         Utils.checkNotNull(scimDirectoryList, "scimDirectoryList");
@@ -138,7 +138,7 @@ public class ListSCIMDirectoriesResponse implements Response {
 
 
     /**
-     * A list of SCIM directories
+     * A list of directories
      */
     public ListSCIMDirectoriesResponse withSCIMDirectoryList(Optional<? extends SCIMDirectoryList> scimDirectoryList) {
         Utils.checkNotNull(scimDirectoryList, "scimDirectoryList");
@@ -225,7 +225,7 @@ public class ListSCIMDirectoriesResponse implements Response {
 
 
         /**
-         * A list of SCIM directories
+         * A list of directories
          */
         public Builder scimDirectoryList(SCIMDirectoryList scimDirectoryList) {
             Utils.checkNotNull(scimDirectoryList, "scimDirectoryList");
@@ -234,7 +234,7 @@ public class ListSCIMDirectoriesResponse implements Response {
         }
 
         /**
-         * A list of SCIM directories
+         * A list of directories
          */
         public Builder scimDirectoryList(Optional<? extends SCIMDirectoryList> scimDirectoryList) {
             Utils.checkNotNull(scimDirectoryList, "scimDirectoryList");

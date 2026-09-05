@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class UpdateSCIMDirectoryRequest {
     /**
-     * The ID of the SCIM directory to update
+     * The ID of the directory to update
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=scim_directory_id")
     private String scimDirectoryId;
@@ -40,7 +40,7 @@ public class UpdateSCIMDirectoryRequest {
     }
 
     /**
-     * The ID of the SCIM directory to update
+     * The ID of the directory to update
      */
     @JsonIgnore
     public String scimDirectoryId() {
@@ -59,7 +59,7 @@ public class UpdateSCIMDirectoryRequest {
 
 
     /**
-     * The ID of the SCIM directory to update
+     * The ID of the directory to update
      */
     public UpdateSCIMDirectoryRequest withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
@@ -120,7 +120,7 @@ public class UpdateSCIMDirectoryRequest {
 
 
         /**
-         * The ID of the SCIM directory to update
+         * The ID of the directory to update
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
