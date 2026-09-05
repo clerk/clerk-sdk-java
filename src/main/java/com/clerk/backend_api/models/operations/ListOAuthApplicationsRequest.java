@@ -49,6 +49,9 @@ public class ListOAuthApplicationsRequest {
     /**
      * Returns OAuth applications with names that match the given query, via case-insensitive partial
      * match.
+     * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+     * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+     * endpoints.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=name_query")
     private Optional<String> nameQuery;
@@ -113,6 +116,9 @@ public class ListOAuthApplicationsRequest {
     /**
      * Returns OAuth applications with names that match the given query, via case-insensitive partial
      * match.
+     * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+     * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+     * endpoints.
      */
     @JsonIgnore
     public Optional<String> nameQuery() {
@@ -208,6 +214,9 @@ public class ListOAuthApplicationsRequest {
     /**
      * Returns OAuth applications with names that match the given query, via case-insensitive partial
      * match.
+     * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+     * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+     * endpoints.
      */
     public ListOAuthApplicationsRequest withNameQuery(String nameQuery) {
         Utils.checkNotNull(nameQuery, "nameQuery");
@@ -219,6 +228,9 @@ public class ListOAuthApplicationsRequest {
     /**
      * Returns OAuth applications with names that match the given query, via case-insensitive partial
      * match.
+     * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+     * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+     * endpoints.
      */
     public ListOAuthApplicationsRequest withNameQuery(Optional<String> nameQuery) {
         Utils.checkNotNull(nameQuery, "nameQuery");
@@ -358,6 +370,9 @@ public class ListOAuthApplicationsRequest {
         /**
          * Returns OAuth applications with names that match the given query, via case-insensitive partial
          * match.
+         * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+         * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+         * endpoints.
          */
         public Builder nameQuery(String nameQuery) {
             Utils.checkNotNull(nameQuery, "nameQuery");
@@ -368,6 +383,9 @@ public class ListOAuthApplicationsRequest {
         /**
          * Returns OAuth applications with names that match the given query, via case-insensitive partial
          * match.
+         * Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+         * resolving a `client_id` to the OAuth application `id` required by the read, update and delete
+         * endpoints.
          */
         public Builder nameQuery(Optional<String> nameQuery) {
             Utils.checkNotNull(nameQuery, "nameQuery");

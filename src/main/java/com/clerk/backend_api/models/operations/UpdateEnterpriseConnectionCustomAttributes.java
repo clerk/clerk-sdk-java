@@ -43,6 +43,14 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     private Optional<String> scimPath;
 
     /**
+     * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+     * different values is rejected.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("directory_path")
+    private Optional<String> directoryPath;
+
+    /**
      * When true, the attribute supports multiple values; values from the IdP are written to
      * public_metadata as an array. Defaults to false.
      */
@@ -56,16 +64,19 @@ public class UpdateEnterpriseConnectionCustomAttributes {
             @JsonProperty("key") String key,
             @JsonProperty("sso_path") Optional<String> ssoPath,
             @JsonProperty("scim_path") Optional<String> scimPath,
+            @JsonProperty("directory_path") Optional<String> directoryPath,
             @JsonProperty("multi_valued") Optional<Boolean> multiValued) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(key, "key");
         Utils.checkNotNull(ssoPath, "ssoPath");
         Utils.checkNotNull(scimPath, "scimPath");
+        Utils.checkNotNull(directoryPath, "directoryPath");
         Utils.checkNotNull(multiValued, "multiValued");
         this.name = name;
         this.key = key;
         this.ssoPath = ssoPath;
         this.scimPath = scimPath;
+        this.directoryPath = directoryPath;
         this.multiValued = multiValued;
     }
     
@@ -73,7 +84,7 @@ public class UpdateEnterpriseConnectionCustomAttributes {
             String name,
             String key) {
         this(name, key, Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -106,6 +117,15 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     @JsonIgnore
     public Optional<String> scimPath() {
         return scimPath;
+    }
+
+    /**
+     * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+     * different values is rejected.
+     */
+    @JsonIgnore
+    public Optional<String> directoryPath() {
+        return directoryPath;
     }
 
     /**
@@ -179,6 +199,27 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     }
 
     /**
+     * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+     * different values is rejected.
+     */
+    public UpdateEnterpriseConnectionCustomAttributes withDirectoryPath(String directoryPath) {
+        Utils.checkNotNull(directoryPath, "directoryPath");
+        this.directoryPath = Optional.ofNullable(directoryPath);
+        return this;
+    }
+
+
+    /**
+     * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+     * different values is rejected.
+     */
+    public UpdateEnterpriseConnectionCustomAttributes withDirectoryPath(Optional<String> directoryPath) {
+        Utils.checkNotNull(directoryPath, "directoryPath");
+        this.directoryPath = directoryPath;
+        return this;
+    }
+
+    /**
      * When true, the attribute supports multiple values; values from the IdP are written to
      * public_metadata as an array. Defaults to false.
      */
@@ -213,6 +254,7 @@ public class UpdateEnterpriseConnectionCustomAttributes {
             Utils.enhancedDeepEquals(this.key, other.key) &&
             Utils.enhancedDeepEquals(this.ssoPath, other.ssoPath) &&
             Utils.enhancedDeepEquals(this.scimPath, other.scimPath) &&
+            Utils.enhancedDeepEquals(this.directoryPath, other.directoryPath) &&
             Utils.enhancedDeepEquals(this.multiValued, other.multiValued);
     }
     
@@ -220,7 +262,7 @@ public class UpdateEnterpriseConnectionCustomAttributes {
     public int hashCode() {
         return Utils.enhancedHash(
             name, key, ssoPath,
-            scimPath, multiValued);
+            scimPath, directoryPath, multiValued);
     }
     
     @Override
@@ -230,6 +272,7 @@ public class UpdateEnterpriseConnectionCustomAttributes {
                 "key", key,
                 "ssoPath", ssoPath,
                 "scimPath", scimPath,
+                "directoryPath", directoryPath,
                 "multiValued", multiValued);
     }
 
@@ -243,6 +286,8 @@ public class UpdateEnterpriseConnectionCustomAttributes {
         private Optional<String> ssoPath = Optional.empty();
 
         private Optional<String> scimPath = Optional.empty();
+
+        private Optional<String> directoryPath = Optional.empty();
 
         private Optional<Boolean> multiValued = Optional.empty();
 
@@ -310,6 +355,27 @@ public class UpdateEnterpriseConnectionCustomAttributes {
 
 
         /**
+         * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+         * different values is rejected.
+         */
+        public Builder directoryPath(String directoryPath) {
+            Utils.checkNotNull(directoryPath, "directoryPath");
+            this.directoryPath = Optional.ofNullable(directoryPath);
+            return this;
+        }
+
+        /**
+         * The new name for `scim_path`. Send either one, or both with the same value; sending both with
+         * different values is rejected.
+         */
+        public Builder directoryPath(Optional<String> directoryPath) {
+            Utils.checkNotNull(directoryPath, "directoryPath");
+            this.directoryPath = directoryPath;
+            return this;
+        }
+
+
+        /**
          * When true, the attribute supports multiple values; values from the IdP are written to
          * public_metadata as an array. Defaults to false.
          */
@@ -333,7 +399,7 @@ public class UpdateEnterpriseConnectionCustomAttributes {
 
             return new UpdateEnterpriseConnectionCustomAttributes(
                 name, key, ssoPath,
-                scimPath, multiValued);
+                scimPath, directoryPath, multiValued);
         }
 
     }

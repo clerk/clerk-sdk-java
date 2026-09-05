@@ -22,7 +22,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * SCIMDirectory
  * 
- * <p>A SCIM directory configuration for provisioning users via SCIM protocol.
+ * <p>A directory configuration for provisioning users via SCIM protocol.
  */
 public class SCIMDirectory {
     /**
@@ -32,13 +32,13 @@ public class SCIMDirectory {
     private SCIMDirectoryObject object;
 
     /**
-     * Unique identifier for the SCIM directory.
+     * Unique identifier for the directory.
      */
     @JsonProperty("id")
     private String id;
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonProperty("name")
     private String name;
@@ -57,19 +57,19 @@ public class SCIMDirectory {
     private String endpointUrl;
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonProperty("provider")
     private String provider;
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     @JsonProperty("enabled")
     private boolean enabled;
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     @JsonProperty("group_role_mapping_enabled")
     private boolean groupRoleMappingEnabled;
@@ -97,13 +97,13 @@ public class SCIMDirectory {
     private JsonNullable<String> apiKey;
 
     /**
-     * Unix timestamp when the SCIM directory was created.
+     * Unix timestamp when the directory was created.
      */
     @JsonProperty("created_at")
     private long createdAt;
 
     /**
-     * Unix timestamp when the SCIM directory was last updated.
+     * Unix timestamp when the directory was last updated.
      */
     @JsonProperty("updated_at")
     private long updatedAt;
@@ -179,7 +179,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unique identifier for the SCIM directory.
+     * Unique identifier for the directory.
      */
     @JsonIgnore
     public String id() {
@@ -187,7 +187,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonIgnore
     public String name() {
@@ -211,7 +211,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonIgnore
     public String provider() {
@@ -219,7 +219,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     @JsonIgnore
     public boolean enabled() {
@@ -227,7 +227,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     @JsonIgnore
     public boolean groupRoleMappingEnabled() {
@@ -262,7 +262,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unix timestamp when the SCIM directory was created.
+     * Unix timestamp when the directory was created.
      */
     @JsonIgnore
     public long createdAt() {
@@ -270,7 +270,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unix timestamp when the SCIM directory was last updated.
+     * Unix timestamp when the directory was last updated.
      */
     @JsonIgnore
     public long updatedAt() {
@@ -292,7 +292,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unique identifier for the SCIM directory.
+     * Unique identifier for the directory.
      */
     public SCIMDirectory withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -301,7 +301,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     public SCIMDirectory withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -337,7 +337,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     public SCIMDirectory withProvider(String provider) {
         Utils.checkNotNull(provider, "provider");
@@ -346,7 +346,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     public SCIMDirectory withEnabled(boolean enabled) {
         Utils.checkNotNull(enabled, "enabled");
@@ -355,7 +355,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     public SCIMDirectory withGroupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
         Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
@@ -414,7 +414,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unix timestamp when the SCIM directory was created.
+     * Unix timestamp when the directory was created.
      */
     public SCIMDirectory withCreatedAt(long createdAt) {
         Utils.checkNotNull(createdAt, "createdAt");
@@ -423,7 +423,7 @@ public class SCIMDirectory {
     }
 
     /**
-     * Unix timestamp when the SCIM directory was last updated.
+     * Unix timestamp when the directory was last updated.
      */
     public SCIMDirectory withUpdatedAt(long updatedAt) {
         Utils.checkNotNull(updatedAt, "updatedAt");
@@ -529,7 +529,7 @@ public class SCIMDirectory {
 
 
         /**
-         * Unique identifier for the SCIM directory.
+         * Unique identifier for the directory.
          */
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -539,7 +539,7 @@ public class SCIMDirectory {
 
 
         /**
-         * A human-friendly name for the SCIM directory.
+         * A human-friendly name for the directory.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -578,7 +578,7 @@ public class SCIMDirectory {
 
 
         /**
-         * The identity provider for this SCIM directory.
+         * The identity provider for this directory.
          */
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
@@ -588,7 +588,7 @@ public class SCIMDirectory {
 
 
         /**
-         * Whether the SCIM directory is enabled.
+         * Whether the directory is enabled.
          */
         public Builder enabled(boolean enabled) {
             Utils.checkNotNull(enabled, "enabled");
@@ -598,7 +598,7 @@ public class SCIMDirectory {
 
 
         /**
-         * Whether group-to-role mapping is enabled for this SCIM directory.
+         * Whether group-to-role mapping is enabled for this directory.
          */
         public Builder groupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
             Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
@@ -660,7 +660,7 @@ public class SCIMDirectory {
 
 
         /**
-         * Unix timestamp when the SCIM directory was created.
+         * Unix timestamp when the directory was created.
          */
         public Builder createdAt(long createdAt) {
             Utils.checkNotNull(createdAt, "createdAt");
@@ -670,7 +670,7 @@ public class SCIMDirectory {
 
 
         /**
-         * Unix timestamp when the SCIM directory was last updated.
+         * Unix timestamp when the directory was last updated.
          */
         public Builder updatedAt(long updatedAt) {
             Utils.checkNotNull(updatedAt, "updatedAt");

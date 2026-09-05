@@ -64,9 +64,9 @@ public class ScimDirectories {
     }
 
     /**
-     * List all SCIM directories
+     * List all directories
      * 
-     * <p>Returns a list of all SCIM directories for the instance.
+     * <p>Returns a list of all directories for the instance.
      * 
      * @return The call builder
      */
@@ -75,9 +75,9 @@ public class ScimDirectories {
     }
 
     /**
-     * List all SCIM directories
+     * List all directories
      * 
-     * <p>Returns a list of all SCIM directories for the instance.
+     * <p>Returns a list of all directories for the instance.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -87,9 +87,9 @@ public class ScimDirectories {
     }
 
     /**
-     * List all SCIM directories
+     * List all directories
      * 
-     * <p>Returns a list of all SCIM directories for the instance.
+     * <p>Returns a list of all directories for the instance.
      * 
      * @param limit Applies a limit to the number of results returned.
      *         Can be used for paginating the results together with `offset`.
@@ -115,9 +115,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Create a SCIM directory
+     * Create a directory
      * 
-     * <p>Create a new SCIM directory for the instance.
+     * <p>Create a new directory for the instance.
      * 
      * @return The call builder
      */
@@ -126,9 +126,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Create a SCIM directory
+     * Create a directory
      * 
-     * <p>Create a new SCIM directory for the instance.
+     * <p>Create a new directory for the instance.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -138,9 +138,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Create a SCIM directory
+     * Create a directory
      * 
-     * <p>Create a new SCIM directory for the instance.
+     * <p>Create a new directory for the instance.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -154,9 +154,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Retrieve a SCIM directory
+     * Retrieve a directory
      * 
-     * <p>Returns the details of a SCIM directory.
+     * <p>Returns the details of a directory.
      * 
      * @return The call builder
      */
@@ -165,11 +165,11 @@ public class ScimDirectories {
     }
 
     /**
-     * Retrieve a SCIM directory
+     * Retrieve a directory
      * 
-     * <p>Returns the details of a SCIM directory.
+     * <p>Returns the details of a directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to retrieve
+     * @param scimDirectoryId The ID of the directory to retrieve
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -178,11 +178,11 @@ public class ScimDirectories {
     }
 
     /**
-     * Retrieve a SCIM directory
+     * Retrieve a directory
      * 
-     * <p>Returns the details of a SCIM directory.
+     * <p>Returns the details of a directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to retrieve
+     * @param scimDirectoryId The ID of the directory to retrieve
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -199,9 +199,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Update a SCIM directory
+     * Update a directory
      * 
-     * <p>Updates a SCIM directory.
+     * <p>Updates a directory.
      * 
      * @return The call builder
      */
@@ -210,11 +210,11 @@ public class ScimDirectories {
     }
 
     /**
-     * Update a SCIM directory
+     * Update a directory
      * 
-     * <p>Updates a SCIM directory.
+     * <p>Updates a directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to update
+     * @param scimDirectoryId The ID of the directory to update
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -223,11 +223,11 @@ public class ScimDirectories {
     }
 
     /**
-     * Update a SCIM directory
+     * Update a directory
      * 
-     * <p>Updates a SCIM directory.
+     * <p>Updates a directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to update
+     * @param scimDirectoryId The ID of the directory to update
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
@@ -248,9 +248,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Delete a SCIM directory
+     * Delete a directory
      * 
-     * <p>Deletes a SCIM directory and stops provisioning for it. SCIM requests authenticated
+     * <p>Deletes a directory and stops provisioning for it. SCIM requests authenticated
      * with the directory's API key are rejected afterwards.
      * 
      * @return The call builder
@@ -260,12 +260,12 @@ public class ScimDirectories {
     }
 
     /**
-     * Delete a SCIM directory
+     * Delete a directory
      * 
-     * <p>Deletes a SCIM directory and stops provisioning for it. SCIM requests authenticated
+     * <p>Deletes a directory and stops provisioning for it. SCIM requests authenticated
      * with the directory's API key are rejected afterwards.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to delete
+     * @param scimDirectoryId The ID of the directory to delete
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -274,12 +274,12 @@ public class ScimDirectories {
     }
 
     /**
-     * Delete a SCIM directory
+     * Delete a directory
      * 
-     * <p>Deletes a SCIM directory and stops provisioning for it. SCIM requests authenticated
+     * <p>Deletes a directory and stops provisioning for it. SCIM requests authenticated
      * with the directory's API key are rejected afterwards.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory to delete
+     * @param scimDirectoryId The ID of the directory to delete
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -296,9 +296,9 @@ public class ScimDirectories {
     }
 
     /**
-     * Rotate a SCIM directory's API key
+     * Rotate a directory's API key
      * 
-     * <p>Generates a new API key for the SCIM directory and returns it in the `api_key` field.
+     * <p>Generates a new API key for the directory and returns it in the `api_key` field.
      * This is the only way to obtain the key after creation, so make sure to update it in
      * your identity provider. The previous key remains valid for a short grace period before
      * it expires.
@@ -310,14 +310,14 @@ public class ScimDirectories {
     }
 
     /**
-     * Rotate a SCIM directory's API key
+     * Rotate a directory's API key
      * 
-     * <p>Generates a new API key for the SCIM directory and returns it in the `api_key` field.
+     * <p>Generates a new API key for the directory and returns it in the `api_key` field.
      * This is the only way to obtain the key after creation, so make sure to update it in
      * your identity provider. The previous key remains valid for a short grace period before
      * it expires.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory whose API key to rotate
+     * @param scimDirectoryId The ID of the directory whose API key to rotate
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -326,14 +326,14 @@ public class ScimDirectories {
     }
 
     /**
-     * Rotate a SCIM directory's API key
+     * Rotate a directory's API key
      * 
-     * <p>Generates a new API key for the SCIM directory and returns it in the `api_key` field.
+     * <p>Generates a new API key for the directory and returns it in the `api_key` field.
      * This is the only way to obtain the key after creation, so make sure to update it in
      * your identity provider. The previous key remains valid for a short grace period before
      * it expires.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory whose API key to rotate
+     * @param scimDirectoryId The ID of the directory whose API key to rotate
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -352,8 +352,7 @@ public class ScimDirectories {
     /**
      * List SCIM group role mappings
      * 
-     * <p>Returns the list of SCIM group to organization role mappings for a SCIM directory, ordered by
-     * precedence.
+     * <p>Returns the list of SCIM group to organization role mappings for a directory, ordered by precedence.
      * 
      * @return The call builder
      */
@@ -364,10 +363,9 @@ public class ScimDirectories {
     /**
      * List SCIM group role mappings
      * 
-     * <p>Returns the list of SCIM group to organization role mappings for a SCIM directory, ordered by
-     * precedence.
+     * <p>Returns the list of SCIM group to organization role mappings for a directory, ordered by precedence.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -378,10 +376,9 @@ public class ScimDirectories {
     /**
      * List SCIM group role mappings
      * 
-     * <p>Returns the list of SCIM group to organization role mappings for a SCIM directory, ordered by
-     * precedence.
+     * <p>Returns the list of SCIM group to organization role mappings for a directory, ordered by precedence.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -400,7 +397,7 @@ public class ScimDirectories {
     /**
      * Create a SCIM group role mapping
      * 
-     * <p>Creates a new SCIM group to organization role mapping for a SCIM directory.
+     * <p>Creates a new SCIM group to organization role mapping for a directory.
      * Group role mapping must be enabled on the directory.
      * 
      * @return The call builder
@@ -412,10 +409,10 @@ public class ScimDirectories {
     /**
      * Create a SCIM group role mapping
      * 
-     * <p>Creates a new SCIM group to organization role mapping for a SCIM directory.
+     * <p>Creates a new SCIM group to organization role mapping for a directory.
      * Group role mapping must be enabled on the directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -427,10 +424,10 @@ public class ScimDirectories {
     /**
      * Create a SCIM group role mapping
      * 
-     * <p>Creates a new SCIM group to organization role mapping for a SCIM directory.
+     * <p>Creates a new SCIM group to organization role mapping for a directory.
      * Group role mapping must be enabled on the directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
@@ -472,7 +469,7 @@ public class ScimDirectories {
      * precedence 1). Passing an empty array removes all mappings. Group role mapping must be
      * enabled on the directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -489,7 +486,7 @@ public class ScimDirectories {
      * precedence 1). Passing an empty array removes all mappings. Group role mapping must be
      * enabled on the directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param requestBody 
      * @param options additional options
      * @return The response from the API call
@@ -527,7 +524,7 @@ public class ScimDirectories {
      * <p>Deletes a single SCIM group role mapping. Group role mapping must be enabled on the
      * directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param mappingId The ID of the SCIM group role mapping to delete.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -542,7 +539,7 @@ public class ScimDirectories {
      * <p>Deletes a single SCIM group role mapping. Group role mapping must be enabled on the
      * directory.
      * 
-     * @param scimDirectoryId The ID of the SCIM directory.
+     * @param scimDirectoryId The ID of the directory.
      * @param mappingId The ID of the SCIM group role mapping to delete.
      * @param options additional options
      * @return The response from the API call

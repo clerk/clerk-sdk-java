@@ -1,6 +1,6 @@
 # SCIMDirectoryList
 
-A list of SCIM directories
+A list of directories
 
 
 ## Fields
@@ -8,4 +8,4 @@ A list of SCIM directories
 | Field                                                            | Type                                                             | Required                                                         | Description                                                      |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `data`                                                           | List\<[SCIMDirectory](../../models/components/SCIMDirectory.md)> | :heavy_check_mark:                                               | N/A                                                              |
-| `totalCount`                                                     | *long*                                                           | :heavy_check_mark:                                               | Total number of SCIM directories.                                |
+| `totalCount`                                                     | *long*                                                           | :heavy_check_mark:                                               | Total number of directories.                                     |

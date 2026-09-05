@@ -18,20 +18,20 @@ import java.util.Optional;
 
 public class CreateSCIMDirectoryRequestBody {
     /**
-     * The ID of the enterprise connection to associate with this SCIM directory.
+     * The ID of the enterprise connection to associate with this directory.
      */
     @JsonProperty("enterprise_connection_id")
     private String enterpriseConnectionId;
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
     private Optional<String> name;
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonProperty("provider")
     private String provider;
@@ -67,7 +67,7 @@ public class CreateSCIMDirectoryRequestBody {
     }
 
     /**
-     * The ID of the enterprise connection to associate with this SCIM directory.
+     * The ID of the enterprise connection to associate with this directory.
      */
     @JsonIgnore
     public String enterpriseConnectionId() {
@@ -75,7 +75,7 @@ public class CreateSCIMDirectoryRequestBody {
     }
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonIgnore
     public Optional<String> name() {
@@ -83,7 +83,7 @@ public class CreateSCIMDirectoryRequestBody {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonIgnore
     public String provider() {
@@ -105,7 +105,7 @@ public class CreateSCIMDirectoryRequestBody {
 
 
     /**
-     * The ID of the enterprise connection to associate with this SCIM directory.
+     * The ID of the enterprise connection to associate with this directory.
      */
     public CreateSCIMDirectoryRequestBody withEnterpriseConnectionId(String enterpriseConnectionId) {
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
@@ -114,7 +114,7 @@ public class CreateSCIMDirectoryRequestBody {
     }
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     public CreateSCIMDirectoryRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -124,7 +124,7 @@ public class CreateSCIMDirectoryRequestBody {
 
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     public CreateSCIMDirectoryRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
@@ -133,7 +133,7 @@ public class CreateSCIMDirectoryRequestBody {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     public CreateSCIMDirectoryRequestBody withProvider(String provider) {
         Utils.checkNotNull(provider, "provider");
@@ -209,7 +209,7 @@ public class CreateSCIMDirectoryRequestBody {
 
 
         /**
-         * The ID of the enterprise connection to associate with this SCIM directory.
+         * The ID of the enterprise connection to associate with this directory.
          */
         public Builder enterpriseConnectionId(String enterpriseConnectionId) {
             Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
@@ -219,7 +219,7 @@ public class CreateSCIMDirectoryRequestBody {
 
 
         /**
-         * A human-friendly name for the SCIM directory.
+         * A human-friendly name for the directory.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -228,7 +228,7 @@ public class CreateSCIMDirectoryRequestBody {
         }
 
         /**
-         * A human-friendly name for the SCIM directory.
+         * A human-friendly name for the directory.
          */
         public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
@@ -238,7 +238,7 @@ public class CreateSCIMDirectoryRequestBody {
 
 
         /**
-         * The identity provider for this SCIM directory.
+         * The identity provider for this directory.
          */
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");

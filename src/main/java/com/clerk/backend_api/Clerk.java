@@ -162,6 +162,9 @@ public class Clerk {
     private final ScimDirectories scimDirectories;
 
 
+    private final Directories directories;
+
+
     private final AdminPortalLinkTokens adminPortalLinkTokens;
 
     /**
@@ -373,6 +376,11 @@ public class Clerk {
     }
 
 
+    public Directories directories() {
+        return directories;
+    }
+
+
     public AdminPortalLinkTokens adminPortalLinkTokens() {
         return adminPortalLinkTokens;
     }
@@ -581,6 +589,7 @@ public class Clerk {
         this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
         this.roleSets = new RoleSets(sdkConfiguration);
         this.scimDirectories = new ScimDirectories(sdkConfiguration);
+        this.directories = new Directories(sdkConfiguration);
         this.adminPortalLinkTokens = new AdminPortalLinkTokens(sdkConfiguration);
         this.apiKeys = new APIKeys(sdkConfiguration);
         this.m2m = new M2m(sdkConfiguration);
